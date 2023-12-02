@@ -98,7 +98,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Class1.cs" />
     <Compile Include="DefaultData.cs" />
     <Compile Include="RepeaterInfo.cs" />
     <Compile Include="RepeaterMenu.xaml.cs">
