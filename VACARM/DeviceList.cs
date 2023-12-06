@@ -9,6 +9,11 @@ namespace VACARM
 {
     class DeviceList
     {
+        public List<MMDevice> WaveIn { get; set; }
+        public List<string> WaveInName { get; set; }
+        public List<MMDevice> WaveOut { get; set; }
+        public List<string> WaveOutName { get; set; }
+
         public DeviceList()
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
@@ -18,10 +23,5 @@ namespace VACARM
             WaveOut = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active).ToList();
             WaveOutName = WaveOut.Select(x => x.FriendlyName).ToList();
         }
-
-        public List<MMDevice> WaveIn { get; set; }
-        public List<string> WaveInName { get; set; }
-        public List<MMDevice> WaveOut { get; set; }
-        public List<string> WaveOutName { get; set; }
     }
 }
