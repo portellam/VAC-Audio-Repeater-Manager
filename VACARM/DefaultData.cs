@@ -9,21 +9,30 @@ namespace VACARM
 {
     class DefaultData
     {
-        public static readonly string Path = $@"{Directory.GetCurrentDirectory()}\data\defaultrepeater";
-        public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}\save";
+        private const string DefaultRepeaterPartialPath = @"\data\defaultrepeater";
+        private const string SavePartialPath = @"\save";
+        public static readonly string Path = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialPath}";
+        public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}";
         private static string[] data;
-        public static int SamplingRate
+
+        public static ChannelConfig ChannelConfig
         {
             get
             {
-                return int.Parse(data[0]);
+                if (!(int.TryParse(data[2], out int val) || Enum.IsDefined(typeof(ChannelConfig), val)))
+                {
+                    return ChannelConfig.Stereo;
+                }
+
+                return (ChannelConfig)val;
             }
             set
             {
-                data[0] = value.ToString();
+                data[2] = ((int)value).ToString();
                 Save();
             }
         }
+
         public static int BitsPerSample
         {
             get
@@ -36,19 +45,7 @@ namespace VACARM
                 Save();
             }
         }
-        public static ChannelConfig ChannelConfig
-        {
-            get
-            {
-                if (int.TryParse(data[2], out int val) && Enum.IsDefined(typeof(ChannelConfig), val)) return (ChannelConfig)val;
-                return ChannelConfig.Stereo;
-            }
-            set
-            {
-                data[2] = ((int)value).ToString();
-                Save();
-            }
-        }
+
         public static int BufferMs
         {
             get
@@ -61,6 +58,7 @@ namespace VACARM
                 Save();
             }
         }
+
         public static int Buffers
         {
             get
@@ -73,6 +71,7 @@ namespace VACARM
                 Save();
             }
         }
+
         public static int Prefill
         {
             get
@@ -85,6 +84,7 @@ namespace VACARM
                 Save();
             }
         }
+
         public static int ResyncAt
         {
             get
@@ -97,18 +97,38 @@ namespace VACARM
                 Save();
             }
         }
-        public static string WindowName
+
+        public static int SamplingRate
         {
             get
             {
-                return data[7];
+                return int.Parse(data[0]);
             }
             set
             {
-                data[7] = value;
+                data[0] = value.ToString();
                 Save();
             }
         }
+
+        public static string DefaultGraph
+        {
+            get
+            {
+                if (data[9] == "\\")
+                {
+                    return null;
+                }
+
+                return data[9];
+            }
+            set
+            {
+                data[9] = value;
+                Save();
+            }
+        }
+
         public static string RepeaterPath
         {
             get
@@ -121,17 +141,44 @@ namespace VACARM
                 Save();
             }
         }
-        public static string DefaultGraph
+
+        public static string WindowName
         {
             get
             {
-                if (data[9] == "\\") return null;
-                else return data[9];
+                return data[7];
             }
             set
             {
-                data[9] = value;
+                data[7] = value;
                 Save();
+            }
+        }
+
+        public static void CheckFile()
+        {
+            if (!File.Exists(Path))
+            {
+                File.WriteAllText(Path, "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\");
+            }
+
+            data = File.ReadAllLines(Path);
+            Directory.CreateDirectory(SavePath);
+            string[] networks = Directory.GetFiles(SavePath).Where(x => x.EndsWith(".vac")).ToArray();
+
+            if (networks.Length == 0)
+            {
+                DefaultGraph = "\\";
+            }
+
+            if (networks.Length == 1)
+            {
+                DefaultGraph = networks[0].Replace($@"{SavePath}\", "");
+            }
+
+            if (DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}"))
+            {
+                DefaultGraph = "\\";
             }
         }
 
@@ -139,28 +186,6 @@ namespace VACARM
         {
             CheckFile();
             data = File.ReadAllLines(Path);
-        }
-
-        public static void CheckFile()
-        {
-            if (!File.Exists(Path))
-                File.WriteAllText(Path, "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\");
-
-            data = File.ReadAllLines(Path);
-
-            Directory.CreateDirectory(SavePath);
-
-            string[] networks = Directory.GetFiles(SavePath).Where(x => x.EndsWith(".vac")).ToArray();
-            if (networks.Length == 1)
-            {
-                DefaultGraph = networks[0].Replace($@"{SavePath}\", "");
-            }
-            else if (networks.Length == 0)
-            {
-                DefaultGraph = "\\";
-            }
-
-            if (DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}")) DefaultGraph = "\\";
         }
 
         private static void Save()
