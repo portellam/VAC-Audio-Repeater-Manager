@@ -15,368 +15,371 @@ using System.Windows.Shapes;
 
 namespace VACARM
 {
-    public class RepeaterInfo : INotifyPropertyChanged
-    {
-        public static ReadOnlyCollection<int> SamplingRateOptions = new ReadOnlyCollection<int>(new int[] { 5000, 8000, 11025, 22050, 44100, 48000, 96000, 192000 });
-        public static ReadOnlyCollection<int> BitsPerSampleOptions = new ReadOnlyCollection<int>(new int[] { 8, 16, 18, 20, 22, 24, 32 });
-        public static ReadOnlyCollection<int> BufferMsOptions = new ReadOnlyCollection<int>(new int[] { 20, 50, 100, 200, 400, 800, 1000, 2000, 4000, 8000 });
-        public static ReadOnlyCollection<int> PrefillOptions = new ReadOnlyCollection<int>(new int[] { 0, 20, 50, 70, 100 });
-        public static ReadOnlyCollection<int> ResyncAtOptions = new ReadOnlyCollection<int>(new int[] { 0, 10, 15, 20, 25, 30, 40, 50 });
-        private int samplingRate;
-        private int bitsPerSample;
-        public List<Channel> Channels;
-        private ChannelConfig channelConfig;
-        private int bufferMs;
-        private int buffers;
-        private int prefill;
-        private int resyncAt;
-        private string windowName;
-        private string path;
+	public class RepeaterInfo : INotifyPropertyChanged
+	{
+		private BipartiteDeviceGraph graph;
+		private ChannelConfig channelConfig;
+		
+		public ChannelConfig ChannelConfig
+		{
+			get
+			{
+				return channelConfig;
+			}
+			set
+			{
+				if (value != ChannelConfig.Custom) ChannelMask = (int)value;
+				channelConfig = value;
+				OnPropertyChanged("ChannelConfig");
+			}
+		}
 
-        private BipartiteDeviceGraph graph;
+		public IEnumerable<ChannelConfig> ChannelConfigs
+		{
+			get
+			{
+				return Enum.GetValues(typeof(ChannelConfig)).Cast<ChannelConfig>();
+			}
+		}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public DeviceControl Capture { get; }
+		public DeviceControl Render { get; }
+		public event PropertyChangedEventHandler PropertyChanged;
+		public Line Link { get; }
+		public List<Channel> Channels;
+		public MMDevice InputDevice
+		{
+			get
+			{
+				return Capture.Device;
+			}
+		}
+		public MMDevice OutputDevice
+		{
+			get
+			{
+				return Render.Device;
+			}
+		}
+		MenuItem captureContext;
+		MenuItem renderContext;
+		public int BitsPerSample
+		{
+			get
+			{
+				return bitsPerSample;
+			}
+			set
+			{
+				if (value >= 8 && value <= 32) bitsPerSample = value;
+				else bitsPerSample = 16;
+				OnPropertyChanged("BitsPerSample");
+			}
+		}
+		public int BufferMs
+		{
+			get
+			{
+				return bufferMs;
+			}
+			set
+			{
+				if (value >= 1 && value <= 300000) bufferMs = value;
+				else bufferMs = 500;
+				OnPropertyChanged("BufferMs");
+			}
+		}
+		public int Buffers
+		{
+			get
+			{
+				return buffers;
+			}
+			set
+			{
+				if (value >= 1 && value <= 256) buffers = value;
+				else buffers = 8;
+				OnPropertyChanged("Buffers");
+			}
+		}
+		public int ChannelMask
+		{
+			get
+			{
+				int sum = 0;
 
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+				foreach (Channel c in Channels)
+				{
+					sum += (int)c;
+				}
 
-        public DeviceControl Capture { get; }
-        public DeviceControl Render { get; }
-        MenuItem captureContext;
-        MenuItem renderContext;
-        public Line Link { get; }
-        public MMDevice InputDevice
-        {
-            get
-            {
-                return Capture.Device;
-            }
-        }
-        public MMDevice OutputDevice
-        {
-            get
-            {
-                return Render.Device;
-            }
-        }
-        public string Input
-        {
-            get
-            {
-                if (InputDevice.FriendlyName.Length > 31) return InputDevice.FriendlyName.Substring(0, 31);
-                return InputDevice.FriendlyName;
-            }
-        }
-        public string Output
-        {
-            get
-            {
-                if (OutputDevice.FriendlyName.Length > 31) return OutputDevice.FriendlyName.Substring(0, 31);
-                return OutputDevice.FriendlyName;
-            }
-        }
-        public int SamplingRate
-        {
-            get
-            {
-                return samplingRate;
-            }
-            set
-            {
-                if (value >= 1000 && value <= 384000) samplingRate = value;
-                else samplingRate = 48000;
-                OnPropertyChanged("SamplingRate");
-            }
-        }
-        public int BitsPerSample
-        {
-            get
-            {
-                return bitsPerSample;
-            }
-            set
-            {
-                if (value >= 8 && value <= 32) bitsPerSample = value;
-                else bitsPerSample = 16;
-                OnPropertyChanged("BitsPerSample");
-            }
-        }
-        public int ChannelMask
-        {
-            get
-            {
-                int sum = 0;
+				return sum;
+			}
+			set
+			{
+				if (value < 0) value = 0;
+				value &= 0x7FF;
 
-                foreach (Channel c in Channels)
-                {
-                    sum += (int)c;
-                }
+				if (channelConfig != ChannelConfig.Custom)
+				{
+					channelConfig = ChannelConfig.Custom;
+					OnPropertyChanged("ChannelConfig");
+				}
 
-                return sum;
-            }
-            set
-            {
-                if (value < 0) value = 0;
-                value &= 0x7FF;
+				int bit = 1;
+				List<Channel> newChannels = new List<Channel>();
+				while (value != 0)
+				{
+					int digit = value & bit;
+					if (digit > 0)
+					{
+						newChannels.Add((Channel)digit);
+					}
+					value -= digit;
+					bit <<= 1;
+				}
 
-                if (channelConfig != ChannelConfig.Custom)
-                {
-                    channelConfig = ChannelConfig.Custom;
-                    OnPropertyChanged("ChannelConfig");
-                }
+				Channels = newChannels;
+				OnPropertyChanged("ChannelMask");
+			}
+		}
+		public int Prefill
+		{
+			get
+			{
+				return prefill;
+			}
+			set
+			{
+				if (value >= 0 && value <= 100) prefill = value;
+				else prefill = 50;
+				OnPropertyChanged("Prefill");
+			}
+		}
+		public int ResyncAt
+		{
+			get
+			{
+				return resyncAt;
+			}
+			set
+			{
+				if (value >= 0 && value < prefill) resyncAt = value;
+				else resyncAt = prefill / 2;
+				OnPropertyChanged("ResyncAt");
+			}
+		}
+		public int SamplingRate
+		{
+			get
+			{
+				return samplingRate;
+			}
+			set
+			{
+				if (value >= 1000 && value <= 384000) samplingRate = value;
+				else samplingRate = 48000;
+				OnPropertyChanged("SamplingRate");
+			}
+		}
+		private int bitsPerSample;
+		private int bufferMs;
+		private int buffers;
+		private int prefill;
+		private int resyncAt;
+		private int samplingRate;
+		public static ReadOnlyCollection<int> BitsPerSampleOptions = new ReadOnlyCollection<int>(new int[] { 8, 16, 18, 20, 22, 24, 32 });
+		public static ReadOnlyCollection<int> BufferMsOptions = new ReadOnlyCollection<int>(new int[] { 20, 50, 100, 200, 400, 800, 1000, 2000, 4000, 8000 });
+		public static ReadOnlyCollection<int> PrefillOptions = new ReadOnlyCollection<int>(new int[] { 0, 20, 50, 70, 100 });
+		public static ReadOnlyCollection<int> ResyncAtOptions = new ReadOnlyCollection<int>(new int[] { 0, 10, 15, 20, 25, 30, 40, 50 });
+		public static ReadOnlyCollection<int> SamplingRateOptions = new ReadOnlyCollection<int>(new int[] { 5000, 8000, 11025, 22050, 44100, 48000, 96000, 192000 });
+		private string path;
+		private string windowName;
 
-                int bit = 1;
-                List<Channel> newChannels = new List<Channel>();
-                while (value != 0)
-                {
-                    int digit = value & bit;
-                    if (digit > 0)
-                    {
-                        newChannels.Add((Channel)digit);
-                    }
-                    value -= digit;
-                    bit <<= 1;
-                }
+		public string Input
+		{
+			get
+			{
+				if (InputDevice.FriendlyName.Length > 31) return InputDevice.FriendlyName.Substring(0, 31);
+				return InputDevice.FriendlyName;
+			}
+		}
 
-                Channels = newChannels;
-                OnPropertyChanged("ChannelMask");
-            }
-        }
-        public ChannelConfig ChannelConfig
-        {
-            get
-            {
-                return channelConfig;
-            }
-            set
-            {
-                if (value != ChannelConfig.Custom) ChannelMask = (int)value;
-                channelConfig = value;
-                OnPropertyChanged("ChannelConfig");
-            }
-        }
-        public int BufferMs
-        {
-            get
-            {
-                return bufferMs;
-            }
-            set
-            {
-                if (value >= 1 && value <= 300000) bufferMs = value;
-                else bufferMs = 500;
-                OnPropertyChanged("BufferMs");
-            }
-        }
-        public int Buffers
-        {
-            get
-            {
-                return buffers;
-            }
-            set
-            {
-                if (value >= 1 && value <= 256) buffers = value;
-                else buffers = 8;
-                OnPropertyChanged("Buffers");
-            }
-        }
-        public int Prefill
-        {
-            get
-            {
-                return prefill;
-            }
-            set
-            {
-                if (value >= 0 && value <= 100) prefill = value;
-                else prefill = 50;
-                OnPropertyChanged("Prefill");
-            }
-        }
-        public int ResyncAt
-        {
-            get
-            {
-                return resyncAt;
-            }
-            set
-            {
-                if (value >= 0 && value < prefill) resyncAt = value;
-                else resyncAt = prefill / 2;
-                OnPropertyChanged("ResyncAt");
-            }
-        }
-        public string WindowName
-        {
-            get
-            {
-                return windowName;
-            }
-            set
-            {
-                windowName = value.Replace("{0}", Input).Replace("{1}", Output);
-            }
-        }
-        public string Path
-        {
-            get
-            {
-                return path;
-            }
-            set
-            {
-                if (File.Exists(value)) path = value;
-            }
-        }
+		public string Output
+		{
+			get
+			{
+				if (OutputDevice.FriendlyName.Length > 31) return OutputDevice.FriendlyName.Substring(0, 31);
+				return OutputDevice.FriendlyName;
+			}
+		}
 
-        public IEnumerable<ChannelConfig> ChannelConfigs
-        {
-            get
-            {
-                return Enum.GetValues(typeof(ChannelConfig)).Cast<ChannelConfig>();
-            }
-        }
+		public string Path
+		{
+			get
+			{
+				return path;
+			}
+			set
+			{
+				if (File.Exists(value)) path = value;
+			}
+		}
 
-        public RepeaterInfo(DeviceControl capture, DeviceControl render, BipartiteDeviceGraph graph)
-        {
-            captureContext = new MenuItem();
-            captureContext.Header = render.DeviceName;
-            captureContext.Click += context_Click;
-            capture.ContextMenu.Items.Add(captureContext);
+		public string WindowName
+		{
+			get
+			{
+				return windowName;
+			}
+			set
+			{
+				windowName = value.Replace("{0}", Input).Replace("{1}", Output);
+			}
+		}
 
-            renderContext = new MenuItem();
-            renderContext.Header = capture.DeviceName;
-            renderContext.Click += context_Click;
-            render.ContextMenu.Items.Add(renderContext);
+		public RepeaterInfo(DeviceControl capture, DeviceControl render, BipartiteDeviceGraph graph)
+		{
+			captureContext = new MenuItem();
+			captureContext.Header = render.DeviceName;
+			captureContext.Click += context_Click;
+			capture.ContextMenu.Items.Add(captureContext);
 
-            Capture = capture;
-            Render = render;
-            Link = new Line
-            {
-                Stroke = Brushes.White,
-                StrokeThickness = 2,
-            };
+			renderContext = new MenuItem();
+			renderContext.Header = capture.DeviceName;
+			renderContext.Click += context_Click;
+			render.ContextMenu.Items.Add(renderContext);
 
-            Binding bx1 = new Binding("X")
-            {
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                Source = capture
-            };
-            Link.SetBinding(Line.X1Property, bx1);
+			Capture = capture;
+			Render = render;
+			Link = new Line
+			{
+				Stroke = Brushes.White,
+				StrokeThickness = 2,
+			};
 
-            Binding by1 = new Binding("Y")
-            {
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                Source = capture
-            };
-            Link.SetBinding(Line.Y1Property, by1);
+			Binding bx1 = new Binding("X")
+			{
+				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+				Source = capture
+			};
+			Link.SetBinding(Line.X1Property, bx1);
 
-            Binding bx2 = new Binding("X")
-            {
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                Source = render
-            };
-            Link.SetBinding(Line.X2Property, bx2);
+			Binding by1 = new Binding("Y")
+			{
+				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+				Source = capture
+			};
+			Link.SetBinding(Line.Y1Property, by1);
 
-            Binding by2 = new Binding("Y")
-            {
-                UpdateSourceTrigger=UpdateSourceTrigger.PropertyChanged,
-                Source = render
-            };
-            Link.SetBinding(Line.Y2Property, by2);
+			Binding bx2 = new Binding("X")
+			{
+				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+				Source = render
+			};
+			Link.SetBinding(Line.X2Property, bx2);
 
-            SamplingRate = DefaultData.SamplingRate;
-            BitsPerSample = DefaultData.BitsPerSample;
-            ChannelConfig = DefaultData.ChannelConfig;
-            BufferMs = DefaultData.BufferMs;
-            Buffers = DefaultData.Buffers;
-            Prefill = DefaultData.Prefill;
-            ResyncAt = DefaultData.ResyncAt;
-            WindowName = DefaultData.WindowName;
-            Path = DefaultData.RepeaterPath;
+			Binding by2 = new Binding("Y")
+			{
+				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+				Source = render
+			};
+			Link.SetBinding(Line.Y2Property, by2);
 
-            this.graph = graph;
-        }
+			SamplingRate = DefaultData.SamplingRate;
+			BitsPerSample = DefaultData.BitsPerSample;
+			ChannelConfig = DefaultData.ChannelConfig;
+			BufferMs = DefaultData.BufferMs;
+			Buffers = DefaultData.Buffers;
+			Prefill = DefaultData.Prefill;
+			ResyncAt = DefaultData.ResyncAt;
+			WindowName = DefaultData.WindowName;
+			Path = DefaultData.RepeaterPath;
 
-        private void context_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            RepeaterMenu menu = new RepeaterMenu(this, graph);
-            menu.Owner = MainWindow.GraphMap.Parent as Window;
+			this.graph = graph;
+		}
 
-            menu.ShowDialog();
-        }
+		public string ToCommand()
+		{
+			return $"start " +
+				$"/min \"audiorepeater\" \"{Path}\" " +
+				$"/Input:\"{Input}\" " +
+				$"/Output:\"{Output}\" " +
+				$"/SamplingRate:{SamplingRate} " +
+				$"/BitsPerSample:{BitsPerSample} " +
+				$"/Channels:{Channels.Count} " +
+				$"/ChanCfg:custom={ChannelMask} " +
+				$"/BufferMs:{BufferMs} " +
+				$"/Prefill:{Prefill} " +
+				$"/ResyncAt:{ResyncAt} " +
+				$"/WindowName:\"{WindowName}\" " +
+				$"/AutoStart";
+		}
 
-        public string ToCommand()
-        {
-            return $"start " +
-                $"/min \"audiorepeater\" \"{Path}\" " +
-                $"/Input:\"{Input}\" " +
-                $"/Output:\"{Output}\" " +
-                $"/SamplingRate:{SamplingRate} " +
-                $"/BitsPerSample:{BitsPerSample} " +
-                $"/Channels:{Channels.Count} " +
-                $"/ChanCfg:custom={ChannelMask} " +
-                $"/BufferMs:{BufferMs} " +
-                $"/Prefill:{Prefill} " +
-                $"/ResyncAt:{ResyncAt} " +
-                $"/WindowName:\"{WindowName}\" " +
-                $"/AutoStart";
-        }
+		public string ToSaveData()
+		{
+			return
+				$"{SamplingRate}\n" +
+				$"{BitsPerSample}\n" +
+				$"{ChannelMask}\n" +
+				$"{(int)ChannelConfig}\n" +
+				$"{BufferMs}\n" +
+				$"{Buffers}\n" +
+				$"{Prefill}\n" +
+				$"{ResyncAt}";
+		}
+		
+		private void context_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			RepeaterMenu menu = new RepeaterMenu(this, graph);
+			menu.Owner = MainWindow.GraphMap.Parent as Window;
 
-        public string ToSaveData()
-        {
-            return
-                $"{SamplingRate}\n" +
-                $"{BitsPerSample}\n" +
-                $"{ChannelMask}\n" +
-                $"{(int)ChannelConfig}\n" +
-                $"{BufferMs}\n" +
-                $"{Buffers}\n" +
-                $"{Prefill}\n" +
-                $"{ResyncAt}";
-        }
+			menu.ShowDialog();
+		}
 
-        public void SetData(List<string> info)
-        {
-            SamplingRate = int.Parse(info[0]);
-            BitsPerSample = int.Parse(info[1]);
-            ChannelMask = int.Parse(info[2]);
-            ChannelConfig = (ChannelConfig)int.Parse(info[3]);
-            BufferMs = int.Parse(info[4]);
-            Buffers = int.Parse(info[5]);
-            Prefill = int.Parse(info[6]);
-            ResyncAt = int.Parse(info[7]);
-        }
-    }
+		public void OnPropertyChanged(string name)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+		}
 
-    public enum Channel
-    {
-        FL = 0x1,
-        FR = 0x2,
-        FC = 0x4,
-        LF = 0x8,
-        BL = 0x10,
-        BR = 0x20,
-        FLC = 0x40,
-        FRC = 0x80,
-        BC = 0x100,
-        SL = 0x200,
-        SR = 0x400
-    }
+		public void SetData(List<string> info)
+		{
+			SamplingRate = int.Parse(info[0]);
+			BitsPerSample = int.Parse(info[1]);
+			ChannelMask = int.Parse(info[2]);
+			ChannelConfig = (ChannelConfig)int.Parse(info[3]);
+			BufferMs = int.Parse(info[4]);
+			Buffers = int.Parse(info[5]);
+			Prefill = int.Parse(info[6]);
+			ResyncAt = int.Parse(info[7]);
+		}
+	}
 
-    public enum ChannelConfig
-    {
-        Custom = -1,
-        Mono = 0x4,
-        Stereo = 0x3,
-        Quadraphonic = 0x33,
-        Surround = 0x107,
-        Back51 = 0x3F,
-        Surround51 = 0x60F,
-        Wide71 = 0xFF,
-        Surround71 = 0x63F
-    }
+	public enum Channel
+	{
+		FL = 0x1,
+		FR = 0x2,
+		FC = 0x4,
+		LF = 0x8,
+		BL = 0x10,
+		BR = 0x20,
+		FLC = 0x40,
+		FRC = 0x80,
+		BC = 0x100,
+		SL = 0x200,
+		SR = 0x400
+	}
+
+	public enum ChannelConfig
+	{
+		Custom = -1,
+		Mono = 0x4,
+		Stereo = 0x3,
+		Quadraphonic = 0x33,
+		Surround = 0x107,
+		Back51 = 0x3F,
+		Surround51 = 0x60F,
+		Wide71 = 0xFF,
+		Surround71 = 0x63F
+	}
 }
