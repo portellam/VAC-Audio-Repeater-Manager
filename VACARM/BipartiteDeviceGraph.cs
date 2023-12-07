@@ -14,193 +14,283 @@ namespace VACARM
     {
         private Dictionary<DeviceControl, Dictionary<DeviceControl, RepeaterInfo>> Edge;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public BipartiteDeviceGraph()
         {
             Edge = new Dictionary<DeviceControl, Dictionary<DeviceControl, RepeaterInfo>>();
         }
 
-        public void AddVertex(DeviceControl device)
+        /// <summary>
+        /// Adds one vertex between two devices.
+        /// </summary>
+        /// <param name="deviceControl1">The first device.</param>
+        /// <param name="deviceControl2">The second device.</param>
+        public void AddEdge(DeviceControl deviceControl1, DeviceControl deviceControl2)
         {
-            //if vertex does not exist, add vertex
-            if (!Edge.ContainsKey(device)) Edge[device] = new Dictionary<DeviceControl, RepeaterInfo>();
-        }
-
-        public void RemoveVertex(DeviceControl device)
-        {
-            /* remove vertex along with any edges the vertex is an endpoint to */
-
-            //remove device from adjacent devices' dictionaries
-            foreach (DeviceControl adj in Edge[device].Keys)
+            if (Edge[deviceControl1].ContainsKey(deviceControl2) || deviceControl1.DataFlow == deviceControl2.DataFlow)
             {
-                Edge[adj].Remove(device);
-                MainWindow.GraphMap.Children.Remove(Edge[device][adj].Link);
+                return;
             }
 
-            //remove adjacent devices from device dictionary
-            Edge.Remove(device);
-            MainWindow.GraphMap.Children.Remove(device);
-        }
+            DeviceControl captureDeviceControl, renderDeviceControl;
 
-        private void AddEdge(DeviceControl device1, DeviceControl device2, RepeaterInfo info)
-        {
-            Edge[device1].Add(device2, info);
-            Edge[device2].Add(device1, info);
-
-            MainWindow.GraphMap.Children.Add(info.Link);
-        }
-
-        public void AddEdge(DeviceControl device1, DeviceControl device2)
-        {
-            //makes sure the edge is valid and does not already exist
-            if (Edge[device1].ContainsKey(device2) || device1.DataFlow == device2.DataFlow) return;
-
-            //create a "repeater" for the edge
-            DeviceControl capture;
-            DeviceControl render;
-
-            if (device1.DataFlow == DataFlow.Capture)
+            if (deviceControl1.DataFlow == DataFlow.Capture)
             {
-                capture = device1;
-                render = device2;
+                captureDeviceControl = deviceControl1;
+                renderDeviceControl = deviceControl2;
             }
             else
             {
-                capture = device2;
-                render = device1;
+                captureDeviceControl = deviceControl2;
+                renderDeviceControl = deviceControl1;
             }
 
-            RepeaterInfo repeater = new RepeaterInfo(capture, render, this);
-
-            AddEdge(device1, device2, repeater);
+            RepeaterInfo repeaterInfo = new RepeaterInfo(captureDeviceControl, renderDeviceControl, this);
+            AddEdge(deviceControl1, deviceControl2, repeaterInfo);
         }
 
-        public void RemoveEdge(DeviceControl device1, DeviceControl device2)
+        /// <summary>
+        /// Helper method for AddEdge.
+        /// </summary>
+        /// <param name="deviceControl1">The first device.</param>
+        /// <param name="deviceControl2">The second device.</param>
+        /// <param name="repeaterInfo">The repeater info.</param>
+        protected internal virtual void AddEdge(DeviceControl deviceControl1, DeviceControl deviceControl2, RepeaterInfo repeaterInfo)
         {
-            //removes adjacent vertex from vertex's dictionary
-            MainWindow.GraphMap.Children.Remove(Edge[device1][device2].Link);
-            Edge[device1].Remove(device2);
-            Edge[device2].Remove(device1);
+            Edge[deviceControl1].Add(deviceControl2, repeaterInfo);
+            Edge[deviceControl2].Add(deviceControl1, repeaterInfo);
+            MainWindow.GraphMap.Children.Add(repeaterInfo.Link);
         }
 
-        public Dictionary<DeviceControl, RepeaterInfo> GetAdjacent(DeviceControl device)
+        /// <summary>
+        /// Remove one adjacent vertex between two devices.
+        /// </summary>
+        /// <param name="deviceControl1">The first device.</param>
+        /// <param name="deviceControl2">The second device.</param>
+        public void RemoveEdge(DeviceControl deviceControl1, DeviceControl deviceControl2)
         {
-            return Edge[device];
+            MainWindow.GraphMap.Children.Remove(Edge[deviceControl1][deviceControl2].Link);
+            Edge[deviceControl1].Remove(deviceControl2);
+            Edge[deviceControl2].Remove(deviceControl1);
         }
 
-        public void SaveGraph(string filename)
+        /// <summary>
+        /// Gets adjacent vertices.
+        /// </summary>
+        /// <param name="deviceControl">The device.</param>
+        /// <returns>The vertices.</returns>
+        public Dictionary<DeviceControl, RepeaterInfo> GetAdjacent(DeviceControl deviceControl)
         {
-            if (!filename.EndsWith(".vac")) filename += ".vac";
-            StreamWriter writer = new StreamWriter($@"{Directory.GetCurrentDirectory()}\save\{filename}");
-
-            List<DeviceControl> verteces = Edge.Keys.ToList();
-
-            //first line contains N, the number of verteces
-            writer.WriteLine(verteces.Count.ToString());
-
-            Dictionary<DeviceControl, int> IndexLookup = new Dictionary<DeviceControl, int>();
-
-            int M = 0;
-            int i = 0;
-            //next N*2 lines contain each vertex's device ID and position
-            //also counts number of edges * 2
-            foreach (DeviceControl vertex in verteces)
-            {
-                writer.WriteLine(vertex.ID);
-                writer.WriteLine($"{vertex.Left} {vertex.Top}");
-                IndexLookup[vertex] = i++;
-                M += Edge[vertex].Count;
-            }
-
-            //next line contains M, the number of edges
-            writer.WriteLine(M / 2);
-
-            //next M*9 lines are edge information
-            foreach (RepeaterInfo edge in GetEdges())
-            {
-                //first line of each edge is the index of the devices
-                writer.WriteLine($"{IndexLookup[edge.Capture]} {IndexLookup[edge.Render]}");
-                //next 8 lines are for the repeater information
-                writer.WriteLine(edge.ToSaveData());
-            }
-
-            writer.Close();
+            return Edge[deviceControl];
         }
 
+        /// <summary>
+        /// Get edges from vertices and adjacent devices.
+        /// </summary>
+        /// <returns>The edges.</returns>
         public HashSet<RepeaterInfo> GetEdges()
         {
-            HashSet<RepeaterInfo> edges = new HashSet<RepeaterInfo>();
-            
-            foreach (DeviceControl vertex in Edge.Keys)
+            HashSet<RepeaterInfo> edgeRepeaterInfoHashSet = new HashSet<RepeaterInfo>();
+
+            foreach (DeviceControl vertexDeviceControl in Edge.Keys)
             {
-                foreach (DeviceControl adj in Edge[vertex].Keys)
+                foreach (DeviceControl adjacentDeviceControl in Edge[vertexDeviceControl].Keys)
                 {
-                    edges.Add(Edge[vertex][adj]);
+                    edgeRepeaterInfoHashSet.Add(Edge[vertexDeviceControl][adjacentDeviceControl]);
                 }
             }
 
-            return edges;
+            return edgeRepeaterInfoHashSet;
         }
 
-        public static BipartiteDeviceGraph LoadGraph(string filename)
+        /// <summary>
+        /// Load graph from given file.
+        /// </summary>
+        /// <param name="fileName">The file</param>
+        /// <returns>The graph.</returns>
+        public static BipartiteDeviceGraph LoadGraph(string fileName)
         {
-            BipartiteDeviceGraph graph = new BipartiteDeviceGraph();
+            BipartiteDeviceGraph bipartiteDeviceGraph = new BipartiteDeviceGraph();
+            StreamReader streamReader = new StreamReader(fileName);
 
-            StreamReader reader = new StreamReader(filename);
+            if (!int.TryParse(streamReader.ReadLine(), out int vertexCount))
+            {
+                return bipartiteDeviceGraph;
+            }
 
-            Dictionary<string, MMDevice> deviceFromID = new Dictionary<string, MMDevice>();
+            DeviceControl[] deviceControlList = getListOfVertices(bipartiteDeviceGraph, streamReader);              //TODO: fix me!
+            bipartiteDeviceGraph = getGraphOfVertices(bipartiteDeviceGraph, deviceControlList, streamReader);       //TODO: fix me!
+            streamReader.Close();
+            return bipartiteDeviceGraph;
+        }
 
-            //create ID dictionary to get the correct MMDevice
-            foreach (MMDevice device in new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.All))
-                deviceFromID[device.ID] = device;
+        /// <summary>
+        /// Get list of vertices.
+        /// </summary>
+        /// <param name="bipartiteDeviceGraph">The graph.</param>
+        /// <param name="streamReader">The text stream.</param>
+        /// <returns>The graph.</returns>
+        protected internal virtual DeviceControl[] getListOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, StreamReader streamReader)
+        {
+            int vertexCount = int.Parse(streamReader.ToString());
+            DeviceControl[] deviceControlList = new DeviceControl[vertexCount];
+            Dictionary<string, MMDevice> mMDeviceById = new Dictionary<string, MMDevice>();
 
-            if (!int.TryParse(reader.ReadLine(), out int N)) return new BipartiteDeviceGraph();
+            foreach (MMDevice mMDevice in new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.All))
+            {
+                mMDeviceById[mMDevice.ID] = mMDevice;
+            }
 
-            DeviceControl[] devices = new DeviceControl[N];
-
-            //get array of verteces
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < vertexCount; i++)
             {
                 try
                 {
-                    MMDevice device = deviceFromID[reader.ReadLine()];
-                    double[] pos = reader.ReadLine().Split().Select(x => double.Parse(x)).ToArray();
-                    
-                    DeviceControl control = new DeviceControl(device, graph);
+                    MMDevice device = mMDeviceById[streamReader.ReadLine()];
+                    double[] pos = streamReader.ReadLine().Split().Select(x => double.Parse(x)).ToArray();
+                    DeviceControl control = new DeviceControl(device, bipartiteDeviceGraph);
                     control.Left = pos[0];
                     control.Top = pos[1];
                     MainWindow.GraphMap.Children.Add(control);
-                    graph.AddVertex(control);
-                    devices[i] = control;
+                    bipartiteDeviceGraph.AddVertex(control);
+                    deviceControlList[i] = control;
                 }
                 catch
                 {
-                    devices[i] = null;
+                    deviceControlList[i] = null;
                 }
             }
 
-            if (!int.TryParse(reader.ReadLine(), out int M)) return new BipartiteDeviceGraph();
+            return deviceControlList;
+        }
 
-            //add edges to graph
-            for (int i = 0; i < M; i++)
+        /// <summary>
+        /// Get graph filled with vertices.
+        /// </summary>
+        /// <param name="bipartiteDeviceGraph">The graph.</param>
+        /// <param name="deviceControlList">The devices.</param>
+        /// <param name="streamReader">The text stream.</param>
+        /// <returns>The graph.</returns>
+        protected internal virtual BipartiteDeviceGraph getGraphOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, DeviceControl[] deviceControlList, StreamReader streamReader)
+        {
+            int vertexCount = int.Parse(streamReader.ToString());
+            int bufferCount = 8;
+
+            for (int i = 0; i < vertexCount; i++)
             {
-                int[] adj = reader.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
+                int[] adjacentList = streamReader.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
+                DeviceControl captureDeviceControl = deviceControlList[adjacentList[0]];
+                DeviceControl renderDeviceControl = deviceControlList[adjacentList[1]];
+
+                if (captureDeviceControl == null || renderDeviceControl == null)
+                {
+                    continue;
+                }
+
                 List<string> data = new List<string>();
-                for (int j = 0; j < 8; j++) data.Add(reader.ReadLine());
 
-                DeviceControl capture = devices[adj[0]];
-                DeviceControl render = devices[adj[1]];
+                for (int j = 0; j < bufferCount; j++)
+                {
+                    data.Add(streamReader.ReadLine());
+                }
 
-                if (capture == null || render == null) continue;
-
-                RepeaterInfo repeater = new RepeaterInfo(capture, render, graph);
-                repeater.SetData(data);
-
-                graph.AddEdge(capture, render, repeater);
+                RepeaterInfo repeaterInfo = new RepeaterInfo(captureDeviceControl, renderDeviceControl, bipartiteDeviceGraph);
+                repeaterInfo.SetData(data);
+                bipartiteDeviceGraph.AddEdge(captureDeviceControl, renderDeviceControl, repeaterInfo);
             }
 
-            reader.Close();
+            return bipartiteDeviceGraph;
+        }
 
-            return graph;
+        /// <summary>
+        /// Save graph to given file.
+        /// </summary>
+        /// <param name="fileName">The file.</param>
+        public void SaveGraph(string fileName)
+        {
+            if (!fileName.EndsWith(DefaultData.FileExtension))
+            {
+                fileName += DefaultData.FileExtension;
+            }
+
+            string pathName = $@"{Directory.GetCurrentDirectory()}{DefaultData.SavePartialPath}\{fileName}";
+            StreamWriter streamWriter = new StreamWriter(pathName);
+
+            List<DeviceControl> vertexDeviceControlList = Edge.Keys.ToList();
+            string vertexCount = vertexDeviceControlList.Count.ToString();
+            streamWriter.WriteLine(vertexCount);
+            
+            Dictionary<DeviceControl, int> deviceControlIdDictionary = new Dictionary<DeviceControl, int>();
+            int edgesCount = 0;
+            int secondIndex = 1;
+
+            foreach (DeviceControl vertexDeviceControl in vertexDeviceControlList)
+            {
+                streamWriter.WriteLine(vertexDeviceControl.ID);
+                streamWriter.WriteLine($"{vertexDeviceControl.Left} {vertexDeviceControl.Top}");
+                deviceControlIdDictionary[vertexDeviceControl] = secondIndex;
+                edgesCount += Edge[vertexDeviceControl].Count;
+            }
+
+            writeHalfOfEdgesCountToFile(edgesCount, streamWriter);
+            writeEdgeRepeaterInfoToFile(deviceControlIdDictionary, streamWriter);
+            streamWriter.Close();
+        }
+
+        /// <summary>
+        /// Writes edges to file.
+        /// </summary>
+        /// <param name="deviceControlIdDictionary"></param>
+        /// <param name="streamWriter">The stream writer.</param>
+        protected internal virtual void writeEdgeRepeaterInfoToFile(Dictionary<DeviceControl, int> deviceControlIdDictionary, StreamWriter streamWriter)
+        {
+            foreach (RepeaterInfo edgeRepeaterInfo in GetEdges())
+            {
+                string indexOfDevices = $"{deviceControlIdDictionary[edgeRepeaterInfo.Capture]} {deviceControlIdDictionary[edgeRepeaterInfo.Render]}";
+                string repeaterInfo = edgeRepeaterInfo.ToSaveData();
+                streamWriter.WriteLine($"{indexOfDevices}\n{repeaterInfo}");
+            }
+        }
+
+        /// <summary>
+        /// Writes half of edges' count to file.
+        /// </summary>
+        /// <param name="edgesCount">The edges count.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        protected internal virtual void writeHalfOfEdgesCountToFile(int edgesCount, StreamWriter streamWriter)
+        {
+            streamWriter.WriteLine(edgesCount / 2);
+        }
+
+        /// <summary>
+        /// Add vertices to edge.
+        /// </summary>
+        /// <param name="deviceControl">The device's vertices</param>
+        public void AddVertex(DeviceControl deviceControl)
+        {
+            if (Edge.ContainsKey(deviceControl))
+            {
+                return;
+            }
+
+            Edge[deviceControl] = new Dictionary<DeviceControl, RepeaterInfo>();
+        }
+
+        /// <summary>
+        /// Remove vertex along with any edges the given vertex has an endpoint towards.
+        /// </summary>
+        /// <param name="deviceControl">The device.</param>
+        public void RemoveVertex(DeviceControl deviceControl)
+        {
+            foreach (DeviceControl adjacentDeviceControl in Edge[deviceControl].Keys)
+            {
+                Edge[adjacentDeviceControl].Remove(deviceControl);
+                MainWindow.GraphMap.Children.Remove(Edge[deviceControl][adjacentDeviceControl].Link);
+            }
+
+            Edge.Remove(deviceControl);
+            MainWindow.GraphMap.Children.Remove(deviceControl);
         }
     }
 }
