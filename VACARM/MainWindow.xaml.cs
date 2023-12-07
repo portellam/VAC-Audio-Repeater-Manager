@@ -193,15 +193,15 @@ namespace VACARM
             if (result == false || result == null) return;
 
             string file = fileDialog.FileName;
-            string filename = file.Replace($@"{DefaultData.SavePath}\", "");
+            string fileName = file.Replace($@"{DefaultData.SavePath}\", "");
 
-            if (filename.Contains("\\") || !filename.EndsWith(".vac")) return;
+            if (fileName.Contains("\\") || !fileName.EndsWith(".vac")) return;
             
             GraphMap.Children.Clear();
             try
             {
                 Graph = BipartiteDeviceGraph.LoadGraph(file);
-                DefaultData.DefaultGraph = filename;
+                DefaultData.DefaultGraph = fileName;
             }
             catch
             {
