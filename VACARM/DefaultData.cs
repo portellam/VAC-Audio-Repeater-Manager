@@ -11,7 +11,7 @@ namespace VACARM
     {
         private const string DefaultRepeaterPartialPath = @"\data\defaultrepeater";
         public const string FileExtension = ".vac";
-        private const string SavePartialPath = @"\save";
+        public const string SavePartialPath = @"\save";
         public static readonly string Path = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialPath}";
         public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}";
         private static string[] data;
