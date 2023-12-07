@@ -28,9 +28,13 @@ namespace VACARM
 			}
 			set
 			{
-				if (value != ChannelConfig.Custom) ChannelMask = (int)value;
+				if (value != ChannelConfig.Custom)
+				{
+					ChannelMask = (int)value;
+				}
+
 				channelConfig = value;
-				OnPropertyChanged("ChannelConfig");
+				OnPropertyChanged(nameof(ChannelConfig));
 			}
 		}
 
@@ -45,24 +49,14 @@ namespace VACARM
 		public DeviceControl Capture { get; }
 		public DeviceControl Render { get; }
 		public event PropertyChangedEventHandler PropertyChanged;
-		public Line Link { get; }
-		public List<Channel> Channels;
-		public MMDevice InputDevice
-		{
-			get
-			{
-				return Capture.Device;
-			}
-		}
-		public MMDevice OutputDevice
-		{
-			get
-			{
-				return Render.Device;
-			}
-		}
-		MenuItem captureContext;
-		MenuItem renderContext;
+
+		private int bitsPerSample;
+		private int bufferMs;
+		private int buffers;
+		private int prefill;
+		private int resyncAt;
+		private int samplingRate;
+
 		public int BitsPerSample
 		{
 			get
@@ -71,24 +65,19 @@ namespace VACARM
 			}
 			set
 			{
-				if (value >= 8 && value <= 32) bitsPerSample = value;
-				else bitsPerSample = 16;
-				OnPropertyChanged("BitsPerSample");
+				if (value >= 8 && value <= 32)
+				{
+					bitsPerSample = value;
+				}
+				else
+				{
+					bitsPerSample = 16;
+				}
+
+				OnPropertyChanged(nameof(BitsPerSample));
 			}
 		}
-		public int BufferMs
-		{
-			get
-			{
-				return bufferMs;
-			}
-			set
-			{
-				if (value >= 1 && value <= 300000) bufferMs = value;
-				else bufferMs = 500;
-				OnPropertyChanged("BufferMs");
-			}
-		}
+		
 		public int Buffers
 		{
 			get
@@ -97,11 +86,40 @@ namespace VACARM
 			}
 			set
 			{
-				if (value >= 1 && value <= 256) buffers = value;
-				else buffers = 8;
-				OnPropertyChanged("Buffers");
+				if (value >= 1 && value <= 256)
+				{
+					buffers = value;
+				}
+				else
+				{
+					buffers = 8;
+				}
+
+				OnPropertyChanged(nameof(Buffers));
 			}
 		}
+
+		public int BufferMs
+		{
+			get
+			{
+				return bufferMs;
+			}
+			set
+			{
+				if (value >= 1 && value <= 300000)
+				{
+					bufferMs = value;
+				}
+				else
+				{
+					bufferMs = 500;
+				}
+
+				OnPropertyChanged(nameof(BufferMs));
+			}
+		}
+
 		public int ChannelMask
 		{
 			get
@@ -117,32 +135,40 @@ namespace VACARM
 			}
 			set
 			{
-				if (value < 0) value = 0;
+				if (value < 0)
+				{
+					value = 0;
+				}
+
 				value &= 0x7FF;
 
 				if (channelConfig != ChannelConfig.Custom)
 				{
 					channelConfig = ChannelConfig.Custom;
-					OnPropertyChanged("ChannelConfig");
+					OnPropertyChanged(nameof(ChannelConfig));
 				}
 
 				int bit = 1;
 				List<Channel> newChannels = new List<Channel>();
+
 				while (value != 0)
 				{
 					int digit = value & bit;
+
 					if (digit > 0)
 					{
 						newChannels.Add((Channel)digit);
 					}
+
 					value -= digit;
 					bit <<= 1;
 				}
 
 				Channels = newChannels;
-				OnPropertyChanged("ChannelMask");
+				OnPropertyChanged(nameof(ChannelMask));
 			}
 		}
+
 		public int Prefill
 		{
 			get
@@ -151,11 +177,19 @@ namespace VACARM
 			}
 			set
 			{
-				if (value >= 0 && value <= 100) prefill = value;
-				else prefill = 50;
-				OnPropertyChanged("Prefill");
+				if (value >= 0 && value <= 100)
+				{
+					prefill = value;
+				}
+				else
+				{
+					prefill = 50;
+				}
+
+				OnPropertyChanged(nameof(Prefill));
 			}
 		}
+
 		public int ResyncAt
 		{
 			get
@@ -164,11 +198,19 @@ namespace VACARM
 			}
 			set
 			{
-				if (value >= 0 && value < prefill) resyncAt = value;
-				else resyncAt = prefill / 2;
-				OnPropertyChanged("ResyncAt");
+				if (value >= 0 && value < prefill)
+				{
+					resyncAt = value;
+				}
+				else
+				{
+					resyncAt = prefill / 2;
+				}
+
+				OnPropertyChanged(nameof(ResyncAt));
 			}
 		}
+
 		public int SamplingRate
 		{
 			get
@@ -177,17 +219,41 @@ namespace VACARM
 			}
 			set
 			{
-				if (value >= 1000 && value <= 384000) samplingRate = value;
-				else samplingRate = 48000;
-				OnPropertyChanged("SamplingRate");
+				if (value >= 1000 && value <= 384000)
+				{
+					samplingRate = value;
+				}
+				else
+				{
+					samplingRate = 48000;
+				}
+
+				OnPropertyChanged(nameof(SamplingRate));
 			}
 		}
-		private int bitsPerSample;
-		private int bufferMs;
-		private int buffers;
-		private int prefill;
-		private int resyncAt;
-		private int samplingRate;
+
+		public Line Link { get; }
+		public List<Channel> Channels;
+		
+		public MMDevice InputDevice
+		{
+			get
+			{
+				return Capture.Device;
+			}
+		}
+
+		public MMDevice OutputDevice
+		{
+			get
+			{
+				return Render.Device;
+			}
+		}
+
+		MenuItem captureContext;
+		MenuItem renderContext;
+
 		public static ReadOnlyCollection<int> BitsPerSampleOptions = new ReadOnlyCollection<int>(new int[] { 8, 16, 18, 20, 22, 24, 32 });
 		public static ReadOnlyCollection<int> BufferMsOptions = new ReadOnlyCollection<int>(new int[] { 20, 50, 100, 200, 400, 800, 1000, 2000, 4000, 8000 });
 		public static ReadOnlyCollection<int> PrefillOptions = new ReadOnlyCollection<int>(new int[] { 0, 20, 50, 70, 100 });
@@ -200,7 +266,11 @@ namespace VACARM
 		{
 			get
 			{
-				if (InputDevice.FriendlyName.Length > 31) return InputDevice.FriendlyName.Substring(0, 31);
+				if (InputDevice.FriendlyName.Length > 31)
+				{
+					return InputDevice.FriendlyName.Substring(0, 31);
+				}
+
 				return InputDevice.FriendlyName;
 			}
 		}
@@ -209,7 +279,11 @@ namespace VACARM
 		{
 			get
 			{
-				if (OutputDevice.FriendlyName.Length > 31) return OutputDevice.FriendlyName.Substring(0, 31);
+				if (OutputDevice.FriendlyName.Length > 31)
+				{
+					return OutputDevice.FriendlyName.Substring(0, 31);
+				}
+
 				return OutputDevice.FriendlyName;
 			}
 		}
@@ -222,7 +296,10 @@ namespace VACARM
 			}
 			set
 			{
-				if (File.Exists(value)) path = value;
+				if (File.Exists(value))
+				{
+					path = value;
+				}
 			}
 		}
 
@@ -333,7 +410,6 @@ namespace VACARM
 		{
 			RepeaterMenu menu = new RepeaterMenu(this, graph);
 			menu.Owner = MainWindow.GraphMap.Parent as Window;
-
 			menu.ShowDialog();
 		}
 
