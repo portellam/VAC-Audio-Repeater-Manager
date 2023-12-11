@@ -9,13 +9,20 @@ namespace VACARM
 {
     class DefaultData
     {
+        /// <summary>
+        /// File and pathnames
+        /// </summary>
         private const string DefaultRepeaterPartialPath = @"\data\defaultrepeater";
         public const string FileExtension = ".vac";
         public const string SavePartialPath = @"\save";
         public static readonly string Path = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialPath}";
         public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}";
+
         private static string[] data;
 
+        /// <summary>
+        /// The Channel Configuration
+        /// </summary>
         public static ChannelConfig ChannelConfig
         {
             get
@@ -34,6 +41,9 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// The amount of bits per sample.
+        /// </summary>
         public static int BitsPerSample
         {
             get
@@ -47,6 +57,9 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// The buffer time in milliseconds.
+        /// </summary>
         public static int BufferMs
         {
             get
@@ -60,6 +73,9 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// The amount of short-term data particles.
+        /// </summary>
         public static int Buffers
         {
             get
@@ -99,6 +115,9 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// The sampling rate in KiloHertz.
+        /// </summary>
         public static int SamplingRate
         {
             get
@@ -112,6 +131,9 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// The default device graph.
+        /// </summary>
         public static string DefaultGraph
         {
             get
@@ -130,6 +152,9 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// The repeater path.
+        /// </summary>
         public static string RepeaterPath
         {
             get
@@ -143,6 +168,9 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// The name of the window.
+        /// </summary>
         public static string WindowName
         {
             get
@@ -156,39 +184,45 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// Check file for existing Repeater configuration.
+        /// </summary>
         public static void CheckFile()
         {
             if (!File.Exists(Path))
             {
-                File.WriteAllText(Path, "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\");
+                string defaultRepeaterAndPathName = "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\";
+                File.WriteAllText(Path, defaultRepeaterAndPathName);
             }
 
             data = File.ReadAllLines(Path);
             Directory.CreateDirectory(SavePath);
             string[] networks = Directory.GetFiles(SavePath).Where(x => x.EndsWith(".vac")).ToArray();
 
-            if (networks.Length == 0)
-            {
-                DefaultGraph = "\\";
-            }
-
             if (networks.Length == 1)
             {
                 DefaultGraph = networks[0].Replace($@"{SavePath}\", "");
             }
 
-            if (DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}"))
+            if ((networks.Length == 0 ||
+                (DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}"))))
             {
                 DefaultGraph = "\\";
             }
         }
 
+        /// <summary>
+        /// Refresh graph data from file.
+        /// </summary>
         public static void Refresh()
         {
             CheckFile();
             data = File.ReadAllLines(Path);
         }
 
+        /// <summary>
+        /// Save graph data to file.
+        /// </summary>
         private static void Save()
         {
             File.WriteAllLines(Path, data);
