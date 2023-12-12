@@ -14,6 +14,9 @@ namespace VACARM
         public List<string> WaveInName { get; set; }
         public List<string> WaveOutName { get; set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public DeviceList()
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
