@@ -132,7 +132,7 @@ namespace VACARM
         /// <param name="bipartiteDeviceGraph">The graph.</param>
         /// <param name="streamReader">The text stream.</param>
         /// <returns>The graph.</returns>
-        protected internal virtual DeviceControl[] getListOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, StreamReader streamReader)
+        private static DeviceControl[] getListOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, StreamReader streamReader)
         {
             int vertexCount = int.Parse(streamReader.ToString());
             DeviceControl[] deviceControlList = new DeviceControl[vertexCount];
@@ -172,7 +172,7 @@ namespace VACARM
         /// <param name="deviceControlList">The devices.</param>
         /// <param name="streamReader">The text stream.</param>
         /// <returns>The graph.</returns>
-        protected internal virtual BipartiteDeviceGraph getGraphOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, DeviceControl[] deviceControlList, StreamReader streamReader)
+        private static BipartiteDeviceGraph getGraphOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, DeviceControl[] deviceControlList, StreamReader streamReader)
         {
             int vertexCount = int.Parse(streamReader.ToString());
             int bufferCount = 8;
