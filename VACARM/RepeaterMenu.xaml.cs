@@ -16,36 +16,41 @@ using VACARM;
 
 namespace VACARM
 {
-    /// <summary>
-    /// Interaction logic for RepeaterMenu.xaml
-    /// </summary>
-    public partial class RepeaterMenu : Window
+	/// <summary>
+	/// Interaction logic for RepeaterMenu.xaml
+	/// </summary>
+	public partial class RepeaterMenu : Window
     {
-        private BipartiteDeviceGraph graph;
+        private BipartiteDeviceGraph bipartiteDeviceGraph;
 
-        private RepeaterInfo info;
+        private RepeaterInfo repeaterInfo;
 
-        public RepeaterInfo Info
+        public RepeaterInfo RepeaterInfo
         {
             get
             {
-                return info;
+                return repeaterInfo;
             }
             set
             {
-                info = value;
-                info.OnPropertyChanged("SamplingRate");
-                info.OnPropertyChanged("BitsPerSample");
-                info.OnPropertyChanged("ChannelConfig");
-                info.OnPropertyChanged("ChannelMask");
-                info.OnPropertyChanged("BufferMs");
-                info.OnPropertyChanged("Buffers");
-                info.OnPropertyChanged("Prefill");
-                info.OnPropertyChanged("ResyncAt");
+                repeaterInfo = value;
+                repeaterInfo.OnPropertyChanged("SamplingRate");
+                repeaterInfo.OnPropertyChanged("BitsPerSample");
+                repeaterInfo.OnPropertyChanged("ChannelConfig");
+                repeaterInfo.OnPropertyChanged("ChannelMask");
+                repeaterInfo.OnPropertyChanged("BufferMs");
+                repeaterInfo.OnPropertyChanged("Buffers");
+                repeaterInfo.OnPropertyChanged("Prefill");
+                repeaterInfo.OnPropertyChanged("ResyncAt");
             }
         }
 
-        public RepeaterMenu(RepeaterInfo info, BipartiteDeviceGraph graph)
+        /// <summary>
+        /// Populates submenu with each repeater and its' information.
+        /// </summary>
+        /// <param name="repeaterInfo">The repeater info</param>
+        /// <param name="bipartiteDeviceGraph">The graph</param>
+        public RepeaterMenu(RepeaterInfo repeaterInfo, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
             InitializeComponent();
 
@@ -53,40 +58,50 @@ namespace VACARM
 
             for (int i = 0; i < channelList.Count; i++)
             {
-                Channel c = channelList[i];
+                Channel channel = channelList[i];
 
-                TextBlock text = new TextBlock();
-                text.Text = c.ToString();
-                Grid.SetRow(text, 0);
-                Grid.SetColumn(text, i);
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = channel.ToString();
+                Grid.SetRow(textBlock, 0);
+                Grid.SetColumn(textBlock, i);
 
                 CheckBox checkBox = new CheckBox();
-                checkBox.Tag = c;
+                checkBox.Tag = channel;
                 Grid.SetRow(checkBox, 1);
                 Grid.SetColumn(checkBox, i);
                 Binding bindChannel = new Binding("ChannelMask");
-                bindChannel.Converter = new ChannelConverter(info);
-                bindChannel.ConverterParameter = (int)c;
-                bindChannel.Source = info;
+                bindChannel.Converter = new ChannelConverter(repeaterInfo);
+                bindChannel.ConverterParameter = (int)channel;
+                bindChannel.Source = repeaterInfo;
                 checkBox.SetBinding(CheckBox.IsCheckedProperty, bindChannel);
 
-                channels.Children.Add(text);
+                channels.Children.Add(textBlock);
                 channels.Children.Add(checkBox);
             }
 
-            Info = info;
-            DataContext = Info;
-            this.graph = graph;
+            RepeaterInfo = repeaterInfo;
+            DataContext = RepeaterInfo;
+            this.bipartiteDeviceGraph = bipartiteDeviceGraph;
         }
 
-        private void Okay_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Closes window given button click.
+        /// </summary>
+        /// <param name="sender">The sender value</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
+        private void Okay_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             Close();
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Removes edge given button click.
+        /// </summary>
+        /// <param name="sender">The sender value</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
+        private void deleteButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            graph.RemoveEdge(info.Capture, info.Render);
+            bipartiteDeviceGraph.RemoveEdge(repeaterInfo.Capture, repeaterInfo.Render);
             Close();
         }
     }
@@ -94,29 +109,51 @@ namespace VACARM
 [ValueConversion(typeof(int), typeof(bool))]
 public class ChannelConverter : IValueConverter
 {
-    RepeaterInfo info;
+    RepeaterInfo repeaterInfo;
 
-    public ChannelConverter(RepeaterInfo info)
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="repeaterInfo">The repeater info</param>
+    public ChannelConverter(RepeaterInfo repeaterInfo)
     {
-        this.info = info;
+        this.repeaterInfo = repeaterInfo;
     }
 
-    //channelmask to channel bool
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    /// <summary>
+    /// Convert channel mask to boolean.
+    /// </summary>
+    /// <param name="value">The boolean value</param>
+    /// <param name="targetType">The target data type</param>
+    /// <param name="parameter">The mask integer value</param>
+    /// <param name="cultureInfo">The culture info</param>
+    /// <returns>True/False</returns>
+    public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
     {
         int bit = (int)parameter;
         int val = (int)value;
         return (val & bit) != 0;
     }
 
-    //bool to channelmask
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    /// <summary>
+    /// Convert boolean to channel mask.
+    /// </summary>
+    /// <param name="value">The boolean value</param>
+    /// <param name="targetType">The target data type</param>
+    /// <param name="parameter">The mask integer value</param>
+    /// <param name="cultureInfo">The culture info</param>
+    /// <returns>The channel mask</returns>
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
     {
-        int mask = info.ChannelMask;
+        int mask = repeaterInfo.ChannelMask;
         int bit = (int)parameter;
         bool check = (bool)value;
 
-        if (check) return mask | bit;
-        else return mask & ~bit;
+        if (check)
+        {
+            return mask | bit;
+        }
+        
+        return mask & ~bit;
     }
 }
