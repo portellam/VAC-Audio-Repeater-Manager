@@ -372,12 +372,12 @@ namespace VACARM
 		{
 			captureContext = new MenuItem();
 			captureContext.Header = renderDeviceControl.DeviceName;
-			captureContext.Click += context_Click;
+			captureContext.Click += ContextClick;
 			captureDeviceControl.ContextMenu.Items.Add(captureContext);
 
 			renderContext = new MenuItem();
 			renderContext.Header = captureDeviceControl.DeviceName;
-			renderContext.Click += context_Click;
+			renderContext.Click += ContextClick;
 			renderDeviceControl.ContextMenu.Items.Add(renderContext);
 
 			Capture = captureDeviceControl;
@@ -430,6 +430,39 @@ namespace VACARM
 		}
 
 		/// <summary>
+		/// Show dialog for click on repeater.
+		/// </summary>
+		/// <param name="sender">The sender</param>
+		/// <param name="routedEventArgs">The event arguments</param>
+		private void ContextClick(object sender, System.Windows.RoutedEventArgs routedEventArgs)
+		{
+			RepeaterMenu repeaterMenu = new RepeaterMenu(this, graph);
+			repeaterMenu.Owner = MainWindow.GraphMap.Parent as Window;
+			repeaterMenu.ShowDialog();
+		}
+
+		public void OnPropertyChanged(string name)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+		}
+
+		/// <summary>
+		/// Sets the repeater info data.
+		/// </summary>
+		/// <param name="info"></param>
+		public void SetData(List<string> info)
+		{
+			SamplingRate = int.Parse(info[0]);
+			BitsPerSample = int.Parse(info[1]);
+			ChannelMask = int.Parse(info[2]);
+			ChannelConfig = (ChannelConfig)int.Parse(info[3]);
+			BufferMs = int.Parse(info[4]);
+			Buffers = int.Parse(info[5]);
+			Prefill = int.Parse(info[6]);
+			ResyncAt = int.Parse(info[7]);
+		}
+
+		/// <summary>
 		/// Compiles a terminal command to create and start a repeater given the repeater info.
 		/// </summary>
 		/// <returns>The terminal command</returns>
@@ -465,34 +498,6 @@ namespace VACARM
 				$"{Buffers}\n" +
 				$"{Prefill}\n" +
 				$"{ResyncAt}";
-		}
-		
-		private void context_Click(object sender, System.Windows.RoutedEventArgs e)
-		{
-			RepeaterMenu menu = new RepeaterMenu(this, graph);
-			menu.Owner = MainWindow.GraphMap.Parent as Window;
-			menu.ShowDialog();
-		}
-
-		public void OnPropertyChanged(string name)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-		}
-
-		/// <summary>
-		/// Sets the repeater info data.
-		/// </summary>
-		/// <param name="info"></param>
-		public void SetData(List<string> info)
-		{
-			SamplingRate = int.Parse(info[0]);
-			BitsPerSample = int.Parse(info[1]);
-			ChannelMask = int.Parse(info[2]);
-			ChannelConfig = (ChannelConfig)int.Parse(info[3]);
-			BufferMs = int.Parse(info[4]);
-			Buffers = int.Parse(info[5]);
-			Prefill = int.Parse(info[6]);
-			ResyncAt = int.Parse(info[7]);
 		}
 	}
 
