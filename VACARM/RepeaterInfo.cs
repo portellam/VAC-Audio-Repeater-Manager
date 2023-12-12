@@ -57,6 +57,9 @@ namespace VACARM
 		private int resyncAt;
 		private int samplingRate;
 
+		/// <summary>
+		/// The amount of bits per sample.
+		/// </summary>
 		public int BitsPerSample
 		{
 			get
@@ -77,7 +80,10 @@ namespace VACARM
 				OnPropertyChanged(nameof(BitsPerSample));
 			}
 		}
-		
+	
+		/// <summary>
+		/// The amount of short-term data particles.
+		/// </summary>
 		public int Buffers
 		{
 			get
@@ -99,6 +105,9 @@ namespace VACARM
 			}
 		}
 
+		/// <summary>
+		/// The buffer time in milliseconds.
+		/// </summary>
 		public int BufferMs
 		{
 			get
@@ -120,6 +129,9 @@ namespace VACARM
 			}
 		}
 
+		/// <summary>
+		/// The mask of the current configuration of channels.
+		/// </summary>
 		public int ChannelMask
 		{
 			get
@@ -211,6 +223,9 @@ namespace VACARM
 			}
 		}
 
+		/// <summary>
+		/// The sampling rate in KiloHertz.
+		/// </summary>
 		public int SamplingRate
 		{
 			get
@@ -254,14 +269,37 @@ namespace VACARM
 		MenuItem captureContext;
 		MenuItem renderContext;
 
+		/// <summary>
+		/// Available choices for BitsPerSample.
+		/// </summary>
 		public static ReadOnlyCollection<int> BitsPerSampleOptions = new ReadOnlyCollection<int>(new int[] { 8, 16, 18, 20, 22, 24, 32 });
+
+		/// <summary>
+		/// Available choices for Buffer time in milliseconds.
+		/// </summary>
 		public static ReadOnlyCollection<int> BufferMsOptions = new ReadOnlyCollection<int>(new int[] { 20, 50, 100, 200, 400, 800, 1000, 2000, 4000, 8000 });
+
+		/// <summary>
+		/// Available choices for Prefill.
+		/// </summary>
 		public static ReadOnlyCollection<int> PrefillOptions = new ReadOnlyCollection<int>(new int[] { 0, 20, 50, 70, 100 });
+
+		/// <summary>
+		/// Available choices for ResyncAt.
+		/// </summary>
 		public static ReadOnlyCollection<int> ResyncAtOptions = new ReadOnlyCollection<int>(new int[] { 0, 10, 15, 20, 25, 30, 40, 50 });
+
+		/// <summary>
+		/// Available choices for Sampling rate in KiloHertz.
+		/// </summary>
 		public static ReadOnlyCollection<int> SamplingRateOptions = new ReadOnlyCollection<int>(new int[] { 5000, 8000, 11025, 22050, 44100, 48000, 96000, 192000 });
+
 		private string path;
 		private string windowName;
 
+		/// <summary>
+		/// The input devices's display name.
+		/// </summary>
 		public string Input
 		{
 			get
@@ -275,6 +313,9 @@ namespace VACARM
 			}
 		}
 
+		/// <summary>
+		/// The output device's display name.
+		/// </summary>
 		public string Output
 		{
 			get
@@ -288,6 +329,9 @@ namespace VACARM
 			}
 		}
 
+		/// <summary>
+		/// The file pathname.
+		/// </summary>
 		public string Path
 		{
 			get
@@ -303,6 +347,9 @@ namespace VACARM
 			}
 		}
 
+		/// <summary>
+		/// The window name
+		/// </summary>
 		public string WindowName
 		{
 			get
@@ -315,20 +362,26 @@ namespace VACARM
 			}
 		}
 
-		public RepeaterInfo(DeviceControl capture, DeviceControl render, BipartiteDeviceGraph graph)
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="captureDeviceControl">The capture device</param>
+		/// <param name="renderDeviceControl">The render device</param>
+		/// <param name="bipartiteDeviceGraph">The graph</param>
+		public RepeaterInfo(DeviceControl captureDeviceControl, DeviceControl renderDeviceControl, BipartiteDeviceGraph bipartiteDeviceGraph)
 		{
 			captureContext = new MenuItem();
-			captureContext.Header = render.DeviceName;
+			captureContext.Header = renderDeviceControl.DeviceName;
 			captureContext.Click += context_Click;
-			capture.ContextMenu.Items.Add(captureContext);
+			captureDeviceControl.ContextMenu.Items.Add(captureContext);
 
 			renderContext = new MenuItem();
-			renderContext.Header = capture.DeviceName;
+			renderContext.Header = captureDeviceControl.DeviceName;
 			renderContext.Click += context_Click;
-			render.ContextMenu.Items.Add(renderContext);
+			renderDeviceControl.ContextMenu.Items.Add(renderContext);
 
-			Capture = capture;
-			Render = render;
+			Capture = captureDeviceControl;
+			Render = renderDeviceControl;
 			Link = new Line
 			{
 				Stroke = Brushes.White,
@@ -338,28 +391,28 @@ namespace VACARM
 			Binding bx1 = new Binding("X")
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-				Source = capture
+				Source = captureDeviceControl
 			};
 			Link.SetBinding(Line.X1Property, bx1);
 
 			Binding by1 = new Binding("Y")
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-				Source = capture
+				Source = captureDeviceControl
 			};
 			Link.SetBinding(Line.Y1Property, by1);
 
 			Binding bx2 = new Binding("X")
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-				Source = render
+				Source = renderDeviceControl
 			};
 			Link.SetBinding(Line.X2Property, bx2);
 
 			Binding by2 = new Binding("Y")
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-				Source = render
+				Source = renderDeviceControl
 			};
 			Link.SetBinding(Line.Y2Property, by2);
 
@@ -373,9 +426,13 @@ namespace VACARM
 			WindowName = DefaultData.WindowName;
 			Path = DefaultData.RepeaterPath;
 
-			this.graph = graph;
+			this.graph = bipartiteDeviceGraph;
 		}
 
+		/// <summary>
+		/// Compiles a terminal command to create and start a repeater given the repeater info.
+		/// </summary>
+		/// <returns>The terminal command</returns>
 		public string ToCommand()
 		{
 			return $"start " +
@@ -393,6 +450,10 @@ namespace VACARM
 				$"/AutoStart";
 		}
 
+		/// <summary>
+		/// Returns the repeater info as a string.
+		/// </summary>
+		/// <returns>The repeater info</returns>
 		public string ToSaveData()
 		{
 			return
@@ -418,6 +479,10 @@ namespace VACARM
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
+		/// <summary>
+		/// Sets the repeater info data.
+		/// </summary>
+		/// <param name="info"></param>
 		public void SetData(List<string> info)
 		{
 			SamplingRate = int.Parse(info[0]);
@@ -431,6 +496,9 @@ namespace VACARM
 		}
 	}
 
+	/// <summary>
+	/// The masks of individual speakers/channels.
+	/// </summary>
 	public enum Channel
 	{
 		FL = 0x1,
@@ -446,6 +514,9 @@ namespace VACARM
 		SR = 0x400
 	}
 
+	/// <summary>
+	/// The masks of speaker layout/channel amounts.
+	/// </summary>
 	public enum ChannelConfig
 	{
 		Custom = -1,
