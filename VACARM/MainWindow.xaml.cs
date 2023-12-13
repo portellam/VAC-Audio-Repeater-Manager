@@ -121,7 +121,7 @@ namespace VACARM
         /// <summary>
         /// Click event for AddDevice.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event arguments</param>
         private void addDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -131,7 +131,7 @@ namespace VACARM
         /// <summary>
         /// Loads existing graph on click event.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event arguments</param>
         private void loadGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -171,7 +171,7 @@ namespace VACARM
         /// <summary>
         /// Click event: Unselects previously selected device on existing graph.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="mouseButtonEventArgs">The mouse button event arguments</param>
         private void graphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
@@ -247,7 +247,7 @@ namespace VACARM
         /// <summary>
         /// Click event for RemoveDevice.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event arguments</param>
         private void removeDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -274,7 +274,7 @@ namespace VACARM
         /// <summary>
         /// Click event for Restart.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event arguments</param>
         private void restart_Click(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -316,7 +316,7 @@ namespace VACARM
         /// <summary>
         /// Click event for SaveGraph.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event arguments</param>
         private void saveGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -334,7 +334,7 @@ namespace VACARM
         /// <summary>
         /// Click event for StartStop.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event arguments</param>
         private void startStop_Click(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -394,7 +394,7 @@ namespace VACARM
         /// <summary>
         /// Click event for toolbar selection.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event arguments</param>
         private void toolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -413,7 +413,7 @@ namespace VACARM
         /// P = start/stop engine
         /// 
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="keyEventArgs">The key event arguments</param>
         private void window_KeyUp(object sender, KeyEventArgs keyEventArgs)
         {
@@ -450,7 +450,7 @@ namespace VACARM
         /// <summary>
         /// Stops engine when window closes.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="cancelEventArgs">The cancel event arguments</param>
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs cancelEventArgs)
         {

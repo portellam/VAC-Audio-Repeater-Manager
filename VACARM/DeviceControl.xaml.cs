@@ -139,7 +139,7 @@ namespace VACARM
         /// <summary>
         /// Event logic for Mouse left button up.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="mouseButtonEventArgs">The mouse button event arguments</param>
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
@@ -165,7 +165,7 @@ namespace VACARM
         /// <summary>
         /// Event logic for Mouse left button up.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="mouseButtonEventArgs">The mouse button event arguments</param>
         private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
@@ -180,7 +180,7 @@ namespace VACARM
         /// <summary>
         /// Preview mouse movement if selected tool is not a hand and left button is not pressed.
         /// </summary>
-        /// <param name="sender">The sender object</param>
+        /// <param name="sender">The sender</param>
         /// <param name="mouseEventArgs">The mouse event arguments</param>
         private void UserControl_PreviewMouseMove(object sender, MouseEventArgs mouseEventArgs)
         {
