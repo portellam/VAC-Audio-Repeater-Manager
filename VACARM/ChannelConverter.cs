@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace VACARM
 {
-    [ValueConversion(typeof(int), typeof(bool))]
+	[ValueConversion(typeof(int), typeof(bool))]
     public class ChannelConverter : IValueConverter
     {
         RepeaterInfo repeaterInfo;
