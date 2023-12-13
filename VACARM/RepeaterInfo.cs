@@ -248,6 +248,18 @@ namespace VACARM
 
 		public Line Link { get; }
 		public List<Channel> Channels;
+
+		public readonly List<string> repeaterInfoPropertyList = new List<string>()
+		{
+			nameof(BitsPerSample),
+			nameof(Buffers),
+			nameof(BufferMs),
+			nameof(ChannelConfig),
+			nameof(ChannelMask),
+			nameof(Prefill),
+			nameof(ResyncAt),
+			nameof(SamplingRate)
+		};
 		
 		public MMDevice InputDevice
 		{

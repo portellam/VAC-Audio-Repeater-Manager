@@ -13,7 +13,6 @@ namespace VACARM
 	public partial class RepeaterMenu : Window
     {
         private BipartiteDeviceGraph bipartiteDeviceGraph;
-
         private RepeaterInfo repeaterInfo;
 
         public RepeaterInfo RepeaterInfo
@@ -25,14 +24,11 @@ namespace VACARM
             set
             {
                 repeaterInfo = value;
-                repeaterInfo.OnPropertyChanged("SamplingRate");
-                repeaterInfo.OnPropertyChanged("BitsPerSample");
-                repeaterInfo.OnPropertyChanged("ChannelConfig");
-                repeaterInfo.OnPropertyChanged("ChannelMask");
-                repeaterInfo.OnPropertyChanged("BufferMs");
-                repeaterInfo.OnPropertyChanged("Buffers");
-                repeaterInfo.OnPropertyChanged("Prefill");
-                repeaterInfo.OnPropertyChanged("ResyncAt");
+
+                foreach (string propertyName in RepeaterInfo.repeaterInfoPropertyList)
+                {
+                    repeaterInfo.OnPropertyChanged(propertyName);
+                }
             }
         }
 
