@@ -218,7 +218,7 @@ namespace VACARM
             RegisterHotKey(_windowHandle, HOTKEY_ID, MOD_NONE, VK_SCROLL);
         }
 
-        public void RemoveDevice()              // NOTE: must this be public? TODO: evaluate.
+        private void RemoveDevice()
         {
             if (DeviceControl.SelectedControl == null)
             {
@@ -250,7 +250,7 @@ namespace VACARM
             Restart();
         }
 
-        public void RunCommand(string command)  // NOTE: must this be public? TODO: evaluate.
+        private void RunCommand(string command)
         {
             Process process = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
