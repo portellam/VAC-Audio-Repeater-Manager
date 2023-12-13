@@ -182,7 +182,7 @@ namespace VACARM
 			}
 		}
 
-		public int Prefill
+		public int Prefill	//TODO: understand and explain this parameter.
 		{
 			get
 			{
@@ -203,7 +203,7 @@ namespace VACARM
 			}
 		}
 
-		public int ResyncAt
+		public int ResyncAt //TODO: understand and explain this parameter.
 		{
 			get
 			{
