@@ -1,29 +1,21 @@
 ﻿using NAudio.CoreAudioApi;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace VACARM
 {
-    /// <summary>
-    /// Interaction logic for AddDeviceDialog.xaml
-    /// </summary>
-    public partial class AddDeviceDialog : Window
+	/// <summary>
+	/// Interaction logic for AddDeviceDialog.xaml
+	/// </summary>
+	public partial class AddDeviceDialog : Window
     {
-        public MMDevice Device;
+        public MMDevice mMDevice;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AddDeviceDialog()
         {
             InitializeComponent();
@@ -35,7 +27,7 @@ namespace VACARM
             if (selectDeviceType.SelectedIndex == -1 || selectDevice.SelectedIndex == -1) return;
 
             List<MMDevice> devices = (selectDeviceType.SelectedIndex == 0) ? (DataContext as DeviceList).WaveIn : (DataContext as DeviceList).WaveOut;
-            Device = devices[selectDevice.SelectedIndex];
+            mMDevice = devices[selectDevice.SelectedIndex];
 
             Close();
         }
