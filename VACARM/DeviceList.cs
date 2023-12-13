@@ -1,13 +1,10 @@
 ﻿using NAudio.CoreAudioApi;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VACARM
 {
-    class DeviceList
+	class DeviceList
     {
         public List<MMDevice> WaveIn { get; set; }
         public List<MMDevice> WaveOut { get; set; }
