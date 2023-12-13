@@ -1,4 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,32 +23,73 @@ namespace VACARM
             DataContext = new DeviceList();
         }
 
-        private void okButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Cancel event if button is clicked.
+        /// </summary>
+        /// <param name="sender">The sender</param>
+        /// <param name="routedEventArgs">The routed event</param>
+        private void CancelButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (selectDeviceType.SelectedIndex == -1 || selectDevice.SelectedIndex == -1) return;
+            Close();
+        }
+
+        /// <summary>
+        /// Closes window for given device when Ok button is clicked.
+        /// </summary>
+        /// <param name="sender">The sender</param>
+        /// <param name="routedEventArgs">The routed event</param>
+        private void OkButton_Click(object sender, RoutedEventArgs routedEventArgs)
+        {
+            if (selectDeviceType.SelectedIndex == -1 || selectDevice.SelectedIndex == -1)
+            {
+                return;
+            }
 
             List<MMDevice> devices = (selectDeviceType.SelectedIndex == 0) ? (DataContext as DeviceList).WaveIn : (DataContext as DeviceList).WaveOut;
             mMDevice = devices[selectDevice.SelectedIndex];
-
             Close();
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Select device type (Wave In or Wave Out) if selection has changed.
+        /// </summary>
+        /// <param name="sender">The sender</param>
+        /// <param name="selectionChangedEventArgs">The selection changed event</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        private void SelectDeviceType_SelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
-            Close();
+			if (sender is null)
+			{
+				throw new ArgumentNullException(nameof(sender));
+			}
+
+			if (selectionChangedEventArgs is null)
+			{
+				throw new ArgumentNullException(nameof(selectionChangedEventArgs));
+			}
+
+			selectDevice.SelectedIndex = -1;
+            
+            if (selectDeviceType.SelectedIndex == 0)
+            {
+                selectDevice.ItemsSource = (DataContext as DeviceList).WaveInName;
+                return;
+            }
+            
+            selectDevice.ItemsSource = (DataContext as DeviceList).WaveOutName;
         }
 
-        private void selectDeviceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Allow window drag if left mouse button is clicked.
+        /// </summary>
+        /// <param name="sender">The sender</param>
+        /// <param name="mouseButtonEventArgs">The mouse button event</param>
+        private void Window_MouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            selectDevice.SelectedIndex = -1;
-            if (selectDeviceType.SelectedIndex == 0) selectDevice.ItemsSource = (DataContext as DeviceList).WaveInName;
-            else selectDevice.ItemsSource = (DataContext as DeviceList).WaveOutName;
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
+            if (mouseButtonEventArgs.ChangedButton == MouseButton.Left)
+            {
                 DragMove();
+            }
         }
     }
 }
