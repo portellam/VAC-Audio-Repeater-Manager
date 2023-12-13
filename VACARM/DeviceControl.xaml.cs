@@ -13,7 +13,10 @@ namespace VACARM
 	public partial class DeviceControl : UserControl, INotifyPropertyChanged
     {
         private static DeviceControl selectedControl;
-
+        private double left;
+        private Point start;
+        public static DeviceControl InitialLink;
+        
         public static DeviceControl SelectedControl
         {
             get
@@ -22,22 +25,28 @@ namespace VACARM
             }
             set
             {
-                if (selectedControl != null) selectedControl.deviceBackground.Background = (selectedControl.Device.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
-                if (value != null) value.deviceBackground.Background = Brushes.AliceBlue;
+                if (selectedControl != null)
+                {
+                    selectedControl.deviceBackground.Background = (selectedControl.Device.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
+                }
+
+                if (value != null)
+                {
+                    value.deviceBackground.Background = Brushes.AliceBlue;
+                }
+
                 selectedControl = value;
             }
         }
-        public static DeviceControl InitialLink;
 
         public BipartiteDeviceGraph Graph { get; }
 
-        public MMDevice Device;
-
-        public DataFlow DataFlow { 
+        public DataFlow DataFlow
+        {
             get
             {
                 return Device.DataFlow;
-            } 
+            }
         }
 
         public DeviceState State
@@ -47,6 +56,8 @@ namespace VACARM
                 return Device.State;
             }
         }
+
+        public MMDevice Device;
 
         public string ID
         {
@@ -64,8 +75,6 @@ namespace VACARM
             }
         }
 
-        private double left;
-
         public double Left
         {
             get
@@ -75,13 +84,14 @@ namespace VACARM
             set
             {
                 left = value;
-                OnPropertyChanged("Left");
+                OnPropertyChanged(nameof(Left));
                 X = value + Width / 2;
-                OnPropertyChanged("X");
+                OnPropertyChanged(nameof(X));
             }
         }
 
         private double top;
+        
         public double Top
         {
             get
@@ -91,84 +101,123 @@ namespace VACARM
             set
             {
                 top = value;
-                OnPropertyChanged("Top");
+                OnPropertyChanged(nameof(Top));
                 Y = value + Height / 2;
-                OnPropertyChanged("Y");
+                OnPropertyChanged(nameof(Y));
             }
         }
 
         public double X { get; set; }
         public double Y { get; set; }
-
-        private Point start;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public DeviceControl(MMDevice device, BipartiteDeviceGraph graph)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mMDevice">The device</param>
+        /// <param name="bipartiteDeviceGraph">The graph</param>
+        public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
             InitializeComponent();
-
-            
-            Device = device;
-            Graph = graph;
+            Device = mMDevice;
+            Graph = bipartiteDeviceGraph;
             Panel.SetZIndex(this, 1);
-            deviceBackground.Background = (device.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
-            txtDeviceName.Text = device.FriendlyName;
-
+            deviceBackground.Background = (mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
+            txtDeviceName.Text = mMDevice.FriendlyName;
             ContextMenu = new ContextMenu();
         }
 
-        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+		/// Logs event when DeviceControl property has changed.
+		/// </summary>
+		/// <param name="propertyName">The property name</param>
+        public void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Event logic for Mouse left button up.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="mouseButtonEventArgs">The mouse button event arguments</param>
+        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             SelectedControl = this;
+
             if (MainWindow.SelectedTool == "Hand")
             {
                 start = Mouse.GetPosition(sender as UIElement);
                 Panel.SetZIndex(this, 2);
+                return;
             }
-            else
+
+            if (InitialLink == null)
             {
-                if (InitialLink == null) InitialLink = this;
-                else
-                {
-                    Graph.AddEdge(InitialLink, this);
-                    InitialLink = null;
-                }
+                InitialLink = this;
+                return;
             }
+
+            Graph.AddEdge(InitialLink, this);
+            InitialLink = null;
         }
 
-        private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (MainWindow.SelectedTool == "Hand") Panel.SetZIndex(this, 1);
-            SelectedControl = this;
-        }
-
-        private void UserControl_PreviewMouseMove(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Event logic for Mouse left button up.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="mouseButtonEventArgs">The mouse button event arguments</param>
+        private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             if (MainWindow.SelectedTool == "Hand")
             {
-                var draggableControl = sender as UserControl;
-                var parentControl = Parent as Canvas;
-
-                if (e.LeftButton == MouseButtonState.Pressed)
-                {
-                    var currPos = Mouse.GetPosition(draggableControl);
-
-                    double nx = currPos.X - start.X + Left;
-                    if (nx < 0) nx = 0;
-                    if (nx + Width > parentControl.ActualWidth) nx = parentControl.ActualWidth - Width;
-                    double ny = currPos.Y - start.Y + Top;
-                    if (ny < 0) ny = 0;
-                    if (ny + Height > parentControl.ActualHeight) ny = parentControl.ActualHeight - Height;
-                    Left = nx;
-                    Top = ny;
-                }
+                Panel.SetZIndex(this, 1);
             }
+
+            SelectedControl = this;
+        }
+
+        /// <summary>
+        /// Preview mouse movement if selected tool is not a hand and left button is not pressed.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="mouseEventArgs">The mouse event arguments</param>
+        private void UserControl_PreviewMouseMove(object sender, MouseEventArgs mouseEventArgs)
+        {
+            if (MainWindow.SelectedTool != "Hand" || mouseEventArgs.LeftButton != MouseButtonState.Pressed)
+            {
+                return;
+            }
+
+            var draggableControl = sender as UserControl;
+            var parentControl = Parent as Canvas;
+            var currentPosition = Mouse.GetPosition(draggableControl);
+            double left = currentPosition.X - start.X + Left;
+
+            if (left < 0)
+            {
+                left = 0;
+            }
+
+            if (left + Width > parentControl.ActualWidth)
+            {
+                left = parentControl.ActualWidth - Width;
+            }
+
+            double top = currentPosition.Y - start.Y + Top;
+
+            if (top < 0)
+            {
+                top = 0;
+            }
+
+            if (top + Height > parentControl.ActualHeight)
+            {
+                top = parentControl.ActualHeight - Height;
+            }
+
+            Left = left;
+            Top = top;
         }
     }
 }
