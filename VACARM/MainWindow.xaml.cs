@@ -178,12 +178,17 @@ namespace VACARM
             GC.Collect();
         }
 
+        /// <summary>
+        /// Click event: Unselects previously selected device on existing graph.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="mouseButtonEventArgs">The mouse button event arguments</param>
         private void graphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             DeviceControl.SelectedControl = null;
         }
 
-        private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)   //TODO: explain operation of this method.
         {
             const int WM_HOTKEY = 0x0312;
 
@@ -396,6 +401,11 @@ namespace VACARM
             ResetActiveRepeaters();
         }
 
+        /// <summary>
+        /// Click event for toolbar selection.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
         private void toolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             SelectedTool = ((RadioButton)sender).Tag.ToString();
