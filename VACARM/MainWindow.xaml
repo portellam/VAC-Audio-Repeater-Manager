@@ -8,8 +8,8 @@
         Title="VACARM" 
         Height="720" Width="1280"
         Background="#222222" Foreground="White" FontSize="16"
-        KeyUp="window_KeyUp"
-        Closing="window_Closing">
+        KeyUp="Window_KeyUp"
+        Closing="Window_Closing">
     <Window.Resources>
         <Style x:Key="GraySquareToggleButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="#222222"/>
@@ -32,7 +32,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="ToolTip" Value="{Binding Tag, RelativeSource={RelativeSource Self}}"/>
-            <EventSetter Event="Click" Handler="toolBarSelect_Click"/>
+            <EventSetter Event="Click" Handler="ToolBarSelect_Click"/>
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="4"/>
@@ -98,7 +98,7 @@
 
         <!-- Graph area -->
         <Canvas x:Name="graphCanvas" Grid.Column="1" Background="#111111" 
-                PreviewMouseLeftButtonUp="graphCanvas_MouseLeftButtonClick"/>
+                PreviewMouseLeftButtonUp="GraphCanvas_MouseLeftButtonClick"/>
 
         <!-- Buttons -->
         <Grid Grid.Column="0" Height="154" VerticalAlignment="Top">
@@ -115,12 +115,12 @@
 
             <RadioButton x:Name="handTool" Grid.Column="0" Grid.Row="0" Tag="Hand" Content="{StaticResource HandIcon}" Style="{StaticResource GraySquareToggleButtonStyle}" IsChecked="True"/>
             <RadioButton x:Name="linkTool" Grid.Column="1" Grid.Row="0" Tag="Link" Content="{StaticResource LinkIcon}" Style="{StaticResource GraySquareToggleButtonStyle}"/>
-            <Button Grid.Column="0" Grid.Row="1" Tag="Load Graph" Content="{StaticResource LoadIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="loadGraph_Click"/>
-            <Button Grid.Column="1" Grid.Row="1" Tag="Save Graph" Content="{StaticResource SaveIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="saveGraph_Click"/>
-            <Button Grid.Column="0" Grid.Row="2" Tag="Add Device" Content="{StaticResource AddIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="addDevice_Click"/>
-            <Button Grid.Column="1" Grid.Row="2" Tag="Remove Device" Content="{StaticResource RemoveIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="removeDevice_Click"/>
-            <Button Grid.Column="0" Grid.Row="3" Tag="Restart Engine" Content="{StaticResource RestartIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="restart_Click"/>
-            <Button x:Name="startStopTool" Grid.Column="1" Grid.Row="3" Tag="Start/Stop" Content="{StaticResource PlayIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="startStop_Click"/>
+            <Button Grid.Column="0" Grid.Row="1" Tag="Load Graph" Content="{StaticResource LoadIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="LoadGraph_Click"/>
+            <Button Grid.Column="1" Grid.Row="1" Tag="Save Graph" Content="{StaticResource SaveIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="SaveGraph_Click"/>
+            <Button Grid.Column="0" Grid.Row="2" Tag="Add Device" Content="{StaticResource AddIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="AddDevice_Click"/>
+            <Button Grid.Column="1" Grid.Row="2" Tag="Remove Device" Content="{StaticResource RemoveIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="RemoveDevice_Click"/>
+            <Button Grid.Column="0" Grid.Row="3" Tag="Restart Engine" Content="{StaticResource RestartIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="Restart_Click"/>
+            <Button x:Name="startStopTool" Grid.Column="1" Grid.Row="3" Tag="Start/Stop" Content="{StaticResource PlayIcon}" Style="{StaticResource GraySquareButtonStyle}" Click="StartStop_Click"/>
         </Grid>
     </Grid>
 </Window>

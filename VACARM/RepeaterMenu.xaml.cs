@@ -76,7 +76,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender value</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void deleteButton_Click(object sender, RoutedEventArgs routedEventArgs)
+        private void DeleteButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             bipartiteDeviceGraph.RemoveEdge(repeaterInfo.Capture, repeaterInfo.Render);
             Close();
@@ -87,7 +87,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender value</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void okay_Click(object sender, RoutedEventArgs routedEventArgs)
+        private void Okay_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             Close();
         }

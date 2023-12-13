@@ -115,8 +115,8 @@ namespace VACARM
                 return bipartiteDeviceGraph;
             }
 
-            DeviceControl[] deviceControlList = getListOfVertices(bipartiteDeviceGraph, streamReader);              //TODO: fix me!
-            bipartiteDeviceGraph = getGraphOfVertices(bipartiteDeviceGraph, deviceControlList, streamReader);       //TODO: fix me!
+            DeviceControl[] deviceControlList = GetListOfVertices(bipartiteDeviceGraph, streamReader);              //TODO: fix me!
+            bipartiteDeviceGraph = GetGraphOfVertices(bipartiteDeviceGraph, deviceControlList, streamReader);       //TODO: fix me!
             streamReader.Close();
             return bipartiteDeviceGraph;
         }
@@ -127,7 +127,7 @@ namespace VACARM
         /// <param name="bipartiteDeviceGraph">The graph.</param>
         /// <param name="streamReader">The text stream.</param>
         /// <returns>The graph.</returns>
-        private static DeviceControl[] getListOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, StreamReader streamReader)
+        private static DeviceControl[] GetListOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, StreamReader streamReader)
         {
             int vertexCount = int.Parse(streamReader.ToString());
             DeviceControl[] deviceControlList = new DeviceControl[vertexCount];
@@ -167,7 +167,7 @@ namespace VACARM
         /// <param name="deviceControlList">The devices.</param>
         /// <param name="streamReader">The text stream.</param>
         /// <returns>The graph.</returns>
-        private static BipartiteDeviceGraph getGraphOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, DeviceControl[] deviceControlList, StreamReader streamReader)
+        private static BipartiteDeviceGraph GetGraphOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, DeviceControl[] deviceControlList, StreamReader streamReader)
         {
             int vertexCount = int.Parse(streamReader.ToString());
             int bufferCount = 8;
@@ -228,8 +228,8 @@ namespace VACARM
                 edgesCount += Edge[vertexDeviceControl].Count;
             }
 
-            writeHalfOfEdgesCountToFile(edgesCount, streamWriter);
-            writeEdgeRepeaterInfoToFile(deviceControlIdDictionary, streamWriter);
+            WriteHalfOfEdgesCountToFile(edgesCount, streamWriter);
+            WriteEdgeRepeaterInfoToFile(deviceControlIdDictionary, streamWriter);
             streamWriter.Close();
         }
 
@@ -238,7 +238,7 @@ namespace VACARM
         /// </summary>
         /// <param name="deviceControlIdDictionary"></param>
         /// <param name="streamWriter">The stream writer.</param>
-        protected internal virtual void writeEdgeRepeaterInfoToFile(Dictionary<DeviceControl, int> deviceControlIdDictionary, StreamWriter streamWriter)
+        protected internal virtual void WriteEdgeRepeaterInfoToFile(Dictionary<DeviceControl, int> deviceControlIdDictionary, StreamWriter streamWriter)
         {
             foreach (RepeaterInfo edgeRepeaterInfo in GetEdges())
             {
@@ -253,7 +253,7 @@ namespace VACARM
         /// </summary>
         /// <param name="edgesCount">The edges count.</param>
         /// <param name="streamWriter">The stream writer.</param>
-        protected internal virtual void writeHalfOfEdgesCountToFile(int edgesCount, StreamWriter streamWriter)
+        protected internal virtual void WriteHalfOfEdgesCountToFile(int edgesCount, StreamWriter streamWriter)
         {
             streamWriter.WriteLine(edgesCount / 2);
         }
