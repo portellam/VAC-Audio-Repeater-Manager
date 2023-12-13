@@ -439,9 +439,13 @@ namespace VACARM
 			repeaterMenu.ShowDialog();
 		}
 
-		public void OnPropertyChanged(string name)
+		/// <summary>
+		/// Logs event when RepeaterInfo property has changed.
+		/// </summary>
+		/// <param name="propertyName">The property name</param>
+		public void OnPropertyChanged(string propertyName)
 		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
 		/// <summary>
