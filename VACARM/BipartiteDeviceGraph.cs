@@ -115,8 +115,8 @@ namespace VACARM
                 return bipartiteDeviceGraph;
             }
 
-            DeviceControl[] deviceControlList = GetListOfVertices(bipartiteDeviceGraph, streamReader);              //TODO: fix me!
-            bipartiteDeviceGraph = GetGraphOfVertices(bipartiteDeviceGraph, deviceControlList, streamReader);       //TODO: fix me!
+            DeviceControl[] deviceControlList = GetListOfVertices(bipartiteDeviceGraph, streamReader);             
+            bipartiteDeviceGraph = GetGraphOfVertices(bipartiteDeviceGraph, deviceControlList, streamReader);
             streamReader.Close();
             return bipartiteDeviceGraph;
         }
