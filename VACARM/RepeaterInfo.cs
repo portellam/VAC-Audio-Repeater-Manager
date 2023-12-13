@@ -441,7 +441,7 @@ namespace VACARM
 		/// Show dialog for click on repeater.
 		/// </summary>
 		/// <param name="sender">The sender</param>
-		/// <param name="routedEventArgs">The event arguments</param>
+		/// <param name="routedEventArgs">The event</param>
 		private void ContextClick(object sender, System.Windows.RoutedEventArgs routedEventArgs)
 		{
 			RepeaterMenu repeaterMenu = new RepeaterMenu(this, graph);

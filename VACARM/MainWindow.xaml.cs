@@ -122,7 +122,7 @@ namespace VACARM
         /// Click event for AddDevice.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
+        /// <param name="routedEventArgs">The routed event</param>
         private void addDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             AddDevice();
@@ -132,7 +132,7 @@ namespace VACARM
         /// Loads existing graph on click event.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
+        /// <param name="routedEventArgs">The routed event</param>
         private void loadGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -172,7 +172,7 @@ namespace VACARM
         /// Click event: Unselects previously selected device on existing graph.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="mouseButtonEventArgs">The mouse button event arguments</param>
+        /// <param name="mouseButtonEventArgs">The mouse button event</param>
         private void graphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             DeviceControl.SelectedControl = null;
@@ -218,7 +218,7 @@ namespace VACARM
         /// <summary>
         /// Registers hotkey(s) to Window hook.
         /// </summary>
-        /// <param name="eventArgs">The event arguments</param>
+        /// <param name="eventArgs">The event</param>
         protected override void OnSourceInitialized(EventArgs eventArgs)
         {
             base.OnSourceInitialized(eventArgs);
@@ -248,7 +248,7 @@ namespace VACARM
         /// Click event for RemoveDevice.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
+        /// <param name="routedEventArgs">The routed event</param>
         private void removeDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             RemoveDevice();
@@ -275,7 +275,7 @@ namespace VACARM
         /// Click event for Restart.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
+        /// <param name="routedEventArgs">The routed event</param>
         private void restart_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             Restart();
@@ -317,7 +317,7 @@ namespace VACARM
         /// Click event for SaveGraph.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
+        /// <param name="routedEventArgs">The routed event</param>
         private void saveGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -335,7 +335,7 @@ namespace VACARM
         /// Click event for StartStop.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
+        /// <param name="routedEventArgs">The routed event</param>
         private void startStop_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             StartStop();
@@ -395,7 +395,7 @@ namespace VACARM
         /// Click event for toolbar selection.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
+        /// <param name="routedEventArgs">The routed event</param>
         private void toolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             SelectedTool = ((RadioButton)sender).Tag.ToString();
@@ -414,7 +414,7 @@ namespace VACARM
         /// 
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="keyEventArgs">The key event arguments</param>
+        /// <param name="keyEventArgs">The key event</param>
         private void window_KeyUp(object sender, KeyEventArgs keyEventArgs)
         {
             switch (keyEventArgs.Key)
@@ -451,7 +451,7 @@ namespace VACARM
         /// Stops engine when window closes.
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="cancelEventArgs">The cancel event arguments</param>
+        /// <param name="cancelEventArgs">The cancel event</param>
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs cancelEventArgs)
         {
             StopEngine();
