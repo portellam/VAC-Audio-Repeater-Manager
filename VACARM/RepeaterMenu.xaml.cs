@@ -78,16 +78,6 @@ namespace VACARM
         }
 
         /// <summary>
-        /// Closes window given button click.
-        /// </summary>
-        /// <param name="sender">The sender value</param>
-        /// <param name="routedEventArgs">The routed event arguments</param>
-        private void Okay_Click(object sender, RoutedEventArgs routedEventArgs)
-        {
-            Close();
-        }
-
-        /// <summary>
         /// Removes edge given button click.
         /// </summary>
         /// <param name="sender">The sender value</param>
@@ -97,56 +87,15 @@ namespace VACARM
             bipartiteDeviceGraph.RemoveEdge(repeaterInfo.Capture, repeaterInfo.Render);
             Close();
         }
-    }
-}
-[ValueConversion(typeof(int), typeof(bool))]
-public class ChannelConverter : IValueConverter
-{
-    RepeaterInfo repeaterInfo;
 
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="repeaterInfo">The repeater info</param>
-    public ChannelConverter(RepeaterInfo repeaterInfo)
-    {
-        this.repeaterInfo = repeaterInfo;
-    }
-
-    /// <summary>
-    /// Convert channel mask to boolean.
-    /// </summary>
-    /// <param name="value">The boolean value</param>
-    /// <param name="targetType">The target data type</param>
-    /// <param name="parameter">The mask integer value</param>
-    /// <param name="cultureInfo">The culture info</param>
-    /// <returns>True/False</returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
-    {
-        int bit = (int)parameter;
-        int val = (int)value;
-        return (val & bit) != 0;
-    }
-
-    /// <summary>
-    /// Convert boolean to channel mask.
-    /// </summary>
-    /// <param name="value">The boolean value</param>
-    /// <param name="targetType">The target data type</param>
-    /// <param name="parameter">The mask integer value</param>
-    /// <param name="cultureInfo">The culture info</param>
-    /// <returns>The channel mask</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
-    {
-        int mask = repeaterInfo.ChannelMask;
-        int bit = (int)parameter;
-        bool check = (bool)value;
-
-        if (check)
+        /// <summary>
+        /// Closes window given button click.
+        /// </summary>
+        /// <param name="sender">The sender value</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
+        private void okay_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            return mask | bit;
+            Close();
         }
-        
-        return mask & ~bit;
     }
 }

@@ -43,7 +43,7 @@
         <TextBox x:Name="resyncAt" Text="{Binding Path=ResyncAt, Mode=TwoWay}"/>
         <Button x:Name="deleteButton" Content="Delete Link" Click="deleteButton_Click"/>
         <Grid Margin="150 10 0 0">
-            <Button Content="Okay" Click="Okay_Click"/>
+            <Button Content="Okay" Click="okay_Click"/>
         </Grid>
     </StackPanel>
 </Window>
