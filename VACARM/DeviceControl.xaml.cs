@@ -27,7 +27,7 @@ namespace VACARM
             {
                 if (selectedControl != null)
                 {
-                    selectedControl.deviceBackground.Background = (selectedControl.Device.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
+                    selectedControl.deviceBackground.Background = (selectedControl.mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
                 }
 
                 if (value != null)
@@ -45,7 +45,7 @@ namespace VACARM
         {
             get
             {
-                return Device.DataFlow;
+                return mMDevice.DataFlow;
             }
         }
 
@@ -53,17 +53,17 @@ namespace VACARM
         {
             get
             {
-                return Device.State;
+                return mMDevice.State;
             }
         }
 
-        public MMDevice Device;
+        public MMDevice mMDevice;
 
         public string ID
         {
             get
             {
-                return Device.ID;
+                return mMDevice.ID;
             }
         }
 
@@ -71,7 +71,7 @@ namespace VACARM
         {
             get
             {
-                return Device.FriendlyName;
+                return mMDevice.FriendlyName;
             }
         }
 
@@ -119,7 +119,7 @@ namespace VACARM
         public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
             InitializeComponent();
-            Device = mMDevice;
+            this.mMDevice = mMDevice;
             Graph = bipartiteDeviceGraph;
             Panel.SetZIndex(this, 1);
             deviceBackground.Background = (mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;

@@ -265,7 +265,7 @@ namespace VACARM
 		{
 			get
 			{
-				return Capture.Device;
+				return Capture.mMDevice;
 			}
 		}
 
@@ -273,7 +273,7 @@ namespace VACARM
 		{
 			get
 			{
-				return Render.Device;
+				return Render.mMDevice;
 			}
 		}
 

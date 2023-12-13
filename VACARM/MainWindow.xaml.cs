@@ -106,12 +106,12 @@ namespace VACARM
             dialog.Owner = this;
             dialog.ShowDialog();
 
-            if (dialog.Device == null)
+            if (dialog.mMDevice == null)
             {
                 return;
             }
 
-            DeviceControl control = new DeviceControl(dialog.Device, Graph);
+            DeviceControl control = new DeviceControl(dialog.mMDevice, Graph);
             Graph.AddVertex(control);
             graphCanvas.Children.Add(control);
             Canvas.SetLeft(control, 0);

@@ -142,14 +142,14 @@ namespace VACARM
             {
                 try
                 {
-                    MMDevice device = mMDeviceById[streamReader.ReadLine()];
-                    double[] pos = streamReader.ReadLine().Split().Select(x => double.Parse(x)).ToArray();
-                    DeviceControl control = new DeviceControl(device, bipartiteDeviceGraph);
-                    control.Left = pos[0];
-                    control.Top = pos[1];
-                    MainWindow.GraphMap.Children.Add(control);
-                    bipartiteDeviceGraph.AddVertex(control);
-                    deviceControlList[i] = control;
+                    MMDevice mMDevice = mMDeviceById[streamReader.ReadLine()];
+                    double[] position = streamReader.ReadLine().Split().Select(x => double.Parse(x)).ToArray();
+                    DeviceControl deviceControl = new DeviceControl(mMDevice, bipartiteDeviceGraph);
+                    deviceControl.Left = position[0];
+                    deviceControl.Top = position[1];
+                    MainWindow.GraphMap.Children.Add(deviceControl);
+                    bipartiteDeviceGraph.AddVertex(deviceControl);
+                    deviceControlList[i] = deviceControl;
                 }
                 catch
                 {
