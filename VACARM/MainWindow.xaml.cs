@@ -27,43 +27,55 @@ namespace VACARM
     /// </summary>
     public partial class MainWindow : Window
     {
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
-
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
         private const int HOTKEY_ID = 9000;
         private const uint MOD_NONE = 0x0;
         private const uint VK_SCROLL = 0x91;
+        private const string libraryToImport = "user32.dll";
+        private const string terminalExecutable = "cmd.exe";
 
-        public static string SelectedTool;
-        public static Canvas GraphMap;
+        private bool isRunning;
+        private HwndSource _source;
+        private IntPtr _windowHandle;
+        private List<string> activeRepeaters = new List<string>();
 
-        private bool isrunning;
+        [DllImport(libraryToImport)]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
 
-        public bool isRunning
+        [DllImport(libraryToImport)]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        public bool IsRunning
         {
             get
             {
-                return isrunning;
+                return isRunning;
             }
             set
             {
-                if (isrunning == value) return;
+                if (isRunning == value)
+                {
+                    return;
+                }
 
-                if (value) StartEngine();
-                else StopEngine();
+                if (value)
+                {
+                    StartEngine();
+                }
+                else
+                {
+                    StopEngine();
+                }
 
-                startStopTool.Content = new BitmapImage(new Uri($"/icons/" + (value ? "pause" : "play") + ".png", UriKind.RelativeOrAbsolute));
+                const string imageFileExtension = ".png";
+                const string imagesPath = "/icons/";
+                const string pause = "pause";
+                const string play = "play";
 
-                isrunning = value;
+                startStopTool.Content = new BitmapImage(new Uri(imagesPath + (value ? pause : play) + imageFileExtension, UriKind.RelativeOrAbsolute));
+
+                isRunning = value;
             }
         }
-
-        public static BipartiteDeviceGraph Graph;
-
-        List<string> activeRepeaters = new List<string>();
 
         public string CurrentDirectoryPath
         {
@@ -73,6 +85,13 @@ namespace VACARM
             }
         }
 
+        public static BipartiteDeviceGraph Graph;
+        public static Canvas GraphMap;
+        public static string SelectedTool;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -85,84 +104,19 @@ namespace VACARM
             if (DefaultData.DefaultGraph == null) Graph = new BipartiteDeviceGraph();
             else Graph = BipartiteDeviceGraph.LoadGraph($@"{DefaultData.SavePath}\{DefaultData.DefaultGraph}");
 
-            isRunning = true;
+            IsRunning = true;
         }
 
-        private IntPtr _windowHandle;
-        private HwndSource _source;
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-
-            _windowHandle = new WindowInteropHelper(this).Handle;
-            _source = HwndSource.FromHwnd(_windowHandle);
-            _source.AddHook(HwndHook);
-
-            RegisterHotKey(_windowHandle, HOTKEY_ID, MOD_NONE, VK_SCROLL);
-        }
-
-        private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            const int WM_HOTKEY = 0x0312;
-            switch (msg)
-            {
-                case WM_HOTKEY:
-                    switch (wParam.ToInt32())
-                    {
-                        case HOTKEY_ID:
-                            int vkey = (((int)lParam >> 16) & 0xFFFF);
-                            if (vkey == VK_SCROLL)
-                            {
-                                isRunning = false;
-                                isRunning = true;
-                            }
-                            handled = true;
-                            break;
-                    }
-                    break;
-            }
-            return IntPtr.Zero;
-        }
-
-        private void StartEngine()
-        {
-            foreach (RepeaterInfo info in Graph.GetEdges())
-            {
-                if (info.Capture.State != DeviceState.Active || info.Render.State != DeviceState.Active) continue;
-
-                RunCommand(info.ToCommand());
-                activeRepeaters.Add(info.WindowName);
-            }
-        }
-
-        private void StopEngine()
-        {
-            foreach(string repeater in activeRepeaters)
-            {
-                RunCommand($"start \"audiorepeater\" \"{DefaultData.RepeaterPath}\" /CloseInstance:\"{repeater}\"");
-            }
-
-            activeRepeaters = new List<string>();
-        }
-
-        private void toolBarSelect_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedTool = ((RadioButton)sender).Tag.ToString();
-        }
-
-        private void addDevice_Click(object sender, RoutedEventArgs e)
-        {
-            addDevice();
-        }
-
-        private void addDevice()
+        private void AddDevice()
         {
             AddDeviceDialog dialog = new AddDeviceDialog();
             dialog.Owner = this;
-
             dialog.ShowDialog();
 
-            if (dialog.Device == null) return;
+            if (dialog.Device == null)
+            {
+                return;
+            }
 
             DeviceControl control = new DeviceControl(dialog.Device, Graph);
             Graph.AddVertex(control);
@@ -171,33 +125,32 @@ namespace VACARM
             Canvas.SetTop(control, 0);
         }
 
-        private void removeDevice_Click(object sender, RoutedEventArgs e)
+        private void addDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            removeDevice();
+            AddDevice();
         }
 
-        public void removeDevice()
-        {
-            if (DeviceControl.SelectedControl == null) return;
-
-            Graph.RemoveVertex(DeviceControl.SelectedControl);
-            DeviceControl.SelectedControl = null;
-        }
-
-        private void loadGraph_Click(object sender, RoutedEventArgs e)
+        private void loadGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = DefaultData.SavePath;
             bool? result = fileDialog.ShowDialog();
 
-            if (result == false || result == null) return;
+            if (result == false || result == null)
+            {
+                return;
+            }
 
             string file = fileDialog.FileName;
             string fileName = file.Replace($@"{DefaultData.SavePath}\", "");
 
-            if (fileName.Contains("\\") || !fileName.EndsWith(".vac")) return;
-            
+            if (fileName.Contains("\\") || !fileName.EndsWith(DefaultData.FileExtension))
+            {
+                return;
+            }
+
             GraphMap.Children.Clear();
+
             try
             {
                 Graph = BipartiteDeviceGraph.LoadGraph(file);
@@ -208,96 +161,228 @@ namespace VACARM
                 GraphMap.Children.Clear();
                 Graph = new BipartiteDeviceGraph();
             }
+
             GC.Collect();
         }
 
-        private void saveGraph_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-            fileDialog.InitialDirectory = DefaultData.SavePath;
-            fileDialog.OverwritePrompt = true;
-            fileDialog.ValidateNames = true;
-
-            if (fileDialog.ShowDialog() == true)
-            {
-                string file = fileDialog.FileName.Replace($@"{DefaultData.SavePath}\", "");
-
-                if (file.Contains("\\")) return;
-
-                Graph.SaveGraph(file);
-                DefaultData.DefaultGraph = file;
-            }
-        }
-
-        private void restart_Click(object sender, RoutedEventArgs e)
-        {
-            isRunning = false;
-            isRunning = true;
-        }
-
-        private void startStop_Click(object sender, RoutedEventArgs e)
-        {
-            isRunning = !isRunning;
-        }
-
-        private void graphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs e)
+        private void graphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             DeviceControl.SelectedControl = null;
         }
 
-        public void RunCommand(string cmd)
+        private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            const int WM_HOTKEY = 0x0312;
+
+            switch (msg)
+            {
+                case WM_HOTKEY:
+                    HwndHookIsMatchForWParam(wParam, lParam, ref handled);
+                    break;
+            }
+
+            return IntPtr.Zero;
+        }
+
+        private void HwndHookIsMatchForWParam(IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (wParam.ToInt32())
+            {
+                case HOTKEY_ID:
+                    HwndHookIsWParamEqualToHotkeyId(wParam, lParam, ref handled);
+                    return;
+            }
+        }
+
+        private void HwndHookIsWParamEqualToHotkeyId(IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            int vkey = (((int)lParam >> 16) & 0xFFFF);
+
+            if (vkey == VK_SCROLL)
+            {
+                IsRunning = false;
+                IsRunning = true;
+            }
+
+            handled = true;
+        }
+
+        protected override void OnSourceInitialized(EventArgs eventArgs)
+        {
+            base.OnSourceInitialized(eventArgs);
+
+            _windowHandle = new WindowInteropHelper(this).Handle;
+            _source = HwndSource.FromHwnd(_windowHandle);
+            _source.AddHook(HwndHook);
+
+            RegisterHotKey(_windowHandle, HOTKEY_ID, MOD_NONE, VK_SCROLL);
+        }
+
+        public void RemoveDevice()              // NOTE: must this be public? TODO: evaluate.
+        {
+            if (DeviceControl.SelectedControl == null)
+            {
+                return;
+            }
+
+            Graph.RemoveVertex(DeviceControl.SelectedControl);
+            DeviceControl.SelectedControl = null;
+        }
+
+        private void removeDevice_Click(object sender, RoutedEventArgs routedEventArgs)
+        {
+            RemoveDevice();
+        }
+
+        private void ResetActiveRepeaters()
+        {
+            activeRepeaters = new List<string>();
+        }
+
+        private void Restart()
+        {
+            IsRunning = false;
+            IsRunning = true;
+        }
+
+        private void restart_Click(object sender, RoutedEventArgs routedEventArgs)
+        {
+            Restart();
+        }
+
+        public void RunCommand(string command)  // NOTE: must this be public? TODO: evaluate.
         {
             Process process = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
             info.WindowStyle = ProcessWindowStyle.Hidden;
-            info.FileName = "cmd.exe";
-            info.Arguments = "/C " + cmd;
+            info.FileName = terminalExecutable;
+            info.Arguments = "/C " + command;
             process.StartInfo = info;
             process.Start();
         }
 
-        /* 
-         T = add device
-         Delete = remove device
-         H = hand tool
-         L = link tool
-         R = restart engine
-         P = start/stop engine
-        */
-        private void Window_KeyUp(object sender, KeyEventArgs e)
+        private void SaveEditedGraph(SaveFileDialog saveFileDialog)
         {
-            switch (e.Key)
+            string file = saveFileDialog.FileName.Replace($@"{DefaultData.SavePath}\", "");
+
+            if (file.Contains("\\"))
+            {
+                return;
+            }
+
+            Graph.SaveGraph(file);
+            DefaultData.DefaultGraph = file;
+        }
+
+        private void saveGraph_Click(object sender, RoutedEventArgs routedEventArgs)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = DefaultData.SavePath;
+            saveFileDialog.OverwritePrompt = true;
+            saveFileDialog.ValidateNames = true;
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                SaveEditedGraph(saveFileDialog);
+            }
+        }
+
+        private void startStop_Click(object sender, RoutedEventArgs routedEventArgs)
+        {
+            StartStop();
+        }
+
+        private void StartStop()
+        {
+            IsRunning = !IsRunning;
+        }
+
+        private void StartEngine()
+        {
+            foreach (RepeaterInfo repeaterInfo in Graph.GetEdges())
+            {
+                StartEngineOfActiveRepeater(repeaterInfo);
+            }
+        }
+
+        private void StartEngineOfActiveRepeater(RepeaterInfo repeaterInfo)
+        {
+            if (repeaterInfo.Capture.State != DeviceState.Active || repeaterInfo.Render.State != DeviceState.Active)
+            {
+                return;
+            }
+
+            RunCommand(repeaterInfo.ToCommand());
+            activeRepeaters.Add(repeaterInfo.WindowName);
+        }
+
+        private void StopEngine()
+        {
+            string command = $"start \"audiorepeater\" \"{DefaultData.RepeaterPath}\" /CloseInstance:";
+
+            foreach (string activeRepeater in activeRepeaters)
+            {
+                string activeRepeaterCommand = $"{command}\"{activeRepeater}\"";
+                RunCommand(activeRepeaterCommand);
+            }
+
+            ResetActiveRepeaters();
+        }
+
+        private void toolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
+        {
+            SelectedTool = ((RadioButton)sender).Tag.ToString();
+        }
+
+        /// <summary>
+        /// Window shortcuts given marco input (Windows Key + key).
+        ///
+        /// Examples:
+        /// T = add device
+        /// Delete = remove device
+        ///  H = hand tool
+        /// L = link tool
+        /// R = restart engine
+        /// P = start/stop engine
+        /// 
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="keyEventArgs">The key event arguments</param>
+        private void window_KeyUp(object sender, KeyEventArgs keyEventArgs)
+        {
+            switch (keyEventArgs.Key)
             {
                 case Key.T:
-                    addDevice();
+                    AddDevice();
                     break;
+
                 case Key.Delete:
-                    removeDevice();
+                    RemoveDevice();
                     break;
+
                 case Key.H:
                     handTool.IsChecked = true;
                     SelectedTool = handTool.Tag.ToString();
                     break;
+
                 case Key.L:
                     linkTool.IsChecked = true;
                     SelectedTool = linkTool.Tag.ToString();
                     break;
+
                 case Key.R:
-                    isRunning = false;
-                    isRunning = true;
+                    Restart();
                     break;
+
                 case Key.P:
-                    isRunning = !isRunning;
+                    StartStop();
                     break;
             }
-
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void window_Closing(object sender, System.ComponentModel.CancelEventArgs cancelEventArgs)
         {
             StopEngine();
         }
-
-
     }
 }

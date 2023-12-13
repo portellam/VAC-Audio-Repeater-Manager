@@ -98,6 +98,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChannelConverter.cs" />
     <Compile Include="DefaultData.cs" />
     <Compile Include="RepeaterInfo.cs" />
     <Compile Include="RepeaterMenu.xaml.cs">

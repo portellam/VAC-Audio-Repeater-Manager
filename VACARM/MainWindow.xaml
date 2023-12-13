@@ -8,8 +8,8 @@
         Title="VACARM" 
         Height="720" Width="1280"
         Background="#222222" Foreground="White" FontSize="16"
-        KeyUp="Window_KeyUp"
-        Closing="Window_Closing">
+        KeyUp="window_KeyUp"
+        Closing="window_Closing">
     <Window.Resources>
         <Style x:Key="GraySquareToggleButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="#222222"/>
