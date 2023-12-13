@@ -107,6 +107,9 @@ namespace VACARM
             IsRunning = true;
         }
 
+        /// <summary>
+        /// Adds new device to existing graph.
+        /// </summary>
         private void AddDevice()
         {
             AddDeviceDialog dialog = new AddDeviceDialog();
@@ -125,11 +128,21 @@ namespace VACARM
             Canvas.SetTop(control, 0);
         }
 
+        /// <summary>
+        /// Click event for AddDevice.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
         private void addDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             AddDevice();
         }
 
+        /// <summary>
+        /// Loads existing graph on click event.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
         private void loadGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -206,7 +219,11 @@ namespace VACARM
 
             handled = true;
         }
-
+        
+        /// <summary>
+        /// Registers hotkey(s) to Window hook.
+        /// </summary>
+        /// <param name="eventArgs">The event arguments</param>
         protected override void OnSourceInitialized(EventArgs eventArgs)
         {
             base.OnSourceInitialized(eventArgs);
@@ -218,6 +235,9 @@ namespace VACARM
             RegisterHotKey(_windowHandle, HOTKEY_ID, MOD_NONE, VK_SCROLL);
         }
 
+        /// <summary>
+        /// Removes device (vertex) if it is not null..
+        /// </summary>
         private void RemoveDevice()
         {
             if (DeviceControl.SelectedControl == null)
@@ -229,27 +249,47 @@ namespace VACARM
             DeviceControl.SelectedControl = null;
         }
 
+        /// <summary>
+        /// Click event for RemoveDevice.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
         private void removeDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             RemoveDevice();
         }
 
+        /// <summary>
+        /// Clears list of active repeaters.
+        /// </summary>
         private void ResetActiveRepeaters()
         {
             activeRepeaters = new List<string>();
         }
 
+        /// <summary>
+        /// Sets IsRunning to false, then true.
+        /// </summary>
         private void Restart()
         {
             IsRunning = false;
             IsRunning = true;
         }
 
+        /// <summary>
+        /// Click event for Restart.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
         private void restart_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             Restart();
         }
 
+        /// <summary>
+        /// Run given command in Windows terminal.
+        /// </summary>
+        /// <param name="command">The command</param>
         private void RunCommand(string command)
         {
             Process process = new Process();
@@ -261,6 +301,10 @@ namespace VACARM
             process.Start();
         }
 
+        /// <summary>
+        /// Save graph to file if graph is edited or not default.
+        /// </summary>
+        /// <param name="saveFileDialog">The save file dialog</param>
         private void SaveEditedGraph(SaveFileDialog saveFileDialog)
         {
             string file = saveFileDialog.FileName.Replace($@"{DefaultData.SavePath}\", "");
@@ -274,6 +318,11 @@ namespace VACARM
             DefaultData.DefaultGraph = file;
         }
 
+        /// <summary>
+        /// Click event for SaveGraph.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
         private void saveGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -287,16 +336,27 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// Click event for StartStop.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="routedEventArgs">The routed event arguments</param>
         private void startStop_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             StartStop();
         }
 
+        /// <summary>
+        /// Toggles IsRunning value.
+        /// </summary>
         private void StartStop()
         {
             IsRunning = !IsRunning;
         }
 
+        /// <summary>
+        /// Starts engine of all active repeaters.
+        /// </summary>
         private void StartEngine()
         {
             foreach (RepeaterInfo repeaterInfo in Graph.GetEdges())
@@ -305,6 +365,10 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// If repeater is active, start engine. False, do nothing.
+        /// </summary>
+        /// <param name="repeaterInfo">The repeater info</param>
         private void StartEngineOfActiveRepeater(RepeaterInfo repeaterInfo)
         {
             if (repeaterInfo.Capture.State != DeviceState.Active || repeaterInfo.Render.State != DeviceState.Active)
@@ -316,13 +380,16 @@ namespace VACARM
             activeRepeaters.Add(repeaterInfo.WindowName);
         }
 
+        /// <summary>
+        /// Stops all active repeaters, and start default repeater.
+        /// </summary>
         private void StopEngine()
         {
-            string command = $"start \"audiorepeater\" \"{DefaultData.RepeaterPath}\" /CloseInstance:";
+            string commandToStopActiveRepeaterAndStartDefaultRepeater = $"start \"audiorepeater\" \"{DefaultData.RepeaterPath}\" /CloseInstance:";
 
             foreach (string activeRepeater in activeRepeaters)
             {
-                string activeRepeaterCommand = $"{command}\"{activeRepeater}\"";
+                string activeRepeaterCommand = $"{commandToStopActiveRepeaterAndStartDefaultRepeater}\"{activeRepeater}\"";
                 RunCommand(activeRepeaterCommand);
             }
 
@@ -380,6 +447,11 @@ namespace VACARM
             }
         }
 
+        /// <summary>
+        /// Stops engine when window closes.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="cancelEventArgs">The cancel event arguments</param>
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs cancelEventArgs)
         {
             StopEngine();
