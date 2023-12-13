@@ -15,10 +15,9 @@ namespace VACARM
         private const string DefaultRepeaterPartialPath = @"\data\defaultrepeater";
         public const string FileExtension = ".vac";
         public const string SavePartialPath = @"\save";
+        private static string[] data;
         public static readonly string Path = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialPath}";
         public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}";
-
-        private static string[] data;
 
         /// <summary>
         /// The Channel Configuration

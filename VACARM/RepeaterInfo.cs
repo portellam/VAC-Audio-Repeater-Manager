@@ -19,7 +19,15 @@ namespace VACARM
 	{
 		private BipartiteDeviceGraph graph;
 		private ChannelConfig channelConfig;
-		
+		private int bitsPerSample;
+		private int bufferMs;
+		private int buffers;
+		private int prefill;
+		private int resyncAt;
+		private int samplingRate;
+		private string path;
+		private string windowName;
+
 		public ChannelConfig ChannelConfig
 		{
 			get
@@ -49,13 +57,6 @@ namespace VACARM
 		public DeviceControl Capture { get; }
 		public DeviceControl Render { get; }
 		public event PropertyChangedEventHandler PropertyChanged;
-
-		private int bitsPerSample;
-		private int bufferMs;
-		private int buffers;
-		private int prefill;
-		private int resyncAt;
-		private int samplingRate;
 
 		/// <summary>
 		/// The amount of bits per sample.
@@ -293,9 +294,6 @@ namespace VACARM
 		/// Available choices for Sampling rate in KiloHertz.
 		/// </summary>
 		public static ReadOnlyCollection<int> SamplingRateOptions = new ReadOnlyCollection<int>(new int[] { 5000, 8000, 11025, 22050, 44100, 48000, 96000, 192000 });
-
-		private string path;
-		private string windowName;
 
 		/// <summary>
 		/// The input devices's display name.
