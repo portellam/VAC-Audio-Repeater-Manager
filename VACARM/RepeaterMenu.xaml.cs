@@ -39,29 +39,48 @@ namespace VACARM
         /// <param name="bipartiteDeviceGraph">The graph</param>
         public RepeaterMenu(RepeaterInfo repeaterInfo, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
+            if (repeaterInfo is null)
+            {
+                throw new ArgumentNullException(nameof(repeaterInfo));
+            }
+
+            if (bipartiteDeviceGraph is null)
+            {
+                throw new ArgumentNullException(nameof(bipartiteDeviceGraph);
+            }
+
             InitializeComponent();
 
-            List<Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
+            List <Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
 
             for (int i = 0; i < channelList.Count; i++)
             {
                 Channel channel = channelList[i];
 
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = channel.ToString();
+                TextBlock textBlock = new TextBlock()
+                { 
+                    Text = channel.ToString()
+                };
+
                 Grid.SetRow(textBlock, 0);
                 Grid.SetColumn(textBlock, i);
 
-                CheckBox checkBox = new CheckBox();
-                checkBox.Tag = channel;
+                CheckBox checkBox = new CheckBox()
+                {
+                    Tag = channel
+                };
+
                 Grid.SetRow(checkBox, 1);
                 Grid.SetColumn(checkBox, i);
-                Binding bindChannel = new Binding("ChannelMask");
-                bindChannel.Converter = new ChannelConverter(repeaterInfo);
-                bindChannel.ConverterParameter = (int)channel;
-                bindChannel.Source = repeaterInfo;
-                checkBox.SetBinding(CheckBox.IsCheckedProperty, bindChannel);
 
+                Binding bindChannel = new Binding("ChannelMask")
+                {
+                    Converter = new ChannelConverter(repeaterInfo),
+                    ConverterParameter = (int)channel,
+                    Source = repeaterInfo
+                };
+                
+                checkBox.SetBinding(CheckBox.IsCheckedProperty, bindChannel);
                 channels.Children.Add(textBlock);
                 channels.Children.Add(checkBox);
             }
@@ -78,7 +97,7 @@ namespace VACARM
         /// <param name="routedEventArgs">The routed event</param>
         private void DeleteButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            bipartiteDeviceGraph.RemoveEdge(repeaterInfo.Capture, repeaterInfo.Render);
+            bipartiteDeviceGraph.RemoveEdge(repeaterInfo.CaptureDeviceControl, repeaterInfo.RenderDeviceControl);
             Close();
         }
 
