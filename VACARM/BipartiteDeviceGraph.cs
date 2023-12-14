@@ -56,7 +56,7 @@ namespace VACARM
         {
             Edge[deviceControl1].Add(deviceControl2, repeaterInfo);
             Edge[deviceControl2].Add(deviceControl1, repeaterInfo);
-            MainWindow.GraphMap.Children.Add(repeaterInfo.Link);
+            MainWindow.GraphMapCanvas.Children.Add(repeaterInfo.Link);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace VACARM
         /// <param name="deviceControl2">The second device.</param>
         public void RemoveEdge(DeviceControl deviceControl1, DeviceControl deviceControl2)
         {
-            MainWindow.GraphMap.Children.Remove(Edge[deviceControl1][deviceControl2].Link);
+            MainWindow.GraphMapCanvas.Children.Remove(Edge[deviceControl1][deviceControl2].Link);
             Edge[deviceControl1].Remove(deviceControl2);
             Edge[deviceControl2].Remove(deviceControl1);
         }
@@ -147,7 +147,7 @@ namespace VACARM
                     DeviceControl deviceControl = new DeviceControl(mMDevice, bipartiteDeviceGraph);
                     deviceControl.Left = position[0];
                     deviceControl.Top = position[1];
-                    MainWindow.GraphMap.Children.Add(deviceControl);
+                    MainWindow.GraphMapCanvas.Children.Add(deviceControl);
                     bipartiteDeviceGraph.AddVertex(deviceControl);
                     deviceControlList[i] = deviceControl;
                 }
@@ -242,7 +242,7 @@ namespace VACARM
         {
             foreach (RepeaterInfo edgeRepeaterInfo in GetEdges())
             {
-                string indexOfDevices = $"{deviceControlIdDictionary[edgeRepeaterInfo.Capture]} {deviceControlIdDictionary[edgeRepeaterInfo.Render]}";
+                string indexOfDevices = $"{deviceControlIdDictionary[edgeRepeaterInfo.CaptureDeviceControl]} {deviceControlIdDictionary[edgeRepeaterInfo.RenderDeviceControl]}";
                 string repeaterInfo = edgeRepeaterInfo.ToSaveData();
                 streamWriter.WriteLine($"{indexOfDevices}\n{repeaterInfo}");
             }
@@ -281,11 +281,11 @@ namespace VACARM
             foreach (DeviceControl adjacentDeviceControl in Edge[deviceControl].Keys)
             {
                 Edge[adjacentDeviceControl].Remove(deviceControl);
-                MainWindow.GraphMap.Children.Remove(Edge[deviceControl][adjacentDeviceControl].Link);
+                MainWindow.GraphMapCanvas.Children.Remove(Edge[deviceControl][adjacentDeviceControl].Link);
             }
 
             Edge.Remove(deviceControl);
-            MainWindow.GraphMap.Children.Remove(deviceControl);
+            MainWindow.GraphMapCanvas.Children.Remove(deviceControl);
         }
     }
 }

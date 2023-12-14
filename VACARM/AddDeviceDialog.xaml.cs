@@ -45,7 +45,7 @@ namespace VACARM
                 return;
             }
 
-            List<MMDevice> devices = (selectDeviceType.SelectedIndex == 0) ? (DataContext as DeviceList).WaveIn : (DataContext as DeviceList).WaveOut;
+            List<MMDevice> devices = (selectDeviceType.SelectedIndex == 0) ? (DataContext as DeviceList).WaveInMMDeviceList : (DataContext as DeviceList).WaveOutMMDeviceList;
             mMDevice = devices[selectDevice.SelectedIndex];
             Close();
         }
@@ -72,11 +72,11 @@ namespace VACARM
             
             if (selectDeviceType.SelectedIndex == 0)
             {
-                selectDevice.ItemsSource = (DataContext as DeviceList).WaveInName;
+                selectDevice.ItemsSource = (DataContext as DeviceList).WaveInNameList;
                 return;
             }
             
-            selectDevice.ItemsSource = (DataContext as DeviceList).WaveOutName;
+            selectDevice.ItemsSource = (DataContext as DeviceList).WaveOutNameList;
         }
 
         /// <summary>

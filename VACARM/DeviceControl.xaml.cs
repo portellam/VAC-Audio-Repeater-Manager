@@ -12,22 +12,22 @@ namespace VACARM
 	/// </summary>
 	public partial class DeviceControl : UserControl, INotifyPropertyChanged
     {
-        private static DeviceControl selectedControl;
+        private static DeviceControl selectedDeviceControl;
         private double left;
-        private Point start;
-        public static DeviceControl InitialLink;
+        private Point startPoint;
+        public static DeviceControl InitialDeviceControl;
         
-        public static DeviceControl SelectedControl
+        public static DeviceControl SelectedDeviceControl
         {
             get
             {
-                return selectedControl;
+                return selectedDeviceControl;
             }
             set
             {
-                if (selectedControl != null)
+                if (selectedDeviceControl != null)
                 {
-                    selectedControl.deviceBackground.Background = (selectedControl.mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
+                    selectedDeviceControl.deviceBackground.Background = (selectedDeviceControl.mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
                 }
 
                 if (value != null)
@@ -35,11 +35,11 @@ namespace VACARM
                     value.deviceBackground.Background = Brushes.AliceBlue;
                 }
 
-                selectedControl = value;
+                selectedDeviceControl = value;
             }
         }
 
-        public BipartiteDeviceGraph Graph { get; }
+        public BipartiteDeviceGraph BipartiteDeviceGraph { get; }
 
         public DataFlow DataFlow
         {
@@ -49,7 +49,7 @@ namespace VACARM
             }
         }
 
-        public DeviceState State
+        public DeviceState DeviceState
         {
             get
             {
@@ -111,16 +111,16 @@ namespace VACARM
         public double Y { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="mMDevice">The device</param>
-        /// <param name="bipartiteDeviceGraph">The graph</param>
-        public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="mMDevice">The device</param>
+		/// <param name="bipartiteDeviceGraph">The graph</param>
+		public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
             InitializeComponent();
             this.mMDevice = mMDevice;
-            Graph = bipartiteDeviceGraph;
+            BipartiteDeviceGraph = bipartiteDeviceGraph;
             Panel.SetZIndex(this, 1);
             deviceBackground.Background = (mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
             txtDeviceName.Text = mMDevice.FriendlyName;
@@ -143,23 +143,23 @@ namespace VACARM
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            SelectedControl = this;
+            SelectedDeviceControl = this;
 
             if (MainWindow.SelectedTool == "Hand")
             {
-                start = Mouse.GetPosition(sender as UIElement);
+                startPoint = Mouse.GetPosition(sender as UIElement);
                 Panel.SetZIndex(this, 2);
                 return;
             }
 
-            if (InitialLink == null)
+            if (InitialDeviceControl == null)
             {
-                InitialLink = this;
+                InitialDeviceControl = this;
                 return;
             }
 
-            Graph.AddEdge(InitialLink, this);
-            InitialLink = null;
+            BipartiteDeviceGraph.AddEdge(InitialDeviceControl, this);
+            InitialDeviceControl = null;
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace VACARM
                 Panel.SetZIndex(this, 1);
             }
 
-            SelectedControl = this;
+            SelectedDeviceControl = this;
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace VACARM
             var draggableControl = sender as UserControl;
             var parentControl = Parent as Canvas;
             var currentPosition = Mouse.GetPosition(draggableControl);
-            double left = currentPosition.X - start.X + Left;
+            double left = currentPosition.X - startPoint.X + Left;
 
             if (left < 0)
             {
@@ -204,7 +204,7 @@ namespace VACARM
                 left = parentControl.ActualWidth - Width;
             }
 
-            double top = currentPosition.Y - start.Y + Top;
+            double top = currentPosition.Y - startPoint.Y + Top;
 
             if (top < 0)
             {

@@ -52,8 +52,8 @@ namespace VACARM
 			}
 		}
 
-		public DeviceControl Capture { get; }
-		public DeviceControl Render { get; }
+		public DeviceControl CaptureDeviceControl { get; }
+		public DeviceControl RenderDeviceControl { get; }
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>
@@ -137,7 +137,7 @@ namespace VACARM
 			{
 				int sum = 0;
 
-				foreach (Channel c in Channels)
+				foreach (Channel c in ChannelList)
 				{
 					sum += (int)c;
 				}
@@ -175,7 +175,7 @@ namespace VACARM
 					bit <<= 1;
 				}
 
-				Channels = newChannels;
+				ChannelList = newChannels;
 				OnPropertyChanged(nameof(ChannelMask));
 			}
 		}
@@ -247,7 +247,7 @@ namespace VACARM
 		}
 
 		public Line Link { get; }
-		public List<Channel> Channels;
+		public List<Channel> ChannelList;
 
 		public readonly List<string> repeaterInfoPropertyList = new List<string>()
 		{
@@ -261,24 +261,24 @@ namespace VACARM
 			nameof(SamplingRate)
 		};
 		
-		public MMDevice InputDevice
+		public MMDevice InputMMDevice
 		{
 			get
 			{
-				return Capture.mMDevice;
+				return CaptureDeviceControl.mMDevice;
 			}
 		}
 
-		public MMDevice OutputDevice
+		public MMDevice OutputMMDevice
 		{
 			get
 			{
-				return Render.mMDevice;
+				return RenderDeviceControl.mMDevice;
 			}
 		}
 
-		MenuItem captureContext;
-		MenuItem renderContext;
+		MenuItem captureContextMenuItem;
+		MenuItem renderContextMenuItem;
 
 		/// <summary>
 		/// Available choices for BitsPerSample.
@@ -312,12 +312,12 @@ namespace VACARM
 		{
 			get
 			{
-				if (InputDevice.FriendlyName.Length > 31)
+				if (InputMMDevice.FriendlyName.Length > 31)
 				{
-					return InputDevice.FriendlyName.Substring(0, 31);
+					return InputMMDevice.FriendlyName.Substring(0, 31);
 				}
 
-				return InputDevice.FriendlyName;
+				return InputMMDevice.FriendlyName;
 			}
 		}
 
@@ -328,12 +328,12 @@ namespace VACARM
 		{
 			get
 			{
-				if (OutputDevice.FriendlyName.Length > 31)
+				if (OutputMMDevice.FriendlyName.Length > 31)
 				{
-					return OutputDevice.FriendlyName.Substring(0, 31);
+					return OutputMMDevice.FriendlyName.Substring(0, 31);
 				}
 
-				return OutputDevice.FriendlyName;
+				return OutputMMDevice.FriendlyName;
 			}
 		}
 
@@ -378,18 +378,18 @@ namespace VACARM
 		/// <param name="bipartiteDeviceGraph">The graph</param>
 		public RepeaterInfo(DeviceControl captureDeviceControl, DeviceControl renderDeviceControl, BipartiteDeviceGraph bipartiteDeviceGraph)
 		{
-			captureContext = new MenuItem();
-			captureContext.Header = renderDeviceControl.DeviceName;
-			captureContext.Click += ContextClick;
-			captureDeviceControl.ContextMenu.Items.Add(captureContext);
+			captureContextMenuItem = new MenuItem();
+			captureContextMenuItem.Header = renderDeviceControl.DeviceName;
+			captureContextMenuItem.Click += ContextClick;
+			captureDeviceControl.ContextMenu.Items.Add(captureContextMenuItem);
 
-			renderContext = new MenuItem();
-			renderContext.Header = captureDeviceControl.DeviceName;
-			renderContext.Click += ContextClick;
-			renderDeviceControl.ContextMenu.Items.Add(renderContext);
+			renderContextMenuItem = new MenuItem();
+			renderContextMenuItem.Header = captureDeviceControl.DeviceName;
+			renderContextMenuItem.Click += ContextClick;
+			renderDeviceControl.ContextMenu.Items.Add(renderContextMenuItem);
 
-			Capture = captureDeviceControl;
-			Render = renderDeviceControl;
+			CaptureDeviceControl = captureDeviceControl;
+			RenderDeviceControl = renderDeviceControl;
 			Link = new Line
 			{
 				Stroke = Brushes.White,
@@ -445,7 +445,7 @@ namespace VACARM
 		private void ContextClick(object sender, System.Windows.RoutedEventArgs routedEventArgs)
 		{
 			RepeaterMenu repeaterMenu = new RepeaterMenu(this, graph);
-			repeaterMenu.Owner = MainWindow.GraphMap.Parent as Window;
+			repeaterMenu.Owner = MainWindow.GraphMapCanvas.Parent as Window;
 			repeaterMenu.ShowDialog();
 		}
 
@@ -486,7 +486,7 @@ namespace VACARM
 				$"/Output:\"{Output}\" " +
 				$"/SamplingRate:{SamplingRate} " +
 				$"/BitsPerSample:{BitsPerSample} " +
-				$"/Channels:{Channels.Count} " +
+				$"/Channels:{ChannelList.Count} " +
 				$"/ChanCfg:custom={ChannelMask} " +
 				$"/BufferMs:{BufferMs} " +
 				$"/Prefill:{Prefill} " +

@@ -26,7 +26,7 @@ namespace VACARM
         private bool isRunning;
         private HwndSource _source;
         private IntPtr _windowHandle;
-        private List<string> activeRepeaters = new List<string>();
+        private List<string> activeRepeaterList = new List<string>();
 
         [DllImport(libraryToImport)]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -75,8 +75,8 @@ namespace VACARM
             }
         }
 
-        public static BipartiteDeviceGraph Graph;
-        public static Canvas GraphMap;
+        public static BipartiteDeviceGraph BipartiteDeviceGraph;
+        public static Canvas GraphMapCanvas;
         public static string SelectedTool;
 
         /// <summary>
@@ -86,13 +86,13 @@ namespace VACARM
         {
             InitializeComponent();
 
-            GraphMap = graphCanvas;
+            GraphMapCanvas = graphCanvas;
             DefaultData.CheckFile();
 
             SelectedTool = "Hand";
 
-            if (DefaultData.DefaultGraph == null) Graph = new BipartiteDeviceGraph();
-            else Graph = BipartiteDeviceGraph.LoadGraph($@"{DefaultData.SavePath}\{DefaultData.DefaultGraph}");
+            if (DefaultData.DefaultGraph == null) BipartiteDeviceGraph = new BipartiteDeviceGraph();
+            else BipartiteDeviceGraph = BipartiteDeviceGraph.LoadGraph($@"{DefaultData.SavePath}\{DefaultData.DefaultGraph}");
 
             IsRunning = true;
         }
@@ -111,8 +111,8 @@ namespace VACARM
                 return;
             }
 
-            DeviceControl control = new DeviceControl(dialog.mMDevice, Graph);
-            Graph.AddVertex(control);
+            DeviceControl control = new DeviceControl(dialog.mMDevice, BipartiteDeviceGraph);
+            BipartiteDeviceGraph.AddVertex(control);
             graphCanvas.Children.Add(control);
             Canvas.SetLeft(control, 0);
             Canvas.SetTop(control, 0);
@@ -152,17 +152,17 @@ namespace VACARM
                 return;
             }
 
-            GraphMap.Children.Clear();
+            GraphMapCanvas.Children.Clear();
 
             try
             {
-                Graph = BipartiteDeviceGraph.LoadGraph(file);
+                BipartiteDeviceGraph = BipartiteDeviceGraph.LoadGraph(file);
                 DefaultData.DefaultGraph = fileName;
             }
             catch
             {
-                GraphMap.Children.Clear();
-                Graph = new BipartiteDeviceGraph();
+                GraphMapCanvas.Children.Clear();
+                BipartiteDeviceGraph = new BipartiteDeviceGraph();
             }
 
             GC.Collect();
@@ -175,7 +175,7 @@ namespace VACARM
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
         private void GraphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            DeviceControl.SelectedControl = null;
+            DeviceControl.SelectedDeviceControl = null;
         }
 
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)   //TODO: explain operation of this method.
@@ -235,13 +235,13 @@ namespace VACARM
         /// </summary>
         private void RemoveDevice()
         {
-            if (DeviceControl.SelectedControl == null)
+            if (DeviceControl.SelectedDeviceControl == null)
             {
                 return;
             }
 
-            Graph.RemoveVertex(DeviceControl.SelectedControl);
-            DeviceControl.SelectedControl = null;
+            BipartiteDeviceGraph.RemoveVertex(DeviceControl.SelectedDeviceControl);
+            DeviceControl.SelectedDeviceControl = null;
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace VACARM
         /// </summary>
         private void ResetActiveRepeaters()
         {
-            activeRepeaters = new List<string>();
+            activeRepeaterList = new List<string>();
         }
 
         /// <summary>
@@ -309,7 +309,7 @@ namespace VACARM
                 return;
             }
 
-            Graph.SaveGraph(file);
+            BipartiteDeviceGraph.SaveGraph(file);
             DefaultData.DefaultGraph = file;
         }
 
@@ -354,7 +354,7 @@ namespace VACARM
         /// </summary>
         private void StartEngine()
         {
-            foreach (RepeaterInfo repeaterInfo in Graph.GetEdges())
+            foreach (RepeaterInfo repeaterInfo in BipartiteDeviceGraph.GetEdges())
             {
                 StartEngineOfActiveRepeater(repeaterInfo);
             }
@@ -366,13 +366,13 @@ namespace VACARM
         /// <param name="repeaterInfo">The repeater info</param>
         private void StartEngineOfActiveRepeater(RepeaterInfo repeaterInfo)
         {
-            if (repeaterInfo.Capture.State != DeviceState.Active || repeaterInfo.Render.State != DeviceState.Active)
+            if (repeaterInfo.CaptureDeviceControl.DeviceState != DeviceState.Active || repeaterInfo.RenderDeviceControl.DeviceState != DeviceState.Active)
             {
                 return;
             }
 
             RunCommand(repeaterInfo.ToCommand());
-            activeRepeaters.Add(repeaterInfo.WindowName);
+            activeRepeaterList.Add(repeaterInfo.WindowName);
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace VACARM
         {
             string commandToStopActiveRepeaterAndStartDefaultRepeater = $"start \"audiorepeater\" \"{DefaultData.RepeaterPath}\" /CloseInstance:";
 
-            foreach (string activeRepeater in activeRepeaters)
+            foreach (string activeRepeater in activeRepeaterList)
             {
                 string activeRepeaterCommand = $"{commandToStopActiveRepeaterAndStartDefaultRepeater}\"{activeRepeater}\"";
                 RunCommand(activeRepeaterCommand);
