@@ -378,6 +378,21 @@ namespace VACARM
 		/// <param name="bipartiteDeviceGraph">The graph</param>
 		public RepeaterInfo(DeviceControl captureDeviceControl, DeviceControl renderDeviceControl, BipartiteDeviceGraph bipartiteDeviceGraph)
 		{
+			if (captureDeviceControl is null)
+			{
+				throw new ArgumentNullException(nameof(captureDeviceControl));
+			}
+
+			if (renderDeviceControl is null)
+			{
+				throw new ArgumentNullException(nameof(renderDeviceControl));
+			}
+
+			if (bipartiteDeviceGraph is null)
+			{
+				throw new ArgumentNullException(nameof(bipartiteDeviceGraph));
+			}
+
 			captureContextMenuItem = new MenuItem();
 			captureContextMenuItem.Header = renderDeviceControl.DeviceName;
 			captureContextMenuItem.Click += ContextClick;
@@ -390,6 +405,7 @@ namespace VACARM
 
 			CaptureDeviceControl = captureDeviceControl;
 			RenderDeviceControl = renderDeviceControl;
+			
 			Link = new Line
 			{
 				Stroke = Brushes.White,
@@ -401,6 +417,7 @@ namespace VACARM
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = captureDeviceControl
 			};
+			
 			Link.SetBinding(Line.X1Property, bx1);
 
 			Binding by1 = new Binding("Y")
@@ -408,6 +425,7 @@ namespace VACARM
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = captureDeviceControl
 			};
+			
 			Link.SetBinding(Line.Y1Property, by1);
 
 			Binding bx2 = new Binding("X")
@@ -415,6 +433,7 @@ namespace VACARM
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = renderDeviceControl
 			};
+
 			Link.SetBinding(Line.X2Property, bx2);
 
 			Binding by2 = new Binding("Y")
@@ -422,8 +441,8 @@ namespace VACARM
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = renderDeviceControl
 			};
-			Link.SetBinding(Line.Y2Property, by2);
 
+			Link.SetBinding(Line.Y2Property, by2);
 			SamplingRate = DefaultData.SamplingRate;
 			BitsPerSample = DefaultData.BitsPerSample;
 			ChannelConfig = DefaultData.ChannelConfig;
@@ -433,7 +452,6 @@ namespace VACARM
 			ResyncAt = DefaultData.ResyncAt;
 			WindowName = DefaultData.WindowName;
 			Path = DefaultData.RepeaterPath;
-
 			this.graph = bipartiteDeviceGraph;
 		}
 
@@ -455,6 +473,11 @@ namespace VACARM
 		/// <param name="propertyName">The property name</param>
 		public void OnPropertyChanged(string propertyName)
 		{
+			if (propertyName is null)
+			{
+				throw new ArgumentNullException(nameof(propertyName));
+			}
+
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
@@ -464,6 +487,11 @@ namespace VACARM
 		/// <param name="info"></param>
 		public void SetData(List<string> info)
 		{
+			if (info is null)
+			{
+				return;
+			}
+
 			SamplingRate = int.Parse(info[0]);
 			BitsPerSample = int.Parse(info[1]);
 			ChannelMask = int.Parse(info[2]);
