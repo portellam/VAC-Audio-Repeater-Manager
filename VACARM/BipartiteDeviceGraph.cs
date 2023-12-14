@@ -20,10 +20,20 @@ namespace VACARM
         /// <summary>
         /// Adds one vertex between two devices.
         /// </summary>
-        /// <param name="deviceControl1">The first device.</param>
-        /// <param name="deviceControl2">The second device.</param>
+        /// <param name="deviceControl1">The first device</param>
+        /// <param name="deviceControl2">The second device</param>
         public void AddEdge(DeviceControl deviceControl1, DeviceControl deviceControl2)
         {
+            if (deviceControl1 is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControl1));
+            }
+
+            if (deviceControl2 is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControl2));
+            }
+
             if (Edge[deviceControl1].ContainsKey(deviceControl2) || deviceControl1.DataFlow == deviceControl2.DataFlow)
             {
                 return;
@@ -49,11 +59,26 @@ namespace VACARM
         /// <summary>
         /// Helper method for AddEdge.
         /// </summary>
-        /// <param name="deviceControl1">The first device.</param>
-        /// <param name="deviceControl2">The second device.</param>
-        /// <param name="repeaterInfo">The repeater info.</param>
+        /// <param name="deviceControl1">The first device</param>
+        /// <param name="deviceControl2">The second device</param>
+        /// <param name="repeaterInfo">The repeater info</param>
         protected internal virtual void AddEdge(DeviceControl deviceControl1, DeviceControl deviceControl2, RepeaterInfo repeaterInfo)
         {
+            if (deviceControl1 is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControl1));
+            }
+
+            if (deviceControl2 is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControl2));
+            }
+
+            if (deviceControl1 is null)
+            {
+                throw new System.ArgumentNullException(nameof(repeaterInfo));
+            }
+
             Edge[deviceControl1].Add(deviceControl2, repeaterInfo);
             Edge[deviceControl2].Add(deviceControl1, repeaterInfo);
             MainWindow.GraphMapCanvas.Children.Add(repeaterInfo.Link);
@@ -62,8 +87,8 @@ namespace VACARM
         /// <summary>
         /// Remove one adjacent vertex between two devices.
         /// </summary>
-        /// <param name="deviceControl1">The first device.</param>
-        /// <param name="deviceControl2">The second device.</param>
+        /// <param name="deviceControl1">The first device</param>
+        /// <param name="deviceControl2">The second device</param>
         public void RemoveEdge(DeviceControl deviceControl1, DeviceControl deviceControl2)
         {
             MainWindow.GraphMapCanvas.Children.Remove(Edge[deviceControl1][deviceControl2].Link);
@@ -74,10 +99,20 @@ namespace VACARM
         /// <summary>
         /// Gets adjacent vertices.
         /// </summary>
-        /// <param name="deviceControl">The device.</param>
+        /// <param name="deviceControl">The device</param>
         /// <returns>The vertices.</returns>
         public Dictionary<DeviceControl, RepeaterInfo> GetAdjacent(DeviceControl deviceControl)
         {
+            if (deviceControl is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControl));
+            }
+
+            if (!Edge.ContainsKey(deviceControl))
+            {
+                throw new System.ArgumentNullException($"{Edge} does not contain key '{deviceControl}'.");
+            }
+
             return Edge[deviceControl];
         }
 
@@ -124,11 +159,21 @@ namespace VACARM
         /// <summary>
         /// Get list of vertices.
         /// </summary>
-        /// <param name="bipartiteDeviceGraph">The graph.</param>
-        /// <param name="streamReader">The text stream.</param>
+        /// <param name="bipartiteDeviceGraph">The graph</param>
+        /// <param name="streamReader">The text stream</param>
         /// <returns>The graph.</returns>
         private static DeviceControl[] GetListOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, StreamReader streamReader)
         {
+            if (bipartiteDeviceGraph is null)
+            {
+                throw new System.ArgumentNullException(nameof(bipartiteDeviceGraph));
+            }
+
+            if (streamReader is null)
+            {
+                throw new System.ArgumentNullException(nameof(streamReader));
+            }
+
             int vertexCount = int.Parse(streamReader.ToString());
             DeviceControl[] deviceControlList = new DeviceControl[vertexCount];
             Dictionary<string, MMDevice> mMDeviceById = new Dictionary<string, MMDevice>();
@@ -163,12 +208,27 @@ namespace VACARM
         /// <summary>
         /// Get graph filled with vertices.
         /// </summary>
-        /// <param name="bipartiteDeviceGraph">The graph.</param>
-        /// <param name="deviceControlList">The devices.</param>
-        /// <param name="streamReader">The text stream.</param>
+        /// <param name="bipartiteDeviceGraph">The graph</param>
+        /// <param name="deviceControlList">The devices</param>
+        /// <param name="streamReader">The text stream</param>
         /// <returns>The graph.</returns>
         private static BipartiteDeviceGraph GetGraphOfVertices(BipartiteDeviceGraph bipartiteDeviceGraph, DeviceControl[] deviceControlList, StreamReader streamReader)
         {
+            if (bipartiteDeviceGraph is null)
+            {
+                throw new System.ArgumentNullException(nameof(bipartiteDeviceGraph));
+            }
+
+            if (deviceControlList is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControlList));
+            }
+
+            if (streamReader is null)
+            {
+                throw new System.ArgumentNullException(nameof(streamReader));
+            }
+
             int vertexCount = int.Parse(streamReader.ToString());
             int bufferCount = 8;
 
@@ -201,9 +261,14 @@ namespace VACARM
         /// <summary>
         /// Save graph to given file.
         /// </summary>
-        /// <param name="fileName">The file.</param>
+        /// <param name="fileName">The file</param>
         public void SaveGraph(string fileName)
         {
+            if (fileName is null)
+            {
+                throw new System.ArgumentNullException(nameof(fileName));
+            }
+
             if (!fileName.EndsWith(DefaultData.FileExtension))
             {
                 fileName += DefaultData.FileExtension;
@@ -237,9 +302,19 @@ namespace VACARM
         /// Writes edges to file.
         /// </summary>
         /// <param name="deviceControlIdDictionary"></param>
-        /// <param name="streamWriter">The stream writer.</param>
+        /// <param name="streamWriter">The stream writer</param>
         protected internal virtual void WriteEdgeRepeaterInfoToFile(Dictionary<DeviceControl, int> deviceControlIdDictionary, StreamWriter streamWriter)
         {
+            if (deviceControlIdDictionary is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControlIdDictionary));
+            }
+
+            if (streamWriter is null)
+            {
+                throw new System.ArgumentNullException(nameof(streamWriter));
+            }
+
             foreach (RepeaterInfo edgeRepeaterInfo in GetEdges())
             {
                 string indexOfDevices = $"{deviceControlIdDictionary[edgeRepeaterInfo.CaptureDeviceControl]} {deviceControlIdDictionary[edgeRepeaterInfo.RenderDeviceControl]}";
@@ -251,10 +326,15 @@ namespace VACARM
         /// <summary>
         /// Writes half of edges' count to file.
         /// </summary>
-        /// <param name="edgesCount">The edges count.</param>
-        /// <param name="streamWriter">The stream writer.</param>
+        /// <param name="edgesCount">The edges count</param>
+        /// <param name="streamWriter">The stream writer</param>
         protected internal virtual void WriteHalfOfEdgesCountToFile(int edgesCount, StreamWriter streamWriter)
         {
+            if (edgesCount < 0 || streamWriter is null)
+            {
+                return;
+            }
+
             streamWriter.WriteLine(edgesCount / 2);
         }
 
@@ -264,7 +344,7 @@ namespace VACARM
         /// <param name="deviceControl">The device's vertices</param>
         public void AddVertex(DeviceControl deviceControl)
         {
-            if (Edge.ContainsKey(deviceControl))
+            if (deviceControl is null || Edge.ContainsKey(deviceControl))
             {
                 return;
             }
@@ -275,9 +355,14 @@ namespace VACARM
         /// <summary>
         /// Remove vertex along with any edges the given vertex has an endpoint towards.
         /// </summary>
-        /// <param name="deviceControl">The device.</param>
+        /// <param name="deviceControl">The device</param>
         public void RemoveVertex(DeviceControl deviceControl)
         {
+            if (deviceControl is null)
+            {
+                return;
+            }
+
             foreach (DeviceControl adjacentDeviceControl in Edge[deviceControl].Keys)
             {
                 Edge[adjacentDeviceControl].Remove(deviceControl);
