@@ -193,7 +193,7 @@ namespace VACARM
 
 			data = File.ReadAllLines(Path);
 			Directory.CreateDirectory(SavePath);
-			string[] networks = Directory.GetFiles(SavePath).Where(x => x.EndsWith(".vac")).ToArray();
+			string[] networks = Directory.GetFiles(SavePath).Where(x => x.EndsWith(FileExtension)).ToArray();
 
 			if (networks.Length == 1)
 			{
