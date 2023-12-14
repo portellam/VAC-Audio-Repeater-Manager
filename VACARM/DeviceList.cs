@@ -16,10 +16,10 @@ namespace VACARM
         /// </summary>
         public DeviceList()
         {
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-            WaveInMMDeviceList = enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active).ToList();
+            MMDeviceEnumerator mMDeviceEnumerator = new MMDeviceEnumerator();
+            WaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active).ToList();
             WaveInNameList = WaveInMMDeviceList.Select(x => x.FriendlyName).ToList();
-            WaveOutMMDeviceList = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active).ToList();
+            WaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active).ToList();
             WaveOutNameList = WaveOutMMDeviceList.Select(x => x.FriendlyName).ToList();
         }
     }
