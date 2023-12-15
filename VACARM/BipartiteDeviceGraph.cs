@@ -266,7 +266,8 @@ namespace VACARM
         {
             if (fileName is null)
             {
-                throw new System.ArgumentNullException(nameof(fileName));
+                //TODO: add logger, output message to user, then return
+                return;
             }
 
             if (!fileName.EndsWith(DefaultData.FileExtension))
