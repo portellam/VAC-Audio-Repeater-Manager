@@ -6,15 +6,12 @@ namespace VACARM
 {
 	class DefaultData
 	{
-		/// <summary>
-		/// File and pathnames
-		/// </summary>
-		private const string DefaultRepeaterPartialPath = @"\data\defaultrepeater";
+		private const string DefaultRepeaterPartialFilePath = @"\data\defaultrepeater";	//NOTE: is it necessary for this path to exist, for VAC to work?
 		public const string FileExtension = ".vac";
-		public const string SavePartialPath = @"\save";
+		public const string SavePartialPath = @"\save";     //NOTE: is it necessary for this path to exist, for VAC to work?
 		private static string[] data;
-		public static readonly string Path = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialPath}";
-		public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}";
+		public static readonly string DefaultRepeaterFile = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialFilePath}";	//NOTE: must this be public?
+		public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}"; //NOTE: must this be public?
 
 		/// <summary>
 		/// The Channel Configuration
@@ -185,14 +182,42 @@ namespace VACARM
 		/// </summary>
 		public static void CheckFile()
 		{
-			if (!File.Exists(Path))
+			if (!File.Exists(DefaultRepeaterFile))
 			{
 				string defaultRepeaterAndPathName = "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\";
-				File.WriteAllText(Path, defaultRepeaterAndPathName);
+
+				//NOTE: assuming default repeater path is necessary to program function.
+				try
+				{
+					File.WriteAllText(DefaultRepeaterFile, defaultRepeaterAndPathName);
+				}
+				catch (IOException iOException)
+				{
+					//TODO: add logger, then throw.
+					iOException.Source = nameof(defaultRepeaterAndPathName);
+					//LogError(iOException, $"Write failed for default repeater.");
+					throw;
+				}
 			}
 
-			data = File.ReadAllLines(Path);
-			Directory.CreateDirectory(SavePath);
+			try
+			{
+				data = File.ReadAllLines(DefaultRepeaterFile);
+			}
+			catch (IOException iOException)
+			{
+				//TODO: add logger, then throw.
+				iOException.Source = nameof(data);
+				//LogError(iOException, $"Read failed for default repeater file.");
+				throw;
+			}
+
+			//NOTE: assuming save path is not necessary to program function.
+			if (!DoesSavePathExist())
+			{
+				return;
+			}
+
 			string[] networks = Directory.GetFiles(SavePath).Where(x => x.EndsWith(FileExtension)).ToArray();
 
 			if (networks.Length == 1)
@@ -208,12 +233,62 @@ namespace VACARM
 		}
 
 		/// <summary>
+		/// Check if default repeater path exists. If not, try to create path. If the path does not exist, write to logger then fail with exception.
+		/// </summary>
+		/// <exception cref="ArgumentException"></exception>
+		public static void CheckDefaultSavePath()
+		{
+			if (Directory.Exists(DefaultRepeaterFile))
+			{
+				return;
+			}
+
+			try
+			{
+				Directory.CreateDirectory(DefaultRepeaterFile);
+			}
+			catch (IOException iOException)
+			{
+				//TODO: add logger, then throw.
+				//LogError(iOException, $"Failed to create folder at path '{DefaultRepeaterFile}'.");
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Create save path if not found. If failed, output a form warning the user and return false. If successful, return true.
+		/// </summary>
+		/// <returns>True/false</returns>
+		public static bool DoesSavePathExist()
+		{
+			if (Directory.Exists(SavePath))
+			{
+				return true;
+			}
+
+			try
+			{
+				Directory.CreateDirectory(SavePath);
+			}
+			catch (IOException iOException)
+			{
+				string message = $"Save failed ({SavePath}). Continuing without saving.";
+				//TODO: add logger.
+				//LogError(iOException, message);
+				System.Windows.Forms.MessageBox.Show($"Save failed ({SavePath}). Continuing without saving.");
+				return false;
+			}
+
+			return true;
+		}
+
+		/// <summary>
 		/// Refresh graph data from file.
 		/// </summary>
 		public static void Refresh()
 		{
 			CheckFile();
-			data = File.ReadAllLines(Path);
+			data = File.ReadAllLines(DefaultRepeaterFile);
 		}
 
 		/// <summary>
@@ -221,7 +296,7 @@ namespace VACARM
 		/// </summary>
 		private static void Save()
 		{
-			File.WriteAllLines(Path, data);
+			File.WriteAllLines(DefaultRepeaterFile, data);
 		}
 	}
 }
