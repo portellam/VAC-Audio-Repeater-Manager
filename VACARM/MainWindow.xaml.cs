@@ -100,7 +100,7 @@ namespace VACARM
         /// <summary>
         /// Adds new device to existing graph.
         /// </summary>
-        private void AddDevice()
+        protected internal virtual void AddDevice()
         {
             AddDeviceDialog dialog = new AddDeviceDialog();
             dialog.Owner = this;
@@ -123,7 +123,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void AddDevice_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void AddDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             AddDevice();
         }
@@ -133,7 +133,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void LoadGraph_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void LoadGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = DefaultData.SavePath;
@@ -173,12 +173,12 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
-        private void GraphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        protected internal virtual void GraphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             DeviceControl.SelectedDeviceControl = null;
         }
 
-        private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)   //TODO: explain operation of this method.
+        protected internal virtual IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)   //TODO: explain operation of this method.
         {
             const int WM_HOTKEY = 0x0312;
 
@@ -192,7 +192,7 @@ namespace VACARM
             return IntPtr.Zero;
         }
 
-        private void HwndHookIsMatchForWParam(IntPtr wParam, IntPtr lParam, ref bool handled)
+        protected internal virtual void HwndHookIsMatchForWParam(IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (wParam.ToInt32())
             {
@@ -202,7 +202,7 @@ namespace VACARM
             }
         }
 
-        private void HwndHookIsWParamEqualToHotkeyId(IntPtr wParam, IntPtr lParam, ref bool handled)
+        protected internal virtual void HwndHookIsWParamEqualToHotkeyId(IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             int vkey = (((int)lParam >> 16) & 0xFFFF);
 
@@ -233,7 +233,7 @@ namespace VACARM
         /// <summary>
         /// Removes device (vertex) if it is not null..
         /// </summary>
-        private void RemoveDevice()
+        protected internal virtual void RemoveDevice()
         {
             if (DeviceControl.SelectedDeviceControl == null)
             {
@@ -249,7 +249,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void RemoveDevice_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void RemoveDevice_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             RemoveDevice();
         }
@@ -257,7 +257,7 @@ namespace VACARM
         /// <summary>
         /// Clears list of active repeaters.
         /// </summary>
-        private void ResetActiveRepeaters()
+        protected internal virtual void ResetActiveRepeaters()
         {
             activeRepeaterList = new List<string>();
         }
@@ -265,7 +265,7 @@ namespace VACARM
         /// <summary>
         /// Sets IsRunning to false, then true.
         /// </summary>
-        private void Restart()
+        protected internal virtual void Restart()
         {
             IsRunning = false;
             IsRunning = true;
@@ -276,7 +276,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void Restart_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void Restart_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             Restart();
         }
@@ -285,24 +285,28 @@ namespace VACARM
         /// Run given command in Windows terminal.
         /// </summary>
         /// <param name="command">The command</param>
-        private void RunCommand(string command)
+        protected internal virtual void RunCommand(string command)
         {
+            if (command is null || command == String.Empty)
+            {
+                return;
+            }
+
             Process process = new Process();
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.WindowStyle = ProcessWindowStyle.Hidden;
-            info.FileName = terminalExecutable;
-            info.Arguments = "/C " + command;
-            process.StartInfo = info;
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            processStartInfo.FileName = terminalExecutable;
+            processStartInfo.Arguments = "/C " + command;
+            process.StartInfo = processStartInfo;
             process.Start();
         }
-
         /// <summary>
         /// Save graph to file if graph is edited or not default.
         /// </summary>
         /// <param name="saveFileDialog">The save file dialog</param>
-        private void SaveEditedGraph(SaveFileDialog saveFileDialog)
+        protected internal virtual void SaveEditedGraph(SaveFileDialog saveFileDialog)
         {
-            string file = saveFileDialog.FileName.Replace($@"{DefaultData.SavePath}\", "");
+			string file = saveFileDialog.FileName.Replace($@"{DefaultData.SavePath}\", "");
 
             if (file.Contains("\\"))
             {
@@ -318,7 +322,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void SaveGraph_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void SaveGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.InitialDirectory = DefaultData.SavePath;
@@ -336,7 +340,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void StartStop_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void StartStop_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             StartStop();
         }
@@ -344,7 +348,7 @@ namespace VACARM
         /// <summary>
         /// Toggles IsRunning value.
         /// </summary>
-        private void StartStop()
+        protected internal virtual void StartStop()
         {
             IsRunning = !IsRunning;
         }
@@ -352,19 +356,18 @@ namespace VACARM
         /// <summary>
         /// Starts engine of all active repeaters.
         /// </summary>
-        private void StartEngine()
+        protected internal virtual void StartEngine()
         {
             foreach (RepeaterInfo repeaterInfo in BipartiteDeviceGraph.GetEdges())
             {
                 StartEngineOfActiveRepeater(repeaterInfo);
             }
         }
-
         /// <summary>
         /// If repeater is active, start engine. False, do nothing.
         /// </summary>
         /// <param name="repeaterInfo">The repeater info</param>
-        private void StartEngineOfActiveRepeater(RepeaterInfo repeaterInfo)
+        protected internal virtual void StartEngineOfActiveRepeater(RepeaterInfo repeaterInfo)
         {
             if (repeaterInfo.CaptureDeviceControl.DeviceState != DeviceState.Active || repeaterInfo.RenderDeviceControl.DeviceState != DeviceState.Active)
             {
@@ -374,12 +377,16 @@ namespace VACARM
             RunCommand(repeaterInfo.ToCommand());
             activeRepeaterList.Add(repeaterInfo.WindowName);
         }
-
-        /// <summary>
+ /// <summary>
         /// Stops all active repeaters, and start default repeater.
         /// </summary>
-        private void StopEngine()
+        protected internal virtual void StopEngine()
         {
+            if (activeRepeaterList is null || activeRepeaterList.Count == 0)
+            {
+                return;
+            }
+
             string commandToStopActiveRepeaterAndStartDefaultRepeater = $"start \"audiorepeater\" \"{DefaultData.RepeaterPath}\" /CloseInstance:";
 
             foreach (string activeRepeater in activeRepeaterList)
@@ -396,27 +403,36 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void ToolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void ToolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
         {
+            if (sender is null || sender == String.Empty)
+            {
+                return;
+            }
+
             SelectedTool = ((RadioButton)sender).Tag.ToString();
         }
-
         /// <summary>
         /// Window shortcuts given marco input (Windows Key + key).
         ///
         /// Examples:
-        /// T = add device
-        /// Delete = remove device
-        ///  H = hand tool
-        /// L = link tool
-        /// R = restart engine
-        /// P = start/stop engine
+        /// T       = add device
+        /// Delete  = remove device
+        /// H       = hand tool
+        /// L       = link tool
+        /// R       = restart engine
+        /// P       = start/stop engine
         /// 
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="keyEventArgs">The key event</param>
-        private void Window_KeyUp(object sender, KeyEventArgs keyEventArgs)
+        protected internal virtual void Window_KeyUp(object sender, KeyEventArgs keyEventArgs)
         {
+            if (keyEventArgs is null)
+            {
+                return;
+            }
+
             switch (keyEventArgs.Key)
             {
                 case Key.T:
@@ -452,7 +468,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="cancelEventArgs">The cancel event</param>
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs cancelEventArgs)
+        protected internal virtual void Window_Closing(object sender, System.ComponentModel.CancelEventArgs cancelEventArgs)
         {
             StopEngine();
         }
