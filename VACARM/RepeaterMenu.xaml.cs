@@ -31,7 +31,7 @@ namespace VACARM
                 }
             }
         }
-
+        
         /// <summary>
         /// Populates submenu with each repeater and its' information.
         /// </summary>
@@ -46,7 +46,7 @@ namespace VACARM
 
             if (bipartiteDeviceGraph is null)
             {
-                throw new ArgumentNullException(nameof(bipartiteDeviceGraph);
+                throw new ArgumentNullException(nameof(bipartiteDeviceGraph));
             }
 
             InitializeComponent();
@@ -89,7 +89,6 @@ namespace VACARM
             DataContext = RepeaterInfo;
             this.bipartiteDeviceGraph = bipartiteDeviceGraph;
         }
-
         /// <summary>
         /// Removes edge given button click.
         /// </summary>
