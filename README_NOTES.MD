@@ -9,10 +9,11 @@
 * QA test.
 
 ## Known bugs
-* When using a KVM, there is a bug where audio may be "glitched". This may be caused by switching PC inputs while playing audio over the KVM (ex: HDMI or optical audio, 3.5mm analog audio, etc.). WORK-AROUND: do not add Wave inputs/outputs which operate over the KVM. 
+* When using a KVM, there is a bug where audio may be "glitched". This may be caused by switching PC inputs while playing audio over the KVM (ex: HDMI or optical audio, 3.5mm analog audio, etc.). SOLUTION: do not add Wave inputs/outputs which operate over the KVM. WORK-AROUND: Logout and login Windows user, then start VACARM again.
 * Application will crash without warning when attempting to add vector when one exists between Wave-In and Wave-Out pair(s).
 
 ## Potential improvements
+* How to diable prevention of system sleep (likely a bug/feature of VAC itself, see powercfg /override).
 * Full parity of backwards and forwards Windows compatibility, as with Virtual Audio Cable (example: Windows XP, Vista, 7, etc.).
 * Add tasks to task scheduler?
 * Pause or stop audio repeater if devices in input/output pair are  disabled or removed?
