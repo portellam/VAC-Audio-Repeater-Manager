@@ -18,4 +18,4 @@
 * Presentation: Combination of Web-graph and Spreadsheet style representation of audio repeater layout.
 
 ## Gotchas
-* When using a physical KVM (Keyboard-Video-Mouse) switch which includes audio , there is a phenonmenon where audio playback will pause. This is observed when a KVM is between and/or switching PC inputs (ex: PC #1 -> PC #2). Audio will resume normall after a short moment.
+* When using a physical KVM (Keyboard-Video-Mouse) switch which includes audio , there is a phenonmenon where audio playback will pause. This is observed when a KVM is between and/or switching PC inputs (ex: PC #1 -> PC #2). Audio will resume normally after a short moment.
