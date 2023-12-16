@@ -13,8 +13,35 @@
 * Application will crash without warning when attempting to add vector when one exists between Wave-In and Wave-Out pair(s).
 
 ## Potential improvements
+* Full parity of backwards and forwards Windows compatibility, as with Virtual Audio Cable (example: Windows XP, Vista, 7, etc.).
+* Add tasks to task scheduler?
+* Pause or stop audio repeater if devices in input/output pair are  disabled or removed?
+	* Start audio repeater if devices in input/output pair are enabled?
 * GUI presentation: Grid or snapping of colored boxes of Wave inputs and outputs.
-* Console application.
+* Check if Virtual Audio cable is installed.
+* Create Console application
+	* menus
+
+		(C)reate Repeater
+		(E)dit Repeater
+		(D)elete Repeater
+		(V)iew all Repeaters
+		(Q)uit.
+
+	* Create
+		* Select one (1) input
+		* Select one (1) or more outputs.
+	* Edit
+		* Change input.
+		* Add or remove output(s).
+	* Delete
+		* Delete input.
+	* View
+		* View all repeaters.
+
+	* For each repeater, create a command line.
+	* Append all command lines to task scheduler, as a BAT file.
+	* Have a function to be able to checkmark inputs/outputs.
 * Presentation: Combination of Web-graph and Spreadsheet style representation of audio repeater layout.
 
 ## Gotchas
