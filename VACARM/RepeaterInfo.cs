@@ -456,18 +456,6 @@ namespace VACARM
 		}
 
 		/// <summary>
-		/// Show dialog for click on repeater.
-		/// </summary>
-		/// <param name="sender">The sender</param>
-		/// <param name="routedEventArgs">The event</param>
-		private void ContextClick(object sender, System.Windows.RoutedEventArgs routedEventArgs)
-		{
-			RepeaterMenu repeaterMenu = new RepeaterMenu(this, graph);
-			repeaterMenu.Owner = MainWindow.GraphMapCanvas.Parent as Window;
-			repeaterMenu.ShowDialog();
-		}
-
-		/// <summary>
 		/// Logs event when RepeaterInfo property has changed.
 		/// </summary>
 		/// <param name="propertyName">The property name</param>
@@ -538,6 +526,18 @@ namespace VACARM
 				$"{Buffers}\n" +
 				$"{Prefill}\n" +
 				$"{ResyncAt}";
+		}
+
+		/// <summary>
+		/// Show dialog for click on repeater.
+		/// </summary>
+		/// <param name="sender">The sender</param>
+		/// <param name="routedEventArgs">The event</param>
+		protected internal virtual void ContextClick(object sender, System.Windows.RoutedEventArgs routedEventArgs)
+		{
+			RepeaterMenu repeaterMenu = new RepeaterMenu(this, graph);
+			repeaterMenu.Owner = MainWindow.GraphMapCanvas.Parent as Window;
+			repeaterMenu.ShowDialog();
 		}
 	}
 
