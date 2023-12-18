@@ -15,6 +15,9 @@ namespace VACARM
         private static DeviceControl selectedDeviceControl;
         private double left;
         private Point startPoint;
+        private static readonly SolidColorBrush defaultDeviceColor = Brushes.AliceBlue;
+        private static readonly SolidColorBrush inputDeviceColor = Brushes.LightGreen;
+        private static readonly SolidColorBrush outputDeviceColor = Brushes.PaleVioletRed;
         public static DeviceControl InitialDeviceControl;
         
         public static DeviceControl SelectedDeviceControl
@@ -27,12 +30,12 @@ namespace VACARM
             {
                 if (selectedDeviceControl != null)
                 {
-                    selectedDeviceControl.deviceBackground.Background = (selectedDeviceControl.mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
+                    selectedDeviceControl.deviceBackground.Background = SetBackgroundColor(selectedDeviceControl.mMDevice.DataFlow);
                 }
 
                 if (value != null)
                 {
-                    value.deviceBackground.Background = Brushes.AliceBlue;
+                    value.deviceBackground.Background = defaultDeviceColor;
                 }
 
                 selectedDeviceControl = value;
@@ -122,7 +125,7 @@ namespace VACARM
             this.mMDevice = mMDevice;
             BipartiteDeviceGraph = bipartiteDeviceGraph;
             Panel.SetZIndex(this, 1);
-            deviceBackground.Background = (mMDevice.DataFlow == DataFlow.Capture) ? Brushes.LightGreen : Brushes.PaleVioletRed;
+            deviceBackground.Background = SetBackgroundColor(mMDevice.DataFlow);
             txtDeviceName.Text = mMDevice.FriendlyName;
             ContextMenu = new ContextMenu();
         }
@@ -137,11 +140,28 @@ namespace VACARM
         }
 
         /// <summary>
+        /// Match for capture device (input device). True/false set color accordingly (input/output).
+        /// </summary>
+        /// <param name="dataFlow">The dataflow</param>
+        /// <returns>Color</returns>
+        protected internal static SolidColorBrush SetBackgroundColor(DataFlow dataFlow)
+        {
+            bool isCaptureDevice = dataFlow == DataFlow.Capture;
+
+            if (isCaptureDevice)
+            {
+                return inputDeviceColor;
+            }
+
+            return outputDeviceColor;
+        }
+
+        /// <summary>
         /// Event logic for Mouse left button up.
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
-        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        protected internal virtual void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             SelectedDeviceControl = this;
 
@@ -152,7 +172,7 @@ namespace VACARM
                 return;
             }
 
-            if (InitialDeviceControl == null)
+            if (InitialDeviceControl is null)
             {
                 InitialDeviceControl = this;
                 return;
@@ -167,7 +187,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
-        private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        protected internal virtual void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             if (MainWindow.SelectedTool == "Hand")
             {
@@ -182,7 +202,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="mouseEventArgs">The mouse event</param>
-        private void UserControl_PreviewMouseMove(object sender, MouseEventArgs mouseEventArgs)
+        protected internal virtual void UserControl_PreviewMouseMove(object sender, MouseEventArgs mouseEventArgs)
         {
             if (MainWindow.SelectedTool != "Hand" || mouseEventArgs.LeftButton != MouseButtonState.Pressed)
             {
