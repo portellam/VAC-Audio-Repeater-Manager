@@ -426,7 +426,7 @@ namespace VACARM
         /// <param name="routedEventArgs">The routed event</param>
         protected internal virtual void ToolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (sender is null || sender == String.Empty)
+            if (sender is null || (string)sender == String.Empty)
             {
                 return;
             }
