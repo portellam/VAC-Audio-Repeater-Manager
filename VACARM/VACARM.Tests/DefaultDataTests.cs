@@ -9,9 +9,9 @@ namespace VACARM.Tests
 
         // CheckFile()
         /*
-         * PathIsNull_WriteDefaultRepeaterToFile__
-         * PathDoesNotExist_WriteDefaultRepeaterToFile__
-         * PathDoesExist_DoNotWriteDefaultRepeaterToFile__ 
+         * _PathIsNull_WriteDefaultRepeaterToFile__
+         * _PathDoesNotExist_WriteDefaultRepeaterToFile__
+         * _PathDoesExist_DoNotWriteDefaultRepeaterToFile__ 
          * _DefaultGraphIsNotNullAndNetworkCountIsGreaterThanOneAndSavePathExists_DefaultGraphIsUnchanged
          * _DefaultGraphIsNull_DefaultGraphIsTwoBackSlashes
          * _NetworkCountIsOne_DefaultGraphIsChanged
@@ -27,7 +27,7 @@ namespace VACARM.Tests
 
         // Save()
         /*
-         * DataWriteAllLinesToPath_ConfirmDataIsSame ?
+         * _DataWriteAllLinesToPath_ConfirmDataIsSame ?
          * TODO: try to test for every exception? NOTE: refactor?
          */
     }

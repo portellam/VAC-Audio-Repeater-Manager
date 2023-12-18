@@ -8,37 +8,37 @@ namespace VACARM.Tests
     {
         // Constructor???
 
-        // ContextClick
+        // ContextClick()
         /*
          *  TODO: validate sender and RoutedEventArgs?
-         * graphIsNull_DoSomething_ExpectSomething
-         * graphIsValid_DoSomething_ExpectSomething
+         * _GraphIsNull_DoSomething_ExpectSomething
+         * _GraphIsValid_DoSomething_ExpectSomething
          */
 
-        // OnPropertyChanged
+        // OnPropertyChanged()
         /*
-         * propertyNameIsNull_DoNothing
-         * propertyNameIsEmpty_DoNothing
-         * propertyNameIsValid_DoSomething_ExpectSomething
+         * _PropertyNameIsNull_DoNothing
+         * _PropertyNameIsEmpty_DoNothing
+         * _PropertyNameIsValid_DoSomething_ExpectSomething
          */
 
-        // SetData
+        // SetData()
         /*
-         * infoListIsNull_PropertiesAreUnchanged_ReturnVoid
-         * infoListIsValid_PropertiesAreChanged_ReturnVoid
+         * _InfoListIsNull_PropertiesAreUnchanged_ReturnVoid
+         * _InfoListIsValid_PropertiesAreChanged_ReturnVoid
          */
 
-        // ToCommand
+        // ToCommand()
         /*
-         * ReturnString
+         * _ReturnString
          * (make sure public strings populate?)
          * 
          */
 
-        // ToSaveData
+        // ToSaveData()
         /*
-         * ReturnString
-         * (make sure public strings populate?)
+         * _ReturnString
+         * NOTE: (make sure public strings populate?)
          * 
          */
     }

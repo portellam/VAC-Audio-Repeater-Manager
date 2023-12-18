@@ -8,14 +8,14 @@ namespace VACARM.Tests
     {
         // RunCommand()
         /*
-         * CommandIsEmpty_ReturnVoid
-         * CommandIsNull_ReturnVoid
-         * CommandIsValid_StartHiddenTerminalProcess
+         * _CommandIsEmpty_ReturnVoid
+         * _CommandIsNull_ReturnVoid
+         * _CommandIsValid_StartHiddenTerminalProcess
          */
 
         // ResetActiveRepeaters
         /*
-         * ResetActiveRepeaterList_UndoList
+         * _ResetActiveRepeaterList_UndoList
          */
 
         // SavedEditedGraph()
@@ -31,51 +31,51 @@ namespace VACARM.Tests
 
         // StartStop()
         /*
-         * ToggleIsRunning
+         * _ToggleIsRunning
          */
 
         // StartEngine()
         /*
-         * StartEngineOfEveryActiveRepeater
+         * _StartEngineOfEveryActiveRepeater
          */
 
         // StartEngineOfActiveRepeater()
         /*
-         * CaptureDeviceControlDeviceStateIsNotActive_ReturnVoid
-         * RenderDeviceControlDeviceStateIsNotActive_ReturnVoid
-         * DeviceStatesAreActive_RunCommandAndAddToList
+         * _CaptureDeviceControlDeviceStateIsNotActive_ReturnVoid
+         * _RenderDeviceControlDeviceStateIsNotActive_ReturnVoid
+         * _DeviceStatesAreActive_RunCommandAndAddToList
          */
 
         // StopEngine
         /*
-         * ActiveRepeaterListIsNull_ReturnVoid
-         * ActiveRepeaterListIsEmpty_ReturnVoid
-         * ActiveRepeaterListIsValid_RunCommandsAndUndoList
+         * _ActiveRepeaterListIsNull_ReturnVoid
+         * _ActiveRepeaterListIsEmpty_ReturnVoid
+         * _ActiveRepeaterListIsValid_RunCommandsAndUndoList
          */
 
 
         // ToolBarSelect_Click()
         /*
-         * SenderIsEmpty_ReturnVoid
-         * SenderIsNull_ReturnVoid
-         * SenderIsValid_UpdateSelectedToolAsRadioButton
+         * _SenderIsEmpty_ReturnVoid
+         * _SenderIsNull_ReturnVoid
+         * _SenderIsValid_UpdateSelectedToolAsRadioButton
          */
 
         // Window_KeyUp()
         /*
-         * KeyEventArgsIsNull_ReturnVoid
-         * KeyEventArgsContainsNoKey_ReturnVoid
-         * KeyEventArgsContainsKeyT_AddDevice
-         * KeyEventArgsContainsKeyDelete_RemoveDevice
-         * KeyEventArgsContainsKeyH_DoSomething
-         * KeyEventArgsContainsKeyL_DoSomething
-         * KeyEventArgsContainsKeyR_Restart
-         * KeyEventArgsContainsKeyP_StartStop
+         * _KeyEventArgsIsNull_ReturnVoid
+         * _KeyEventArgsContainsNoKey_ReturnVoid
+         * _KeyEventArgsContainsKeyT_AddDevice
+         * _KeyEventArgsContainsKeyDelete_RemoveDevice
+         * _KeyEventArgsContainsKeyH_DoSomething
+         * _KeyEventArgsContainsKeyL_DoSomething
+         * _KeyEventArgsContainsKeyR_Restart
+         * _KeyEventArgsContainsKeyP_StartStop
          */
 
         // Window_Closing()
         /*
-         * Window_Closing_CanCallStopEngine
+         * _Window_Closing_CanCallStopEngine
          */
     }
 }
