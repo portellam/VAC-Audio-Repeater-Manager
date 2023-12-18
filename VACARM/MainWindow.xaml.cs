@@ -91,7 +91,7 @@ namespace VACARM
 
             SelectedTool = "Hand";
 
-            if (DefaultData.DefaultGraph == null) BipartiteDeviceGraph = new BipartiteDeviceGraph();
+            if (DefaultData.DefaultGraph is null) BipartiteDeviceGraph = new BipartiteDeviceGraph();
             else BipartiteDeviceGraph = BipartiteDeviceGraph.LoadGraph($@"{DefaultData.SavePath}\{DefaultData.DefaultGraph}");
 
             IsRunning = true;
@@ -106,16 +106,17 @@ namespace VACARM
             dialog.Owner = this;
             dialog.ShowDialog();
 
-            if (dialog.mMDevice == null)
+            if (dialog.mMDevice is null)
             {
                 return;
             }
 
-            DeviceControl control = new DeviceControl(dialog.mMDevice, BipartiteDeviceGraph);
-            BipartiteDeviceGraph.AddVertex(control);
-            graphCanvas.Children.Add(control);
-            Canvas.SetLeft(control, 0);
-            Canvas.SetTop(control, 0);
+            DeviceControl deviceControl = new DeviceControl(dialog.mMDevice, BipartiteDeviceGraph);
+            BipartiteDeviceGraph.AddVertex(deviceControl
+                );
+            graphCanvas.Children.Add(deviceControl);
+            Canvas.SetLeft(deviceControl, 0);
+            Canvas.SetTop(deviceControl, 0);
         }
 
         /// <summary>
@@ -139,7 +140,7 @@ namespace VACARM
             fileDialog.InitialDirectory = DefaultData.SavePath;
             bool? result = fileDialog.ShowDialog();
 
-            if (result == false || result == null)
+            if (result == false || result is null)
             {
                 return;
             }
@@ -178,41 +179,61 @@ namespace VACARM
             DeviceControl.SelectedDeviceControl = null;
         }
 
-        protected internal virtual IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)   //TODO: explain operation of this method.
+        /// <summary>
+        /// Return window handle hook. Return int pointer given match for hotkey.
+        /// </summary>
+        /// <param name="hwnd">Window handle pointer</param>
+        /// <param name="message">The message</param>
+        /// <param name="widthParam">Width parameter</param>
+        /// <param name="lengthParam">Length parameter</param>
+        /// <param name="isHandled">Is window handled</param>
+        /// <returns>Int pointer</returns>
+        protected internal virtual IntPtr HwndHook(IntPtr hwnd, int message, IntPtr widthParam, IntPtr lengthParam, ref bool isHandled)   //TODO: explain operation of this method.
         {
             const int WM_HOTKEY = 0x0312;
 
-            switch (msg)
+            switch (message)
             {
                 case WM_HOTKEY:
-                    HwndHookIsMatchForWParam(wParam, lParam, ref handled);
+                    HwndHookIsMatchForWParam(widthParam, lengthParam, ref isHandled);
                     break;
             }
 
             return IntPtr.Zero;
         }
 
-        protected internal virtual void HwndHookIsMatchForWParam(IntPtr wParam, IntPtr lParam, ref bool handled)
+        /// <summary>
+        /// Match for hotkey. If true, set handled to true.
+        /// </summary>
+        /// <param name="widthParam">Width parameter</param>
+        /// <param name="lengthParam">Length parameter</param>
+        /// <param name="isHandled">Is window handled</param>
+        protected internal virtual void HwndHookIsMatchForWParam(IntPtr widthParam, IntPtr lengthParam, ref bool isHandled)
         {
-            switch (wParam.ToInt32())
+            switch (widthParam.ToInt32())
             {
                 case HOTKEY_ID:
-                    HwndHookIsWParamEqualToHotkeyId(wParam, lParam, ref handled);
+                    SetRefOfIsHandledToTrueAndRestartIfScrollKeyId(widthParam, lengthParam, ref isHandled);
                     return;
             }
         }
 
-        protected internal virtual void HwndHookIsWParamEqualToHotkeyId(IntPtr wParam, IntPtr lParam, ref bool handled)
+        /// <summary>
+        /// If given key is pressed, Restart. Always set handled to true.
+        /// </summary>
+        /// <param name="widthParam">Width parameter</param>
+        /// <param name="lengthParam">Length parameter</param>
+        /// <param name="isHandled">Is window handled</param>
+        protected internal virtual void SetRefOfIsHandledToTrueAndRestartIfScrollKeyId(IntPtr widthParam, IntPtr lengthParam, ref bool isHandled)
         {
-            int vkey = (((int)lParam >> 16) & 0xFFFF);
+            int vkey = (((int)lengthParam >> 16) & 0xFFFF);
 
             if (vkey == VK_SCROLL)
             {
-                IsRunning = false;
-                IsRunning = true;
+                Restart();
             }
 
-            handled = true;
+            isHandled = true;
         }
         
         /// <summary>
@@ -235,7 +256,7 @@ namespace VACARM
         /// </summary>
         protected internal virtual void RemoveDevice()
         {
-            if (DeviceControl.SelectedDeviceControl == null)
+            if (DeviceControl.SelectedDeviceControl is null)
             {
                 return;
             }
