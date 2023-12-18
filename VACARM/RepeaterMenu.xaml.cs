@@ -50,8 +50,8 @@ namespace VACARM
             }
 
             InitializeComponent();
-
             List <Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
+            const string channelMaskString = "ChannelMask";
 
             for (int i = 0; i < channelList.Count; i++)
             {
@@ -73,7 +73,7 @@ namespace VACARM
                 Grid.SetRow(checkBox, 1);
                 Grid.SetColumn(checkBox, i);
 
-                Binding bindChannel = new Binding("ChannelMask")
+                Binding bindChannel = new Binding(channelMaskString)
                 {
                     Converter = new ChannelConverter(repeaterInfo),
                     ConverterParameter = (int)channel,
@@ -89,12 +89,13 @@ namespace VACARM
             DataContext = RepeaterInfo;
             this.bipartiteDeviceGraph = bipartiteDeviceGraph;
         }
+     
         /// <summary>
         /// Removes edge given button click.
         /// </summary>
         /// <param name="sender">The sender value</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void DeleteButton_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void DeleteButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             bipartiteDeviceGraph.RemoveEdge(repeaterInfo.CaptureDeviceControl, repeaterInfo.RenderDeviceControl);
             Close();
@@ -105,7 +106,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender value</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void Okay_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void Okay_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             Close();
         }
