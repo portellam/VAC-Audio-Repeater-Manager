@@ -294,7 +294,7 @@ namespace VACARM
 		/// <summary>
 		/// Save graph data to file.
 		/// </summary>
-		private static void Save()
+		protected internal static void Save()
 		{
 			File.WriteAllLines(DefaultRepeaterFile, data);
 		}

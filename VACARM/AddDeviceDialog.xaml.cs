@@ -28,7 +28,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void CancelButton_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void CancelButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             Close();
         }
@@ -38,7 +38,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="routedEventArgs">The routed event</param>
-        private void OkButton_Click(object sender, RoutedEventArgs routedEventArgs)
+        protected internal virtual void OkButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             if (selectDeviceType.SelectedIndex == -1 || selectDevice.SelectedIndex == -1)
             {
@@ -56,7 +56,7 @@ namespace VACARM
         /// <param name="sender">The sender</param>
         /// <param name="selectionChangedEventArgs">The selection changed event</param>
         /// <exception cref="ArgumentNullException"></exception>
-        private void SelectDeviceType_SelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
+        protected internal virtual void SelectDeviceType_SelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
 			if (sender is null)
 			{
@@ -84,7 +84,7 @@ namespace VACARM
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
-        private void Window_MouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        protected internal virtual void Window_MouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             if (mouseButtonEventArgs.ChangedButton == MouseButton.Left)
             {
