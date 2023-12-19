@@ -136,6 +136,11 @@ namespace VACARM
 		/// <param name="propertyName">The property name</param>
         public void OnPropertyChanged(string propertyName)
         {
+            if (propertyName is null || propertyName == string.Empty)
+            {
+                return;
+            }
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
