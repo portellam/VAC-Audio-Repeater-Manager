@@ -8,8 +8,8 @@ namespace VACARM.Tests
     {
         // Constructor
         /*
-         * _SetMetadata_CheckFile_IfDefaultGraphIsNotNull_LoadGraph_SetIsRunningToTrue
-         * _SetMetadata_CheckFile_IfDefaultGraphIsNull_CreateNewGraph_SetIsRunningToTrue
+         * _SetMetadata_CheckFile_DefaultGraphIsNotNull_LoadGraph_SetIsRunningToTrue
+         * _SetMetadata_CheckFile_DefaultGraphIsNull_CreateNewGraph_SetIsRunningToTrue
          */
 
         // AddDevice()
@@ -101,14 +101,14 @@ namespace VACARM.Tests
 
         // SavedEditedGraph()
         /*
-         * _IfFileIsEdited_DoUpdateDefaultGraph
-         * _IfFileIsNotEdited_DoNotUpdateDefaultGraph
+         * _FileIsEdited_DoUpdateDefaultGraph
+         * _FileIsNotEdited_DoNotUpdateDefaultGraph
          */
 
         // SaveGraph_Click()
         /*
-         * _IfShowDialogIsTrue_SaveEditedGraph
-         * _IfShowDialogIsFalse_DoNotSaveEditedGraph
+         * _ShowDialogIsTrue_SaveEditedGraph
+         * _ShowDialogIsFalse_DoNotSaveEditedGraph
          */
 
         // StartStop()

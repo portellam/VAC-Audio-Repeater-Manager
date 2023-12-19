@@ -8,8 +8,8 @@ namespace VACARM.Tests
     {
         // Constructor
         /*
-         * InitalizeComponentAndSetMetadata_IfDataFlowIsCapture_SetColorToInputDeviceColor
-         * InitalizeComponentAndSetMetadata_IfDataFlowIsNotCapture_SetColorToOutputDeviceColor
+         * InitalizeComponentAndSetMetadata_DataFlowIsCapture_SetColorToInputDeviceColor
+         * InitalizeComponentAndSetMetadata_DataFlowIsNotCapture_SetColorToOutputDeviceColor
          */
 
         // OnPropertyChanged()
@@ -19,7 +19,7 @@ namespace VACARM.Tests
          * _PropertyNameIsValid_PropertyIsChanged
          */
 
-        // SetBackgrounColor()
+        // SetBackgroundColor()
         /*
          * _IsCaptureDevice_ReturnInputDeviceColor
          * _IsNotCaptureDevice_ReturnOutputDeviceColor
@@ -27,42 +27,42 @@ namespace VACARM.Tests
 
         // UserControl_MouseLeftButtonDown()
         /*
-         * _SetSelectedDevice_IfInitialDeviceIsNull_SetInitialDevice
-         * _SetSelectedDevice_IfSelectedToolIsHand_SetStartPointAndZIndex
-         * _SetSelectedDevice_IfSelectedToolIsNotHandAndIfInitialDeviceIsNotNull_AddEdgeAndSetInitialDeviceToNull
+         * _SetSelectedDevice_InitialDeviceIsNull_SetInitialDevice
+         * _SetSelectedDevice_SelectedToolIsHand_SetStartPointAndZIndex
+         * _SetSelectedDevice_SelectedToolIsNotHandAndIfInitialDeviceIsNotNull_AddEdgeAndSetInitialDeviceToNull
          */
 
         // UserControl_MouseLeftButtonUp()
         /*
-         * _IfSelectedToolIsHand_SetZIndex_SetSelectedDevice
-         * _IfSelectedToolIsNotHand_DoNotSetZIndex_SetSelectedDevice
+         * _SelectedToolIsHand_SetZIndex_SetSelectedDevice
+         * _SelectedToolIsNotHand_DoNotSetZIndex_SetSelectedDevice
          */
 
         // UserControl_PreviewMouseMove()
         /*
-         * _IfLeftButtonIsNotPressed_ReturnVoid
+         * _LeftButtonIsNotPressed_ReturnVoid
   
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsGreaterThanActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsGreaterThanActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsLessThanOrEqualToActualHeight
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsGreaterThanActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsGreaterThanActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsLessThanOrEqualToActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsGreaterThanActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsGreaterThanActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsGreaterThanActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsLessThanOrEqualToActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsGreaterThanActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsGreaterThanActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsGreaterThanActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsLessThanOrEqualToActualHeight
 
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsLessThanOrEqualToActualHeight
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsLessThanOrEqualToActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsLessThanOrEqualToActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsGreaterThanActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsLessThanOrEqualToActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsLessThanOrEqualToActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsLessThanOrEqualToActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsGreaterThanActualHeight
+         * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsLessThanOrEqualToActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsLessThanOrEqualToActualHeight
         
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsGreaterThanActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsGreaterThanActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsLessThanOrEqualToActualHeight
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsGreaterThanActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsGreaterThanActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsLessThanOrEqualToActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsGreaterThanActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsGreaterThanActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsGreaterThanActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsLessThanOrEqualToActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsGreaterThanActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsGreaterThanActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsGreaterThanActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsLessThanOrEqualToActualHeight
 
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_IfTopIsLessThanOrEqualToActualHeight
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsGreaterThanActualHeight
-         * _IfLeftIsLessThanZero_SetLeftAsZero_IfLeftIsLessThanOrEqualToActualWidth_IfTopIsLessThanZero_SetTopAsZero_IfTopIsLessThanOrEqualToActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsLessThanOrEqualToActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsGreaterThanActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsLessThanOrEqualToActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsLessThanOrEqualToActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsLessThanOrEqualToActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsGreaterThanActualHeight
+         * _LeftIsLessThanZero_SetLeftAsZero_LeftIsLessThanOrEqualToActualWidth_TopIsLessThanZero_SetTopAsZero_TopIsLessThanOrEqualToActualHeight
   
-         * _IfSelectedToolIsNotHand_ReturnVoid 
+         * _SelectedToolIsNotHand_ReturnVoid 
          */
     }
 }
