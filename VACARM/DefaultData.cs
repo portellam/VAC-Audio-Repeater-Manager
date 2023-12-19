@@ -178,10 +178,33 @@ namespace VACARM
 			}
 		}
 
-		/// <summary>
-		/// Check file for existing Repeater configuration.
-		/// </summary>
-		public static void CheckFile()
+        /// <summary>
+        /// Check if default repeater path exists. If not, try to create path. If the path does not exist, write to logger then fail with exception.
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
+        public static void CheckDefaultSavePath()
+        {
+            if (Directory.Exists(DefaultRepeaterFile))
+            {
+                return;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(DefaultRepeaterFile);
+            }
+            catch (IOException iOException)
+            {
+                //TODO: add logger, then throw.
+                //LogError(iOException, $"Failed to create folder at path '{DefaultRepeaterFile}'.");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Check file for existing Repeater configuration.
+        /// </summary>
+        public static void CheckFile()
 		{
 			if (!File.Exists(DefaultRepeaterFile))
 			{
@@ -230,29 +253,6 @@ namespace VACARM
 				(DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}"))))
 			{
 				DefaultGraph = "\\";
-			}
-		}
-
-		/// <summary>
-		/// Check if default repeater path exists. If not, try to create path. If the path does not exist, write to logger then fail with exception.
-		/// </summary>
-		/// <exception cref="ArgumentException"></exception>
-		public static void CheckDefaultSavePath()
-		{
-			if (Directory.Exists(DefaultRepeaterFile))
-			{
-				return;
-			}
-
-			try
-			{
-				Directory.CreateDirectory(DefaultRepeaterFile);
-			}
-			catch (IOException iOException)
-			{
-				//TODO: add logger, then throw.
-				//LogError(iOException, $"Failed to create folder at path '{DefaultRepeaterFile}'.");
-				throw;
 			}
 		}
 
