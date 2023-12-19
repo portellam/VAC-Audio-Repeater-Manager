@@ -6,5 +6,9 @@ namespace VACARM.Tests
     [TestFixture]
     public class DeviceListTests
     {
+        // Constructor
+        /*
+         * _SetMetadata
+         */
     }
 }
