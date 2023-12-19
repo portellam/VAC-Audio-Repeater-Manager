@@ -140,7 +140,6 @@ namespace VACARM.Tests
          * _ActiveRepeaterListIsValid_RunCommandsAndUndoList
          */
 
-
         // ToolBarSelect_Click()
         /*
          * _SenderIsEmpty_ReturnVoid
