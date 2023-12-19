@@ -10,7 +10,8 @@ namespace VACARM
 		public const string FileExtension = ".vac";
 		public const string SavePartialPath = @"\save";     //NOTE: is it necessary for this path to exist, for VAC to work?
 		private static string[] data;
-		public static readonly string DefaultRepeaterFile = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialFilePath}";	//NOTE: must this be public?
+        public const string ApplicationName = "VACARM";
+        public static readonly string DefaultRepeaterFile = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialFilePath}";	//NOTE: must this be public?
 		public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}"; //NOTE: must this be public?
 
 		/// <summary>
@@ -272,14 +273,14 @@ namespace VACARM
 			}
 			catch (IOException iOException)
 			{
-				string message = $"Save failed ({SavePath}). Continuing without saving.";
+				string message = $"Save failed ({SavePath}). Continuing without saving. Please try creating save folder and try restarting {ApplicationName}.";
 				//TODO: add logger.
 				//LogError(iOException, message);
-				System.Windows.Forms.MessageBox.Show($"Save failed ({SavePath}). Continuing without saving.");
+				System.Windows.Forms.MessageBox.Show(message);
 				return false;
 			}
 
-			return true;
+            return true;
 		}
 
 		/// <summary>
@@ -288,15 +289,38 @@ namespace VACARM
 		public static void Refresh()
 		{
 			CheckFile();
-			data = File.ReadAllLines(DefaultRepeaterFile);
-		}
+
+            try
+            {
+                data = File.ReadAllLines(DefaultRepeaterFile);
+            }
+            catch (IOException iOException)
+            {
+                //TODO: add logger.
+                iOException.Source = nameof(DefaultRepeaterFile);
+                string message = $"Refresh failed ({DefaultRepeaterFile}). If problem persists, please try restarting {ApplicationName}.";
+                //LogError(iOException, message);
+                System.Windows.Forms.MessageBox.Show(message);
+            }
+        }
 
 		/// <summary>
 		/// Save graph data to file.
 		/// </summary>
 		protected internal static void Save()
 		{
-			File.WriteAllLines(DefaultRepeaterFile, data);
-		}
+			try
+			{
+				File.WriteAllLines(DefaultRepeaterFile, data);
+			}
+			catch (IOException iOException)
+			{
+                //TODO: add logger.
+                iOException.Source = nameof(DefaultRepeaterFile);
+                string message = $"Save failed ({DefaultRepeaterFile}). Continuing without saving. If problem persists, please try restarting {ApplicationName}.";
+                //LogError(iOException, message);
+                System.Windows.Forms.MessageBox.Show(message);
+            }
+        }
 	}
 }
