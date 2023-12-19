@@ -165,7 +165,7 @@ namespace VACARM
         {
             SelectedDeviceControl = this;
 
-            if (MainWindow.SelectedTool == "Hand")
+            if (MainWindow.SelectedTool == MainWindow.HandSelectedTool)
             {
                 startPoint = Mouse.GetPosition(sender as UIElement);
                 Panel.SetZIndex(this, 2);
@@ -189,7 +189,7 @@ namespace VACARM
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
         protected internal virtual void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            if (MainWindow.SelectedTool == "Hand")
+            if (MainWindow.SelectedTool == MainWindow.HandSelectedTool)
             {
                 Panel.SetZIndex(this, 1);
             }
@@ -204,7 +204,7 @@ namespace VACARM
         /// <param name="mouseEventArgs">The mouse event</param>
         protected internal virtual void UserControl_PreviewMouseMove(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (MainWindow.SelectedTool != "Hand" || mouseEventArgs.LeftButton != MouseButtonState.Pressed)
+            if (MainWindow.SelectedTool != MainWindow.HandSelectedTool || mouseEventArgs.LeftButton != MouseButtonState.Pressed)
             {
                 return;
             }

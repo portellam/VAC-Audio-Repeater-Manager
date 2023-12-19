@@ -75,26 +75,31 @@ namespace VACARM
             }
         }
 
+        public const string HandSelectedTool = "Hand";
         public static BipartiteDeviceGraph BipartiteDeviceGraph;
         public static Canvas GraphMapCanvas;
         public static string SelectedTool;
-
+        
         /// <summary>
         /// Constructor
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-
             GraphMapCanvas = graphCanvas;
             DefaultData.CheckFile();
+            SelectedTool = HandSelectedTool;
 
-            SelectedTool = "Hand";
+            if (DefaultData.DefaultGraph is null)
+            {
+                BipartiteDeviceGraph = new BipartiteDeviceGraph();
+            }
+            else
+            {
+                BipartiteDeviceGraph = BipartiteDeviceGraph.LoadGraph($@"{DefaultData.SavePath}\{DefaultData.DefaultGraph}");
+            }
 
-            if (DefaultData.DefaultGraph is null) BipartiteDeviceGraph = new BipartiteDeviceGraph();
-            else BipartiteDeviceGraph = BipartiteDeviceGraph.LoadGraph($@"{DefaultData.SavePath}\{DefaultData.DefaultGraph}");
-
-            IsRunning = true;
+           IsRunning = true;
         }
 
         /// <summary>
@@ -102,16 +107,16 @@ namespace VACARM
         /// </summary>
         protected internal virtual void AddDevice()
         {
-            AddDeviceDialog dialog = new AddDeviceDialog();
-            dialog.Owner = this;
-            dialog.ShowDialog();
+            AddDeviceDialog addDeviceDialog = new AddDeviceDialog();
+            addDeviceDialog.Owner = this;
+            addDeviceDialog.ShowDialog();
 
-            if (dialog.mMDevice is null)
+            if (addDeviceDialog.mMDevice is null)
             {
                 return;
             }
 
-            DeviceControl deviceControl = new DeviceControl(dialog.mMDevice, BipartiteDeviceGraph);
+            DeviceControl deviceControl = new DeviceControl(addDeviceDialog.mMDevice, BipartiteDeviceGraph);
             BipartiteDeviceGraph.AddVertex(deviceControl
                 );
             graphCanvas.Children.Add(deviceControl);
@@ -136,16 +141,16 @@ namespace VACARM
         /// <param name="routedEventArgs">The routed event</param>
         protected internal virtual void LoadGraph_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = DefaultData.SavePath;
-            bool? result = fileDialog.ShowDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = DefaultData.SavePath;
+            bool? result = openFileDialog.ShowDialog();
 
             if (result == false || result is null)
             {
                 return;
             }
 
-            string file = fileDialog.FileName;
+            string file = openFileDialog.FileName;
             string fileName = file.Replace($@"{DefaultData.SavePath}\", "");
 
             if (fileName.Contains("\\") || !fileName.EndsWith(DefaultData.FileExtension))
@@ -176,7 +181,7 @@ namespace VACARM
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
         protected internal virtual void GraphCanvas_MouseLeftButtonClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            DeviceControl.SelectedDeviceControl = null;
+            UnselectDevice();
         }
 
         /// <summary>
@@ -188,7 +193,7 @@ namespace VACARM
         /// <param name="lengthParam">Length parameter</param>
         /// <param name="isHandled">Is window handled</param>
         /// <returns>Int pointer</returns>
-        protected internal virtual IntPtr HwndHook(IntPtr hwnd, int message, IntPtr widthParam, IntPtr lengthParam, ref bool isHandled)   //TODO: explain operation of this method.
+        protected internal virtual IntPtr HwndHook(IntPtr hwnd, int message, IntPtr widthParam, IntPtr lengthParam, ref bool isHandled)
         {
             const int WM_HOTKEY = 0x0312;
 
@@ -240,7 +245,7 @@ namespace VACARM
         /// Registers hotkey(s) to Window hook.
         /// </summary>
         /// <param name="eventArgs">The event</param>
-        protected override void OnSourceInitialized(EventArgs eventArgs)
+        protected internal override void OnSourceInitialized(EventArgs eventArgs)
         {
             base.OnSourceInitialized(eventArgs);
 
@@ -262,7 +267,7 @@ namespace VACARM
             }
 
             BipartiteDeviceGraph.RemoveVertex(DeviceControl.SelectedDeviceControl);
-            DeviceControl.SelectedDeviceControl = null;
+            UnselectDevice();
         }
 
         /// <summary>
@@ -321,6 +326,7 @@ namespace VACARM
             process.StartInfo = processStartInfo;
             process.Start();
         }
+
         /// <summary>
         /// Save graph to file if graph is edited or not default.
         /// </summary>
@@ -357,6 +363,14 @@ namespace VACARM
         }
 
         /// <summary>
+        /// Toggles IsRunning value.
+        /// </summary>
+        protected internal virtual void StartStop()
+        {
+            IsRunning = !IsRunning;
+        }
+
+        /// <summary>
         /// Click event for StartStop.
         /// </summary>
         /// <param name="sender">The sender</param>
@@ -364,14 +378,6 @@ namespace VACARM
         protected internal virtual void StartStop_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             StartStop();
-        }
-
-        /// <summary>
-        /// Toggles IsRunning value.
-        /// </summary>
-        protected internal virtual void StartStop()
-        {
-            IsRunning = !IsRunning;
         }
 
         /// <summary>
@@ -398,7 +404,8 @@ namespace VACARM
             RunCommand(repeaterInfo.ToCommand());
             activeRepeaterList.Add(repeaterInfo.WindowName);
         }
- /// <summary>
+
+        /// <summary>
         /// Stops all active repeaters, and start default repeater.
         /// </summary>
         protected internal virtual void StopEngine()
@@ -433,6 +440,15 @@ namespace VACARM
 
             SelectedTool = ((RadioButton)sender).Tag.ToString();
         }
+
+        /// <summary>
+        /// Unselects current device.
+        /// </summary>
+        protected internal virtual void UnselectDevice()
+        {
+            DeviceControl.SelectedDeviceControl = null;
+        }
+
         /// <summary>
         /// Window shortcuts given marco input (Windows Key + key).
         ///
