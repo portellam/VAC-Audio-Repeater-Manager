@@ -412,37 +412,40 @@ namespace VACARM
 				StrokeThickness = 2,
 			};
 
-			Binding bx1 = new Binding("X")
+			const string xBindingName = "X";
+            const string yBindingName = "Y";
+
+            Binding xBinding1 = new Binding(xBindingName)
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = captureDeviceControl
 			};
 			
-			Link.SetBinding(Line.X1Property, bx1);
+			Link.SetBinding(Line.X1Property, xBinding1);
 
-			Binding by1 = new Binding("Y")
+			Binding yBinding1 = new Binding(yBindingName)
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = captureDeviceControl
 			};
 			
-			Link.SetBinding(Line.Y1Property, by1);
+			Link.SetBinding(Line.Y1Property, yBinding1);
 
-			Binding bx2 = new Binding("X")
+			Binding xBinding2 = new Binding(xBindingName)
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = renderDeviceControl
 			};
 
-			Link.SetBinding(Line.X2Property, bx2);
+			Link.SetBinding(Line.X2Property, xBinding2);
 
-			Binding by2 = new Binding("Y")
+			Binding yBinding2 = new Binding(yBindingName)
 			{
 				UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
 				Source = renderDeviceControl
 			};
 
-			Link.SetBinding(Line.Y2Property, by2);
+			Link.SetBinding(Line.Y2Property, yBinding2);
 			SamplingRate = DefaultData.SamplingRate;
 			BitsPerSample = DefaultData.BitsPerSample;
 			ChannelConfig = DefaultData.ChannelConfig;
