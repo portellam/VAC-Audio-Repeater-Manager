@@ -224,7 +224,7 @@ namespace VACARM
                 left = 0;
             }
 
-            int leftAndWidthSum = left + Width;
+            double leftAndWidthSum = left + Width;
 
             if (leftAndWidthSum > parentControl.ActualWidth)
             {
@@ -238,7 +238,7 @@ namespace VACARM
                 top = 0;
             }
 
-            int topAndHeightSum = top + Height;
+            double topAndHeightSum = top + Height;
 
             if (topAndHeightSum > parentControl.ActualHeight)
             {

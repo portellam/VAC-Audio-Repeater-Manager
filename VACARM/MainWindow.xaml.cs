@@ -245,7 +245,7 @@ namespace VACARM
         /// Registers hotkey(s) to Window hook.
         /// </summary>
         /// <param name="eventArgs">The event</param>
-        protected internal override void OnSourceInitialized(EventArgs eventArgs)
+        protected override void OnSourceInitialized(EventArgs eventArgs)
         {
             base.OnSourceInitialized(eventArgs);
 
