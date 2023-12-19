@@ -3,28 +3,28 @@ using static VACARM.MainWindow;
 
 namespace VACARM.Tests
 {
-	[TestFixture]
-	public class MainWindowTests
-	{
-		// Constructor
-		/*
+    [TestFixture]
+    public class MainWindowTests
+    {
+        // Constructor
+        /*
          * _SetMetadata_CheckFile_DefaultGraphIsNotNull_LoadGraph_SetIsRunningToTrue
          * _SetMetadata_CheckFile_DefaultGraphIsNull_CreateNewGraph_SetIsRunningToTrue
          */
 
-		// AddDevice()
-		/*
+        // AddDevice()
+        /*
          * _AddDeviceDialogMMDeviceIsNull_ReturnVoid
          * _AddDeviceDialogMMDeviceIsNotNull_AddNewDeviceToDefaultPosition
          */
 
-		// AddDevice_Click()
-		/*
+        // AddDevice_Click()
+        /*
          * _AddDevice_ConfirmAddDevice
          */
 
-		// LoadGraph_Click()
-		/*
+        // LoadGraph_Click()
+        /*
          * _ClearGraphCanvas_TryLoadGraphFromFile_CatchException_ClearGraphAndCanvas
          * _ClearGraphCanvas_TryLoadGraphFromFile_UpdateDefaultGraph
          * _FileIsPath_ReturnVoid
@@ -33,127 +33,127 @@ namespace VACARM.Tests
          * _ShowOpenFileDialogIsNull_ReturnVoid
          */
 
-		// GraphCanvas_MouseLeftButtonClick()
-		/*
+        // GraphCanvas_MouseLeftButtonClick()
+        /*
          * _UnselectDevice_ConfirmUnselectDevice
          */
 
-		// HwndHook()
-		/*
-         * _MessageIsWMHOTKEY_HwndHookIsMatchForWParam_ReturnIntPtrZero
+        // WindowHandleHook()
+        /*
+         * _MessageIsWMHOTKEY_HandleWindowHookIsMatchForWubdiwSizeFlag_ReturnIntPtrZero
          * _MessageIsNotWMHOTKEY_ReturnIntPtrZero
          */
 
-		// HwndHookIsMatchForWParam()
-		/*
-         * _widthParamIsHOTKEYID_SetRefOfIsHandledToTrueAndRestartIfScrollKeyId
-         * _widthParamIsNotHOTKEYID_ReturnVoid
+        // MatchForWindowSizeFlag()
+        /*
+         * _WindowSizeFlagIsHOTKEYID_SetRefOfIsHandledToTrueAndRestartIfScrollKeyId
+         * _WindowSizeFlagIsNotHOTKEYID_ReturnVoid
          */
 
-		// SetRefOfIsHandledToTrueAndRestartIfScrollKeyId()
-		/*
+        // SetReferenceOfIsHandledToTrueAndRestartIfScrollKeyId()
+        /*
          * _vkeyIsVKSCROLL_Restart
          * _vkeyIsNotVKSCROLL_DoNotRestart
          */
 
-		// OnSourceInitialized()
-		/*
+        // OnSourceInitialized()
+        /*
          * _SetProperties_AddHookAndRegisterHotKey
          */
 
-		// RemoveDevice()
-		/*
+        // RemoveDevice()
+        /*
          * _DeviceIsNotSelected_ReturnVoid
          * _DeviceIsSelected_RemoveDeviceAndUnselectDevice
          */
 
-		// RemoveDevice_Click()
-		/*
+        // RemoveDevice_Click()
+        /*
          * _RemoveDevice_ConfrmUnselectDevice
          */
 
-		// ResetActiveRepeaters()
-		/*
+        // ResetActiveRepeaters()
+        /*
          * _UpdatePropertyAsEmptyStringList
          */
 
-		// Restart()
-		/*
+        // Restart()
+        /*
          * _SetIsRunningToFalseThenTrue
          */
 
-		// Restart_Click()
-		/*
+        // Restart_Click()
+        /*
          * Restart_ConfirmRestart
          */
 
-		// ResetActiveRepeaters()
-		/*
+        // ResetActiveRepeaters()
+        /*
          * _ResetActiveRepeaterList_UndoList
          */
 
-		// RunCommand()
-		/*
+        // RunCommand()
+        /*
          * _CommandIsEmpty_ReturnVoid
          * _CommandIsNull_ReturnVoid
          * _CommandIsValid_StartHiddenTerminalProcess
          */
 
-		// SavedEditedGraph()
-		/*
+        // SavedEditedGraph()
+        /*
          * _FileIsEdited_DoUpdateDefaultGraph
          * _FileIsNotEdited_DoNotUpdateDefaultGraph
          */
 
-		// SaveGraph_Click()
-		/*
+        // SaveGraph_Click()
+        /*
          * _ShowDialogIsTrue_SaveEditedGraph
          * _ShowDialogIsFalse_DoNotSaveEditedGraph
          */
 
-		// StartStop()
-		/*
+        // StartStop()
+        /*
          * _ToggleIsRunning
          */
 
-		// StartStop_Click()
-		/*
+        // StartStop_Click()
+        /*
          * _StartStop_ConfirmStartStop
          */
 
-		// StartEngine()
-		/*
+        // StartEngine()
+        /*
          * _StartEngineOfEveryActiveRepeater
          */
 
-		// StartEngineOfActiveRepeater()
-		/*
+        // StartEngineOfActiveRepeater()
+        /*
          * _CaptureDeviceControlDeviceStateIsNotActive_ReturnVoid
          * _RenderDeviceControlDeviceStateIsNotActive_ReturnVoid
          * _DeviceStatesAreActive_RunCommandAndAddToList
          */
 
-		// StopEngine
-		/*
+        // StopEngine
+        /*
          * _ActiveRepeaterListIsNull_ReturnVoid
          * _ActiveRepeaterListIsEmpty_ReturnVoid
          * _ActiveRepeaterListIsValid_RunCommandsAndUndoList
          */
 
-		// ToolBarSelect_Click()
-		/*
+        // ToolBarSelect_Click()
+        /*
          * _SenderIsEmpty_ReturnVoid
          * _SenderIsNull_ReturnVoid
          * _SenderIsValid_UpdateSelectedToolAsRadioButton
          */
 
-		// UnselectDevice()
-		/*
+        // UnselectDevice()
+        /*
          * _SetSelectedDeviceAsNull
          */
 
-		// Window_KeyUp()
-		/*
+        // Window_KeyUp()
+        /*
          * _KeyEventArgsIsNull_ReturnVoid
          * _KeyEventArgsContainsNoKey_ReturnVoid
          * _KeyEventArgsContainsKeyT_AddDevice
@@ -164,9 +164,9 @@ namespace VACARM.Tests
          * _KeyEventArgsContainsKeyP_StartStop
          */
 
-		// Window_Closing()
-		/*
+        // Window_Closing()
+        /*
          * StopEngine_ConfirmEngineStop
          */
-	}
+    }
 }
