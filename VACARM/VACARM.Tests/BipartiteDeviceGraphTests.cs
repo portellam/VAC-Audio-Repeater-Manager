@@ -13,6 +13,5 @@ namespace VACARM.Tests
          * _DeviceControlIsNotInEdge
          * 
          */
-
     }
 }

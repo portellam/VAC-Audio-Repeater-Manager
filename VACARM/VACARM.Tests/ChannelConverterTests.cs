@@ -3,25 +3,25 @@ using static VACARM.ChannelConverter;
 
 namespace VACARM.Tests
 {
-    [TestFixture]
-    public class ChannelConverterTests
-    {
-        // Constructor
-        /*
+	[TestFixture]
+	public class ChannelConverterTests
+	{
+		// Constructor
+		/*
          * SetMetadata
          */
 
-        // Convert()
-        /*
+		// Convert()
+		/*
          * TODO: review operators to better understand intended behavior.
          * IfParameterAndValueAreEqualToZero_ReturnFalse ???
          * IfParameterAndValueAreNotEqualToZero_ReturnTrue ???
          */
 
-        // ConvertBack()
-        /*
+		// ConvertBack()
+		/*
          * TODO: review operators to better understand intended behavior.
          * 
          */
-    }
+	}
 }
