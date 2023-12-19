@@ -6,6 +6,12 @@ namespace VACARM.Tests
     [TestFixture]
     public class DefaultDataTests
     {
+        // CheckDefaultSavePath()
+        /*
+         * 
+         * 
+         * 
+         */
 
         // CheckFile()
         /*
@@ -19,6 +25,12 @@ namespace VACARM.Tests
          * _SavePathDoesNotExist_DefaultGraphIsTwoBackSlashes
          */
 
+        // DoesSavePathExist()
+        /*
+         * 
+         * 
+         */
+
         // Refresh()
         /*
          * NOTE: this borrows one line from CheckFile.
@@ -27,8 +39,10 @@ namespace VACARM.Tests
 
         // Save()
         /*
-         * _DataWriteAllLinesToPath_ConfirmDataIsSame ?
-         * TODO: try to test for every exception? NOTE: refactor?
+         * _DataWriteAllLinesToPath_ConfirmDataIsSame ???
+         * 
+         * 
+         * 
          */
     }
 }
