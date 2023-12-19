@@ -15,12 +15,12 @@ namespace VACARM.Tests
 
         // DeleteButton_Click()
         /*
-         * _RemoveFromGraphAndCloseWindow
+         * _RemoveFromGraphAndCloseWindow_ConfirmWindowIsClosed
          */
 
         // Okay_Click()
         /*
-         * _CloseWindow
+         * _CloseWindow_ConfirmWindowIsClosed
          */
     }
 }
