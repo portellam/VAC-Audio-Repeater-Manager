@@ -6,7 +6,7 @@ using System.Windows.Shapes;
 
 namespace VACARM
 {
-	public class BipartiteDeviceGraph
+    public class BipartiteDeviceGraph
     {
         private Dictionary<DeviceControl, Dictionary<DeviceControl, RepeaterInfo>> Edge;
 
