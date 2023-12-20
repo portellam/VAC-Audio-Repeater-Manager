@@ -19,6 +19,59 @@ namespace VACARM
         }
 
         /// <summary>
+        /// Adds one vertex between two devices.
+        /// </summary>
+        /// <param name="deviceControl1">The first device</param>
+        /// <param name="deviceControl2">The second device</param>
+        public void AddEdge(DeviceControl deviceControl1, DeviceControl deviceControl2)
+        {
+            if (deviceControl1 is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControl1));
+            }
+
+            if (deviceControl2 is null)
+            {
+                throw new System.ArgumentNullException(nameof(deviceControl2));
+            }
+
+            if (Edge[deviceControl1].ContainsKey(deviceControl2) || deviceControl1.DataFlow == deviceControl2.DataFlow)
+            {
+                return;
+            }
+
+            DeviceControl captureDeviceControl, renderDeviceControl;
+
+            if (deviceControl1.DataFlow == DataFlow.Capture)
+            {
+                captureDeviceControl = deviceControl1;
+                renderDeviceControl = deviceControl2;
+            }
+            else
+            {
+                captureDeviceControl = deviceControl2;
+                renderDeviceControl = deviceControl1;
+            }
+
+            RepeaterInfo repeaterInfo = new RepeaterInfo(captureDeviceControl, renderDeviceControl, this);
+            AddEdge(deviceControl1, deviceControl2, repeaterInfo);
+        }
+
+        /// <summary>
+        /// Adds device to graph.
+        /// </summary>
+        /// <param name="deviceControl">The device</param>
+        public void AddVertex(DeviceControl deviceControl)
+        {
+            if (deviceControl is null || Edge.ContainsKey(deviceControl))
+            {
+                return;
+            }
+
+            Edge[deviceControl] = new Dictionary<DeviceControl, RepeaterInfo>();
+        }
+
+        /// <summary>
         /// Load graph from given file.
         /// </summary>
         /// <param name="fileName">The file</param>
@@ -79,59 +132,6 @@ namespace VACARM
         }
 
         /// <summary>
-        /// Adds one vertex between two devices.
-        /// </summary>
-        /// <param name="deviceControl1">The first device</param>
-        /// <param name="deviceControl2">The second device</param>
-        public void AddEdge(DeviceControl deviceControl1, DeviceControl deviceControl2)
-        {
-            if (deviceControl1 is null)
-            {
-                throw new System.ArgumentNullException(nameof(deviceControl1));
-            }
-
-            if (deviceControl2 is null)
-            {
-                throw new System.ArgumentNullException(nameof(deviceControl2));
-            }
-
-            if (Edge[deviceControl1].ContainsKey(deviceControl2) || deviceControl1.DataFlow == deviceControl2.DataFlow)
-            {
-                return;
-            }
-
-            DeviceControl captureDeviceControl, renderDeviceControl;
-
-            if (deviceControl1.DataFlow == DataFlow.Capture)
-            {
-                captureDeviceControl = deviceControl1;
-                renderDeviceControl = deviceControl2;
-            }
-            else
-            {
-                captureDeviceControl = deviceControl2;
-                renderDeviceControl = deviceControl1;
-            }
-
-            RepeaterInfo repeaterInfo = new RepeaterInfo(captureDeviceControl, renderDeviceControl, this);
-            AddEdge(deviceControl1, deviceControl2, repeaterInfo);
-        }
-
-        /// <summary>
-        /// Adds device to graph.
-        /// </summary>
-        /// <param name="deviceControl">The device</param>
-        public void AddVertex(DeviceControl deviceControl)
-        {
-            if (deviceControl is null || Edge.ContainsKey(deviceControl))
-            {
-                return;
-            }
-
-            Edge[deviceControl] = new Dictionary<DeviceControl, RepeaterInfo>();
-        }
-
-        /// <summary>
         /// Remove one adjacent vertex between two devices.
         /// </summary>
         /// <param name="deviceControl1">The first device</param>
@@ -141,6 +141,31 @@ namespace VACARM
             MainWindow.GraphMapCanvas.Children.Remove(Edge[deviceControl1][deviceControl2].Link);
             Edge[deviceControl1].Remove(deviceControl2);
             Edge[deviceControl2].Remove(deviceControl1);
+        }
+
+        /// <summary>
+        /// Removes vertex and relationship between device and adjacent devices on graph.
+        /// </summary>
+        /// <param name="deviceControl">The device</param>
+        public void RemoveVertex(DeviceControl deviceControl)
+        {
+            if (deviceControl is null || Edge is null || Edge[deviceControl] is null)
+            {
+                return;
+            }
+
+            List<DeviceControl> adjacentDeviceControlList = Edge[deviceControl].Keys.ToList();
+
+            foreach (DeviceControl adjacentDeviceControl in adjacentDeviceControlList)
+            {
+                Edge[adjacentDeviceControl].Remove(deviceControl);
+
+                Line link = Edge[deviceControl][adjacentDeviceControl].Link;
+                MainWindow.GraphMapCanvas.Children.Remove(link);
+            }
+
+            Edge.Remove(deviceControl);
+            MainWindow.GraphMapCanvas.Children.Remove(deviceControl);
         }
 
         /// <summary>
@@ -182,31 +207,6 @@ namespace VACARM
             WriteHalfOfEdgesCountToFile(edgesCount, streamWriter);
             WriteEdgeRepeaterInfoToFile(deviceControlIdDictionary, streamWriter);
             streamWriter.Close();
-        }
-
-        /// <summary>
-        /// Removes vertex and relationship between device and adjacent devices on graph.
-        /// </summary>
-        /// <param name="deviceControl">The device</param>
-        public void RemoveVertex(DeviceControl deviceControl)
-        {
-            if (deviceControl is null || Edge is null || Edge[deviceControl] is null)
-            {
-                return;
-            }
-
-            List<DeviceControl> adjacentDeviceControlList = Edge[deviceControl].Keys.ToList();
-
-            foreach (DeviceControl adjacentDeviceControl in adjacentDeviceControlList)
-            {
-                Edge[adjacentDeviceControl].Remove(deviceControl);
-
-                Line link = Edge[deviceControl][adjacentDeviceControl].Link;
-                MainWindow.GraphMapCanvas.Children.Remove(link);
-            }
-
-            Edge.Remove(deviceControl);
-            MainWindow.GraphMapCanvas.Children.Remove(deviceControl);
         }
 
         /// <summary>
