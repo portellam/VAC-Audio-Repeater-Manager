@@ -1,10 +1,21 @@
-﻿using static VACARM_GUI.AddDeviceDialog;
+﻿using System.Windows;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static VACARM_GUI.AddDeviceDialog;
 
 namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class AddDeviceDialogTests
     {
+        private AddDeviceDialog addDeviceDialog;
+
+        [SetUp]
+        public void Setup()
+        {
+            addDeviceDialog = new AddDeviceDialog();
+        }
+
+
         // Constructor
         /*
          * _SetMetadata
@@ -14,6 +25,20 @@ namespace VACARM_GUI.Tests
         /*
          * _Close_ConfirmClose
          */
+
+        [Test]
+        public void CancelButton_Click_ConfirmClose()
+        {
+            // Arrange
+            object sender = new object();
+            RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+
+            // Act
+            //addDeviceDialog.CancelButton_Click(sender, routedEventArgs);
+
+            // Assert
+            Assert.Fail();
+        }
 
         // OkButton_Click()
         /*
