@@ -40,13 +40,26 @@ namespace VACARM_GUI
         /// <param name="routedEventArgs">The routed event</param>
         protected internal virtual void OkButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (selectDeviceType.SelectedIndex == -1 || selectDevice.SelectedIndex == -1)
+            bool isNeitherWaveInOrWaveOutDevice = selectDeviceType.SelectedIndex == -1 || selectDevice.SelectedIndex == -1;
+
+            if (isNeitherWaveInOrWaveOutDevice)
             {
                 return;
             }
 
-            List<MMDevice> devices = (selectDeviceType.SelectedIndex == 0) ? (DataContext as DeviceList).WaveInMMDeviceList : (DataContext as DeviceList).WaveOutMMDeviceList;
-            mMDevice = devices[selectDevice.SelectedIndex];
+            bool isWaveInDevice = selectDeviceType.SelectedIndex == 0;
+            List<MMDevice> mMDeviceList = new List<MMDevice>();
+
+            if (isWaveInDevice)
+            {
+                mMDeviceList = (DataContext as DeviceList).WaveInMMDeviceList;
+            }
+            else
+            {
+                mMDeviceList = (DataContext as DeviceList).WaveOutMMDeviceList;
+            }
+
+            mMDevice = mMDeviceList[selectDevice.SelectedIndex];
             Close();
         }
 
@@ -58,19 +71,11 @@ namespace VACARM_GUI
         /// <exception cref="ArgumentNullException"></exception>
         protected internal virtual void SelectDeviceType_SelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
-            if (sender is null)
-            {
-                throw new ArgumentNullException(nameof(sender));
-            }
-
-            if (selectionChangedEventArgs is null)
-            {
-                throw new ArgumentNullException(nameof(selectionChangedEventArgs));
-            }
-
             selectDevice.SelectedIndex = -1;
 
-            if (selectDeviceType.SelectedIndex == 0)
+            bool isWaveInDevice = selectDeviceType.SelectedIndex == 0;
+
+            if (isWaveInDevice)
             {
                 selectDevice.ItemsSource = (DataContext as DeviceList).WaveInNameList;
                 return;
@@ -86,10 +91,12 @@ namespace VACARM_GUI
         /// <param name="mouseButtonEventArgs">The mouse button event</param>
         protected internal virtual void Window_MouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            if (mouseButtonEventArgs.ChangedButton == MouseButton.Left)
+            if (mouseButtonEventArgs.ChangedButton != MouseButton.Left)
             {
-                DragMove();
+                return;
             }
+
+            DragMove();
         }
     }
 }
