@@ -3,43 +3,43 @@ using static VACARM.RepeaterInfo;
 
 namespace VACARM.Tests
 {
-	[TestFixture]
-	public class RepeaterInfoTests
-	{
-		// Constructor
-		/*
+    [TestFixture]
+    public class RepeaterInfoTests
+    {
+        // Constructor
+        /*
          * _CaptureDeviceIsNull_ThrowArgumentNullException
          * _RenderDeviceIsNull_ThrowArgumentNullException
          * _GraphIsNull_ThrowArgumentNullException
          * _InputIsValid_AddDevicesToContextMenuAndAddBindings
          */
 
-		// ContextClick()
-		/*
+        // ContextClick()
+        /*
          * _ClickAndShowDialog_DialogIsShown
          */
 
-		// OnPropertyChanged()
-		/*
+        // OnPropertyChanged()
+        /*
          * _PropertyNameIsEmpty_DoNothing
          * _PropertyNameIsNull_DoNothing
          * _PropertyNameIsValid_PropertyIsChanged
          */
 
-		// SetData()
-		/*
+        // SetData()
+        /*
          * _InfoListIsNull_PropertiesAreUnchanged_ReturnVoid
          * _InfoListIsValid_PropertiesAreChanged_ReturnVoid
          */
 
-		// ToCommand()
-		/*
+        // ToCommand()
+        /*
          * _FormatString_ReturnString
          */
 
-		// ToSaveData()
-		/*
+        // ToSaveData()
+        /*
          * _FormatString_ReturnString
          */
-	}
+    }
 }

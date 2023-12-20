@@ -3,43 +3,43 @@ using static VACARM.DeviceControl;
 
 namespace VACARM.Tests
 {
-	[TestFixture]
-	public class DeviceControlTests
-	{
-		// Constructor
-		/*
+    [TestFixture]
+    public class DeviceControlTests
+    {
+        // Constructor
+        /*
          * InitalizeComponentAndSetMetadata_DataFlowIsCapture_SetColorToInputDeviceColor
          * InitalizeComponentAndSetMetadata_DataFlowIsNotCapture_SetColorToOutputDeviceColor
          */
 
-		// OnPropertyChanged()
-		/*
+        // OnPropertyChanged()
+        /*
          * _PropertyNameIsEmpty_DoNothing
          * _PropertyNameIsNull_DoNothing
          * _PropertyNameIsValid_PropertyIsChanged
          */
 
-		// SetBackgroundColor()
-		/*
+        // SetBackgroundColor()
+        /*
          * _IsCaptureDevice_ReturnInputDeviceColor
          * _IsNotCaptureDevice_ReturnOutputDeviceColor
          */
 
-		// UserControl_MouseLeftButtonDown()
-		/*
+        // UserControl_MouseLeftButtonDown()
+        /*
          * _SetSelectedDevice_InitialDeviceIsNull_SetInitialDevice
          * _SetSelectedDevice_SelectedToolIsHand_SetStartPointAndZIndex
          * _SetSelectedDevice_SelectedToolIsNotHandAndIfInitialDeviceIsNotNull_AddEdgeAndSetInitialDeviceToNull
          */
 
-		// UserControl_MouseLeftButtonUp()
-		/*
+        // UserControl_MouseLeftButtonUp()
+        /*
          * _SelectedToolIsHand_SetZIndex_SetSelectedDevice
          * _SelectedToolIsNotHand_DoNotSetZIndex_SetSelectedDevice
          */
 
-		// UserControl_PreviewMouseMove()
-		/*
+        // UserControl_PreviewMouseMove()
+        /*
          * _LeftButtonIsNotPressed_ReturnVoid
   
          * _LeftIsGreaterThanOrEqualAsZero_LeaveLeftAsIs_LeftIsGreaterThanActualWidth_TopIsGreaterThanOrEqualAsZero_LeaveTopAsIs_TopIsGreaterThanActualHeight
@@ -64,5 +64,5 @@ namespace VACARM.Tests
   
          * _SelectedToolIsNotHand_ReturnVoid 
          */
-	}
+    }
 }

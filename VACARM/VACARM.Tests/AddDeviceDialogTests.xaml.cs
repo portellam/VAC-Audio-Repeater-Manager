@@ -3,8 +3,8 @@ using static VACARM.AddDeviceDialog;
 
 namespace VACARM.Tests
 {
-	[TestFixture]
-	public class AddDeviceDialogTests
-	{
-	}
+    [TestFixture]
+    public class AddDeviceDialogTests
+    {
+    }
 }
