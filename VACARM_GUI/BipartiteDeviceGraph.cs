@@ -32,8 +32,9 @@ namespace VACARM_GUI
             }
 
             DeviceControl captureDeviceControl, renderDeviceControl;
+            bool isCaptureDevice = deviceControl1.DataFlow == DataFlow.Capture;
 
-            if (deviceControl1.DataFlow == DataFlow.Capture)
+            if (isCaptureDevice)
             {
                 captureDeviceControl = deviceControl1;
                 renderDeviceControl = deviceControl2;
@@ -71,8 +72,11 @@ namespace VACARM_GUI
         {
             BipartiteDeviceGraph bipartiteDeviceGraph = new BipartiteDeviceGraph();
 
-            if (!File.Exists(file))
+            if (file is null || !File.Exists(file))
             {
+                string message = $"Load failed: file does not exist. Please try renaming file, or restart {DefaultData.ApplicationName}.";
+                //LogError(iOException, message);				//TODO: add logger.
+                System.Windows.Forms.MessageBox.Show(message);
                 return bipartiteDeviceGraph;
             }
 
@@ -106,8 +110,14 @@ namespace VACARM_GUI
         public HashSet<RepeaterInfo> GetEdges()
         {
             HashSet<RepeaterInfo> edgeRepeaterInfoHashSet = new HashSet<RepeaterInfo>();
+            List<DeviceControl> deviceControlList = Edge.Keys.ToList();
 
-            Edge.Keys.ToList().ForEach(
+            if (deviceControlList.Count < 1)
+            {
+                return edgeRepeaterInfoHashSet;
+            }
+
+            deviceControlList.ForEach(
                 vertexDeviceControl => Edge[vertexDeviceControl].Keys.ToList().ForEach(
                     adjacentDeviceControl => edgeRepeaterInfoHashSet.Add(Edge[vertexDeviceControl][adjacentDeviceControl])));
 
@@ -163,7 +173,9 @@ namespace VACARM_GUI
         {
             if (file is null)
             {
-                //TODO: add logger, output message to user, then return
+                string message = $"Save failed: invalid filename. Please try renaming file, or restart {DefaultData.ApplicationName}.";
+                //LogError(iOException, message);				//TODO: add logger.
+                System.Windows.Forms.MessageBox.Show(message);
                 return;
             }
 
@@ -177,7 +189,6 @@ namespace VACARM_GUI
             List<DeviceControl> vertexDeviceControlList = Edge.Keys.ToList();
             string vertexCount = vertexDeviceControlList.Count.ToString();
             streamWriter.WriteLine(vertexCount);
-
             Dictionary<DeviceControl, int> deviceControlIdDictionary = new Dictionary<DeviceControl, int>();
             int edgesCount = 0;
             int secondIndex = 1;
