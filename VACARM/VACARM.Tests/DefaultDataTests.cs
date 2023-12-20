@@ -27,7 +27,6 @@ namespace VACARM.Tests
          * _DataPathDoesNotExist_CreateDirectoryFails_ThrowIOException
          */
 
-
         // DoesFileExist()
         /*
          * _FileDoesExist_ReturnVoid
