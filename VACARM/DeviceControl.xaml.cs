@@ -7,10 +7,10 @@ using System.Windows.Media;
 
 namespace VACARM
 {
-	/// <summary>
-	/// Interaction logic for DeviceControl.xaml
-	/// </summary>
-	public partial class DeviceControl : UserControl, INotifyPropertyChanged
+    /// <summary>
+    /// Interaction logic for DeviceControl.xaml
+    /// </summary>
+    public partial class DeviceControl : UserControl, INotifyPropertyChanged
     {
         private static DeviceControl selectedDeviceControl;
         private double left;
@@ -19,7 +19,7 @@ namespace VACARM
         private static readonly SolidColorBrush inputDeviceColor = Brushes.LightGreen;
         private static readonly SolidColorBrush outputDeviceColor = Brushes.PaleVioletRed;
         public static DeviceControl InitialDeviceControl;
-        
+
         public static DeviceControl SelectedDeviceControl
         {
             get
@@ -94,7 +94,7 @@ namespace VACARM
         }
 
         private double top;
-        
+
         public double Top
         {
             get
@@ -114,12 +114,12 @@ namespace VACARM
         public double Y { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="mMDevice">The device</param>
-		/// <param name="bipartiteDeviceGraph">The graph</param>
-		public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mMDevice">The device</param>
+        /// <param name="bipartiteDeviceGraph">The graph</param>
+        public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
             InitializeComponent();
             this.mMDevice = mMDevice;

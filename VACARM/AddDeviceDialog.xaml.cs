@@ -7,10 +7,10 @@ using System.Windows.Input;
 
 namespace VACARM
 {
-	/// <summary>
-	/// Interaction logic for AddDeviceDialog.xaml
-	/// </summary>
-	public partial class AddDeviceDialog : Window
+    /// <summary>
+    /// Interaction logic for AddDeviceDialog.xaml
+    /// </summary>
+    public partial class AddDeviceDialog : Window
     {
         public MMDevice mMDevice;
 
@@ -58,24 +58,24 @@ namespace VACARM
         /// <exception cref="ArgumentNullException"></exception>
         protected internal virtual void SelectDeviceType_SelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
-			if (sender is null)
-			{
-				throw new ArgumentNullException(nameof(sender));
-			}
+            if (sender is null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
 
-			if (selectionChangedEventArgs is null)
-			{
-				throw new ArgumentNullException(nameof(selectionChangedEventArgs));
-			}
+            if (selectionChangedEventArgs is null)
+            {
+                throw new ArgumentNullException(nameof(selectionChangedEventArgs));
+            }
 
-			selectDevice.SelectedIndex = -1;
-            
+            selectDevice.SelectedIndex = -1;
+
             if (selectDeviceType.SelectedIndex == 0)
             {
                 selectDevice.ItemsSource = (DataContext as DeviceList).WaveInNameList;
                 return;
             }
-            
+
             selectDevice.ItemsSource = (DataContext as DeviceList).WaveOutNameList;
         }
 

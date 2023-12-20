@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace VACARM
 {
-	class DefaultData
-	{
+    class DefaultData
+    {
         private static string CurrentDirectory = Directory.GetCurrentDirectory();
         private const string DataPartialPath = @"\data\";
         private const string DefaultRepeaterPartialFilePath = DataPartialPath + "defaultrepeater";
@@ -22,181 +22,181 @@ namespace VACARM
         /// The Channel Configuration
         /// </summary>
         public static ChannelConfig ChannelConfig
-		{
-			get
-			{
-				if (!(int.TryParse(data[2], out int val) || Enum.IsDefined(typeof(ChannelConfig), val)))
-				{
-					return ChannelConfig.Stereo;
-				}
+        {
+            get
+            {
+                if (!(int.TryParse(data[2], out int val) || Enum.IsDefined(typeof(ChannelConfig), val)))
+                {
+                    return ChannelConfig.Stereo;
+                }
 
-				return (ChannelConfig)val;
-			}
-			set
-			{
-				data[2] = ((int)value).ToString();
-				SaveFile();
-			}
-		}
+                return (ChannelConfig)val;
+            }
+            set
+            {
+                data[2] = ((int)value).ToString();
+                SaveFile();
+            }
+        }
 
-		/// <summary>
-		/// The amount of bits per sample.
-		/// </summary>
-		public static int BitsPerSample
-		{
-			get
-			{
-				return int.Parse(data[1]);
-			}
-			set
-			{
-				data[1] = value.ToString();
-				SaveFile();
-			}
-		}
+        /// <summary>
+        /// The amount of bits per sample.
+        /// </summary>
+        public static int BitsPerSample
+        {
+            get
+            {
+                return int.Parse(data[1]);
+            }
+            set
+            {
+                data[1] = value.ToString();
+                SaveFile();
+            }
+        }
 
-		/// <summary>
-		/// The buffer time in milliseconds.
-		/// </summary>
-		public static int BufferMs
-		{
-			get
-			{
-				return int.Parse(data[3]);
-			}
-			set
-			{
-				data[3] = value.ToString();
-				SaveFile();
-			}
-		}
+        /// <summary>
+        /// The buffer time in milliseconds.
+        /// </summary>
+        public static int BufferMs
+        {
+            get
+            {
+                return int.Parse(data[3]);
+            }
+            set
+            {
+                data[3] = value.ToString();
+                SaveFile();
+            }
+        }
 
-		/// <summary>
-		/// The amount of short-term data particles.
-		/// </summary>
-		public static int Buffers
-		{
-			get
-			{
-				return int.Parse(data[4]);
-			}
-			set
-			{
-				data[4] = value.ToString();
-				SaveFile();
-			}
-		}
+        /// <summary>
+        /// The amount of short-term data particles.
+        /// </summary>
+        public static int Buffers
+        {
+            get
+            {
+                return int.Parse(data[4]);
+            }
+            set
+            {
+                data[4] = value.ToString();
+                SaveFile();
+            }
+        }
 
-		public static int Prefill
-		{
-			get
-			{
-				return int.Parse(data[5]);
-			}
-			set
-			{
-				data[5] = value.ToString();
-				SaveFile();
-			}
-		}
+        public static int Prefill
+        {
+            get
+            {
+                return int.Parse(data[5]);
+            }
+            set
+            {
+                data[5] = value.ToString();
+                SaveFile();
+            }
+        }
 
-		public static int ResyncAt
-		{
-			get
-			{
-				return int.Parse(data[6]);
-			}
-			set
-			{
-				data[6] = value.ToString();
-				SaveFile();
-			}
-		}
+        public static int ResyncAt
+        {
+            get
+            {
+                return int.Parse(data[6]);
+            }
+            set
+            {
+                data[6] = value.ToString();
+                SaveFile();
+            }
+        }
 
-		/// <summary>
-		/// The sampling rate in KiloHertz.
-		/// </summary>
-		public static int SamplingRate
-		{
-			get
-			{
-				return int.Parse(data[0]);
-			}
-			set
-			{
-				data[0] = value.ToString();
-				SaveFile();
-			}
-		}
+        /// <summary>
+        /// The sampling rate in KiloHertz.
+        /// </summary>
+        public static int SamplingRate
+        {
+            get
+            {
+                return int.Parse(data[0]);
+            }
+            set
+            {
+                data[0] = value.ToString();
+                SaveFile();
+            }
+        }
 
-		/// <summary>
-		/// The default device graph.
-		/// </summary>
-		public static string DefaultGraph
-		{
-			get
-			{
-				if (data[9] == "\\")
-				{
-					return null;
-				}
+        /// <summary>
+        /// The default device graph.
+        /// </summary>
+        public static string DefaultGraph
+        {
+            get
+            {
+                if (data[9] == "\\")
+                {
+                    return null;
+                }
 
-				return data[9];
-			}
-			set
-			{
-				data[9] = value;
-				SaveFile();
-			}
-		}
+                return data[9];
+            }
+            set
+            {
+                data[9] = value;
+                SaveFile();
+            }
+        }
 
-		/// <summary>
-		/// The repeater path.
-		/// </summary>
-		public static string RepeaterPath
-		{
-			get
-			{
-				return data[8];
-			}
-			set
-			{
-				data[8] = value;
-				SaveFile();
-			}
-		}
+        /// <summary>
+        /// The repeater path.
+        /// </summary>
+        public static string RepeaterPath
+        {
+            get
+            {
+                return data[8];
+            }
+            set
+            {
+                data[8] = value;
+                SaveFile();
+            }
+        }
 
-		/// <summary>
-		/// The name of the window.
-		/// </summary>
-		public static string WindowName
-		{
-			get
-			{
-				return data[7];
-			}
-			set
-			{
-				data[7] = value;
-				SaveFile();
-			}
-		}
+        /// <summary>
+        /// The name of the window.
+        /// </summary>
+        public static string WindowName
+        {
+            get
+            {
+                return data[7];
+            }
+            set
+            {
+                data[7] = value;
+                SaveFile();
+            }
+        }
 
         /// <summary>
         /// Check file for existing Repeater configuration.
         /// </summary>
         public static void CheckFile()
-		{
-			DoesDataPathExist();
+        {
+            DoesDataPathExist();
             DoesFileExist();
             ReadFile();
 
-			if (!DoesSavePathExist())		//NOTE: assuming save path is not necessary to program function.
+            if (!DoesSavePathExist())		//NOTE: assuming save path is not necessary to program function.
             {
-				return;
-			}
+                return;
+            }
 
-			SetDefaultGraph();
+            SetDefaultGraph();
         }
 
         /// <summary>
@@ -228,14 +228,14 @@ namespace VACARM
         /// If file exists, exit. If file does not exist, try to write to file the default repeater information. If write fails, throw exception.
         /// </summary>
         protected internal static void DoesFileExist()
-		{
-			if (File.Exists(DefaultRepeaterFile))
-			{
-				return;
-			}
+        {
+            if (File.Exists(DefaultRepeaterFile))
+            {
+                return;
+            }
 
             string defaultRepeaterAndPathName = "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\";
-            
+
             try
             {
                 File.WriteAllText(DefaultRepeaterFile, defaultRepeaterAndPathName);
@@ -253,33 +253,33 @@ namespace VACARM
         /// </summary>
         /// <returns>True/false</returns>
         protected internal static bool DoesSavePathExist()
-		{
-			if (Directory.Exists(SavePath))
-			{
-				return true;
-			}
+        {
+            if (Directory.Exists(SavePath))
+            {
+                return true;
+            }
 
-			try
-			{
-				Directory.CreateDirectory(SavePath);
-			}
-			catch (IOException iOException)
-			{
-				string message = $"Save failed ({SavePath}). Continuing without saving. Please try creating save folder and try restarting {ApplicationName}.";
+            try
+            {
+                Directory.CreateDirectory(SavePath);
+            }
+            catch (IOException iOException)
+            {
+                string message = $"Save failed ({SavePath}). Continuing without saving. Please try creating save folder and try restarting {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
-				return false;
-			}
+                return false;
+            }
 
             return true;
-		}
+        }
 
-		/// <summary>
-		/// Read graph data from file.
-		/// </summary>
-		protected internal static void ReadFile()
-		{
-			string[] dataCopy = data;
+        /// <summary>
+        /// Read graph data from file.
+        /// </summary>
+        protected internal static void ReadFile()
+        {
+            string[] dataCopy = data;
 
             try
             {
@@ -287,7 +287,7 @@ namespace VACARM
             }
             catch (IOException iOException)
             {
-				data = dataCopy;
+                data = dataCopy;
                 iOException.Source = nameof(DefaultRepeaterFile);
                 string message = $"Read failed ({DefaultRepeaterFile}). If problem persists, please try restarting {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
@@ -295,17 +295,17 @@ namespace VACARM
             }
         }
 
-		/// <summary>
-		/// Save graph data to file.
-		/// </summary>
-		protected internal static void SaveFile()
-		{
-			try
-			{
-				File.WriteAllLines(DefaultRepeaterFile, data);
-			}
-			catch (IOException iOException)
-			{
+        /// <summary>
+        /// Save graph data to file.
+        /// </summary>
+        protected internal static void SaveFile()
+        {
+            try
+            {
+                File.WriteAllLines(DefaultRepeaterFile, data);
+            }
+            catch (IOException iOException)
+            {
                 iOException.Source = nameof(DefaultRepeaterFile);
                 string message = $"Save failed ({DefaultRepeaterFile}). Continuing without saving. If problem persists, please try restarting {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
@@ -313,8 +313,8 @@ namespace VACARM
             }
         }
 
-		protected internal static void SetDefaultGraph()
-		{
+        protected internal static void SetDefaultGraph()
+        {
             string[] graphArray = Directory.GetFiles(SavePath).Where(x => x.EndsWith(FileExtension)).ToArray();
 
             if (graphArray.Length == 1)
@@ -328,5 +328,5 @@ namespace VACARM
                 DefaultGraph = "\\";
             }
         }
-	}
+    }
 }

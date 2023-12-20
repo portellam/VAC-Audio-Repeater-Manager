@@ -7,10 +7,10 @@ using System.Windows.Data;
 
 namespace VACARM
 {
-	/// <summary>
-	/// Interaction logic for RepeaterMenu.xaml
-	/// </summary>
-	public partial class RepeaterMenu : Window
+    /// <summary>
+    /// Interaction logic for RepeaterMenu.xaml
+    /// </summary>
+    public partial class RepeaterMenu : Window
     {
         private BipartiteDeviceGraph bipartiteDeviceGraph;
         private RepeaterInfo repeaterInfo;
@@ -31,7 +31,7 @@ namespace VACARM
                 }
             }
         }
-        
+
         /// <summary>
         /// Populates submenu with each repeater and its' information.
         /// </summary>
@@ -50,7 +50,7 @@ namespace VACARM
             }
 
             InitializeComponent();
-            List <Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
+            List<Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
             const string channelMaskString = "ChannelMask";
 
             for (int i = 0; i < channelList.Count; i++)
@@ -58,7 +58,7 @@ namespace VACARM
                 Channel channel = channelList[i];
 
                 TextBlock textBlock = new TextBlock()
-                { 
+                {
                     Text = channel.ToString()
                 };
 
@@ -79,7 +79,7 @@ namespace VACARM
                     ConverterParameter = (int)channel,
                     Source = repeaterInfo
                 };
-                
+
                 checkBox.SetBinding(CheckBox.IsCheckedProperty, bindChannel);
                 channels.Children.Add(textBlock);
                 channels.Children.Add(checkBox);
@@ -89,7 +89,7 @@ namespace VACARM
             DataContext = RepeaterInfo;
             this.bipartiteDeviceGraph = bipartiteDeviceGraph;
         }
-     
+
         /// <summary>
         /// Removes edge given button click.
         /// </summary>

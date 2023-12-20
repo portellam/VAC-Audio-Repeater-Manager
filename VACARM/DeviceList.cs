@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace VACARM
 {
-	class DeviceList
+    class DeviceList
     {
         public List<MMDevice> WaveInMMDeviceList { get; set; }
         public List<MMDevice> WaveOutMMDeviceList { get; set; }
