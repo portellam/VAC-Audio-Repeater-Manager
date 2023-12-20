@@ -6,18 +6,23 @@ namespace VACARM
 {
 	class DefaultData
 	{
-		private const string DefaultRepeaterPartialFilePath = @"\data\defaultrepeater";	//NOTE: is it necessary for this path to exist, for VAC to work?
-		public const string FileExtension = ".vac";
-		public const string SavePartialPath = @"\save";     //NOTE: is it necessary for this path to exist, for VAC to work?
-		private static string[] data;
-        public const string ApplicationName = "VACARM";
-        public static readonly string DefaultRepeaterFile = $@"{Directory.GetCurrentDirectory()}{DefaultRepeaterPartialFilePath}";	//NOTE: must this be public?
-		public static readonly string SavePath = $@"{Directory.GetCurrentDirectory()}{SavePartialPath}"; //NOTE: must this be public?
+        private static string CurrentDirectory = Directory.GetCurrentDirectory();
+        private const string DataPartialPath = @"\data\";
+        private const string DefaultRepeaterPartialFilePath = DataPartialPath + "defaultrepeater";
+        private const string SavePartialPath = @"\save";
+        private static string[] data;
 
-		/// <summary>
-		/// The Channel Configuration
-		/// </summary>
-		public static ChannelConfig ChannelConfig
+        public const string ApplicationName = "VACARM";
+        public const string FileExtension = ".vac";
+
+        public static readonly string DataPath = $@"{CurrentDirectory}{DataPartialPath}";
+        public static readonly string DefaultRepeaterFile = $@"{CurrentDirectory}{DefaultRepeaterPartialFilePath}";  //NOTE: must this be public? NOTE: is it necessary for this path to exist, for VAC to work?
+        public static readonly string SavePath = $@"{CurrentDirectory}{SavePartialPath}";                            //NOTE: must this be public? NOTE: is it necessary for this path to exist, for VAC to work?
+
+        /// <summary>
+        /// The Channel Configuration
+        /// </summary>
+        public static ChannelConfig ChannelConfig
 		{
 			get
 			{
@@ -31,7 +36,7 @@ namespace VACARM
 			set
 			{
 				data[2] = ((int)value).ToString();
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -47,7 +52,7 @@ namespace VACARM
 			set
 			{
 				data[1] = value.ToString();
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -63,7 +68,7 @@ namespace VACARM
 			set
 			{
 				data[3] = value.ToString();
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -79,7 +84,7 @@ namespace VACARM
 			set
 			{
 				data[4] = value.ToString();
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -92,7 +97,7 @@ namespace VACARM
 			set
 			{
 				data[5] = value.ToString();
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -105,7 +110,7 @@ namespace VACARM
 			set
 			{
 				data[6] = value.ToString();
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -121,7 +126,7 @@ namespace VACARM
 			set
 			{
 				data[0] = value.ToString();
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -142,7 +147,7 @@ namespace VACARM
 			set
 			{
 				data[9] = value;
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -158,7 +163,7 @@ namespace VACARM
 			set
 			{
 				data[8] = value;
-				Save();
+				SaveFile();
 			}
 		}
 
@@ -174,93 +179,83 @@ namespace VACARM
 			set
 			{
 				data[7] = value;
-				Save();
+				SaveFile();
 			}
 		}
 
-        /// <summary>
-        /// Check if default repeater path exists. If not, try to create path. If the path does not exist, write to logger then fail with exception.
-        /// </summary>
-        /// <exception cref="ArgumentException"></exception>
-        public static void CheckDefaultSavePath()
-        {
-            if (Directory.Exists(DefaultRepeaterFile))
-            {
-                return;
-            }
-
-            try
-            {
-                Directory.CreateDirectory(DefaultRepeaterFile);
-            }
-            catch (IOException iOException)
-            {
-                //TODO: add logger, then throw.
-                //LogError(iOException, $"Failed to create folder at path '{DefaultRepeaterFile}'.");
-                throw;
-            }
-        }
+        
 
         /// <summary>
         /// Check file for existing Repeater configuration.
         /// </summary>
         public static void CheckFile()
 		{
-			if (!File.Exists(DefaultRepeaterFile))
-			{
-				string defaultRepeaterAndPathName = "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\";
+			DoesDataPathExist();
+            DoesFileExist();
+            ReadFile();
 
-				//NOTE: assuming default repeater path is necessary to program function.
-				try
-				{
-					File.WriteAllText(DefaultRepeaterFile, defaultRepeaterAndPathName);
-				}
-				catch (IOException iOException)
-				{
-					//TODO: add logger, then throw.
-					iOException.Source = nameof(defaultRepeaterAndPathName);
-					//LogError(iOException, $"Write failed for default repeater.");
-					throw;
-				}
+			if (!DoesSavePathExist())		//NOTE: assuming save path is not necessary to program function.
+            {
+				return;
 			}
 
-			try
-			{
-				data = File.ReadAllLines(DefaultRepeaterFile);
-			}
-			catch (IOException iOException)
-			{
-				//TODO: add logger, then throw.
-				iOException.Source = nameof(data);
-				//LogError(iOException, $"Read failed for default repeater file.");
-				throw;
-			}
+			SetDefaultGraph();
+        }
 
-			//NOTE: assuming save path is not necessary to program function.
-			if (!DoesSavePathExist())
+        /// <summary>
+        /// Check if data path exists. If not, try to create path. If the path does not exist, write to logger then fail with exception.
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
+        protected internal static void DoesDataPathExist()
+        {
+            if (Directory.Exists(DataPath))
+            {
+                return;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(DataPath);
+            }
+            catch (IOException iOException)
+            {
+                iOException.Source = nameof(DataPath);
+                string message = $"Folder creation failed ({DataPath}). Please try creating folder and restarting {ApplicationName}.";
+                //LogError(iOException, message);				//TODO: add logger.
+                System.Windows.Forms.MessageBox.Show(message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// If file exists, exit. If file does not exist, try to write to file the default repeater information. If write fails, throw exception.
+        /// </summary>
+        protected internal static void DoesFileExist()
+		{
+			if (File.Exists(DefaultRepeaterFile))
 			{
 				return;
 			}
 
-			string[] networks = Directory.GetFiles(SavePath).Where(x => x.EndsWith(FileExtension)).ToArray();
+            string defaultRepeaterAndPathName = "48000\r\n16\r\n3\r\n500\r\n12\r\n50\r\n20\r\n{0} to {1}\r\nC:\\Program Files\\Virtual Audio Cable\\audiorepeater.exe\r\n\\";
+            
+            try
+            {
+                File.WriteAllText(DefaultRepeaterFile, defaultRepeaterAndPathName);
+            }
+            catch (IOException iOException)
+            {
+                iOException.Source = nameof(defaultRepeaterAndPathName);
+                //LogError(iOException, $"Write failed for default repeater.");	//TODO: add logger.
+                throw;															//NOTE: assuming default repeater path is necessary to program function.
+            }
+        }
 
-			if (networks.Length == 1)
-			{
-				DefaultGraph = networks[0].Replace($@"{SavePath}\", "");
-			}
-
-			if ((networks.Length == 0 ||
-				(DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}"))))
-			{
-				DefaultGraph = "\\";
-			}
-		}
-
-		/// <summary>
-		/// Create save path if not found. If failed, output a form warning the user and return false. If successful, return true.
-		/// </summary>
-		/// <returns>True/false</returns>
-		public static bool DoesSavePathExist()
+        /// <summary>
+        /// Create save path if not found. If failed, output a form warning the user and return false. If successful, return true.
+        /// </summary>
+        /// <returns>True/false</returns>
+        protected internal static bool DoesSavePathExist()
 		{
 			if (Directory.Exists(SavePath))
 			{
@@ -274,9 +269,8 @@ namespace VACARM
 			catch (IOException iOException)
 			{
 				string message = $"Save failed ({SavePath}). Continuing without saving. Please try creating save folder and try restarting {ApplicationName}.";
-				//TODO: add logger.
-				//LogError(iOException, message);
-				System.Windows.Forms.MessageBox.Show(message);
+                //LogError(iOException, message);				//TODO: add logger.
+                System.Windows.Forms.MessageBox.Show(message);
 				return false;
 			}
 
@@ -284,11 +278,11 @@ namespace VACARM
 		}
 
 		/// <summary>
-		/// Refresh graph data from file.
+		/// Read graph data from file.
 		/// </summary>
-		public static void Refresh()
+		protected internal static void ReadFile()
 		{
-			CheckFile();
+			string[] dataCopy = data;
 
             try
             {
@@ -296,10 +290,10 @@ namespace VACARM
             }
             catch (IOException iOException)
             {
-                //TODO: add logger.
+				data = dataCopy;
                 iOException.Source = nameof(DefaultRepeaterFile);
-                string message = $"Refresh failed ({DefaultRepeaterFile}). If problem persists, please try restarting {ApplicationName}.";
-                //LogError(iOException, message);
+                string message = $"Read failed ({DefaultRepeaterFile}). If problem persists, please try restarting {ApplicationName}.";
+                //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
             }
         }
@@ -307,7 +301,7 @@ namespace VACARM
 		/// <summary>
 		/// Save graph data to file.
 		/// </summary>
-		protected internal static void Save()
+		protected internal static void SaveFile()
 		{
 			try
 			{
@@ -315,11 +309,26 @@ namespace VACARM
 			}
 			catch (IOException iOException)
 			{
-                //TODO: add logger.
                 iOException.Source = nameof(DefaultRepeaterFile);
                 string message = $"Save failed ({DefaultRepeaterFile}). Continuing without saving. If problem persists, please try restarting {ApplicationName}.";
-                //LogError(iOException, message);
+                //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
+            }
+        }
+
+		protected internal static void SetDefaultGraph()
+		{
+            string[] graphArray = Directory.GetFiles(SavePath).Where(x => x.EndsWith(FileExtension)).ToArray();
+
+            if (graphArray.Length == 1)
+            {
+                DefaultGraph = graphArray[0].Replace($@"{SavePath}\", "");
+            }
+
+            if ((graphArray.Length == 0 ||
+                (DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}"))))
+            {
+                DefaultGraph = "\\";
             }
         }
 	}
