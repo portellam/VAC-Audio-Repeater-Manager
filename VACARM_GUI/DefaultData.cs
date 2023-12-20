@@ -8,6 +8,7 @@ namespace VACARM_GUI
     {
         private static string CurrentDirectory = Directory.GetCurrentDirectory();
         private const string DataPartialPath = @"\data\";
+        private const string DefaultGraphValue = "\\";
         private const string DefaultRepeaterPartialFilePath = DataPartialPath + "defaultrepeater";
         private const string SavePartialPath = @"\save";
         private static readonly string DataPath = $@"{CurrentDirectory}{DataPartialPath}";
@@ -136,7 +137,7 @@ namespace VACARM_GUI
         {
             get
             {
-                if (data[9] == "\\")
+                if (data[9] == DefaultGraphValue)
                 {
                     return null;
                 }
@@ -200,7 +201,7 @@ namespace VACARM_GUI
         }
 
         /// <summary>
-        /// Check if data path exists. If not, try to create path. If the path does not exist, write to logger then fail with exception.
+        /// Check if data path exists. If not, try to create path. If the path does not exist, throw exception.
         /// </summary>
         /// <exception cref="ArgumentException"></exception>
         protected internal static void DoesDataPathExist()
@@ -316,6 +317,9 @@ namespace VACARM_GUI
             }
         }
 
+        /// <summary>
+        /// Update default graph with first found graph. If none are found or graph is null, update with default graph.
+        /// </summary>
         protected internal static void SetDefaultGraph()
         {
             string[] graphArray = Directory.GetFiles(SavePath).Where(x => x.EndsWith(FileExtension)).ToArray();
@@ -328,7 +332,7 @@ namespace VACARM_GUI
             if ((graphArray.Length == 0 ||
                 (DefaultGraph != null && !File.Exists($@"{SavePath}\{DefaultGraph}"))))
             {
-                DefaultGraph = "\\";
+                DefaultGraph = DefaultGraphValue;
             }
         }
     }
