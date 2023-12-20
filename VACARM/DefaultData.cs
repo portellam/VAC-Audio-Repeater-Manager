@@ -10,14 +10,13 @@ namespace VACARM
         private const string DataPartialPath = @"\data\";
         private const string DefaultRepeaterPartialFilePath = DataPartialPath + "defaultrepeater";
         private const string SavePartialPath = @"\save";
+        private static readonly string DataPath = $@"{CurrentDirectory}{DataPartialPath}";
+        private static readonly string DefaultRepeaterFile = $@"{CurrentDirectory}{DefaultRepeaterPartialFilePath}"; //NOTE: is it necessary for this path to exist, for VAC to work?
         private static string[] data;
 
         public const string ApplicationName = "VACARM";
         public const string FileExtension = ".vac";
-
-        public static readonly string DataPath = $@"{CurrentDirectory}{DataPartialPath}";
-        public static readonly string DefaultRepeaterFile = $@"{CurrentDirectory}{DefaultRepeaterPartialFilePath}";  //NOTE: must this be public? NOTE: is it necessary for this path to exist, for VAC to work?
-        public static readonly string SavePath = $@"{CurrentDirectory}{SavePartialPath}";                            //NOTE: must this be public? NOTE: is it necessary for this path to exist, for VAC to work?
+        public static readonly string SavePath = $@"{CurrentDirectory}{SavePartialPath}";                            //NOTE: is it necessary for this path to exist, for VAC to work?
 
         /// <summary>
         /// The Channel Configuration
@@ -182,8 +181,6 @@ namespace VACARM
 				SaveFile();
 			}
 		}
-
-        
 
         /// <summary>
         /// Check file for existing Repeater configuration.
