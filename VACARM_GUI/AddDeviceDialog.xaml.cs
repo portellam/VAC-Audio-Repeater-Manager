@@ -72,7 +72,6 @@ namespace VACARM_GUI
         protected internal virtual void SelectDeviceType_SelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
             selectDevice.SelectedIndex = -1;
-
             bool isWaveInDevice = selectDeviceType.SelectedIndex == 0;
 
             if (isWaveInDevice)
