@@ -109,15 +109,7 @@ namespace VACARM_GUI
 
             Edge.Keys.ToList().ForEach(
                 vertexDeviceControl => Edge[vertexDeviceControl].Keys.ToList().ForEach(
-                    adjacentDeviceControl => edgeRepeaterInfoHashSet.Add(Edge[vertexDeviceControl][adjacentDeviceControl])));   //NOTE: this lambda expression is functionally the same as below.
-
-            //foreach (DeviceControl vertexDeviceControl in Edge.Keys)
-            //{
-            //    foreach (DeviceControl adjacentDeviceControl in Edge[vertexDeviceControl].Keys)
-            //    {
-            //        edgeRepeaterInfoHashSet.Add(Edge[vertexDeviceControl][adjacentDeviceControl]);
-            //    }
-            //}
+                    adjacentDeviceControl => edgeRepeaterInfoHashSet.Add(Edge[vertexDeviceControl][adjacentDeviceControl])));
 
             return edgeRepeaterInfoHashSet;
         }
