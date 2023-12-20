@@ -23,9 +23,9 @@
 
     <StackPanel Margin="5">
         <TextBlock Margin="5" Text="Device Type"/>
-        <ComboBox x:Name="selectDeviceType" SelectionChanged="SelectDeviceType_SelectionChanged">
-            <ComboBoxItem Content="Wave In"/>
-            <ComboBoxItem Content="Wave Out"/>
+		<ComboBox x:Name="selectDeviceType" SelectionChanged="SelectDeviceType_SelectionChanged">
+			<ComboBoxItem IsSelected="True" Content="Wave In"/>
+			<ComboBoxItem Content="Wave Out"/>
         </ComboBox>
 
         <TextBlock Margin="5" Text="Device"/>
@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="okButton" Click="OkButton_Click" IsDefault="True" Content="Okay"/>
+            <Button Grid.Column="0" x:Name="okButton" Click="OkButton_Click" IsDefault="True" Content="Add"/>
             <Button Grid.Column="2" x:Name="cancelButton" Click="CancelButton_Click" IsCancel="True" Content="Cancel"/>
         </Grid>
     </StackPanel>
