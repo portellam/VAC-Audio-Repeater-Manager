@@ -227,7 +227,7 @@ namespace VACARM_GUI
             {
                 return deviceControlList;
             }
-            
+
             Dictionary<string, MMDevice> mMDeviceById = new Dictionary<string, MMDevice>();
             MMDeviceCollection mMDeviceCollection = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.All);
 
