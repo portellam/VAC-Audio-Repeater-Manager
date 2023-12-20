@@ -83,7 +83,7 @@ namespace VACARM_GUI.Tests
 
         // Restart_Click()
         /*
-         * Restart_ConfirmRestart
+         * _Restart_ConfirmRestart
          */
 
         // ResetActiveRepeaters()
@@ -165,7 +165,7 @@ namespace VACARM_GUI.Tests
 
         // Window_Closing()
         /*
-         * StopEngine_ConfirmEngineStop
+         * _StopEngine_ConfirmEngineStop
          */
     }
 }

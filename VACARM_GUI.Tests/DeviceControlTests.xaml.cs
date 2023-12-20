@@ -7,8 +7,8 @@ namespace VACARM_GUI.Tests
     {
         // Constructor
         /*
-         * InitalizeComponentAndSetMetadata_DataFlowIsCapture_SetColorToInputDeviceColor
-         * InitalizeComponentAndSetMetadata_DataFlowIsNotCapture_SetColorToOutputDeviceColor
+         * _InitalizeComponentAndSetMetadata_DataFlowIsCapture_SetColorToInputDeviceColor
+         * _InitalizeComponentAndSetMetadata_DataFlowIsNotCapture_SetColorToOutputDeviceColor
          */
 
         // OnPropertyChanged()

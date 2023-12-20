@@ -7,7 +7,7 @@ namespace VACARM_GUI.Tests
     {
         // Constructor
         /*
-         * SetMetadata
+         * _SetMetadata
          */
 
         // Convert()
