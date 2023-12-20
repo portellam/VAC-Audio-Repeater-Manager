@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace VACARM
+namespace VACARM_GUI
 {
     /// <summary>
     /// Interaction logic for RepeaterMenu.xaml

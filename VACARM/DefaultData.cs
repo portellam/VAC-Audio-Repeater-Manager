@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 
-namespace VACARM
+namespace VACARM_GUI
 {
-    class DefaultData
+    public class DefaultData
     {
         private static string CurrentDirectory = Directory.GetCurrentDirectory();
         private const string DataPartialPath = @"\data\";

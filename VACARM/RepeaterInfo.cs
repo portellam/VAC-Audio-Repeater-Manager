@@ -11,7 +11,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace VACARM
+namespace VACARM_GUI
 {
     public class RepeaterInfo : INotifyPropertyChanged
     {

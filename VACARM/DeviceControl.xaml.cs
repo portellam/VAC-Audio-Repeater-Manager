@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace VACARM
+namespace VACARM_GUI
 {
     /// <summary>
     /// Interaction logic for DeviceControl.xaml

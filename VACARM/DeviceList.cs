@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VACARM
+namespace VACARM_GUI
 {
-    class DeviceList
+    public class DeviceList
     {
         public List<MMDevice> WaveInMMDeviceList { get; set; }
         public List<MMDevice> WaveOutMMDeviceList { get; set; }

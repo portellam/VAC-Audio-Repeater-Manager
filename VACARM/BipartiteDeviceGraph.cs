@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Shapes;
 
-namespace VACARM
+namespace VACARM_GUI
 {
     public class BipartiteDeviceGraph
     {

@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
-namespace VACARM
+namespace VACARM_GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

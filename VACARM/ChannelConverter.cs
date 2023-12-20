@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace VACARM
+namespace VACARM_GUI
 {
     [ValueConversion(typeof(int), typeof(bool))]
     public class ChannelConverter : IValueConverter
