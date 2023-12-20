@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VACARM\VACARM_GUI.csproj" />
+    <ProjectReference Include="..\VACARM_GUI\VACARM_GUI.csproj" />
   </ItemGroup>
 
 </Project>
