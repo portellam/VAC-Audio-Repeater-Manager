@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.AddDeviceDialog;
+﻿using static VACARM_GUI.AddDeviceDialog;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class AddDeviceDialogTests

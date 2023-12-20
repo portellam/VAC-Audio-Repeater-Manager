@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.MainWindow;
+﻿using static VACARM_GUI.MainWindow;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class MainWindowTests

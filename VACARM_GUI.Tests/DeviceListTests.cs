@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.DeviceList;
+﻿using static VACARM_GUI.DeviceList;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class DeviceListTests

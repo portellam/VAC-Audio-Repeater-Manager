@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.BipartiteDeviceGraph;
+﻿using static VACARM_GUI.BipartiteDeviceGraph;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class BipartiteDeviceGraphTests

@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.RepeaterInfo;
+﻿using static VACARM_GUI.RepeaterInfo;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class RepeaterInfoTests

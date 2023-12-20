@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.ChannelConverter;
+﻿using static VACARM_GUI.ChannelConverter;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class ChannelConverterTests

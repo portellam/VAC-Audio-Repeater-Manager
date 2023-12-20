@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.DefaultData;
+﻿using static VACARM_GUI.DefaultData;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class DefaultDataTests

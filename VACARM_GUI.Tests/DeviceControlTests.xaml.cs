@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using static VACARM.DeviceControl;
+﻿using static VACARM_GUI.DeviceControl;
 
-namespace VACARM.Tests
+namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class DeviceControlTests
