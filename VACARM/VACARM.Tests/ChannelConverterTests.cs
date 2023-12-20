@@ -13,15 +13,16 @@ namespace VACARM.Tests
 
         // Convert()
         /*
-         * TODO: review operators to better understand intended behavior.
-         * IfParameterAndValueAreEqualToZero_ReturnFalse ???
-         * IfParameterAndValueAreNotEqualToZero_ReturnTrue ???
+         * _ValueAndBitAreEqualToZero_ReturnFalse
+         * _ValueAndBitAreNotEqualToZero_ReturnTrue
          */
 
         // ConvertBack()
         /*
-         * TODO: review operators to better understand intended behavior.
-         * 
+         * _CheckIsFalse_MaskAndBitAreEqual_ReturnTrue
+         * _CheckIsFalse_MaskAndBitAreNotEqual_ReturnFalse
+         * _CheckIsTrue_MaskAndBitAreEqual_ReturnFalse
+         * _CheckIsTrue_MaskAndBitAreNotEqual_ReturnTrue
          */
     }
 }
