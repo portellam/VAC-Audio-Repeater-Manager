@@ -217,7 +217,7 @@ namespace VACARM
             catch (IOException iOException)
             {
                 iOException.Source = nameof(DataPath);
-                string message = $"Folder creation failed ({DataPath}). Please try creating folder and restarting {ApplicationName}.";
+                string message = $"Folder creation failed ({DataPath}). Please try creating folder, then restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
                 throw;
@@ -227,7 +227,8 @@ namespace VACARM
         /// <summary>
         /// If file exists, exit. If file does not exist, try to write to file the default repeater information. If write fails, throw exception.
         /// </summary>
-        protected internal static void DoesFileExist()
+        /// <exception cref="ArgumentException"></exception>
+        protected internal static void DoesFileExist()      //NOTE: assuming default repeater path is necessary to program function.
         {
             if (File.Exists(DefaultRepeaterFile))
             {
@@ -243,8 +244,10 @@ namespace VACARM
             catch (IOException iOException)
             {
                 iOException.Source = nameof(defaultRepeaterAndPathName);
-                //LogError(iOException, $"Write failed for default repeater.");	//TODO: add logger.
-                throw;															//NOTE: assuming default repeater path is necessary to program function.
+                string message = $"Write failed ({DefaultRepeaterFile}). Exiting.";
+                //LogError(iOException, message);				//TODO: add logger.
+                System.Windows.Forms.MessageBox.Show(message);
+                throw;
             }
         }
 
@@ -265,7 +268,7 @@ namespace VACARM
             }
             catch (IOException iOException)
             {
-                string message = $"Save failed ({SavePath}). Continuing without saving. Please try creating save folder and try restarting {ApplicationName}.";
+                string message = $"Save failed ({SavePath}). Continuing without saving. Please try creating save folder, then restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
                 return false;
@@ -289,7 +292,7 @@ namespace VACARM
             {
                 data = dataCopy;
                 iOException.Source = nameof(DefaultRepeaterFile);
-                string message = $"Read failed ({DefaultRepeaterFile}). If problem persists, please try restarting {ApplicationName}.";
+                string message = $"Read failed ({DefaultRepeaterFile}). If problem persists, please restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
             }
@@ -307,7 +310,7 @@ namespace VACARM
             catch (IOException iOException)
             {
                 iOException.Source = nameof(DefaultRepeaterFile);
-                string message = $"Save failed ({DefaultRepeaterFile}). Continuing without saving. If problem persists, please try restarting {ApplicationName}.";
+                string message = $"Save failed ({DefaultRepeaterFile}). Continuing without saving. If problem persists, please restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
             }
