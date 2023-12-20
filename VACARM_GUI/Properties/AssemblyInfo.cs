@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VACARM")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Virtual Audio Cable Audio Repeater Manager")]
+[assembly: AssemblyDescription("A graphics user interface to automate audio repeaters in Virtual Audio Cable (VAC).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("VACARM")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright © 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -55,3 +55,4 @@ using System.Windows;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("VACARM.Tests")]
+[assembly: NeutralResourcesLanguage("en-US")]

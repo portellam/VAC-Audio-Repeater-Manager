@@ -228,4 +228,7 @@
     <Resource Include="icons\pause.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+	<InternalsVisibleTo Include="$(MSBuildProjectName).Tests" />
+  </ItemGroup>
 </Project>
