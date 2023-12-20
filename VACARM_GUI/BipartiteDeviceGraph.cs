@@ -72,14 +72,20 @@ namespace VACARM_GUI
         }
 
         /// <summary>
-        /// Load graph from given file.
+        /// Load graph from given file. If it does not exist, load an empty graph.
         /// </summary>
-        /// <param name="fileName">The file</param>
+        /// <param name="file">The file</param>
         /// <returns>The graph.</returns>
-        public static BipartiteDeviceGraph LoadGraph(string fileName)
+        public static BipartiteDeviceGraph LoadGraph(string file)
         {
             BipartiteDeviceGraph bipartiteDeviceGraph = new BipartiteDeviceGraph();
-            StreamReader streamReader = new StreamReader(fileName);
+
+            if (!File.Exists(file))
+            {
+                return bipartiteDeviceGraph;
+            }
+
+            StreamReader streamReader = new StreamReader(file);
 
             if (!int.TryParse(streamReader.ReadLine(), out int vertexCount))
             {
@@ -187,7 +193,6 @@ namespace VACARM_GUI
 
             string path = $@"{DefaultData.SavePath}\{file}";
             StreamWriter streamWriter = new StreamWriter(path);
-
             List<DeviceControl> vertexDeviceControlList = Edge.Keys.ToList();
             string vertexCount = vertexDeviceControlList.Count.ToString();
             streamWriter.WriteLine(vertexCount);
@@ -342,20 +347,10 @@ namespace VACARM_GUI
         /// <summary>
         /// Writes edges to file.
         /// </summary>
-        /// <param name="deviceControlIdDictionary"></param>
+        /// <param name="deviceControlIdDictionary">The device dictionary</param>
         /// <param name="streamWriter">The stream writer</param>
         protected internal virtual void WriteEdgeRepeaterInfoToFile(Dictionary<DeviceControl, int> deviceControlIdDictionary, StreamWriter streamWriter)
         {
-            if (deviceControlIdDictionary is null)
-            {
-                throw new System.ArgumentNullException(nameof(deviceControlIdDictionary));
-            }
-
-            if (streamWriter is null)
-            {
-                throw new System.ArgumentNullException(nameof(streamWriter));
-            }
-
             foreach (RepeaterInfo edgeRepeaterInfo in GetEdges())
             {
                 string indexOfDevices = $"{deviceControlIdDictionary[edgeRepeaterInfo.CaptureDeviceControl]} {deviceControlIdDictionary[edgeRepeaterInfo.RenderDeviceControl]}";
@@ -376,7 +371,8 @@ namespace VACARM_GUI
                 return;
             }
 
-            streamWriter.WriteLine(edgesCount / 2);
+            string halfOfEdgesCount = $"{edgesCount / 2}";
+            streamWriter.WriteLine(halfOfEdgesCount);
         }
     }
 }
