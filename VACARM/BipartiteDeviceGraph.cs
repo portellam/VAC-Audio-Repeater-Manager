@@ -146,22 +146,22 @@ namespace VACARM
         /// <summary>
         /// Save graph to given file.
         /// </summary>
-        /// <param name="fileName">The file</param>
-        public void SaveGraph(string fileName)
+        /// <param name="file">The file</param>
+        public void SaveGraph(string file)
         {
-            if (fileName is null)
+            if (file is null)
             {
                 //TODO: add logger, output message to user, then return
                 return;
             }
 
-            if (!fileName.EndsWith(DefaultData.FileExtension))
+            if (!file.EndsWith(DefaultData.FileExtension))
             {
-                fileName += DefaultData.FileExtension;
+                file += DefaultData.FileExtension;
             }
 
-            string pathName = $@"{Directory.GetCurrentDirectory()}{DefaultData.SavePartialPath}\{fileName}";
-            StreamWriter streamWriter = new StreamWriter(pathName);
+            string path = $@"{DefaultData.SavePath}\{file}";
+            StreamWriter streamWriter = new StreamWriter(path);
 
             List<DeviceControl> vertexDeviceControlList = Edge.Keys.ToList();
             string vertexCount = vertexDeviceControlList.Count.ToString();
