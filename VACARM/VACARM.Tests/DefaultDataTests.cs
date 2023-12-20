@@ -6,34 +6,33 @@ namespace VACARM.Tests
     [TestFixture]
     public class DefaultDataTests
     {
-        // CheckDefaultSavePath()
-        /*
-         * 
-         * 
-         * 
-         */
-
         // CheckFile()
         /*
-         * _PathIsNull_WriteDefaultRepeaterToFile__
-         * _PathDoesNotExist_WriteDefaultRepeaterToFile__
-         * _PathDoesExist_DoNotWriteDefaultRepeaterToFile__ 
-         * _DefaultGraphIsNotNullAndNetworkCountIsGreaterThanOneAndSavePathExists_DefaultGraphIsUnchanged
-         * _DefaultGraphIsNull_DefaultGraphIsTwoBackSlashes
-         * _NetworkCountIsOne_DefaultGraphIsChanged
-         * _NetworkCountIsZero_DefaultGraphIsTwoBackSlashes
-         * _SavePathDoesNotExist_DefaultGraphIsTwoBackSlashes
-         
-         * _FileDoesExist_ReadAllLinesFails_ThrowIOException
-         * _FileDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsFalse_ReturnVoid
-         * _FileDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsTrue_GraphArrayLengthIsOne_SetDefaultGraphToModifiedFirstIndexOfGraphArray
-         * _FileDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsTrue_GraphArrayLengthIsZero_SetDefaultGraphToDefault
-         * _FileDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsTrue_DefaultGraphIsNullAndDefaultGraphFileDoesNotExist_SetDefaultGraphToDefault
+         * _DataPathDoesExistDoesThrowIOException
 
-         * _FileDoesNotExist
-         * 
-         * 
- 
+         * _DataPathDoesExistDoesNotThrowIOException_DoesFileExistDoesThrowIOException
+
+         * _DataPathDoesExistDoesNotThrowIOException_DoesFileExistDoesNotThrowIOException_ReadFileFails_SavePathDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsFalse_ReturnVoid
+         * _DataPathDoesExistDoesNotThrowIOException_DoesFileExistDoesNotThrowIOException_ReadFileFails_SavePathDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsTrue_SetDefaultGraph
+         * _DataPathDoesExistDoesNotThrowIOException_DoesFileExistDoesNotThrowIOException_ReadFileFails_SavePathDoesNotExist_ReturnVoid
+         * _DataPathDoesExistDoesNotThrowIOException_DoesFileExistDoesNotThrowIOException_ReadFilePasses_SavePathDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsFalse_ReturnVoid
+         * _DataPathDoesExistDoesNotThrowIOException_DoesFileExistDoesNotThrowIOException_ReadFilePasses_SavePathDoesExist_ReadAllLinesPasses_DoesSavePathExistReturnsTrue_SetDefaultGraph
+         * _DataPathDoesExistDoesNotThrowIOException_DoesFileExistDoesNotThrowIOException_ReadFilePasses_SavePathDoesNotExist_ReturnVoid 
+         */
+
+        // DoesDataPathExist()
+        /*
+         * _DataPathDoesExist_ReturnVoid
+         * _DataPathDoesNotExist_CreateDirectoryPasses_DoesNotThrowIOException
+         * _DataPathDoesNotExist_CreateDirectoryFails_ThrowIOException
+         */
+
+
+        // DoesFileExist()
+        /*
+         * _FileDoesExist_ReturnVoid
+         * _FileDoesNotExist_WriteAllTextPasses_DoesNotThrowIOException
+         * _FileDoesNotExist_WriteAllTextFails_DoesThrowIOException
          */
 
         // DoesSavePathExist()
@@ -43,17 +42,24 @@ namespace VACARM.Tests
          * _SavePathDoesNotExist_CreateDirectoryPasses_ReturnTrue
          */
 
-        // Refresh()
+        // ReadFile()
         /*
-         * _CheckFile_FileIsNotNull_ReadAllLinesFromPath
-         * _CheckFile_FileIsNull_CatchIOException
+         * _FileIsNotNull_ReadAllLinesPasses
+         * _FileIsNull_ReadAllLinesFails_CatchIOException
          */
 
         // Save()
         /*
-         * _FileIsNotNullAndDataIsNotNull_DataWriteAllLinesToPath
-         * _FileIsNotNullAndDataIsNull_DataWriteAllLinesToPath
-         * _FileIsNull_CatchIOException
+         * _FileIsNotNullAndDataIsNotNull_WriteAllLinesPasses
+         * _FileIsNotNullAndDataIsNull_WriteAllLinesPasses
+         * _FileIsNull_WriteAllLinesFails_CatchIOException
+         */
+
+        // SetDefaultGraph()
+        /*
+         * _DefaultGraphIsNullAndDefaultGraphFileDoesNotExist_SetDefaultGraphToDefault
+         * _GraphArrayLengthIsZero_SetDefaultGraphToDefault
+         * _GraphArrayLengthIsOne_SetDefaultGraphToModifiedFirstIndexOfGraphArray
          */
     }
 }
