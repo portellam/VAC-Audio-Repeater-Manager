@@ -8,7 +8,7 @@ namespace VACARM_GUI
     {
         private static string CurrentDirectory = Directory.GetCurrentDirectory();
         private const string DataPartialPath = @"\data\";
-        private const string DefaultGraphValue = "\\";
+        public const string DefaultGraphValue = "\\";
         private const string DefaultRepeaterPartialFilePath = DataPartialPath + "defaultrepeater";
         private const string SavePartialPath = @"\save";
         private static readonly string DataPath = $@"{CurrentDirectory}{DataPartialPath}";

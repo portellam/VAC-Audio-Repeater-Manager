@@ -153,7 +153,7 @@ namespace VACARM_GUI
             string file = openFileDialog.FileName;
             string fileName = file.Replace($@"{DefaultData.SavePath}\", "");
 
-            if (fileName.Contains("\\") || !fileName.EndsWith(DefaultData.FileExtension))
+            if (fileName.Contains(DefaultData.DefaultGraphValue) || !fileName.EndsWith(DefaultData.FileExtension))
             {
                 return;
             }
@@ -335,7 +335,7 @@ namespace VACARM_GUI
         {
             string file = saveFileDialog.FileName.Replace($@"{DefaultData.SavePath}\", "");
 
-            if (file.Contains("\\"))
+            if (file.Contains(DefaultData.DefaultGraphValue))
             {
                 return;
             }
