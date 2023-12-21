@@ -54,5 +54,5 @@ using System.Windows;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("VACARM.Tests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("VACARM_GUI.Tests")]
 [assembly: NeutralResourcesLanguage("en-US")]
