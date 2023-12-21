@@ -1,6 +1,4 @@
-﻿using static VACARM_GUI.BipartiteDeviceGraph;
-
-namespace VACARM_GUI.Tests
+﻿namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class BipartiteDeviceGraphTests

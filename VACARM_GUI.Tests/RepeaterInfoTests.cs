@@ -1,6 +1,4 @@
-﻿using static VACARM_GUI.RepeaterInfo;
-
-namespace VACARM_GUI.Tests
+﻿namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class RepeaterInfoTests

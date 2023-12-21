@@ -1,6 +1,4 @@
-﻿using static VACARM_GUI.RepeaterMenu;
-
-namespace VACARM_GUI.Tests
+﻿namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class RepeaterMenuTests

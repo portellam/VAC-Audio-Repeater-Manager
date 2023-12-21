@@ -1,6 +1,4 @@
-﻿using static VACARM_GUI.MainWindow;
-
-namespace VACARM_GUI.Tests
+﻿namespace VACARM_GUI.Tests
 {
     [TestFixture]
     public class MainWindowTests

@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static VACARM_GUI.AddDeviceDialog;
 
 namespace VACARM_GUI.Tests
 {
