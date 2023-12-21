@@ -32,7 +32,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NUnitTestAdapter.WithFramework" Version="2.0.0" />
     <PackageReference Include="PresentationFramework" Version="4.6.0" />
+    <PackageReference Include="Typemock.Isolator" Version="9.2.6" />
   </ItemGroup>
 
   <ItemGroup>
