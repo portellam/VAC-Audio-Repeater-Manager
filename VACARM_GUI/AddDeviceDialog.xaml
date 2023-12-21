@@ -24,7 +24,7 @@
     <StackPanel Margin="5">
         <TextBlock Margin="5" Text="Device Type"/>
 		<ComboBox x:Name="selectDeviceType" SelectionChanged="SelectDeviceType_SelectionChanged">
-			<ComboBoxItem IsSelected="True" Content="Wave In"/>
+			<ComboBoxItem Content="Wave In"/>
 			<ComboBoxItem Content="Wave Out"/>
         </ComboBox>
 
