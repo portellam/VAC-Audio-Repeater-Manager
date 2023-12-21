@@ -15,7 +15,6 @@ namespace VACARM_GUI.Tests
             addDeviceDialog = new AddDeviceDialog();
         }
 
-
         // Constructor
         /*
          * _SetMetadata
@@ -34,10 +33,17 @@ namespace VACARM_GUI.Tests
             RoutedEventArgs routedEventArgs = new RoutedEventArgs();
 
             // Act
-            //addDeviceDialog.CancelButton_Click(sender, routedEventArgs);
+            try
+            {
+                addDeviceDialog.CancelButton_Click(sender, routedEventArgs);
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
 
             // Assert
-            Assert.Fail();
+            Assert.Pass();
         }
 
         // OkButton_Click()
