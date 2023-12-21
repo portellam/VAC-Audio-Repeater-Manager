@@ -13,7 +13,7 @@
 * Application will crash without warning when attempting to add vector when one exists between Wave-In and Wave-Out pair(s).
 
 ## Potential improvements
-* How to diable prevention of system sleep (likely a bug/feature of VAC itself, see powercfg /override).
+* How to disable prevention of system sleep (likely a bug/feature of VAC itself, see powercfg /override).
 * Full parity of backwards and forwards Windows compatibility, as with Virtual Audio Cable (example: Windows XP, Vista, 7, etc.).
 * Add tasks to task scheduler?
 * Pause or stop audio repeater if devices in input/output pair are  disabled or removed?
