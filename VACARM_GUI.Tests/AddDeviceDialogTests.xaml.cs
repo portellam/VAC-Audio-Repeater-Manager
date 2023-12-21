@@ -90,24 +90,24 @@ namespace VACARM_GUI.Tests
          * _MouseButtonChangedButtonIsNotLeftButton_ReturnVoid
          */
 
-        // [Test]
-        // public void Window_MouseDown_MouseButtonChangedButtonIsLeftButton_DragMove()
-        // {
-        //     // Arrange
-        //     mouseDeviceMock.Setup(x => x.LeftButton).Returns(MouseButtonState.Pressed;
+        [Test]
+        public void Window_MouseDown_MouseButtonChangedButtonIsLeftButton_DragMove()
+        {
+            // Arrange
+            mouseDeviceMock.Setup(x => x.LeftButton).Returns(MouseButtonState.Pressed;
 
-        //     MouseButtonEventArgs mouseButtonEventArgs = new MouseButtonEventArgs(mouseDeviceMock.Object, 0, MouseButton.Left);
-        //     //addDeviceDialogMock.Setup(x => x.selectDevice).Equals(WaveInDeviceType);
-        //     //addDeviceDialogMock.CallBase = true;
+            MouseButtonEventArgs mouseButtonEventArgs = new MouseButtonEventArgs(mouseDeviceMock.Object, 0, MouseButton.Left);
+            //addDeviceDialogMock.Setup(x => x.selectDevice).Equals(WaveInDeviceType);
+            //addDeviceDialogMock.CallBase = true;
 
-        //     // Act
-        //     var result = addDeviceDialogMock.Setup(x => x.Window_MouseDown(WaveInDeviceType, mouseButtonEventArgs));
+            // Act
+            var result = addDeviceDialogMock.Setup(x => x.Window_MouseDown(WaveInDeviceType, mouseButtonEventArgs));
 
-        //     // Assert
-        //     Assert.Equals(mouseButtonEventArgs.MouseDevice, mouseDeviceMock.Object);
-        //     Assert.Equals(addDeviceDialogMock.Object.selectDeviceType, WaveInDeviceType);
-        //     Mock.Get(addDeviceDialogMock).Verify(x => x.Object.DragMove(), Times.Exactly(1));
-        // }
+            // Assert
+            Assert.Equals(mouseButtonEventArgs.MouseDevice, mouseDeviceMock.Object);
+            Assert.Equals(addDeviceDialogMock.Object.selectDeviceType, WaveInDeviceType);
+            Mock.Get(addDeviceDialogMock).Verify(x => x.Object.DragMove(), Times.Exactly(1));
+        }
 
         //[Test]
         //public void Window_MouseDown_MouseButtonChangedButtonIsNotLeftButton_ReturnVoid()
