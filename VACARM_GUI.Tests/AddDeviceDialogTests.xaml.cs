@@ -1,12 +1,6 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
-using NUnit.Framework.Interfaces;
-using NUnit.Framework.Legacy;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
-using TypeMock.ArrangeActAssert.Suggest;
 
 namespace VACARM_GUI.Tests
 {
@@ -24,11 +18,14 @@ namespace VACARM_GUI.Tests
         private ComboBoxItem waveInComboBoxItem, waveOutComboBoxItem;
         private DeviceList deviceList;
         private SelectionChangedEventArgs selectionChangedEventArgs;
+        private Moq.Mock<AddDeviceDialog> addDeviceDialogMock;
+        private Moq.Mock<MouseDevice> mouseDeviceMock;
 
         [SetUp]
         public void Setup()
         {
             addDeviceDialog = new AddDeviceDialog();
+            addDeviceDialogMock = new Moq.Mock<AddDeviceDialog>();
             deviceList = new DeviceList();
 
             waveInComboBoxItem = new ComboBoxItem()
@@ -60,6 +57,8 @@ namespace VACARM_GUI.Tests
                 new List<string> { },
                 comboBox.Items
             );
+
+            mouseDeviceMock = new Moq.Mock<MouseDevice>();
         }
 
         // Constructor
@@ -180,45 +179,33 @@ namespace VACARM_GUI.Tests
          */
 
         //[Test]
-        //public void Window_MouseDown_MouseButtonChangedButtonIsLeftButton_DoNotDragMove()
+        //public void Window_MouseDown_MouseButtonChangedButtonIsLeftButton_DoNotDragMove()       //NOTE: TypeMock isolator install on Windows machine is likely necessary. TODO: install and test this unit test.
         //{
         //    // Arrange
-        //    MouseButton mouseButton = MouseButton.Left;
-        //    MouseButtonState mouseButtonState = MouseButtonState.Pressed;
-
-        //    windowMock.Setup(x => x.DragMove()).Verifiable();
-        //    mouseDeviceMock.SetupGet(x => x.LeftButton).Returns(mouseButtonState);
-
-        //    MouseButtonEventArgs mouseButtonEventArgs = new MouseButtonEventArgs(mouseDeviceMock.Object, 0, mouseButton);
+        //    MouseButtonEventArgs mouseButtonEventArgsFake = Isolate.Fake.Instance<MouseButtonEventArgs>();
+        //    Isolate.Swap.NextInstance<MouseButtonEventArgs>().With(mouseButtonEventArgsFake);
+        //    Isolate.WhenCalled(() => mouseButtonEventArgsFake.ChangedButton).WillReturn(MouseButton.Left);
 
         //    // Act
-        //    addDeviceDialog.Window_MouseDown(mouseDeviceMock.Object, mouseButtonEventArgs);
-        //    var result = addDeviceDialogMock.Setup(x => x.Window_MouseDown(WaveInDeviceType, mouseButtonEventArgs));
-        //    windowMock.Setup(x => x.DragMove()).Verifiable();
+        //    addDeviceDialogMock.Setup(x => x.Window_MouseDown(mouseButtonEventArgsFake.Device, mouseButtonEventArgsFake));
 
         //    // Assert
-        //    Assert.Equals(mouseButtonEventArgs.ChangedButton, mouseButton);
-        //    windowMock.Verify(x => x.DragMove(), Times.Once);
-        //    windowMock.VerifyNoOtherCalls();
-
-
-        //    // Arrange
-        //    //var fakeMouseDevice = Isolate.Fake.Instance<MouseDevice>();
-        //    //Isolate.WhenCalled(() => fakeMouseDevice.LeftButton).WillReturn(MouseButtonState.Pressed);
-        //    //MouseButtonEventArgs mouseButtonEventArgs = new MouseButtonEventArgs(fakeMouseDevice, 0, MouseButton.Left);
-
-        //    //var fakeWindow = Isolate.Fake.Instance<Window>();
-
-        //    //// Act
-        //    ////var result = addDeviceDialogMock.Setup(x => x.Window_MouseDown(WaveInDeviceType, mouseButtonEventArgs));
-
-        //    //addDeviceDialog.Window_MouseDown(WaveInDeviceType, mouseButtonEventArgs);
-
+        //    addDeviceDialogMock.Verify(x => x.CallDragMove(), Times.Once);
         //}
 
         //[Test]
-        //public void Window_MouseDown_MouseButtonChangedButtonIsNotLeftButton_ReturnVoid()
+        //public void Window_MouseDown_MouseButtonChangedButtonIsNotLeftButton_ReturnVoid()       //NOTE: TypeMock isolator install on Windows machine is likely necessary. TODO: install and test this unit test.
         //{
+        //    // Arrange
+        //    MouseButtonEventArgs mouseButtonEventArgsFake = Isolate.Fake.Instance<MouseButtonEventArgs>();
+        //    Isolate.Swap.NextInstance<MouseButtonEventArgs>().With(mouseButtonEventArgsFake);
+        //    Isolate.WhenCalled(() => mouseButtonEventArgsFake.ChangedButton).WillReturn(MouseButton.Right);
+
+        //    // Act
+        //    addDeviceDialogMock.Setup(x => x.Window_MouseDown(mouseButtonEventArgsFake.Device, mouseButtonEventArgsFake));
+
+        //    // Assert
+        //    addDeviceDialogMock.Verify(x => x.CallDragMove(), Times.Never);
         //}
     }
 }
