@@ -14,6 +14,7 @@ namespace VACARM_GUI
     {
         public MMDevice mMDevice;
 
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -21,6 +22,14 @@ namespace VACARM_GUI
         {
             InitializeComponent();
             DataContext = new DeviceList();
+        }
+
+        /// <summary>
+        /// Calls DragMove for current Window object.
+        /// </summary>
+        protected internal virtual void CallDragMove()
+        {
+            DragMove();
         }
 
         /// <summary>
@@ -95,7 +104,7 @@ namespace VACARM_GUI
                 return;
             }
 
-            DragMove();
-        }
+            CallDragMove();
+        } 
     }
 }
