@@ -48,7 +48,7 @@ namespace VACARM_GUI.Tests
             comboBox = new ComboBox()
             {
                 Name = comboBoxName,
-                Items =
+                ItemsSource = new[]
                 {
                     waveInComboBoxItem,
                     waveOutComboBoxItem
@@ -101,75 +101,75 @@ namespace VACARM_GUI.Tests
          * _SelectedIndexIsNotNegativeOne_SelectedDeviceTypeSelectedIndexIsZero_DevicesAreWaveIn
          */
 
-        // SelectDeviceType_SelectionChanged()
-        /*
-         * _SelectedIndexIsZero_ItemsSourceIsWaveInNameList
-         * _SelectedIndexIsNonZero_ItemsSourceIsWaveOutNameList
-         */
-
-        //[Test]
-        //public void SelectDeviceType_SelectionChanged_SelectedIndexIsZero_ItemsSourceIsWaveInNameList()
-        //{
-        //    // Arrange
-        //    //deviceListMock.Setup(x => x.WaveInNameList).Returns(waveInNameList);
-        //    //deviceListMock.Setup(x => x.WaveOutNameList).Returns(waveOutNameList);
-        //    comboBox.SelectedIndex = waveInSelectedIndex;
-            
-        //    // Act
-        //    addDeviceDialog.SelectDeviceType_SelectionChanged(comboBox, selectionChangedEventArgs);
-        //    var result1 = addDeviceDialog.selectDevice.ItemsSource;
-        //    var result2 = addDeviceDialog.selectDevice.SelectedIndex;
-
-        //    // Assert
-        //    Assert.That(result1, Is.EqualTo(waveOutNameList));           //NOTE: it is actually grabbing the devices on the system. Should I continue this? Or how do I put fake/test info and run that?
-        //    Assert.That(result2, Is.EqualTo(waveOutSelectedIndex));
-        //}
-
         [Test]
-        public void SelectDeviceType_SelectionChanged_SelectedIndexIsNonZero_ItemsSourceIsWaveOutNameList()
+        public void SelectDeviceType_SelectionChanged_SelectedIndexIsZero_ItemsSourceIsWaveInNameList()
         {
-            // TODO: create ComboBox with at least Wave Out, then add to selectionChangedEvent. Do not add directly to addDeviceDialog, we want to test that it updates this metadata using the method.
-
             // Arrange
-            ComboBox newComboBox = new ComboBox()
+            addDeviceDialog.selectDevice = new ComboBox()
             {
-                Name = comboBoxName,
-                Items =
-                {
-                    //waveInComboBoxItem,
-                    waveOutComboBoxItem
-                }
+                Name = comboBoxName
             };
 
-            newComboBox.SelectedItem = newComboBox.Items.Contains(waveOutComboBoxItem);
+            addDeviceDialog.selectDeviceType.SelectedIndex = waveInSelectedIndex;
+            comboBox.SelectedItem = comboBox.Items.Contains(waveInComboBoxItem);
 
             selectionChangedEventArgs = new SelectionChangedEventArgs(
                 Selector.SelectionChangedEvent,
                 new List<string> { },
-                newComboBox.Items
-            );
-            
-            selectionChangedEventArgs.Source = newComboBox;
-
-            addDeviceDialog.selectDevice = new ComboBox() {
-                Name = comboBoxName
+                comboBox.Items
+            )
+            {
+                Source = comboBox
             };
 
             // Act
             addDeviceDialog.SelectDeviceType_SelectionChanged(comboBox, selectionChangedEventArgs);
             var result1 = addDeviceDialog.selectDevice.Name;
             var result2 = addDeviceDialog.selectDevice.SelectedIndex;
-            var result3 = addDeviceDialog.selectDeviceType.SelectedIndex;
-            var result4 = addDeviceDialog.selectDevice.ItemsSource;
+            var result3 = addDeviceDialog.selectDevice.ItemsSource;
 
             Assert.Multiple(() =>
             {
-                Assert.That(result1, Is.EqualTo(newComboBox.Name));
+                Assert.That(result1, Is.EqualTo(comboBox.Name));
                 Assert.That(result2, Is.EqualTo(selectDeviceSelectedIndex));
-                Assert.That(result3, Is.Not.EqualTo(waveInSelectedIndex));
-                Assert.That(result3, Is.EqualTo(waveOutSelectedIndex));
-                Assert.That(result4, Is.Not.EqualTo(waveInComboBoxItem.DataContext));
-                Assert.That(result4, Is.EqualTo(waveOutComboBoxItem.DataContext));
+                Assert.That(result3, Is.Not.EqualTo(waveOutComboBoxItem.DataContext));
+                Assert.That(result3, Is.EqualTo(waveInComboBoxItem.DataContext));
+            });
+        }
+
+        [Test]
+        public void SelectDeviceType_SelectionChanged_SelectedIndexIsNonZero_ItemsSourceIsWaveOutNameList()
+        {
+            // Arrange
+            addDeviceDialog.selectDevice = new ComboBox()
+            {
+                Name = comboBoxName
+            };
+
+            addDeviceDialog.selectDeviceType.SelectedIndex = waveOutSelectedIndex;
+            comboBox.SelectedItem = comboBox.Items.Contains(waveOutComboBoxItem);
+
+            selectionChangedEventArgs = new SelectionChangedEventArgs(
+                Selector.SelectionChangedEvent,
+                new List<string> { },
+                comboBox.Items
+            )
+            {
+                Source = comboBox
+            };
+
+            // Act
+            addDeviceDialog.SelectDeviceType_SelectionChanged(comboBox, selectionChangedEventArgs);
+            var result1 = addDeviceDialog.selectDevice.Name;
+            var result2 = addDeviceDialog.selectDevice.SelectedIndex;
+            var result3 = addDeviceDialog.selectDevice.ItemsSource;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result1, Is.EqualTo(comboBox.Name));
+                Assert.That(result2, Is.EqualTo(selectDeviceSelectedIndex));
+                Assert.That(result3, Is.Not.EqualTo(waveInComboBoxItem.DataContext));
+                Assert.That(result3, Is.EqualTo(waveOutComboBoxItem.DataContext));
             });
         }
 
