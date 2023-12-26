@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -24,6 +25,16 @@ namespace VACARM_GUI
             DataContext = new DeviceList();
         }
 
+        [ExcludeFromCodeCoverage]
+        /// <summary>
+        /// Calls DragMove for current Window object.
+        /// </summary>
+        protected internal virtual void CallClose()
+        {
+            Close();
+        }
+
+        [ExcludeFromCodeCoverage]
         /// <summary>
         /// Calls DragMove for current Window object.
         /// </summary>
@@ -39,7 +50,12 @@ namespace VACARM_GUI
         /// <param name="routedEventArgs">The routed event</param>
         protected internal virtual void CancelButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            Close();
+            if (!(sender as Button).IsCancel)
+            {
+                return;
+            }
+
+            CallClose();
         }
 
         /// <summary>
@@ -49,6 +65,11 @@ namespace VACARM_GUI
         /// <param name="routedEventArgs">The routed event</param>
         protected internal virtual void OkButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
+            if ((sender as Button).IsCancel)
+            {
+                return;
+            }
+
             bool isNeitherWaveInOrWaveOutDevice = selectDeviceType.SelectedIndex == -1 || selectDevice.SelectedIndex == -1;
 
             if (isNeitherWaveInOrWaveOutDevice)
@@ -69,7 +90,7 @@ namespace VACARM_GUI
             }
 
             mMDevice = mMDeviceList[selectDevice.SelectedIndex];
-            Close();
+            CallClose();
         }
 
         /// <summary>
