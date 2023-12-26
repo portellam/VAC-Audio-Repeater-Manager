@@ -172,12 +172,6 @@ namespace VACARM_GUI.Tests
             });
         }
 
-        // Window_MouseDown()
-        /*
-         * _MouseButtonChangedButtonIsLeftButton_DragMove
-         * _MouseButtonChangedButtonIsNotLeftButton_ReturnVoid
-         */
-
         //[Test]
         //public void Window_MouseDown_MouseButtonChangedButtonIsLeftButton_DoNotDragMove()       //NOTE: TypeMock isolator install on Windows machine is likely necessary. TODO: install and test this unit test.
         //{
