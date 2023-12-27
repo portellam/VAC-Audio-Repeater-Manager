@@ -86,9 +86,10 @@ namespace VACARM_GUI.Tests
             
             RoutedEventArgs routedEventArgs = new RoutedEventArgs();
 
+            addDeviceDialogFake.InitializeComponent();
+            addDeviceDialogFake.CancelButton_Click(button, routedEventArgs);
+
             // Act
-            addDeviceDialogMock.Setup(x => x.CancelButton_Click(button, routedEventArgs)).Verifiable();
-            addDeviceDialogMock.CallBase = true;
             addDeviceDialogMock.Object.CancelButton_Click(button, routedEventArgs);
 
             // Assert
