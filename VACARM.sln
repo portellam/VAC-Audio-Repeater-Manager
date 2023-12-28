@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM_GUI", "VACARM_GUI\VA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VACARM_GUI.Tests", "VACARM_GUI.Tests\VACARM_GUI.Tests.csproj", "{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{1C29C164-E1DD-4DBD-91F8-037826FD8BF8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C29C164-E1DD-4DBD-91F8-037826FD8BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C29C164-E1DD-4DBD-91F8-037826FD8BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C29C164-E1DD-4DBD-91F8-037826FD8BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C29C164-E1DD-4DBD-91F8-037826FD8BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

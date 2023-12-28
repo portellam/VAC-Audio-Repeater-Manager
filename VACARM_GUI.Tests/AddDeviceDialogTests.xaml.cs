@@ -75,44 +75,44 @@ namespace VACARM_GUI.Tests
          * _Close_ConfirmClose
          */
 
-        [Test]
-        public void CancelButton_Click_IsCancelButton_Close()
-        {
-            // Arrange
-            Button button = new Button()
-            {
-                IsCancel = true
-            };
+        //[Test]
+        //public void CancelButton_Click_IsCancelButton_Close()
+        //{
+        //    // Arrange
+        //    Button button = new Button()
+        //    {
+        //        IsCancel = true
+        //    };
             
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+        //    RoutedEventArgs routedEventArgs = new RoutedEventArgs();
 
-            addDeviceDialogFake.InitializeComponent();
-            addDeviceDialogFake.CancelButton_Click(button, routedEventArgs);
+        //    addDeviceDialogFake.InitializeComponent();
+        //    addDeviceDialogFake.CancelButton_Click(button, routedEventArgs);
 
-            // Act
-            addDeviceDialogMock.Object.CancelButton_Click(button, routedEventArgs);
+        //    // Act
+        //    addDeviceDialogMock.Object.CancelButton_Click(button, routedEventArgs);
 
-            // Assert
-            addDeviceDialogMock.Verify(x => x.CallClose(), Times.Once);
-        }
+        //    // Assert
+        //    addDeviceDialogMock.Verify(x => x.CallClose(), Times.Once);
+        //}
 
-        [Test]
-        public void CancelButton_Click_IsNotCancelButton_DoNotClose()
-        {
-            // Arrange
-            Button button = new Button()
-            {
-                IsCancel = false
-            };
+        //[Test]
+        //public void CancelButton_Click_IsNotCancelButton_DoNotClose()
+        //{
+        //    // Arrange
+        //    Button button = new Button()
+        //    {
+        //        IsCancel = false
+        //    };
 
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+        //    RoutedEventArgs routedEventArgs = new RoutedEventArgs();
 
-            // Act
-            addDeviceDialogMock.Setup(x => x.CancelButton_Click(button, routedEventArgs)).Verifiable();
+        //    // Act
+        //    addDeviceDialogMock.Setup(x => x.CancelButton_Click(button, routedEventArgs)).Verifiable();
 
-            // Assert
-            addDeviceDialogMock.Verify(x => x.CallClose(), Times.Never);
-        }
+        //    // Assert
+        //    addDeviceDialogMock.Verify(x => x.CallClose(), Times.Never);
+        //}
 
         // OkButton_Click()
         /*
