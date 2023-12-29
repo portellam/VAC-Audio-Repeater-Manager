@@ -2,6 +2,10 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using Moq;
+using NUnit.Framework;
+using TypeMock;
+//using VACARM_GUI_NET_8;
 
 namespace VACARM_GUI_NET_8.Tests
 {
