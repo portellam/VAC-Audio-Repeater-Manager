@@ -202,6 +202,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="VACARM_GUI_NET_4.Tests" />
+		<InternalsVisibleTo Include="VACARM_GUI_NET_8.Tests" />
 	</ItemGroup>
 </Project>

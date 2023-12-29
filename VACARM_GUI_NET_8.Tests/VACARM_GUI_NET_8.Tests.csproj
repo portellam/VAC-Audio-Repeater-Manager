@@ -37,9 +37,9 @@
     <PackageReference Include="Typemock.Isolator" Version="9.2.7" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
+   <ItemGroup>
     <ProjectReference Include="..\VACARM_GUI_NET_8\VACARM_GUI_NET_8.csproj" />
-  </ItemGroup> -->
+  </ItemGroup> 
 
   <ItemGroup>
     <Reference Include="PresentationCore">
