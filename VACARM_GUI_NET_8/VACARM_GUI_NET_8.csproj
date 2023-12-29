@@ -1,8 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<Company></Company>
+		<Copyright>Copyright © 2024</Copyright>
+		<Description>A graphics user interface to automate audio repeaters in Virtual Audio Cable (VAC).</Description>
+		<Product>Virtual Audio Cable Audio Manager for Windows</Product>
+		<AssemblyTitle>VACARM</AssemblyTitle>
+		<Version>1.0.0</Version>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>

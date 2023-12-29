@@ -1,8 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+	  <Company></Company>
+	  <Copyright>Copyright © 2024</Copyright>
+	  <Description></Description>
+	  <Product>VACARM_GUI_NET_8.Tests</Product>
+	  <AssemblyTitle>VACARM_GUI_NET_8.Tests</AssemblyTitle>
+	  <Version>1.0.0</Version>
+	  <TargetFramework>net8.0-windows7.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
