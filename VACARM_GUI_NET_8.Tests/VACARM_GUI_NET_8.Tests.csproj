@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Company></Company>
+		<Copyright>Copyright © 2024</Copyright>
+		<Description></Description>
+		<Product>VACARM_GUI_NET_8.Tests</Product>
+		<AssemblyTitle>VACARM_GUI_NET_8.Tests</AssemblyTitle>
+		<Version>1.0.0</Version>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
+			<WrapperTool>tlbimp</WrapperTool>
+			<VersionMinor>0</VersionMinor>
+			<VersionMajor>2</VersionMajor>
+			<Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
+		</COMReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+		<PackageReference Include="Moq" Version="4.20.70" />
+		<PackageReference Include="NUnit" Version="4.0.1" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+		<PackageReference Include="NUnit.Analyzers" Version="3.10.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="NUnitTestAdapter.WithFramework" Version="2.0.0" />
+		<PackageReference Include="PresentationFramework" Version="4.6.0" />
+		<PackageReference Include="Typemock.Isolator" Version="9.2.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\VACARM_GUI_NET_8\VACARM_GUI_NET_8.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="PresentationCore">
+			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationCore.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Windows.Forms">
+			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Windows.Forms.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>

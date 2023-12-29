@@ -4,9 +4,14 @@
 
 ## TODO
 * Add unit tests.
+	* Use Moq generally, TypeMock as necessary.
 * Refactor; clean code.
 * Add new features.
 * QA test.
+* VACARM Legacy:
+	* Set NET Framework version to 4.8 or whatever is last supported by Windows XP.
+	* Set Windows Form theme to Windows Classic?
+	* Test app as-is before continuing refactor and unit testing.
 
 ## Known bugs
 * When using a KVM, there is a bug where audio may be "glitched". This may be caused by switching PC inputs while playing audio over the KVM (ex: HDMI or optical audio, 3.5mm analog audio, etc.). SOLUTION: do not add Wave inputs/outputs which operate over the KVM. WORK-AROUND: Logout and login Windows user, then start VACARM again.

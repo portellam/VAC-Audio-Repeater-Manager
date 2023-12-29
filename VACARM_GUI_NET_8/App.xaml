@@ -1,0 +1,9 @@
+﻿<Application x:Class="VACARM_GUI_NET_8.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VACARM_GUI_NET_8"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+    </Application.Resources>
+</Application>
