@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Moq;
 using NUnit.Framework;
 using TypeMock;
+using TypeMock.ArrangeActAssert;
 using VACARM_GUI_NET_8;
 
 namespace VACARM_GUI_NET_8.Tests
@@ -31,8 +32,8 @@ namespace VACARM_GUI_NET_8.Tests
         {
             addDeviceDialog = new AddDeviceDialog();
             addDeviceDialogMock = new Moq.Mock<AddDeviceDialog>();
-            //addDeviceDialogFake = Isolate.Fake.Instance<AddDeviceDialog>();
-            //Isolate.Swap.NextInstance<AddDeviceDialog>().With(addDeviceDialogFake);
+            addDeviceDialogFake = Isolate.Fake.Instance<AddDeviceDialog>();
+            Isolate.Swap.NextInstance<AddDeviceDialog>().With(addDeviceDialogFake);
             deviceList = new DeviceList();
 
             waveInComboBoxItem = new ComboBoxItem()
@@ -74,11 +75,6 @@ namespace VACARM_GUI_NET_8.Tests
          * _SetMetadata
          */
 
-        // CancelButton_Click()
-        /*
-         * _Close_ConfirmClose
-         */
-
         [Test]
         public void CancelButton_Click_IsCancelButton_Close()
         {
@@ -89,34 +85,37 @@ namespace VACARM_GUI_NET_8.Tests
             };
 
             RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+            Isolate.WhenCalled(() => addDeviceDialogFake.InitializeComponent()).IgnoreCall();
+            int expectedCount = 1;
 
-            addDeviceDialogFake.InitializeComponent();
-            addDeviceDialogFake.CancelButton_Click(button, routedEventArgs);
-
-            // Act
-            addDeviceDialogMock.Object.CancelButton_Click(button, routedEventArgs);
+			// Act
+			addDeviceDialogFake.CancelButton_Click(button, routedEventArgs);
+			int actualCount = Isolate.Verify.GetTimesCalled(() => addDeviceDialogFake.CallClose());
 
             // Assert
-            addDeviceDialogMock.Verify(x => x.CallClose(), Times.Once);
-        }
+            Assert.That(expectedCount, Is.EqualTo(actualCount));
+		}
 
         [Test]
         public void CancelButton_Click_IsNotCancelButton_DoNotClose()
         {
-            // Arrange
-            Button button = new Button()
-            {
-                IsCancel = false
-            };
+			// Arrange
+			Button button = new Button()
+			{
+				IsCancel = false
+			};
 
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+			RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+			Isolate.WhenCalled(() => addDeviceDialogFake.InitializeComponent()).IgnoreCall();
+			int expectedCount = 0;
 
-            // Act
-            addDeviceDialogMock.Setup(x => x.CancelButton_Click(button, routedEventArgs)).Verifiable();
+			// Act
+			addDeviceDialogFake.CancelButton_Click(button, routedEventArgs);
+			int actualCount = Isolate.Verify.GetTimesCalled(() => addDeviceDialogFake.CallClose());
 
-            // Assert
-            addDeviceDialogMock.Verify(x => x.CallClose(), Times.Never);
-        }
+			// Assert
+			Assert.That(expectedCount, Is.EqualTo(actualCount));
+		}
 
         // OkButton_Click()
         /*
