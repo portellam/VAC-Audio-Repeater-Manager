@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM_GUI_NET_4", "VACARM_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VACARM_GUI_NET_8.Tests", "VACARM_GUI_NET_8.Tests\VACARM_GUI_NET_8.Tests.csproj", "{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM_GUI_NET_4.Tests", "VACARM_GUI_NET_4.Tests\VACARM_GUI_NET_4.Tests.csproj", "{AA5879CD-33CD-43A4-AA4E-9EF7426CD738}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2849A7A6-372A-4E69-BB3A-C168BC96BBF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5879CD-33CD-43A4-AA4E-9EF7426CD738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5879CD-33CD-43A4-AA4E-9EF7426CD738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5879CD-33CD-43A4-AA4E-9EF7426CD738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5879CD-33CD-43A4-AA4E-9EF7426CD738}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
