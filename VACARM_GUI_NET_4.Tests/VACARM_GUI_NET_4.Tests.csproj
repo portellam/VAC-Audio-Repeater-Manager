@@ -111,13 +111,13 @@
 		<None Include="packages.config" />
 	</ItemGroup>
 	<ItemGroup>
+		<Analyzer Include="..\packages\NUnit.Analyzers.3.10.0\analyzers\dotnet\cs\nunit.analyzers.dll" />
+	</ItemGroup>
+	<ItemGroup>
 		<ProjectReference Include="..\VACARM_GUI_NET_4\VACARM_GUI_NET_4.csproj">
 			<Project>{de972e8e-ceb6-47cb-83d4-d0a318bf4d7f}</Project>
 			<Name>VACARM_GUI_NET_4</Name>
 		</ProjectReference>
-	</ItemGroup>
-	<ItemGroup>
-		<Analyzer Include="..\packages\NUnit.Analyzers.3.10.0\analyzers\dotnet\cs\nunit.analyzers.dll" />
 	</ItemGroup>
 	<Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
