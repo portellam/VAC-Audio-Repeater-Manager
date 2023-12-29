@@ -1,0 +1,49 @@
+﻿<Window x:Class="VACARM_GUI_NET_4.RepeaterMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VACARM_GUI_NET_4"
+        mc:Ignorable="d"
+        Title="RepeaterMenu" Height="393.5" Width="300"
+        Background="#222222" Foreground="White">
+    <StackPanel Margin="10">
+        <TextBlock Text="Sample rate"/>
+        <TextBox x:Name="samplingRate" Text="{Binding Path=SamplingRate, Mode=TwoWay}"/>
+        <TextBlock Text="Bits per sample"/>
+        <TextBox x:Name="bitsPerSample" Text="{Binding Path=BitsPerSample, Mode=TwoWay}"/>
+        <TextBlock Text="Channel config"/>
+        <ComboBox x:Name="channelConfig" SelectedItem="{Binding Path=ChannelConfig, Mode=TwoWay}" ItemsSource="{Binding Path=ChannelConfigs, Mode=OneTime}"/>
+        <Grid x:Name="channels">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <TextBlock Text="Total buffer (ms)"/>
+        <TextBox x:Name="bufferMs" Text="{Binding Path=BufferMs, Mode=TwoWay}"/>
+        <TextBlock Text="Buffers"/>
+        <TextBox x:Name="buffers" Text="{Binding Path=Buffers, Mode=TwoWay}"/>
+        <TextBlock Text="Pre-fill to, %"/>
+        <TextBox x:Name="prefill" Text="{Binding Path=Prefill, Mode=TwoWay}"/>
+        <TextBlock Text="Resync at, %"/>
+        <TextBox x:Name="resyncAt" Text="{Binding Path=ResyncAt, Mode=TwoWay}"/>
+        <Button x:Name="deleteButton" Content="Delete Link" Click="DeleteButton_Click"/>
+        <Grid Margin="150 10 0 0">
+            <Button Content="Okay" Click="Okay_Click"/>
+        </Grid>
+    </StackPanel>
+</Window>
