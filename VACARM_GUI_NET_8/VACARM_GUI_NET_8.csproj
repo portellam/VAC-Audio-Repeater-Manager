@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Company></Company>
-		<Copyright>Copyright © 2024</Copyright>
+		<Copyright>Copyleft © 2024</Copyright>
 		<Description>A graphics user interface to automate audio repeaters in Virtual Audio Cable (VAC).</Description>
 		<Product>Virtual Audio Cable Audio Manager for Windows</Product>
 		<AssemblyTitle>VACARM</AssemblyTitle>

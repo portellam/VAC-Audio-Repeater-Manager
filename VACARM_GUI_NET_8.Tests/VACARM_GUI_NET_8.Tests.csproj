@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Company></Company>
-		<Copyright>Copyright © 2024</Copyright>
+		<Copyright>Copyleft © 2024</Copyright>
 		<Description></Description>
 		<Product>VACARM_GUI_NET_8.Tests</Product>
 		<AssemblyTitle>VACARM_GUI_NET_8.Tests</AssemblyTitle>
