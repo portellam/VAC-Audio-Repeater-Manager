@@ -12,9 +12,8 @@ namespace VACARM_GUI_NET_8
         /// Alternate function of "Initialize Component".
         /// Original is not unit-testable, and will throw an exception of "System.Exception : The component 'Castle.Proxies.{name_of_class}Proxy' does not have a resource identified by the URI '/{name_of_namespace};component/{name_of_class}.xaml'."
         /// </summary>
-        /// <param name="_object">the Object</param>
         /// <param name="baseUri">the base URI</param>
-        public static void LoadViewFromUri(this Object _object, string baseUri)
+        public static void LoadViewFromUri(string baseUri)
         {
             try
             {
@@ -28,11 +27,12 @@ namespace VACARM_GUI_NET_8
                     BaseUri = uri
                 };
 
-                typeof(XamlReader).GetMethod("LoadBaml", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { stream, parserContext, _object, true });
+                typeof(XamlReader).GetMethod("LoadBaml", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { stream, parserContext, true });
             }
             catch (Exception exception)
             {
                 //TODO: add logger here.
+                throw;
             }
         }
     }

@@ -6,6 +6,7 @@ namespace VACARM_GUI_NET_4
 {
     public class DefaultData
     {
+        private static bool doesEngineExist;
         private static string CurrentDirectory = Directory.GetCurrentDirectory();
         private const string DataPartialPath = @"\data\";
         public const string DefaultGraphValue = "\\";
@@ -18,6 +19,27 @@ namespace VACARM_GUI_NET_4
         public const string ApplicationName = "VACARM";
         public const string FileExtension = ".vac";
         public static readonly string SavePath = $@"{CurrentDirectory}{SavePartialPath}";                            //NOTE: is it necessary for this path to exist, for VAC to work?
+
+        /// <summary>
+        /// Does VAC executable exist.
+        /// </summary>
+        public static bool DoesEngineExist
+        {
+            get
+            {
+                return doesEngineExist;
+            }
+            set
+            {
+                if (!value)
+                {
+                    return;
+                }
+
+                doesEngineExist = value;
+            }
+
+        }
 
         /// <summary>
         /// The Channel Configuration
@@ -184,6 +206,36 @@ namespace VACARM_GUI_NET_4
         }
 
         /// <summary>
+        /// Check if engine exists.
+        /// </summary>
+        protected internal static void CheckEngine()
+        {
+            string message;
+
+            try
+            {
+                doesEngineExist = File.Exists(RepeaterPath);
+
+                if (doesEngineExist)
+                {
+                    return;
+                }
+
+                message = $"Could not find Virtual Audio Cable executable (\"{RepeaterPath}\").\n\nPlease install or copy Virtual Audio Cable to expected directory.";
+                //LogError(iOException, message);				//TODO: add logger.
+            }
+            catch (IOException iOException)
+            {
+                doesEngineExist = false;
+                iOException.Source = nameof(RepeaterPath);
+                message = $"Read failed (\"{RepeaterPath}\").\n\nIf problem persists, please restart {ApplicationName}.";
+                //LogError(iOException, message);				//TODO: add logger.
+            }
+
+            System.Windows.Forms.MessageBox.Show(message, ApplicationName);
+        }
+
+        /// <summary>
         /// Check file for existing Repeater configuration.
         /// </summary>
         public static void CheckFile()
@@ -218,7 +270,7 @@ namespace VACARM_GUI_NET_4
             catch (IOException iOException)
             {
                 iOException.Source = nameof(DataPath);
-                string message = $"Folder creation failed ({DataPath}). Please try creating folder, then restart {ApplicationName}.";
+                string message = $"Folder creation failed (\"{DataPath}\"). Please try creating folder, then restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
                 throw;
@@ -245,7 +297,7 @@ namespace VACARM_GUI_NET_4
             catch (IOException iOException)
             {
                 iOException.Source = nameof(defaultRepeaterAndPathName);
-                string message = $"Write failed ({DefaultRepeaterFile}). Exiting.";
+                string message = $"Write failed (\"{DefaultRepeaterFile}\"). Exiting.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
                 throw;
@@ -269,7 +321,7 @@ namespace VACARM_GUI_NET_4
             }
             catch (IOException iOException)
             {
-                string message = $"Save failed ({SavePath}). Continuing without saving. Please try creating save folder, then restart {ApplicationName}.";
+                string message = $"Save failed (\"{SavePath}\"). Continuing without saving. Please try creating save folder, then restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
                 return false;
@@ -293,7 +345,7 @@ namespace VACARM_GUI_NET_4
             {
                 data = dataCopy;
                 iOException.Source = nameof(DefaultRepeaterFile);
-                string message = $"Read failed ({DefaultRepeaterFile}). If problem persists, please restart {ApplicationName}.";
+                string message = $"Read failed (\"{DefaultRepeaterFile}\"). If problem persists, please restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
             }
@@ -311,7 +363,7 @@ namespace VACARM_GUI_NET_4
             catch (IOException iOException)
             {
                 iOException.Source = nameof(DefaultRepeaterFile);
-                string message = $"Save failed ({DefaultRepeaterFile}). Continuing without saving. If problem persists, please restart {ApplicationName}.";
+                string message = $"Save failed \"({DefaultRepeaterFile}\"). Continuing without saving. If problem persists, please restart {ApplicationName}.";
                 //LogError(iOException, message);				//TODO: add logger.
                 System.Windows.Forms.MessageBox.Show(message);
             }

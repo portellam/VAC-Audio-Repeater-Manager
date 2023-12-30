@@ -126,19 +126,32 @@ namespace VACARM_GUI_NET_8
         /// <param name="bipartiteDeviceGraph">The graph</param>
         public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
-            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
-
-            string namespaceString = typeof(DeviceControl).Namespace;
-            string xamlName = $"{typeof(DeviceControl).Name}.xaml";
-            string uri = $"/{namespaceString};component/{xamlName}";
-            Extension.LoadViewFromUri(this, uri);
-
+            InitializeComponentDifferently();
             this.mMDevice = mMDevice;
             BipartiteDeviceGraph = bipartiteDeviceGraph;
             Panel.SetZIndex(this, 1);
             deviceBackground.Background = SetBackgroundColor(mMDevice.DataFlow);
             txtDeviceName.Text = mMDevice.FriendlyName;
             ContextMenu = new ContextMenu();
+        }
+
+        /// <summary>
+        /// Attempt to generate window using a unit-testable method, before calling the assembly method.
+        /// </summary>
+        protected internal virtual void InitializeComponentDifferently()
+        {
+            string namespaceString = typeof(DeviceControl).Namespace.ToLower();
+            string xamlName = $"{typeof(DeviceControl).Name}.xaml".ToLower();
+            string uri = $"/{namespaceString};component/{xamlName}";
+
+            try
+            {
+                Extension.LoadViewFromUri(uri);
+            }
+            catch
+            {
+                InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+            }
         }
 
         /// <summary>
