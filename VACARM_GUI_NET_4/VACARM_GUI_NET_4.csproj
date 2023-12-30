@@ -141,6 +141,7 @@
 		</ApplicationDefinition>
 		<Compile Include="ChannelConverter.cs" />
 		<Compile Include="DefaultData.cs" />
+		<Compile Include="Extension.cs" />
 		<Compile Include="RepeaterInfo.cs" />
 		<Compile Include="RepeaterMenu.xaml.cs">
 			<DependentUpon>RepeaterMenu.xaml</DependentUpon>
