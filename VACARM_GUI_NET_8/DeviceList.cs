@@ -1,6 +1,4 @@
 ﻿using NAudio.CoreAudioApi;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace VACARM_GUI_NET_8
 {
