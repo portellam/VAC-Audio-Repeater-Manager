@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using Binding = System.Windows.Data.Binding;
 using CheckBox = System.Windows.Controls.CheckBox;
 
@@ -51,7 +47,13 @@ namespace VACARM_GUI_NET_8
                 throw new ArgumentNullException(nameof(bipartiteDeviceGraph));
             }
 
-            InitializeComponent();
+            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+
+            string namespaceString = typeof(RepeaterMenu).Namespace;
+            string xamlName = $"{typeof(RepeaterMenu).Name}.xaml";
+            string uri = $"/{namespaceString};component/{xamlName}";
+            Extension.LoadViewFromUri(this, uri);
+
             List<Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
             const string channelMaskString = "ChannelMask";
 

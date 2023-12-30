@@ -1,6 +1,4 @@
 ﻿using NAudio.CoreAudioApi;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,13 +14,18 @@ namespace VACARM_GUI_NET_8
     {
         public MMDevice mMDevice;
 
-
         /// <summary>
         /// Constructor
         /// </summary>
         public AddDeviceDialog()
         {
-            InitializeComponent();
+            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+
+            string namespaceString = typeof(AddDeviceDialog).Namespace;
+            string xamlName = $"{typeof(AddDeviceDialog).Name}.xaml";
+            string uri = $"/{namespaceString};component/{xamlName}";
+            Extension.LoadViewFromUri(this, uri);
+
             DataContext = new DeviceList();
         }
 
@@ -127,6 +130,6 @@ namespace VACARM_GUI_NET_8
             }
 
             CallDragMove();
-        } 
+        }
     }
 }

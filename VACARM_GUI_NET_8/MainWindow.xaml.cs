@@ -1,7 +1,4 @@
-﻿using Microsoft.Win32;
-using NAudio.CoreAudioApi;
-using System;
-using System.Collections.Generic;
+﻿using NAudio.CoreAudioApi;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -89,7 +86,13 @@ namespace VACARM_GUI_NET_8
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+
+            string namespaceString = typeof(MainWindow).Namespace;
+            string xamlName = $"{typeof(MainWindow).Name}.xaml";
+            string uri = $"/{namespaceString};component/{xamlName}";
+            Extension.LoadViewFromUri(this, uri);
+
             GraphMapCanvas = graphCanvas;
             DefaultData.CheckFile();
             SelectedTool = HandSelectedTool;

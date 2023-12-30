@@ -121,7 +121,13 @@ namespace VACARM_GUI_NET_4
         /// <param name="bipartiteDeviceGraph">The graph</param>
         public DeviceControl(MMDevice mMDevice, BipartiteDeviceGraph bipartiteDeviceGraph)
         {
-            InitializeComponent();
+            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+
+            string namespaceString = typeof(DeviceControl).Namespace;
+            string xamlName = $"{typeof(DeviceControl).Name}.xaml";
+            string uri = $"/{namespaceString};component/{xamlName}";
+            Extension.LoadViewFromUri(this, uri);
+
             this.mMDevice = mMDevice;
             BipartiteDeviceGraph = bipartiteDeviceGraph;
             Panel.SetZIndex(this, 1);

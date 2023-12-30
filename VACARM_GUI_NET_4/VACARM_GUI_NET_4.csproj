@@ -19,7 +19,7 @@
 		</NuGetPackageImportStamp>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<PlatformTarget>x86</PlatformTarget>
+		<PlatformTarget>AnyCPU</PlatformTarget>
 		<DebugSymbols>true</DebugSymbols>
 		<DebugType>full</DebugType>
 		<Optimize>false</Optimize>
@@ -141,6 +141,7 @@
 		</ApplicationDefinition>
 		<Compile Include="ChannelConverter.cs" />
 		<Compile Include="DefaultData.cs" />
+		<Compile Include="Extension.cs" />
 		<Compile Include="RepeaterInfo.cs" />
 		<Compile Include="RepeaterMenu.xaml.cs">
 			<DependentUpon>RepeaterMenu.xaml</DependentUpon>

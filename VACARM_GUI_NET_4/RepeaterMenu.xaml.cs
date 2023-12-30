@@ -49,7 +49,13 @@ namespace VACARM_GUI_NET_4
                 throw new ArgumentNullException(nameof(bipartiteDeviceGraph));
             }
 
-            InitializeComponent();
+            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+
+            string namespaceString = typeof(RepeaterMenu).Namespace;
+            string xamlName = $"{typeof(RepeaterMenu).Name}.xaml";
+            string uri = $"/{namespaceString};component/{xamlName}";
+            Extension.LoadViewFromUri(this, uri);
+
             List<Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
             const string channelMaskString = "ChannelMask";
 

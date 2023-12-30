@@ -1,11 +1,8 @@
-﻿using System.Windows;
+﻿using Moq;
+using NUnit.Framework;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using Moq;
-using NUnit.Framework;
-using TypeMock;
-using VACARM_GUI_NET_8;
 
 namespace VACARM_GUI_NET_8.Tests
 {
@@ -18,21 +15,22 @@ namespace VACARM_GUI_NET_8.Tests
         private const string comboBoxName = "selectDeviceType";
         private const string waveInContentName = "Wave In";
         private const string waveOutContentName = "Wave Out";
-        private AddDeviceDialog addDeviceDialog, addDeviceDialogFake;
+        private AddDeviceDialog addDeviceDialog;
         private ComboBox comboBox;
         private ComboBoxItem waveInComboBoxItem, waveOutComboBoxItem;
         private DeviceList deviceList;
-        private MouseButtonEventArgs mouseButtonEventArgsFake;
         private SelectionChangedEventArgs selectionChangedEventArgs;
-        private Moq.Mock<AddDeviceDialog> addDeviceDialogMock;
+        private Mock<AddDeviceDialog> addDeviceDialogMock;
 
         [SetUp]
         public void Setup()
         {
             addDeviceDialog = new AddDeviceDialog();
-            addDeviceDialogMock = new Moq.Mock<AddDeviceDialog>();
-            //addDeviceDialogFake = Isolate.Fake.Instance<AddDeviceDialog>();
-            //Isolate.Swap.NextInstance<AddDeviceDialog>().With(addDeviceDialogFake);
+            addDeviceDialogMock = new Mock<AddDeviceDialog>()
+            {
+                CallBase = true
+            };
+
             deviceList = new DeviceList();
 
             waveInComboBoxItem = new ComboBoxItem()
@@ -64,9 +62,6 @@ namespace VACARM_GUI_NET_8.Tests
                 new List<string> { },
                 comboBox.Items
             );
-
-            //mouseButtonEventArgsFake = Isolate.Fake.Instance<MouseButtonEventArgs>();
-            //Isolate.Swap.NextInstance<MouseButtonEventArgs>().With(mouseButtonEventArgsFake);
         }
 
         // Constructor
@@ -74,49 +69,43 @@ namespace VACARM_GUI_NET_8.Tests
          * _SetMetadata
          */
 
-        // CancelButton_Click()
-        /*
-         * _Close_ConfirmClose
-         */
+        [Test]
+        public void CancelButton_Click_IsCancelButton_Close()
+        {
+            // Arrange
+            Button button = new Button()
+            {
+                IsCancel = true
+            };
 
-        //[Test]
-        //public void CancelButton_Click_IsCancelButton_Close()
-        //{
-        //    // Arrange
-        //    Button button = new Button()
-        //    {
-        //        IsCancel = true
-        //    };
+            RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+            addDeviceDialogMock.Setup(x => x.CallClose()).Verifiable();
 
-        //    RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+            // Act
+            addDeviceDialogMock.Object.CancelButton_Click(button, routedEventArgs);
 
-        //    addDeviceDialogFake.InitializeComponent();
-        //    addDeviceDialogFake.CancelButton_Click(button, routedEventArgs);
+            // Assert
+            addDeviceDialogMock.Verify(x => x.CallClose(), Times.Once());
+        }
 
-        //    // Act
-        //    addDeviceDialogMock.Object.CancelButton_Click(button, routedEventArgs);
+        [Test]
+        public void CancelButton_Click_IsNotCancelButton_DoNotClose()
+        {
+            // Arrange
+            Button button = new Button()
+            {
+                IsCancel = false
+            };
 
-        //    // Assert
-        //    addDeviceDialogMock.Verify(x => x.CallClose(), Times.Once);
-        //}
+            RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+            addDeviceDialogMock.Setup(x => x.CallClose()).Verifiable();
 
-        //[Test]
-        //public void CancelButton_Click_IsNotCancelButton_DoNotClose()
-        //{
-        //    // Arrange
-        //    Button button = new Button()
-        //    {
-        //        IsCancel = false
-        //    };
+            // Act
+            addDeviceDialogMock.Object.CancelButton_Click(button, routedEventArgs);
 
-        //    RoutedEventArgs routedEventArgs = new RoutedEventArgs();
-
-        //    // Act
-        //    addDeviceDialogMock.Setup(x => x.CancelButton_Click(button, routedEventArgs)).Verifiable();
-
-        //    // Assert
-        //    addDeviceDialogMock.Verify(x => x.CallClose(), Times.Never);
-        //}
+            // Assert
+            addDeviceDialogMock.Verify(x => x.CallClose(), Times.Never());
+        }
 
         // OkButton_Click()
         /*
