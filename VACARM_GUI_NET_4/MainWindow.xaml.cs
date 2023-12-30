@@ -42,7 +42,7 @@ namespace VACARM_GUI_NET_4
             }
             set
             {
-                if (isRunning == value)
+                if (isRunning == value || !DefaultData.DoesEngineExist)
                 {
                     return;
                 }
@@ -60,9 +60,7 @@ namespace VACARM_GUI_NET_4
                 const string imagesPath = "/icons/";
                 const string pause = "pause";
                 const string play = "play";
-
                 startStopTool.Content = new BitmapImage(new Uri(imagesPath + (value ? pause : play) + imageFileExtension, UriKind.RelativeOrAbsolute));
-
                 isRunning = value;
             }
         }
@@ -85,13 +83,7 @@ namespace VACARM_GUI_NET_4
         /// </summary>
         public MainWindow()
         {
-            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
-
-            string namespaceString = typeof(MainWindow).Namespace;
-            string xamlName = $"{typeof(MainWindow).Name}.xaml";
-            string uri = $"/{namespaceString};component/{xamlName}";
-            Extension.LoadViewFromUri(this, uri);
-
+            InitializeComponentDifferently();
             GraphMapCanvas = graphCanvas;
             DefaultData.CheckFile();
             SelectedTool = HandSelectedTool;
@@ -106,6 +98,25 @@ namespace VACARM_GUI_NET_4
             }
 
             IsRunning = true;
+        }
+
+        /// <summary>
+        /// Attempt to generate window using a unit-testable method, before calling the assembly method.
+        /// </summary>
+        protected internal virtual void InitializeComponentDifferently()
+        {
+            string namespaceString = typeof(MainWindow).Namespace.ToLower();
+            string xamlName = $"{typeof(MainWindow).Name}.xaml".ToLower();
+            string uri = $"/{namespaceString};component/{xamlName}";
+
+            try
+            {
+                Extension.LoadViewFromUri(uri); //NOTE: this will fail here in this class 'MainWindow'.
+            }
+            catch
+            {
+                InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+            }
         }
 
         /// <summary>
@@ -299,6 +310,7 @@ namespace VACARM_GUI_NET_4
         /// </summary>
         protected internal virtual void Restart()
         {
+            DefaultData.CheckEngine();
             IsRunning = false;
             IsRunning = true;
         }
@@ -373,6 +385,7 @@ namespace VACARM_GUI_NET_4
         /// </summary>
         protected internal virtual void StartStop()
         {
+            DefaultData.CheckEngine();
             IsRunning = !IsRunning;
         }
 
@@ -439,7 +452,7 @@ namespace VACARM_GUI_NET_4
         /// <param name="routedEventArgs">The routed event</param>
         protected internal virtual void ToolBarSelect_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (sender is null || (string)sender == String.Empty)
+            if (sender is null)
             {
                 return;
             }
