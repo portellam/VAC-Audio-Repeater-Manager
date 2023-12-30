@@ -21,7 +21,13 @@ namespace VACARM_GUI_NET_4
         /// </summary>
         public AddDeviceDialog()
         {
-            InitializeComponent();
+            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+
+            string namespaceString = typeof(AddDeviceDialog).Namespace;
+            string xamlName = $"{typeof(AddDeviceDialog).Name}.xaml";
+            string uri = $"/{namespaceString};component/{xamlName}";
+            Extension.LoadViewFromUri(this, uri);
+
             DataContext = new DeviceList();
         }
 
@@ -126,6 +132,6 @@ namespace VACARM_GUI_NET_4
             }
 
             CallDragMove();
-        } 
+        }
     }
 }

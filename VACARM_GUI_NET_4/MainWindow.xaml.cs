@@ -85,7 +85,13 @@ namespace VACARM_GUI_NET_4
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
+
+            string namespaceString = typeof(MainWindow).Namespace;
+            string xamlName = $"{typeof(MainWindow).Name}.xaml";
+            string uri = $"/{namespaceString};component/{xamlName}";
+            Extension.LoadViewFromUri(this, uri);
+
             GraphMapCanvas = graphCanvas;
             DefaultData.CheckFile();
             SelectedTool = HandSelectedTool;
