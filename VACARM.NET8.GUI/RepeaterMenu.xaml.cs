@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using VACARM.NET4.GUI;
 using Binding = System.Windows.Data.Binding;
 using CheckBox = System.Windows.Controls.CheckBox;
 
@@ -47,7 +48,7 @@ namespace VACARM.NET8.GUI
                 throw new ArgumentNullException(nameof(bipartiteDeviceGraph));
             }
 
-            InitializeComponentDifferently();
+            IComponentConnectorAlt.InitializeComponent(this);
             List<Channel> channelList = Enum.GetValues(typeof(Channel)).Cast<Channel>().ToList();
             const string channelMaskString = "ChannelMask";
 
@@ -86,25 +87,6 @@ namespace VACARM.NET8.GUI
             RepeaterInfo = repeaterInfo;
             DataContext = RepeaterInfo;
             this.bipartiteDeviceGraph = bipartiteDeviceGraph;
-        }
-
-        /// <summary>
-        /// Attempt to generate window using a unit-testable method, before calling the assembly method.
-        /// </summary>
-        protected internal virtual void InitializeComponentDifferently()
-        {
-            string namespaceString = typeof(RepeaterMenu).Namespace.ToLower();
-            string xamlName = $"{typeof(RepeaterMenu).Name}.xaml".ToLower();
-            string uri = $"/{namespaceString};component/{xamlName}";
-
-            try
-            {
-                Extension.LoadViewFromUri(uri);
-            }
-            catch
-            {
-                InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
-            }
         }
 
         /// <summary>
