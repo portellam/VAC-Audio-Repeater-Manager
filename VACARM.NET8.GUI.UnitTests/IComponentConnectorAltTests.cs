@@ -1,12 +1,18 @@
 ﻿using Moq;
 using NUnit.Framework;
-using VACARM.NET4.GUI;
 
-namespace VACARM.NET4.GUI.UnitTests
+namespace VACARM.NET8.GUI.UnitTests
 {
     [TestFixture]
     public class IComponentConnectorAltTests
     {
+        // NOTES:
+        /*
+         * -for an external unit test (not of this class), should the new method fail and the original assembly method be reached, expect the following exception and warn the user.
+         * "System.Exception : The component 'Castle.Proxies.AddDeviceDialogProxy' does not have a resource identified by the URI '/VACARM.NET4.GUI;component/adddevicedialog.xaml'."
+         * 
+         */
+
         // InitializeComponent_
         /*
          * _ObjectIsNotNull_InitializeComponentAltFails_InitializeComponentFails_ThrowException
