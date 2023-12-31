@@ -106,8 +106,8 @@
 		<Compile Include="ChannelConverterTests.cs" />
 		<Compile Include="DefaultDataTests.cs" />
 		<Compile Include="DeviceControlTests.xaml.cs" />
-		<Compile Include="IComponentConnectorAltTests.cs" />
 		<Compile Include="DeviceListTests.cs" />
+		<Compile Include="IComponentConnectorAltTests.cs" />
 		<Compile Include="MainWindowTests.xaml.cs" />
 		<Compile Include="RepeaterInfoTests.cs" />
 		<Compile Include="RepeaterMenuTests.xaml.cs" />
