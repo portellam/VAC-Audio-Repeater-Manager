@@ -83,7 +83,7 @@ namespace VACARM.NET4.GUI
         /// </summary>
         public MainWindow()
         {
-            InitializeComponentDifferently();
+            IComponentConnectorAlt.InitializeComponent(this);
             GraphMapCanvas = graphCanvas;
             DefaultData.CheckFile();
             SelectedTool = HandSelectedTool;
@@ -100,24 +100,6 @@ namespace VACARM.NET4.GUI
             IsRunning = true;
         }
 
-        /// <summary>
-        /// Attempt to generate window using a unit-testable method, before calling the assembly method.
-        /// </summary>
-        protected internal virtual void InitializeComponentDifferently()
-        {
-            string namespaceString = typeof(MainWindow).Namespace.ToLower();
-            string xamlName = $"{typeof(MainWindow).Name}.xaml".ToLower();
-            string uri = $"/{namespaceString};component/{xamlName}";
-
-            try
-            {
-                Extension.LoadViewFromUri(uri); //NOTE: this will fail here in this class 'MainWindow'.
-            }
-            catch
-            {
-                InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
-            }
-        }
 
         /// <summary>
         /// Adds new device to existing graph.

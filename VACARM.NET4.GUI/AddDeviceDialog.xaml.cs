@@ -20,27 +20,8 @@ namespace VACARM.NET4.GUI
         /// </summary>
         public AddDeviceDialog()
         {
-            InitializeComponentDifferently();
+            IComponentConnectorAlt.InitializeComponent(this);
             DataContext = new DeviceList();
-        }
-
-        /// <summary>
-        /// Attempt to generate window using a unit-testable method, before calling the assembly method.
-        /// </summary>
-        protected internal virtual void InitializeComponentDifferently()
-        {
-            string namespaceString = typeof(AddDeviceDialog).Namespace.ToLower();
-            string xamlName = $"{typeof(AddDeviceDialog).Name}.xaml".ToLower();
-            string uri = $"/{namespaceString};component/{xamlName}";
-
-            try
-            {
-                Extension.LoadViewFromUri(uri);
-            }
-            catch
-            {
-                InitializeComponent();    //TODO: remove if "LoadViewFromUri" works as intended and is unit-testable.
-            }
         }
 
         [ExcludeFromCodeCoverage]
