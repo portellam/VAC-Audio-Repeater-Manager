@@ -63,7 +63,7 @@
             this.addDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addWaveInDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addWaveOutDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAllDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.removeWaveInDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.waveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,7 +131,7 @@
             this.fileToolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -191,7 +191,7 @@
             this.enableToolStripMenuItem,
             this.deviceToolStripSeparator2,
             this.addDeviceToolStripMenuItem,
-            this.toolStripMenuItem2,
+            this.addAllDevicesToolStripMenuItem,
             this.deviceToolStripSeparator3,
             this.removeWaveInDeviceToolStripMenuItem,
             this.removeAllDevicesToolStripMenuItem,
@@ -289,12 +289,12 @@
             this.addWaveOutDeviceToolStripMenuItem.Tag = "";
             this.addWaveOutDeviceToolStripMenuItem.Text = "Wave Out";
             // 
-            // toolStripMenuItem2
+            // addAllDevicesToolStripMenuItem
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(230, 26);
-            this.toolStripMenuItem2.Tag = "";
-            this.toolStripMenuItem2.Text = "Add All";
+            this.addAllDevicesToolStripMenuItem.Name = "addAllDevicesToolStripMenuItem";
+            this.addAllDevicesToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.addAllDevicesToolStripMenuItem.Tag = "";
+            this.addAllDevicesToolStripMenuItem.Text = "Add All";
             // 
             // deviceToolStripSeparator3
             // 
@@ -481,7 +481,7 @@
             this.stopToolStripMenuItem,
             this.stopAllToolStripMenuItem});
             this.repeaterToolStripMenuItem.Name = "repeaterToolStripMenuItem";
-            this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
+            this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.repeaterToolStripMenuItem.Text = "Repeater";
             // 
             // restartToolStripMenuItem
@@ -501,7 +501,7 @@
             // repeaterToolStripSeparator1
             // 
             this.repeaterToolStripSeparator1.Name = "repeaterToolStripSeparator1";
-            this.repeaterToolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            this.repeaterToolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // startToolStripMenuItem
             // 
@@ -522,7 +522,7 @@
             // repeaterToolStripSeparator2
             // 
             this.repeaterToolStripSeparator2.Name = "repeaterToolStripSeparator2";
-            this.repeaterToolStripSeparator2.Size = new System.Drawing.Size(157, 6);
+            this.repeaterToolStripSeparator2.Size = new System.Drawing.Size(221, 6);
             // 
             // stopToolStripMenuItem
             // 
@@ -545,14 +545,14 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toggleDarkModeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toggleDarkModeToolStripMenuItem
             // 
             this.toggleDarkModeToolStripMenuItem.CheckOnClick = true;
             this.toggleDarkModeToolStripMenuItem.Name = "toggleDarkModeToolStripMenuItem";
-            this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.toggleDarkModeToolStripMenuItem.Text = "Toggle Dark Mode";
             // 
             // helpToolStripMenuItem
@@ -560,14 +560,14 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // MainForm
@@ -611,7 +611,7 @@
         private System.Windows.Forms.ToolStripMenuItem startAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addWaveInDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem addAllDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem waveInToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeWaveOutDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
