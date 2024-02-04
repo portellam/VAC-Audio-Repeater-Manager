@@ -23,7 +23,7 @@ namespace VACARM.NET4.Views
 
         ////////////////////////////////// DeviceMenu //////////////////////////////////
         /// <summary>
-        /// Click event logic for exitToolStripMenuItem.
+        /// Click event logic for deviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
@@ -76,7 +76,7 @@ namespace VACARM.NET4.Views
 
         /////////////////////////////////// HelpMenu ///////////////////////////////////
         /// <summary>
-        /// Click event logic for exitToolStripMenuItem.
+        /// Click event logic for helpToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
@@ -87,7 +87,7 @@ namespace VACARM.NET4.Views
 
         /////////////////////////////////// LinkMenu ///////////////////////////////////
         /// <summary>
-        /// Click event logic for exitToolStripMenuItem.
+        /// Click event logic for linkToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
