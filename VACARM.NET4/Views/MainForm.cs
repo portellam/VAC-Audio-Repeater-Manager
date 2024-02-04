@@ -26,7 +26,7 @@ namespace VACARM.NET4.Views
 
         }
 
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void linkToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

@@ -362,7 +362,7 @@
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
             this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.linkToolStripMenuItem.Text = "Link";
-            this.linkToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            this.linkToolStripMenuItem.Click += new System.EventHandler(this.linkToolStripMenuItem_Click);
             // 
             // newlinkToolStripMenuItem
             // 
