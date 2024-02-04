@@ -4,6 +4,9 @@
     {
         private readonly string applicationName = "VAC Audio Repeater Manager";
 
+        /// <summary>
+        /// Code to run after generated code.
+        /// </summary>
         private void PostInitializeComponent()
         {
             this.Text = applicationName;
