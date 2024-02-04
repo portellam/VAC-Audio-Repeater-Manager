@@ -10,6 +10,9 @@ namespace VACARM.NET4.Views
         private readonly static string fileExtension = "." +
             applicationNameAsAbbreviation.ToLower();
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -40,7 +43,12 @@ namespace VACARM.NET4.Views
             fileName = openFileDialog.FileName;
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Click event logic for exitToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void exitToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             /*
              * TODO:
@@ -52,17 +60,32 @@ namespace VACARM.NET4.Views
             Application.Exit();
         }
 
-        private void deviceToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Click event logic for exitToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void deviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Click event logic for exitToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void helpToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
 
-        private void linkToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Click event logic for exitToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void linkToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
