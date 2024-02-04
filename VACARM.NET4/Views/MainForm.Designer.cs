@@ -4,12 +4,34 @@
     {
         private readonly string applicationName = "VAC Audio Repeater Manager";
 
+        private string darkModeText
+        {
+            get
+            {
+                string text = "Dark Mode";
+                
+                if (this.toggleDarkModeToolStripMenuItem.Checked)
+                {
+                    return $"Disable {text}";
+                }
+
+                return $"Enable {text}";
+            }
+        }
+
         /// <summary>
         /// Code to run after generated code.
         /// </summary>
         private void PostInitializeComponent()
         {
             this.Text = applicationName;
+            doesSystemSupportDarkMode();
+            toggleDarkMode();
+        }
+
+        private void toggleDarkMode()
+        {
+            this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
         }
 
         /// <summary>
@@ -131,55 +153,55 @@
             this.fileToolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
             // saveACopyAsToolStripMenuItem
             // 
             this.saveACopyAsToolStripMenuItem.Name = "saveACopyAsToolStripMenuItem";
-            this.saveACopyAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveACopyAsToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.saveACopyAsToolStripMenuItem.Text = "Save a Copy As...";
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.closeToolStripMenuItem.Text = "Close";
             // 
             // fileToolStripSeparator1
             // 
             this.fileToolStripSeparator1.Name = "fileToolStripSeparator1";
-            this.fileToolStripSeparator1.Size = new System.Drawing.Size(221, 6);
+            this.fileToolStripSeparator1.Size = new System.Drawing.Size(199, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -199,7 +221,7 @@
             this.removeAllLinkedDevicesToolStripMenuItem,
             this.removeAllUnlinkedDevicesToolStripMenuItem});
             this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
-            this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 26);
+            this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.deviceToolStripMenuItem.Text = "Device";
             this.deviceToolStripMenuItem.Click += new System.EventHandler(this.deviceToolStripMenuItem_Click);
             // 
@@ -361,7 +383,7 @@
             this.defaultResyncAtToolStripMenuItem,
             this.defaultSamplingRateToolStripMenuItem});
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
-            this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.linkToolStripMenuItem.Text = "Link";
             this.linkToolStripMenuItem.Click += new System.EventHandler(this.linkToolStripMenuItem_Click);
             // 
@@ -482,7 +504,7 @@
             this.stopToolStripMenuItem,
             this.stopAllToolStripMenuItem});
             this.repeaterToolStripMenuItem.Name = "repeaterToolStripMenuItem";
-            this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
+            this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.repeaterToolStripMenuItem.Text = "Repeater";
             // 
             // restartToolStripMenuItem
@@ -546,15 +568,15 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toggleDarkModeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toggleDarkModeToolStripMenuItem
             // 
             this.toggleDarkModeToolStripMenuItem.CheckOnClick = true;
             this.toggleDarkModeToolStripMenuItem.Name = "toggleDarkModeToolStripMenuItem";
-            this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.toggleDarkModeToolStripMenuItem.Text = "Toggle Dark Mode";
+            this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler(this.toggleDarkModeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
