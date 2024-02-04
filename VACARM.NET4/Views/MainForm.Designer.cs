@@ -51,7 +51,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addWaveInDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -185,7 +185,7 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deviceToolStripMenuItem,
+            this.reloadAllToolStripMenuItem,
             this.toolStripSeparator8,
             this.toolStripMenuItem17,
             this.toolStripMenuItem8,
@@ -202,12 +202,12 @@
             this.editToolStripMenuItem.Text = "Device";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
-            // deviceToolStripMenuItem
+            // reloadAllToolStripMenuItem
             // 
-            this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
-            this.deviceToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-            this.deviceToolStripMenuItem.Tag = "ReloadDeviceList";
-            this.deviceToolStripMenuItem.Text = "Reload All";
+            this.reloadAllToolStripMenuItem.Name = "reloadAllToolStripMenuItem";
+            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.reloadAllToolStripMenuItem.Tag = "ReloadAllDeviceList";
+            this.reloadAllToolStripMenuItem.Text = "Reload All";
             // 
             // toolStripSeparator2
             // 
@@ -597,7 +597,7 @@
         private System.Windows.Forms.ToolStripMenuItem engineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem addDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem waveOutToolStripMenuItem;
