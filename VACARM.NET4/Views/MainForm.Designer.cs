@@ -74,13 +74,13 @@
             this.defaultResyncAtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultSamplingRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.engineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleDarkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -369,24 +369,24 @@
             // engineToolStripMenuItem
             // 
             this.engineToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
+            this.restartToolStripMenuItem,
             this.restartAllToolStripMenuItem,
             this.toolStripSeparator5,
-            this.toolStripMenuItem6,
+            this.startToolStripMenuItem,
             this.startAllToolStripMenuItem,
             this.toolStripSeparator6,
-            this.toolStripMenuItem7,
+            this.stopToolStripMenuItem,
             this.stopAllToolStripMenuItem});
             this.engineToolStripMenuItem.Name = "engineToolStripMenuItem";
             this.engineToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
             this.engineToolStripMenuItem.Text = "Repeater";
             // 
-            // toolStripMenuItem1
+            // restartToolStripMenuItem
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
-            this.toolStripMenuItem1.Tag = "RestartRepeaterList";
-            this.toolStripMenuItem1.Text = "Restart...";
+            this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.restartToolStripMenuItem.Tag = "RestartRepeaterList";
+            this.restartToolStripMenuItem.Text = "Restart...";
             // 
             // restartAllToolStripMenuItem
             // 
@@ -400,13 +400,13 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(221, 6);
             // 
-            // toolStripMenuItem6
+            // startToolStripMenuItem
             // 
-            this.toolStripMenuItem6.CheckOnClick = true;
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(224, 26);
-            this.toolStripMenuItem6.Tag = "StartRepeaterList";
-            this.toolStripMenuItem6.Text = "Start...";
+            this.startToolStripMenuItem.CheckOnClick = true;
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.startToolStripMenuItem.Tag = "StartRepeaterList";
+            this.startToolStripMenuItem.Text = "Start...";
             // 
             // startAllToolStripMenuItem
             // 
@@ -421,13 +421,13 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(221, 6);
             // 
-            // toolStripMenuItem7
+            // stopToolStripMenuItem
             // 
-            this.toolStripMenuItem7.CheckOnClick = true;
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(224, 26);
-            this.toolStripMenuItem7.Tag = "StopRepeaterList";
-            this.toolStripMenuItem7.Text = "Stop...";
+            this.stopToolStripMenuItem.CheckOnClick = true;
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.stopToolStripMenuItem.Tag = "StopRepeaterList";
+            this.stopToolStripMenuItem.Text = "Stop...";
             // 
             // stopAllToolStripMenuItem
             // 
@@ -605,7 +605,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeAllDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAllLinkedDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAllUnlinkedDevicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopAllToolStripMenuItem;
@@ -622,8 +622,8 @@
         private System.Windows.Forms.ToolStripMenuItem defaultResyncAtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultSamplingRateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultChannelsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
