@@ -9,7 +9,7 @@
             get
             {
                 string text = "Dark Mode";
-                
+
                 if (this.toggleDarkModeToolStripMenuItem.Checked)
                 {
                     return $"Disable {text}";
@@ -68,58 +68,98 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveACopyAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveACopyAsToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileToolStripSeparator1 =
+                new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.disableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.disableWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.disableWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadAllToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceToolStripSeparator1 =
+                new System.Windows.Forms.ToolStripSeparator();
+            this.disableToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.disableWaveInToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.disableWaveOutToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.enableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.addDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addWaveInDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addWaveOutDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addAllDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.removeWaveInDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceToolStripSeparator2 =
+                new System.Windows.Forms.ToolStripSeparator();
+            this.addDeviceToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.addWaveInDeviceToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.addWaveOutDeviceToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.addAllDevicesToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceToolStripSeparator3 =
+                new System.Windows.Forms.ToolStripSeparator();
+            this.removeWaveInDeviceToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.waveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeWaveOutDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAllDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAllLinkedDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAllUnlinkedDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeWaveOutDeviceToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllDevicesToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllLinkedDevicesToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllUnlinkedDevicesToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.linkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.linkWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.linkWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.linkToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.newlinkToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.linkWaveInToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.linkWaveOutToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.linkToolStripSeparator1 =
+                new System.Windows.Forms.ToolStripSeparator();
             this.unlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unlinkWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unlinkWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unlinkAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.linkToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.defaultBitRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultBufferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultPrefillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultResyncAtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultSamplingRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.repeaterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.restartAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.repeaterToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.unlinkWaveInToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkWaveOutToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkAllToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.linkToolStripSeparator2 =
+                new System.Windows.Forms.ToolStripSeparator();
+            this.defaultBitRateToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultBufferToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultChannelsToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultPrefillToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultResyncAtToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultSamplingRateToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.repeaterToolStripMenuItem =
+                 new System.Windows.Forms.ToolStripMenuItem();
+            this.restartToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.restartAllToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.repeaterToolStripSeparator1 =
+                new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.repeaterToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.startAllToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
+            this.repeaterToolStripSeparator2 =
+                new System.Windows.Forms.ToolStripSeparator();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopAllToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toggleDarkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleDarkModeToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
@@ -143,7 +183,8 @@
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
@@ -167,7 +208,8 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.openToolStripMenuItem.Text = "Open...";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler
+                (this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -203,11 +245,13 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler
+                (this.exitToolStripMenuItem_Click);
             // 
             // deviceToolStripMenuItem
             // 
-            this.deviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deviceToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.reloadAllToolStripMenuItem,
             this.deviceToolStripSeparator1,
             this.disableToolStripMenuItem,
@@ -223,7 +267,8 @@
             this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
             this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.deviceToolStripMenuItem.Text = "Device";
-            this.deviceToolStripMenuItem.Click += new System.EventHandler(this.deviceToolStripMenuItem_Click);
+            this.deviceToolStripMenuItem.Click += new System.EventHandler
+                (this.deviceToolStripMenuItem_Click);
             // 
             // reloadAllToolStripMenuItem
             // 
@@ -239,7 +284,8 @@
             // 
             // disableToolStripMenuItem
             // 
-            this.disableToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.disableToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.disableWaveInToolStripMenuItem,
             this.disableWaveOutToolStripMenuItem});
             this.disableToolStripMenuItem.Name = "disableToolStripMenuItem";
@@ -248,21 +294,26 @@
             // 
             // disableWaveInToolStripMenuItem
             // 
-            this.disableWaveInToolStripMenuItem.Name = "disableWaveInToolStripMenuItem";
-            this.disableWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.disableWaveInToolStripMenuItem.Name =
+                "disableWaveInToolStripMenuItem";
+            this.disableWaveInToolStripMenuItem.Size =
+                new System.Drawing.Size(156, 26);
             this.disableWaveInToolStripMenuItem.Tag = "";
             this.disableWaveInToolStripMenuItem.Text = "Wave In";
             // 
             // disableWaveOutToolStripMenuItem
             // 
-            this.disableWaveOutToolStripMenuItem.Name = "disableWaveOutToolStripMenuItem";
-            this.disableWaveOutToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.disableWaveOutToolStripMenuItem.Name =
+                "disableWaveOutToolStripMenuItem";
+            this.disableWaveOutToolStripMenuItem.Size =
+                new System.Drawing.Size(156, 26);
             this.disableWaveOutToolStripMenuItem.Tag = "";
             this.disableWaveOutToolStripMenuItem.Text = "Wave Out";
             // 
             // enableToolStripMenuItem
             // 
-            this.enableToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enableToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem15,
             this.toolStripMenuItem16});
             this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
@@ -291,7 +342,8 @@
             // 
             // addDeviceToolStripMenuItem
             // 
-            this.addDeviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addDeviceToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.addWaveInDeviceToolStripMenuItem,
             this.addWaveOutDeviceToolStripMenuItem});
             this.addDeviceToolStripMenuItem.Name = "addDeviceToolStripMenuItem";
@@ -300,15 +352,19 @@
             // 
             // addWaveInDeviceToolStripMenuItem
             // 
-            this.addWaveInDeviceToolStripMenuItem.Name = "addWaveInDeviceToolStripMenuItem";
-            this.addWaveInDeviceToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.addWaveInDeviceToolStripMenuItem.Name =
+                "addWaveInDeviceToolStripMenuItem";
+            this.addWaveInDeviceToolStripMenuItem.Size =
+                new System.Drawing.Size(156, 26);
             this.addWaveInDeviceToolStripMenuItem.Tag = "";
             this.addWaveInDeviceToolStripMenuItem.Text = "Wave In";
             // 
             // addWaveOutDeviceToolStripMenuItem
             // 
-            this.addWaveOutDeviceToolStripMenuItem.Name = "addWaveOutDeviceToolStripMenuItem";
-            this.addWaveOutDeviceToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.addWaveOutDeviceToolStripMenuItem.Name =
+                "addWaveOutDeviceToolStripMenuItem";
+            this.addWaveOutDeviceToolStripMenuItem.Size =
+                new System.Drawing.Size(156, 26);
             this.addWaveOutDeviceToolStripMenuItem.Tag = "";
             this.addWaveOutDeviceToolStripMenuItem.Text = "Wave Out";
             // 
@@ -326,11 +382,14 @@
             // 
             // removeWaveInDeviceToolStripMenuItem
             // 
-            this.removeWaveInDeviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeWaveInDeviceToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.waveInToolStripMenuItem,
             this.removeWaveOutDeviceToolStripMenuItem});
-            this.removeWaveInDeviceToolStripMenuItem.Name = "removeWaveInDeviceToolStripMenuItem";
-            this.removeWaveInDeviceToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.removeWaveInDeviceToolStripMenuItem.Name =
+                "removeWaveInDeviceToolStripMenuItem";
+            this.removeWaveInDeviceToolStripMenuItem.Size =
+                new System.Drawing.Size(230, 26);
             this.removeWaveInDeviceToolStripMenuItem.Text = "Remove...";
             // 
             // waveInToolStripMenuItem
@@ -342,35 +401,44 @@
             // 
             // removeWaveOutDeviceToolStripMenuItem
             // 
-            this.removeWaveOutDeviceToolStripMenuItem.Name = "removeWaveOutDeviceToolStripMenuItem";
-            this.removeWaveOutDeviceToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.removeWaveOutDeviceToolStripMenuItem.Name =
+                "removeWaveOutDeviceToolStripMenuItem";
+            this.removeWaveOutDeviceToolStripMenuItem.Size =
+                new System.Drawing.Size(156, 26);
             this.removeWaveOutDeviceToolStripMenuItem.Tag = "";
             this.removeWaveOutDeviceToolStripMenuItem.Text = "Wave Out";
             // 
             // removeAllDevicesToolStripMenuItem
             // 
-            this.removeAllDevicesToolStripMenuItem.Name = "removeAllDevicesToolStripMenuItem";
-            this.removeAllDevicesToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.removeAllDevicesToolStripMenuItem.Name =
+                "removeAllDevicesToolStripMenuItem";
+            this.removeAllDevicesToolStripMenuItem.Size =
+                new System.Drawing.Size(230, 26);
             this.removeAllDevicesToolStripMenuItem.Tag = "";
             this.removeAllDevicesToolStripMenuItem.Text = "Remove All";
             // 
             // removeAllLinkedDevicesToolStripMenuItem
             // 
-            this.removeAllLinkedDevicesToolStripMenuItem.Name = "removeAllLinkedDevicesToolStripMenuItem";
-            this.removeAllLinkedDevicesToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.removeAllLinkedDevicesToolStripMenuItem.Name =
+                "removeAllLinkedDevicesToolStripMenuItem";
+            this.removeAllLinkedDevicesToolStripMenuItem.Size =
+                new System.Drawing.Size(230, 26);
             this.removeAllLinkedDevicesToolStripMenuItem.Tag = "";
             this.removeAllLinkedDevicesToolStripMenuItem.Text = "Remove All Linked";
             // 
             // removeAllUnlinkedDevicesToolStripMenuItem
             // 
-            this.removeAllUnlinkedDevicesToolStripMenuItem.Name = "removeAllUnlinkedDevicesToolStripMenuItem";
-            this.removeAllUnlinkedDevicesToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.removeAllUnlinkedDevicesToolStripMenuItem.Name =
+                "removeAllUnlinkedDevicesToolStripMenuItem";
+            this.removeAllUnlinkedDevicesToolStripMenuItem.Size =
+                new System.Drawing.Size(230, 26);
             this.removeAllUnlinkedDevicesToolStripMenuItem.Tag = "";
             this.removeAllUnlinkedDevicesToolStripMenuItem.Text = "Remove All Unlinked";
             // 
             // linkToolStripMenuItem
             // 
-            this.linkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linkToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.newlinkToolStripMenuItem,
             this.linkToolStripSeparator1,
             this.unlinkToolStripMenuItem,
@@ -385,11 +453,13 @@
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
             this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.linkToolStripMenuItem.Text = "Link";
-            this.linkToolStripMenuItem.Click += new System.EventHandler(this.linkToolStripMenuItem_Click);
+            this.linkToolStripMenuItem.Click += new System.EventHandler
+                (this.linkToolStripMenuItem_Click);
             // 
             // newlinkToolStripMenuItem
             // 
-            this.newlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newlinkToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.linkWaveInToolStripMenuItem,
             this.linkWaveOutToolStripMenuItem});
             this.newlinkToolStripMenuItem.Name = "newlinkToolStripMenuItem";
@@ -417,7 +487,8 @@
             // 
             // unlinkToolStripMenuItem
             // 
-            this.unlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.unlinkToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.unlinkWaveInToolStripMenuItem,
             this.unlinkWaveOutToolStripMenuItem});
             this.unlinkToolStripMenuItem.Name = "unlinkToolStripMenuItem";
@@ -452,8 +523,10 @@
             // 
             // defaultBitRateToolStripMenuItem
             // 
-            this.defaultBitRateToolStripMenuItem.Name = "defaultBitRateToolStripMenuItem";
-            this.defaultBitRateToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.defaultBitRateToolStripMenuItem.Name =
+                "defaultBitRateToolStripMenuItem";
+            this.defaultBitRateToolStripMenuItem.Size =
+                 new System.Drawing.Size(285, 26);
             this.defaultBitRateToolStripMenuItem.Tag = "";
             this.defaultBitRateToolStripMenuItem.Text = "Default Bit Rate (Bit/Sample)";
             // 
@@ -466,35 +539,45 @@
             // 
             // defaultChannelsToolStripMenuItem
             // 
-            this.defaultChannelsToolStripMenuItem.Name = "defaultChannelsToolStripMenuItem";
-            this.defaultChannelsToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.defaultChannelsToolStripMenuItem.Name =
+                "defaultChannelsToolStripMenuItem";
+            this.defaultChannelsToolStripMenuItem.Size =
+                new System.Drawing.Size(285, 26);
             this.defaultChannelsToolStripMenuItem.Tag = "";
             this.defaultChannelsToolStripMenuItem.Text = "Default Channels";
             // 
             // defaultPrefillToolStripMenuItem
             // 
-            this.defaultPrefillToolStripMenuItem.Name = "defaultPrefillToolStripMenuItem";
-            this.defaultPrefillToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.defaultPrefillToolStripMenuItem.Name =
+                "defaultPrefillToolStripMenuItem";
+            this.defaultPrefillToolStripMenuItem.Size =
+                new System.Drawing.Size(285, 26);
             this.defaultPrefillToolStripMenuItem.Tag = "";
             this.defaultPrefillToolStripMenuItem.Text = "Default Prefill (%)";
             // 
             // defaultResyncAtToolStripMenuItem
             // 
-            this.defaultResyncAtToolStripMenuItem.Name = "defaultResyncAtToolStripMenuItem";
-            this.defaultResyncAtToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.defaultResyncAtToolStripMenuItem.Name =
+                "defaultResyncAtToolStripMenuItem";
+            this.defaultResyncAtToolStripMenuItem.Size =
+                new System.Drawing.Size(285, 26);
             this.defaultResyncAtToolStripMenuItem.Tag = "";
             this.defaultResyncAtToolStripMenuItem.Text = "Default Resync At (%)";
             // 
             // defaultSamplingRateToolStripMenuItem
             // 
-            this.defaultSamplingRateToolStripMenuItem.Name = "defaultSamplingRateToolStripMenuItem";
-            this.defaultSamplingRateToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.defaultSamplingRateToolStripMenuItem.Name =
+                "defaultSamplingRateToolStripMenuItem";
+            this.defaultSamplingRateToolStripMenuItem.Size =
+                new System.Drawing.Size(285, 26);
             this.defaultSamplingRateToolStripMenuItem.Tag = "";
-            this.defaultSamplingRateToolStripMenuItem.Text = "Default Sampling Rate (Hz)";
+            this.defaultSamplingRateToolStripMenuItem.Text =
+                "Default Sampling Rate (Hz)";
             // 
             // repeaterToolStripMenuItem
             // 
-            this.repeaterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.repeaterToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.restartToolStripMenuItem,
             this.restartAllToolStripMenuItem,
             this.repeaterToolStripSeparator1,
@@ -565,7 +648,8 @@
             // 
             // viewToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.toggleDarkModeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
@@ -574,14 +658,18 @@
             // toggleDarkModeToolStripMenuItem
             // 
             this.toggleDarkModeToolStripMenuItem.CheckOnClick = true;
-            this.toggleDarkModeToolStripMenuItem.Name = "toggleDarkModeToolStripMenuItem";
-            this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler(this.toggleDarkModeToolStripMenuItem_Click);
+            this.toggleDarkModeToolStripMenuItem.Name =
+                "toggleDarkModeToolStripMenuItem";
+            this.toggleDarkModeToolStripMenuItem.Size =
+                new System.Drawing.Size(224, 26);
+            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler
+                (this.toggleDarkModeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
+                this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
@@ -591,7 +679,8 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler
+                (this.aboutToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -623,11 +712,16 @@
         private System.Windows.Forms.ToolStripMenuItem reloadAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem addDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addWaveOutDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeWaveInDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeAllDevicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeAllLinkedDevicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeAllUnlinkedDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            addWaveOutDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeWaveInDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeAllDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeAllLinkedDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeAllUnlinkedDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startAllToolStripMenuItem;
@@ -635,7 +729,8 @@
         private System.Windows.Forms.ToolStripMenuItem addWaveInDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addAllDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem waveInToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeWaveOutDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeWaveOutDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unlinkAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator linkToolStripSeparator2;
@@ -643,7 +738,8 @@
         private System.Windows.Forms.ToolStripMenuItem defaultBufferToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultPrefillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultResyncAtToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defaultSamplingRateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            defaultSamplingRateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultChannelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
