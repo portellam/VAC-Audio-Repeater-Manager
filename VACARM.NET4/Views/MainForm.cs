@@ -76,11 +76,11 @@ namespace VACARM.NET4.Views
 
         /////////////////////////////////// HelpMenu ///////////////////////////////////
         /// <summary>
-        /// Click event logic for helpToolStripMenuItem.
+        /// Click event logic for aboutToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void helpToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void aboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
