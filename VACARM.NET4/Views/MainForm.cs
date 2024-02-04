@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace VACARM.NET4.Views
@@ -13,6 +14,7 @@ namespace VACARM.NET4.Views
         /// <summary>
         /// Constructor
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public MainForm()
         {
             InitializeComponent();
@@ -25,7 +27,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void openToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void openToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -48,7 +50,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void exitToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void exitToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             /*
              * TODO:
@@ -65,7 +67,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void deviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void deviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
@@ -75,7 +77,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void helpToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void helpToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
@@ -85,7 +87,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void linkToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void linkToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
