@@ -1,7 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace VACARM.NET4.Views
@@ -113,29 +111,6 @@ namespace VACARM.NET4.Views
             (object sender, EventArgs eventArgs)
         {
             toggleDarkMode();
-        }
-
-        /// <summary>
-        /// Check if Windows supports Dark Mode, and if it is enabled.
-        /// </summary>
-        internal void doesSystemSupportDarkMode()
-        {
-            const string subKey =
-                @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
-            var registryKey = Registry.CurrentUser.OpenSubKey(subKey);
-            const string registryKeyValue = "AppsUseLightTheme";
-            var windowsLightThemeIsEnabled = registryKey?.GetValue(registryKeyValue);
-
-            if (windowsLightThemeIsEnabled is null)
-            {
-                toggleDarkModeToolStripMenuItem.Checked = false;
-                toggleDarkModeToolStripMenuItem.Enabled = false;
-                return;
-            }
-
-            toggleDarkModeToolStripMenuItem.Checked = !Convert.ToBoolean
-                (windowsLightThemeIsEnabled, CultureInfo.InvariantCulture);
-            toggleDarkModeToolStripMenuItem.Enabled = true;
         }
     }
 }
