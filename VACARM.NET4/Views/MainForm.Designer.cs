@@ -200,7 +200,7 @@
             this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
             this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.deviceToolStripMenuItem.Text = "Device";
-            this.deviceToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            this.deviceToolStripMenuItem.Click += new System.EventHandler(this.deviceToolStripMenuItem_Click);
             // 
             // reloadAllToolStripMenuItem
             // 
