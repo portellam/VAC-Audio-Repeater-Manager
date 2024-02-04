@@ -14,15 +14,16 @@ namespace VACARM.NET4.Views
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; 
+        /// <param name="doDispose">true if managed resources should be disposed; 
         /// otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool doDispose)
         {
-            if (disposing && (components != null))
+            if (doDispose && (components != null))
             {
                 components.Dispose();
             }
-            base.Dispose(disposing);
+
+            base.Dispose(doDispose);
         }
 
         #region Windows Form Designer generated code
