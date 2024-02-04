@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VACARM")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("VAC Audio Repeater Manager")]
+[assembly: AssemblyDescription("User interface to assist management and automation of Virtual Audio Cable (VAC) audio repeaters.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VACARM.NET4")]
-[assembly: AssemblyCopyright("Copyright © 2024")]
+[assembly: AssemblyProduct("VAC Audio Repeater Manager")]
+[assembly: AssemblyCopyright("Copyleft © 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
