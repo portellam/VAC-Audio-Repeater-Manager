@@ -13,7 +13,14 @@ namespace VACARM.NET4.Views
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            /*
+             * TODO:
+             *  -add logic to...
+             *      -check if runtime data is saved to file.
+             *      -warn user to save changes.
+             *      -warn user that audio repeaters may exit at app shutdown.
+             */
+            Application.Exit();
         }
 
         private void deviceToolStripMenuItem_Click(object sender, EventArgs e)
