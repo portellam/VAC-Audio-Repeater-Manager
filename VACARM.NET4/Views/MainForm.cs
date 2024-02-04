@@ -71,6 +71,7 @@ namespace VACARM.NET4.Views
              *      -warn user to save changes.
              *      -warn user that audio repeaters may exit at app shutdown.
              */
+
             Application.Exit();
         }
 
@@ -82,7 +83,10 @@ namespace VACARM.NET4.Views
         /// <param name="eventArgs">The event arguments</param>
         internal void aboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
-
+            /*
+             * TODO:
+             *  -add logic to open about me window.
+             */
         }
 
         /////////////////////////////////// LinkMenu ///////////////////////////////////
