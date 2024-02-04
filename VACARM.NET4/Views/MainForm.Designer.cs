@@ -1,9 +1,9 @@
-﻿namespace VACARM.NET4.Views
-{
-    partial class MainForm
-    {
-        private readonly string applicationName = "VAC Audio Repeater Manager";
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace VACARM.NET4.Views
+{
+    public partial class MainForm
+    {
         private string darkModeText
         {
             get
@@ -19,40 +19,80 @@
             }
         }
 
-        /// <summary>
-        /// Code to run after generated code.
-        /// </summary>
-        private void PostInitializeComponent()
-        {
-            this.Text = applicationName;
-            doesSystemSupportDarkMode();
-            toggleDarkMode();
-        }
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveACopyAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem repeaterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator fileToolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem reloadAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem addDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            addWaveOutDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeWaveInDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeAllDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeAllLinkedDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeAllUnlinkedDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restartAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addWaveInDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addAllDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem waveInToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            removeWaveOutDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unlinkAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator linkToolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem defaultBitRateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultBufferToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultPrefillToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultResyncAtToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem
+            defaultSamplingRateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultChannelsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toggleDarkModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableWaveInToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableWaveOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
+        private System.Windows.Forms.ToolStripSeparator linkToolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem unlinkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unlinkWaveInToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unlinkWaveOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newlinkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linkWaveInToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linkWaveOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 
-        private void toggleDarkMode()
-        {
-            this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
-        }
+        private readonly string applicationName = "VAC Audio Repeater Manager";
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="doDispose">true if managed resources should be disposed; 
-        /// otherwise, false.</param>
-        protected override void Dispose(bool doDispose)
-        {
-            if (doDispose && (components != null))
-            {
-                components.Dispose();
-            }
-
-            base.Dispose(doDispose);
-        }
 
         #region Windows Form Designer generated code
 
@@ -60,7 +100,8 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        [ExcludeFromCodeCoverage]
+        internal void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -697,72 +738,34 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveACopyAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem repeaterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator fileToolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem reloadAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem addDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem
-            addWaveOutDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem
-            removeWaveInDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem
-            removeAllDevicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem
-            removeAllLinkedDevicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem
-            removeAllUnlinkedDevicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restartAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addWaveInDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addAllDevicesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem waveInToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem
-            removeWaveOutDeviceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unlinkAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator linkToolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem defaultBitRateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defaultBufferToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defaultPrefillToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defaultResyncAtToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem
-            defaultSamplingRateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defaultChannelsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toggleDarkModeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem disableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem disableWaveInToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem disableWaveOutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
-        private System.Windows.Forms.ToolStripSeparator linkToolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem unlinkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unlinkWaveInToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unlinkWaveOutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newlinkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem linkWaveInToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem linkWaveOutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        /// <summary>
+        /// Code to run after generated code.
+        /// </summary>
+        internal void PostInitializeComponent()
+        {
+            this.Text = applicationName;
+            doesSystemSupportDarkMode();
+            toggleDarkMode();
+        }
+
+        internal void toggleDarkMode()
+        {
+            this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
+        }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="doDispose">true if managed resources should be disposed; 
+        /// otherwise, false.</param>
+        protected override void Dispose(bool doDispose)
+        {
+            if (doDispose && (components != null))
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(doDispose);
+        }
     }
 }
