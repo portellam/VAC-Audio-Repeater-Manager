@@ -67,8 +67,8 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.unlinkAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.defaultBitrateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultBuffermsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultBitRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultBufferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultPrefillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultResyncAtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -301,8 +301,8 @@
             this.unlinkToolStripMenuItem,
             this.unlinkAllToolStripMenuItem,
             this.toolStripSeparator4,
-            this.defaultBitrateToolStripMenuItem,
-            this.defaultBuffermsToolStripMenuItem,
+            this.defaultBitRateToolStripMenuItem,
+            this.defaultBufferToolStripMenuItem,
             this.defaultChannelsToolStripMenuItem,
             this.defaultPrefillToolStripMenuItem,
             this.defaultResyncAtToolStripMenuItem,
@@ -324,19 +324,19 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(282, 6);
             // 
-            // defaultBitrateToolStripMenuItem
+            // defaultBitRateToolStripMenuItem
             // 
-            this.defaultBitrateToolStripMenuItem.Name = "defaultBitrateToolStripMenuItem";
-            this.defaultBitrateToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
-            this.defaultBitrateToolStripMenuItem.Tag = "DefaultBitRate";
-            this.defaultBitrateToolStripMenuItem.Text = "Default Bit Rate (Bit/Sample)";
+            this.defaultBitRateToolStripMenuItem.Name = "defaultBitRateToolStripMenuItem";
+            this.defaultBitRateToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.defaultBitRateToolStripMenuItem.Tag = "DefaultBitRate";
+            this.defaultBitRateToolStripMenuItem.Text = "Default Bit Rate (Bit/Sample)";
             // 
-            // defaultBuffermsToolStripMenuItem
+            // defaultBufferToolStripMenuItem
             // 
-            this.defaultBuffermsToolStripMenuItem.Name = "defaultBuffermsToolStripMenuItem";
-            this.defaultBuffermsToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
-            this.defaultBuffermsToolStripMenuItem.Tag = "DefaultBuffer";
-            this.defaultBuffermsToolStripMenuItem.Text = "Default Buffer (ms)";
+            this.defaultBufferToolStripMenuItem.Name = "defaultBufferToolStripMenuItem";
+            this.defaultBufferToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.defaultBufferToolStripMenuItem.Tag = "DefaultBuffer";
+            this.defaultBufferToolStripMenuItem.Text = "Default Buffer (ms)";
             // 
             // defaultChannelsToolStripMenuItem
             // 
@@ -616,8 +616,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem unlinkAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem defaultBitrateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defaultBuffermsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultBitRateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultBufferToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultPrefillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultResyncAtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultSamplingRateToolStripMenuItem;
