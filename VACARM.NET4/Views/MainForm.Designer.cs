@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace VACARM.NET4.Views
+﻿namespace VACARM.NET4.Views
 {
     partial class MainForm
     {
