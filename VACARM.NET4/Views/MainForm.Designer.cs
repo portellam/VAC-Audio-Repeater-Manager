@@ -65,7 +65,7 @@
             this.removeAllLinkedDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllUnlinkedDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.defaultBitrateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultBuffermsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,10 +86,10 @@
             this.toggleDarkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -115,7 +115,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1012, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1012, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -131,7 +131,7 @@
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -198,7 +198,7 @@
             this.removeAllLinkedDevicesToolStripMenuItem,
             this.removeAllUnlinkedDevicesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(68, 26);
             this.editToolStripMenuItem.Text = "Device";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -296,10 +296,10 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem9,
+            this.linkToolStripMenuItem,
             this.toolStripSeparator3,
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem13,
+            this.unlinkToolStripMenuItem,
+            this.unlinkAllToolStripMenuItem,
             this.toolStripSeparator4,
             this.defaultBitrateToolStripMenuItem,
             this.defaultBuffermsToolStripMenuItem,
@@ -308,16 +308,16 @@
             this.defaultResyncAtToolStripMenuItem,
             this.defaultSamplingRateToolStripMenuItem});
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(49, 24);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(49, 26);
             this.toolStripMenuItem3.Text = "Link";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
-            // toolStripMenuItem13
+            // unlinkAllToolStripMenuItem
             // 
-            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(285, 26);
-            this.toolStripMenuItem13.Tag = "UnlinkAllRepeatersList";
-            this.toolStripMenuItem13.Text = "Unlink All";
+            this.unlinkAllToolStripMenuItem.Name = "unlinkAllToolStripMenuItem";
+            this.unlinkAllToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.unlinkAllToolStripMenuItem.Tag = "UnlinkAllRepeatersList";
+            this.unlinkAllToolStripMenuItem.Text = "Unlink All";
             // 
             // toolStripSeparator4
             // 
@@ -378,7 +378,7 @@
             this.toolStripMenuItem7,
             this.stopToolStripMenuItem});
             this.engineToolStripMenuItem.Name = "engineToolStripMenuItem";
-            this.engineToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            this.engineToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
             this.engineToolStripMenuItem.Text = "Repeater";
             // 
             // toolStripMenuItem1
@@ -442,7 +442,7 @@
             this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toggleDarkModeToolStripMenuItem});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(55, 24);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(55, 26);
             this.toolStripMenuItem4.Text = "View";
             // 
             // toggleDarkModeToolStripMenuItem
@@ -457,7 +457,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -467,14 +467,14 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // toolStripMenuItem9
+            // linkToolStripMenuItem
             // 
-            this.toolStripMenuItem9.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem10,
             this.toolStripMenuItem11});
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(285, 26);
-            this.toolStripMenuItem9.Text = "Link...";
+            this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
+            this.linkToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.linkToolStripMenuItem.Text = "Link...";
             // 
             // toolStripMenuItem10
             // 
@@ -490,14 +490,14 @@
             this.toolStripMenuItem11.Tag = "AddWaveOutDeviceList";
             this.toolStripMenuItem11.Text = "Wave Out";
             // 
-            // toolStripMenuItem5
+            // unlinkToolStripMenuItem
             // 
-            this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.unlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem12,
             this.toolStripMenuItem14});
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(285, 26);
-            this.toolStripMenuItem5.Text = "Unlink...";
+            this.unlinkToolStripMenuItem.Name = "unlinkToolStripMenuItem";
+            this.unlinkToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.unlinkToolStripMenuItem.Text = "Unlink...";
             // 
             // toolStripMenuItem12
             // 
@@ -530,14 +530,14 @@
             // toolStripMenuItem15
             // 
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
-            this.toolStripMenuItem15.Size = new System.Drawing.Size(156, 26);
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(224, 26);
             this.toolStripMenuItem15.Tag = "AddWaveInDeviceList";
             this.toolStripMenuItem15.Text = "Wave In";
             // 
             // toolStripMenuItem16
             // 
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(156, 26);
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(224, 26);
             this.toolStripMenuItem16.Tag = "AddWaveOutDeviceList";
             this.toolStripMenuItem16.Text = "Wave Out";
             // 
@@ -614,7 +614,7 @@
         private System.Windows.Forms.ToolStripMenuItem waveInToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem waveOutToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
+        private System.Windows.Forms.ToolStripMenuItem unlinkAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem defaultBitrateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultBuffermsToolStripMenuItem;
@@ -637,10 +637,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem unlinkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
+        private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
