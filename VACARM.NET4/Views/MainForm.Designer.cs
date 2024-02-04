@@ -1,7 +1,11 @@
-﻿namespace VACARM.NET4.Views
+﻿using System.Windows.Forms;
+
+namespace VACARM.NET4.Views
 {
     partial class MainForm
     {
+        private readonly string applicationName = "VAC Audio Repeater Manager";
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -36,7 +40,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "MainForm";
+            this.Name = nameof(MainForm);
+            this.Text = applicationName;
             this.ResumeLayout(false);
 
         }
