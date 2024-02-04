@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using VACARM.NET4.Views;
 
 namespace VACARM.NET4
@@ -7,6 +8,7 @@ namespace VACARM.NET4
     {
         public static string[] Arguments { get; private set; }
 
+        [STAThread]
         public static void Main(string[] arguments)
         {
             Arguments = arguments;
