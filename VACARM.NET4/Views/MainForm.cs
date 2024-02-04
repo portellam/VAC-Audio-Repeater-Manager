@@ -21,6 +21,18 @@ namespace VACARM.NET4.Views
             PostInitializeComponent();
         }
 
+        ////////////////////////////////// DeviceMenu //////////////////////////////////
+        /// <summary>
+        /// Click event logic for exitToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        internal void deviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /////////////////////////////////// FileMenu ///////////////////////////////////
         /// <summary>
         /// Click event logic for openToolStripMenuItem.
         /// Get filename if dialog result is OK.
@@ -62,16 +74,7 @@ namespace VACARM.NET4.Views
             Application.Exit();
         }
 
-        /// <summary>
-        /// Click event logic for exitToolStripMenuItem.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void deviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
-        {
-
-        }
-
+        /////////////////////////////////// HelpMenu ///////////////////////////////////
         /// <summary>
         /// Click event logic for exitToolStripMenuItem.
         /// </summary>
@@ -82,6 +85,7 @@ namespace VACARM.NET4.Views
 
         }
 
+        /////////////////////////////////// LinkMenu ///////////////////////////////////
         /// <summary>
         /// Click event logic for exitToolStripMenuItem.
         /// </summary>
