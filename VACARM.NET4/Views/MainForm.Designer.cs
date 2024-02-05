@@ -7,13 +7,21 @@ namespace VACARM.NET4.Views
 {
     public partial class MainForm
     {
+        public bool isDarkModeEnabled
+        {
+            get
+            {
+                return this.toggleDarkModeToolStripMenuItem.Checked;
+            }
+        }
+
         private string darkModeText
         {
             get
             {
                 string text = "Dark Mode";
 
-                if (this.toggleDarkModeToolStripMenuItem.Checked)
+                if (isDarkModeEnabled)
                 {
                     return $"Disable {text}";
                 }
