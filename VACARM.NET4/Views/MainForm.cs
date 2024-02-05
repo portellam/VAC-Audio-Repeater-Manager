@@ -112,5 +112,10 @@ namespace VACARM.NET4.Views
         {
             toggleDarkMode();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
