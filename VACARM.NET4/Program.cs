@@ -9,9 +9,17 @@ namespace VACARM.NET4
 {
     public class Program
     {
+        /// <summary>
+        /// The command line arguments.
+        /// </summary>
         public static string[] Arguments { get; private set; }
+
         public static bool IsDarkModeEnabledBeforeRunTime { get; private set; }
 
+        /// <summary>
+        /// The main code block, to be executed at run time.
+        /// </summary>
+        /// <param name="arguments">The command line arguments</param>
         [STAThread]
         public static void Main(string[] arguments)
         {
@@ -53,6 +61,7 @@ namespace VACARM.NET4
         /// <summary>
         /// Check if system has Registry key to indicate it supports Dark Mode,
         /// and if it is enabled.
+        /// Easy way to check if system is Windows 10 or later.
         /// </summary>
         internal static void DoesSystemSupportDarkMode()
         {
