@@ -154,7 +154,8 @@ namespace VACARM.NET4.Views
                 new System.Windows.Forms.ToolStripSeparator();
             this.removeWaveInDeviceToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
-            this.waveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.waveInToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.removeWaveOutDeviceToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllDevicesToolStripMenuItem =
@@ -163,7 +164,8 @@ namespace VACARM.NET4.Views
                 new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllUnlinkedDevicesToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
-            this.linkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.newlinkToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.linkWaveInToolStripMenuItem =
@@ -172,7 +174,8 @@ namespace VACARM.NET4.Views
                 new System.Windows.Forms.ToolStripMenuItem();
             this.linkToolStripSeparator1 =
                 new System.Windows.Forms.ToolStripSeparator();
-            this.unlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.unlinkWaveInToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.unlinkWaveOutToolStripMenuItem =
@@ -194,7 +197,7 @@ namespace VACARM.NET4.Views
             this.defaultSamplingRateToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.repeaterToolStripMenuItem =
-                 new System.Windows.Forms.ToolStripMenuItem();
+                new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.restartAllToolStripMenuItem =
@@ -210,7 +213,7 @@ namespace VACARM.NET4.Views
             this.stopAllToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toggleDarkModeToolStripMenuItem =
+            this.toggleDarkModeToolStripMenuItem = 
                 new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -346,10 +349,8 @@ namespace VACARM.NET4.Views
             // 
             // disableWaveInToolStripMenuItem
             // 
-            this.disableWaveInToolStripMenuItem.Name =
-                "disableWaveInToolStripMenuItem";
-            this.disableWaveInToolStripMenuItem.Size =
-                new System.Drawing.Size(156, 26);
+            this.disableWaveInToolStripMenuItem.Name = "disableWaveInToolStripMenuItem";
+            this.disableWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.disableWaveInToolStripMenuItem.Tag = "";
             this.disableWaveInToolStripMenuItem.Text = "Wave In";
             // 
@@ -578,7 +579,7 @@ namespace VACARM.NET4.Views
             this.defaultBitRateToolStripMenuItem.Name =
                 "defaultBitRateToolStripMenuItem";
             this.defaultBitRateToolStripMenuItem.Size =
-                 new System.Drawing.Size(285, 26);
+                new System.Drawing.Size(285, 26);
             this.defaultBitRateToolStripMenuItem.Tag = "";
             this.defaultBitRateToolStripMenuItem.Text = "Default Bit Rate (Bit/Sample)";
             // 
@@ -712,16 +713,15 @@ namespace VACARM.NET4.Views
             this.toggleDarkModeToolStripMenuItem.CheckOnClick = true;
             this.toggleDarkModeToolStripMenuItem.Name =
                 "toggleDarkModeToolStripMenuItem";
-            this.toggleDarkModeToolStripMenuItem.Size =
-                new System.Drawing.Size(224, 26);
-            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler
-                (this.toggleDarkModeToolStripMenuItem_Click);
+            this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
+            this.toggleDarkModeToolStripMenuItem.Click +=
+                new System.EventHandler(this.toggleDarkModeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange
                 (new System.Windows.Forms.ToolStripItem[] {
-                this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
@@ -731,8 +731,8 @@ namespace VACARM.NET4.Views
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler
-                (this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click +=
+                new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainForm
             // 
