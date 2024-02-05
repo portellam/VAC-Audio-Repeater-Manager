@@ -213,7 +213,7 @@ namespace VACARM.NET4.Views
             this.stopAllToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toggleDarkModeToolStripMenuItem = 
+            this.toggleDarkModeToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
