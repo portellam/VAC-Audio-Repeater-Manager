@@ -18,7 +18,6 @@ namespace VACARM.NET4.Views
         public MainForm()
         {
             InitializeComponent();
-            PostInitializeComponent();
         }
 
         ////////////////////////////////// DeviceMenu //////////////////////////////////
@@ -110,7 +109,7 @@ namespace VACARM.NET4.Views
         internal void toggleDarkModeToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            toggleDarkMode();
+            ToggleDarkMode();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
