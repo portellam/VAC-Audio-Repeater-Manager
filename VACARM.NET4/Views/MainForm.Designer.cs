@@ -1,19 +1,27 @@
-﻿using Microsoft.Win32;
+﻿using DarkUI.Forms;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace VACARM.NET4.Views
 {
     public partial class MainForm
     {
-        public bool isDarkModeEnabled
+        public bool IsDarkModeEnabledDuringRunTime
         {
             get
             {
                 return this.toggleDarkModeToolStripMenuItem.Checked;
             }
+            set
+            {
+                this.toggleDarkModeToolStripMenuItem.Checked = value;
+            }
         }
+
+        private ToolStripRenderer initialMenuStrip1Renderer;
 
         private string darkModeText
         {
@@ -21,7 +29,7 @@ namespace VACARM.NET4.Views
             {
                 string text = "Dark Mode";
 
-                if (isDarkModeEnabled)
+                if (IsDarkModeEnabledDuringRunTime)
                 {
                     return $"Disable {text}";
                 }
@@ -746,6 +754,7 @@ namespace VACARM.NET4.Views
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            PostDesignerGeneratedLogic();
         }
 
         #endregion
@@ -753,39 +762,51 @@ namespace VACARM.NET4.Views
         /// <summary>
         /// Code to run after generated code.
         /// </summary>
-        internal void PostInitializeComponent()
+        internal void PostDesignerGeneratedLogic()
         {
-            this.Text = applicationName;
-            doesSystemSupportDarkMode();
-            toggleDarkMode();
+            SetInitialChanges();
+            SaveInitialRenderer();
+            ToggleDarkMode();
         }
 
         /// <summary>
-        /// Check if Windows supports Dark Mode, and if it is enabled.
+        /// Save renderer to new parameter before making changes.
         /// </summary>
-        internal void doesSystemSupportDarkMode()
+        internal void SaveInitialRenderer()
         {
-            const string subKey =
-                @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
-            var registryKey = Registry.CurrentUser.OpenSubKey(subKey);
-            const string registryKeyValue = "AppsUseLightTheme";
-            var windowsLightThemeIsEnabled = registryKey?.GetValue(registryKeyValue);
+            this.initialMenuStrip1Renderer = this.menuStrip1.Renderer;
+        }
 
-            if (windowsLightThemeIsEnabled is null)
+        /// <summary>
+        /// Set initial changes to form.
+        /// </summary>
+        internal void SetInitialChanges()
+        {
+            this.Text = applicationName;
+            IsDarkModeEnabledDuringRunTime = Program.IsDarkModeEnabledBeforeRunTime;
+        }
+
+        /// <summary>
+        /// Toggle changes given dark mode is enabled or not.
+        /// </summary>
+        internal void ToggleDarkMode()
+        {
+            ToggleDarkModeRenderer();
+            this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
+        }
+
+        /// <summary>
+        /// Toggle the type of renderer given dark mode is enabled or not.
+        /// </summary>
+        internal void ToggleDarkModeRenderer()
+        {
+            if (IsDarkModeEnabledDuringRunTime)
             {
-                toggleDarkModeToolStripMenuItem.Checked = false;
-                toggleDarkModeToolStripMenuItem.Enabled = false;
+                this.menuStrip1.Renderer = new DarkUI.Renderers.DarkMenuRenderer();
                 return;
             }
 
-            toggleDarkModeToolStripMenuItem.Checked = !Convert.ToBoolean
-                (windowsLightThemeIsEnabled, CultureInfo.InvariantCulture);
-            toggleDarkModeToolStripMenuItem.Enabled = true;
-        }
-
-        internal void toggleDarkMode()
-        {
-            this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
+            this.menuStrip1.Renderer = this.initialMenuStrip1Renderer;
         }
 
         /// <summary>
