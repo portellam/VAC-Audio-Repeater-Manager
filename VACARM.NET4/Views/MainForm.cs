@@ -18,6 +18,7 @@ namespace VACARM.NET4.Views
         public MainForm()
         {
             InitializeComponent();
+            PostInitializeComponent();
         }
 
         ////////////////////////////////// DeviceMenu //////////////////////////////////
