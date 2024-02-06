@@ -29,19 +29,19 @@ namespace VACARM.NET4.Views
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
+            this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
-            this.labelCompanyName = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 1;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.
-                ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.
-                ColumnStyle(System.Windows.Forms.SizeType.Percent, 67F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle
+                (System.Windows.Forms.SizeType.Percent, 33F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle
+                (System.Windows.Forms.SizeType.Percent, 67F));
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
@@ -118,6 +118,21 @@ namespace VACARM.NET4.Views
             this.labelCopyright.TabIndex = 21;
             this.labelCopyright.Text = "Copyright";
             // 
+            // labelCompanyName
+            // 
+            this.labelCompanyName.Anchor = ((System.Windows.Forms.AnchorStyles)
+                ((System.Windows.Forms.AnchorStyles.Bottom
+                | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelCompanyName.Location = new System.Drawing.Point(8, 101);
+            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 21);
+            this.labelCompanyName.Name = "labelCompanyName";
+            this.labelCompanyName.Size = new System.Drawing.Size(0, 21);
+            this.labelCompanyName.TabIndex = 22;
+            this.labelCompanyName.Text = "Company Name";
+            this.labelCompanyName.TextAlign =
+                System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // textBoxDescription
             // 
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Top;
@@ -146,21 +161,6 @@ namespace VACARM.NET4.Views
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
-            // 
-            // labelCompanyName
-            // 
-            this.labelCompanyName.Anchor = ((System.Windows.Forms.AnchorStyles)
-                ((System.Windows.Forms.AnchorStyles.Bottom
-                | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelCompanyName.Location = new System.Drawing.Point(8, 101);
-            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 21);
-            this.labelCompanyName.Name = "labelCompanyName";
-            this.labelCompanyName.Size = new System.Drawing.Size(0, 21);
-            this.labelCompanyName.TabIndex = 22;
-            this.labelCompanyName.Text = "Company Name";
-            this.labelCompanyName.TextAlign =
-                System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AboutForm
             // 
@@ -191,9 +191,9 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void PostInitializeComponent()
         {
+            this.labelCopyright.Text = AssemblyCopyright;
             this.labelProductName.Text = AssemblyTitle;
             this.labelVersion.Text = AssemblyVersion;
-            this.labelCopyright.Text = AssemblyCopyright;
         }
 
         /// <summary>
@@ -205,6 +205,7 @@ namespace VACARM.NET4.Views
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
