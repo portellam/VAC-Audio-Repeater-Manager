@@ -24,10 +24,7 @@ namespace VACARM.NET4.Views
             }
         }
 
-        private TabControl tabControl1;
-        private TabPage graphPage;
-        private ToolStripProfessionalRenderer initialMenuStrip1ProfessionalRenderer;
-        private ToolStripRenderer initialMenuStrip1Renderer;
+        
 
         private string darkModeText
         {
@@ -47,8 +44,6 @@ namespace VACARM.NET4.Views
         private List<Control> controlList = new List<Control>();
         private List<ToolStripMenuItem> toolStripMenuItemList =
             new List<ToolStripMenuItem>();
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Required designer variable.
@@ -124,11 +119,17 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.ToolStripSeparator linkToolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator2;
+        private TabControl tabControl1;
+        private TabPage graphPage;
+        private ToolStripProfessionalRenderer initialMenuStrip1ProfessionalRenderer;
+        private ToolStripRenderer initialMenuStrip1Renderer;
 
         private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
         private readonly Color lightBackColor = Color.White;
         private readonly Color darkTextColor = Color.White;
         private readonly Color lightTextColor = Color.Black;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #region Windows Form Designer generated code
 
