@@ -3,7 +3,6 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using VACARM.NET4.ViewModels;
 using VACARM.NET4.Views;
 
 namespace VACARM.NET4
