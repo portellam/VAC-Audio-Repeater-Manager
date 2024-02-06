@@ -43,6 +43,7 @@ namespace VACARM.NET4.Views
             }
         }
 
+        private List<Control> controlList = new List<Control>();
         private List<ToolStripMenuItem> toolStripMenuItemList =
             new List<ToolStripMenuItem>();
 
@@ -814,6 +815,16 @@ namespace VACARM.NET4.Views
         #endregion
 
         /// <summary>
+        /// Add all controls to list.
+        /// </summary>
+        internal void AddControlsToList()
+        {
+            controlList.Add(tabControl1);
+            controlList.Add(tabPage1);
+            controlList.Add(tabPage2);
+        }
+
+        /// <summary>
         /// Add all menu items to list.
         /// </summary>
         internal void AddMenuItemsToList()
@@ -869,6 +880,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void PostDesignerGeneratedLogic()
         {
+            AddControlsToList();
             AddMenuItemsToList();
             SetInitialChanges();
             SaveInitialRenderer();
@@ -956,6 +968,12 @@ namespace VACARM.NET4.Views
                 (control as Control).BackColor = backColor;
                 (control as Control).ForeColor = foreColor;
             }
+
+            controlList.ForEach(control =>
+            {
+                control.BackColor = backColor;
+                control.ForeColor = foreColor;
+            });
         }
 
         /// <summary>
