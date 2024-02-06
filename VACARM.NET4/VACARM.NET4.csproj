@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Structs\ChannelConfig.cs" />
     <Compile Include="Structs\Channel.cs" />
+    <Compile Include="ViewModels\DarkColorTable.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,9 +66,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
