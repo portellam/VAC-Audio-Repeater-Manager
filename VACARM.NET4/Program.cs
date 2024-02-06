@@ -3,18 +3,39 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using VACARM.NET4.ViewModels;
 using VACARM.NET4.Views;
 
 namespace VACARM.NET4
 {
     public class Program
     {
+        private static bool isDarkModeEnabledDuringRunTime { get; set; }
+
         /// <summary>
         /// The command line arguments.
         /// </summary>
         public static string[] Arguments { get; private set; }
 
         public static bool IsDarkModeEnabledBeforeRunTime { get; private set; }
+
+        public static bool IsDarkModeEnabledDuringRunTime
+        {
+            get
+            { 
+                return isDarkModeEnabledDuringRunTime;
+            }
+            set
+            {
+                if (value != IsDarkModeEnabledBeforeRunTime)
+                {
+                    isDarkModeEnabledDuringRunTime = value;
+                    return;
+                }
+
+                isDarkModeEnabledDuringRunTime = IsDarkModeEnabledBeforeRunTime;
+            }
+        }
 
         /// <summary>
         /// The main code block, to be executed at run time.
