@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace VACARM.NET4.Views
 {
+    /// <summary>
+    /// Main form view
+    /// </summary>
     public partial class MainForm : Form
     {
         private string fileName;
@@ -18,7 +21,8 @@ namespace VACARM.NET4.Views
             PostInitializeComponent();
         }
 
-        /////////////////////////////////// FileMenu ///////////////////////////////////
+        #region File menu
+
         /// <summary>
         /// Click event logic for openToolStripMenuItem.
         /// Get filename if dialog result is OK.
@@ -62,7 +66,10 @@ namespace VACARM.NET4.Views
             Application.Exit();
         }
 
-        ////////////////////////////////// DeviceMenu //////////////////////////////////
+        #endregion
+
+        #region Device menu
+
         /// <summary>
         /// Click event logic for deviceToolStripMenuItem.
         /// </summary>
@@ -73,7 +80,10 @@ namespace VACARM.NET4.Views
 
         }
 
-        /////////////////////////////////// LinkMenu ///////////////////////////////////
+        #endregion
+
+        #region Link menu
+
         /// <summary>
         /// Click event logic for linkToolStripMenuItem.
         /// </summary>
@@ -84,7 +94,9 @@ namespace VACARM.NET4.Views
 
         }
 
-        /////////////////////////////////// ViewMenu ///////////////////////////////////
+        #endregion
+
+        #region View menu
         /// <summary>
         /// Click event logic for aboutToolStripMenuItem.
         /// Set the ToggleDarkModeText.
@@ -106,7 +118,10 @@ namespace VACARM.NET4.Views
         {
         }
 
-        /////////////////////////////////// HelpMenu ///////////////////////////////////
+        #endregion
+
+        #region Help menu
+
         /// <summary>
         /// Click event logic for aboutToolStripMenuItem.
         /// </summary>
@@ -116,5 +131,7 @@ namespace VACARM.NET4.Views
         {
             new AboutForm().Show();
         }
+
+        #endregion
     }
 }
