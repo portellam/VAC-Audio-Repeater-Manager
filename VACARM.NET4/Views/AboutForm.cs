@@ -15,12 +15,7 @@ namespace VACARM.NET4.Views
         public AboutForm()
         {
             InitializeComponent();
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.textBoxDescription.Text = AssemblyDescription;
+            PostInitializeComponent();
         }
 
         #region Assembly Attribute Accessors
