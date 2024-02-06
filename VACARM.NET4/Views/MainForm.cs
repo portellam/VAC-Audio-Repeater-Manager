@@ -112,9 +112,13 @@ namespace VACARM.NET4.Views
             ToggleDarkMode();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Click event logic for MainForm.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        internal void MainForm_Load(object sender, EventArgs eventArgs)
         {
-
         }
     }
 }
