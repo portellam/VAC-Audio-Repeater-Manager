@@ -224,7 +224,6 @@ namespace VACARM.NET4.ViewModels
             }
         }
 
-
         public override Color ImageMarginRevealedGradientMiddle
         {
             get
@@ -312,7 +311,7 @@ namespace VACARM.NET4.ViewModels
                 return BackColor;
             }
         }
-
+        
         public override Color OverflowButtonGradientBegin
         {
             get
@@ -357,7 +356,7 @@ namespace VACARM.NET4.ViewModels
         {
             get
             {
-                return BackColor;
+                return ForeColor;
             }
         }
 
@@ -365,7 +364,7 @@ namespace VACARM.NET4.ViewModels
         {
             get
             {
-                return ForeColor;
+                return BackColor;
             }
         }
 
