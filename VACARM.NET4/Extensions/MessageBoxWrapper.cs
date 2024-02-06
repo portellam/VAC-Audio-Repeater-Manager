@@ -22,7 +22,7 @@ namespace VACARM.NET4.Extensions
             (string messageBoxText)
         {
             return MessageBox.Show
-                (messageBoxText, CommonData.ApplicationName, MessageBoxButton.YesNo)
+                (messageBoxText, Common.ApplicationName, MessageBoxButton.YesNo)
                 is MessageBoxResult.Yes;
         }
 
@@ -48,7 +48,7 @@ namespace VACARM.NET4.Extensions
         /// <param name="messageBoxText">the message box text</param>
         public static void Show(string messageBoxText)
         {
-            Show(messageBoxText, CommonData.ApplicationName); ;
+            Show(messageBoxText, Common.ApplicationName); ;
         }
 
         /// <summary>
