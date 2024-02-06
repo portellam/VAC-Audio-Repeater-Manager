@@ -7,9 +7,6 @@ namespace VACARM.NET4.Views
     public partial class MainForm : Form
     {
         private string fileName;
-        private readonly static string applicationNameAsAbbreviation = "VACARM";
-        private readonly static string fileExtension = "." +
-            applicationNameAsAbbreviation.ToLower();
 
         /// <summary>
         /// Constructor
@@ -21,17 +18,6 @@ namespace VACARM.NET4.Views
             PostInitializeComponent();
         }
 
-        ////////////////////////////////// DeviceMenu //////////////////////////////////
-        /// <summary>
-        /// Click event logic for deviceToolStripMenuItem.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void deviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
-        {
-
-        }
-
         /////////////////////////////////// FileMenu ///////////////////////////////////
         /// <summary>
         /// Click event logic for openToolStripMenuItem.
@@ -39,12 +25,13 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void openToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void OpenToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 InitialDirectory = Application.CommonAppDataPath,
-                Filter = $"{applicationNameAsAbbreviation} files| *{fileExtension}*",
+                Filter = $"{Common.ApplicationNameAsAbbreviation} files| " +
+                    $"*{Common.FileExtension}*",
             };
 
             if (openFileDialog.ShowDialog() != DialogResult.OK)
@@ -62,7 +49,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void exitToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void ExitToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             /*
              * TODO:
@@ -75,15 +62,15 @@ namespace VACARM.NET4.Views
             Application.Exit();
         }
 
-        /////////////////////////////////// HelpMenu ///////////////////////////////////
+        ////////////////////////////////// DeviceMenu //////////////////////////////////
         /// <summary>
-        /// Click event logic for aboutToolStripMenuItem.
+        /// Click event logic for deviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void aboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void DeviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
-            new AboutForm().Show();
+
         }
 
         /////////////////////////////////// LinkMenu ///////////////////////////////////
@@ -92,7 +79,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void linkToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void LinkToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
 
         }
@@ -104,7 +91,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void toggleDarkModeToolStripMenuItem_Click
+        internal void ToggleDarkModeToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             SetColorTheme();
@@ -117,6 +104,17 @@ namespace VACARM.NET4.Views
         /// <param name="eventArgs">The event arguments</param>
         internal void MainForm_Load(object sender, EventArgs eventArgs)
         {
+        }
+
+        /////////////////////////////////// HelpMenu ///////////////////////////////////
+        /// <summary>
+        /// Click event logic for aboutToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        internal void AboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        {
+            new AboutForm().Show();
         }
     }
 }
