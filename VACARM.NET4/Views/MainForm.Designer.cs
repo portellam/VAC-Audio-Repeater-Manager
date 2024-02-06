@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
+using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
 {
