@@ -83,10 +83,7 @@ namespace VACARM.NET4.Views
         /// <param name="eventArgs">The event arguments</param>
         internal void aboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
-            /*
-             * TODO:
-             *  -add logic to open about me window.
-             */
+            new AboutForm().Show();
         }
 
         /////////////////////////////////// LinkMenu ///////////////////////////////////
