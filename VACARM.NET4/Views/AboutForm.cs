@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -10,6 +6,9 @@ namespace VACARM.NET4.Views
 {
     partial class AboutForm : Form
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AboutForm()
         {
             InitializeComponent();
@@ -27,16 +26,21 @@ namespace VACARM.NET4.Views
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().
+                    GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+
                 if (attributes.Length > 0)
                 {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    AssemblyTitleAttribute titleAttribute =
+                        (AssemblyTitleAttribute)attributes[0];
                     if (titleAttribute.Title != "")
                     {
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+
+                return System.IO.Path.GetFileNameWithoutExtension
+                    (Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
@@ -52,11 +56,14 @@ namespace VACARM.NET4.Views
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+
                 if (attributes.Length == 0)
                 {
                     return "";
                 }
+
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
@@ -65,11 +72,14 @@ namespace VACARM.NET4.Views
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().
+                    GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+
                 if (attributes.Length == 0)
                 {
                     return "";
                 }
+
                 return ((AssemblyProductAttribute)attributes[0]).Product;
             }
         }
@@ -78,11 +88,14 @@ namespace VACARM.NET4.Views
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+
                 if (attributes.Length == 0)
                 {
                     return "";
                 }
+
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
@@ -91,14 +104,27 @@ namespace VACARM.NET4.Views
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+
                 if (attributes.Length == 0)
                 {
                     return "";
                 }
+
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
         #endregion
+
+        /// <summary>
+        /// Click event logic for okButton_Click.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void okButton_Click(object sender, EventArgs eventArgs)
+        {
+            this.Close();
+        }
     }
 }
