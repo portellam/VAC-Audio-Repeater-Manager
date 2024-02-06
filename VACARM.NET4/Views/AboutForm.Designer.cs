@@ -1,4 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
 {
@@ -16,6 +20,12 @@ namespace VACARM.NET4.Views
         private Label labelVersion;
         private TextBox textBoxDescription;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private List<Control> controlList = new List<Control>();
+
+        private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
+        private readonly Color lightBackColor = Color.White;
+        private readonly Color darkTextColor = Color.White;
+        private readonly Color lightTextColor = Color.Black;
 
         #region Windows Form Designer generated code
 
@@ -188,13 +198,116 @@ namespace VACARM.NET4.Views
         #endregion
 
         /// <summary>
+        /// Add all controls to list.
+        /// </summary>
+        internal void AddControlsToList()
+        {
+            controlList.Add(labelCompanyName);
+            controlList.Add(labelCopyright);
+            controlList.Add(labelProductName);
+            controlList.Add(labelVersion);
+            controlList.Add(okButton);
+            controlList.Add(tableLayoutPanel);
+            controlList.Add(textBoxDescription);
+        }
+
+        /// <summary>
         /// Code to run after generated code.
         /// </summary>
         internal void PostInitializeComponent()
         {
+            SetAssemblyInformation();
+            AddControlsToList();
+            SetInitialChanges();
+            SetColorTheme();
+        }
+
+        /// <summary>
+        /// Set about page information.
+        /// </summary>
+        internal void SetAssemblyInformation()
+        {
+            this.labelCompanyName.Text = AssemblyCompany;
             this.labelCopyright.Text = AssemblyCopyright;
-            this.labelProductName.Text = AssemblyTitle;
-            this.labelVersion.Text = AssemblyVersion;
+            this.labelProductName.Text = AssemblyProduct;
+            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            this.Text = String.Format("About {0}", AssemblyTitle);
+            this.textBoxDescription.Text = AssemblyDescription;
+        }
+
+        /// <summary>
+        /// Set color theme given dark mode is enabled or not.
+        /// </summary>
+        internal void SetColorTheme()
+        {
+            SetConstructorBackColor();
+            SetBackAndForeColorOfEveryControl(this.Controls);
+            this.Invalidate();
+        }
+
+        /// <summary>
+        /// Set initial changes to form.
+        /// </summary>
+        internal void SetInitialChanges()
+        {
+            this.Text = AssemblyProduct;
+        }
+
+        /// <summary>
+        /// Set the backcolor and forecolor of every control, 
+        /// given dark mode is enabled or not.
+        /// </summary>
+        /// <param name="controlCollection">The control collection</param>
+        internal void SetBackAndForeColorOfEveryControl
+            (Control.ControlCollection controlCollection)
+        {
+            Color backColor, foreColor;
+
+            if (Program.IsDarkModeEnabledDuringRunTime)
+            {
+                backColor = darkBackColor;
+                foreColor = lightBackColor;
+            }
+            else
+            {
+                backColor = lightBackColor;
+                foreColor = darkBackColor;
+            }
+
+            foreach (var control in controlCollection)
+            {
+                if (control is Control.ControlCollection)
+                {
+                    SetBackAndForeColorOfEveryControl
+                        (control as Control.ControlCollection);
+                }
+
+                (control as Control).BackColor = backColor;
+                (control as Control).ForeColor = foreColor;
+            }
+
+            controlList.ForEach(control =>
+            {
+                control.BackColor = backColor;
+                control.ForeColor = foreColor;
+            });
+        }
+
+        /// <summary>
+        /// Set the backcolor of the constructor, given dark mode is enabled or not.
+        /// </summary>
+        internal void SetConstructorBackColor()
+        {
+            if (Program.IsDarkModeEnabledDuringRunTime)
+            {
+                this.BackColor = darkBackColor;
+                this.ForeColor = darkTextColor;
+            }
+            else
+            {
+                this.BackColor = lightBackColor;
+                this.ForeColor = lightTextColor;
+            }
         }
 
         /// <summary>
