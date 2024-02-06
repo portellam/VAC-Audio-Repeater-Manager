@@ -13,6 +13,7 @@ namespace VACARM.NET4.Views
         {
             get
             {
+                Program.IsDarkModeEnabledDuringRunTime = this.toggleDarkModeToolStripMenuItem.Checked;
                 return this.toggleDarkModeToolStripMenuItem.Checked;
             }
             set
