@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace VACARM.NET4.Views
@@ -129,6 +130,12 @@ namespace VACARM.NET4.Views
         /// <param name="eventArgs">The event arguments</param>
         internal void AboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
+            if (Application.OpenForms.OfType<AboutForm>().Count() > 0)
+            {
+                Application.OpenForms.OfType<AboutForm>().ToList().ForEach
+                    (x => x.Close());
+            }
+
             new AboutForm().Show();
         }
 
