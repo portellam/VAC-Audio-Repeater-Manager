@@ -92,7 +92,7 @@ namespace VACARM.NET4.Views
             this.labelProductName.TabIndex = 19;
             this.labelProductName.Text = "Product Name";
             this.labelProductName.TextAlign =
-                System.Drawing.ContentAlignment.MiddleLeft;
+                 System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVersion
             // 
@@ -130,7 +130,8 @@ namespace VACARM.NET4.Views
             this.labelCompanyName.Size = new System.Drawing.Size(0, 21);
             this.labelCompanyName.TabIndex = 22;
             this.labelCompanyName.Text = "Company Name";
-            this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelCompanyName.TextAlign =
+                 System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription
             // 
@@ -181,6 +182,7 @@ namespace VACARM.NET4.Views
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
