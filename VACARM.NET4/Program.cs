@@ -21,7 +21,8 @@ namespace VACARM.NET4
         public static bool IsDarkModeEnabledDuringRunTime
         {
             get
-            { 
+            {
+                DoesSystemSupportDarkMode();
                 return isDarkModeEnabledDuringRunTime;
             }
             set
