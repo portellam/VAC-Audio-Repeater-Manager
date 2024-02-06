@@ -25,7 +25,6 @@ namespace VACARM.NET4.Views
         private TabPage tabPage1;
         private TabPage tabPage2;
         private ToolStripProfessionalRenderer initialMenuStrip1ProfessionalRenderer;
-        private ToolStripRenderMode initialMenuStrip1RenderMode;
         private ToolStripRenderer initialMenuStrip1Renderer;
 
         private string darkModeText
@@ -893,7 +892,6 @@ namespace VACARM.NET4.Views
         internal void SaveInitialRenderer()
         {
             this.initialMenuStrip1Renderer = this.menuStrip1.Renderer;
-            this.initialMenuStrip1RenderMode = this.menuStrip1.RenderMode;
         }
 
         /// <summary>
@@ -931,7 +929,7 @@ namespace VACARM.NET4.Views
             }
             else
             {
-                this.menuStrip1.RenderMode = this.initialMenuStrip1RenderMode;
+                this.menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
                 this.menuStrip1.Renderer = this.initialMenuStrip1Renderer;
             }
         }
