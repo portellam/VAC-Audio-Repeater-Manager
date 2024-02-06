@@ -109,7 +109,7 @@ namespace VACARM.NET4.Views
         internal void toggleDarkModeToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            ToggleDarkMode();
+            SetColorTheme();
         }
 
         /// <summary>

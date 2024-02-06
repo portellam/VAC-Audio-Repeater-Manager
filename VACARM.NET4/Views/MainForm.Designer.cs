@@ -879,11 +879,11 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void PostDesignerGeneratedLogic()
         {
+            SaveInitialRenderer();
             AddControlsToList();
             AddMenuItemsToList();
             SetInitialChanges();
-            SaveInitialRenderer();
-            ToggleDarkMode();
+            SetColorTheme();
         }
 
         /// <summary>
@@ -895,18 +895,9 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Set initial changes to form.
+        /// Set color theme given dark mode is enabled or not.
         /// </summary>
-        internal void SetInitialChanges()
-        {
-            this.Text = applicationName;
-            IsDarkModeEnabledDuringRunTime = Program.IsDarkModeEnabledBeforeRunTime;
-        }
-
-        /// <summary>
-        /// Toggle changes given dark mode is enabled or not.
-        /// </summary>
-        internal void ToggleDarkMode()
+        internal void SetColorTheme()
         {
             ToggleDarkModeRenderer();
             SetConstructorBackColor();
@@ -914,6 +905,15 @@ namespace VACARM.NET4.Views
             SetForeColorOfEveryMenuItem();
             this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
             this.Invalidate();
+        }
+
+        /// <summary>
+        /// Set initial changes to form.
+        /// </summary>
+        internal void SetInitialChanges()
+        {
+            this.Text = applicationName;
+            IsDarkModeEnabledDuringRunTime = Program.IsDarkModeEnabledBeforeRunTime;
         }
 
         /// <summary>
