@@ -5,8 +5,8 @@ namespace VACARM.NET4.ViewModels
 {
     public class DarkColorTable : ProfessionalColorTable
     {
-        private readonly Color BackColor = Color.FromArgb(60, 63, 65);
-        private readonly Color ForeColor = Color.White;
+        public readonly Color BackColor = Color.FromArgb(60, 63, 65);
+        public readonly Color ForeColor = Color.White;
 
         public override Color ButtonCheckedGradientBegin
         {
@@ -455,6 +455,5 @@ namespace VACARM.NET4.ViewModels
                 return BackColor;
             }
         }
-
     }
 }
