@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
@@ -6,7 +7,7 @@ using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
 {
-    public partial class MainForm
+    public partial class MainForm : INotifyPropertyChanged
     {
         public bool IsDarkModeEnabledDuringRunTime
         {
@@ -18,11 +19,11 @@ namespace VACARM.NET4.Views
             {
                 Program.IsDarkModeEnabledDuringRunTime = value;
                 this.toggleDarkModeToolStripMenuItem.Checked = value;
+                OnPropertyChanged(nameof(IsDarkModeEnabledDuringRunTime));
             }
         }
 
         private TabControl tabControl1;
-        private TabPage dataPage;
         private TabPage graphPage;
         private ToolStripProfessionalRenderer initialMenuStrip1ProfessionalRenderer;
         private ToolStripRenderer initialMenuStrip1Renderer;
@@ -46,12 +47,17 @@ namespace VACARM.NET4.Views
         private List<ToolStripMenuItem> toolStripMenuItemList =
             new List<ToolStripMenuItem>();
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private Panel dataPanel;
+        private Panel graphPanel;
+        private TabPage dataPage;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addAllDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addDeviceToolStripMenuItem;
@@ -194,10 +200,14 @@ namespace VACARM.NET4.Views
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.dataPage = new System.Windows.Forms.TabPage();
             this.graphPage = new System.Windows.Forms.TabPage();
+            this.dataPage = new System.Windows.Forms.TabPage();
+            this.dataPanel = new System.Windows.Forms.Panel();
+            this.graphPanel = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.graphPage.SuspendLayout();
+            this.dataPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -212,7 +222,7 @@ namespace VACARM.NET4.Views
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(670, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(622, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -242,7 +252,7 @@ namespace VACARM.NET4.Views
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.openToolStripMenuItem.Text = "Open...";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -278,7 +288,7 @@ namespace VACARM.NET4.Views
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // deviceToolStripMenuItem
             // 
@@ -298,7 +308,7 @@ namespace VACARM.NET4.Views
             this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
             this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.deviceToolStripMenuItem.Text = "Device";
-            this.deviceToolStripMenuItem.Click += new System.EventHandler(this.deviceToolStripMenuItem_Click);
+            this.deviceToolStripMenuItem.Click += new System.EventHandler(this.DeviceToolStripMenuItem_Click);
             // 
             // reloadAllToolStripMenuItem
             // 
@@ -460,7 +470,7 @@ namespace VACARM.NET4.Views
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
             this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.linkToolStripMenuItem.Text = "Link";
-            this.linkToolStripMenuItem.Click += new System.EventHandler(this.linkToolStripMenuItem_Click);
+            this.linkToolStripMenuItem.Click += new System.EventHandler(this.LinkToolStripMenuItem_Click);
             // 
             // newlinkToolStripMenuItem
             // 
@@ -585,27 +595,27 @@ namespace VACARM.NET4.Views
             // restartToolStripMenuItem
             // 
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.restartToolStripMenuItem.Tag = "";
             this.restartToolStripMenuItem.Text = "Restart...";
             // 
             // restartAllToolStripMenuItem
             // 
             this.restartAllToolStripMenuItem.Name = "restartAllToolStripMenuItem";
-            this.restartAllToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.restartAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.restartAllToolStripMenuItem.Tag = "";
             this.restartAllToolStripMenuItem.Text = "Restart All";
             // 
             // repeaterToolStripSeparator1
             // 
             this.repeaterToolStripSeparator1.Name = "repeaterToolStripSeparator1";
-            this.repeaterToolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            this.repeaterToolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.CheckOnClick = true;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.startToolStripMenuItem.Tag = "";
             this.startToolStripMenuItem.Text = "Start...";
             // 
@@ -613,20 +623,20 @@ namespace VACARM.NET4.Views
             // 
             this.startAllToolStripMenuItem.CheckOnClick = true;
             this.startAllToolStripMenuItem.Name = "startAllToolStripMenuItem";
-            this.startAllToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.startAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.startAllToolStripMenuItem.Tag = "";
             this.startAllToolStripMenuItem.Text = "Start All";
             // 
             // repeaterToolStripSeparator2
             // 
             this.repeaterToolStripSeparator2.Name = "repeaterToolStripSeparator2";
-            this.repeaterToolStripSeparator2.Size = new System.Drawing.Size(157, 6);
+            this.repeaterToolStripSeparator2.Size = new System.Drawing.Size(221, 6);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.CheckOnClick = true;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.stopToolStripMenuItem.Tag = "";
             this.stopToolStripMenuItem.Text = "Stop...";
             // 
@@ -634,7 +644,7 @@ namespace VACARM.NET4.Views
             // 
             this.stopAllToolStripMenuItem.CheckOnClick = true;
             this.stopAllToolStripMenuItem.Name = "stopAllToolStripMenuItem";
-            this.stopAllToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.stopAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.stopAllToolStripMenuItem.Tag = "";
             this.stopAllToolStripMenuItem.Text = "Stop All";
             // 
@@ -651,7 +661,7 @@ namespace VACARM.NET4.Views
             this.toggleDarkModeToolStripMenuItem.CheckOnClick = true;
             this.toggleDarkModeToolStripMenuItem.Name = "toggleDarkModeToolStripMenuItem";
             this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler(this.toggleDarkModeToolStripMenuItem_Click);
+            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler(this.ToggleDarkModeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -666,7 +676,7 @@ namespace VACARM.NET4.Views
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -674,48 +684,74 @@ namespace VACARM.NET4.Views
             this.tabControl1.Controls.Add(this.graphPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 28);
-            this.tabControl1.MinimumSize = new System.Drawing.Size(640, 480);
+            this.tabControl1.MinimumSize = new System.Drawing.Size(618, 380);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(670, 480);
+            this.tabControl1.Size = new System.Drawing.Size(622, 405);
             this.tabControl1.TabIndex = 1;
+            // 
+            // graphPage
+            // 
+            this.graphPage.Controls.Add(this.graphPanel);
+            this.graphPage.Location = new System.Drawing.Point(4, 25);
+            this.graphPage.Name = "graphPage";
+            this.graphPage.Padding = new System.Windows.Forms.Padding(3);
+            this.graphPage.Size = new System.Drawing.Size(614, 376);
+            this.graphPage.TabIndex = 1;
+            this.graphPage.Text = "Graph";
+            this.graphPage.UseVisualStyleBackColor = true;
             // 
             // dataPage
             // 
             this.dataPage.AutoScroll = true;
             this.dataPage.AutoScrollMinSize = new System.Drawing.Size(0, 32);
+            this.dataPage.Controls.Add(this.dataPanel);
             this.dataPage.Location = new System.Drawing.Point(4, 25);
             this.dataPage.Name = "dataPage";
             this.dataPage.Padding = new System.Windows.Forms.Padding(3);
-            this.dataPage.Size = new System.Drawing.Size(662, 451);
+            this.dataPage.Size = new System.Drawing.Size(614, 376);
             this.dataPage.TabIndex = 0;
             this.dataPage.Text = "Data";
             this.dataPage.UseVisualStyleBackColor = true;
             // 
-            // graphPage
+            // dataPanel
             // 
-            this.graphPage.Location = new System.Drawing.Point(4, 25);
-            this.graphPage.Name = "graphPage";
-            this.graphPage.Padding = new System.Windows.Forms.Padding(3);
-            this.graphPage.Size = new System.Drawing.Size(662, 451);
-            this.graphPage.TabIndex = 1;
-            this.graphPage.Text = "Graph";
-            this.graphPage.UseVisualStyleBackColor = true;
+            this.dataPanel.AutoSize = true;
+            this.dataPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.dataPanel.Location = new System.Drawing.Point(-2, -2);
+            this.dataPanel.MinimumSize = new System.Drawing.Size(618, 380);
+            this.dataPanel.Name = "dataPanel";
+            this.dataPanel.Size = new System.Drawing.Size(618, 380);
+            this.dataPanel.TabIndex = 0;
+            // 
+            // graphPanel
+            // 
+            this.graphPanel.AutoSize = true;
+            this.graphPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.graphPanel.Location = new System.Drawing.Point(-2, -2);
+            this.graphPanel.MinimumSize = new System.Drawing.Size(618, 380);
+            this.graphPanel.Name = "graphPanel";
+            this.graphPanel.Size = new System.Drawing.Size(618, 380);
+            this.graphPanel.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(670, 505);
+            this.ClientSize = new System.Drawing.Size(622, 433);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(640, 480);
+            this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.graphPage.ResumeLayout(false);
+            this.graphPage.PerformLayout();
+            this.dataPage.ResumeLayout(false);
+            this.dataPage.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -745,6 +781,13 @@ namespace VACARM.NET4.Views
             this.toolStripMenuItemList.Add(this.addWaveOutDeviceToolStripMenuItem);
             this.toolStripMenuItemList.Add(this.closeToolStripMenuItem);
             this.toolStripMenuItemList.Add(this.disableToolStripMenuItem);
+            this.toolStripMenuItemList.Add(this.defaultBitRateToolStripMenuItem);
+            this.toolStripMenuItemList.Add(this.defaultBufferToolStripMenuItem);
+            this.toolStripMenuItemList.Add(this.defaultChannelsToolStripMenuItem);
+            this.toolStripMenuItemList.Add(this.defaultPrefillToolStripMenuItem);
+            this.toolStripMenuItemList.Add(this.defaultResyncAtToolStripMenuItem);
+            this.toolStripMenuItemList.Add(this.defaultSamplingRateToolStripMenuItem);
+            this.toolStripMenuItemList.Add(this.exitToolStripMenuItem);
             this.toolStripMenuItemList.Add(this.enableToolStripMenuItem);
             this.toolStripMenuItemList.Add(this.fileToolStripMenuItem);
             this.toolStripMenuItemList.Add(this.helpToolStripMenuItem);
@@ -782,6 +825,15 @@ namespace VACARM.NET4.Views
             this.toolStripMenuItemList.Add(this.unlinkWaveOutToolStripMenuItem);
             this.toolStripMenuItemList.Add(this.viewToolStripMenuItem);
             this.toolStripMenuItemList.Add(this.removeWaveInToolStripMenuItem);
+        }
+
+        /// <summary>
+        /// Logs event when property has changed.
+        /// </summary>
+        /// <param name="propertyName">The property name</param>
+        internal void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -835,6 +887,7 @@ namespace VACARM.NET4.Views
                 this.menuStrip1.RenderMode = ToolStripRenderMode.Professional;
                 this.menuStrip1.Renderer = new ToolStripProfessionalRenderer
                     (new DarkColorTable());
+                //this.menuStrip1.Renderer = new ToolStripDarkRenderer();
             }
             else
             {
