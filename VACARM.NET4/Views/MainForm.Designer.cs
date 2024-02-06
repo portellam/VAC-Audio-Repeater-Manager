@@ -124,7 +124,6 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator2;
 
-        private readonly string applicationName = "VAC Audio Repeater Manager";
         private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
         private readonly Color lightBackColor = Color.White;
         private readonly Color darkTextColor = Color.White;
@@ -873,7 +872,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetInitialChanges()
         {
-            this.Text = applicationName;
+            this.Text = Common.ApplicationName;
             IsDarkModeEnabledDuringRunTime = Program.IsDarkModeEnabledBeforeRunTime;
         }
 
