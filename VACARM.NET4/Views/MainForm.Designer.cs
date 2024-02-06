@@ -929,7 +929,7 @@ namespace VACARM.NET4.Views
                 this.menuStrip1.RenderMode = ToolStripRenderMode.Professional;
                 this.menuStrip1.Renderer = new ToolStripProfessionalRenderer
                     (new DarkColorTable());
-                //this.menuStrip1.Renderer = new ToolStripDarkRenderer();
+                //this.menuStrip1.Renderer = new ToolStripDarkRenderer();               //NOTE: breaks context menu colors.
             }
             else
             {
