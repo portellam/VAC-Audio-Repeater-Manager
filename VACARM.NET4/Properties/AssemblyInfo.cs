@@ -1,17 +1,16 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("VAC Audio Repeater Manager")]
-[assembly: AssemblyDescription("User interface to assist management and automation of Virtual Audio Cable (VAC) audio repeaters.")]
+[assembly: AssemblyDescription("User interface to create, manage and automate Virtual Audio Cable (VAC) audio repeaters.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VAC Audio Repeater Manager")]
-[assembly: AssemblyCopyright("Copyleft © 2024")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyProduct("Virtual Audio Cable Auto Repeater Manager")]
+[assembly: AssemblyCopyright("VACARM Copyleft © 2024. Virtual Audio Cable Copyright © Eugene V. Muzychenko.")]
+[assembly: AssemblyTrademark("VACARM")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
