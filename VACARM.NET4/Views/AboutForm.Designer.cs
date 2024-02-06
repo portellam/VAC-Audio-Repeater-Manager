@@ -122,7 +122,7 @@ namespace VACARM.NET4.Views
             // 
             this.labelCompanyName.Anchor = ((System.Windows.Forms.AnchorStyles)
                 ((System.Windows.Forms.AnchorStyles.Bottom
-                | System.Windows.Forms.AnchorStyles.Left)));
+                 | System.Windows.Forms.AnchorStyles.Left)));
             this.labelCompanyName.Location = new System.Drawing.Point(8, 101);
             this.labelCompanyName.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 21);
@@ -130,15 +130,14 @@ namespace VACARM.NET4.Views
             this.labelCompanyName.Size = new System.Drawing.Size(0, 21);
             this.labelCompanyName.TabIndex = 22;
             this.labelCompanyName.Text = "Company Name";
-            this.labelCompanyName.TextAlign =
-                System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription
             // 
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxDescription.Location = new System.Drawing.Point(8, 126);
             this.textBoxDescription.Margin =
-                new System.Windows.Forms.Padding(8, 4, 4, 4);
+                 new System.Windows.Forms.Padding(8, 4, 4, 4);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
@@ -152,7 +151,7 @@ namespace VACARM.NET4.Views
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)
                 ((System.Windows.Forms.AnchorStyles.Bottom
-                | System.Windows.Forms.AnchorStyles.Right)));
+                 | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.okButton.Location = new System.Drawing.Point(452, 295);
             this.okButton.Margin = new System.Windows.Forms.Padding(4);
