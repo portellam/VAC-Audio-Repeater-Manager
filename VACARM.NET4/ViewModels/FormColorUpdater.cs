@@ -69,11 +69,6 @@ namespace VACARM.NET4.ViewModels
                         (control as Control.ControlCollection);
                 }
 
-                if ((control as Control).Controls.Count == 0)
-                {
-                    continue;
-                }
-
                 SetColorsOfControlCollection((control as Control).Controls);
             }
         }
@@ -105,11 +100,6 @@ namespace VACARM.NET4.ViewModels
             {
                 control.BackColor = backColor;
                 control.ForeColor = foreColor;
-
-                if (control.Controls.Count == 0)
-                {
-                    continue;
-                }
 
                 SetColorsOfControlCollection(control.Controls);
             };
