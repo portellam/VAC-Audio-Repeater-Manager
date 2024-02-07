@@ -20,7 +20,6 @@ namespace VACARM.NET4.Views
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private TextBox textBoxDescription;
-        private List<Control> controlList = new List<Control>();
 
         private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
         private readonly Color lightBackColor = Color.White;
@@ -198,17 +197,16 @@ namespace VACARM.NET4.Views
         #endregion
 
         /// <summary>
-        /// Add all controls to list.
+        /// Add all controls to control collection.
         /// </summary>
-        internal void AddControlsToList()
+        internal void AddControlsToControlCollection()
         {
-            controlList.Add(labelCompanyName);
-            controlList.Add(labelCopyright);
-            controlList.Add(labelProductName);
-            controlList.Add(labelVersion);
-            controlList.Add(okButton);
-            controlList.Add(tableLayoutPanel);
-            controlList.Add(textBoxDescription);
+            this.Controls.Add(labelCompanyName);
+            this.Controls.Add(labelCopyright);
+            this.Controls.Add(labelProductName);
+            this.Controls.Add(labelVersion);
+            this.Controls.Add(okButton);
+            this.Controls.Add(textBoxDescription);
         }
 
         /// <summary>
@@ -217,7 +215,7 @@ namespace VACARM.NET4.Views
         internal void PostInitializeComponent()
         {
             SetAssemblyInformation();
-            AddControlsToList();
+            AddControlsToControlCollection();
             SetInitialChanges();
             SetColorTheme();
         }
@@ -240,8 +238,8 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetColorTheme()
         {
-            SetConstructorBackColor();
-            SetBackAndForeColorOfEveryControl(this.Controls);
+            SetColorsOfContructor();
+            SetColorsOfControlCollection(this.Controls);
             this.Invalidate();
         }
 
@@ -258,7 +256,7 @@ namespace VACARM.NET4.Views
         /// given dark mode is enabled or not.
         /// </summary>
         /// <param name="controlCollection">The control collection</param>
-        internal void SetBackAndForeColorOfEveryControl
+        internal void SetColorsOfControlCollection
             (Control.ControlCollection controlCollection)
         {
             Color backColor, foreColor;
@@ -276,27 +274,26 @@ namespace VACARM.NET4.Views
 
             foreach (var control in controlCollection)
             {
-                if (control is Control.ControlCollection)
+                if (control is ControlCollection)
                 {
-                    SetBackAndForeColorOfEveryControl
-                        (control as Control.ControlCollection);
+                    SetColorsOfControlCollection(control as ControlCollection);
+                    continue;
+                }
+
+                if ((control as Control).Controls.Count > 0)
+                {
+                    SetColorsOfControlCollection((control as Control).Controls);
                 }
 
                 (control as Control).BackColor = backColor;
                 (control as Control).ForeColor = foreColor;
             }
-
-            controlList.ForEach(control =>
-            {
-                control.BackColor = backColor;
-                control.ForeColor = foreColor;
-            });
         }
 
         /// <summary>
         /// Set the backcolor of the constructor, given dark mode is enabled or not.
         /// </summary>
-        internal void SetConstructorBackColor()
+        internal void SetColorsOfContructor()
         {
             if (Program.IsDarkModeEnabledDuringRunTime)
             {
