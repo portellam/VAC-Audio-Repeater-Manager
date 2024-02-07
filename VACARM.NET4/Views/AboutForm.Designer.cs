@@ -241,7 +241,8 @@ namespace VACARM.NET4.Views
         internal void SetColorTheme()
         {
             SetConstructorBackColor();
-            SetBackAndForeColorOfEveryControl(this.Controls);
+            SetColorsOfControlCollection(this.Controls);
+            SetColorsOfControlList();
             this.Invalidate();
         }
 
@@ -258,9 +259,14 @@ namespace VACARM.NET4.Views
         /// given dark mode is enabled or not.
         /// </summary>
         /// <param name="controlCollection">The control collection</param>
-        internal void SetBackAndForeColorOfEveryControl
+        internal void SetColorsOfControlCollection
             (Control.ControlCollection controlCollection)
         {
+            if (controlCollection.Count == 0)
+            {
+                return;
+            }
+
             Color backColor, foreColor;
 
             if (Program.IsDarkModeEnabledDuringRunTime)
@@ -276,21 +282,60 @@ namespace VACARM.NET4.Views
 
             foreach (var control in controlCollection)
             {
+                (control as Control).BackColor = backColor;
+                (control as Control).ForeColor = foreColor;
+
                 if (control is Control.ControlCollection)
                 {
-                    SetBackAndForeColorOfEveryControl
+                    SetColorsOfControlCollection
                         (control as Control.ControlCollection);
                 }
 
-                (control as Control).BackColor = backColor;
-                (control as Control).ForeColor = foreColor;
+                if ((control as Control).Controls.Count == 0)
+                {
+                    continue;
+                }
+
+                SetColorsOfControlCollection((control as Control).Controls);
+            }
+        }
+
+        /// <summary>
+        /// Set the backcolor and forecolor of every control in list, 
+        /// given dark mode is enabled or not.
+        /// </summary>
+        internal void SetColorsOfControlList()
+        {
+            if (controlList.Count == 0)
+            {
+                return;
             }
 
-            controlList.ForEach(control =>
+            Color backColor, foreColor;
+
+            if (Program.IsDarkModeEnabledDuringRunTime)
+            {
+                backColor = darkBackColor;
+                foreColor = lightBackColor;
+            }
+            else
+            {
+                backColor = lightBackColor;
+                foreColor = darkBackColor;
+            }
+
+            foreach(Control control in controlList)
             {
                 control.BackColor = backColor;
                 control.ForeColor = foreColor;
-            });
+
+                if (control.Controls.Count == 0)
+                {
+                    continue;
+                }
+
+                SetColorsOfControlCollection(control.Controls);
+            };
         }
 
         /// <summary>
