@@ -53,7 +53,6 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.MenuStrip menuStrip1;
         private Panel dataPanel;
         private Panel graphPanel;
-        private TabPage dataPage;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addAllDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addDeviceToolStripMenuItem;
@@ -120,8 +119,8 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator2;
         private TabControl tabControl1;
+        private TabPage dataPage;
         private TabPage graphPage;
-        private ToolStripProfessionalRenderer initialMenuStrip1ProfessionalRenderer;
         private ToolStripRenderer initialMenuStrip1Renderer;
 
         private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
@@ -808,7 +807,9 @@ namespace VACARM.NET4.Views
         {
             controlList.Add(tabControl1);
             controlList.Add(dataPage);
+            controlList.Add(dataPanel);
             controlList.Add(graphPage);
+            controlList.Add(graphPanel);
         }
 
         /// <summary>
