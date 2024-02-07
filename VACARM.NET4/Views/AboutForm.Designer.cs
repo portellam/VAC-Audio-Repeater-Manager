@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using VACARM.NET4.ViewModels;
 
@@ -44,10 +43,10 @@ namespace VACARM.NET4.Views
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 1;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle
-                (System.Windows.Forms.SizeType.Percent, 33F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle
-                (System.Windows.Forms.SizeType.Percent, 67F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms
+                .ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms
+                .ColumnStyle(System.Windows.Forms.SizeType.Percent, 67F));
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
@@ -97,8 +96,8 @@ namespace VACARM.NET4.Views
             this.labelProductName.Size = new System.Drawing.Size(544, 21);
             this.labelProductName.TabIndex = 19;
             this.labelProductName.Text = "Product Name";
-            this.labelProductName.TextAlign =
-                 System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelProductName.TextAlign = System.Drawing.ContentAlignment
+                .MiddleLeft;
             // 
             // labelVersion
             // 
@@ -128,7 +127,7 @@ namespace VACARM.NET4.Views
             // 
             this.labelCompanyName.Anchor = ((System.Windows.Forms.AnchorStyles)
                 ((System.Windows.Forms.AnchorStyles.Bottom
-                 | System.Windows.Forms.AnchorStyles.Left)));
+                | System.Windows.Forms.AnchorStyles.Left)));
             this.labelCompanyName.Location = new System.Drawing.Point(8, 101);
             this.labelCompanyName.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 21);
@@ -136,15 +135,15 @@ namespace VACARM.NET4.Views
             this.labelCompanyName.Size = new System.Drawing.Size(0, 21);
             this.labelCompanyName.TabIndex = 22;
             this.labelCompanyName.Text = "Company Name";
-            this.labelCompanyName.TextAlign =
-                 System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment
+                .MiddleLeft;
             // 
             // textBoxDescription
             // 
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxDescription.Location = new System.Drawing.Point(8, 126);
-            this.textBoxDescription.Margin =
-                 new System.Windows.Forms.Padding(8, 4, 4, 4);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding
+                (8, 4, 4, 4);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
@@ -158,7 +157,7 @@ namespace VACARM.NET4.Views
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)
                 ((System.Windows.Forms.AnchorStyles.Bottom
-                 | System.Windows.Forms.AnchorStyles.Right)));
+                | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.okButton.Location = new System.Drawing.Point(452, 295);
             this.okButton.Margin = new System.Windows.Forms.Padding(4);
