@@ -222,12 +222,12 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetAssemblyInformation()
         {
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.textBoxDescription.Text = AssemblyDescription;
+            labelCompanyName.Text = AssemblyCompany;
+            labelCopyright.Text = AssemblyCopyright;
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            Text = String.Format("About {0}", AssemblyTitle);
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         /// <summary>
@@ -236,9 +236,9 @@ namespace VACARM.NET4.Views
         internal void SetColorTheme()
         {
             FormColorUpdater.SetColorsOfConstructor(this);
-            FormColorUpdater.SetColorsOfControlCollection(this.Controls);
+            FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
-            this.Invalidate();
+            Invalidate();
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetInitialChanges()
         {
-            this.Text = AssemblyProduct;
+            Text = AssemblyProduct;
         }
 
         /// <summary>
