@@ -14,13 +14,14 @@ namespace VACARM.NET4.Views
         {
             get
             {
-                Program.IsDarkModeEnabledDuringRunTime = this.toggleDarkModeToolStripMenuItem.Checked;
-                return this.toggleDarkModeToolStripMenuItem.Checked;
+                Program.IsDarkModeEnabledDuringRunTime = 
+                    toggleDarkModeToolStripMenuItem.Checked;
+                return toggleDarkModeToolStripMenuItem.Checked;
             }
             set
             {
                 Program.IsDarkModeEnabledDuringRunTime = value;
-                this.toggleDarkModeToolStripMenuItem.Checked = value;
+                toggleDarkModeToolStripMenuItem.Checked = value;
                 OnPropertyChanged(nameof(IsDarkModeEnabledDuringRunTime));
             }
         }
@@ -812,57 +813,54 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void AddMenuItemsToList()
         {
-            this.toolStripMenuItemList.Add(this.aboutToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.addAllDevicesToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.addDeviceToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.addWaveInDeviceToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.addWaveOutDeviceToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.closeToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.disableToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.defaultBitRateToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.defaultBufferToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.defaultChannelsToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.defaultPrefillToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.defaultResyncAtToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.defaultSamplingRateToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.exitToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.enableToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.fileToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.helpToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.linkToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.linkWaveInToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.linkWaveOutToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.newlinkToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.newToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.openToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.reloadAllToolStripMenuItem);
-            this.toolStripMenuItemList.Add
-                (this.removeAllDevicesToolStripMenuItem);
-            this.toolStripMenuItemList.Add
-                (this.removeAllLinkedDevicesToolStripMenuItem);
-            this.toolStripMenuItemList.Add
-                (this.removeAllUnlinkedDevicesToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.removeDeviceToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.removeWaveOutToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.repeaterToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.restartAllToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.restartToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.saveACopyAsToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.saveAsToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.saveToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.startAllToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.startToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.stopAllToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.stopToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.toggleDarkModeToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.enableWaveInToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.enableWaveOutToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.unlinkAllToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.unlinkToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.unlinkWaveInToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.unlinkWaveOutToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.viewToolStripMenuItem);
-            this.toolStripMenuItemList.Add(this.removeWaveInToolStripMenuItem);
+            toolStripMenuItemList.Add(aboutToolStripMenuItem);
+            toolStripMenuItemList.Add(addAllDevicesToolStripMenuItem);
+            toolStripMenuItemList.Add(addDeviceToolStripMenuItem);
+            toolStripMenuItemList.Add(addWaveInDeviceToolStripMenuItem);
+            toolStripMenuItemList.Add(addWaveOutDeviceToolStripMenuItem);
+            toolStripMenuItemList.Add(closeToolStripMenuItem);
+            toolStripMenuItemList.Add(disableToolStripMenuItem);
+            toolStripMenuItemList.Add(defaultBitRateToolStripMenuItem);
+            toolStripMenuItemList.Add(defaultBufferToolStripMenuItem);
+            toolStripMenuItemList.Add(defaultChannelsToolStripMenuItem);
+            toolStripMenuItemList.Add(defaultPrefillToolStripMenuItem);
+            toolStripMenuItemList.Add(defaultResyncAtToolStripMenuItem);
+            toolStripMenuItemList.Add(defaultSamplingRateToolStripMenuItem);
+            toolStripMenuItemList.Add(exitToolStripMenuItem);
+            toolStripMenuItemList.Add(enableToolStripMenuItem);
+            toolStripMenuItemList.Add(fileToolStripMenuItem);
+            toolStripMenuItemList.Add(helpToolStripMenuItem);
+            toolStripMenuItemList.Add(linkToolStripMenuItem);
+            toolStripMenuItemList.Add(linkWaveInToolStripMenuItem);
+            toolStripMenuItemList.Add(linkWaveOutToolStripMenuItem);
+            toolStripMenuItemList.Add(newlinkToolStripMenuItem);
+            toolStripMenuItemList.Add(newToolStripMenuItem);
+            toolStripMenuItemList.Add(openToolStripMenuItem);
+            toolStripMenuItemList.Add(reloadAllToolStripMenuItem);
+            toolStripMenuItemList.Add(removeAllDevicesToolStripMenuItem);
+            toolStripMenuItemList.Add(removeAllLinkedDevicesToolStripMenuItem);
+            toolStripMenuItemList.Add(removeAllUnlinkedDevicesToolStripMenuItem);
+            toolStripMenuItemList.Add(removeDeviceToolStripMenuItem);
+            toolStripMenuItemList.Add(removeWaveOutToolStripMenuItem);
+            toolStripMenuItemList.Add(repeaterToolStripMenuItem);
+            toolStripMenuItemList.Add(restartAllToolStripMenuItem);
+            toolStripMenuItemList.Add(restartToolStripMenuItem);
+            toolStripMenuItemList.Add(saveACopyAsToolStripMenuItem);
+            toolStripMenuItemList.Add(saveAsToolStripMenuItem);
+            toolStripMenuItemList.Add(saveToolStripMenuItem);
+            toolStripMenuItemList.Add(startAllToolStripMenuItem);
+            toolStripMenuItemList.Add(startToolStripMenuItem);
+            toolStripMenuItemList.Add(stopAllToolStripMenuItem);
+            toolStripMenuItemList.Add(stopToolStripMenuItem);
+            toolStripMenuItemList.Add(toggleDarkModeToolStripMenuItem);
+            toolStripMenuItemList.Add(enableWaveInToolStripMenuItem);
+            toolStripMenuItemList.Add(enableWaveOutToolStripMenuItem);
+            toolStripMenuItemList.Add(unlinkAllToolStripMenuItem);
+            toolStripMenuItemList.Add(unlinkToolStripMenuItem);
+            toolStripMenuItemList.Add(unlinkWaveInToolStripMenuItem);
+            toolStripMenuItemList.Add(unlinkWaveOutToolStripMenuItem);
+            toolStripMenuItemList.Add(viewToolStripMenuItem);
+            toolStripMenuItemList.Add(removeWaveInToolStripMenuItem);
         }
 
         /// <summary>
@@ -890,7 +888,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SaveInitialRenderer()
         {
-            this.initialMenuStrip1Renderer = this.menuStrip1.Renderer;
+            initialMenuStrip1Renderer = menuStrip1.Renderer;
         }
 
         /// <summary>
@@ -900,11 +898,11 @@ namespace VACARM.NET4.Views
         {
             ToggleDarkModeRenderer();
             FormColorUpdater.SetColorsOfConstructor(this);
-            FormColorUpdater.SetColorsOfControlCollection(this.Controls);
+            FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
             FormColorUpdater.SetColorsOfToolStripMenuItemList(toolStripMenuItemList);
-            this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
-            this.Invalidate();
+            toggleDarkModeToolStripMenuItem.Text = darkModeText;
+            Invalidate();
         }
 
         /// <summary>
@@ -912,7 +910,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetInitialChanges()
         {
-            this.Text = Common.ApplicationName;
+            Text = Common.ApplicationName;
             IsDarkModeEnabledDuringRunTime = Program.IsDarkModeEnabledBeforeRunTime;
         }
 
@@ -923,15 +921,15 @@ namespace VACARM.NET4.Views
         {
             if (IsDarkModeEnabledDuringRunTime)
             {
-                this.menuStrip1.RenderMode = ToolStripRenderMode.Professional;
-                this.menuStrip1.Renderer = new ToolStripProfessionalRenderer
+                menuStrip1.RenderMode = ToolStripRenderMode.Professional;
+                menuStrip1.Renderer = new ToolStripProfessionalRenderer
                     (new DarkColorTable());
-                //this.menuStrip1.Renderer = new ToolStripDarkRenderer();               //NOTE: breaks context menu colors.
+                //menuStrip1.Renderer = new ToolStripDarkRenderer();                    //NOTE: breaks context menu colors.
             }
             else
             {
-                this.menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-                this.menuStrip1.Renderer = this.initialMenuStrip1Renderer;
+                menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+                menuStrip1.Renderer = initialMenuStrip1Renderer;
             }
         }
 
