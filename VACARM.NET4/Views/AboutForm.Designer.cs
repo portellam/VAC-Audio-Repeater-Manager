@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
 {
     partial class AboutForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
         private Button okButton;
         private Label labelCompanyName;
         private Label labelCopyright;
         private Label labelProductName;
         private Label labelVersion;
-        private TextBox textBoxDescription;
+
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private TextBox textBoxDescription;
         private List<Control> controlList = new List<Control>();
 
         private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
