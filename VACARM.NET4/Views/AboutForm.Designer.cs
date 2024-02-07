@@ -240,7 +240,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetColorTheme()
         {
-            SetConstructorBackColor();
+            SetColorsOfConstructor();
             SetColorsOfControlCollection(this.Controls);
             SetColorsOfControlList();
             this.Invalidate();
@@ -255,8 +255,7 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Set the backcolor and forecolor of every control, 
-        /// given dark mode is enabled or not.
+        /// Set the colors of every control, given dark mode is enabled or not.
         /// </summary>
         /// <param name="controlCollection">The control collection</param>
         internal void SetColorsOfControlCollection
@@ -301,8 +300,7 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Set the backcolor and forecolor of every control in list, 
-        /// given dark mode is enabled or not.
+        /// Set the colors of every control in list, given dark mode is enabled or not.
         /// </summary>
         internal void SetColorsOfControlList()
         {
@@ -339,9 +337,9 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Set the backcolor of the constructor, given dark mode is enabled or not.
+        /// Set the colors of the constructor, given dark mode is enabled or not.
         /// </summary>
-        internal void SetConstructorBackColor()
+        internal void SetColorsOfConstructor()
         {
             if (Program.IsDarkModeEnabledDuringRunTime)
             {
