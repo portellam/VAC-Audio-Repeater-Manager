@@ -279,6 +279,8 @@ namespace VACARM.NET4.Views
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -351,6 +353,8 @@ namespace VACARM.NET4.Views
             this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
             this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.deviceToolStripMenuItem.Text = "Device";
+            this.deviceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
             this.deviceToolStripMenuItem.Click += new System.EventHandler
                 (this.DeviceToolStripMenuItem_Click);
             // 
@@ -530,6 +534,8 @@ namespace VACARM.NET4.Views
             this.defaultSamplingRateToolStripMenuItem});
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
             this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.linkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.L)));
             this.linkToolStripMenuItem.Text = "Link";
             this.linkToolStripMenuItem.Click += new System.EventHandler
                 (this.LinkToolStripMenuItem_Click);
@@ -666,6 +672,8 @@ namespace VACARM.NET4.Views
             this.stopAllToolStripMenuItem});
             this.repeaterToolStripMenuItem.Name = "repeaterToolStripMenuItem";
             this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            this.repeaterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.repeaterToolStripMenuItem.Text = "Repeater";
             // 
             // restartToolStripMenuItem
@@ -731,6 +739,8 @@ namespace VACARM.NET4.Views
             this.toggleDarkModeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.V)));
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toggleDarkModeToolStripMenuItem
@@ -750,6 +760,8 @@ namespace VACARM.NET4.Views
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
