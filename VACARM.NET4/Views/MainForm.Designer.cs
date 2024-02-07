@@ -287,12 +287,16 @@ namespace VACARM.NET4.Views
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += 
                 new System.EventHandler(this.OpenToolStripMenuItem_Click);
@@ -301,12 +305,17 @@ namespace VACARM.NET4.Views
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt 
+                | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
             // saveACopyAsToolStripMenuItem
@@ -319,6 +328,8 @@ namespace VACARM.NET4.Views
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
             this.closeToolStripMenuItem.Text = "Close";
             // 
             // fileToolStripSeparator1
@@ -330,6 +341,8 @@ namespace VACARM.NET4.Views
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += 
                 new System.EventHandler(this.ExitToolStripMenuItem_Click);
