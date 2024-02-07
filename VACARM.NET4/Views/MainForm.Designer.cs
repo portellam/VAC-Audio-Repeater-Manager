@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DarkUI.Forms;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
@@ -23,8 +24,6 @@ namespace VACARM.NET4.Views
                 OnPropertyChanged(nameof(IsDarkModeEnabledDuringRunTime));
             }
         }
-
-        
 
         private string darkModeText
         {
@@ -122,11 +121,6 @@ namespace VACARM.NET4.Views
         private TabPage dataPage;
         private TabPage graphPage;
         private ToolStripRenderer initialMenuStrip1Renderer;
-
-        private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
-        private readonly Color lightBackColor = Color.White;
-        private readonly Color darkTextColor = Color.White;
-        private readonly Color lightTextColor = Color.Black;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -228,7 +222,8 @@ namespace VACARM.NET4.Views
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.DropDownItems.AddRange
+                (new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
@@ -904,9 +899,10 @@ namespace VACARM.NET4.Views
         internal void SetColorTheme()
         {
             ToggleDarkModeRenderer();
-            SetConstructorBackColor();
-            SetBackAndForeColorOfEveryControl(this.Controls);
-            SetForeColorOfEveryMenuItem();
+            ControlColorUpdater.SetColorsOfConstructor(this);
+            ControlColorUpdater.SetColorsOfControlCollection(this.Controls);
+            ControlColorUpdater.SetColorsOfControlList(controlList);
+            ControlColorUpdater.SetColorsOfToolStripMenuItemList(toolStripMenuItemList);
             this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
             this.Invalidate();
         }
@@ -937,84 +933,6 @@ namespace VACARM.NET4.Views
                 this.menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
                 this.menuStrip1.Renderer = this.initialMenuStrip1Renderer;
             }
-        }
-
-        /// <summary>
-        /// Set the backcolor and forecolor of every control, 
-        /// given dark mode is enabled or not.
-        /// </summary>
-        /// <param name="controlCollection">The control collection</param>
-        internal void SetBackAndForeColorOfEveryControl
-            (Control.ControlCollection controlCollection)
-        {
-            Color backColor, foreColor;
-
-            if (IsDarkModeEnabledDuringRunTime)
-            {
-                backColor = darkBackColor;
-                foreColor = lightBackColor;
-            }
-            else
-            {
-                backColor = lightBackColor;
-                foreColor = darkBackColor;
-            }
-
-            foreach (var control in controlCollection)
-            {
-                if (control is Control.ControlCollection)
-                {
-                    SetBackAndForeColorOfEveryControl
-                        (control as Control.ControlCollection);
-                }
-
-                (control as Control).BackColor = backColor;
-                (control as Control).ForeColor = foreColor;
-            }
-
-            controlList.ForEach(control =>
-            {
-                control.BackColor = backColor;
-                control.ForeColor = foreColor;
-            });
-        }
-
-        /// <summary>
-        /// Set the backcolor of the constructor, given dark mode is enabled or not.
-        /// </summary>
-        internal void SetConstructorBackColor()
-        {
-            if (IsDarkModeEnabledDuringRunTime)
-            {
-                this.BackColor = darkBackColor;
-            }
-            else
-            {
-                this.BackColor = lightBackColor;
-            }
-        }
-
-        /// <summary>
-        /// Set the forecolor (text color) of every menu item, 
-        /// given dark mode is enabled or not.
-        /// </summary>
-        internal void SetForeColorOfEveryMenuItem()
-        {
-            Color foreColor;
-
-            if (IsDarkModeEnabledDuringRunTime)
-            {
-                foreColor = darkTextColor;
-            }
-            else
-            {
-                foreColor = lightTextColor;
-            }
-
-            toolStripMenuItemList.ForEach(toolStripMenuItem =>
-            {
-                toolStripMenuItem.ForeColor = foreColor;
-            });
         }
 
         /// <summary>
