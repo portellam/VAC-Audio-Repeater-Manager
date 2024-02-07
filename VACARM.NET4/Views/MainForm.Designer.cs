@@ -899,10 +899,10 @@ namespace VACARM.NET4.Views
         internal void SetColorTheme()
         {
             ToggleDarkModeRenderer();
-            ControlColorUpdater.SetColorsOfConstructor(this);
-            ControlColorUpdater.SetColorsOfControlCollection(this.Controls);
-            ControlColorUpdater.SetColorsOfControlList(controlList);
-            ControlColorUpdater.SetColorsOfToolStripMenuItemList(toolStripMenuItemList);
+            FormColorUpdater.SetColorsOfConstructor(this);
+            FormColorUpdater.SetColorsOfControlCollection(this.Controls);
+            FormColorUpdater.SetColorsOfControlList(controlList);
+            FormColorUpdater.SetColorsOfToolStripMenuItemList(toolStripMenuItemList);
             this.toggleDarkModeToolStripMenuItem.Text = darkModeText;
             this.Invalidate();
         }

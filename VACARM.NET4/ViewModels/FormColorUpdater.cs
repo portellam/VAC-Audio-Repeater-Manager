@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace VACARM.NET4.ViewModels
 {
-    public class ControlColorUpdater
+    public class FormColorUpdater
     {
         private readonly static Color darkBackColor = Color.FromArgb(60, 63, 65);
         private readonly static Color lightBackColor = Color.White;

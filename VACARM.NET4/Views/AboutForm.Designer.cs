@@ -236,9 +236,9 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetColorTheme()
         {
-            ControlColorUpdater.SetColorsOfConstructor(this);
-            ControlColorUpdater.SetColorsOfControlCollection(this.Controls);
-            ControlColorUpdater.SetColorsOfControlList(controlList);
+            FormColorUpdater.SetColorsOfConstructor(this);
+            FormColorUpdater.SetColorsOfControlCollection(this.Controls);
+            FormColorUpdater.SetColorsOfControlList(controlList);
             this.Invalidate();
         }
 
