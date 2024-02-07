@@ -6,15 +6,15 @@ namespace VACARM.NET4.ViewModels
 {
     public class ControlColorUpdater
     {
-        private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
-        private readonly Color lightBackColor = Color.White;
-        private readonly Color darkTextColor = Color.White;
-        private readonly Color lightTextColor = Color.Black;
+        private readonly static Color darkBackColor = Color.FromArgb(60, 63, 65);
+        private readonly static Color lightBackColor = Color.White;
+        private readonly static Color darkTextColor = Color.White;
+        private readonly static Color lightTextColor = Color.Black;
 
         /// <summary>
         /// Set the colors of the constructor, given dark mode is enabled or not.
         /// </summary>
-        internal void SetColorsOfConstructor(object parentObject)
+        public static void SetColorsOfConstructor(object parentObject)
         {
             if (!(parentObject is Form))
             {
@@ -37,7 +37,7 @@ namespace VACARM.NET4.ViewModels
         /// Set the colors of every control, given dark mode is enabled or not.
         /// </summary>
         /// <param name="controlCollection">The control collection</param>
-        internal void SetColorsOfControlCollection
+        public static void SetColorsOfControlCollection
             (Control.ControlCollection controlCollection)
         {
             if (controlCollection.Count == 0)
@@ -81,7 +81,7 @@ namespace VACARM.NET4.ViewModels
         /// <summary>
         /// Set the colors of every control in list, given dark mode is enabled or not.
         /// </summary>
-        internal void SetColorsOfControlList(List<Control> controlList)
+        public static void SetColorsOfControlList(List<Control> controlList)
         {
             if (controlList.Count == 0)
             {
