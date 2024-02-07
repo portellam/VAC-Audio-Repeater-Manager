@@ -9,7 +9,6 @@ namespace VACARM.NET4
     {
         # region Application name logic
 
-        public readonly static string ApplicationName = "VAC Audio Repeater Manager";
         public readonly static string ApplicationNameAsAbbreviation = "VACARM";
         public readonly static string FileExtension = "." +
             ApplicationNameAsAbbreviation.ToLower();

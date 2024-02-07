@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VACARM.NET4.ViewModels;
 using MessageBox = System.Windows.MessageBox;
 
 namespace VACARM.NET4.Extensions
@@ -21,8 +22,8 @@ namespace VACARM.NET4.Extensions
         public static bool ShowYesNoAndReturnTrueFalse
             (string messageBoxText)
         {
-            return MessageBox.Show
-                (messageBoxText, Common.ApplicationName, MessageBoxButton.YesNo)
+            return MessageBox.Show(messageBoxText, 
+                AssemblyInformationAccessor.AssemblyProduct, MessageBoxButton.YesNo)
                 is MessageBoxResult.Yes;
         }
 
@@ -48,7 +49,7 @@ namespace VACARM.NET4.Extensions
         /// <param name="messageBoxText">the message box text</param>
         public static void Show(string messageBoxText)
         {
-            Show(messageBoxText, Common.ApplicationName); ;
+            Show(messageBoxText, AssemblyInformationAccessor.AssemblyProduct);
         }
 
         /// <summary>

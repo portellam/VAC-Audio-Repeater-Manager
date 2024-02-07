@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Structs\ChannelConfig.cs" />
     <Compile Include="Structs\Channel.cs" />
+    <Compile Include="ViewModels\AssemblyInformationAccessor.cs" />
     <Compile Include="ViewModels\FormColorUpdater.cs" />
     <Compile Include="ViewModels\DarkColorTable.cs" />
     <Compile Include="ViewModels\ToolStripDarkRenderer.cs" />

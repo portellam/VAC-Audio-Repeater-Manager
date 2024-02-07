@@ -957,7 +957,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetInitialChanges()
         {
-            Text = Common.ApplicationName;
+            Text = AssemblyInformationAccessor.AssemblyProduct;
             IsDarkModeEnabledDuringRunTime = Program.IsDarkModeEnabledBeforeRunTime;
         }
 
