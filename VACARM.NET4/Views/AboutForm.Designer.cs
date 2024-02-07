@@ -213,7 +213,6 @@ namespace VACARM.NET4.Views
         {
             SetAssemblyInformation();
             AddControlsToList();
-            SetInitialChanges();
             SetColorTheme();
         }
 
@@ -222,12 +221,14 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetAssemblyInformation()
         {
-            labelCompanyName.Text = AssemblyCompany;
-            labelCopyright.Text = AssemblyCopyright;
-            labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            Text = String.Format("About {0}", AssemblyTitle);
-            textBoxDescription.Text = AssemblyDescription;
+            labelCompanyName.Text = AssemblyInformationAccessor.AssemblyCompany;
+            labelCopyright.Text = AssemblyInformationAccessor.AssemblyCopyright;
+            labelProductName.Text = AssemblyInformationAccessor.AssemblyProduct;
+            labelVersion.Text = String.Format
+                ("Version {0}", AssemblyInformationAccessor.AssemblyVersion);
+            Text = String.Format
+                ("About {0}", AssemblyInformationAccessor.AssemblyTitle);
+            textBoxDescription.Text = AssemblyInformationAccessor.AssemblyDescription;
         }
 
         /// <summary>
@@ -239,14 +240,6 @@ namespace VACARM.NET4.Views
             FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
             Invalidate();
-        }
-
-        /// <summary>
-        /// Set initial changes to form.
-        /// </summary>
-        internal void SetInitialChanges()
-        {
-            Text = AssemblyProduct;
         }
 
         /// <summary>
