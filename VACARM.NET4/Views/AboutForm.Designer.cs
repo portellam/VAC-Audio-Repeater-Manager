@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
 {
@@ -21,11 +22,6 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private TextBox textBoxDescription;
         private List<Control> controlList = new List<Control>();
-
-        private readonly Color darkBackColor = Color.FromArgb(60, 63, 65);
-        private readonly Color lightBackColor = Color.White;
-        private readonly Color darkTextColor = Color.White;
-        private readonly Color lightTextColor = Color.Black;
 
         #region Windows Form Designer generated code
 
@@ -240,9 +236,9 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetColorTheme()
         {
-            SetColorsOfConstructor();
-            SetColorsOfControlCollection(this.Controls);
-            SetColorsOfControlList();
+            ControlColorUpdater.SetColorsOfConstructor(this);
+            ControlColorUpdater.SetColorsOfControlCollection(this.Controls);
+            ControlColorUpdater.SetColorsOfControlList(controlList);
             this.Invalidate();
         }
 
@@ -252,105 +248,6 @@ namespace VACARM.NET4.Views
         internal void SetInitialChanges()
         {
             this.Text = AssemblyProduct;
-        }
-
-        /// <summary>
-        /// Set the colors of every control, given dark mode is enabled or not.
-        /// </summary>
-        /// <param name="controlCollection">The control collection</param>
-        internal void SetColorsOfControlCollection
-            (Control.ControlCollection controlCollection)
-        {
-            if (controlCollection.Count == 0)
-            {
-                return;
-            }
-
-            Color backColor, foreColor;
-
-            if (Program.IsDarkModeEnabledDuringRunTime)
-            {
-                backColor = darkBackColor;
-                foreColor = lightBackColor;
-            }
-            else
-            {
-                backColor = lightBackColor;
-                foreColor = darkBackColor;
-            }
-
-            foreach (var control in controlCollection)
-            {
-                (control as Control).BackColor = backColor;
-                (control as Control).ForeColor = foreColor;
-
-                if (control is Control.ControlCollection)
-                {
-                    SetColorsOfControlCollection
-                        (control as Control.ControlCollection);
-                }
-
-                if ((control as Control).Controls.Count == 0)
-                {
-                    continue;
-                }
-
-                SetColorsOfControlCollection((control as Control).Controls);
-            }
-        }
-
-        /// <summary>
-        /// Set the colors of every control in list, given dark mode is enabled or not.
-        /// </summary>
-        internal void SetColorsOfControlList()
-        {
-            if (controlList.Count == 0)
-            {
-                return;
-            }
-
-            Color backColor, foreColor;
-
-            if (Program.IsDarkModeEnabledDuringRunTime)
-            {
-                backColor = darkBackColor;
-                foreColor = lightBackColor;
-            }
-            else
-            {
-                backColor = lightBackColor;
-                foreColor = darkBackColor;
-            }
-
-            foreach(Control control in controlList)
-            {
-                control.BackColor = backColor;
-                control.ForeColor = foreColor;
-
-                if (control.Controls.Count == 0)
-                {
-                    continue;
-                }
-
-                SetColorsOfControlCollection(control.Controls);
-            };
-        }
-
-        /// <summary>
-        /// Set the colors of the constructor, given dark mode is enabled or not.
-        /// </summary>
-        internal void SetColorsOfConstructor()
-        {
-            if (Program.IsDarkModeEnabledDuringRunTime)
-            {
-                this.BackColor = darkBackColor;
-                this.ForeColor = darkTextColor;
-            }
-            else
-            {
-                this.BackColor = lightBackColor;
-                this.ForeColor = lightTextColor;
-            }
         }
 
         /// <summary>
