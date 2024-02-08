@@ -12,7 +12,7 @@ namespace VACARM.NET4.Views
         {
             get
             {
-                Program.IsDarkModeEnabledDuringRunTime = 
+                Program.IsDarkModeEnabledDuringRunTime =
                     toggleDarkModeToolStripMenuItem.Checked;
                 return toggleDarkModeToolStripMenuItem.Checked;
             }
@@ -303,7 +303,7 @@ namespace VACARM.NET4.Views
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                (((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+                (((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.saveAsToolStripMenuItem.Text = "Save As...";
@@ -794,7 +794,7 @@ namespace VACARM.NET4.Views
             this.tabControl1.Tabs.Add(this.graphTab);
             this.tabControl1.TabSize = new System.Drawing.Size(75, 25);
             this.tabControl1.TabSizing = Manina.Windows.Forms.TabSizing.Fixed;
-            this.tabControl1.PageChanged += 
+            this.tabControl1.PageChanged +=
                 new System.EventHandler<Manina.Windows.Forms.PageChangedEventArgs>
                 (this.tabControl1_PageChanged);
             // 
