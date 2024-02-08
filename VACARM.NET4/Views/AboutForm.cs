@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace VACARM.NET4.Views
@@ -9,6 +8,8 @@ namespace VACARM.NET4.Views
     /// </summary>
     partial class AboutForm : Form
     {
+        #region Functions
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -27,5 +28,7 @@ namespace VACARM.NET4.Views
         {
             this.Close();
         }
+
+        #endregion
     }
 }
