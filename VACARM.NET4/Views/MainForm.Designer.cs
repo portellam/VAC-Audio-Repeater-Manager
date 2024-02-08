@@ -137,101 +137,58 @@ namespace VACARM.NET4.Views
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveACopyAsToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
+            this.saveACopyAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripSeparator1 =
-                new System.Windows.Forms.ToolStripSeparator();
+            this.fileToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadAllToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceToolStripSeparator1 =
-                new System.Windows.Forms.ToolStripSeparator();
-            this.disableToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.disableWaveInToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.disableWaveOutToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.disableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableWaveInToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.enableWaveOutToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceToolStripSeparator2 =
-                new System.Windows.Forms.ToolStripSeparator();
-            this.addDeviceToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.addWaveInDeviceToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.addWaveOutDeviceToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.addAllDevicesToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceToolStripSeparator3 =
-                new System.Windows.Forms.ToolStripSeparator();
-            this.removeDeviceToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.removeWaveInToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.removeWaveOutToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAllDevicesToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAllLinkedDevicesToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAllUnlinkedDevicesToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
+            this.enableWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.addDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addWaveInDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addWaveOutDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAllDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.removeDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllLinkedDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllUnlinkedDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newlinkToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.linkWaveInToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.linkWaveOutToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.linkToolStripSeparator1 =
-                new System.Windows.Forms.ToolStripSeparator();
+            this.newlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.unlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unlinkWaveInToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.unlinkWaveOutToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.unlinkAllToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.linkToolStripSeparator2 =
-                new System.Windows.Forms.ToolStripSeparator();
-            this.defaultBitRateToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultBufferToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultChannelsToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultPrefillToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultResyncAtToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultSamplingRateToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.repeaterToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.restartToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.restartAllToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.repeaterToolStripSeparator1 =
-                new System.Windows.Forms.ToolStripSeparator();
+            this.unlinkWaveInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkWaveOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlinkAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.defaultBitRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultBufferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultPrefillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultResyncAtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultSamplingRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.repeaterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.repeaterToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startAllToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
-            this.repeaterToolStripSeparator2 =
-                new System.Windows.Forms.ToolStripSeparator();
+            this.startAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.repeaterToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopAllToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
+            this.stopAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toggleDarkModeToolStripMenuItem =
-                new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleDarkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new Manina.Windows.Forms.TabControl();
@@ -260,8 +217,7 @@ namespace VACARM.NET4.Views
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
@@ -271,24 +227,21 @@ namespace VACARM.NET4.Views
             this.fileToolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
@@ -296,16 +249,14 @@ namespace VACARM.NET4.Views
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                (((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.saveAsToolStripMenuItem.Text = "Save As...";
@@ -319,8 +270,7 @@ namespace VACARM.NET4.Views
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.closeToolStripMenuItem.Text = "Close";
             // 
@@ -332,17 +282,14 @@ namespace VACARM.NET4.Views
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click +=
-                new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // deviceToolStripMenuItem
             // 
-            this.deviceToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.deviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reloadAllToolStripMenuItem,
             this.deviceToolStripSeparator1,
             this.disableToolStripMenuItem,
@@ -356,12 +303,10 @@ namespace VACARM.NET4.Views
             this.removeAllLinkedDevicesToolStripMenuItem,
             this.removeAllUnlinkedDevicesToolStripMenuItem});
             this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
-            this.deviceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
-            this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 26);
+            this.deviceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
+            this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.deviceToolStripMenuItem.Text = "Device";
-            this.deviceToolStripMenuItem.Click += new System.EventHandler
-                (this.DeviceToolStripMenuItem_Click);
+            this.deviceToolStripMenuItem.Click += new System.EventHandler(this.DeviceToolStripMenuItem_Click);
             // 
             // reloadAllToolStripMenuItem
             // 
@@ -377,8 +322,7 @@ namespace VACARM.NET4.Views
             // 
             // disableToolStripMenuItem
             // 
-            this.disableToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.disableToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.disableWaveInToolStripMenuItem,
             this.disableWaveOutToolStripMenuItem});
             this.disableToolStripMenuItem.Name = "disableToolStripMenuItem";
@@ -394,17 +338,14 @@ namespace VACARM.NET4.Views
             // 
             // disableWaveOutToolStripMenuItem
             // 
-            this.disableWaveOutToolStripMenuItem.Name =
-                "disableWaveOutToolStripMenuItem";
-            this.disableWaveOutToolStripMenuItem.Size =
-                new System.Drawing.Size(156, 26);
+            this.disableWaveOutToolStripMenuItem.Name = "disableWaveOutToolStripMenuItem";
+            this.disableWaveOutToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.disableWaveOutToolStripMenuItem.Tag = "";
             this.disableWaveOutToolStripMenuItem.Text = "Wave Out";
             // 
             // enableToolStripMenuItem
             // 
-            this.enableToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.enableToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enableWaveInToolStripMenuItem,
             this.enableWaveOutToolStripMenuItem});
             this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
@@ -433,8 +374,7 @@ namespace VACARM.NET4.Views
             // 
             // addDeviceToolStripMenuItem
             // 
-            this.addDeviceToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.addDeviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addWaveInDeviceToolStripMenuItem,
             this.addWaveOutDeviceToolStripMenuItem});
             this.addDeviceToolStripMenuItem.Name = "addDeviceToolStripMenuItem";
@@ -443,19 +383,15 @@ namespace VACARM.NET4.Views
             // 
             // addWaveInDeviceToolStripMenuItem
             // 
-            this.addWaveInDeviceToolStripMenuItem.Name =
-                "addWaveInDeviceToolStripMenuItem";
-            this.addWaveInDeviceToolStripMenuItem.Size =
-                new System.Drawing.Size(156, 26);
+            this.addWaveInDeviceToolStripMenuItem.Name = "addWaveInDeviceToolStripMenuItem";
+            this.addWaveInDeviceToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.addWaveInDeviceToolStripMenuItem.Tag = "";
             this.addWaveInDeviceToolStripMenuItem.Text = "Wave In";
             // 
             // addWaveOutDeviceToolStripMenuItem
             // 
-            this.addWaveOutDeviceToolStripMenuItem.Name =
-                "addWaveOutDeviceToolStripMenuItem";
-            this.addWaveOutDeviceToolStripMenuItem.Size =
-                new System.Drawing.Size(156, 26);
+            this.addWaveOutDeviceToolStripMenuItem.Name = "addWaveOutDeviceToolStripMenuItem";
+            this.addWaveOutDeviceToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.addWaveOutDeviceToolStripMenuItem.Tag = "";
             this.addWaveOutDeviceToolStripMenuItem.Text = "Wave Out";
             // 
@@ -473,8 +409,7 @@ namespace VACARM.NET4.Views
             // 
             // removeDeviceToolStripMenuItem
             // 
-            this.removeDeviceToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.removeDeviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeWaveInToolStripMenuItem,
             this.removeWaveOutToolStripMenuItem});
             this.removeDeviceToolStripMenuItem.Name = "removeDeviceToolStripMenuItem";
@@ -497,35 +432,28 @@ namespace VACARM.NET4.Views
             // 
             // removeAllDevicesToolStripMenuItem
             // 
-            this.removeAllDevicesToolStripMenuItem.Name =
-                "removeAllDevicesToolStripMenuItem";
-            this.removeAllDevicesToolStripMenuItem.Size =
-                new System.Drawing.Size(230, 26);
+            this.removeAllDevicesToolStripMenuItem.Name = "removeAllDevicesToolStripMenuItem";
+            this.removeAllDevicesToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
             this.removeAllDevicesToolStripMenuItem.Tag = "";
             this.removeAllDevicesToolStripMenuItem.Text = "Remove All";
             // 
             // removeAllLinkedDevicesToolStripMenuItem
             // 
-            this.removeAllLinkedDevicesToolStripMenuItem.Name =
-                "removeAllLinkedDevicesToolStripMenuItem";
-            this.removeAllLinkedDevicesToolStripMenuItem.Size =
-                new System.Drawing.Size(230, 26);
+            this.removeAllLinkedDevicesToolStripMenuItem.Name = "removeAllLinkedDevicesToolStripMenuItem";
+            this.removeAllLinkedDevicesToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
             this.removeAllLinkedDevicesToolStripMenuItem.Tag = "";
             this.removeAllLinkedDevicesToolStripMenuItem.Text = "Remove All Linked";
             // 
             // removeAllUnlinkedDevicesToolStripMenuItem
             // 
-            this.removeAllUnlinkedDevicesToolStripMenuItem.Name =
-                "removeAllUnlinkedDevicesToolStripMenuItem";
-            this.removeAllUnlinkedDevicesToolStripMenuItem.Size =
-                new System.Drawing.Size(230, 26);
+            this.removeAllUnlinkedDevicesToolStripMenuItem.Name = "removeAllUnlinkedDevicesToolStripMenuItem";
+            this.removeAllUnlinkedDevicesToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
             this.removeAllUnlinkedDevicesToolStripMenuItem.Tag = "";
             this.removeAllUnlinkedDevicesToolStripMenuItem.Text = "Remove All Unlinked";
             // 
             // linkToolStripMenuItem
             // 
-            this.linkToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.linkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newlinkToolStripMenuItem,
             this.linkToolStripSeparator1,
             this.unlinkToolStripMenuItem,
@@ -538,17 +466,14 @@ namespace VACARM.NET4.Views
             this.defaultResyncAtToolStripMenuItem,
             this.defaultSamplingRateToolStripMenuItem});
             this.linkToolStripMenuItem.Name = "linkToolStripMenuItem";
-            this.linkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.L)));
-            this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.linkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.L)));
+            this.linkToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.linkToolStripMenuItem.Text = "Link";
-            this.linkToolStripMenuItem.Click += new System.EventHandler
-                (this.LinkToolStripMenuItem_Click);
+            this.linkToolStripMenuItem.Click += new System.EventHandler(this.LinkToolStripMenuItem_Click);
             // 
             // newlinkToolStripMenuItem
             // 
-            this.newlinkToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.newlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.linkWaveInToolStripMenuItem,
             this.linkWaveOutToolStripMenuItem});
             this.newlinkToolStripMenuItem.Name = "newlinkToolStripMenuItem";
@@ -576,8 +501,7 @@ namespace VACARM.NET4.Views
             // 
             // unlinkToolStripMenuItem
             // 
-            this.unlinkToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.unlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.unlinkWaveInToolStripMenuItem,
             this.unlinkWaveOutToolStripMenuItem});
             this.unlinkToolStripMenuItem.Name = "unlinkToolStripMenuItem";
@@ -612,10 +536,8 @@ namespace VACARM.NET4.Views
             // 
             // defaultBitRateToolStripMenuItem
             // 
-            this.defaultBitRateToolStripMenuItem.Name =
-                "defaultBitRateToolStripMenuItem";
-            this.defaultBitRateToolStripMenuItem.Size =
-                new System.Drawing.Size(285, 26);
+            this.defaultBitRateToolStripMenuItem.Name = "defaultBitRateToolStripMenuItem";
+            this.defaultBitRateToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
             this.defaultBitRateToolStripMenuItem.Tag = "";
             this.defaultBitRateToolStripMenuItem.Text = "Default Bit Rate (Bit/Sample)";
             // 
@@ -628,45 +550,35 @@ namespace VACARM.NET4.Views
             // 
             // defaultChannelsToolStripMenuItem
             // 
-            this.defaultChannelsToolStripMenuItem.Name =
-                "defaultChannelsToolStripMenuItem";
-            this.defaultChannelsToolStripMenuItem.Size =
-                new System.Drawing.Size(285, 26);
+            this.defaultChannelsToolStripMenuItem.Name = "defaultChannelsToolStripMenuItem";
+            this.defaultChannelsToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
             this.defaultChannelsToolStripMenuItem.Tag = "";
             this.defaultChannelsToolStripMenuItem.Text = "Default Channels";
             // 
             // defaultPrefillToolStripMenuItem
             // 
-            this.defaultPrefillToolStripMenuItem.Name =
-                "defaultPrefillToolStripMenuItem";
-            this.defaultPrefillToolStripMenuItem.Size =
-                new System.Drawing.Size(285, 26);
+            this.defaultPrefillToolStripMenuItem.Name = "defaultPrefillToolStripMenuItem";
+            this.defaultPrefillToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
             this.defaultPrefillToolStripMenuItem.Tag = "";
             this.defaultPrefillToolStripMenuItem.Text = "Default Prefill (%)";
             // 
             // defaultResyncAtToolStripMenuItem
             // 
-            this.defaultResyncAtToolStripMenuItem.Name =
-                "defaultResyncAtToolStripMenuItem";
-            this.defaultResyncAtToolStripMenuItem.Size =
-                new System.Drawing.Size(285, 26);
+            this.defaultResyncAtToolStripMenuItem.Name = "defaultResyncAtToolStripMenuItem";
+            this.defaultResyncAtToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
             this.defaultResyncAtToolStripMenuItem.Tag = "";
             this.defaultResyncAtToolStripMenuItem.Text = "Default Resync At (%)";
             // 
             // defaultSamplingRateToolStripMenuItem
             // 
-            this.defaultSamplingRateToolStripMenuItem.Name =
-                "defaultSamplingRateToolStripMenuItem";
-            this.defaultSamplingRateToolStripMenuItem.Size =
-                new System.Drawing.Size(285, 26);
+            this.defaultSamplingRateToolStripMenuItem.Name = "defaultSamplingRateToolStripMenuItem";
+            this.defaultSamplingRateToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
             this.defaultSamplingRateToolStripMenuItem.Tag = "";
-            this.defaultSamplingRateToolStripMenuItem.Text =
-                "Default Sampling Rate (Hz)";
+            this.defaultSamplingRateToolStripMenuItem.Text = "Default Sampling Rate (Hz)";
             // 
             // repeaterToolStripMenuItem
             // 
-            this.repeaterToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.repeaterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.restartToolStripMenuItem,
             this.restartAllToolStripMenuItem,
             this.repeaterToolStripSeparator1,
@@ -676,9 +588,8 @@ namespace VACARM.NET4.Views
             this.stopToolStripMenuItem,
             this.stopAllToolStripMenuItem});
             this.repeaterToolStripMenuItem.Name = "repeaterToolStripMenuItem";
-            this.repeaterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
-            this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
+            this.repeaterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
+            this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.repeaterToolStripMenuItem.Text = "Repeater";
             // 
             // restartToolStripMenuItem
@@ -739,34 +650,27 @@ namespace VACARM.NET4.Views
             // 
             // viewToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toggleDarkModeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.V)));
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.V)));
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toggleDarkModeToolStripMenuItem
             // 
             this.toggleDarkModeToolStripMenuItem.CheckOnClick = true;
-            this.toggleDarkModeToolStripMenuItem.Name =
-                "toggleDarkModeToolStripMenuItem";
-            this.toggleDarkModeToolStripMenuItem.Size =
-                new System.Drawing.Size(83, 26);
-            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler
-                (this.ToggleDarkModeToolStripMenuItem_Click);
+            this.toggleDarkModeToolStripMenuItem.Name = "toggleDarkModeToolStripMenuItem";
+            this.toggleDarkModeToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
+            this.toggleDarkModeToolStripMenuItem.Click += new System.EventHandler(this.ToggleDarkModeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange
-                (new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-                ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.helpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
@@ -774,8 +678,7 @@ namespace VACARM.NET4.Views
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler
-                (this.AboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -796,9 +699,7 @@ namespace VACARM.NET4.Views
             this.tabControl1.Tabs.Add(this.graphTab);
             this.tabControl1.TabSize = new System.Drawing.Size(75, 25);
             this.tabControl1.TabSizing = Manina.Windows.Forms.TabSizing.Fixed;
-            this.tabControl1.PageChanged +=
-                new System.EventHandler<Manina.Windows.Forms.PageChangedEventArgs>
-                (this.tabControl1_PageChanged);
+            this.tabControl1.PageChanged += new System.EventHandler<Manina.Windows.Forms.PageChangedEventArgs>(this.tabControl1_PageChanged);
             // 
             // gridTab
             // 
