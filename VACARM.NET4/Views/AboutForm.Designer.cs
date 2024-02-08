@@ -196,7 +196,7 @@ namespace VACARM.NET4.Views
 
         #endregion
 
-        #region Functions
+        #region Logic
 
         /// <summary>
         /// Add all controls to list.

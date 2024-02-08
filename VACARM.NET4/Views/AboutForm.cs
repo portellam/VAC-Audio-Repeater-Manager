@@ -8,7 +8,7 @@ namespace VACARM.NET4.Views
     /// </summary>
     partial class AboutForm : Form
     {
-        #region Functions
+        #region Logic
 
         /// <summary>
         /// Constructor

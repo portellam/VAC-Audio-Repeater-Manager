@@ -45,7 +45,7 @@ namespace VACARM.NET4
 
         #endregion
 
-        #region Functions
+        #region Logic
 
         /// <summary>
         /// The main code block, to be executed at run time.

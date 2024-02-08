@@ -24,7 +24,7 @@ namespace VACARM.NET4.Models
 
         #endregion
 
-        #region Functions
+        #region Logic
 
         /// <summary>
         /// Constructor

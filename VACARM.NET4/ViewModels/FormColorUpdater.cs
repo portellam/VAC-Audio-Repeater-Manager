@@ -45,7 +45,7 @@ namespace VACARM.NET4.ViewModels
 
         #endregion
 
-        #region Functions
+        #region Logic
 
         /// <summary>
         /// Set the colors of the constructor, given dark mode is enabled or not.
