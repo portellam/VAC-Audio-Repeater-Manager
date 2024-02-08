@@ -9,16 +9,20 @@ namespace VACARM.NET4.Models
     public class DeviceList
     {
         #region Parameters
+        private MMDeviceEnumerator mMDeviceEnumerator;
 
         public List<MMDevice> AvailableWaveInMMDeviceList { get; private set; }
         public List<MMDevice> AvailableWaveOutMMDeviceList { get; private set; }
-
         public List<MMDevice> DisabledWaveInMMDeviceList { get; private set; }
         public List<MMDevice> DisabledWaveOutMMDeviceList { get; private set; }
+        public List<MMDevice> SelectedWaveInMMDeviceList { get; private set; }
+        public List<MMDevice> SelectedWaveOutMMDeviceList { get; private set; }
         public List<string> AvailableWaveInNameList { get; private set; }
         public List<string> AvailableWaveOutNameList { get; private set; }
         public List<string> DisabledWaveInNameList { get; private set; }
         public List<string> DisabledWaveOutNameList { get; private set; }
+        public List<string> SelectedWaveInNameList { get; private set; }
+        public List<string> SelectedWaveOutNameList { get; private set; }
 
         private DeviceState available = DeviceState.Active | DeviceState.Unplugged;
 
@@ -32,7 +36,7 @@ namespace VACARM.NET4.Models
         [ExcludeFromCodeCoverage]
         public DeviceList()
         {
-            MMDeviceEnumerator mMDeviceEnumerator = new MMDeviceEnumerator();
+            mMDeviceEnumerator = new MMDeviceEnumerator();
 
             AvailableWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
                 (DataFlow.Capture, available).ToList();
@@ -57,7 +61,204 @@ namespace VACARM.NET4.Models
 
             DisabledWaveOutNameList = AvailableWaveOutMMDeviceList.Select
                 (x => x.FriendlyName).ToList();
+
+            SelectedWaveInMMDeviceList = new List<MMDevice>();
+            SelectedWaveInNameList = new List<string>();
+            SelectedWaveOutMMDeviceList = new List<MMDevice>();
+            SelectedWaveOutNameList = new List<string>();
         }
+
+
+        /// <summary>
+        /// If device state changes, move between lists.
+        /// If device is null or device state is not present, remove from list.
+        /// </summary>
+        internal void UpdateWaveInListsGivenNewDeviceState()
+        {
+            AvailableWaveInMMDeviceList.ForEach(mMDevice =>
+            {
+                MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
+
+                if (newMMDevice.State == DeviceState.Disabled)
+                {
+                    DisabledWaveInMMDeviceList.Remove(mMDevice);
+                }
+                else if
+                    (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
+                {
+                    AvailableWaveInMMDeviceList.Remove(mMDevice);
+                }
+                else
+                {
+                    mMDevice = newMMDevice;
+                }
+            });
+
+            DisabledWaveInMMDeviceList.ForEach(mMDevice =>
+            {
+                MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
+
+                if (newMMDevice.State == available)
+                {
+                    AvailableWaveInMMDeviceList.Remove(mMDevice);
+                }
+                else if
+                    (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
+                {
+                    DisabledWaveInMMDeviceList.Remove(mMDevice);
+                }
+                else
+                {
+                    mMDevice = newMMDevice;
+                }
+            });
+        }
+
+        /// <summary>
+        /// If device state changes, move between lists.
+        /// If device is null or device state is not present, remove from list.
+        /// </summary>
+        internal void UpdateWaveOutListsGivenNewDeviceState()
+        {
+            AvailableWaveOutMMDeviceList.ForEach(mMDevice =>
+            {
+                MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
+
+                if (newMMDevice.State == DeviceState.Disabled)
+                {
+                    DisabledWaveOutMMDeviceList.Remove(mMDevice);
+                }
+                else if
+                    (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
+                {
+                    AvailableWaveOutMMDeviceList.Remove(mMDevice);
+                }
+                else
+                {
+                    mMDevice = newMMDevice;
+                }
+            });
+
+            DisabledWaveOutMMDeviceList.ForEach(mMDevice =>
+            {
+                MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
+
+                if (newMMDevice.State == available)
+                {
+                    AvailableWaveOutMMDeviceList.Remove(mMDevice);
+                }
+                else if
+                    (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
+                {
+                    DisabledWaveOutMMDeviceList.Remove(mMDevice);
+                }
+                else
+                {
+                    mMDevice = newMMDevice;
+                }
+            });
+        }
+
+        /// <summary>
+        /// If device is null, remove from list.
+        /// If device has changed, update list.
+        /// </summary>
+        internal void UpdateSelectedListsGivenNewDeviceState()
+        {
+            SelectedWaveInMMDeviceList.ForEach(mMDevice =>
+            {
+                MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
+
+                if (newMMDevice is null)
+                {
+                    SelectedWaveOutMMDeviceList.Remove(mMDevice);
+                }
+                else if (newMMDevice != mMDevice)
+                {
+                    mMDevice = newMMDevice;
+                }
+            });
+
+            SelectedWaveOutMMDeviceList.ForEach(mMDevice =>
+            {
+                MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
+
+                if (newMMDevice is null)
+                {
+                    SelectedWaveOutMMDeviceList.Remove(mMDevice);
+                }
+                else if (newMMDevice != mMDevice)
+                {
+                    mMDevice = newMMDevice;
+                }
+            });
+        }
+
+        /// <summary>
+        /// Update device lists.
+        /// </summary>
+        public void UpdateDeviceLists()
+        {
+            mMDeviceEnumerator = new MMDeviceEnumerator();
+            UpdateWaveInListsGivenNewDeviceState();
+            UpdateWaveOutListsGivenNewDeviceState();
+            UpdateSelectedListsGivenNewDeviceState();
+        }
+
+        /// <summary>
+        /// Move device from available or disabled, Wave In or Wave Out lists, to
+        /// selected list.
+        /// </summary>
+        /// <param name="deviceName">The device name</param>
+        public void MoveDeviceToSelectedList(string deviceName)
+        {
+            MMDevice mMDevice = null;
+
+            if (AvailableWaveInNameList.Contains(deviceName))
+            {
+                mMDevice = AvailableWaveInMMDeviceList
+                    [AvailableWaveInNameList.IndexOf(deviceName)];
+                AvailableWaveInMMDeviceList.Remove(mMDevice);
+                AvailableWaveInNameList.Remove(deviceName);
+            }
+            else if (AvailableWaveOutNameList.Contains(deviceName))
+            {
+                mMDevice = AvailableWaveOutMMDeviceList
+                    [AvailableWaveOutNameList.IndexOf(deviceName)];
+                AvailableWaveOutMMDeviceList.Remove(mMDevice);
+                AvailableWaveOutNameList.Remove(deviceName);
+            }
+            else if (DisabledWaveInNameList.Contains(deviceName))
+            {
+                mMDevice = DisabledWaveInMMDeviceList
+                    [DisabledWaveInNameList.IndexOf(deviceName)];
+                DisabledWaveInMMDeviceList.Remove(mMDevice);
+                DisabledWaveInNameList.Remove(deviceName);
+            }
+            else if (DisabledWaveOutNameList.Contains(deviceName))
+            {
+                mMDevice = DisabledWaveOutMMDeviceList
+                    [DisabledWaveOutNameList.IndexOf(deviceName)];
+                DisabledWaveOutMMDeviceList.Remove(mMDevice);
+                DisabledWaveOutNameList.Remove(deviceName);
+            }
+            else
+            {
+                return;
+            }
+
+            if (mMDevice.DataFlow == DataFlow.Capture)
+            {
+                SelectedWaveInMMDeviceList.Add(mMDevice);
+                SelectedWaveInNameList.Add(deviceName);
+            }
+            else
+            {
+                SelectedWaveOutMMDeviceList.Add(mMDevice);
+                SelectedWaveOutNameList.Add(deviceName);
+            }            
+        }
+
 
         /// <summary>
         /// Get the device state of a device given its name.
