@@ -1,70 +1,31 @@
 ﻿using NAudio.CoreAudioApi;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace VACARM.NET4.Models
 {
-    public class DeviceList : INotifyPropertyChanged
+    public class DeviceList
     {
-        ///////////////////////////////// Properties ///////////////////////////////////
-        public List<MMDevice> WaveInMMDeviceList
-        {
-            get
-            {
-                return WaveInMMDeviceList;
-            }
-            set
-            {
-                WaveInMMDeviceList = value;
-                OnPropertyChanged(nameof(WaveInMMDeviceList));
-            }
-        }
+        #region Parameters
 
-        public List<MMDevice> WaveOutMMDeviceList
-        {
-            get
-            {
-                return WaveOutMMDeviceList;
-            }
-            set
-            {
-                WaveOutMMDeviceList = value;
-                OnPropertyChanged(nameof(WaveOutMMDeviceList));
-            }
-        }
+        public List<MMDevice> AvailableWaveInMMDeviceList { get; private set; }
+        public List<MMDevice> AvailableWaveOutMMDeviceList { get; private set; }
 
-        public List<string> WaveInNameList
-        {
-            get
-            {
-                return WaveInNameList;
-            }
-            set
-            {
-                WaveInNameList = value;
-                OnPropertyChanged(nameof(WaveInNameList));
-            }
-        }
+        public List<MMDevice> DisabledWaveInMMDeviceList { get; private set; }
+        public List<MMDevice> DisabledWaveOutMMDeviceList { get; private set; }
+        public List<string> AvailableWaveInNameList { get; private set; }
+        public List<string> AvailableWaveOutNameList { get; private set; }
+        public List<string> DisabledWaveInNameList { get; private set; }
+        public List<string> DisabledWaveOutNameList { get; private set; }
 
-        public List<string> WaveOutNameList
-        {
-            get
-            {
-                return WaveOutNameList;
-            }
-            set
-            {
-                WaveOutNameList = value;
-                OnPropertyChanged(nameof(WaveOutNameList));
-            }
-        }
+        private DeviceState available = DeviceState.Active | DeviceState.Unplugged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
-        /////////////////////////////////// Methods ////////////////////////////////////
+        #region Functions
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -73,72 +34,62 @@ namespace VACARM.NET4.Models
         {
             MMDeviceEnumerator mMDeviceEnumerator = new MMDeviceEnumerator();
 
-            WaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
-                (DataFlow.Capture, DeviceState.Active).ToList();
+            AvailableWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
+                (DataFlow.Capture, available).ToList();
 
-            WaveInNameList = WaveInMMDeviceList.Select(x => x.FriendlyName).ToList();
+            AvailableWaveInNameList = AvailableWaveInMMDeviceList.Select
+                (x => x.FriendlyName).ToList();
 
-            WaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
-                (DataFlow.Render, DeviceState.Active).ToList();
+            AvailableWaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
+                (DataFlow.Render, available).ToList();
 
-            WaveOutNameList = WaveOutMMDeviceList.Select(x => x.FriendlyName).ToList();
+            AvailableWaveOutNameList = AvailableWaveOutMMDeviceList.Select
+                (x => x.FriendlyName).ToList();
+
+            DisabledWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
+                (DataFlow.Capture, DeviceState.Disabled).ToList();
+
+            DisabledWaveInNameList = AvailableWaveInMMDeviceList.Select
+                (x => x.FriendlyName).ToList();
+
+            DisabledWaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
+                (DataFlow.Render, DeviceState.Disabled).ToList();
+
+            DisabledWaveOutNameList = AvailableWaveOutMMDeviceList.Select
+                (x => x.FriendlyName).ToList();
         }
 
         /// <summary>
-		/// Logs event when property has changed.
-		/// </summary>
-		/// <param name="propertyName">The property name</param>
-        internal void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
-        /// Return True if Wave In list contains the given device.
+        /// Get the device state of a device given its name.
         /// </summary>
         /// <param name="deviceName">The device name</param>
-        /// <returns>True/False</returns>
-        public bool DoesWaveInListContainsDevice(string deviceName)
+        /// <returns>The device state</returns>
+        public DeviceState GetDeviceState(string deviceName)
         {
-            bool listContainsDevice = false;
-
-            if (deviceName is null
-                || deviceName == string.Empty)
+            if (AvailableWaveInNameList.Contains(deviceName))
             {
-                return listContainsDevice;
+                return AvailableWaveInMMDeviceList
+                    [AvailableWaveInNameList.IndexOf(deviceName)].State;
+            }
+            else if (AvailableWaveOutNameList.Contains(deviceName))
+            {
+                return AvailableWaveOutMMDeviceList
+                    [AvailableWaveOutNameList.IndexOf(deviceName)].State;
+            }
+            else if (DisabledWaveInNameList.Contains(deviceName))
+            {
+                return DisabledWaveInMMDeviceList
+                    [DisabledWaveInNameList.IndexOf(deviceName)].State;
+            }
+            else if (DisabledWaveOutNameList.Contains(deviceName))
+            {
+                return DisabledWaveOutMMDeviceList
+                    [DisabledWaveOutNameList.IndexOf(deviceName)].State;
             }
 
-            WaveInNameList.Where
-                (FriendlyName => FriendlyName == deviceName
-                    && !listContainsDevice)
-                    .ToList()
-                    .ForEach(x => listContainsDevice = true);
-
-            return listContainsDevice;
+            return DeviceState.NotPresent;
         }
 
-        /// <summary>
-        /// Return True if Wave Out list contains the given device.
-        /// </summary>
-        /// <param name="deviceName">The device name</param>
-        /// <returns>True/False</returns>
-        public bool DoesWaveOutListContainsDevice(string deviceName)
-        {
-            bool listContainsDevice = false;
-
-            if (deviceName is null
-                || deviceName == string.Empty)
-            {
-                return listContainsDevice;
-            }
-
-            WaveOutNameList.Where
-                (FriendlyName => FriendlyName == deviceName
-                    && !listContainsDevice)
-                    .ToList()
-                    .ForEach(x => listContainsDevice = true);
-
-            return listContainsDevice;
-        }
+        #endregion
     }
 }
