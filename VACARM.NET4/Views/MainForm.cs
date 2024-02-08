@@ -140,5 +140,10 @@ namespace VACARM.NET4.Views
         }
 
         #endregion
+
+        private void tabControl1_PageChanged(object sender, Manina.Windows.Forms.PageChangedEventArgs e)
+        {
+
+        }
     }
 }
