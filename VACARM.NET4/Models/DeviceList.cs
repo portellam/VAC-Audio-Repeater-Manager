@@ -8,6 +8,16 @@ namespace VACARM.NET4.Models
 {
     public class DeviceList
     {
+
+        /*
+         * TODO: evaluate the purpose of available, disabled, and selected lists.
+         * are they separate? 
+         * or does selected include available? 
+         * or should I rename them?
+         * 
+         */
+
+
         #region Parameters
 
         private MMDeviceEnumerator mMDeviceEnumerator;
@@ -231,6 +241,66 @@ namespace VACARM.NET4.Models
             }
 
             return DeviceState.NotPresent;
+        }
+
+        /// <summary>
+        /// Move device from selected Wave In or Wave Out lists, to
+        /// available or disabled lists.
+        /// </summary>
+        /// <param name="deviceName">The device name</param>
+        public void MoveDeviceFromSelectedList(string deviceName)
+        {
+            MMDevice mMDevice = null;
+
+            if (SelectedWaveInNameList.Contains(deviceName))
+            {
+                mMDevice = SelectedWaveInMMDeviceList
+                    [SelectedWaveInNameList.IndexOf(deviceName)];
+                SelectedWaveInMMDeviceList.Remove(mMDevice);
+                SelectedWaveInNameList.Remove(deviceName);
+            }
+            else if (SelectedWaveOutNameList.Contains(deviceName))
+            {
+                mMDevice = SelectedWaveOutMMDeviceList
+                    [SelectedWaveOutNameList.IndexOf(deviceName)];
+                SelectedWaveOutMMDeviceList.Remove(mMDevice);
+                SelectedWaveOutNameList.Remove(deviceName);
+            }
+            else
+            {
+                return;
+            }
+
+            if (mMDevice.State == available)
+            {
+                if (mMDevice.DataFlow == DataFlow.Capture)
+                {
+                    AvailableWaveInMMDeviceList.Add(mMDevice);
+                    AvailableWaveInNameList.Add(deviceName);
+                }
+                else
+                {
+                    AvailableWaveOutMMDeviceList.Add(mMDevice);
+                    AvailableWaveOutNameList.Add(deviceName);
+                }
+            }
+            else if (mMDevice.State == DeviceState.Disabled)
+            {
+                if (mMDevice.DataFlow == DataFlow.Capture)
+                {
+                    DisabledWaveInMMDeviceList.Add(mMDevice);
+                    DisabledWaveInNameList.Add(deviceName);
+                }
+                else
+                {
+                    DisabledWaveOutMMDeviceList.Add(mMDevice);
+                    DisabledWaveOutNameList.Add(deviceName);
+                }
+            }
+            else
+            {
+                return;
+            }
         }
 
         /// <summary>
