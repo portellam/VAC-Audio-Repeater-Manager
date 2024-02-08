@@ -7,6 +7,8 @@ namespace VACARM.NET4.Views
 {
     partial class AboutForm
     {
+        #region Parameters
+
         private Button okButton;
         private Label labelCompanyName;
         private Label labelCopyright;
@@ -21,6 +23,8 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private TextBox textBoxDescription;
         private List<Control> controlList = new List<Control>();
+
+        #endregion
 
         #region Windows Form Designer generated code
 
@@ -192,6 +196,8 @@ namespace VACARM.NET4.Views
 
         #endregion
 
+        #region Functions
+
         /// <summary>
         /// Add all controls to list.
         /// </summary>
@@ -254,5 +260,7 @@ namespace VACARM.NET4.Views
 
             base.Dispose(disposing);
         }
+
+        #endregion
     }
 }
