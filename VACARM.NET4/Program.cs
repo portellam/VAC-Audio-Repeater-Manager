@@ -9,12 +9,18 @@ namespace VACARM.NET4
 {
     public class Program
     {
-        private static bool isDarkModeEnabledDuringRunTime { get; set; }
+        #region Arguments
 
         /// <summary>
         /// The command line arguments.
         /// </summary>
         public static string[] Arguments { get; private set; }
+
+        #endregion
+
+        #region Execution flags
+
+        private static bool isDarkModeEnabledDuringRunTime { get; set; }
 
         public static bool IsDarkModeEnabledBeforeRunTime { get; private set; }
 
@@ -36,6 +42,10 @@ namespace VACARM.NET4
                 isDarkModeEnabledDuringRunTime = IsDarkModeEnabledBeforeRunTime;
             }
         }
+
+        #endregion
+
+        #region Functions
 
         /// <summary>
         /// The main code block, to be executed at run time.
@@ -114,5 +124,7 @@ namespace VACARM.NET4
                 return;
             }
         }
+
+        #endregion
     }
 }
