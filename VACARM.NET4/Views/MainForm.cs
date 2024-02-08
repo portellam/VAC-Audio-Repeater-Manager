@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
+using VACARM.NET4.Models;
 
 namespace VACARM.NET4.Views
 {
@@ -10,7 +12,13 @@ namespace VACARM.NET4.Views
     /// </summary>
     public partial class MainForm : Form
     {
+        #region Parameters
+
         private string fileName;
+
+        #endregion
+
+        #region Logic
 
         /// <summary>
         /// Constructor
@@ -22,7 +30,9 @@ namespace VACARM.NET4.Views
             PostInitializeComponent();
         }
 
-        #region File menu
+        #endregion
+
+        #region 1. File menu logic
 
         /// <summary>
         /// Click event logic for openToolStripMenuItem.
@@ -69,35 +79,162 @@ namespace VACARM.NET4.Views
 
         #endregion
 
-        #region Device menu
+        #region 2. Device menu logic
 
         /// <summary>
-        /// Click event logic for deviceToolStripMenuItem.
+        /// Click event logic for addWaveInDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void DeviceToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        private void addWaveInDeviceToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for addWaveOutDeviceToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void addWaveOutDeviceToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for disableWaveInToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void disableWaveInToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for disableWaveOutToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void disableWaveOutToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for enableWaveInToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void enableWaveInToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for enableWaveOutToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void enableWaveOutToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for reloadAllToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void reloadAllToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+            InitializeWaveInDeviceDropDownCollections();
+            InitializeWaveOutDeviceDropDownCollections();
+            InitializeControlsList();
+            InitializeMenuItemsList();
+            //PostInitializeComponent();
+        }
+
+        /// <summary>
+        /// Click event logic for removeWaveInToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void removeWaveInToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for removeWaveOutToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void removeWaveOutToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
         {
 
         }
 
         #endregion
 
-        #region Link menu
+        #region 3. Link menu logic
 
         /// <summary>
-        /// Click event logic for linkToolStripMenuItem.
+        /// Click event logic for linkWaveInToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void LinkToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        private void linkWaveInToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for linkWaveOutToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void linkWaveOutToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for unlinkWaveInToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void unlinkWaveInToolStripMenuItem_Click
+            (object sender, EventArgs eventArgse)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event logic for unlinkWaveOutToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        private void unlinkWaveOutToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
         {
 
         }
 
         #endregion
 
-        #region View menu
+        #region 4. View menu logic
         /// <summary>
         /// Click event logic for aboutToolStripMenuItem.
         /// Set the ToggleDarkModeText.
@@ -121,7 +258,7 @@ namespace VACARM.NET4.Views
 
         #endregion
 
-        #region Help menu
+        #region 5. Help menu logic
 
         /// <summary>
         /// Click event logic for aboutToolStripMenuItem.
@@ -140,10 +277,5 @@ namespace VACARM.NET4.Views
         }
 
         #endregion
-
-        private void tabControl1_PageChanged(object sender, Manina.Windows.Forms.PageChangedEventArgs e)
-        {
-
-        }
     }
 }
