@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.CoreAudioApi;
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace VACARM.NET4.Views
         #region Parameters
 
         private string fileName;
+        private DeviceList deviceList;
 
         #endregion
 
@@ -26,6 +28,7 @@ namespace VACARM.NET4.Views
         [ExcludeFromCodeCoverage]
         public MainForm()
         {
+            deviceList = new DeviceList();
             InitializeComponent();
             PostInitializeComponent();
         }
@@ -89,7 +92,8 @@ namespace VACARM.NET4.Views
         private void addWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-
+            deviceList.MoveDeviceToSelectedList(sender as string);
+            InitializeLists();
         }
 
         /// <summary>
@@ -100,7 +104,8 @@ namespace VACARM.NET4.Views
         private void addWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-
+            deviceList.MoveDeviceToSelectedList(sender as string);
+            InitializeLists();
         }
 
         /// <summary>
@@ -122,7 +127,6 @@ namespace VACARM.NET4.Views
         private void disableWaveOutToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-
         }
 
         /// <summary>
@@ -155,11 +159,8 @@ namespace VACARM.NET4.Views
         private void reloadAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            InitializeWaveInDeviceDropDownCollections();
-            InitializeWaveOutDeviceDropDownCollections();
-            InitializeControlsList();
-            InitializeMenuItemsList();
-            //PostInitializeComponent();
+            deviceList.SetDeviceLists();
+            InitializeLists();
         }
 
         /// <summary>
