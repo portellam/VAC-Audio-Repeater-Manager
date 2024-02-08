@@ -6,10 +6,46 @@ namespace VACARM.NET4.ViewModels
 {
     public class FormColorUpdater
     {
+        #region Parameters
+
         private readonly static Color darkBackColor = Color.FromArgb(60, 63, 65);
-        private readonly static Color lightBackColor = Color.White;
         private readonly static Color darkTextColor = Color.White;
+        private readonly static Color lightBackColor = Color.White;
         private readonly static Color lightTextColor = Color.Black;
+
+        public static Color BackColor
+        {
+            get
+            {
+                if (Program.IsDarkModeEnabledDuringRunTime)
+                {
+                    return darkBackColor;
+                }
+                else
+                {
+                    return lightBackColor;
+                }
+            }
+        }
+
+        public static Color ForeColor
+        {
+            get
+            {
+                if (Program.IsDarkModeEnabledDuringRunTime)
+                {
+                    return darkTextColor;
+                }
+                else
+                {
+                    return lightTextColor;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Functions
 
         /// <summary>
         /// Set the colors of the constructor, given dark mode is enabled or not.
@@ -21,16 +57,8 @@ namespace VACARM.NET4.ViewModels
                 return;
             }
 
-            if (Program.IsDarkModeEnabledDuringRunTime)
-            {
-                (parentObject as Form).BackColor = darkBackColor;
-                (parentObject as Form).ForeColor = darkTextColor;
-            }
-            else
-            {
-                (parentObject as Form).BackColor = lightBackColor;
-                (parentObject as Form).ForeColor = lightTextColor;
-            }
+            (parentObject as Form).BackColor = BackColor;
+            (parentObject as Form).ForeColor = ForeColor;
         }
 
         /// <summary>
@@ -45,23 +73,10 @@ namespace VACARM.NET4.ViewModels
                 return;
             }
 
-            Color backColor, foreColor;
-
-            if (Program.IsDarkModeEnabledDuringRunTime)
-            {
-                backColor = darkBackColor;
-                foreColor = lightBackColor;
-            }
-            else
-            {
-                backColor = lightBackColor;
-                foreColor = darkBackColor;
-            }
-
             foreach (var control in controlCollection)
             {
-                (control as Control).BackColor = backColor;
-                (control as Control).ForeColor = foreColor;
+                (control as Control).BackColor = BackColor;
+                (control as Control).ForeColor = ForeColor;
 
                 if (control is Control.ControlCollection)
                 {
@@ -83,24 +98,10 @@ namespace VACARM.NET4.ViewModels
                 return;
             }
 
-            Color backColor, foreColor;
-
-            if (Program.IsDarkModeEnabledDuringRunTime)
-            {
-                backColor = darkBackColor;
-                foreColor = lightBackColor;
-            }
-            else
-            {
-                backColor = lightBackColor;
-                foreColor = darkBackColor;
-            }
-
             foreach (Control control in controlList)
             {
-                control.BackColor = backColor;
-                control.ForeColor = foreColor;
-
+                control.BackColor = BackColor;
+                control.ForeColor = ForeColor;
                 SetColorsOfControlCollection(control.Controls);
             };
         }
@@ -112,21 +113,26 @@ namespace VACARM.NET4.ViewModels
         public static void SetColorsOfToolStripMenuItemList
             (List<ToolStripMenuItem> toolStripMenuItemList)
         {
-            Color foreColor;
-
-            if (Program.IsDarkModeEnabledDuringRunTime)
-            {
-                foreColor = darkTextColor;
-            }
-            else
-            {
-                foreColor = lightTextColor;
-            }
-
             toolStripMenuItemList.ForEach(toolStripMenuItem =>
             {
-                toolStripMenuItem.ForeColor = foreColor;
+                toolStripMenuItem.ForeColor = ForeColor;
+                SetColorsOfToolStripItemDropDownList(toolStripMenuItem.DropDownItems);
             });
         }
+
+        /// <summary>
+        /// Set the colors of every tool strip menu item in drop down list, 
+        /// given dark mode is enabled or not.
+        /// </summary>
+        internal static void SetColorsOfToolStripItemDropDownList
+            (ToolStripItemCollection toolStripItemCollection)
+        {
+            foreach(ToolStripItem toolStripItem in toolStripItemCollection)
+            {
+                toolStripItem.ForeColor = ForeColor;
+            }
+        }
+
+        #endregion
     }
 }
