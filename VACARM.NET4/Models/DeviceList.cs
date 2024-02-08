@@ -9,7 +9,9 @@ namespace VACARM.NET4.Models
     public class DeviceList
     {
         #region Parameters
+
         private MMDeviceEnumerator mMDeviceEnumerator;
+        private DeviceState available = DeviceState.Active | DeviceState.Unplugged;
 
         public List<MMDevice> AvailableWaveInMMDeviceList { get; private set; }
         public List<MMDevice> AvailableWaveOutMMDeviceList { get; private set; }
@@ -24,8 +26,6 @@ namespace VACARM.NET4.Models
         public List<string> SelectedWaveInNameList { get; private set; }
         public List<string> SelectedWaveOutNameList { get; private set; }
 
-        private DeviceState available = DeviceState.Active | DeviceState.Unplugged;
-
         #endregion
 
         #region Logic
@@ -35,6 +35,18 @@ namespace VACARM.NET4.Models
         /// </summary>
         [ExcludeFromCodeCoverage]
         public DeviceList()
+        {
+            GetDeviceLists();
+            SelectedWaveInMMDeviceList = new List<MMDevice>();
+            SelectedWaveInNameList = new List<string>();
+            SelectedWaveOutMMDeviceList = new List<MMDevice>();
+            SelectedWaveOutNameList = new List<string>();
+        }
+
+        /// <summary>
+        /// Get device lists.
+        /// </summary>
+        internal void GetDeviceLists()
         {
             mMDeviceEnumerator = new MMDeviceEnumerator();
 
@@ -61,13 +73,7 @@ namespace VACARM.NET4.Models
 
             DisabledWaveOutNameList = AvailableWaveOutMMDeviceList.Select
                 (x => x.FriendlyName).ToList();
-
-            SelectedWaveInMMDeviceList = new List<MMDevice>();
-            SelectedWaveInNameList = new List<string>();
-            SelectedWaveOutMMDeviceList = new List<MMDevice>();
-            SelectedWaveOutNameList = new List<string>();
         }
-
 
         /// <summary>
         /// If device state changes, move between lists.
@@ -161,7 +167,9 @@ namespace VACARM.NET4.Models
 
         /// <summary>
         /// If device is null, remove from list.
-        /// If device has changed, update list.
+        /// If device has changed, update entry (and preserve device in list;
+        /// repeater execution logic will ignore Disabled and Not Present repeater 
+        /// devices).
         /// </summary>
         internal void UpdateSelectedListsGivenNewDeviceState()
         {
@@ -195,14 +203,34 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Update device lists.
+        /// Get the device state of a device given its name.
         /// </summary>
-        public void UpdateDeviceLists()
+        /// <param name="deviceName">The device name</param>
+        /// <returns>The device state</returns>
+        public DeviceState GetDeviceState(string deviceName)
         {
-            mMDeviceEnumerator = new MMDeviceEnumerator();
-            UpdateWaveInListsGivenNewDeviceState();
-            UpdateWaveOutListsGivenNewDeviceState();
-            UpdateSelectedListsGivenNewDeviceState();
+            if (AvailableWaveInNameList.Contains(deviceName))
+            {
+                return AvailableWaveInMMDeviceList
+                    [AvailableWaveInNameList.IndexOf(deviceName)].State;
+            }
+            else if (AvailableWaveOutNameList.Contains(deviceName))
+            {
+                return AvailableWaveOutMMDeviceList
+                    [AvailableWaveOutNameList.IndexOf(deviceName)].State;
+            }
+            else if (DisabledWaveInNameList.Contains(deviceName))
+            {
+                return DisabledWaveInMMDeviceList
+                    [DisabledWaveInNameList.IndexOf(deviceName)].State;
+            }
+            else if (DisabledWaveOutNameList.Contains(deviceName))
+            {
+                return DisabledWaveOutMMDeviceList
+                    [DisabledWaveOutNameList.IndexOf(deviceName)].State;
+            }
+
+            return DeviceState.NotPresent;
         }
 
         /// <summary>
@@ -256,39 +284,18 @@ namespace VACARM.NET4.Models
             {
                 SelectedWaveOutMMDeviceList.Add(mMDevice);
                 SelectedWaveOutNameList.Add(deviceName);
-            }            
+            }
         }
 
-
         /// <summary>
-        /// Get the device state of a device given its name.
+        /// Query system for changes, and update lists as needed.
         /// </summary>
-        /// <param name="deviceName">The device name</param>
-        /// <returns>The device state</returns>
-        public DeviceState GetDeviceState(string deviceName)
+        public void SetDeviceLists()
         {
-            if (AvailableWaveInNameList.Contains(deviceName))
-            {
-                return AvailableWaveInMMDeviceList
-                    [AvailableWaveInNameList.IndexOf(deviceName)].State;
-            }
-            else if (AvailableWaveOutNameList.Contains(deviceName))
-            {
-                return AvailableWaveOutMMDeviceList
-                    [AvailableWaveOutNameList.IndexOf(deviceName)].State;
-            }
-            else if (DisabledWaveInNameList.Contains(deviceName))
-            {
-                return DisabledWaveInMMDeviceList
-                    [DisabledWaveInNameList.IndexOf(deviceName)].State;
-            }
-            else if (DisabledWaveOutNameList.Contains(deviceName))
-            {
-                return DisabledWaveOutMMDeviceList
-                    [DisabledWaveOutNameList.IndexOf(deviceName)].State;
-            }
-
-            return DeviceState.NotPresent;
+            GetDeviceLists();
+            //UpdateWaveInListsGivenNewDeviceState();                                   //TODO: currently redundant. May need to rethink use or delete.
+            //UpdateWaveOutListsGivenNewDeviceState();                                  //TODO: currently redundant. May need to rethink use or delete.
+            UpdateSelectedListsGivenNewDeviceState();
         }
 
         #endregion
