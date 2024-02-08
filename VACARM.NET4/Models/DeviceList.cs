@@ -15,6 +15,15 @@ namespace VACARM.NET4.Models
          * or does selected include available? 
          * or should I rename them?
          * 
+         * TODO: have available-unselected and disabled(unselected) be starter lists.
+         * have enable... and enable all target disabled(unselected) and any 
+         * disabled-selected devices.
+         * and vicea vera for disable.. and disable all.
+         * 
+         * TODO: have repeater execution logic attempt to enable disabled selected
+         * devices. warn those unplugged, and ignore not present.
+         * TODO: have currently running repeaters' tasks be killed if any device in
+         * repeater be unplugged or disabled, assuming issues may occur?
          */
 
 
@@ -23,8 +32,8 @@ namespace VACARM.NET4.Models
         private MMDeviceEnumerator mMDeviceEnumerator;
         private DeviceState available = DeviceState.Active | DeviceState.Unplugged;
 
-        public List<MMDevice> AvailableWaveInMMDeviceList { get; private set; }
-        public List<MMDevice> AvailableWaveOutMMDeviceList { get; private set; }
+        public List<MMDevice> AvailableUnselectedWaveInMMDeviceList { get; private set; }
+        public List<MMDevice> AvailableUnselectedWaveOutMMDeviceList { get; private set; }
         public List<MMDevice> DisabledWaveInMMDeviceList { get; private set; }
         public List<MMDevice> DisabledWaveOutMMDeviceList { get; private set; }
         public List<MMDevice> SelectedWaveInMMDeviceList { get; private set; }
@@ -60,28 +69,28 @@ namespace VACARM.NET4.Models
         {
             mMDeviceEnumerator = new MMDeviceEnumerator();
 
-            AvailableWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
+            AvailableUnselectedWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
                 (DataFlow.Capture, available).ToList();
 
-            AvailableWaveInNameList = AvailableWaveInMMDeviceList.Select
+            AvailableWaveInNameList = AvailableUnselectedWaveInMMDeviceList.Select
                 (x => x.FriendlyName).ToList();
 
-            AvailableWaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
+            AvailableUnselectedWaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
                 (DataFlow.Render, available).ToList();
 
-            AvailableWaveOutNameList = AvailableWaveOutMMDeviceList.Select
+            AvailableWaveOutNameList = AvailableUnselectedWaveOutMMDeviceList.Select
                 (x => x.FriendlyName).ToList();
 
             DisabledWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
                 (DataFlow.Capture, DeviceState.Disabled).ToList();
 
-            DisabledWaveInNameList = AvailableWaveInMMDeviceList.Select
+            DisabledWaveInNameList = AvailableUnselectedWaveInMMDeviceList.Select
                 (x => x.FriendlyName).ToList();
 
             DisabledWaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
                 (DataFlow.Render, DeviceState.Disabled).ToList();
 
-            DisabledWaveOutNameList = AvailableWaveOutMMDeviceList.Select
+            DisabledWaveOutNameList = AvailableUnselectedWaveOutMMDeviceList.Select
                 (x => x.FriendlyName).ToList();
         }
 
@@ -91,7 +100,7 @@ namespace VACARM.NET4.Models
         /// </summary>
         internal void UpdateWaveInListsGivenNewDeviceState()
         {
-            AvailableWaveInMMDeviceList.ForEach(mMDevice =>
+            AvailableUnselectedWaveInMMDeviceList.ForEach(mMDevice =>
             {
                 MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
 
@@ -102,7 +111,7 @@ namespace VACARM.NET4.Models
                 else if
                     (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
                 {
-                    AvailableWaveInMMDeviceList.Remove(mMDevice);
+                    AvailableUnselectedWaveInMMDeviceList.Remove(mMDevice);
                 }
                 else
                 {
@@ -116,7 +125,7 @@ namespace VACARM.NET4.Models
 
                 if (newMMDevice.State == available)
                 {
-                    AvailableWaveInMMDeviceList.Remove(mMDevice);
+                    AvailableUnselectedWaveInMMDeviceList.Remove(mMDevice);
                 }
                 else if
                     (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
@@ -136,7 +145,7 @@ namespace VACARM.NET4.Models
         /// </summary>
         internal void UpdateWaveOutListsGivenNewDeviceState()
         {
-            AvailableWaveOutMMDeviceList.ForEach(mMDevice =>
+            AvailableUnselectedWaveOutMMDeviceList.ForEach(mMDevice =>
             {
                 MMDevice newMMDevice = mMDeviceEnumerator.GetDevice(mMDevice.ID);
 
@@ -147,7 +156,7 @@ namespace VACARM.NET4.Models
                 else if
                     (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
                 {
-                    AvailableWaveOutMMDeviceList.Remove(mMDevice);
+                    AvailableUnselectedWaveOutMMDeviceList.Remove(mMDevice);
                 }
                 else
                 {
@@ -161,7 +170,7 @@ namespace VACARM.NET4.Models
 
                 if (newMMDevice.State == available)
                 {
-                    AvailableWaveOutMMDeviceList.Remove(mMDevice);
+                    AvailableUnselectedWaveOutMMDeviceList.Remove(mMDevice);
                 }
                 else if
                     (newMMDevice is null || newMMDevice.State == DeviceState.NotPresent)
@@ -221,12 +230,12 @@ namespace VACARM.NET4.Models
         {
             if (AvailableWaveInNameList.Contains(deviceName))
             {
-                return AvailableWaveInMMDeviceList
+                return AvailableUnselectedWaveInMMDeviceList
                     [AvailableWaveInNameList.IndexOf(deviceName)].State;
             }
             else if (AvailableWaveOutNameList.Contains(deviceName))
             {
-                return AvailableWaveOutMMDeviceList
+                return AvailableUnselectedWaveOutMMDeviceList
                     [AvailableWaveOutNameList.IndexOf(deviceName)].State;
             }
             else if (DisabledWaveInNameList.Contains(deviceName))
@@ -275,12 +284,12 @@ namespace VACARM.NET4.Models
             {
                 if (mMDevice.DataFlow == DataFlow.Capture)
                 {
-                    AvailableWaveInMMDeviceList.Add(mMDevice);
+                    AvailableUnselectedWaveInMMDeviceList.Add(mMDevice);
                     AvailableWaveInNameList.Add(deviceName);
                 }
                 else
                 {
-                    AvailableWaveOutMMDeviceList.Add(mMDevice);
+                    AvailableUnselectedWaveOutMMDeviceList.Add(mMDevice);
                     AvailableWaveOutNameList.Add(deviceName);
                 }
             }
@@ -314,16 +323,16 @@ namespace VACARM.NET4.Models
 
             if (AvailableWaveInNameList.Contains(deviceName))
             {
-                mMDevice = AvailableWaveInMMDeviceList
+                mMDevice = AvailableUnselectedWaveInMMDeviceList
                     [AvailableWaveInNameList.IndexOf(deviceName)];
-                AvailableWaveInMMDeviceList.Remove(mMDevice);
+                AvailableUnselectedWaveInMMDeviceList.Remove(mMDevice);
                 AvailableWaveInNameList.Remove(deviceName);
             }
             else if (AvailableWaveOutNameList.Contains(deviceName))
             {
-                mMDevice = AvailableWaveOutMMDeviceList
+                mMDevice = AvailableUnselectedWaveOutMMDeviceList
                     [AvailableWaveOutNameList.IndexOf(deviceName)];
-                AvailableWaveOutMMDeviceList.Remove(mMDevice);
+                AvailableUnselectedWaveOutMMDeviceList.Remove(mMDevice);
                 AvailableWaveOutNameList.Remove(deviceName);
             }
             else if (DisabledWaveInNameList.Contains(deviceName))
