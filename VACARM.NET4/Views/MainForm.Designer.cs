@@ -39,6 +39,7 @@ namespace VACARM.NET4.Views
             }
         }
 
+        private BackgroundWorker backgroundWorker1;
         private List<Control> controlList = new List<Control>();
         private List<ToolStripMenuItem> toolStripMenuItemList =
             new List<ToolStripMenuItem>();
@@ -236,6 +237,7 @@ namespace VACARM.NET4.Views
             this.tabControl1 = new Manina.Windows.Forms.TabControl();
             this.gridTab = new Manina.Windows.Forms.Tab();
             this.graphTab = new Manina.Windows.Forms.Tab();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
