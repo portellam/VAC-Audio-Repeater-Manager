@@ -809,9 +809,9 @@ namespace VACARM.NET4.Views
             // 
             // graphTab
             // 
-            this.graphTab.Location = new System.Drawing.Point(1, 25);
+            this.graphTab.Location = new System.Drawing.Point(0, 0);
             this.graphTab.Name = "graphTab";
-            this.graphTab.Size = new System.Drawing.Size(620, 385);
+            this.graphTab.Size = new System.Drawing.Size(0, 0);
             this.graphTab.Text = "Graph";
             // 
             // MainForm
