@@ -766,7 +766,7 @@ namespace VACARM.NET4.Views
             this.tabControl1.ContentAlignment = Manina.Windows.Forms.Alignment.Center;
             this.tabControl1.Controls.Add(this.gridTab);
             this.tabControl1.Controls.Add(this.graphTab);
-            this.tabControl1.Cursor = System.Windows.Forms.Cursors.linkDefault;
+            this.tabControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tabControl1.Location = new System.Drawing.Point(0, 28);
