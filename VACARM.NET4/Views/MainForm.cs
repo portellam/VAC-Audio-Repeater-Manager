@@ -1,6 +1,4 @@
-﻿using NAudio.CoreAudioApi;
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
