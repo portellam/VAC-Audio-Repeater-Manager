@@ -41,7 +41,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void OpenToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void fileOpenToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -65,7 +65,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void ExitToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void fileExitToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             /*
              * TODO:
@@ -87,7 +87,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void addWaveInDeviceToolStripMenuItem_Click
+        internal void deviceAddWaveInToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             if (!(sender is ToolStripMenuItem))
@@ -105,7 +105,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void addWaveOutDeviceToolStripMenuItem_Click
+        internal void deviceAddWaveOutToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             if (!(sender is ToolStripMenuItem))
@@ -119,54 +119,11 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for disableWaveInDeviceToolStripMenuItem.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void disableWaveInDeviceToolStripMenuItem_Click
-            (object sender, EventArgs eventArgs)
-        {
-
-        }
-
-        /// <summary>
-        /// Click event logic for disableWaveOutDeviceToolStripMenuItem.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void disableWaveOutDeviceToolStripMenuItem_Click
-            (object sender, EventArgs eventArgs)
-        {
-        }
-
-        /// <summary>
-        /// Click event logic for enableWaveInDeviceToolStripMenuItem.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void enableWaveInDeviceToolStripMenuItem_Click
-            (object sender, EventArgs eventArgs)
-        {
-
-        }
-
-        /// <summary>
-        /// Click event logic for enableWaveOutDeviceToolStripMenuItem.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void enableWaveOutDeviceToolStripMenuItem_Click
-            (object sender, EventArgs eventArgs)
-        {
-
-        }
-
-        /// <summary>
         /// Click event logic for reloadAllToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void reloadAllToolStripMenuItem_Click
+        internal void deviceReloadAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             deviceList.SetDeviceLists();
@@ -252,7 +209,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void ToggleDarkModeToolStripMenuItem_Click
+        internal void viewToggleDarkModeToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             SetColorTheme();
@@ -276,7 +233,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void AboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void helpAboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
             if (Application.OpenForms.OfType<AboutForm>().Count() > 0)
             {
