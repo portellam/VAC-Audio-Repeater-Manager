@@ -89,10 +89,16 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void addWaveInDeviceToolStripMenuItem_Click
+        internal void addWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            deviceList.MoveDeviceToSelectedList(sender as string);
+            if (!(sender is ToolStripMenuItem))
+            {
+                return;
+            }
+
+            deviceList.MoveDeviceToSelectedList
+                ((sender as ToolStripMenuItem).ToolTipText);
             InitializeLists();
         }
 
@@ -101,51 +107,57 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void addWaveOutDeviceToolStripMenuItem_Click
+        internal void addWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            deviceList.MoveDeviceToSelectedList(sender as string);
+            if (!(sender is ToolStripMenuItem))
+            {
+                return;
+            }
+
+            deviceList.MoveDeviceToSelectedList
+                ((sender as ToolStripMenuItem).ToolTipText);
             InitializeLists();
         }
 
         /// <summary>
-        /// Click event logic for disableWaveInToolStripMenuItem.
+        /// Click event logic for disableWaveInDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void disableWaveInToolStripMenuItem_Click
+        internal void disableWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
         }
 
         /// <summary>
-        /// Click event logic for disableWaveOutToolStripMenuItem.
+        /// Click event logic for disableWaveOutDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void disableWaveOutToolStripMenuItem_Click
+        internal void disableWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
         }
 
         /// <summary>
-        /// Click event logic for enableWaveInToolStripMenuItem.
+        /// Click event logic for enableWaveInDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void enableWaveInToolStripMenuItem_Click
+        internal void enableWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
         }
 
         /// <summary>
-        /// Click event logic for enableWaveOutToolStripMenuItem.
+        /// Click event logic for enableWaveOutDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void enableWaveOutToolStripMenuItem_Click
+        internal void enableWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
@@ -156,7 +168,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void reloadAllToolStripMenuItem_Click
+        internal void reloadAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             deviceList.SetDeviceLists();
@@ -164,22 +176,22 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for removeWaveInToolStripMenuItem.
+        /// Click event logic for removeWaveInDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void removeWaveInToolStripMenuItem_Click
+        internal void removeWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
         }
 
         /// <summary>
-        /// Click event logic for removeWaveOutToolStripMenuItem.
+        /// Click event logic for removeWaveOutDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void removeWaveOutToolStripMenuItem_Click
+        internal void removeWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
@@ -190,44 +202,44 @@ namespace VACARM.NET4.Views
         #region 3. Link menu logic
 
         /// <summary>
-        /// Click event logic for linkWaveInToolStripMenuItem.
+        /// Click event logic for linkWaveInDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void linkWaveInToolStripMenuItem_Click
+        internal void linkWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
         }
 
         /// <summary>
-        /// Click event logic for linkWaveOutToolStripMenuItem.
+        /// Click event logic for linkWaveOutDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void linkWaveOutToolStripMenuItem_Click
+        internal void linkWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
         }
 
         /// <summary>
-        /// Click event logic for unlinkWaveInToolStripMenuItem.
+        /// Click event logic for unlinkWaveInDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void unlinkWaveInToolStripMenuItem_Click
+        internal void unlinkWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgse)
         {
 
         }
 
         /// <summary>
-        /// Click event logic for unlinkWaveOutToolStripMenuItem.
+        /// Click event logic for unlinkWaveOutDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        private void unlinkWaveOutToolStripMenuItem_Click
+        internal void unlinkWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
 
