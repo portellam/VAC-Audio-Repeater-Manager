@@ -24,13 +24,20 @@ namespace VACARM.NET4.Models
          * devices. warn those unplugged, and ignore not present.
          * TODO: have currently running repeaters' tasks be killed if any device in
          * repeater be unplugged or disabled, assuming issues may occur?
+         * 
+         * 
+         * TODO!!! remove enabled and disabled from device menu.
+         * Have device name text suggest device is enabled or not, 
+         * or have menu tooltiptext give hint.
+         *
          */
-
 
         #region Parameters
 
         private MMDeviceEnumerator mMDeviceEnumerator;
-        private DeviceState available = DeviceState.Active | DeviceState.Unplugged;
+
+        public List<MMDevice> AllWaveInDeviceList { get; private set; }
+        public List<MMDevice> AllWaveOutDeviceList { get; private set; }
 
         public List<MMDevice> AvailableUnselectedWaveInMMDeviceList { get; private set; }
         public List<MMDevice> AvailableUnselectedWaveOutMMDeviceList { get; private set; }
@@ -44,6 +51,7 @@ namespace VACARM.NET4.Models
         public List<string> DisabledWaveOutNameList { get; private set; }
         public List<string> SelectedWaveInNameList { get; private set; }
         public List<string> SelectedWaveOutNameList { get; private set; }
+        public static DeviceState available = DeviceState.Active | DeviceState.Unplugged;
 
         #endregion
 
@@ -69,29 +77,45 @@ namespace VACARM.NET4.Models
         {
             mMDeviceEnumerator = new MMDeviceEnumerator();
 
-            AvailableUnselectedWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
-                (DataFlow.Capture, available).ToList();
+            AllWaveInDeviceList = mMDeviceEnumerator
+                .EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.All).Distinct()
+                .ToList();
 
-            AvailableUnselectedWaveInNameList = AvailableUnselectedWaveInMMDeviceList.Select
-                (x => x.FriendlyName).ToList();
+            AllWaveInDeviceList = AllWaveInDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
 
-            AvailableUnselectedWaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
-                (DataFlow.Render, available).ToList();
+            AllWaveOutDeviceList = mMDeviceEnumerator
+                .EnumerateAudioEndPoints(DataFlow.Render, DeviceState.All).Distinct()
+                .ToList();
 
-            AvailableUnselectedWaveOutNameList = AvailableUnselectedWaveOutMMDeviceList.Select
-                (x => x.FriendlyName).ToList();
+            AllWaveOutDeviceList = AllWaveOutDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
 
-            DisabledWaveInMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
-                (DataFlow.Capture, DeviceState.Disabled).ToList();
+            AvailableUnselectedWaveInMMDeviceList = AllWaveInDeviceList
+                .Where(mMDevice => mMDevice.State == available).ToList();
 
-            DisabledWaveInNameList = AvailableUnselectedWaveInMMDeviceList.Select
-                (x => x.FriendlyName).ToList();
+            AvailableUnselectedWaveInNameList = AvailableUnselectedWaveInMMDeviceList
+                .Select(mMDevice => mMDevice.FriendlyName).ToList();
 
-            DisabledWaveOutMMDeviceList = mMDeviceEnumerator.EnumerateAudioEndPoints
-                (DataFlow.Render, DeviceState.Disabled).ToList();
+            AvailableUnselectedWaveOutMMDeviceList = AllWaveOutDeviceList
+                .Where(mMDevice => mMDevice.State == available).ToList();
 
-            DisabledWaveOutNameList = AvailableUnselectedWaveOutMMDeviceList.Select
-                (x => x.FriendlyName).ToList();
+            AvailableUnselectedWaveOutNameList = AvailableUnselectedWaveOutMMDeviceList
+                .Select(mMDevice => mMDevice.FriendlyName).ToList();
+
+            DisabledWaveInMMDeviceList = AllWaveInDeviceList
+                .Where(mMDevice => mMDevice.State == DeviceState.Disabled).ToList();
+
+            DisabledWaveInNameList = DisabledWaveInMMDeviceList.Select
+                (mMDevice => mMDevice.FriendlyName).ToList();
+
+            DisabledWaveOutMMDeviceList = AllWaveOutDeviceList
+                .Where(mMDevice => mMDevice.State == DeviceState.Disabled).ToList();
+
+            DisabledWaveOutNameList = DisabledWaveOutMMDeviceList.Select
+                (mMDevice => mMDevice.FriendlyName).ToList();
         }
 
         /// <summary>
@@ -259,6 +283,11 @@ namespace VACARM.NET4.Models
         /// <param name="deviceName">The device name</param>
         public void MoveDeviceFromSelectedList(string deviceName)
         {
+            if (deviceName is null || deviceName == string.Empty)
+            {
+                return;
+            }
+
             MMDevice mMDevice = null;
 
             if (SelectedWaveInNameList.Contains(deviceName))
@@ -319,9 +348,14 @@ namespace VACARM.NET4.Models
         /// <param name="deviceName">The device name</param>
         public void MoveDeviceToSelectedList(string deviceName)
         {
+            if (deviceName is null || deviceName == string.Empty)
+            {
+                return;
+            }
+
             MMDevice mMDevice = null;
 
-            if (AvailableUnselectedWaveInNameList.Contains(deviceName))                 //TODO: fix! This isn't working!
+            if (AvailableUnselectedWaveInNameList.Contains(deviceName))
             {
                 mMDevice = AvailableUnselectedWaveInMMDeviceList
                     [AvailableUnselectedWaveInNameList.IndexOf(deviceName)];
