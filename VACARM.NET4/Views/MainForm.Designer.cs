@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using NAudio.CoreAudioApi;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Windows.Forms;
 using VACARM.NET4.Models;
 using VACARM.NET4.ViewModels;
@@ -338,7 +340,7 @@ namespace VACARM.NET4.Views
             this.disableWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.disableWaveInToolStripMenuItem.Tag = "";
             this.disableWaveInToolStripMenuItem.Text = "Wave In";
-            this.disableWaveInToolStripMenuItem.Click += new System.EventHandler(this.disableWaveInToolStripMenuItem_Click);
+            this.disableWaveInToolStripMenuItem.Click += new System.EventHandler(this.disableWaveInDeviceToolStripMenuItem_Click);
             // 
             // disableWaveOutToolStripMenuItem
             // 
@@ -346,7 +348,7 @@ namespace VACARM.NET4.Views
             this.disableWaveOutToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.disableWaveOutToolStripMenuItem.Tag = "";
             this.disableWaveOutToolStripMenuItem.Text = "Wave Out";
-            this.disableWaveOutToolStripMenuItem.Click += new System.EventHandler(this.disableWaveOutToolStripMenuItem_Click);
+            this.disableWaveOutToolStripMenuItem.Click += new System.EventHandler(this.disableWaveOutDeviceToolStripMenuItem_Click);
             // 
             // enableToolStripMenuItem
             // 
@@ -364,7 +366,7 @@ namespace VACARM.NET4.Views
             this.enableWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.enableWaveInToolStripMenuItem.Tag = "";
             this.enableWaveInToolStripMenuItem.Text = "Wave In";
-            this.enableWaveInToolStripMenuItem.Click += new System.EventHandler(this.enableWaveInToolStripMenuItem_Click);
+            this.enableWaveInToolStripMenuItem.Click += new System.EventHandler(this.enableWaveInDeviceToolStripMenuItem_Click);
             // 
             // enableWaveOutToolStripMenuItem
             // 
@@ -372,7 +374,7 @@ namespace VACARM.NET4.Views
             this.enableWaveOutToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.enableWaveOutToolStripMenuItem.Tag = "";
             this.enableWaveOutToolStripMenuItem.Text = "Wave Out";
-            this.enableWaveOutToolStripMenuItem.Click += new System.EventHandler(this.enableWaveOutToolStripMenuItem_Click);
+            this.enableWaveOutToolStripMenuItem.Click += new System.EventHandler(this.enableWaveOutDeviceToolStripMenuItem_Click);
             // 
             // deviceToolStripSeparator2
             // 
@@ -429,7 +431,7 @@ namespace VACARM.NET4.Views
             this.removeWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.removeWaveInToolStripMenuItem.Tag = "";
             this.removeWaveInToolStripMenuItem.Text = "Wave In";
-            this.removeWaveInToolStripMenuItem.Click += new System.EventHandler(this.removeWaveInToolStripMenuItem_Click);
+            this.removeWaveInToolStripMenuItem.Click += new System.EventHandler(this.removeWaveInDeviceToolStripMenuItem_Click);
             // 
             // removeWaveOutToolStripMenuItem
             // 
@@ -437,7 +439,7 @@ namespace VACARM.NET4.Views
             this.removeWaveOutToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.removeWaveOutToolStripMenuItem.Tag = "";
             this.removeWaveOutToolStripMenuItem.Text = "Wave Out";
-            this.removeWaveOutToolStripMenuItem.Click += new System.EventHandler(this.removeWaveOutToolStripMenuItem_Click);
+            this.removeWaveOutToolStripMenuItem.Click += new System.EventHandler(this.removeWaveOutDeviceToolStripMenuItem_Click);
             // 
             // removeAllDevicesToolStripMenuItem
             // 
@@ -494,7 +496,7 @@ namespace VACARM.NET4.Views
             this.linkWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.linkWaveInToolStripMenuItem.Tag = "";
             this.linkWaveInToolStripMenuItem.Text = "Wave In";
-            this.linkWaveInToolStripMenuItem.Click += new System.EventHandler(this.linkWaveInToolStripMenuItem_Click);
+            this.linkWaveInToolStripMenuItem.Click += new System.EventHandler(this.linkWaveInDeviceToolStripMenuItem_Click);
             // 
             // linkWaveOutToolStripMenuItem
             // 
@@ -502,7 +504,7 @@ namespace VACARM.NET4.Views
             this.linkWaveOutToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.linkWaveOutToolStripMenuItem.Tag = "";
             this.linkWaveOutToolStripMenuItem.Text = "Wave Out";
-            this.linkWaveOutToolStripMenuItem.Click += new System.EventHandler(this.linkWaveOutToolStripMenuItem_Click);
+            this.linkWaveOutToolStripMenuItem.Click += new System.EventHandler(this.linkWaveOutDeviceToolStripMenuItem_Click);
             // 
             // linkToolStripSeparator1
             // 
@@ -524,7 +526,7 @@ namespace VACARM.NET4.Views
             this.unlinkWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.unlinkWaveInToolStripMenuItem.Tag = "";
             this.unlinkWaveInToolStripMenuItem.Text = "Wave In";
-            this.unlinkWaveInToolStripMenuItem.Click += new System.EventHandler(this.unlinkWaveInToolStripMenuItem_Click);
+            this.unlinkWaveInToolStripMenuItem.Click += new System.EventHandler(this.unlinkWaveInDeviceToolStripMenuItem_Click);
             // 
             // unlinkWaveOutToolStripMenuItem
             // 
@@ -532,7 +534,7 @@ namespace VACARM.NET4.Views
             this.unlinkWaveOutToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.unlinkWaveOutToolStripMenuItem.Tag = "";
             this.unlinkWaveOutToolStripMenuItem.Text = "Wave Out";
-            this.unlinkWaveOutToolStripMenuItem.Click += new System.EventHandler(this.unlinkWaveOutToolStripMenuItem_Click);
+            this.unlinkWaveOutToolStripMenuItem.Click += new System.EventHandler(this.unlinkWaveOutDeviceToolStripMenuItem_Click);
             // 
             // unlinkAllToolStripMenuItem
             // 
@@ -839,94 +841,70 @@ namespace VACARM.NET4.Views
             toolStripMenuItemList.Add(removeWaveInToolStripMenuItem);
         }
 
-        internal void InitializeWaveInDeviceDropDownCollections()
+        /// <summary>
+        /// Initialize a device tool strip menu item drop down collection by parsing the
+        /// related device list.
+        /// </summary>
+        /// <param name="refToolStripMenuItem">The device tool strip menu item</param>
+        /// <param name="mMDeviceList">The device list</param>
+        internal void InitializeDeviceDropDownCollection
+            (ref ToolStripMenuItem refToolStripMenuItem, List<MMDevice> mMDeviceList)
         {
-            addWaveInDeviceToolStripMenuItem.DropDownItems.Clear();
-            disableWaveInToolStripMenuItem.DropDownItems.Clear();
-            enableWaveInToolStripMenuItem.DropDownItems.Clear();
-            linkWaveInToolStripMenuItem.DropDownItems.Clear();
-            removeWaveInToolStripMenuItem.DropDownItems.Clear();
-            unlinkWaveInToolStripMenuItem.DropDownItems.Clear();
-            List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
+            refToolStripMenuItem.DropDownItems.Clear();
+            List<ToolStripMenuItem> toolStripMenuItemList = 
+                new List<ToolStripMenuItem>();
 
-            deviceList.AvailableUnselectedWaveInNameList.ForEach(waveInName =>
+            foreach (MMDevice mMDevice in mMDeviceList.ToList())
             {
+                if (mMDevice.State == DeviceState.NotPresent)
+                {
+                    continue;
+                }
+
+                bool itemIsEnabled = mMDevice.State != DeviceState.Disabled;
+                string text = $"{mMDevice.FriendlyName} ";
+
+                if (itemIsEnabled)
+                {
+                    text += "(Enabled)";
+                }
+                else
+                {
+                    text += "(Disabled)";
+                }
+
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem()
                 {
                     BackColor = FormColorUpdater.BackColor,
                     ForeColor = FormColorUpdater.ForeColor,
-                    Text = waveInName,
-
+                    Enabled = itemIsEnabled,
+                    Text = text,
+                    ToolTipText = mMDevice.DeviceFriendlyName,
                 };
 
                 toolStripMenuItem.Click += new System.EventHandler
-                    (this.addWaveInDeviceToolStripMenuItem_Click);
-                toolStripItemList.Add(toolStripMenuItem);
-            });
+                    (addWaveInDeviceToolStripMenuItem_Click);
+                toolStripMenuItemList.Add(toolStripMenuItem);
+            }
 
-            addWaveInDeviceToolStripMenuItem.DropDownItems.AddRange
-                (new ToolStripItemCollection
-                (this.menuStrip1, toolStripItemList.ToArray()));
-            //disableWaveInToolStripMenuItem.DropDownItems.AddRange
-            //    (new ToolStripItemCollection
-            //    (this.menuStrip1, toolStripItemList.ToArray()));
-            ////enableWaveInToolStripMenuItem.DropDownItems.AddRange
-            ////    (new ToolStripItemCollection
-            ////    (this.menuStrip1, toolStripItemList.ToArray()));
-            ////linkWaveInToolStripMenuItem.DropDownItems.AddRange
-            ////    (new ToolStripItemCollection
-            ////    (this.menuStrip1, toolStripItemList.ToArray()));
-            ////removeWaveInToolStripMenuItem.DropDownItems.AddRange
-            ////    (new ToolStripItemCollection
-            ////    (this.menuStrip1, toolStripItemList.ToArray()));
-            ////unlinkWaveInToolStripMenuItem.DropDownItems.AddRange
-            ////    (new ToolStripItemCollection
-            ////    (this.menuStrip1, toolStripItemList.ToArray()));
-        }
-
-        internal void InitializeWaveOutDeviceDropDownCollections()
-        {
-            addWaveOutDeviceToolStripMenuItem.DropDownItems.Clear();
-            disableWaveOutToolStripMenuItem.DropDownItems.Clear();
-            enableWaveOutToolStripMenuItem.DropDownItems.Clear();
-            linkWaveOutToolStripMenuItem.DropDownItems.Clear();
-            removeWaveOutToolStripMenuItem.DropDownItems.Clear();
-            unlinkWaveOutToolStripMenuItem.DropDownItems.Clear();
-            List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
-
-            deviceList.AvailableUnselectedWaveInNameList.ForEach(waveOutName =>
+            toolStripMenuItemList.ForEach(toolStripMenuItem =>
             {
-                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem()
-                {
-                    //BackColor = FormColorUpdater.BackColor,
-                    //ForeColor = FormColorUpdater.ForeColor,
-                    Text = waveOutName,
-
-                };
-
-                toolStripMenuItem.Click += new System.EventHandler
-                                    (this.addWaveInDeviceToolStripMenuItem_Click);
-                toolStripItemList.Add(toolStripMenuItem);
+                string prefix = 
+                    $"{toolStripMenuItemList.IndexOf(toolStripMenuItem).ToString()}. ";
+                toolStripMenuItem.Text = string.Format
+                    ("{0,4} {1}", prefix, toolStripMenuItem.Text);
             });
 
-            addWaveOutDeviceToolStripMenuItem.DropDownItems.AddRange
-                (new ToolStripItemCollection
-                (this.menuStrip1, toolStripItemList.ToArray()));
-            //disableWaveOutToolStripMenuItem.DropDownItems.AddRange
-            //    (new ToolStripItemCollection
-            //    (this.menuStrip1, toolStripItemList.ToArray()));
-            //enableWaveOutToolStripMenuItem.DropDownItems.AddRange
-            //    (new ToolStripItemCollection
-            //    (this.menuStrip1, toolStripItemList.ToArray()));
-            //linkWaveOutToolStripMenuItem.DropDownItems.AddRange
-            //    (new ToolStripItemCollection
-            //    (this.menuStrip1, toolStripItemList.ToArray()));
-            //removeWaveOutToolStripMenuItem.DropDownItems.AddRange
-            //    (new ToolStripItemCollection
-            //    (this.menuStrip1, toolStripItemList.ToArray()));
-            //unlinkWaveOutToolStripMenuItem.DropDownItems.AddRange
-            //    (new ToolStripItemCollection
-            //    (this.menuStrip1, toolStripItemList.ToArray()));
+            refToolStripMenuItem.DropDownItems.AddRange
+                (toolStripMenuItemList.ToArray());
+            string toolTipTextWhereDropDownItemsIsEmpty = "No devices found.";
+
+            if (refToolStripMenuItem.DropDownItems.Count != 0)
+            {
+                return;
+            }
+
+            refToolStripMenuItem.ToolTipText = toolTipTextWhereDropDownItemsIsEmpty;
         }
 
         /// <summary>
@@ -943,8 +921,12 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void InitializeLists()
         {
-            InitializeWaveInDeviceDropDownCollections();
-            InitializeWaveOutDeviceDropDownCollections();
+            //TODO: add async task, pop up window to prompt "Loading sound devices."
+
+            InitializeDeviceDropDownCollection(ref addWaveInDeviceToolStripMenuItem, 
+                deviceList.AllWaveInDeviceList);
+            InitializeDeviceDropDownCollection(ref addWaveOutDeviceToolStripMenuItem, 
+                deviceList.AllWaveOutDeviceList);
             InitializeControlsList();
             InitializeMenuItemsList();
         }
