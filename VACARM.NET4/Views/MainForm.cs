@@ -26,9 +26,17 @@ namespace VACARM.NET4.Views
         [ExcludeFromCodeCoverage]
         public MainForm()
         {
-            deviceList = new DeviceList();
+            SetDeviceList();
             InitializeComponent();
             PostInitializeComponent();
+        }
+
+        /// <summary>
+        /// Set the device list.
+        /// </summary>
+        internal void SetDeviceList()
+        {
+            deviceList = new DeviceList();
         }
 
         #endregion
@@ -83,6 +91,23 @@ namespace VACARM.NET4.Views
         #region 2. Device menu logic
 
         /// <summary>
+        /// Click event logic for deviceAddAllToolStripMenuItemDropDown.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        internal void deviceAddAllToolStripMenuItemDropDown_Click
+            (object sender, EventArgs eventArgs)
+        {
+            if (!(sender is ToolStripMenuItem))
+            {
+                return;
+            }
+
+            deviceList.MoveAllDevicesToSelectedLists();
+            InitializeLists();
+        }
+
+        /// <summary>
         /// Click event logic for deviceAddToolStripMenuItemDropDown.
         /// </summary>
         /// <param name="sender">The sender object</param>
@@ -113,6 +138,18 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
+        /// Click event logic for deviceRemoveAllToolStripMenuItemDropDown.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        internal void deviceRemoveAllToolStripMenuItemDropDown_Click
+            (object sender, EventArgs eventArgs)
+        {
+            SetDeviceList();
+            InitializeLists();
+        }
+
+        /// <summary>
         /// Click event logic for deviceRemoveToolStripMenuItemDropDown.
         /// </summary>
         /// <param name="sender">The sender object</param>
@@ -129,7 +166,7 @@ namespace VACARM.NET4.Views
                 ((sender as ToolStripMenuItem).ToolTipText);
             InitializeLists();
         }
-
+        
         #endregion
 
         #region 3. Link menu logic
