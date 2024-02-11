@@ -90,19 +90,44 @@ namespace VACARM.NET4.Models
             AllWaveInDeviceList = AllWaveInDeviceList
                 .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
                 .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+            AllWaveOutDeviceList = mMDeviceEnumerator
+                .EnumerateAudioEndPoints(DataFlow.Capture, Present).Distinct()
+                .ToList();
+            AllWaveOutDeviceList = AllWaveOutDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
         }
 
         /// <summary>
-        /// Get unselected device lists.
+        /// Get unselected wave in device lists.
         /// </summary>
-        internal void GetUnselectedDeviceLists()
+        internal void GetUnselectedWaveInDeviceLists()
         {
+            if (SelectedWaveInMMDeviceList is null ||
+                SelectedWaveInMMDeviceList.Count == 0)
+            {
+                return;
+            }
+
             UnselectedWaveInMMDeviceList = AllWaveInDeviceList
                 .Where(mMDevice =>
                     !DoesListContainDevice(SelectedWaveInMMDeviceList, mMDevice))
                 .ToList();
             UnselectedWaveInNameList = UnselectedWaveInMMDeviceList
                 .Select(mMDevice => mMDevice.FriendlyName).ToList();
+        }
+
+        /// <summary>
+        /// Get unselected wave out device lists.
+        /// </summary>
+        internal void GetUnselectedWaveOutDeviceLists()
+        {
+            if (SelectedWaveOutMMDeviceList is null ||
+                SelectedWaveOutMMDeviceList.Count == 0)
+            {
+                return;
+            }
+
             UnselectedWaveOutMMDeviceList = AllWaveOutDeviceList
                 .Where(mMDevice =>
                     !DoesListContainDevice(SelectedWaveOutMMDeviceList, mMDevice))
@@ -249,7 +274,8 @@ namespace VACARM.NET4.Models
         public void SetDeviceLists()
         {
             GetAllDeviceLists();
-            GetUnselectedDeviceLists();
+            GetUnselectedWaveInDeviceLists();
+            GetUnselectedWaveOutDeviceLists();
             SetSelectedListsGivenNewDeviceState();
         }
 
