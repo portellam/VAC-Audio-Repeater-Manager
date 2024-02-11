@@ -59,6 +59,8 @@ namespace VACARM.NET4.Models
         public DeviceList()
         {
             GetAllDeviceLists();
+            GetUnselectedWaveInDeviceLists();
+            GetUnselectedWaveOutDeviceLists();
             SelectedWaveInMMDeviceList = new List<MMDevice>();
             SelectedWaveInNameList = new List<string>();
             SelectedWaveOutMMDeviceList = new List<MMDevice>();
@@ -106,7 +108,7 @@ namespace VACARM.NET4.Models
             if (SelectedWaveInMMDeviceList is null ||
                 SelectedWaveInMMDeviceList.Count == 0)
             {
-                return;
+                UnselectedWaveInMMDeviceList = AllWaveInDeviceList;
             }
 
             UnselectedWaveInMMDeviceList = AllWaveInDeviceList
@@ -125,7 +127,7 @@ namespace VACARM.NET4.Models
             if (SelectedWaveOutMMDeviceList is null ||
                 SelectedWaveOutMMDeviceList.Count == 0)
             {
-                return;
+                SelectedWaveOutMMDeviceList = AllWaveOutDeviceList;
             }
 
             UnselectedWaveOutMMDeviceList = AllWaveOutDeviceList
