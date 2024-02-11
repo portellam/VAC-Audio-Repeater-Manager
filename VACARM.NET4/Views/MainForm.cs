@@ -117,7 +117,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceRemoveToolStripMenuItem_Click
+        internal void deviceRemoveToolStripMenuItemDropDown_Click
             (object sender, EventArgs eventArgs)
         {
             if (!(sender is ToolStripMenuItem))
