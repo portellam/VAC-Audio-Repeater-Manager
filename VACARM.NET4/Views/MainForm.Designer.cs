@@ -416,6 +416,9 @@ namespace VACARM.NET4.Views
             this.deviceAddAllToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
             this.deviceAddAllToolStripMenuItem.Tag = "";
             this.deviceAddAllToolStripMenuItem.Text = "Add All";
+            this.deviceAddAllToolStripMenuItem.Click +=
+                new System.EventHandler
+                (this.deviceAddAllToolStripMenuItemDropDown_Click); 
             // 
             // deviceToolStripSeparator2
             // 
@@ -458,6 +461,9 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(230, 26);
             this.deviceRemoveAllToolStripMenuItem.Tag = "";
             this.deviceRemoveAllToolStripMenuItem.Text = "Remove All";
+            this.deviceRemoveAllToolStripMenuItem.Click +=
+                new System.EventHandler
+                (this.deviceRemoveAllToolStripMenuItemDropDown_Click);
             // 
             // deviceRemoveAllLinkedToolStripMenuItem
             // 
