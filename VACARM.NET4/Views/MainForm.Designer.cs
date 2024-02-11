@@ -60,7 +60,7 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.ToolStripMenuItem deviceAddToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deviceAddWaveInToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem
-            deviceAddWaveOutDeviceToolStripMenuItem;
+            deviceAddWaveOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deviceReloadAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem
             deviceRemoveAllLinkedToolStripMenuItem;
@@ -145,7 +145,7 @@ namespace VACARM.NET4.Views
                new System.Windows.Forms.ToolStripMenuItem();
             this.deviceAddWaveInToolStripMenuItem =
                new System.Windows.Forms.ToolStripMenuItem();
-            this.deviceAddWaveOutDeviceToolStripMenuItem =
+            this.deviceAddWaveOutToolStripMenuItem =
                new System.Windows.Forms.ToolStripMenuItem();
             this.deviceReloadAllToolStripMenuItem =
                new System.Windows.Forms.ToolStripMenuItem();
@@ -387,7 +387,7 @@ namespace VACARM.NET4.Views
             this.deviceAddToolStripMenuItem.DropDownItems
                .AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deviceAddWaveInToolStripMenuItem,
-            this.deviceAddWaveOutDeviceToolStripMenuItem});
+            this.deviceAddWaveOutToolStripMenuItem});
             this.deviceAddToolStripMenuItem.Name = "deviceAddToolStripMenuItem";
             this.deviceAddToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
             this.deviceAddToolStripMenuItem.Text = "Add...";
@@ -401,14 +401,14 @@ namespace VACARM.NET4.Views
             this.deviceAddWaveInToolStripMenuItem.Tag = "";
             this.deviceAddWaveInToolStripMenuItem.Text = "Wave In";
             // 
-            // deviceAddWaveOutDeviceToolStripMenuItem
+            // deviceAddWaveOutToolStripMenuItem
             // 
-            this.deviceAddWaveOutDeviceToolStripMenuItem.Name =
+            this.deviceAddWaveOutToolStripMenuItem.Name =
                "deviceAddWaveOutDeviceToolStripMenuItem";
-            this.deviceAddWaveOutDeviceToolStripMenuItem.Size =
+            this.deviceAddWaveOutToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
-            this.deviceAddWaveOutDeviceToolStripMenuItem.Tag = "";
-            this.deviceAddWaveOutDeviceToolStripMenuItem.Text = "Wave Out";
+            this.deviceAddWaveOutToolStripMenuItem.Tag = "";
+            this.deviceAddWaveOutToolStripMenuItem.Text = "Wave Out";
             // 
             // deviceAddAllToolStripMenuItem
             // 
@@ -863,7 +863,7 @@ namespace VACARM.NET4.Views
             toolStripMenuItemList.Add(deviceAddAllToolStripMenuItem);
             toolStripMenuItemList.Add(deviceAddToolStripMenuItem);
             toolStripMenuItemList.Add(deviceAddWaveInToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceAddWaveOutDeviceToolStripMenuItem);
+            toolStripMenuItemList.Add(deviceAddWaveOutToolStripMenuItem);
             toolStripMenuItemList.Add(deviceReloadAllToolStripMenuItem);
             toolStripMenuItemList.Add(deviceRemoveAllLinkedToolStripMenuItem);
             toolStripMenuItemList.Add(deviceRemoveAllToolStripMenuItem);
@@ -949,7 +949,7 @@ namespace VACARM.NET4.Views
                     BackColor = FormColorUpdater.BackColor,
                     ForeColor = FormColorUpdater.ForeColor,
                     Text = text,
-                    ToolTipText = mMDevice.DeviceFriendlyName,
+                    ToolTipText = mMDevice.FriendlyName,
                 };
 
                 toolStripMenuItem.Click += new System.EventHandler(eventHandler);
@@ -984,7 +984,7 @@ namespace VACARM.NET4.Views
         internal void DeviceAddMenuItemAbility()
         {
             bool isEnabled = deviceAddWaveInToolStripMenuItem.Enabled
-                || deviceAddWaveOutDeviceToolStripMenuItem.Enabled;
+                || deviceAddWaveOutToolStripMenuItem.Enabled;
             deviceAddToolStripMenuItem.Enabled = isEnabled;
             deviceAddAllToolStripMenuItem.Enabled = isEnabled;
         }
@@ -1005,24 +1005,31 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void InitializeDeviceDropDownCollections()
         {
+            deviceAddWaveInToolStripMenuItem.DropDownItems.Clear();
+            deviceAddWaveOutToolStripMenuItem.DropDownItems.Clear();
+            deviceRemoveWaveInToolStripMenuItem.DropDownItems.Clear();
+            deviceRemoveWaveOutToolStripMenuItem.DropDownItems.Clear();
+
             string text = deviceToolStripMenuItem.Text;
             deviceToolStripMenuItem.Text = "Reloading...";
             deviceToolStripMenuItem.Enabled = false;
-            this.Refresh();
+            Refresh();
 
             InitializeDeviceDropDownCollection
                 (deviceAddToolStripMenuItemDropDown_Click,
                 ref deviceAddWaveInToolStripMenuItem,
                 deviceList.UnselectedWaveInMMDeviceList);
+
             InitializeDeviceDropDownCollection
                 (deviceAddToolStripMenuItemDropDown_Click,
-                ref deviceAddWaveOutDeviceToolStripMenuItem,
+                ref deviceAddWaveOutToolStripMenuItem,
                 deviceList.UnselectedWaveOutMMDeviceList);
 
             InitializeDeviceDropDownCollection
                 (deviceRemoveToolStripMenuItemDropDown_Click,
                 ref deviceRemoveWaveInToolStripMenuItem,
                 deviceList.SelectedWaveInMMDeviceList);
+
             InitializeDeviceDropDownCollection
                 (deviceRemoveToolStripMenuItemDropDown_Click,
                 ref deviceRemoveWaveOutToolStripMenuItem,
@@ -1030,7 +1037,7 @@ namespace VACARM.NET4.Views
 
             deviceToolStripMenuItem.Text = text;
             deviceToolStripMenuItem.Enabled = true;
-            this.Refresh();
+            Refresh();
         }
 
         /// <summary>
