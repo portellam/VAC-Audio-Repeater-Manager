@@ -440,8 +440,6 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(156, 26);
             this.deviceRemoveWaveInToolStripMenuItem.Tag = "";
             this.deviceRemoveWaveInToolStripMenuItem.Text = "Wave In";
-            this.deviceRemoveWaveInToolStripMenuItem.Click +=
-               new System.EventHandler(this.removeWaveInDeviceToolStripMenuItem_Click);
             // 
             // deviceRemoveWaveOutToolStripMenuItem
             // 
@@ -451,8 +449,6 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(156, 26);
             this.deviceRemoveWaveOutToolStripMenuItem.Tag = "";
             this.deviceRemoveWaveOutToolStripMenuItem.Text = "Wave Out";
-            this.deviceRemoveWaveOutToolStripMenuItem.Click +=
-               new System.EventHandler(this.removeWaveOutDeviceToolStripMenuItem_Click);
             // 
             // deviceRemoveAllToolStripMenuItem
             // 
@@ -914,11 +910,17 @@ namespace VACARM.NET4.Views
         /// Initialize a device tool strip menu item drop down collection by parsing the
         /// related device list.
         /// </summary>
+        /// <param name="eventHandler">The event handler</param>
         /// <param name="refToolStripMenuItem">The device tool strip menu item</param>
         /// <param name="mMDeviceList">The device list</param>
-        internal void InitializeDeviceDropDownCollection
-            (ref ToolStripMenuItem refToolStripMenuItem, List<MMDevice> mMDeviceList)
+        internal void InitializeDeviceDropDownCollection(EventHandler eventHandler,
+            ref ToolStripMenuItem refToolStripMenuItem, List<MMDevice> mMDeviceList)
         {
+            if (mMDeviceList is null || mMDeviceList.Count == 0)
+            {
+                return;
+            }
+
             refToolStripMenuItem.DropDownItems.Clear();
             List<ToolStripMenuItem> toolStripMenuItemList =
                 new List<ToolStripMenuItem>();
@@ -930,10 +932,10 @@ namespace VACARM.NET4.Views
                     continue;
                 }
 
-                bool itemIsEnabled = mMDevice.State != DeviceState.Disabled;
+                bool deviceIsEnabled = mMDevice.State != DeviceState.Disabled;
                 string text = $"{mMDevice.FriendlyName} ";
 
-                if (itemIsEnabled)
+                if (deviceIsEnabled)
                 {
                     text += "(Enabled)";
                 }
@@ -946,13 +948,11 @@ namespace VACARM.NET4.Views
                 {
                     BackColor = FormColorUpdater.BackColor,
                     ForeColor = FormColorUpdater.ForeColor,
-                    Enabled = itemIsEnabled,
                     Text = text,
                     ToolTipText = mMDevice.DeviceFriendlyName,
                 };
 
-                toolStripMenuItem.Click += new System.EventHandler
-                    (deviceAddToolStripMenuItem_Click);
+                toolStripMenuItem.Click += new System.EventHandler(eventHandler);
                 toolStripMenuItemList.Add(toolStripMenuItem);
             }
 
@@ -968,12 +968,38 @@ namespace VACARM.NET4.Views
                 (toolStripMenuItemList.ToArray());
             string toolTipTextWhereDropDownItemsIsEmpty = "No devices found.";
 
-            if (refToolStripMenuItem.DropDownItems.Count != 0)
+            if (refToolStripMenuItem.DropDownItems.Count > 0)
             {
+                refToolStripMenuItem.Enabled = true;
                 return;
             }
 
             refToolStripMenuItem.ToolTipText = toolTipTextWhereDropDownItemsIsEmpty;
+            refToolStripMenuItem.Enabled = false;
+        }
+
+        /// <summary>
+        /// Set the ability of the DeviceAdd and DeviceAddAll menu items.
+        /// </summary>
+        internal void DeviceAddMenuItemAbility()
+        {
+            bool isEnabled =
+                deviceAddWaveInToolStripMenuItem.Enabled
+                || deviceAddWaveOutDeviceToolStripMenuItem.Enabled;
+            deviceAddToolStripMenuItem.Enabled = isEnabled;
+            deviceAddAllToolStripMenuItem.Enabled = isEnabled;
+        }
+
+        /// <summary>
+        /// Set the ability of the DeviceRemove and DeviceRemoveAll menu items.
+        /// </summary>
+        internal void DeviceRemoveMenuItemAbility()
+        {
+            bool isEnabled =
+                deviceRemoveWaveInToolStripMenuItem.Enabled
+                || deviceRemoveWaveOutToolStripMenuItem.Enabled;
+            deviceRemoveToolStripMenuItem.Enabled = isEnabled;
+            deviceRemoveAllToolStripMenuItem.Enabled = isEnabled;
         }
 
         /// <summary>
@@ -983,21 +1009,29 @@ namespace VACARM.NET4.Views
         {
             string text = deviceToolStripMenuItem.Text;
             deviceToolStripMenuItem.Text = "Reloading...";
+            deviceToolStripMenuItem.Enabled = false;
             this.Refresh();
+
             InitializeDeviceDropDownCollection
-                (ref deviceAddWaveInToolStripMenuItem,
+                (deviceAddToolStripMenuItemDropDown_Click,
+                ref deviceAddWaveInToolStripMenuItem,
                 deviceList.UnselectedWaveInMMDeviceList);
             InitializeDeviceDropDownCollection
-                (ref deviceAddWaveOutDeviceToolStripMenuItem,
+                (deviceAddToolStripMenuItemDropDown_Click,
+                ref deviceAddWaveOutDeviceToolStripMenuItem,
                 deviceList.UnselectedWaveOutMMDeviceList);
+
             InitializeDeviceDropDownCollection
-                (ref deviceRemoveWaveInToolStripMenuItem,
+                (deviceRemoveToolStripMenuItemDropDown_Click,
+                ref deviceRemoveWaveInToolStripMenuItem,
                 deviceList.SelectedWaveInMMDeviceList);
             InitializeDeviceDropDownCollection
-                (ref deviceRemoveWaveOutToolStripMenuItem,
+                (deviceRemoveToolStripMenuItemDropDown_Click,
+                ref deviceRemoveWaveOutToolStripMenuItem,
                 deviceList.SelectedWaveOutMMDeviceList);
-            GC.Collect();
+
             deviceToolStripMenuItem.Text = text;
+            deviceToolStripMenuItem.Enabled = true;
             this.Refresh();
         }
 
@@ -1007,8 +1041,11 @@ namespace VACARM.NET4.Views
         internal void InitializeLists()
         {
             InitializeDeviceDropDownCollections();
+            DeviceAddMenuItemAbility();
+            DeviceRemoveMenuItemAbility();
             InitializeControlsList();
             InitializeMenuItemsList();
+            GC.Collect();
         }
 
         /// <summary>
