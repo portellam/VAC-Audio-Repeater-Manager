@@ -233,7 +233,8 @@ namespace VACARM.NET4.Views
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void helpAboutToolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        internal void helpAboutToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
         {
             if (Application.OpenForms.OfType<AboutForm>().Count() > 0)
             {
