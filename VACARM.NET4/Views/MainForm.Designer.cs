@@ -1,10 +1,10 @@
 ﻿using NAudio.CoreAudioApi;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
-using VACARM.NET4.Models;
 using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
@@ -920,7 +920,7 @@ namespace VACARM.NET4.Views
             (ref ToolStripMenuItem refToolStripMenuItem, List<MMDevice> mMDeviceList)
         {
             refToolStripMenuItem.DropDownItems.Clear();
-            List<ToolStripMenuItem> toolStripMenuItemList = 
+            List<ToolStripMenuItem> toolStripMenuItemList =
                 new List<ToolStripMenuItem>();
 
             foreach (MMDevice mMDevice in mMDeviceList.ToList())
@@ -952,13 +952,13 @@ namespace VACARM.NET4.Views
                 };
 
                 toolStripMenuItem.Click += new System.EventHandler
-                    (deviceAddWaveInToolStripMenuItem_Click);
+                    (deviceAddToolStripMenuItem_Click);
                 toolStripMenuItemList.Add(toolStripMenuItem);
             }
 
             toolStripMenuItemList.ForEach(toolStripMenuItem =>
             {
-                string prefix = 
+                string prefix =
                     $"{toolStripMenuItemList.IndexOf(toolStripMenuItem).ToString()}. ";
                 toolStripMenuItem.Text = string.Format
                     ("{0,4} {1}", prefix, toolStripMenuItem.Text);
@@ -977,12 +977,28 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Logs event when property has changed.
+        /// Initialize device drop down collections.
         /// </summary>
-        /// <param name="propertyName">The property name</param>
-        internal void OnPropertyChanged(string propertyName)
+        internal void InitializeDeviceDropDownCollections()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            string text = deviceToolStripMenuItem.Text;
+            deviceToolStripMenuItem.Text = "Reloading...";
+            this.Refresh();
+            InitializeDeviceDropDownCollection
+                (ref deviceAddWaveInToolStripMenuItem,
+                deviceList.UnselectedWaveInMMDeviceList);
+            InitializeDeviceDropDownCollection
+                (ref deviceAddWaveOutDeviceToolStripMenuItem,
+                deviceList.UnselectedWaveOutMMDeviceList);
+            InitializeDeviceDropDownCollection
+                (ref deviceRemoveWaveInToolStripMenuItem,
+                deviceList.SelectedWaveInMMDeviceList);
+            InitializeDeviceDropDownCollection
+                (ref deviceRemoveWaveOutToolStripMenuItem,
+                deviceList.SelectedWaveOutMMDeviceList);
+            GC.Collect();
+            deviceToolStripMenuItem.Text = text;
+            this.Refresh();
         }
 
         /// <summary>
@@ -990,12 +1006,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void InitializeLists()
         {
-            //TODO: add async task, pop up window to prompt "Loading sound devices."
-
-            InitializeDeviceDropDownCollection(ref deviceAddWaveInToolStripMenuItem, 
-                deviceList.AllWaveInDeviceList);
-            InitializeDeviceDropDownCollection(ref deviceAddWaveOutDeviceToolStripMenuItem, 
-                deviceList.AllWaveOutDeviceList);
+            InitializeDeviceDropDownCollections();
             InitializeControlsList();
             InitializeMenuItemsList();
         }
@@ -1008,6 +1019,15 @@ namespace VACARM.NET4.Views
             InitializeLists();
             SetInitialChanges();
             SetColorTheme();
+        }
+
+        /// <summary>
+        /// Logs event when property has changed.
+        /// </summary>
+        /// <param name="propertyName">The property name</param>
+        internal void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
