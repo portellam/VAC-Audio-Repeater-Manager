@@ -983,8 +983,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void DeviceAddMenuItemAbility()
         {
-            bool isEnabled =
-                deviceAddWaveInToolStripMenuItem.Enabled
+            bool isEnabled = deviceAddWaveInToolStripMenuItem.Enabled
                 || deviceAddWaveOutDeviceToolStripMenuItem.Enabled;
             deviceAddToolStripMenuItem.Enabled = isEnabled;
             deviceAddAllToolStripMenuItem.Enabled = isEnabled;
@@ -995,8 +994,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void DeviceRemoveMenuItemAbility()
         {
-            bool isEnabled =
-                deviceRemoveWaveInToolStripMenuItem.Enabled
+            bool isEnabled = deviceRemoveWaveInToolStripMenuItem.Enabled
                 || deviceRemoveWaveOutToolStripMenuItem.Enabled;
             deviceRemoveToolStripMenuItem.Enabled = isEnabled;
             deviceRemoveAllToolStripMenuItem.Enabled = isEnabled;
