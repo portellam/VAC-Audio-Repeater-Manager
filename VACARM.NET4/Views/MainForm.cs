@@ -83,11 +83,11 @@ namespace VACARM.NET4.Views
         #region 2. Device menu logic
 
         /// <summary>
-        /// Click event logic for deviceAddToolStripMenuItem dropdown.
+        /// Click event logic for deviceAddToolStripMenuItemDropDown.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceAddToolStripMenuItem_Click
+        internal void deviceAddToolStripMenuItemDropDown_Click
             (object sender, EventArgs eventArgs)
         {
             if (!(sender is ToolStripMenuItem))
@@ -113,25 +113,21 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for removeWaveInDeviceToolStripMenuItem.
+        /// Click event logic for deviceRemoveToolStripMenuItemDropDown.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void removeWaveInDeviceToolStripMenuItem_Click
+        internal void deviceRemoveToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
+            if (!(sender is ToolStripMenuItem))
+            {
+                return;
+            }
 
-        }
-
-        /// <summary>
-        /// Click event logic for removeWaveOutDeviceToolStripMenuItem.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void removeWaveOutDeviceToolStripMenuItem_Click
-            (object sender, EventArgs eventArgs)
-        {
-
+            deviceList.MoveDeviceFromSelectedList
+                ((sender as ToolStripMenuItem).ToolTipText);
+            InitializeLists();
         }
 
         #endregion
