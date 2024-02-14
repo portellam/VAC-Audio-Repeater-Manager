@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace VACARM.NET4.Models
 {
-    public class DeviceList
+    public class DeviceListModel
     {
         /*
          * TODO: evaluate the purpose of available, disabled, and selected lists.
@@ -57,7 +57,7 @@ namespace VACARM.NET4.Models
         /// Constructor
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public DeviceList()
+        public DeviceListModel()
         {
             AllDeviceList = new MMDeviceEnumerator()
                 .EnumerateAudioEndPoints(DataFlow.All, Present).Distinct().ToList();
@@ -76,7 +76,7 @@ namespace VACARM.NET4.Models
         /// Constructor
         /// </summary>
         /// <param name="allDeviceList">the MMDevice list</param>
-        public DeviceList(List<MMDevice> allDeviceList)
+        public DeviceListModel(List<MMDevice> allDeviceList)
         {
             AllDeviceList = allDeviceList.Where
                 (mMDevice => mMDevice.State == Present).Distinct().ToList();
