@@ -15,7 +15,7 @@ namespace VACARM.NET4.Views
         #region Parameters
 
         private string fileName;
-        private DeviceList deviceList;
+        private DeviceListModel deviceList;
 
         public const string WaveInAsString = "Wave In";
         public const string WaveOutAsString = "Wave Out";
@@ -40,7 +40,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetDeviceList()
         {
-            deviceList = new DeviceList();
+            deviceList = new DeviceListModel();
         }
 
         #endregion
