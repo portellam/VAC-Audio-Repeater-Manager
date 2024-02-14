@@ -6,8 +6,11 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Windows.Media;
 using System.Windows.Shapes;
+using VACARM.NET4.Extensions;
 using VACARM.NET4.Structs;
+using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Models
 {
@@ -62,8 +65,8 @@ namespace VACARM.NET4.Models
             }
         }
 
-        public Control CaptureDevice;
-        public Control RenderDevice;
+        public DeviceControl InputDeviceControl;
+        public DeviceControl OutputDeviceControl;
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -201,7 +204,7 @@ namespace VACARM.NET4.Models
         {
             get
             {
-                return CaptureDevice.MMDevice;
+                return InputDeviceControl.MMDevice;
             }
         }
 
@@ -212,7 +215,7 @@ namespace VACARM.NET4.Models
         {
             get
             {
-                return RenderDevice.MMDevice;
+                return OutputDeviceControl.MMDevice;
             }
         }
 
@@ -446,14 +449,14 @@ namespace VACARM.NET4.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="captureControl">The capture device control</param>
-        /// <param name="renderControl">The render device control</param>
+        /// <param name="inputDeviceControl">The input device control</param>
+        /// <param name="outputDeviceControl">The output device control</param>
         [ExcludeFromCodeCoverage]
-        public RepeaterModel(Control captureControl,
-            Control renderControl)
+        public RepeaterModel
+            (DeviceControl inputDeviceControl, DeviceControl outputDeviceControl)
         {
-            CaptureDevice = captureControl;
-            RenderDevice = renderControl;
+            InputDeviceControl = inputDeviceControl;
+            OutputDeviceControl = outputDeviceControl;
             BitsPerSample = defaultBitsPerSample;
             BufferMs = defaultBufferMs;
             Buffers = defaultBuffers;
@@ -461,9 +464,8 @@ namespace VACARM.NET4.Models
 
             Link = new Line
             {
-                Stroke = Common.DoUseLightTheme ?
-                    Common.HexToRgbColor_FFFFFF : Common.HexToRgbColor_000000,
-
+                Stroke = new SolidColorBrush(ColorExtension.ToMediaColor
+                    (FormColorUpdater.ForeColor)),
                 StrokeThickness = 2
             };
 
