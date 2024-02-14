@@ -257,7 +257,11 @@ namespace VACARM.NET4.Views
 
         #endregion
 
-        #region 4. View menu logic
+        #region 4. Repeater menu logic
+
+        #endregion
+
+        #region 5. View menu logic
         /// <summary>
         /// Click event logic for aboutToolStripMenuItem.
         /// Set the ToggleDarkModeText.
@@ -281,7 +285,7 @@ namespace VACARM.NET4.Views
 
         #endregion
 
-        #region 5. Help menu logic
+        #region 6. Help menu logic
 
         /// <summary>
         /// Click event logic for aboutToolStripMenuItem.
