@@ -239,20 +239,24 @@ namespace VACARM.NET4.Views
         internal void linkWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            if (sender is null || (sender as string) == string.Empty)
+            if (sender is null || (sender as ToolStripMenuItem).ToolTipText is null)
             {
                 return;
             }
 
-            MMDevice mMDevice = 
-                deviceListModel.GetMMDevice(sender as string, DataFlow.Capture);
+            MMDevice mMDevice = deviceListModel.GetMMDevice
+                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Capture);
 
             if (mMDevice is null)
             {
                 return;
             }
 
-            inputDeviceControl.MMDevice = mMDevice;
+            inputDeviceControl = new DeviceControl()
+            {
+                MMDevice = mMDevice,
+            };
+
             AddToRepeaterModel();
         }
 
@@ -264,20 +268,24 @@ namespace VACARM.NET4.Views
         internal void linkWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            if (sender is null || (sender as string) == string.Empty)
+            if (sender is null || (sender as ToolStripMenuItem).ToolTipText is null)
             {
                 return;
             }
 
-            MMDevice mMDevice =
-                deviceListModel.GetMMDevice(sender as string, DataFlow.Render);
+            MMDevice mMDevice = deviceListModel.GetMMDevice
+                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
 
             if (mMDevice is null)
             {
                 return;
             }
 
-            outputDeviceControl.MMDevice = mMDevice;
+            outputDeviceControl = new DeviceControl()
+            {
+                MMDevice = mMDevice,
+            };
+
             AddToRepeaterModel();
         }
 
