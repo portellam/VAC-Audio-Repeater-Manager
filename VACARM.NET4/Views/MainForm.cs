@@ -103,7 +103,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveAllDevicesToSelectedLists();
+            deviceList.MoveAllMMDevicesToSelectedLists();
             InitializeLists();
         }
 
@@ -120,7 +120,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveDeviceToSelectedList
+            deviceList.MoveMMDeviceToSelectedList
                 ((sender as ToolStripMenuItem).ToolTipText);
             InitializeLists();
         }
@@ -162,7 +162,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveDeviceFromSelectedList
+            deviceList.MoveMMDeviceFromSelectedList
                 ((sender as ToolStripMenuItem).ToolTipText);
             InitializeLists();
         }

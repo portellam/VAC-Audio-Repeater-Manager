@@ -62,9 +62,9 @@ namespace VACARM.NET4.Models
         {
             //TODO: be able to load device list from file. That way, we can edit configs for other systems, and not crash this app too.
 
-            GetAllDeviceListsFromSystem();
-            GetUnselectedWaveInDeviceLists();
-            GetUnselectedWaveOutDeviceLists();
+            GetAllMMDeviceListsFromSystem();
+            GetUnselectedWaveInMMDeviceLists();
+            GetUnselectedWaveOutMMDeviceLists();
             SelectedWaveInMMDeviceList = new List<MMDevice>();
             SelectedWaveInNameList = new List<string>();
             SelectedWaveOutMMDeviceList = new List<MMDevice>();
@@ -77,9 +77,9 @@ namespace VACARM.NET4.Models
         /// <param name="mMDeviceList">the MMDevice list</param>
         public DeviceList(List<MMDevice> mMDeviceList)
         {
-            GetAllDeviceListsFromData(mMDeviceList);
-            GetUnselectedWaveInDeviceLists();
-            GetUnselectedWaveOutDeviceLists();
+            GetAllMMDeviceListsFromData(mMDeviceList);
+            GetUnselectedWaveInMMDeviceLists();
+            GetUnselectedWaveOutMMDeviceLists();
             SelectedWaveInMMDeviceList = new List<MMDevice>();
             SelectedWaveInNameList = new List<string>();
             SelectedWaveOutMMDeviceList = new List<MMDevice>();
@@ -87,12 +87,12 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Does device list contain device.
+        /// Does MMDevice list contain MMDevice.
         /// </summary>
-        /// <param name="mMDeviceList">The device list</param>
-        /// <param name="mMDevice">The device</param>
+        /// <param name="mMDeviceList">The MMDevice list</param>
+        /// <param name="mMDevice">The MMDevice</param>
         /// <returns></returns>
-        internal bool DoesListContainDevice
+        internal bool DoesListContainMMDevice
             (List<MMDevice> mMDeviceList, MMDevice mMDevice)
         {
             return mMDeviceList is null || mMDeviceList.Count == 0
@@ -142,9 +142,9 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Get all device lists from input data.
+        /// Get all MMDevice lists from input data.
         /// </summary>
-        internal void GetAllDeviceListsFromData(List<MMDevice> mMDeviceList)
+        internal void GetAllMMDeviceListsFromData(List<MMDevice> mMDeviceList)
         {
             mMDeviceEnumerator = null;
 
@@ -170,9 +170,9 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Get all device lists from system.
+        /// Get all MMDevice lists from system.
         /// </summary>
-        internal void GetAllDeviceListsFromSystem()
+        internal void GetAllMMDeviceListsFromSystem()
         {
             mMDeviceEnumerator = new MMDeviceEnumerator();
 
@@ -192,9 +192,9 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Get unselected wave in device lists.
+        /// Get unselected wave in MMDevice lists.
         /// </summary>
-        internal void GetUnselectedWaveInDeviceLists()
+        internal void GetUnselectedWaveInMMDeviceLists()
         {
             if (SelectedWaveInMMDeviceList is null ||
                 SelectedWaveInMMDeviceList.Count == 0)
@@ -205,7 +205,7 @@ namespace VACARM.NET4.Models
             {
                 UnselectedWaveInMMDeviceList = AllWaveInDeviceList
                     .Where(mMDevice =>
-                        !DoesListContainDevice(SelectedWaveInMMDeviceList, mMDevice))
+                        !DoesListContainMMDevice(SelectedWaveInMMDeviceList, mMDevice))
                     .ToList();
             }
 
@@ -214,9 +214,9 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Get unselected wave out device lists.
+        /// Get unselected wave out MMDevice lists.
         /// </summary>
-        internal void GetUnselectedWaveOutDeviceLists()
+        internal void GetUnselectedWaveOutMMDeviceLists()
         {
             if (SelectedWaveOutMMDeviceList is null ||
                 SelectedWaveOutMMDeviceList.Count == 0)
@@ -227,7 +227,7 @@ namespace VACARM.NET4.Models
             {
                 UnselectedWaveOutMMDeviceList = AllWaveOutDeviceList
                 .Where(mMDevice =>
-                    !DoesListContainDevice(SelectedWaveOutMMDeviceList, mMDevice))
+                    !DoesListContainMMDevice(SelectedWaveOutMMDeviceList, mMDevice))
                 .ToList();
             }
 
@@ -236,10 +236,10 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Remove device(s) from selected lists if device does not currently exist or
-        /// it is not present.
+        /// Remove MMDevice(s) from selected lists if MMDevice does not currently exist
+        /// or it is not present.
         /// </summary>
-        internal void SetSelectedListsGivenNewDeviceState()
+        internal void SetSelectedListsGivenNewMMDeviceState()
         {
             SelectedWaveInMMDeviceList.ForEach(mMDevice =>
             {
@@ -267,17 +267,17 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Move device from selected list to related unselected list.
+        /// Move MMDevice from selected list to related unselected list.
         /// </summary>
-        /// <param name="deviceName">The device name</param>
-        public void MoveDeviceFromSelectedList(string deviceName)
+        /// <param name="mMDeviceName">The MMDevice name</param>
+        public void MoveMMDeviceFromSelectedList(string mMDeviceName)
         {
-            if (deviceName is null || deviceName == string.Empty)
+            if (mMDeviceName is null || mMDeviceName == string.Empty)
             {
                 return;
             }
 
-            MMDevice mMDevice = GetMMDevice(deviceName);
+            MMDevice mMDevice = GetMMDevice(mMDeviceName);
 
             if (mMDevice is null)
             {
@@ -304,9 +304,9 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Move all unselected devices to selected lists.
+        /// Move all unselected MMDevices to selected lists.
         /// </summary>
-        public void MoveAllDevicesToSelectedLists()
+        public void MoveAllMMDevicesToSelectedLists()
         {
             SelectedWaveInMMDeviceList = UnselectedWaveInMMDeviceList;
             UnselectedWaveInNameList =
@@ -322,17 +322,17 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Move device from unselected list to related selected list.
+        /// Move MMDevice from unselected list to related selected list.
         /// </summary>
-        /// <param name="deviceName">The device name</param>
-        public void MoveDeviceToSelectedList(string deviceName)
+        /// <param name="mMDeviceName">The MMDevice name</param>
+        public void MoveMMDeviceToSelectedList(string mMDeviceName)
         {
-            if (deviceName is null || deviceName == string.Empty)
+            if (mMDeviceName is null || mMDeviceName == string.Empty)
             {
                 return;
             }
 
-            MMDevice mMDevice = GetMMDevice(deviceName);
+            MMDevice mMDevice = GetMMDevice(mMDeviceName);
 
             if (mMDevice is null)
             {
@@ -363,10 +363,10 @@ namespace VACARM.NET4.Models
         /// </summary>
         public void SetDeviceLists()
         {
-            GetUnselectedWaveInDeviceLists();
-            GetUnselectedWaveOutDeviceLists();
-            GetAllDeviceListsFromSystem();
-            SetSelectedListsGivenNewDeviceState();
+            GetUnselectedWaveInMMDeviceLists();
+            GetUnselectedWaveOutMMDeviceLists();
+            GetAllMMDeviceListsFromSystem();
+            SetSelectedListsGivenNewMMDeviceState();
         }
 
         #endregion
