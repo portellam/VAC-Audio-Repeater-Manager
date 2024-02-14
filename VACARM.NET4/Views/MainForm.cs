@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
 using VACARM.NET4.Models;
+using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
 {
@@ -16,6 +17,9 @@ namespace VACARM.NET4.Views
 
         private string fileName;
         private DeviceListModel deviceListModel;
+        private DeviceControl inputDeviceControl { get; set; }
+        private DeviceControl outputDeviceControl { get; set; }
+        private RepeaterDataModel repeaterDataModel { get; set; }
 
         public const string WaveInAsString = "Wave In";
         public const string WaveOutAsString = "Wave Out";
@@ -212,6 +216,22 @@ namespace VACARM.NET4.Views
         #region 3. Link menu logic
 
         /// <summary>
+        /// Add input and output device controls to repeater model.
+        /// </summary>
+        internal void AddToRepeaterModel()
+        {
+            if (inputDeviceControl is null || inputDeviceControl.MMDevice is null
+                || outputDeviceControl is null || outputDeviceControl.MMDevice is null)
+            {
+                return;
+            }
+
+            repeaterDataModel.AddDictionary(inputDeviceControl, outputDeviceControl);
+            inputDeviceControl = null;
+            outputDeviceControl = null;
+        }
+
+        /// <summary>
         /// Click event logic for linkWaveInDeviceToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
@@ -219,7 +239,21 @@ namespace VACARM.NET4.Views
         internal void linkWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
+            if (sender is null || (sender as string) == string.Empty)
+            {
+                return;
+            }
 
+            MMDevice mMDevice = 
+                deviceListModel.GetMMDevice(sender as string, DataFlow.Capture);
+
+            if (mMDevice is null)
+            {
+                return;
+            }
+
+            inputDeviceControl.MMDevice = mMDevice;
+            AddToRepeaterModel();
         }
 
         /// <summary>
@@ -230,7 +264,21 @@ namespace VACARM.NET4.Views
         internal void linkWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
+            if (sender is null || (sender as string) == string.Empty)
+            {
+                return;
+            }
 
+            MMDevice mMDevice =
+                deviceListModel.GetMMDevice(sender as string, DataFlow.Render);
+
+            if (mMDevice is null)
+            {
+                return;
+            }
+
+            outputDeviceControl.MMDevice = mMDevice;
+            AddToRepeaterModel();
         }
 
         /// <summary>
