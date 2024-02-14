@@ -62,7 +62,7 @@ namespace VACARM.NET4.Models
             AllDeviceList = new MMDeviceEnumerator()
                 .EnumerateAudioEndPoints(DataFlow.All, Present).Distinct().ToList();
 
-            SetAllMMDeviceLists();
+            SetAndSortAllMMDeviceLists();
             GetUnselectedWaveInMMDeviceLists();
             GetUnselectedWaveOutMMDeviceLists();
 
@@ -81,7 +81,7 @@ namespace VACARM.NET4.Models
             AllDeviceList = allDeviceList.Where
                 (mMDevice => mMDevice.State == Present).Distinct().ToList();
 
-            SetAllMMDeviceLists();
+            SetAndSortAllMMDeviceLists();
             GetUnselectedWaveInMMDeviceLists();
             GetUnselectedWaveOutMMDeviceLists();
 
@@ -123,8 +123,8 @@ namespace VACARM.NET4.Models
         /// Get MMDevice by friendly name.
         /// </summary>
         /// <param name="mMDeviceFriendlyName">The MMDevice friendly name</param>
-        /// <returns></returns>
-        internal MMDevice GetMMDevice(string mMDeviceFriendlyName)
+        /// <returns>The MMDevice</returns>
+        public MMDevice GetMMDevice(string mMDeviceFriendlyName)
         {
             MMDevice mMDevice = null;
 
@@ -144,6 +144,59 @@ namespace VACARM.NET4.Models
             }
 
             return mMDevice;
+        }
+
+        /// <summary>
+        /// Get MMDevice by friendly name and data flow.
+        /// </summary>
+        /// <param name="mMDeviceFriendlyName">The MMDevice friendly name</param>
+        /// <param name="dataFlow">The data flow</param>
+        /// <returns>The MMDevice</returns>
+        public MMDevice GetMMDevice(string mMDeviceFriendlyName, DataFlow dataFlow)
+        {
+            MMDevice mMDevice = null;
+
+            if (dataFlow == DataFlow.Capture)
+            {
+                mMDevice = AllWaveInDeviceList
+                    .Where(thisMMDevice =>
+                        thisMMDevice.FriendlyName == mMDeviceFriendlyName)
+                    .FirstOrDefault();
+            }
+            else
+            {
+                mMDevice = AllWaveOutDeviceList
+                    .Where(thisMMDevice =>
+                        thisMMDevice.FriendlyName == mMDeviceFriendlyName)
+                    .FirstOrDefault();
+            }
+
+            return mMDevice;
+        }
+
+        /// <summary>
+        /// Get index of MMDevice by friendly name.
+        /// </summary>
+        /// <param name="mMDeviceFriendlyName">The MMDevice friendly name</param>
+        /// <param name="dataFlow">The data flow</param>
+        /// <returns>The index</returns>
+        public int GetIndexOfMMDevice(string mMDeviceFriendlyName, DataFlow dataFlow)
+        {
+            if (mMDeviceFriendlyName is null)
+            {
+                return -1;
+            }
+
+            if (dataFlow == DataFlow.Capture)
+            {
+                return AllWaveInNameList.IndexOf(mMDeviceFriendlyName);
+            }
+            else if (AllWaveOutNameList.Contains(mMDeviceFriendlyName))
+            {
+                return AllWaveOutNameList.IndexOf(mMDeviceFriendlyName);
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -191,9 +244,9 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Set all MMDevice lists.
+        /// Set and sort all MMDevice lists.
         /// </summary>
-        internal void SetAllMMDeviceLists()
+        internal void SetAndSortAllMMDeviceLists()
         {
             if (AllDeviceList is null)
             {
@@ -207,12 +260,16 @@ namespace VACARM.NET4.Models
                 .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
                 .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
 
+            AllWaveInNameList = GetNameListGivenMMDeviceList(AllWaveInDeviceList);
+
             AllWaveOutDeviceList = AllDeviceList.Where(mMDevice =>
                 mMDevice.DataFlow == DataFlow.Render).Distinct().ToList();
 
             AllWaveOutDeviceList = AllWaveOutDeviceList
                 .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
                 .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+
+            AllWaveOutNameList = GetNameListGivenMMDeviceList(AllWaveOutDeviceList);
         }
 
         /// <summary>
@@ -247,37 +304,77 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
+        /// Sort selected MMDevice lists.
+        /// </summary>
+        internal void SortSelectedMMDeviceLists()
+        {
+            SelectedWaveInMMDeviceList = SelectedWaveInMMDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+
+            SelectedWaveInNameList =
+                GetNameListGivenMMDeviceList(SelectedWaveInMMDeviceList);
+
+            SelectedWaveOutMMDeviceList = SelectedWaveOutMMDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+
+            SelectedWaveOutNameList =
+                GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
+        }
+
+        /// <summary>
+        /// Sort unselected MMDevice lists.
+        /// </summary>
+        internal void SortUnselectedMMDeviceLists()
+        {
+            UnselectedWaveInMMDeviceList = UnselectedWaveInMMDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+
+            UnselectedWaveInNameList =
+                GetNameListGivenMMDeviceList(UnselectedWaveInMMDeviceList);
+
+            UnselectedWaveOutMMDeviceList = UnselectedWaveOutMMDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+
+            UnselectedWaveOutNameList =
+                GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
+        }
+
+        /// <summary>
         /// Move all unselected MMDevices to selected lists.
         /// </summary>
         public void MoveAllMMDevicesToSelectedLists()
         {
-            SelectedWaveInMMDeviceList = UnselectedWaveInMMDeviceList;
+            SelectedWaveInMMDeviceList.AddRange(UnselectedWaveInMMDeviceList);
             UnselectedWaveInMMDeviceList = new List<MMDevice>();
             UnselectedWaveInNameList =
                 GetNameListGivenMMDeviceList(UnselectedWaveInMMDeviceList);
-            SelectedWaveInNameList =
-                GetNameListGivenMMDeviceList(SelectedWaveInMMDeviceList);
 
-            SelectedWaveOutMMDeviceList = UnselectedWaveOutMMDeviceList;
+            SelectedWaveOutMMDeviceList.AddRange(UnselectedWaveOutMMDeviceList);
             UnselectedWaveOutMMDeviceList = new List<MMDevice>();
             UnselectedWaveOutNameList =
                 GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
-            SelectedWaveOutNameList =
-                GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
+
+            SortSelectedMMDeviceLists();
         }
 
         /// <summary>
         /// Move MMDevice from selected list to related unselected list.
         /// </summary>
         /// <param name="mMDeviceName">The MMDevice name</param>
-        public void MoveMMDeviceFromSelectedList(string mMDeviceName)
+        /// <param name="dataFlow">The data flow</param>
+        public void MoveMMDeviceFromSelectedList(string mMDeviceName, DataFlow dataFlow)
         {
-            if (mMDeviceName is null || mMDeviceName == string.Empty)
+            if (mMDeviceName is null || mMDeviceName == string.Empty
+                || dataFlow == DataFlow.All)
             {
                 return;
             }
 
-            MMDevice mMDevice = GetMMDevice(mMDeviceName);
+            MMDevice mMDevice = GetMMDevice(mMDeviceName, dataFlow);
 
             if (mMDevice is null)
             {
@@ -292,29 +389,34 @@ namespace VACARM.NET4.Models
                 UnselectedWaveInMMDeviceList.Add(mMDevice);
                 UnselectedWaveInNameList =
                     GetNameListGivenMMDeviceList(UnselectedWaveInMMDeviceList);
-                return;
+            }
+            else
+            {
+                SelectedWaveOutMMDeviceList.Remove(mMDevice);
+                SelectedWaveOutNameList =
+                    GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
+                UnselectedWaveOutMMDeviceList.Add(mMDevice);
+                UnselectedWaveOutNameList =
+                    GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
             }
 
-            SelectedWaveOutMMDeviceList.Remove(mMDevice);
-            SelectedWaveOutNameList =
-                GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
-            UnselectedWaveOutMMDeviceList.Add(mMDevice);
-            UnselectedWaveOutNameList =
-                GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
+            SortUnselectedMMDeviceLists();
         }
 
         /// <summary>
         /// Move MMDevice from unselected list to related selected list.
         /// </summary>
         /// <param name="mMDeviceName">The MMDevice name</param>
-        public void MoveMMDeviceToSelectedList(string mMDeviceName)
+        /// <param name="dataFlow">The data flow</param>
+        public void MoveMMDeviceToSelectedList(string mMDeviceName, DataFlow dataFlow)
         {
-            if (mMDeviceName is null || mMDeviceName == string.Empty)
+            if (mMDeviceName is null || mMDeviceName == string.Empty
+                || dataFlow == DataFlow.All)
             {
                 return;
             }
 
-            MMDevice mMDevice = GetMMDevice(mMDeviceName);
+            MMDevice mMDevice = GetMMDevice(mMDeviceName, dataFlow);
 
             if (mMDevice is null)
             {
@@ -329,15 +431,18 @@ namespace VACARM.NET4.Models
                 SelectedWaveInMMDeviceList.Add(mMDevice);
                 SelectedWaveInNameList =
                     GetNameListGivenMMDeviceList(SelectedWaveInMMDeviceList);
-                return;
+            }
+            else
+            {
+                UnselectedWaveOutMMDeviceList.Remove(mMDevice);
+                UnselectedWaveOutNameList =
+                    GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
+                SelectedWaveOutMMDeviceList.Add(mMDevice);
+                SelectedWaveOutNameList =
+                    GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
             }
 
-            UnselectedWaveOutMMDeviceList.Remove(mMDevice);
-            UnselectedWaveOutNameList =
-                GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
-            SelectedWaveOutMMDeviceList.Add(mMDevice);
-            SelectedWaveOutNameList =
-                GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
+            SortSelectedMMDeviceLists();
         }
 
         #endregion
