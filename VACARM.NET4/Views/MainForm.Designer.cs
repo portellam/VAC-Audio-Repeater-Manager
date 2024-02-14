@@ -124,6 +124,7 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.ToolStripSeparator linkToolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator repeaterToolStripSeparator2;
+        private TableLayoutPanel gridTableLayoutPanel;
         private ToolStripRenderer initialMenuStrip1Renderer;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -1140,7 +1141,5 @@ namespace VACARM.NET4.Views
 
             base.Dispose(doDispose);
         }
-
-        private TableLayoutPanel gridTableLayoutPanel;
     }
 }
