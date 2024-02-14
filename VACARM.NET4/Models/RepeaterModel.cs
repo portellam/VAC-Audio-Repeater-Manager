@@ -11,7 +11,7 @@ using VACARM.NET4.Structs;
 
 namespace VACARM.NET4.Models
 {
-    public class Repeater : INotifyPropertyChanged
+    public class RepeaterModel : INotifyPropertyChanged
     {
         # region Parameters
 
@@ -62,8 +62,8 @@ namespace VACARM.NET4.Models
             }
         }
 
-        public DeviceControl CaptureDevice;
-        public DeviceControl RenderDevice;
+        public Control CaptureDevice;
+        public Control RenderDevice;
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -446,14 +446,14 @@ namespace VACARM.NET4.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="captureDeviceControl">The capture device control</param>
-        /// <param name="renderDeviceControl">The render device control</param>
+        /// <param name="captureControl">The capture device control</param>
+        /// <param name="renderControl">The render device control</param>
         [ExcludeFromCodeCoverage]
-        public Repeater(DeviceControl captureDeviceControl,
-            DeviceControl renderDeviceControl)
+        public RepeaterModel(Control captureControl,
+            Control renderControl)
         {
-            CaptureDevice = captureDeviceControl;
-            RenderDevice = renderDeviceControl;
+            CaptureDevice = captureControl;
+            RenderDevice = renderControl;
             BitsPerSample = defaultBitsPerSample;
             BufferMs = defaultBufferMs;
             Buffers = defaultBuffers;
