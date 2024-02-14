@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using VACARM.NET4.ViewModels;
 
@@ -374,7 +375,7 @@ namespace VACARM.NET4.Views
             this.deviceReloadAllToolStripMenuItem.Size =
                new System.Drawing.Size(230, 26);
             this.deviceReloadAllToolStripMenuItem.Tag = "";
-            this.deviceReloadAllToolStripMenuItem.Text = "Reload All";
+            this.deviceReloadAllToolStripMenuItem.Text = "Force Reload All";
             this.deviceReloadAllToolStripMenuItem.Click +=
                new System.EventHandler(this.deviceReloadAllToolStripMenuItem_Click);
             // 
@@ -757,7 +758,8 @@ namespace VACARM.NET4.Views
             // 
             this.helpAboutToolStripMenuItem.Name = "helpAboutToolStripMenuItem";
             this.helpAboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
-            this.helpAboutToolStripMenuItem.Text = "About";
+            this.helpAboutToolStripMenuItem.Text = 
+                $"About {Common.ApplicationNameAsAbbreviation}";
             this.helpAboutToolStripMenuItem.Click +=
                 new System.EventHandler(this.helpAboutToolStripMenuItem_Click);
             // 
