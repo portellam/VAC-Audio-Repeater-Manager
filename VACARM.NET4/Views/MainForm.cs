@@ -133,7 +133,7 @@ namespace VACARM.NET4.Views
         internal void deviceReloadAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            deviceList.SetDeviceLists();
+            deviceList = new DeviceList();
             InitializeLists();
         }
 
