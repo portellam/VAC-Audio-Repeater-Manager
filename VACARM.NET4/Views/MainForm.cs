@@ -189,7 +189,6 @@ namespace VACARM.NET4.Views
             InitializeLists();
         }
 
-
         /// <summary>
         /// Click event logic for deviceRemoveWaveOutToolStripMenuItemDropDown.
         /// </summary>
