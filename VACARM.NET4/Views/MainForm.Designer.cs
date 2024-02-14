@@ -586,59 +586,59 @@ namespace VACARM.NET4.Views
             // linkDefaultBitRateToolStripMenuItem
             // 
             this.linkDefaultBitRateToolStripMenuItem.Name =
-               "linkDefaultBitRateToolStripMenuItem";
+               "DefaultBitRateToolStripMenuItem";
             this.linkDefaultBitRateToolStripMenuItem.Size =
                new System.Drawing.Size(285, 26);
             this.linkDefaultBitRateToolStripMenuItem.Tag = "";
             this.linkDefaultBitRateToolStripMenuItem.Text =
-               "linkDefault Bit Rate (Bit/Sample)";
+               "Default Bit Rate (Bit/Sample)";
             // 
             // linkDefaultBufferToolStripMenuItem
             // 
             this.linkDefaultBufferToolStripMenuItem.Name =
-               "linkDefaultBufferToolStripMenuItem";
+               "DefaultBufferToolStripMenuItem";
             this.linkDefaultBufferToolStripMenuItem.Size =
                new System.Drawing.Size(285, 26);
             this.linkDefaultBufferToolStripMenuItem.Tag = "";
-            this.linkDefaultBufferToolStripMenuItem.Text = "linkDefault Buffer (ms)";
+            this.linkDefaultBufferToolStripMenuItem.Text = "Default Buffer (ms)";
             // 
             // linkDefaultChannelsToolStripMenuItem
             // 
             this.linkDefaultChannelsToolStripMenuItem.Name =
-               "linkDefaultChannelsToolStripMenuItem";
+               "DefaultChannelsToolStripMenuItem";
             this.linkDefaultChannelsToolStripMenuItem.Size =
                new System.Drawing.Size(285, 26);
             this.linkDefaultChannelsToolStripMenuItem.Tag = "";
-            this.linkDefaultChannelsToolStripMenuItem.Text = "linkDefault Channels";
+            this.linkDefaultChannelsToolStripMenuItem.Text = "Default Channels";
             // 
             // linkDefaultPrefillToolStripMenuItem
             // 
             this.linkDefaultPrefillToolStripMenuItem.Name =
-               "linkDefaultPrefillToolStripMenuItem";
+               "DefaultPrefillToolStripMenuItem";
             this.linkDefaultPrefillToolStripMenuItem.Size =
                new System.Drawing.Size(285, 26);
             this.linkDefaultPrefillToolStripMenuItem.Tag = "";
-            this.linkDefaultPrefillToolStripMenuItem.Text = "linkDefault Prefill (%)";
+            this.linkDefaultPrefillToolStripMenuItem.Text = "Default Prefill (%)";
             // 
             // linkDefaultResyncAtToolStripMenuItem
             // 
             this.linkDefaultResyncAtToolStripMenuItem.Name =
-               "linkDefaultResyncAtToolStripMenuItem";
+               "DefaultResyncAtToolStripMenuItem";
             this.linkDefaultResyncAtToolStripMenuItem.Size =
                new System.Drawing.Size(285, 26);
             this.linkDefaultResyncAtToolStripMenuItem.Tag = "";
             this.linkDefaultResyncAtToolStripMenuItem.Text =
-               "linkDefault Resync At (%)";
+               "Default Resync At (%)";
             // 
             // linkDefaultSamplingRateToolStripMenuItem
             // 
             this.linkDefaultSamplingRateToolStripMenuItem.Name =
-               "linkDefaultSamplingRateToolStripMenuItem";
+               "DefaultSamplingRateToolStripMenuItem";
             this.linkDefaultSamplingRateToolStripMenuItem.Size =
                new System.Drawing.Size(285, 26);
             this.linkDefaultSamplingRateToolStripMenuItem.Tag = "";
             this.linkDefaultSamplingRateToolStripMenuItem.Text =
-                "linkDefault Sampling Rate (Hz)";
+                "Default Sampling Rate (Hz)";
             // 
             // repeaterToolStripMenuItem
             // 
