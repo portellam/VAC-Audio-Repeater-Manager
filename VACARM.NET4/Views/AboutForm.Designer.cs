@@ -220,6 +220,7 @@ namespace VACARM.NET4.Views
             SetAssemblyInformation();
             AddControlsToList();
             SetColorTheme();
+            CenterToScreen();
         }
 
         /// <summary>
