@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using VACARM.NET4.Models;
 using VACARM.NET4.ViewModels;
@@ -226,7 +227,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            repeaterDataModel.AddDictionary(inputDeviceControl, outputDeviceControl);
+            //repeaterDataModel.AddDictionary(inputDeviceControl, outputDeviceControl);
             inputDeviceControl = null;
             outputDeviceControl = null;
         }
@@ -239,13 +240,14 @@ namespace VACARM.NET4.Views
         internal void linkWaveInDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            if (sender is null || (sender as ToolStripMenuItem).ToolTipText is null)
+            if (sender is null || sender.GetType() != typeof(ToolStripMenuItem))
             {
                 return;
             }
 
+            ToolStripMenuItem toolStripMenuItem = sender as ToolStripMenuItem;
             MMDevice mMDevice = deviceListModel.GetMMDevice
-                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Capture);
+                (toolStripMenuItem.ToolTipText, DataFlow.Capture);
 
             if (mMDevice is null)
             {
@@ -257,6 +259,8 @@ namespace VACARM.NET4.Views
                 MMDevice = mMDevice,
             };
 
+            SetPropertiesOfToolStripMenuItem
+                (ref linkAddWaveInToolStripMenuItem, toolStripMenuItem);
             AddToRepeaterModel();
         }
 
@@ -268,13 +272,14 @@ namespace VACARM.NET4.Views
         internal void linkWaveOutDeviceToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            if (sender is null || (sender as ToolStripMenuItem).ToolTipText is null)
+            if (sender is null || sender.GetType() != typeof(ToolStripMenuItem))
             {
                 return;
             }
 
+            ToolStripMenuItem toolStripMenuItem = sender as ToolStripMenuItem;
             MMDevice mMDevice = deviceListModel.GetMMDevice
-                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
+                (toolStripMenuItem.ToolTipText, DataFlow.Render);
 
             if (mMDevice is null)
             {
@@ -286,7 +291,47 @@ namespace VACARM.NET4.Views
                 MMDevice = mMDevice,
             };
 
+            SetPropertiesOfToolStripMenuItem
+                (ref linkAddWaveOutToolStripMenuItem, toolStripMenuItem);
             AddToRepeaterModel();
+        }
+
+        /// <summary>
+        /// Set properties of every nested tool strip item. If the item matches the
+        /// child tool strip menu item, append a substring and disable the item.
+        /// If not, reverse the changes.
+        /// </summary>
+        /// <param name="parentToolStripMenuItem">The parent tool strip menu
+        /// item</param>
+        /// <param name="childToolStripMenuItem">The child tool strip menu item</param>
+        internal void SetPropertiesOfToolStripMenuItem
+            (ref ToolStripMenuItem parentToolStripMenuItem,
+            ToolStripMenuItem childToolStripMenuItem)
+        {
+            if (!parentToolStripMenuItem.DropDownItems.Contains(childToolStripMenuItem))
+            {
+                return;
+            }
+
+            string isSelectedSuffix = " (Selected)";
+
+            foreach
+                (ToolStripItem toolStripItem in parentToolStripMenuItem.DropDownItems)
+            {
+                bool isNotSelected = toolStripItem != childToolStripMenuItem;
+
+                if (isNotSelected)
+                {
+                    toolStripItem.Enabled = isNotSelected;
+                    toolStripItem.Text = Regex.Replace
+                        (toolStripItem.Text, isSelectedSuffix, string.Empty);
+                }
+                else
+                {
+                    toolStripItem.Enabled = isNotSelected;
+                    toolStripItem.Text += isSelectedSuffix;
+                }
+            }
         }
 
         /// <summary>
