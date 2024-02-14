@@ -1013,6 +1013,8 @@ namespace VACARM.NET4.Views
             deviceAddWaveOutToolStripMenuItem.DropDownItems.Clear();
             deviceRemoveWaveInToolStripMenuItem.DropDownItems.Clear();
             deviceRemoveWaveOutToolStripMenuItem.DropDownItems.Clear();
+            linkAddWaveInToolStripMenuItem.DropDownItems.Clear();
+            linkAddWaveOutToolStripMenuItem.DropDownItems.Clear();
 
             string text = deviceToolStripMenuItem.Text;
             deviceToolStripMenuItem.Text = "Loading...";
