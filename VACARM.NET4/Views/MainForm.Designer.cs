@@ -114,7 +114,7 @@ namespace VACARM.NET4.Views
         private System.Windows.Forms.ToolStripMenuItem repeaterStopAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem repeaterStopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem repeaterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 
+        private System.Windows.Forms.ToolStripMenuItem
             viewToggleDarkModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator deviceToolStripSeparator1;
@@ -312,7 +312,7 @@ namespace VACARM.NET4.Views
             // 
             this.fileSaveAsToolStripMenuItem.Name = "fileSaveAsToolStripMenuItem";
             this.fileSaveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-               (((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+               (((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
             | System.Windows.Forms.Keys.S)));
             this.fileSaveAsToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.fileSaveAsToolStripMenuItem.Text = "Save As...";
@@ -400,7 +400,7 @@ namespace VACARM.NET4.Views
             this.deviceAddWaveInToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
             this.deviceAddWaveInToolStripMenuItem.Tag = "";
-            this.deviceAddWaveInToolStripMenuItem.Text = "Wave In";
+            this.deviceAddWaveInToolStripMenuItem.Text = WaveInAsString;
             // 
             // deviceAddWaveOutToolStripMenuItem
             // 
@@ -409,7 +409,7 @@ namespace VACARM.NET4.Views
             this.deviceAddWaveOutToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
             this.deviceAddWaveOutToolStripMenuItem.Tag = "";
-            this.deviceAddWaveOutToolStripMenuItem.Text = "Wave Out";
+            this.deviceAddWaveOutToolStripMenuItem.Text = WaveOutAsString;
             // 
             // deviceAddAllToolStripMenuItem
             // 
@@ -418,7 +418,7 @@ namespace VACARM.NET4.Views
             this.deviceAddAllToolStripMenuItem.Tag = "";
             this.deviceAddAllToolStripMenuItem.Text = "Add All";
             this.deviceAddAllToolStripMenuItem.Click += new System.EventHandler
-                (this.deviceAddAllToolStripMenuItem_Click); 
+                (this.deviceAddAllToolStripMenuItem_Click);
             // 
             // deviceToolStripSeparator2
             // 
@@ -442,7 +442,7 @@ namespace VACARM.NET4.Views
             this.deviceRemoveWaveInToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
             this.deviceRemoveWaveInToolStripMenuItem.Tag = "";
-            this.deviceRemoveWaveInToolStripMenuItem.Text = "Wave In";
+            this.deviceRemoveWaveInToolStripMenuItem.Text = WaveInAsString;
             // 
             // deviceRemoveWaveOutToolStripMenuItem
             // 
@@ -451,7 +451,7 @@ namespace VACARM.NET4.Views
             this.deviceRemoveWaveOutToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
             this.deviceRemoveWaveOutToolStripMenuItem.Tag = "";
-            this.deviceRemoveWaveOutToolStripMenuItem.Text = "Wave Out";
+            this.deviceRemoveWaveOutToolStripMenuItem.Text = WaveOutAsString;
             // 
             // deviceRemoveAllToolStripMenuItem
             // 
@@ -518,7 +518,7 @@ namespace VACARM.NET4.Views
             this.linkAddWaveInToolStripMenuItem.Name = "linkAddWaveInToolStripMenuItem";
             this.linkAddWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.linkAddWaveInToolStripMenuItem.Tag = "";
-            this.linkAddWaveInToolStripMenuItem.Text = "Wave In";
+            this.linkAddWaveInToolStripMenuItem.Text = WaveInAsString;
             this.linkAddWaveInToolStripMenuItem.Click +=
                new System.EventHandler(this.linkWaveInDeviceToolStripMenuItem_Click);
             // 
@@ -529,7 +529,7 @@ namespace VACARM.NET4.Views
             this.linkAddWaveOutToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
             this.linkAddWaveOutToolStripMenuItem.Tag = "";
-            this.linkAddWaveOutToolStripMenuItem.Text = "Wave Out";
+            this.linkAddWaveOutToolStripMenuItem.Text = WaveOutAsString;
             this.linkAddWaveOutToolStripMenuItem.Click +=
                new System.EventHandler(this.linkWaveOutDeviceToolStripMenuItem_Click);
             // 
@@ -555,7 +555,7 @@ namespace VACARM.NET4.Views
             this.linkRemoveWaveInToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
             this.linkRemoveWaveInToolStripMenuItem.Tag = "";
-            this.linkRemoveWaveInToolStripMenuItem.Text = "Wave In";
+            this.linkRemoveWaveInToolStripMenuItem.Text = WaveInAsString;
             this.linkRemoveWaveInToolStripMenuItem.Click +=
                new System.EventHandler(this.unlinkWaveInDeviceToolStripMenuItem_Click);
             // 
@@ -566,7 +566,7 @@ namespace VACARM.NET4.Views
             this.linkRemoveWaveOutToolStripMenuItem.Size =
                new System.Drawing.Size(156, 26);
             this.linkRemoveWaveOutToolStripMenuItem.Tag = "";
-            this.linkRemoveWaveOutToolStripMenuItem.Text = "Wave Out";
+            this.linkRemoveWaveOutToolStripMenuItem.Text = WaveOutAsString;
             this.linkRemoveWaveOutToolStripMenuItem.Click +=
                new System.EventHandler(this.unlinkWaveOutDeviceToolStripMenuItem_Click);
             // 
@@ -631,7 +631,7 @@ namespace VACARM.NET4.Views
             // 
             // linkDefaultSamplingRateToolStripMenuItem
             // 
-            this.linkDefaultSamplingRateToolStripMenuItem.Name = 
+            this.linkDefaultSamplingRateToolStripMenuItem.Name =
                "linkDefaultSamplingRateToolStripMenuItem";
             this.linkDefaultSamplingRateToolStripMenuItem.Size =
                new System.Drawing.Size(285, 26);
@@ -926,6 +926,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
+            DataFlow dataFlow = mMDeviceList.FirstOrDefault().DataFlow;
             refToolStripMenuItem.DropDownItems.Clear();
             List<ToolStripMenuItem> toolStripMenuItemList =
                 new List<ToolStripMenuItem>();
@@ -951,20 +952,20 @@ namespace VACARM.NET4.Views
 
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem()
                 {
-                    BackColor = FormColorUpdater.BackColor,
-                    ForeColor = FormColorUpdater.ForeColor,
                     Text = text,
                     ToolTipText = mMDevice.FriendlyName,
                 };
 
+                FormColorUpdater.SetColorsOfToolStripMenuItem(toolStripMenuItem);
                 toolStripMenuItem.Click += new System.EventHandler(eventHandler);
                 toolStripMenuItemList.Add(toolStripMenuItem);
             }
 
             toolStripMenuItemList.ForEach(toolStripMenuItem =>
             {
-                string prefix =
-                    $"{toolStripMenuItemList.IndexOf(toolStripMenuItem).ToString()}. ";
+                int index = deviceList.GetIndexOfMMDevice
+                    (toolStripMenuItem.ToolTipText, dataFlow);
+                string prefix = $"{index.ToString()}. ";
                 toolStripMenuItem.Text = string.Format
                     ("{0,4} {1}", prefix, toolStripMenuItem.Text);
             });
@@ -1021,22 +1022,22 @@ namespace VACARM.NET4.Views
             Refresh();
 
             InitializeDeviceDropDownCollection
-                (deviceAddToolStripMenuItemDropDown_Click,
+                (deviceAddWaveInToolStripMenuItemDropDown_Click,
                 ref deviceAddWaveInToolStripMenuItem,
                 deviceList.UnselectedWaveInMMDeviceList);
 
             InitializeDeviceDropDownCollection
-                (deviceAddToolStripMenuItemDropDown_Click,
+                (deviceAddWaveOutToolStripMenuItemDropDown_Click,
                 ref deviceAddWaveOutToolStripMenuItem,
                 deviceList.UnselectedWaveOutMMDeviceList);
 
             InitializeDeviceDropDownCollection
-                (deviceRemoveToolStripMenuItemDropDown_Click,
+                (deviceRemoveWaveInToolStripMenuItemDropDown_Click,
                 ref deviceRemoveWaveInToolStripMenuItem,
                 deviceList.SelectedWaveInMMDeviceList);
 
             InitializeDeviceDropDownCollection
-                (deviceRemoveToolStripMenuItemDropDown_Click,
+                (deviceRemoveWaveOutToolStripMenuItemDropDown_Click,
                 ref deviceRemoveWaveOutToolStripMenuItem,
                 deviceList.SelectedWaveOutMMDeviceList);
 
@@ -1095,6 +1096,14 @@ namespace VACARM.NET4.Views
             FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
             FormColorUpdater.SetColorsOfToolStripMenuItemList(toolStripMenuItemList);
+            FormColorUpdater.SetColorsOfToolStripMenuItem
+                (deviceAddWaveInToolStripMenuItem);
+            FormColorUpdater.SetColorsOfToolStripMenuItem
+                (deviceAddWaveOutToolStripMenuItem);
+            FormColorUpdater.SetColorsOfToolStripMenuItem
+                (deviceRemoveWaveInToolStripMenuItem);
+            FormColorUpdater.SetColorsOfToolStripMenuItem
+                (deviceRemoveWaveOutToolStripMenuItem);
             viewToggleDarkModeToolStripMenuItem.Text = darkModeText;
             Invalidate();
         }
