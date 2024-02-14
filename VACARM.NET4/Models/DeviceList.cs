@@ -60,9 +60,8 @@ namespace VACARM.NET4.Models
         public DeviceList()
         {
             AllDeviceList = new MMDeviceEnumerator()
-                .EnumerateAudioEndPoints(DataFlow.All, DeviceState.All).ToList();
+                .EnumerateAudioEndPoints(DataFlow.All, Present).Distinct().ToList();
 
-            SortMMDeviceList();
             SetAllMMDeviceLists();
             GetUnselectedWaveInMMDeviceLists();
             GetUnselectedWaveOutMMDeviceLists();
@@ -79,9 +78,9 @@ namespace VACARM.NET4.Models
         /// <param name="allDeviceList">the MMDevice list</param>
         public DeviceList(List<MMDevice> allDeviceList)
         {
-            AllDeviceList = allDeviceList;
+            AllDeviceList = allDeviceList.Where
+                (mMDevice => mMDevice.State == Present).Distinct().ToList();
 
-            SortMMDeviceList();
             SetAllMMDeviceLists();
             GetUnselectedWaveInMMDeviceLists();
             GetUnselectedWaveOutMMDeviceLists();
@@ -245,15 +244,6 @@ namespace VACARM.NET4.Models
 
             SelectedWaveOutNameList =
                 GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
-        }
-
-        /// <summary>
-        /// Sort MMDevice list.
-        /// </summary>
-        internal void SortMMDeviceList()
-        {
-            AllDeviceList = AllDeviceList.Where(mMDevice =>
-                mMDevice.State == Present).Distinct().ToList();
         }
 
         /// <summary>
