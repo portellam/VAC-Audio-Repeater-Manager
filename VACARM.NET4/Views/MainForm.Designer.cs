@@ -520,8 +520,6 @@ namespace VACARM.NET4.Views
             this.linkAddWaveInToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.linkAddWaveInToolStripMenuItem.Tag = "";
             this.linkAddWaveInToolStripMenuItem.Text = WaveInAsString;
-            this.linkAddWaveInToolStripMenuItem.Click +=
-               new System.EventHandler(this.linkWaveInDeviceToolStripMenuItem_Click);
             // 
             // linkAddWaveOutToolStripMenuItem
             // 
@@ -531,8 +529,6 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(156, 26);
             this.linkAddWaveOutToolStripMenuItem.Tag = "";
             this.linkAddWaveOutToolStripMenuItem.Text = WaveOutAsString;
-            this.linkAddWaveOutToolStripMenuItem.Click +=
-               new System.EventHandler(this.linkWaveOutDeviceToolStripMenuItem_Click);
             // 
             // linkToolStripSeparator1
             // 
@@ -1019,7 +1015,7 @@ namespace VACARM.NET4.Views
             deviceRemoveWaveOutToolStripMenuItem.DropDownItems.Clear();
 
             string text = deviceToolStripMenuItem.Text;
-            deviceToolStripMenuItem.Text = "Reloading...";
+            deviceToolStripMenuItem.Text = "Loading...";
             deviceToolStripMenuItem.Enabled = false;
             Refresh();
 
@@ -1041,6 +1037,16 @@ namespace VACARM.NET4.Views
             InitializeDeviceDropDownCollection
                 (deviceRemoveWaveOutToolStripMenuItemDropDown_Click,
                 ref deviceRemoveWaveOutToolStripMenuItem,
+                deviceListModel.SelectedWaveOutMMDeviceList);
+
+            InitializeDeviceDropDownCollection
+                (linkWaveInDeviceToolStripMenuItem_Click,
+                ref linkAddWaveInToolStripMenuItem,
+                deviceListModel.SelectedWaveInMMDeviceList);
+
+            InitializeDeviceDropDownCollection
+                (linkWaveOutDeviceToolStripMenuItem_Click,
+                ref linkAddWaveOutToolStripMenuItem,
                 deviceListModel.SelectedWaveOutMMDeviceList);
 
             deviceToolStripMenuItem.Text = text;
