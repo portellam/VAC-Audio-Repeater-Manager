@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("VAC Audio Repeater Manager")]
-[assembly: AssemblyDescription("User interface to create, manage, and automate Virtual Audio Cable (VAC) audio repeaters. This application version is targeted for .NET version 4.0 and Windows NT version 5.0 and above (XP/Server 2003 or newer).")]
+[assembly: AssemblyDescription("User interface to create, manage, and automate Virtual Audio Cable (VAC) audio repeaters. This application version is targeted for the 32-bit (x86) version of Virtual Audio Cable, Microsoft .NET version 4.0, and Microsoft Windows NT version 5.0 and above (XP/Server 2003 or newer).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Virtual Audio Cable Audio Repeater Manager")]
