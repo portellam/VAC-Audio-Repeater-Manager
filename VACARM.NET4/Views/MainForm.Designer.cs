@@ -965,7 +965,7 @@ namespace VACARM.NET4.Views
 
             toolStripMenuItemList.ForEach(toolStripMenuItem =>
             {
-                int index = deviceList.GetIndexOfMMDevice
+                int index = deviceListModel.GetIndexOfMMDevice
                     (toolStripMenuItem.ToolTipText, dataFlow);
                 string prefix = $"{index.ToString()}. ";
                 toolStripMenuItem.Text = string.Format
@@ -1026,22 +1026,22 @@ namespace VACARM.NET4.Views
             InitializeDeviceDropDownCollection
                 (deviceAddWaveInToolStripMenuItemDropDown_Click,
                 ref deviceAddWaveInToolStripMenuItem,
-                deviceList.UnselectedWaveInMMDeviceList);
+                deviceListModel.UnselectedWaveInMMDeviceList);
 
             InitializeDeviceDropDownCollection
                 (deviceAddWaveOutToolStripMenuItemDropDown_Click,
                 ref deviceAddWaveOutToolStripMenuItem,
-                deviceList.UnselectedWaveOutMMDeviceList);
+                deviceListModel.UnselectedWaveOutMMDeviceList);
 
             InitializeDeviceDropDownCollection
                 (deviceRemoveWaveInToolStripMenuItemDropDown_Click,
                 ref deviceRemoveWaveInToolStripMenuItem,
-                deviceList.SelectedWaveInMMDeviceList);
+                deviceListModel.SelectedWaveInMMDeviceList);
 
             InitializeDeviceDropDownCollection
                 (deviceRemoveWaveOutToolStripMenuItemDropDown_Click,
                 ref deviceRemoveWaveOutToolStripMenuItem,
-                deviceList.SelectedWaveOutMMDeviceList);
+                deviceListModel.SelectedWaveOutMMDeviceList);
 
             deviceToolStripMenuItem.Text = text;
             deviceToolStripMenuItem.Enabled = true;

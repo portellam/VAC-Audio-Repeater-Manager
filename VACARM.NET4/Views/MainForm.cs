@@ -15,7 +15,7 @@ namespace VACARM.NET4.Views
         #region Parameters
 
         private string fileName;
-        private DeviceListModel deviceList;
+        private DeviceListModel deviceListModel;
 
         public const string WaveInAsString = "Wave In";
         public const string WaveOutAsString = "Wave Out";
@@ -40,7 +40,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void SetDeviceList()
         {
-            deviceList = new DeviceListModel();
+            deviceListModel = new DeviceListModel();
         }
 
         #endregion
@@ -107,7 +107,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveAllMMDevicesToSelectedLists();
+            deviceListModel.MoveAllMMDevicesToSelectedLists();
             InitializeLists();
         }
 
@@ -124,7 +124,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveMMDeviceToSelectedList
+            deviceListModel.MoveMMDeviceToSelectedList
                 ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Capture);
             InitializeLists();
         }
@@ -142,7 +142,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveMMDeviceToSelectedList
+            deviceListModel.MoveMMDeviceToSelectedList
                 ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
             InitializeLists();
         }
@@ -184,7 +184,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveMMDeviceFromSelectedList
+            deviceListModel.MoveMMDeviceFromSelectedList
                 ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Capture);
             InitializeLists();
         }
@@ -202,7 +202,7 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            deviceList.MoveMMDeviceFromSelectedList
+            deviceListModel.MoveMMDeviceFromSelectedList
                 ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
             InitializeLists();
         }
