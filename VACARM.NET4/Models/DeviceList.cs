@@ -252,12 +252,14 @@ namespace VACARM.NET4.Models
         public void MoveAllMMDevicesToSelectedLists()
         {
             SelectedWaveInMMDeviceList = UnselectedWaveInMMDeviceList;
+            UnselectedWaveInMMDeviceList = new List<MMDevice>();
             UnselectedWaveInNameList =
                 GetNameListGivenMMDeviceList(UnselectedWaveInMMDeviceList);
             SelectedWaveInNameList =
                 GetNameListGivenMMDeviceList(SelectedWaveInMMDeviceList);
 
             SelectedWaveOutMMDeviceList = UnselectedWaveOutMMDeviceList;
+            UnselectedWaveOutMMDeviceList = new List<MMDevice>();
             UnselectedWaveOutNameList =
                 GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
             SelectedWaveOutNameList =
