@@ -33,8 +33,7 @@ namespace VACARM.NET4.Models
 
         #region Parameters
 
-        private MMDeviceEnumerator mMDeviceEnumerator;
-
+        public List<MMDevice> AllDeviceList { get; private set; }
         public List<MMDevice> AllWaveInDeviceList { get; private set; }
         public List<MMDevice> AllWaveOutDeviceList { get; private set; }
         public List<MMDevice> SelectedWaveInMMDeviceList { get; private set; }
@@ -60,11 +59,14 @@ namespace VACARM.NET4.Models
         [ExcludeFromCodeCoverage]
         public DeviceList()
         {
-            //TODO: be able to load device list from file. That way, we can edit configs for other systems, and not crash this app too.
+            AllDeviceList = new MMDeviceEnumerator()
+                .EnumerateAudioEndPoints(DataFlow.All, DeviceState.All).ToList();
 
-            GetAllMMDeviceListsFromSystem();
+            SortMMDeviceList();
+            SetAllMMDeviceLists();
             GetUnselectedWaveInMMDeviceLists();
             GetUnselectedWaveOutMMDeviceLists();
+
             SelectedWaveInMMDeviceList = new List<MMDevice>();
             SelectedWaveInNameList = new List<string>();
             SelectedWaveOutMMDeviceList = new List<MMDevice>();
@@ -74,12 +76,16 @@ namespace VACARM.NET4.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="mMDeviceList">the MMDevice list</param>
-        public DeviceList(List<MMDevice> mMDeviceList)
+        /// <param name="allDeviceList">the MMDevice list</param>
+        public DeviceList(List<MMDevice> allDeviceList)
         {
-            GetAllMMDeviceListsFromData(mMDeviceList);
+            AllDeviceList = allDeviceList;
+
+            SortMMDeviceList();
+            SetAllMMDeviceLists();
             GetUnselectedWaveInMMDeviceLists();
             GetUnselectedWaveOutMMDeviceLists();
+
             SelectedWaveInMMDeviceList = new List<MMDevice>();
             SelectedWaveInNameList = new List<string>();
             SelectedWaveOutMMDeviceList = new List<MMDevice>();
@@ -142,56 +148,6 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Get all MMDevice lists from input data.
-        /// </summary>
-        internal void GetAllMMDeviceListsFromData(List<MMDevice> mMDeviceList)
-        {
-            mMDeviceEnumerator = null;
-
-            AllWaveInDeviceList = mMDeviceList.Where(mMDevice =>
-            {
-                return mMDevice.DataFlow == DataFlow.Capture &&
-                    mMDevice.State == Present;
-            }).Distinct().ToList();
-
-            AllWaveInDeviceList = AllWaveInDeviceList
-                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
-                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
-
-            AllWaveOutDeviceList = mMDeviceList.Where(mMDevice =>
-            {
-                return mMDevice.DataFlow == DataFlow.Render &&
-                    mMDevice.State == Present;
-            }).Distinct().ToList();
-
-            AllWaveOutDeviceList = AllWaveOutDeviceList
-                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
-                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
-        }
-
-        /// <summary>
-        /// Get all MMDevice lists from system.
-        /// </summary>
-        internal void GetAllMMDeviceListsFromSystem()
-        {
-            mMDeviceEnumerator = new MMDeviceEnumerator();
-
-            AllWaveInDeviceList = mMDeviceEnumerator
-                .EnumerateAudioEndPoints(DataFlow.Capture, Present).Distinct().ToList();
-
-            AllWaveInDeviceList = AllWaveInDeviceList
-                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
-                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
-
-            AllWaveOutDeviceList = mMDeviceEnumerator
-                .EnumerateAudioEndPoints(DataFlow.Render, Present).Distinct().ToList();
-
-            AllWaveOutDeviceList = AllWaveOutDeviceList
-                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
-                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
-        }
-
-        /// <summary>
         /// Get unselected wave in MMDevice lists.
         /// </summary>
         internal void GetUnselectedWaveInMMDeviceLists()
@@ -236,6 +192,31 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
+        /// Set all MMDevice lists.
+        /// </summary>
+        internal void SetAllMMDeviceLists()
+        {
+            if (AllDeviceList is null)
+            {
+                return;
+            }
+
+            AllWaveInDeviceList = AllDeviceList.Where(mMDevice =>
+                mMDevice.DataFlow == DataFlow.Capture).Distinct().ToList();
+
+            AllWaveInDeviceList = AllWaveInDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+
+            AllWaveOutDeviceList = AllDeviceList.Where(mMDevice =>
+                mMDevice.DataFlow == DataFlow.Render).Distinct().ToList();
+
+            AllWaveOutDeviceList = AllWaveOutDeviceList
+                .OrderBy(mMDevice => mMDevice.FriendlyName).ToList()
+                .OrderBy(mMDevice => mMDevice.DeviceFriendlyName).ToList();
+        }
+
+        /// <summary>
         /// Remove MMDevice(s) from selected lists if MMDevice does not currently exist
         /// or it is not present.
         /// </summary>
@@ -262,6 +243,33 @@ namespace VACARM.NET4.Models
                 }
             });
 
+            SelectedWaveOutNameList =
+                GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
+        }
+
+        /// <summary>
+        /// Sort MMDevice list.
+        /// </summary>
+        internal void SortMMDeviceList()
+        {
+            AllDeviceList = AllDeviceList.Where(mMDevice =>
+                mMDevice.State == Present).Distinct().ToList();
+        }
+
+        /// <summary>
+        /// Move all unselected MMDevices to selected lists.
+        /// </summary>
+        public void MoveAllMMDevicesToSelectedLists()
+        {
+            SelectedWaveInMMDeviceList = UnselectedWaveInMMDeviceList;
+            UnselectedWaveInNameList =
+                GetNameListGivenMMDeviceList(UnselectedWaveInMMDeviceList);
+            SelectedWaveInNameList =
+                GetNameListGivenMMDeviceList(SelectedWaveInMMDeviceList);
+
+            SelectedWaveOutMMDeviceList = UnselectedWaveOutMMDeviceList;
+            UnselectedWaveOutNameList =
+                GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
             SelectedWaveOutNameList =
                 GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
         }
@@ -304,24 +312,6 @@ namespace VACARM.NET4.Models
         }
 
         /// <summary>
-        /// Move all unselected MMDevices to selected lists.
-        /// </summary>
-        public void MoveAllMMDevicesToSelectedLists()
-        {
-            SelectedWaveInMMDeviceList = UnselectedWaveInMMDeviceList;
-            UnselectedWaveInNameList =
-                GetNameListGivenMMDeviceList(UnselectedWaveInMMDeviceList);
-            SelectedWaveInNameList =
-                GetNameListGivenMMDeviceList(SelectedWaveInMMDeviceList);
-
-            SelectedWaveOutMMDeviceList = UnselectedWaveOutMMDeviceList;
-            UnselectedWaveOutNameList =
-                GetNameListGivenMMDeviceList(UnselectedWaveOutMMDeviceList);
-            SelectedWaveOutNameList =
-                GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
-        }
-
-        /// <summary>
         /// Move MMDevice from unselected list to related selected list.
         /// </summary>
         /// <param name="mMDeviceName">The MMDevice name</param>
@@ -356,17 +346,6 @@ namespace VACARM.NET4.Models
             SelectedWaveOutMMDeviceList.Add(mMDevice);
             SelectedWaveOutNameList =
                 GetNameListGivenMMDeviceList(SelectedWaveOutMMDeviceList);
-        }
-
-        /// <summary>
-        /// Query system for changes, and update lists as needed.
-        /// </summary>
-        public void SetDeviceLists()
-        {
-            GetUnselectedWaveInMMDeviceLists();
-            GetUnselectedWaveOutMMDeviceLists();
-            GetAllMMDeviceListsFromSystem();
-            SetSelectedListsGivenNewMMDeviceState();
         }
 
         #endregion
