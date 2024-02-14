@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Models
