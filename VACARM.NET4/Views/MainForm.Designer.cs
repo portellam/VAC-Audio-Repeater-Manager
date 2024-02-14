@@ -955,7 +955,7 @@ namespace VACARM.NET4.Views
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem()
                 {
                     Text = text,
-                    ToolTipText = mMDevice.FriendlyName,
+                    ToolTipText = mMDevice.FriendlyName,                                //NOTE: The ToolTipText property must contain the MMDevice.FriendlyName, so that the MenuItem as a sender object will be properly validated in DeviceList logic.
                 };
 
                 FormColorUpdater.SetColorsOfToolStripMenuItem(toolStripMenuItem);
