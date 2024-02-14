@@ -91,11 +91,11 @@ namespace VACARM.NET4.Views
         #region 2. Device menu logic
 
         /// <summary>
-        /// Click event logic for deviceAddAllToolStripMenuItemDropDown.
+        /// Click event logic for deviceAddAllToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceAddAllToolStripMenuItemDropDown_Click
+        internal void deviceAddAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             if (!(sender is ToolStripMenuItem))
@@ -133,16 +133,16 @@ namespace VACARM.NET4.Views
         internal void deviceReloadAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            deviceList = new DeviceList();
+            SetDeviceList();
             InitializeLists();
         }
 
         /// <summary>
-        /// Click event logic for deviceRemoveAllToolStripMenuItemDropDown.
+        /// Click event logic for deviceRemoveAllToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceRemoveAllToolStripMenuItemDropDown_Click
+        internal void deviceRemoveAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             SetDeviceList();
