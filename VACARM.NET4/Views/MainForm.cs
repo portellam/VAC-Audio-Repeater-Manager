@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.CoreAudioApi;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,6 +16,9 @@ namespace VACARM.NET4.Views
 
         private string fileName;
         private DeviceList deviceList;
+
+        public const string WaveInAsString = "Wave In";
+        public const string WaveOutAsString = "Wave Out";
 
         #endregion
 
@@ -108,11 +112,11 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for deviceAddToolStripMenuItemDropDown.
+        /// Click event logic for deviceAddWaveInToolStripMenuItemDropDown.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceAddToolStripMenuItemDropDown_Click
+        internal void deviceAddWaveInToolStripMenuItemDropDown_Click
             (object sender, EventArgs eventArgs)
         {
             if (!(sender is ToolStripMenuItem))
@@ -121,7 +125,25 @@ namespace VACARM.NET4.Views
             }
 
             deviceList.MoveMMDeviceToSelectedList
-                ((sender as ToolStripMenuItem).ToolTipText);
+                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Capture);
+            InitializeLists();
+        }
+
+        /// <summary>
+        /// Click event logic for deviceAddWaveOutToolStripMenuItemDropDown.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        internal void deviceAddWaveOutToolStripMenuItemDropDown_Click
+            (object sender, EventArgs eventArgs)
+        {
+            if (!(sender is ToolStripMenuItem))
+            {
+                return;
+            }
+
+            deviceList.MoveMMDeviceToSelectedList
+                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
             InitializeLists();
         }
 
@@ -150,11 +172,11 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for deviceRemoveToolStripMenuItemDropDown.
+        /// Click event logic for deviceRemoveWaveInToolStripMenuItemDropDown.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceRemoveToolStripMenuItemDropDown_Click
+        internal void deviceRemoveWaveInToolStripMenuItemDropDown_Click
             (object sender, EventArgs eventArgs)
         {
             if (!(sender is ToolStripMenuItem))
@@ -163,10 +185,29 @@ namespace VACARM.NET4.Views
             }
 
             deviceList.MoveMMDeviceFromSelectedList
-                ((sender as ToolStripMenuItem).ToolTipText);
+                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Capture);
             InitializeLists();
         }
-        
+
+
+        /// <summary>
+        /// Click event logic for deviceRemoveWaveOutToolStripMenuItemDropDown.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
+        internal void deviceRemoveWaveOutToolStripMenuItemDropDown_Click
+            (object sender, EventArgs eventArgs)
+        {
+            if (!(sender is ToolStripMenuItem))
+            {
+                return;
+            }
+
+            deviceList.MoveMMDeviceFromSelectedList
+                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
+            InitializeLists();
+        }
+
         #endregion
 
         #region 3. Link menu logic
@@ -261,5 +302,26 @@ namespace VACARM.NET4.Views
         }
 
         #endregion
+
+        internal DataFlow getDataFlowOfToolStripMenuItemText(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return DataFlow.All;
+            }
+
+            if (text == WaveInAsString)
+            {
+                return DataFlow.Capture;
+            }
+            else if (text == WaveOutAsString)
+            {
+                return DataFlow.Render;
+            }
+            else
+            {
+                return DataFlow.All;
+            }
+        }
     }
 }
