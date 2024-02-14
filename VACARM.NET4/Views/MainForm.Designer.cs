@@ -1042,12 +1042,12 @@ namespace VACARM.NET4.Views
                 deviceListModel.SelectedWaveOutMMDeviceList);
 
             InitializeDeviceDropDownCollection
-                (linkWaveInDeviceToolStripMenuItem_Click,
+                (linkAddWaveInToolStripMenuItem_Click,
                 ref linkAddWaveInToolStripMenuItem,
                 deviceListModel.SelectedWaveInMMDeviceList);
 
             InitializeDeviceDropDownCollection
-                (linkWaveOutDeviceToolStripMenuItem_Click,
+                (linkAddWaveOutToolStripMenuItem_Click,
                 ref linkAddWaveOutToolStripMenuItem,
                 deviceListModel.SelectedWaveOutMMDeviceList);
 

@@ -233,11 +233,11 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for linkWaveInDeviceToolStripMenuItem.
+        /// Click event logic for linkAddWaveInToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void linkWaveInDeviceToolStripMenuItem_Click
+        internal void linkAddWaveInToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             if (sender is null || sender.GetType() != typeof(ToolStripMenuItem))
@@ -265,11 +265,11 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for linkWaveOutDeviceToolStripMenuItem.
+        /// Click event logic for linkAddWaveOutToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void linkWaveOutDeviceToolStripMenuItem_Click
+        internal void linkAddWaveOutToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
             if (sender is null || sender.GetType() != typeof(ToolStripMenuItem))
