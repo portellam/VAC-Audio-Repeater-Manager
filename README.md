@@ -6,10 +6,10 @@ Download from "Releases" the setup executable for your Windows machine architect
 
 ## Requirements
 * [VAC Audio Repeater](https://vac.muzychenko.net/en/repeater.htm)
-* [VAC Control Panel](https://vac.muzychenko.net/en/download.htm) [1]
+* [VAC Control Panel](https://vac.muzychenko.net/en/download.htm)<sup>[1]</sup>
 * Microsoft .NET (version 4.0 for 32-bit, version 4.8 and 8.0 for 64-bit). 
 
-[1]
+#### [1]
 A minimum of one (1) "virtual audio cable" or input-and-output pair to faciliate (multiplexing). Example: virtual Line In 1 > physical Line out(s).
 
 ## Use-Cases
@@ -22,16 +22,17 @@ A minimum of one (1) "virtual audio cable" or input-and-output pair to faciliate
 * Easily automate audio stream setup with Windows Tasks and startup scripts.
 
 ## Keywords
-[multiplexing]
-In telecommunications and computer networking, multiplexing (sometimes contracted to muxing) is a method by which multiple analog or digital signals are combined into one signal over a shared medium. [Wikipedia](https://en.wikipedia.org/wiki/Multiplexing)
+#### [multiplexing]
+*In telecommunications and computer networking, multiplexing (sometimes contracted to muxing) is a method by which multiple analog or digital signals are combined into one signal over a shared medium.* [Wikipedia](https://en.wikipedia.org/wiki/Multiplexing)
 
 ## Credits
 [garwaymei](https://github.com/garwaymei) for the initial idea and hosting parent repository.
-[Eugene Muzychenko](https://eugene.muzychenko.net/EMuzychenko_Resume_Eng.htm) for creating Virtual Audio Cable.
-sections.
 
-# Licensing
-VAC Audio Repeater Manager (VACARM) GPLv3/Copyleft © 2024 Alexander Portell.
+[Eugene Muzychenko](https://eugene.muzychenko.net/EMuzychenko_Resume_Eng.htm) for creating Virtual Audio Cable.
+
+## Licensing
+VAC Audio Repeater Manager (VACARM) GPL-3.0, Copyleft © 2024 Alexander Portell.
+
 Virtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.
 
 ## TODO
@@ -84,6 +85,11 @@ Virtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.
 	- [ ] Lower priority
 		- [ ] Viewmodel logic (NOTE: is this even necessary or feasible with Mocking?).
 
+- [ ] Create installer/uninstaller.
+
+- README
+	- [ ] Add demo pics.
+
 - Known bugs (subject to change):
-	[ ] When using a KVM, there is a bug where audio may be "glitched". This may be caused by switching PC inputs while playing audio over the KVM (ex: HDMI or optical audio, 3.5mm analog audio, etc.). SOLUTION: do not add Wave inputs/outputs which operate over the KVM. WORK-AROUND: Logout and login Windows user, then start VACARM again.
-	[ ] (Old application from main fork) Application will crash without warning when attempting to add vector when one exists between Wave-In and Wave-Out pair(s).
+	- [ ] When using a KVM, there is a bug where audio may be "glitched". This may be caused by switching PC inputs while playing audio over the KVM (ex: HDMI or optical audio, 3.5mm analog audio, etc.). SOLUTION: do not add Wave inputs/outputs which operate over the KVM. WORK-AROUND: Logout and login Windows user, then start VACARM again.
+	- [ ] (Old application from main fork) Application will crash without warning when attempting to add vector when one exists between Wave-In and Wave-Out pair(s).
