@@ -6,10 +6,10 @@ Download from "Releases" the setup executable for your Windows machine architect
 
 ## Requirements
 * [VAC Audio Repeater](https://vac.muzychenko.net/en/repeater.htm)
-* [VAC Control Panel](https://vac.muzychenko.net/en/download.htm)<sup>[1]</sup>
+* [VAC Control Panel](https://vac.muzychenko.net/en/download.htm)<sup>[#1]</sup>
 * Microsoft .NET (version 4.0 for 32-bit, version 4.8 and 8.0 for 64-bit). 
 
-#### [1]
+#### 1.
 A minimum of one (1) "virtual audio cable" or input-and-output pair to faciliate (multiplexing). Example: virtual Line In 1 > physical Line out(s).
 
 ## Use-Cases
@@ -22,7 +22,7 @@ A minimum of one (1) "virtual audio cable" or input-and-output pair to faciliate
 * Easily automate audio stream setup with Windows Tasks and startup scripts.
 
 ## Keywords
-#### [multiplexing]
+#### multiplexing
 *In telecommunications and computer networking, multiplexing (sometimes contracted to muxing) is a method by which multiple analog or digital signals are combined into one signal over a shared medium.* [Wikipedia](https://en.wikipedia.org/wiki/Multiplexing)
 
 ## Credits
