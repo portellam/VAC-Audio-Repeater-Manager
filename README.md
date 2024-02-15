@@ -69,8 +69,8 @@ Virtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.
 			- [ ] Export from file (.xml file).
 		- [ ] Links
 		- [ ] Repeaters
-			- Generate automation scripts (.bat files).
-			- Generate Window task (.xml file ?).
+			- [ ] Generate automation scripts (.bat files).
+			- [ ] Generate Window task (.xml file ?).
 		- [x] Dark mode
 	- [ ] Windows 32-bit support
 		- [ ] Windows NT 5.x:	.NET 4.0 compatible C# code and NuGet dependencies.
