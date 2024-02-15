@@ -45,7 +45,7 @@ Virtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.
 		- [ ] Views
 			- [ ] Main form
 				- [x] Create GUI layout.
-				- [] Create all hotkeys.
+				- [ ] Create all hotkeys.
 				- [ ] Create all backend logic for accesing and manipulating model data and other forms.
 			- [x] About form
 			- [ ] Grid table
