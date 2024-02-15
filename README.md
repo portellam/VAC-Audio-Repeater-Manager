@@ -6,7 +6,7 @@ Download from "Releases" the setup executable for your Windows machine architect
 
 ## Requirements
 * [VAC Audio Repeater](https://vac.muzychenko.net/en/repeater.htm)
-* [VAC Control Panel](https://vac.muzychenko.net/en/download.htm)<sup>[1](#1)</sup>
+* [VAC Control Panel](https://vac.muzychenko.net/en/download.htm) <sup>[1](#1)</sup>
 * Microsoft .NET (version 4.0 for 32-bit, version 4.8 and 8.0 for 64-bit). 
 
 #### 1.
