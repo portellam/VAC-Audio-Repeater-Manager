@@ -7,14 +7,19 @@ namespace VACARM.NET4.ViewModels
     {
         #region Parameters
 
-        public MMDevice MMDevice { get; set; }
+        public MMDevice MMDevice { get; private set; }
 
         #endregion
 
         #region Logic
 
-        public DeviceControl()
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mMDevice">The MMDevice</param>
+        public DeviceControl(MMDevice mMDevice)
         {
+            MMDevice = mMDevice;
             InitializeComponent();
         }
 
