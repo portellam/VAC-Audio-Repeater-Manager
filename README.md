@@ -1,10 +1,10 @@
 # VAC Audio Repeater Manager (VACARM)
 User interface to create, manage, and automate [Virtual Audio Cable](#Licensing) (VAC) audio repeaters.
 
-### Installation
+## Installation
 Download from "Releases" the setup executable for your Windows machine architecture (32-bit or 64-bit). This application is targeted for Windows NT 5.0 (XP / Server 2003) and newer (Vista / 7 / 8 / 10 / 11).
 
-### Requirements
+## Requirements
 * [VAC Audio Repeater](https://vac.muzychenko.net/en/repeater.htm)
 * [VAC Control Panel](https://vac.muzychenko.net/en/download.htm) <sup>[1](#1)</sup>
 * Microsoft .NET (version 4.0 for 32-bit, version 4.8 and 8.0 for 64-bit). 
@@ -12,30 +12,30 @@ Download from "Releases" the setup executable for your Windows machine architect
 #### 1.
 A minimum of one (1) "virtual audio cable" or input-and-output pair to faciliate [multiplexing](#multiplexing). Example: virtual Line In 1 > physical Line out(s).
 
-### Use-Cases
+## Use-Cases
 * Multiplexing audio streams for a Game broadcast/recording setup.
 * For Windows machines with many audio devices, such that the end-user only has to physically turn on or off the audio device, and not in software.
 
-### Features
+## Features
 * Load/Save audio stream setup to/from file.
 * Manage audio stream setup of current or foreign Windows machine(s).
 * Easily automate audio stream setup with Windows Tasks and startup scripts.
 
-### Keywords
+## Keywords
 #### multiplexing
 *In telecommunications and computer networking, multiplexing (sometimes contracted to muxing) is a method by which multiple analog or digital signals are combined into one signal over a shared medium.* [Wikipedia](https://en.wikipedia.org/wiki/Multiplexing)
 
-### Credits
+## Credits
 [garwaymei](https://github.com/garwaymei) for the initial idea and hosting parent repository.
 
 [Eugene Muzychenko](https://eugene.muzychenko.net/EMuzychenko_Resume_Eng.htm) for creating Virtual Audio Cable.
 
-### Licensing
+## Licensing
 VAC Audio Repeater Manager (VACARM) GPL-3.0, Copyleft © 2024 Alexander Portell.
 
 Virtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.
 
-### TO DO (subject to change)
+## TO DO (subject to change)
 - Development:
 	- [x] Choose design pattern: Model-ViewModel-View
 		- [ ] Models
