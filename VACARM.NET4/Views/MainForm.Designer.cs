@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using VACARM.NET4.Models;
 using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
@@ -553,8 +554,6 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(156, 26);
             this.linkRemoveWaveInToolStripMenuItem.Tag = "";
             this.linkRemoveWaveInToolStripMenuItem.Text = WaveInAsString;
-            this.linkRemoveWaveInToolStripMenuItem.Click +=
-               new System.EventHandler(this.unlinkWaveInDeviceToolStripMenuItem_Click);
             // 
             // linkRemoveWaveOutToolStripMenuItem
             // 
@@ -564,8 +563,6 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(156, 26);
             this.linkRemoveWaveOutToolStripMenuItem.Tag = "";
             this.linkRemoveWaveOutToolStripMenuItem.Text = WaveOutAsString;
-            this.linkRemoveWaveOutToolStripMenuItem.Click +=
-               new System.EventHandler(this.unlinkWaveOutDeviceToolStripMenuItem_Click);
             // 
             // linkRemoveAllToolStripMenuItem
             // 
@@ -1015,6 +1012,8 @@ namespace VACARM.NET4.Views
             deviceRemoveWaveOutToolStripMenuItem.DropDownItems.Clear();
             linkAddWaveInToolStripMenuItem.DropDownItems.Clear();
             linkAddWaveOutToolStripMenuItem.DropDownItems.Clear();
+            linkRemoveWaveInToolStripMenuItem.DropDownItems.Clear();
+            linkRemoveWaveOutToolStripMenuItem.DropDownItems.Clear();
 
             string text = deviceToolStripMenuItem.Text;
             deviceToolStripMenuItem.Text = "Loading...";
@@ -1051,6 +1050,16 @@ namespace VACARM.NET4.Views
                 ref linkAddWaveOutToolStripMenuItem,
                 deviceListModel.SelectedWaveOutMMDeviceList);
 
+            InitializeDeviceDropDownCollection
+                (linkRemoveWaveInToolStripMenuItem_Click,
+                ref linkRemoveWaveInToolStripMenuItem,
+                repeaterDataModel.LinkWaveInMMDeviceList);
+
+            InitializeDeviceDropDownCollection
+                (linkRemoveWaveOutToolStripMenuItem_Click,
+                ref linkRemoveWaveOutToolStripMenuItem,
+                repeaterDataModel.LinkWaveOutMMDeviceList);
+
             deviceToolStripMenuItem.Text = text;
             deviceToolStripMenuItem.Enabled = true;
             Refresh();
@@ -1074,6 +1083,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void PostInitializeComponent()
         {
+            SetRepeaterDataModel();
             InitializeLists();
             SetInitialChanges();
             SetColorTheme();
