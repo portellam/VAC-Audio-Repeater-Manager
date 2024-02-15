@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -93,6 +94,14 @@ namespace VACARM.NET4.Views
              */
 
             Application.Exit();
+        }
+
+        /// <summary>
+        /// Create new repeater data model. Called whenever a file is opened or closed.
+        /// </summary>
+        internal void SetRepeaterDataModel()
+        {
+            repeaterDataModel = new RepeaterDataModel();
         }
 
         #endregion
@@ -227,9 +236,10 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            //repeaterDataModel.AddDictionary(inputDeviceControl, outputDeviceControl);
+            repeaterDataModel.AddDictionary(inputDeviceControl, outputDeviceControl);
             inputDeviceControl = null;
             outputDeviceControl = null;
+            InitializeLists();
         }
 
         /// <summary>
@@ -254,12 +264,8 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            inputDeviceControl = new DeviceControl()
-            {
-                MMDevice = mMDevice,
-            };
-
-            SetPropertiesOfToolStripMenuItem
+            inputDeviceControl = new DeviceControl(mMDevice);
+            SetPropertiesOfSelectedToolStripMenuItem
                 (ref linkAddWaveInToolStripMenuItem, toolStripMenuItem);
             AddToRepeaterModel();
         }
@@ -286,14 +292,78 @@ namespace VACARM.NET4.Views
                 return;
             }
 
-            outputDeviceControl = new DeviceControl()
-            {
-                MMDevice = mMDevice,
-            };
-
-            SetPropertiesOfToolStripMenuItem
+            outputDeviceControl = new DeviceControl(mMDevice);
+            SetPropertiesOfSelectedToolStripMenuItem
                 (ref linkAddWaveOutToolStripMenuItem, toolStripMenuItem);
             AddToRepeaterModel();
+        }
+
+        /// <summary>
+        /// Remove input and output device controls to repeater model.
+        /// </summary>
+        internal void RemoveFromRepeaterModel()
+        {
+            if (inputDeviceControl is null || outputDeviceControl is null)
+            {
+                return;
+            }
+
+            repeaterDataModel.RemoveDictionary(inputDeviceControl, outputDeviceControl);
+            ResetPropertiesForSelectedLinkAddToolStripMenuItem(inputDeviceControl);
+            ResetPropertiesForSelectedLinkAddToolStripMenuItem(outputDeviceControl);
+            inputDeviceControl = null;
+            outputDeviceControl = null;
+            InitializeLists();
+        }
+
+        /// <summary>
+        /// Resets properties for selected linkAddWaveIn or linkAddWaveOut.
+        /// </summary>
+        /// <param name="deviceControl">The device control</param>
+        internal void ResetPropertiesForSelectedLinkAddToolStripMenuItem
+            (DeviceControl deviceControl)
+        {
+            if (deviceControl is null || deviceControl.MMDevice is null)
+            {
+                return;
+            }
+
+            if (deviceControl.MMDevice.DataFlow == DataFlow.Capture)
+            {
+                ResetPropertiesForSelectedToolStripMenuItem
+                    (deviceControl.MMDevice, ref linkAddWaveInToolStripMenuItem);
+            }
+            else
+            {
+                ResetPropertiesForSelectedToolStripMenuItem
+                    (deviceControl.MMDevice, ref linkAddWaveOutToolStripMenuItem);
+            }
+        }
+
+        /// <summary>
+        /// Resets properties for selected nested tool stripitem in tool strip menu
+        /// item.
+        /// </summary>
+        /// <param name="mMDevice">The MMDevice</param>
+        /// <param name="parentToolStripMenuItem">The referenced parent tool strip menu
+        /// item</param>
+        internal void ResetPropertiesForSelectedToolStripMenuItem
+            (MMDevice mMDevice, ref ToolStripMenuItem parentToolStripMenuItem)
+        {
+            string isSelectedSuffix = " (Selected)";
+
+            foreach (ToolStripItem toolStripItem in
+                parentToolStripMenuItem.DropDownItems)
+            {
+                if (toolStripItem.ToolTipText != mMDevice.FriendlyName)
+                {
+                    continue;
+                }
+
+                toolStripItem.Enabled = true;
+                toolStripItem.Text = Regex.Replace
+                    (toolStripItem.Text, isSelectedSuffix, string.Empty);
+            }
         }
 
         /// <summary>
@@ -304,7 +374,7 @@ namespace VACARM.NET4.Views
         /// <param name="parentToolStripMenuItem">The parent tool strip menu
         /// item</param>
         /// <param name="childToolStripMenuItem">The child tool strip menu item</param>
-        internal void SetPropertiesOfToolStripMenuItem
+        internal void SetPropertiesOfSelectedToolStripMenuItem
             (ref ToolStripMenuItem parentToolStripMenuItem,
             ToolStripMenuItem childToolStripMenuItem)
         {
@@ -335,25 +405,59 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Click event logic for unlinkWaveInDeviceToolStripMenuItem.
+        /// Click event logic for linkRemoveWaveInToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void unlinkWaveInDeviceToolStripMenuItem_Click
-            (object sender, EventArgs eventArgse)
+        internal void linkRemoveWaveInToolStripMenuItem_Click
+            (object sender, EventArgs eventArgs)
         {
+            if (sender is null || sender.GetType() != typeof(ToolStripMenuItem))
+            {
+                return;
+            }
 
+            ToolStripMenuItem toolStripMenuItem = sender as ToolStripMenuItem;
+            MMDevice mMDevice = deviceListModel.GetMMDevice
+                (toolStripMenuItem.ToolTipText, DataFlow.Capture);
+
+            if (mMDevice is null)
+            {
+                return;
+            }
+
+            inputDeviceControl = new DeviceControl(mMDevice);
+            SetPropertiesOfSelectedToolStripMenuItem
+                (ref linkRemoveWaveInToolStripMenuItem, toolStripMenuItem);
+            RemoveFromRepeaterModel();
         }
 
         /// <summary>
-        /// Click event logic for unlinkWaveOutDeviceToolStripMenuItem.
+        /// Click event logic for linkRemoveWaveOutToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void unlinkWaveOutDeviceToolStripMenuItem_Click
+        internal void linkRemoveWaveOutToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
+            if (sender is null || sender.GetType() != typeof(ToolStripMenuItem))
+            {
+                return;
+            }
 
+            ToolStripMenuItem toolStripMenuItem = sender as ToolStripMenuItem;
+            MMDevice mMDevice = deviceListModel.GetMMDevice
+                (toolStripMenuItem.ToolTipText, DataFlow.Render);
+
+            if (mMDevice is null)
+            {
+                return;
+            }
+
+            outputDeviceControl = new DeviceControl(mMDevice);
+            SetPropertiesOfSelectedToolStripMenuItem
+                (ref linkRemoveWaveOutToolStripMenuItem, toolStripMenuItem);
+            RemoveFromRepeaterModel();
         }
 
         #endregion
@@ -406,26 +510,17 @@ namespace VACARM.NET4.Views
         }
 
         #endregion
-
-        internal DataFlow getDataFlowOfToolStripMenuItemText(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return DataFlow.All;
-            }
-
-            if (text == WaveInAsString)
-            {
-                return DataFlow.Capture;
-            }
-            else if (text == WaveOutAsString)
-            {
-                return DataFlow.Render;
-            }
-            else
-            {
-                return DataFlow.All;
-            }
-        }
     }
+
+    /*
+    * TODO:
+    * -import/export system MMEnumeration to file.
+    * -repeaters > disable item of and start repeaters whose device(s) are disabled or not present.
+    * -check for existing running repeaters (should this app exit).
+    * -run task of starting repeaters in another thread.
+    * -check for glitches in repeaters.
+    * -make suggestions if audio glitches occur.
+    * -allow for enabling/disabling devices.
+    * -click event to open active audio repeater.
+    */
 }
