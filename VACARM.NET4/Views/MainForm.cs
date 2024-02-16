@@ -172,8 +172,15 @@ namespace VACARM.NET4.Views
 
             SetEnabledPropertyOfDeviceAddConfirmToolStripMenuItem();
             SetEnabledPropertyOfDeviceAddSelectAllToolStripMenuItem();
+            SetEnabledPropertyOfDeviceAddSelectToolStripMenuItem();
+            SetEnabledPropertyOfDeviceAddToolStripMenuItem();
         }
 
+        /// <summary>
+        /// Toggle enabled property event for deviceAddConfirmToolStripMenuItem.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="eventArgs">The event arguments</param>
         internal void deviceAddConfirmToolStripMenuItemEnabled_Toggle
             (object sender, EventArgs eventArgs)
         {
@@ -195,7 +202,6 @@ namespace VACARM.NET4.Views
         {
             SetDeviceList();
             InitializeLists();
-
             SetEnabledPropertyOfDeviceAddConfirmToolStripMenuItem();
         }
 
@@ -262,6 +268,24 @@ namespace VACARM.NET4.Views
         internal void SetEnabledPropertyOfDeviceAddSelectAllToolStripMenuItem()
         {
             deviceAddSelectAllToolStripMenuItem.Enabled =
+                doAddSelectedWaveInOrWaveOutContainCheckedMenuItem;
+        }
+
+        /// <summary>
+        /// Set Enable property of deviceAddSelectToolStripMenuItem.
+        /// </summary>
+        internal void SetEnabledPropertyOfDeviceAddSelectToolStripMenuItem()
+        {
+            deviceAddSelectToolStripMenuItem.Enabled =
+                doAddSelectedWaveInOrWaveOutContainCheckedMenuItem;
+        }
+
+        /// <summary>
+        /// Set Enable property of deviceAddToolStripMenuItem.
+        /// </summary>
+        internal void SetEnabledPropertyOfDeviceAddToolStripMenuItem()
+        {
+            deviceAddToolStripMenuItem.Enabled =
                 doAddSelectedWaveInOrWaveOutContainCheckedMenuItem;
         }
 
@@ -467,15 +491,6 @@ namespace VACARM.NET4.Views
             (object sender, EventArgs eventArgs)
         {
             SetColorTheme();
-        }
-
-        /// <summary>
-        /// Click event logic for MainForm.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void MainForm_Load(object sender, EventArgs eventArgs)
-        {
         }
 
         #endregion
