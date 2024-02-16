@@ -138,6 +138,28 @@ namespace VACARM.NET4.Views
         #region Windows Form Designer generated code
 
         /// <summary>
+        /// Set the ability of the DeviceAdd and DeviceAddAll menu items.
+        /// </summary>
+        internal void DeviceAddMenuItemAbility()
+        {
+            bool isEnabled = deviceAddSelectWaveInToolStripMenuItem.Enabled
+                || deviceAddSelectWaveOutToolStripMenuItem.Enabled;
+            deviceAddSelectToolStripMenuItem.Enabled = isEnabled;
+            deviceAddSelectAllToolStripMenuItem.Enabled = isEnabled;
+        }
+
+        /// <summary>
+        /// Set the ability of the DeviceRemove and DeviceRemoveAll menu items.
+        /// </summary>
+        internal void DeviceRemoveMenuItemAbility()
+        {
+            bool isEnabled = deviceRemoveWaveInToolStripMenuItem.Enabled
+                || deviceRemoveWaveOutToolStripMenuItem.Enabled;
+            deviceRemoveToolStripMenuItem.Enabled = isEnabled;
+            deviceRemoveAllToolStripMenuItem.Enabled = isEnabled;
+        }
+
+        /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
@@ -1003,7 +1025,6 @@ namespace VACARM.NET4.Views
                     ToolTipText = mMDevice.FriendlyName,                                //NOTE: The ToolTipText property must contain the MMDevice.FriendlyName, so that the MenuItem as a sender object will be properly validated in DeviceList logic.
                 };
 
-                FormColorUpdater.SetColorsOfToolStripMenuItem(toolStripMenuItem);
                 toolStripMenuItem.Click += new System.EventHandler(eventHandler);
                 toolStripMenuItem.CheckOnClick = true;
                 toolStripMenuItemList.Add(toolStripMenuItem);
@@ -1024,6 +1045,8 @@ namespace VACARM.NET4.Views
             parentToolStripMenuItem.DropDownItems.AddRange
                 (toolStripMenuItemList.ToArray());
 
+            FormColorUpdater.SetColorsOfToolStripItem(parentToolStripMenuItem);
+
             parentToolStripMenuItem.DropDown.MouseEnter +=
                 new System.EventHandler
                 (this.SetAutoClosePropertyOfToolStripDropDown_MouseEnter);
@@ -1034,28 +1057,6 @@ namespace VACARM.NET4.Views
 
             SetPropertiesOfToolStripMenuItemGivenItemCollectionIsEmptyOrNot
                 (ref parentToolStripMenuItem);
-        }
-
-        /// <summary>
-        /// Set the ability of the DeviceAdd and DeviceAddAll menu items.
-        /// </summary>
-        internal void DeviceAddMenuItemAbility()
-        {
-            bool isEnabled = deviceAddSelectWaveInToolStripMenuItem.Enabled
-                || deviceAddSelectWaveOutToolStripMenuItem.Enabled;
-            deviceAddSelectToolStripMenuItem.Enabled = isEnabled;
-            deviceAddSelectAllToolStripMenuItem.Enabled = isEnabled;
-        }
-
-        /// <summary>
-        /// Set the ability of the DeviceRemove and DeviceRemoveAll menu items.
-        /// </summary>
-        internal void DeviceRemoveMenuItemAbility()
-        {
-            bool isEnabled = deviceRemoveWaveInToolStripMenuItem.Enabled
-                || deviceRemoveWaveOutToolStripMenuItem.Enabled;
-            deviceRemoveToolStripMenuItem.Enabled = isEnabled;
-            deviceRemoveAllToolStripMenuItem.Enabled = isEnabled;
         }
 
         /// <summary>
@@ -1127,9 +1128,6 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void InitializeLists()
         {
-            InitializeDeviceDropDownCollections();
-            DeviceAddMenuItemAbility();
-            DeviceRemoveMenuItemAbility();
             InitializeControlsList();
             InitializeToolStripItemList();
             GC.Collect();
@@ -1141,9 +1139,20 @@ namespace VACARM.NET4.Views
         internal void PostInitializeComponent()
         {
             SetRepeaterDataModel();
+            ModifyListItemsBeforeInitialization();
             InitializeLists();
             SetInitialChanges();
             SetColorTheme();
+        }
+
+        /// <summary>
+        /// Logic to execute before InitializeLists.
+        /// </summary>
+        internal void ModifyListItemsBeforeInitialization()
+        {
+            InitializeDeviceDropDownCollections();
+            DeviceAddMenuItemAbility();
+            DeviceRemoveMenuItemAbility();
         }
 
         /// <summary>
@@ -1173,14 +1182,6 @@ namespace VACARM.NET4.Views
             FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
             FormColorUpdater.SetColorsOfToolStripItemList(toolStripItemList);
-            FormColorUpdater.SetColorsOfToolStripMenuItem
-                (deviceAddSelectWaveInToolStripMenuItem);
-            FormColorUpdater.SetColorsOfToolStripMenuItem
-                (deviceAddSelectWaveOutToolStripMenuItem);
-            FormColorUpdater.SetColorsOfToolStripMenuItem
-                (deviceRemoveWaveInToolStripMenuItem);
-            FormColorUpdater.SetColorsOfToolStripMenuItem
-                (deviceRemoveWaveOutToolStripMenuItem);
             viewToggleDarkModeToolStripMenuItem.Text = darkModeText;
             Invalidate();
         }
