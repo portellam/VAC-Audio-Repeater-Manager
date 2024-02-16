@@ -17,6 +17,18 @@ namespace VACARM.NET4.Views
     {
         #region Parameters
 
+        private bool doAddSelectedWaveInOrWaveOutContainCheckedMenuItem
+        {
+            get
+            {
+                return DoesToolStripItemCollectionContainCheckedMenuItem
+                    (deviceAddSelectWaveInToolStripMenuItem.DropDownItems)
+                    || DoesToolStripItemCollectionContainCheckedMenuItem
+                    (deviceAddSelectWaveOutToolStripMenuItem.DropDownItems);
+            }
+        }
+
+        private bool toggleDeviceAddSelectAllToolStripMenuItem;
         private string fileName;
         private DeviceListModel deviceListModel;
         private DeviceControl inputDeviceControl { get; set; }
@@ -36,6 +48,7 @@ namespace VACARM.NET4.Views
         [ExcludeFromCodeCoverage]
         public MainForm()
         {
+            toggleDeviceAddSelectAllToolStripMenuItem = false;
             SetDeviceList();
             InitializeComponent();
             PostInitializeComponent();
@@ -109,56 +122,67 @@ namespace VACARM.NET4.Views
         #region 2. Device menu logic
 
         /// <summary>
-        /// Click event logic for deviceAddAllToolStripMenuItem.
+        /// Click event logic for deviceAddSelectAllToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceAddAllToolStripMenuItem_Click
+        internal void deviceAddSelectAllToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            if (!(sender is ToolStripMenuItem))
+            if (sender is null || !(sender is ToolStripMenuItem))
             {
                 return;
             }
 
-            deviceListModel.MoveAllMMDevicesToSelectedLists();
-            InitializeLists();
+            ToggleDeviceAddSelectAllToolStripMenuItem();
+
+            SetCheckedPropertyForEachToolStripMenuItem
+                (ref deviceAddSelectWaveInToolStripMenuItem,
+                toggleDeviceAddSelectAllToolStripMenuItem);
+
+            SetCheckedPropertyForEachToolStripMenuItem
+                (ref deviceAddSelectWaveOutToolStripMenuItem,
+                toggleDeviceAddSelectAllToolStripMenuItem);
+
+            SetEnabledPropertyOfDeviceAddConfirmToolStripMenuItem();
         }
 
         /// <summary>
-        /// Click event logic for deviceAddWaveInToolStripMenuItemDropDown.
+        /// Click event logic for deviceAddConfirmToolStripMenuItem.
         /// </summary>
         /// <param name="sender">The sender object</param>
         /// <param name="eventArgs">The event arguments</param>
-        internal void deviceAddWaveInToolStripMenuItemDropDown_Click
+        internal void deviceAddConfirmToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            if (!(sender is ToolStripMenuItem))
+            if (sender is null || !(sender is ToolStripMenuItem))
             {
                 return;
             }
 
-            deviceListModel.MoveMMDeviceToSelectedList
-                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Capture);
-            InitializeLists();
+            MoveAllCheckedToolStripMenuItemsToNewToolStripItemCollection
+                (ref deviceAddSelectWaveInToolStripMenuItem,
+                ref deviceRemoveWaveInToolStripMenuItem);
+
+            MoveAllCheckedToolStripMenuItemsToNewToolStripItemCollection
+                (ref deviceAddSelectWaveOutToolStripMenuItem,
+                ref deviceRemoveWaveOutToolStripMenuItem);
+
+            //deviceListModel.MoveMMDeviceToSelectedList()                              //FIXME
+
+            SetEnabledPropertyOfDeviceAddConfirmToolStripMenuItem();
+            SetEnabledPropertyOfDeviceAddSelectAllToolStripMenuItem();
         }
 
-        /// <summary>
-        /// Click event logic for deviceAddWaveOutToolStripMenuItemDropDown.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="eventArgs">The event arguments</param>
-        internal void deviceAddWaveOutToolStripMenuItemDropDown_Click
+        internal void deviceAddConfirmToolStripMenuItemEnabled_Toggle
             (object sender, EventArgs eventArgs)
         {
-            if (!(sender is ToolStripMenuItem))
+            if (sender is null || !(sender is ToolStripMenuItem))
             {
                 return;
             }
 
-            deviceListModel.MoveMMDeviceToSelectedList
-                ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
-            InitializeLists();
+            SetEnabledPropertyOfDeviceAddConfirmToolStripMenuItem();
         }
 
         /// <summary>
@@ -171,6 +195,8 @@ namespace VACARM.NET4.Views
         {
             SetDeviceList();
             InitializeLists();
+
+            SetEnabledPropertyOfDeviceAddConfirmToolStripMenuItem();
         }
 
         /// <summary>
@@ -219,6 +245,33 @@ namespace VACARM.NET4.Views
             deviceListModel.MoveMMDeviceFromSelectedList
                 ((sender as ToolStripMenuItem).ToolTipText, DataFlow.Render);
             InitializeLists();
+        }
+
+        /// <summary>
+        /// Set Enable property of deviceAddConfirmToolStripMenuItem.
+        /// </summary>
+        internal void SetEnabledPropertyOfDeviceAddConfirmToolStripMenuItem()
+        {
+            deviceAddConfirmToolStripMenuItem.Enabled =
+                doAddSelectedWaveInOrWaveOutContainCheckedMenuItem;
+        }
+
+        /// <summary>
+        /// Set Enable property of deviceAddSelectAllToolStripMenuItem.
+        /// </summary>
+        internal void SetEnabledPropertyOfDeviceAddSelectAllToolStripMenuItem()
+        {
+            deviceAddSelectAllToolStripMenuItem.Enabled =
+                doAddSelectedWaveInOrWaveOutContainCheckedMenuItem;
+        }
+
+        /// <summary>
+        /// Toggle bool value, call deviceAddSelectAllToolStripMenuItem is clicked.
+        /// </summary>
+        internal void ToggleDeviceAddSelectAllToolStripMenuItem()
+        {
+            toggleDeviceAddSelectAllToolStripMenuItem =
+                !toggleDeviceAddSelectAllToolStripMenuItem;
         }
 
         #endregion
@@ -330,77 +383,13 @@ namespace VACARM.NET4.Views
 
             if (deviceControl.MMDevice.DataFlow == DataFlow.Capture)
             {
-                ResetPropertiesForSelectedToolStripMenuItem
+                ResetPropertiesForEachSelectedToolStripMenuItem
                     (deviceControl.MMDevice, ref linkAddWaveInToolStripMenuItem);
             }
             else
             {
-                ResetPropertiesForSelectedToolStripMenuItem
+                ResetPropertiesForEachSelectedToolStripMenuItem
                     (deviceControl.MMDevice, ref linkAddWaveOutToolStripMenuItem);
-            }
-        }
-
-        /// <summary>
-        /// Resets properties for selected nested tool stripitem in tool strip menu
-        /// item.
-        /// </summary>
-        /// <param name="mMDevice">The MMDevice</param>
-        /// <param name="parentToolStripMenuItem">The referenced parent tool strip menu
-        /// item</param>
-        internal void ResetPropertiesForSelectedToolStripMenuItem
-            (MMDevice mMDevice, ref ToolStripMenuItem parentToolStripMenuItem)
-        {
-            string isSelectedSuffix = " (Selected)";
-
-            foreach (ToolStripItem toolStripItem in
-                parentToolStripMenuItem.DropDownItems)
-            {
-                if (toolStripItem.ToolTipText != mMDevice.FriendlyName)
-                {
-                    continue;
-                }
-
-                toolStripItem.Enabled = true;
-                toolStripItem.Text = Regex.Replace
-                    (toolStripItem.Text, isSelectedSuffix, string.Empty);
-            }
-        }
-
-        /// <summary>
-        /// Set properties of every nested tool strip item. If the item matches the
-        /// child tool strip menu item, append a substring and disable the item.
-        /// If not, reverse the changes.
-        /// </summary>
-        /// <param name="parentToolStripMenuItem">The parent tool strip menu
-        /// item</param>
-        /// <param name="childToolStripMenuItem">The child tool strip menu item</param>
-        internal void SetPropertiesOfSelectedToolStripMenuItem
-            (ref ToolStripMenuItem parentToolStripMenuItem,
-            ToolStripMenuItem childToolStripMenuItem)
-        {
-            if (!parentToolStripMenuItem.DropDownItems.Contains(childToolStripMenuItem))
-            {
-                return;
-            }
-
-            string isSelectedSuffix = " (Selected)";
-
-            foreach
-                (ToolStripItem toolStripItem in parentToolStripMenuItem.DropDownItems)
-            {
-                bool isNotSelected = toolStripItem != childToolStripMenuItem;
-
-                if (isNotSelected)
-                {
-                    toolStripItem.Enabled = isNotSelected;
-                    toolStripItem.Text = Regex.Replace
-                        (toolStripItem.Text, isSelectedSuffix, string.Empty);
-                }
-                else
-                {
-                    toolStripItem.Enabled = isNotSelected;
-                    toolStripItem.Text += isSelectedSuffix;
-                }
             }
         }
 
@@ -467,6 +456,7 @@ namespace VACARM.NET4.Views
         #endregion
 
         #region 5. View menu logic
+
         /// <summary>
         /// Click event logic for aboutToolStripMenuItem.
         /// Set the ToggleDarkModeText.
@@ -507,6 +497,210 @@ namespace VACARM.NET4.Views
             }
 
             new AboutForm().Show();
+        }
+
+        #endregion
+
+        #region ToolStrip helper logic
+
+        /// <summary>
+        /// Does tool strip item collection contain any checked tool strip menu item(s).
+        /// </summary>
+        /// <param name="toolStripItemCollection">The tool strip item collection</param>
+        /// <returns>True/False</returns>
+        internal bool DoesToolStripItemCollectionContainCheckedMenuItem
+            (ToolStripItemCollection toolStripItemCollection)
+        {
+            if (toolStripItemCollection is null || toolStripItemCollection.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (var item in toolStripItemCollection)
+            {
+                if (!(item is ToolStripMenuItem))
+                {
+                    continue;
+                }
+
+                if ((item as ToolStripMenuItem).Checked)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal void MoveAllCheckedToolStripMenuItemsToNewToolStripItemCollection
+            (ref ToolStripMenuItem firstToolStripMenuItem,
+            ref ToolStripMenuItem secondToolStripMenuItem)
+        {
+            if (firstToolStripMenuItem is null
+                || firstToolStripMenuItem.DropDownItems.Count == 0
+                || secondToolStripMenuItem is null)
+            {
+                return;
+            }
+
+            List<ToolStripMenuItem> tempToolStripMenuItemList =
+                new List<ToolStripMenuItem>();
+
+            foreach (var item in firstToolStripMenuItem.DropDownItems)
+            {
+                if (item is null || !(item is ToolStripMenuItem))
+                {
+                    continue;
+                }
+
+                tempToolStripMenuItemList.Add(item as ToolStripMenuItem);
+            }
+
+            foreach (ToolStripMenuItem toolStripMenuItem in tempToolStripMenuItemList)
+            {
+                if (!toolStripMenuItem.Checked)
+                {
+                    continue;
+                }
+
+                firstToolStripMenuItem.DropDownItems.Remove(toolStripMenuItem);
+
+                if (secondToolStripMenuItem.DropDownItems.Contains(toolStripMenuItem))
+                {
+                    continue;
+                }
+
+                secondToolStripMenuItem.DropDownItems.Add(toolStripMenuItem);
+            }
+
+            SetPropertiesOfToolStripMenuItemGivenItemCollectionIsEmptyOrNot
+                (ref firstToolStripMenuItem);
+
+            SetPropertiesOfToolStripMenuItemGivenItemCollectionIsEmptyOrNot
+                (ref secondToolStripMenuItem);
+
+            GC.Collect();
+        }
+
+        /// <summary>
+        /// Resets properties for selected nested tool strip item in tool strip menu
+        /// item.
+        /// </summary>
+        /// <param name="mMDevice">The MMDevice</param>
+        /// <param name="parentToolStripMenuItem">The referenced parent tool strip menu
+        /// item</param>
+        internal void ResetPropertiesForEachSelectedToolStripMenuItem
+            (MMDevice mMDevice, ref ToolStripMenuItem parentToolStripMenuItem)
+        {
+            string isSelectedSuffix = " (Selected)";
+
+            foreach (ToolStripItem toolStripItem in
+                parentToolStripMenuItem.DropDownItems)
+            {
+                if (toolStripItem.ToolTipText != mMDevice.FriendlyName)
+                {
+                    continue;
+                }
+
+                toolStripItem.Text = Regex.Replace
+                    (toolStripItem.Text, isSelectedSuffix, string.Empty);
+            }
+        }
+
+        internal void SetAutoClosePropertyOfToolStripDropDown_MouseEnter
+            (object sender, EventArgs eventArgs)
+        {
+            if (sender is null || !(sender is ToolStripDropDown))
+            {
+                return;
+            }
+
+            (sender as ToolStripDropDown).AutoClose = false;
+        }
+
+        internal void SetAutoClosePropertyOfToolStripDropDown_MouseLeave
+            (object sender, EventArgs eventArgs)
+        {
+            if (sender is null || !(sender is ToolStripDropDown))
+            {
+                return;
+            }
+
+            (sender as ToolStripDropDown).AutoClose = true;
+        }
+
+        internal void SetCheckedPropertyForEachToolStripMenuItem
+            (ref ToolStripMenuItem toolStripMenuItem, bool isChecked)
+        {
+            if (toolStripMenuItem is null || toolStripMenuItem.DropDownItems.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var item in toolStripMenuItem.DropDownItems)
+            {
+                if (item is null || !(item is ToolStripMenuItem))
+                {
+                    continue;
+                }
+
+                (item as ToolStripMenuItem).Checked = isChecked;
+            }
+        }
+
+        /// <summary>
+        /// Set properties of tool strip menu item given tool strip item collection is
+        /// empty or not.
+        /// </summary>
+        /// <param name="toolStripMenuItem">The tool strip menu item</param>
+        internal void SetPropertiesOfToolStripMenuItemGivenItemCollectionIsEmptyOrNot
+            (ref ToolStripMenuItem toolStripMenuItem)
+        {
+            bool isNotEmpty = toolStripMenuItem.DropDownItems.Count != 0;
+            toolStripMenuItem.Enabled = isNotEmpty;
+
+            if (isNotEmpty)
+            {
+                toolStripMenuItem.ToolTipText = string.Empty;
+            }
+            else
+            {
+                toolStripMenuItem.ToolTipText = "No items found.";
+            }
+        }
+
+        /// <summary>
+        /// Set properties of every nested tool strip item. If the item matches the
+        /// child tool strip menu item, append a substring and disable the item.
+        /// If not, reverse the changes.
+        /// </summary>
+        /// <param name="parentToolStripMenuItem">The parent tool strip menu
+        /// item</param>
+        /// <param name="childToolStripMenuItem">The child tool strip menu item</param>
+        internal void SetPropertiesOfSelectedToolStripMenuItem
+            (ref ToolStripMenuItem parentToolStripMenuItem,
+            ToolStripMenuItem childToolStripMenuItem)
+        {
+            if (!parentToolStripMenuItem.DropDownItems.Contains(childToolStripMenuItem))
+            {
+                return;
+            }
+
+            string isSelectedSuffix = " (Selected)";
+
+            foreach
+                (ToolStripItem toolStripItem in parentToolStripMenuItem.DropDownItems)
+            {
+                if (toolStripItem != childToolStripMenuItem)
+                {
+                    toolStripItem.Text = Regex.Replace
+                        (toolStripItem.Text, isSelectedSuffix, string.Empty);
+                }
+                else
+                {
+                    toolStripItem.Text += isSelectedSuffix;
+                }
+            }
         }
 
         #endregion
