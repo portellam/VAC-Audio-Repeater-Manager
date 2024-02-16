@@ -66,50 +66,7 @@ namespace VACARM.NET4.ViewModels
         }
 
         /// <summary>
-        /// Set the colors of all nested tool strip menu items in a drop down
-        /// collection, given dark mode is enabled or not.
-        /// </summary>
-        internal static void SetColorsOfNestedToolStripMenuItem
-            (ToolStripMenuItem toolStripMenuItem)
-        {
-            SetColorsOfToolStripMenuItem(toolStripMenuItem);
-
-            if (toolStripMenuItem.DropDownItems.Count == 0)
-            {
-                return;
-            }
-
-            foreach (var item in
-                toolStripMenuItem.DropDownItems)
-            {
-                if (item is ToolStripMenuItem)
-                {
-                    SetColorsOfNestedToolStripMenuItem(item as ToolStripMenuItem);
-                }
-
-                if (item is ToolStripItem)
-                {
-                    SetColorsOfToolStripItem(item as ToolStripItem);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Set the colors of every tool strip menu item in drop down list, 
-        /// given dark mode is enabled or not.
-        /// </summary>
-        internal static void SetColorsOfToolStripItemDropDownList
-            (ToolStripItemCollection toolStripItemCollection)
-        {
-            foreach (ToolStripItem toolStripItem in toolStripItemCollection)
-            {
-                //toolStripItem.BackColor = BackColor;
-                toolStripItem.ForeColor = ForeColor;
-            }
-        }
-
-        /// <summary>
-        /// Set the colors of a tool strip item, given dark mode is enabled or not.
+        /// Set the colors of the tool strip item, given dark mode is enabled or not.
         /// </summary>
         internal static void SetColorsOfToolStripItem
             (ToolStripItem toolStripItem)
@@ -119,13 +76,47 @@ namespace VACARM.NET4.ViewModels
         }
 
         /// <summary>
-        /// Set the colors of a tool strip menu item, given dark mode is enabled or not.
+        /// Set the colors of the tool strip menu item and its tool strip item
+        /// collection, given dark mode is enabled or not.
         /// </summary>
-        internal static void SetColorsOfToolStripMenuItem
+        internal static void SetColorsOfToolStripItem
             (ToolStripMenuItem toolStripMenuItem)
         {
             toolStripMenuItem.BackColor = BackColor;
             toolStripMenuItem.ForeColor = ForeColor;
+
+            if (toolStripMenuItem.DropDownItems.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var item in
+                toolStripMenuItem.DropDownItems)
+            {
+                if (item is ToolStripItem)
+                {
+                    SetColorsOfToolStripItem(item as ToolStripItem);
+                }
+
+                if (item is ToolStripMenuItem)
+                {
+                    SetColorsOfToolStripItem(item as ToolStripMenuItem);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set the colors of every item in tool strip item collection, 
+        /// given dark mode is enabled or not.
+        /// </summary>
+        internal static void SetColorsOfToolStripItemCollection
+            (ToolStripItemCollection toolStripItemCollection)
+        {
+            foreach (ToolStripItem toolStripItem in toolStripItemCollection)
+            {
+                toolStripItem.BackColor = BackColor;
+                toolStripItem.ForeColor = ForeColor;
+            }
         }
 
         /// <summary>
@@ -178,16 +169,7 @@ namespace VACARM.NET4.ViewModels
         {
             toolStripItemList.ForEach(toolStripItem =>
             {
-                if (toolStripItem is ToolStripItem)
-                {
-                    SetColorsOfToolStripItem(toolStripItem);
-                }
-
-                else if (toolStripItem is ToolStripMenuItem)
-                {
-                    SetColorsOfNestedToolStripMenuItem
-                        (toolStripItem as ToolStripMenuItem);
-                }
+                SetColorsOfToolStripItem(toolStripItem);
             });
         }
 
@@ -195,12 +177,12 @@ namespace VACARM.NET4.ViewModels
         /// Set the colors of every tool strip menu item in list, 
         /// given dark mode is enabled or not.
         /// </summary>
-        public static void SetColorsOfToolStripMenuItemList
+        public static void SetColorsOfToolStripItemList
             (List<ToolStripMenuItem> toolStripMenuItemList)
         {
             toolStripMenuItemList.ForEach(toolStripMenuItem =>
             {
-                SetColorsOfNestedToolStripMenuItem(toolStripMenuItem);
+                SetColorsOfToolStripItem(toolStripMenuItem);
             });
         }
 
