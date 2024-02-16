@@ -46,8 +46,7 @@ namespace VACARM.NET4.Views
 
         private BackgroundWorker backgroundWorker1;
         private List<Control> controlList = new List<Control>();
-        private List<ToolStripMenuItem> toolStripMenuItemList =
-            new List<ToolStripMenuItem>();
+        private List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
         private Manina.Windows.Forms.TabControl tabControl1;
         private Manina.Windows.Forms.Tab gridTab;
         private Manina.Windows.Forms.Tab graphTab;
@@ -58,6 +57,7 @@ namespace VACARM.NET4.Views
         private System.ComponentModel.IContainer components = null;
 
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem deviceAddToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem
             deviceAddConfirmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem
@@ -146,6 +146,8 @@ namespace VACARM.NET4.Views
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.deviceAddToolStripMenuItem =
+                new System.Windows.Forms.ToolStripMenuItem();
             this.deviceAddConfirmToolStripMenuItem =
                 new System.Windows.Forms.ToolStripMenuItem();
             this.deviceAddSelectAllToolStripMenuItem =
@@ -363,9 +365,7 @@ namespace VACARM.NET4.Views
                 {
                     this.deviceReloadAllToolStripMenuItem,
                     this.deviceToolStripSeparator1,
-                    this.deviceAddConfirmToolStripMenuItem,
-                    this.deviceAddSelectToolStripMenuItem,
-                    this.deviceAddSelectAllToolStripMenuItem,
+                    this.deviceAddToolStripMenuItem,
                     this.deviceToolStripSeparator2,
                     this.deviceRemoveToolStripMenuItem,
                     this.deviceRemoveAllToolStripMenuItem,
@@ -395,13 +395,26 @@ namespace VACARM.NET4.Views
             this.deviceToolStripSeparator1.Name = "deviceToolStripSeparator1";
             this.deviceToolStripSeparator1.Size = new System.Drawing.Size(227, 6);
             //
+            // deviceAddToolStripMenuItem
+            //
+            this.deviceAddToolStripMenuItem.DropDownItems
+                .AddRange(new System.Windows.Forms.ToolStripItem[]
+                {
+                    this.deviceAddConfirmToolStripMenuItem,
+                    this.deviceAddSelectToolStripMenuItem,
+                    this.deviceAddSelectAllToolStripMenuItem,
+                });
+            this.deviceAddToolStripMenuItem.Name = "deviceAddToolStripMenuItem";
+            this.deviceAddToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.deviceAddToolStripMenuItem.Text = "Add...";
+            //
             // deviceAddConfirmToolStripMenuItem
             //
             this.deviceAddConfirmToolStripMenuItem.Name =
                 "deviceAddConfirmToolStripMenuItem";
             this.deviceAddConfirmToolStripMenuItem.Size =
                 new System.Drawing.Size(230, 26);
-            this.deviceAddConfirmToolStripMenuItem.Text = "Add Selected";
+            this.deviceAddConfirmToolStripMenuItem.Text = "Confirm Selected";
             this.deviceAddConfirmToolStripMenuItem.Click += new System.EventHandler
                 (this.deviceAddConfirmToolStripMenuItem_Click);
             this.deviceAddConfirmToolStripMenuItem.Enabled =
@@ -420,12 +433,6 @@ namespace VACARM.NET4.Views
             this.deviceAddSelectToolStripMenuItem.Size =
                 new System.Drawing.Size(230, 26);
             this.deviceAddSelectToolStripMenuItem.Text = "Select...";
-            //this.deviceAddSelectToolStripMenuItem.DropDown.MouseEnter +=
-            //    new System.EventHandler
-            //    (this.SetAutoClosePropertyOfToolStripDropDown_MouseEnter);
-            //this.deviceAddSelectToolStripMenuItem.DropDown.MouseLeave +=
-            //    new System.EventHandler
-            //    (this.SetAutoClosePropertyOfToolStripDropDown_MouseLeave);
             // 
             // deviceAddSelectWaveInToolStripMenuItem
             // 
@@ -435,12 +442,6 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(156, 26);
             this.deviceAddSelectWaveInToolStripMenuItem.Tag = "";
             this.deviceAddSelectWaveInToolStripMenuItem.Text = WaveInAsString;
-            //this.deviceAddSelectWaveInToolStripMenuItem.DropDown.MouseEnter +=
-            //    new System.EventHandler
-            //    (this.SetAutoClosePropertyOfToolStripDropDown_MouseEnter);
-            //this.deviceAddSelectWaveInToolStripMenuItem.DropDown.MouseLeave +=
-            //    new System.EventHandler
-            //    (this.SetAutoClosePropertyOfToolStripDropDown_MouseLeave);
             // 
             // deviceAddSelectWaveOutToolStripMenuItem
             // 
@@ -450,12 +451,6 @@ namespace VACARM.NET4.Views
                new System.Drawing.Size(156, 26);
             this.deviceAddSelectWaveOutToolStripMenuItem.Tag = "";
             this.deviceAddSelectWaveOutToolStripMenuItem.Text = WaveOutAsString;
-            //this.deviceAddSelectWaveOutToolStripMenuItem.DropDown.MouseEnter +=
-            //    new System.EventHandler
-            //    (this.SetAutoClosePropertyOfToolStripDropDown_MouseEnter);
-            //this.deviceAddSelectWaveOutToolStripMenuItem.DropDown.MouseLeave +=
-            //    new System.EventHandler
-            //    (this.SetAutoClosePropertyOfToolStripDropDown_MouseLeave);
             // 
             // deviceAddAllToolStripMenuItem
             // 
@@ -874,7 +869,6 @@ namespace VACARM.NET4.Views
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -890,7 +884,7 @@ namespace VACARM.NET4.Views
         /// <summary>
         /// Add all controls to list.
         /// </summary>
-        internal void InitializeControlsList()
+        internal void InitializeControlsList()                                          //NOTE: Append new control objects here!
         {
             controlList.Clear();
             controlList.Add(tabControl1);
@@ -899,56 +893,65 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Add all menu items to list.
+        /// Add all tool strip items to list.
         /// </summary>
-        internal void InitializeMenuItemsList()
+        internal void InitializeToolStripItemList()                                     //NOTE: Append new tool strip item objects here!
         {
-            toolStripMenuItemList.Clear();
-            toolStripMenuItemList.Add(deviceAddConfirmToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceAddSelectAllToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceAddSelectToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceAddSelectWaveInToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceAddSelectWaveOutToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceReloadAllToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceRemoveAllLinkedToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceRemoveAllToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceRemoveAllUnlinkedToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceRemoveToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceRemoveWaveInToolStripMenuItem);
-            toolStripMenuItemList.Add(deviceRemoveWaveOutToolStripMenuItem);
-            toolStripMenuItemList.Add(fileCloseToolStripMenuItem);
-            toolStripMenuItemList.Add(fileExitToolStripMenuItem);
-            toolStripMenuItemList.Add(fileNewToolStripMenuItem);
-            toolStripMenuItemList.Add(fileOpenToolStripMenuItem);
-            toolStripMenuItemList.Add(fileSaveACopyAsToolStripMenuItem);
-            toolStripMenuItemList.Add(fileSaveAsToolStripMenuItem);
-            toolStripMenuItemList.Add(fileSaveToolStripMenuItem);
-            toolStripMenuItemList.Add(fileToolStripMenuItem);
-            toolStripMenuItemList.Add(helpAboutToolStripMenuItem);
-            toolStripMenuItemList.Add(helpToolStripMenuItem);
-            toolStripMenuItemList.Add(linkAddToolStripMenuItem);
-            toolStripMenuItemList.Add(linkAddWaveInToolStripMenuItem);
-            toolStripMenuItemList.Add(linkAddWaveOutToolStripMenuItem);
-            toolStripMenuItemList.Add(linkDefaultBitRateToolStripMenuItem);
-            toolStripMenuItemList.Add(linkDefaultBufferToolStripMenuItem);
-            toolStripMenuItemList.Add(linkDefaultChannelsToolStripMenuItem);
-            toolStripMenuItemList.Add(linkDefaultPrefillToolStripMenuItem);
-            toolStripMenuItemList.Add(linkDefaultResyncAtToolStripMenuItem);
-            toolStripMenuItemList.Add(linkDefaultSamplingRateToolStripMenuItem);
-            toolStripMenuItemList.Add(linkRemoveAllToolStripMenuItem);
-            toolStripMenuItemList.Add(linkRemoveToolStripMenuItem);
-            toolStripMenuItemList.Add(linkRemoveWaveInToolStripMenuItem);
-            toolStripMenuItemList.Add(linkRemoveWaveOutToolStripMenuItem);
-            toolStripMenuItemList.Add(linkToolStripMenuItem);
-            toolStripMenuItemList.Add(repeaterRestartAllToolStripMenuItem);
-            toolStripMenuItemList.Add(repeaterRestartToolStripMenuItem);
-            toolStripMenuItemList.Add(repeaterStartAllToolStripMenuItem);
-            toolStripMenuItemList.Add(repeaterStartToolStripMenuItem);
-            toolStripMenuItemList.Add(repeaterStopAllToolStripMenuItem);
-            toolStripMenuItemList.Add(repeaterStopToolStripMenuItem);
-            toolStripMenuItemList.Add(repeaterToolStripMenuItem);
-            toolStripMenuItemList.Add(viewToggleDarkModeToolStripMenuItem);
-            toolStripMenuItemList.Add(viewToolStripMenuItem);
+            toolStripItemList.Clear();
+            toolStripItemList.Add(deviceAddConfirmToolStripMenuItem);
+            toolStripItemList.Add(deviceAddSelectAllToolStripMenuItem);
+            toolStripItemList.Add(deviceAddSelectToolStripMenuItem);
+            toolStripItemList.Add(deviceAddSelectWaveInToolStripMenuItem);
+            toolStripItemList.Add(deviceAddSelectWaveOutToolStripMenuItem);
+            toolStripItemList.Add(deviceAddToolStripMenuItem);
+            toolStripItemList.Add(deviceReloadAllToolStripMenuItem);
+            toolStripItemList.Add(deviceRemoveAllLinkedToolStripMenuItem);
+            toolStripItemList.Add(deviceRemoveAllToolStripMenuItem);
+            toolStripItemList.Add(deviceRemoveAllUnlinkedToolStripMenuItem);
+            toolStripItemList.Add(deviceRemoveToolStripMenuItem);
+            toolStripItemList.Add(deviceRemoveWaveInToolStripMenuItem);
+            toolStripItemList.Add(deviceRemoveWaveOutToolStripMenuItem);
+            toolStripItemList.Add(deviceToolStripSeparator1);
+            toolStripItemList.Add(deviceToolStripSeparator2);
+            toolStripItemList.Add(deviceToolStripSeparator2);
+            toolStripItemList.Add(fileCloseToolStripMenuItem);
+            toolStripItemList.Add(fileExitToolStripMenuItem);
+            toolStripItemList.Add(fileNewToolStripMenuItem);
+            toolStripItemList.Add(fileOpenToolStripMenuItem);
+            toolStripItemList.Add(fileSaveACopyAsToolStripMenuItem);
+            toolStripItemList.Add(fileSaveAsToolStripMenuItem);
+            toolStripItemList.Add(fileSaveToolStripMenuItem);
+            toolStripItemList.Add(fileToolStripMenuItem);
+            toolStripItemList.Add(fileToolStripSeparator1);
+            toolStripItemList.Add(helpAboutToolStripMenuItem);
+            toolStripItemList.Add(helpToolStripMenuItem);
+            toolStripItemList.Add(linkAddToolStripMenuItem);
+            toolStripItemList.Add(linkAddWaveInToolStripMenuItem);
+            toolStripItemList.Add(linkAddWaveOutToolStripMenuItem);
+            toolStripItemList.Add(linkDefaultBitRateToolStripMenuItem);
+            toolStripItemList.Add(linkDefaultBufferToolStripMenuItem);
+            toolStripItemList.Add(linkDefaultChannelsToolStripMenuItem);
+            toolStripItemList.Add(linkDefaultPrefillToolStripMenuItem);
+            toolStripItemList.Add(linkDefaultResyncAtToolStripMenuItem);
+            toolStripItemList.Add(linkDefaultSamplingRateToolStripMenuItem);
+            toolStripItemList.Add(linkRemoveAllToolStripMenuItem);
+            toolStripItemList.Add(linkRemoveToolStripMenuItem);
+            toolStripItemList.Add(linkRemoveWaveInToolStripMenuItem);
+            toolStripItemList.Add(linkRemoveWaveOutToolStripMenuItem);
+            toolStripItemList.Add(linkToolStripMenuItem);
+            toolStripItemList.Add(linkToolStripSeparator1);
+            toolStripItemList.Add(linkToolStripSeparator2);
+            toolStripItemList.Add(repeaterRestartAllToolStripMenuItem);
+            toolStripItemList.Add(repeaterRestartToolStripMenuItem);
+            toolStripItemList.Add(repeaterStartAllToolStripMenuItem);
+            toolStripItemList.Add(repeaterStartToolStripMenuItem);
+            toolStripItemList.Add(repeaterStopAllToolStripMenuItem);
+            toolStripItemList.Add(repeaterStopToolStripMenuItem);
+            toolStripItemList.Add(repeaterToolStripMenuItem);
+            toolStripItemList.Add(repeaterToolStripSeparator1);
+            toolStripItemList.Add(repeaterToolStripSeparator2);
+            toolStripItemList.Add(viewToggleDarkModeToolStripMenuItem);
+            toolStripItemList.Add(viewToolStripMenuItem);
         }
 
         /// <summary>
@@ -1040,7 +1043,6 @@ namespace VACARM.NET4.Views
         {
             bool isEnabled = deviceAddSelectWaveInToolStripMenuItem.Enabled
                 || deviceAddSelectWaveOutToolStripMenuItem.Enabled;
-            deviceAddConfirmToolStripMenuItem.Enabled = isEnabled;
             deviceAddSelectToolStripMenuItem.Enabled = isEnabled;
             deviceAddSelectAllToolStripMenuItem.Enabled = isEnabled;
         }
@@ -1126,10 +1128,10 @@ namespace VACARM.NET4.Views
         internal void InitializeLists()
         {
             InitializeDeviceDropDownCollections();
-            //DeviceAddMenuItemAbility();                                               //TODO: review if this is necessary anymore.
-            //DeviceRemoveMenuItemAbility();                                            //TODO: review if this is necessary anymore.
+            DeviceAddMenuItemAbility();
+            DeviceRemoveMenuItemAbility();
             InitializeControlsList();
-            InitializeMenuItemsList();
+            InitializeToolStripItemList();
             GC.Collect();
         }
 
@@ -1170,7 +1172,7 @@ namespace VACARM.NET4.Views
             FormColorUpdater.SetColorsOfConstructor(this);
             FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
-            FormColorUpdater.SetColorsOfToolStripMenuItemList(toolStripMenuItemList);
+            FormColorUpdater.SetColorsOfToolStripItemList(toolStripItemList);
             FormColorUpdater.SetColorsOfToolStripMenuItem
                 (deviceAddSelectWaveInToolStripMenuItem);
             FormColorUpdater.SetColorsOfToolStripMenuItem
