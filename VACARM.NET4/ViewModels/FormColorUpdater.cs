@@ -206,4 +206,7 @@ namespace VACARM.NET4.ViewModels
 
         #endregion
     }
+
+    //TODO: rename all ToolStripItem object derivative methods to be overrides of
+    //  "ToolStripItem" methods. That way, some conditionals can be removed.
 }
