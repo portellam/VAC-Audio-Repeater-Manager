@@ -73,6 +73,12 @@ namespace VACARM.NET4.ViewModels
         {
             toolStripItem.BackColor = BackColor;
             toolStripItem.ForeColor = ForeColor;
+
+            if (toolStripItem is ToolStripMenuItem)
+            {
+                SetColorsOfToolStripItem(toolStripItem as ToolStripMenuItem);
+            }
+
         }
 
         /// <summary>
@@ -93,15 +99,7 @@ namespace VACARM.NET4.ViewModels
             foreach (var item in
                 toolStripMenuItem.DropDownItems)
             {
-                if (item is ToolStripItem)
-                {
-                    SetColorsOfToolStripItem(item as ToolStripItem);
-                }
-
-                if (item is ToolStripMenuItem)
-                {
-                    SetColorsOfToolStripItem(item as ToolStripMenuItem);
-                }
+                SetColorsOfToolStripItem(item as ToolStripItem);
             }
         }
 
@@ -114,8 +112,7 @@ namespace VACARM.NET4.ViewModels
         {
             foreach (ToolStripItem toolStripItem in toolStripItemCollection)
             {
-                toolStripItem.BackColor = BackColor;
-                toolStripItem.ForeColor = ForeColor;
+                SetColorsOfToolStripItem(toolStripItem);
             }
         }
 
@@ -188,7 +185,4 @@ namespace VACARM.NET4.ViewModels
 
         #endregion
     }
-
-    //TODO: rename all ToolStripItem object derivative methods to be overrides of
-    //  "ToolStripItem" methods. That way, some conditionals can be removed.
 }
