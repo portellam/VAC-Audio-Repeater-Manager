@@ -131,10 +131,8 @@ namespace VACARM.NET4.Models
                 return;
             }
 
-            return;
-
-            if (!DoesRepeaterDataValueContainKey                                        //FIXME: it appears the MMDevice exists, but the DeviceControl object is not the "same". If we validate by DeviceControl, we return here. Currently, as we validate by MMDevice, we continue then reach an Invalid Key exception.
-                (firstDeviceControl, secondDeviceControl))
+            if (!DoesRepeaterDataValueContainKey
+                (firstDeviceControl, secondDeviceControl))                              //FIXME: it appears the MMDevice exists, but the DeviceControl object is not the "same". If we validate by DeviceControl, we return here. Currently, as we validate by MMDevice, we continue then reach an Invalid Key exception.
             {
                 return;
             }
