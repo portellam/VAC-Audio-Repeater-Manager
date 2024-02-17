@@ -11,21 +11,7 @@ namespace VACARM.NET4.Views
 {
 	public partial class MainForm : INotifyPropertyChanged
 	{
-		public bool IsDarkModeEnabledDuringRunTime
-		{
-			get
-			{
-				Program.IsDarkModeEnabledDuringRunTime =
-					viewToggleDarkModeToolStripMenuItem.Checked;
-				return viewToggleDarkModeToolStripMenuItem.Checked;
-			}
-			set
-			{
-				Program.IsDarkModeEnabledDuringRunTime = value;
-				viewToggleDarkModeToolStripMenuItem.Checked = value;
-				OnPropertyChanged(nameof(IsDarkModeEnabledDuringRunTime));
-			}
-		}
+		#region Parameters
 
 		private string darkModeText
 		{
@@ -45,6 +31,29 @@ namespace VACARM.NET4.Views
 		private BackgroundWorker backgroundWorker1;
 		private List<Control> controlList = new List<Control>();
 		private List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
+
+		public bool IsDarkModeEnabledDuringRunTime
+		{
+			get
+			{
+				Program.IsDarkModeEnabledDuringRunTime =
+					viewToggleDarkModeToolStripMenuItem.Checked;
+				return viewToggleDarkModeToolStripMenuItem.Checked;
+			}
+			set
+			{
+				Program.IsDarkModeEnabledDuringRunTime = value;
+				viewToggleDarkModeToolStripMenuItem.Checked = value;
+				OnPropertyChanged(nameof(IsDarkModeEnabledDuringRunTime));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region Windows Form Designer generated parameters
+
 		private Manina.Windows.Forms.TabControl tabControl1;
 		private Manina.Windows.Forms.Tab gridTab;
 		private Manina.Windows.Forms.Tab graphTab;
@@ -160,7 +169,7 @@ namespace VACARM.NET4.Views
 		private TableLayoutPanel gridTableLayoutPanel;
 		private ToolStripRenderer initialMenuStrip1Renderer;
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		#endregion
 
 		#region Windows Form Designer generated code
 
@@ -1093,6 +1102,8 @@ namespace VACARM.NET4.Views
 
 		#endregion
 
+		#region Logic
+
 		/// <summary>
 		/// Set the ability of the DeviceAdd and DeviceAddAll menu items.
 		/// </summary>
@@ -1481,5 +1492,7 @@ namespace VACARM.NET4.Views
 
 			base.Dispose(doDispose);
 		}
+
+		#endregion
 	}
 }
