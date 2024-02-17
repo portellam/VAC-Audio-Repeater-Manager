@@ -311,7 +311,7 @@ namespace VACARM.NET4.ViewModels
                 return BackColor;
             }
         }
-        
+
         public override Color OverflowButtonGradientBegin
         {
             get
