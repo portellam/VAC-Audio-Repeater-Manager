@@ -361,111 +361,6 @@ namespace VACARM.NET4.Views
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
-			// fileToolStripMenuItem
-			// 
-			this.fileToolStripMenuItem.DropDownItems
-				.AddRange(new System.Windows.Forms.ToolStripItem[]
-				{
-					this.fileNewToolStripMenuItem,
-					this.fileOpenToolStripMenuItem,
-					this.fileSaveToolStripMenuItem,
-					this.fileSaveAsToolStripMenuItem,
-					this.fileSaveACopyAsToolStripMenuItem,
-					this.fileCloseToolStripMenuItem,
-					this.fileToolStripSeparator1,
-					this.fileExitToolStripMenuItem
-				});
-
-			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-
-			this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
-
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
-			this.fileToolStripMenuItem.Text = "File";
-			// 
-			// fileNewToolStripMenuItem
-			// 
-			this.fileNewToolStripMenuItem.Name = "fileNewToolStripMenuItem";
-
-			this.fileNewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-
-			this.fileNewToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
-			this.fileNewToolStripMenuItem.Text = "New";
-			// 
-			// fileOpenToolStripMenuItem
-			// 
-			this.fileOpenToolStripMenuItem.Name = "fileOpenToolStripMenuItem";
-
-			this.fileOpenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-
-			this.fileOpenToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
-			this.fileOpenToolStripMenuItem.Text = "Open...";
-
-			this.fileOpenToolStripMenuItem.Click +=
-				new System.EventHandler(this.fileOpenToolStripMenuItem_Click);
-			// 
-			// fileSaveToolStripMenuItem
-			// 
-			this.fileSaveToolStripMenuItem.Name = "fileSaveToolStripMenuItem";
-
-			this.fileSaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-
-			this.fileSaveToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
-			this.fileSaveToolStripMenuItem.Text = "Save";
-			// 
-			// fileSaveAsToolStripMenuItem
-			// 
-			this.fileSaveAsToolStripMenuItem.Name = "fileSaveAsToolStripMenuItem";
-
-			this.fileSaveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
-				| System.Windows.Forms.Keys.S)));
-
-			this.fileSaveAsToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
-			this.fileSaveAsToolStripMenuItem.Text = "Save As...";
-			// 
-			// fileSaveACopyAsToolStripMenuItem
-			// 
-			this.fileSaveACopyAsToolStripMenuItem.Name =
-				"fileSaveACopyAsToolStripMenuItem";
-
-			this.fileSaveACopyAsToolStripMenuItem.Size =
-				new System.Drawing.Size(231, 26);
-
-			this.fileSaveACopyAsToolStripMenuItem.Text = "Save a Copy As...";
-			// 
-			// fileCloseToolStripMenuItem
-			// 
-			this.fileCloseToolStripMenuItem.Name = "fileCloseToolStripMenuItem";
-
-			this.fileCloseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-
-			this.fileCloseToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
-			this.fileCloseToolStripMenuItem.Text = "Close";
-			// 
-			// fileToolStripSeparator1
-			// 
-			this.fileToolStripSeparator1.Name = "fileToolStripSeparator1";
-			this.fileToolStripSeparator1.Size = new System.Drawing.Size(228, 6);
-			// 
-			// fileExitToolStripMenuItem
-			// 
-			this.fileExitToolStripMenuItem.Name = "fileExitToolStripMenuItem";
-
-			this.fileExitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-
-			this.fileExitToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
-			this.fileExitToolStripMenuItem.Text = "Exit";
-
-			this.fileExitToolStripMenuItem.Click +=
-				new System.EventHandler(this.fileExitToolStripMenuItem_Click);
-			// 
 			// deviceToolStripMenuItem
 			// 
 			this.deviceToolStripMenuItem.DropDownItems
@@ -489,25 +384,6 @@ namespace VACARM.NET4.Views
 			this.deviceToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
 			this.deviceToolStripMenuItem.Text = "Device";
 			this.deviceToolStripMenuItem.DropDown.AutoClose = false;
-			// 
-			// deviceReloadAllToolStripMenuItem
-			// 
-			this.deviceReloadAllToolStripMenuItem.Name =
-				"deviceReloadAllToolStripMenuItem";
-
-			this.deviceReloadAllToolStripMenuItem.Size =
-				new System.Drawing.Size(230, 26);
-
-			this.deviceReloadAllToolStripMenuItem.Tag = "";
-			this.deviceReloadAllToolStripMenuItem.Text = "Force Reload All";
-
-			this.deviceReloadAllToolStripMenuItem.Click +=
-				new System.EventHandler(this.deviceReloadAllToolStripMenuItem_Click);
-			// 
-			// deviceToolStripSeparator1
-			// 
-			this.deviceToolStripSeparator1.Name = "deviceToolStripSeparator1";
-			this.deviceToolStripSeparator1.Size = new System.Drawing.Size(227, 6);
 			//
 			// deviceAddToolStripMenuItem
 			//
@@ -592,10 +468,19 @@ namespace VACARM.NET4.Views
 			this.deviceAddSelectAllToolStripMenuItem.Click += new System.EventHandler
 				(this.deviceAddSelectAllToolStripMenuItem_Click);
 			// 
-			// deviceToolStripSeparator2
+			// deviceReloadAllToolStripMenuItem
 			// 
-			this.deviceToolStripSeparator2.Name = "deviceToolStripSeparator2";
-			this.deviceToolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+			this.deviceReloadAllToolStripMenuItem.Name =
+				"deviceReloadAllToolStripMenuItem";
+
+			this.deviceReloadAllToolStripMenuItem.Size =
+				new System.Drawing.Size(230, 26);
+
+			this.deviceReloadAllToolStripMenuItem.Tag = "";
+			this.deviceReloadAllToolStripMenuItem.Text = "Force Reload All";
+
+			this.deviceReloadAllToolStripMenuItem.Click +=
+				new System.EventHandler(this.deviceReloadAllToolStripMenuItem_Click);
 			// 
 			// deviceRemoveToolStripMenuItem
 			// 
@@ -609,28 +494,6 @@ namespace VACARM.NET4.Views
 			this.deviceRemoveToolStripMenuItem.Name = "deviceRemoveToolStripMenuItem";
 			this.deviceRemoveToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
 			this.deviceRemoveToolStripMenuItem.Text = "Remove...";
-			// 
-			// deviceRemoveWaveInToolStripMenuItem
-			// 
-			this.deviceRemoveWaveInToolStripMenuItem.Name =
-				"deviceRemoveWaveInToolStripMenuItem";
-
-			this.deviceRemoveWaveInToolStripMenuItem.Size =
-				new System.Drawing.Size(156, 26);
-
-			this.deviceRemoveWaveInToolStripMenuItem.Tag = "";
-			this.deviceRemoveWaveInToolStripMenuItem.Text = WaveInAsString;
-			// 
-			// deviceRemoveWaveOutToolStripMenuItem
-			// 
-			this.deviceRemoveWaveOutToolStripMenuItem.Name =
-				"deviceRemoveWaveOutToolStripMenuItem";
-
-			this.deviceRemoveWaveOutToolStripMenuItem.Size =
-				new System.Drawing.Size(156, 26);
-
-			this.deviceRemoveWaveOutToolStripMenuItem.Tag = "";
-			this.deviceRemoveWaveOutToolStripMenuItem.Text = WaveOutAsString;
 			// 
 			// deviceRemoveAllToolStripMenuItem
 			// 
@@ -664,6 +527,143 @@ namespace VACARM.NET4.Views
 
 			this.deviceRemoveAllUnlinkedToolStripMenuItem.Tag = "";
 			this.deviceRemoveAllUnlinkedToolStripMenuItem.Text = "Remove All Unlinked";
+			// 
+			// deviceRemoveWaveInToolStripMenuItem
+			// 
+			this.deviceRemoveWaveInToolStripMenuItem.Name =
+				"deviceRemoveWaveInToolStripMenuItem";
+
+			this.deviceRemoveWaveInToolStripMenuItem.Size =
+				new System.Drawing.Size(156, 26);
+
+			this.deviceRemoveWaveInToolStripMenuItem.Tag = "";
+			this.deviceRemoveWaveInToolStripMenuItem.Text = WaveInAsString;
+			// 
+			// deviceRemoveWaveOutToolStripMenuItem
+			// 
+			this.deviceRemoveWaveOutToolStripMenuItem.Name =
+				"deviceRemoveWaveOutToolStripMenuItem";
+
+			this.deviceRemoveWaveOutToolStripMenuItem.Size =
+				new System.Drawing.Size(156, 26);
+
+			this.deviceRemoveWaveOutToolStripMenuItem.Tag = "";
+			this.deviceRemoveWaveOutToolStripMenuItem.Text = WaveOutAsString;
+			// 
+			// deviceToolStripSeparator1
+			// 
+			this.deviceToolStripSeparator1.Name = "deviceToolStripSeparator1";
+			this.deviceToolStripSeparator1.Size = new System.Drawing.Size(227, 6);
+			// 
+			// deviceToolStripSeparator2
+			// 
+			this.deviceToolStripSeparator2.Name = "deviceToolStripSeparator2";
+			this.deviceToolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+			// 
+			// fileToolStripMenuItem
+			// 
+			this.fileToolStripMenuItem.DropDownItems
+				.AddRange(new System.Windows.Forms.ToolStripItem[]
+				{
+					this.fileNewToolStripMenuItem,
+					this.fileOpenToolStripMenuItem,
+					this.fileSaveToolStripMenuItem,
+					this.fileSaveAsToolStripMenuItem,
+					this.fileSaveACopyAsToolStripMenuItem,
+					this.fileCloseToolStripMenuItem,
+					this.fileToolStripSeparator1,
+					this.fileExitToolStripMenuItem
+				});
+
+			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+
+			this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
+
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+			this.fileToolStripMenuItem.Text = "File";
+			// 
+			// fileCloseToolStripMenuItem
+			// 
+			this.fileCloseToolStripMenuItem.Name = "fileCloseToolStripMenuItem";
+
+			this.fileCloseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+
+			this.fileCloseToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+			this.fileCloseToolStripMenuItem.Text = "Close";
+			// 
+			// fileExitToolStripMenuItem
+			// 
+			this.fileExitToolStripMenuItem.Name = "fileExitToolStripMenuItem";
+
+			this.fileExitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+
+			this.fileExitToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+			this.fileExitToolStripMenuItem.Text = "Exit";
+
+			this.fileExitToolStripMenuItem.Click +=
+				new System.EventHandler(this.fileExitToolStripMenuItem_Click);
+			// 
+			// fileNewToolStripMenuItem
+			// 
+			this.fileNewToolStripMenuItem.Name = "fileNewToolStripMenuItem";
+
+			this.fileNewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+
+			this.fileNewToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+			this.fileNewToolStripMenuItem.Text = "New";
+			// 
+			// fileOpenToolStripMenuItem
+			// 
+			this.fileOpenToolStripMenuItem.Name = "fileOpenToolStripMenuItem";
+
+			this.fileOpenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+
+			this.fileOpenToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+			this.fileOpenToolStripMenuItem.Text = "Open...";
+
+			this.fileOpenToolStripMenuItem.Click +=
+				new System.EventHandler(this.fileOpenToolStripMenuItem_Click);
+			// 
+			// fileSaveToolStripMenuItem
+			// 
+			this.fileSaveToolStripMenuItem.Name = "fileSaveToolStripMenuItem";
+
+			this.fileSaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+
+			this.fileSaveToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+			this.fileSaveToolStripMenuItem.Text = "Save";
+			// 
+			// fileSaveAsToolStripMenuItem
+			// 
+			this.fileSaveAsToolStripMenuItem.Name = "fileSaveAsToolStripMenuItem";
+
+			this.fileSaveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
+				| System.Windows.Forms.Keys.S)));
+
+			this.fileSaveAsToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+			this.fileSaveAsToolStripMenuItem.Text = "Save As...";
+			// 
+			// fileSaveACopyAsToolStripMenuItem
+			// 
+			this.fileSaveACopyAsToolStripMenuItem.Name =
+				"fileSaveACopyAsToolStripMenuItem";
+
+			this.fileSaveACopyAsToolStripMenuItem.Size =
+				new System.Drawing.Size(231, 26);
+
+			this.fileSaveACopyAsToolStripMenuItem.Text = "Save a Copy As...";
+			// 
+			// fileToolStripSeparator1
+			// 
+			this.fileToolStripSeparator1.Name = "fileToolStripSeparator1";
+			this.fileToolStripSeparator1.Size = new System.Drawing.Size(228, 6);
 			// 
 			// linkToolStripMenuItem
 			// 
@@ -722,11 +722,6 @@ namespace VACARM.NET4.Views
 			this.linkAddWaveOutToolStripMenuItem.Tag = "";
 			this.linkAddWaveOutToolStripMenuItem.Text = WaveOutAsString;
 			// 
-			// linkToolStripSeparator1
-			// 
-			this.linkToolStripSeparator1.Name = "linkToolStripSeparator1";
-			this.linkToolStripSeparator1.Size = new System.Drawing.Size(282, 6);
-			// 
 			// linkRemoveToolStripMenuItem
 			// 
 			this.linkRemoveToolStripMenuItem.DropDownItems
@@ -739,6 +734,14 @@ namespace VACARM.NET4.Views
 			this.linkRemoveToolStripMenuItem.Name = "linkRemoveToolStripMenuItem";
 			this.linkRemoveToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
 			this.linkRemoveToolStripMenuItem.Text = "Unlink...";
+			// 
+			// linkRemoveAllToolStripMenuItem
+			// 
+			this.linkRemoveAllToolStripMenuItem.Name = "linkRemoveAllToolStripMenuItem";
+			this.linkRemoveAllToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+			this.linkRemoveAllToolStripMenuItem.Tag = "";
+			this.linkRemoveAllToolStripMenuItem.Text = "Unlink All";
+			// 
 			// 
 			// linkRemoveWaveInToolStripMenuItem
 			// 
@@ -761,18 +764,6 @@ namespace VACARM.NET4.Views
 
 			this.linkRemoveWaveOutToolStripMenuItem.Tag = "";
 			this.linkRemoveWaveOutToolStripMenuItem.Text = WaveOutAsString;
-			// 
-			// linkRemoveAllToolStripMenuItem
-			// 
-			this.linkRemoveAllToolStripMenuItem.Name = "linkRemoveAllToolStripMenuItem";
-			this.linkRemoveAllToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
-			this.linkRemoveAllToolStripMenuItem.Tag = "";
-			this.linkRemoveAllToolStripMenuItem.Text = "Unlink All";
-			// 
-			// linkToolStripSeparator2
-			// 
-			this.linkToolStripSeparator2.Name = "linkToolStripSeparator2";
-			this.linkToolStripSeparator2.Size = new System.Drawing.Size(282, 6);
 			// 
 			// linkDefaultBitRateToolStripMenuItem
 			// 
@@ -845,6 +836,15 @@ namespace VACARM.NET4.Views
 			this.linkDefaultSamplingRateToolStripMenuItem.Text =
 				"Default Sampling Rate (Hz)";
 			// 
+			// linkToolStripSeparator1
+			// 
+			this.linkToolStripSeparator1.Name = "linkToolStripSeparator1";
+			this.linkToolStripSeparator1.Size = new System.Drawing.Size(282, 6);
+			// linkToolStripSeparator2
+			// 
+			this.linkToolStripSeparator2.Name = "linkToolStripSeparator2";
+			this.linkToolStripSeparator2.Size = new System.Drawing.Size(282, 6);
+			// 
 			// repeaterToolStripMenuItem
 			// 
 			this.repeaterToolStripMenuItem.DropDownItems
@@ -868,15 +868,6 @@ namespace VACARM.NET4.Views
 			this.repeaterToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
 			this.repeaterToolStripMenuItem.Text = "Repeater";
 			// 
-			// repeaterRestartToolStripMenuItem
-			// 
-			this.repeaterRestartToolStripMenuItem.Name =
-				"repeaterRestartToolStripMenuItem";
-			this.repeaterRestartToolStripMenuItem.Size =
-				new System.Drawing.Size(224, 26);
-			this.repeaterRestartToolStripMenuItem.Tag = "";
-			this.repeaterRestartToolStripMenuItem.Text = "Restart...";
-			// 
 			// repeaterRestartAllToolStripMenuItem
 			// 
 			this.repeaterRestartAllToolStripMenuItem.Name =
@@ -888,18 +879,16 @@ namespace VACARM.NET4.Views
 			this.repeaterRestartAllToolStripMenuItem.Tag = "";
 			this.repeaterRestartAllToolStripMenuItem.Text = "Restart All";
 			// 
-			// repeaterToolStripSeparator1
+			// repeaterRestartToolStripMenuItem
 			// 
-			this.repeaterToolStripSeparator1.Name = "repeaterToolStripSeparator1";
-			this.repeaterToolStripSeparator1.Size = new System.Drawing.Size(221, 6);
-			// 
-			// repeaterStartToolStripMenuItem
-			// 
-			this.repeaterStartToolStripMenuItem.CheckOnClick = true;
-			this.repeaterStartToolStripMenuItem.Name = "repeaterStartToolStripMenuItem";
-			this.repeaterStartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-			this.repeaterStartToolStripMenuItem.Tag = "";
-			this.repeaterStartToolStripMenuItem.Text = "Start...";
+			this.repeaterRestartToolStripMenuItem.Name =
+				"repeaterRestartToolStripMenuItem";
+
+			this.repeaterRestartToolStripMenuItem.Size =
+				new System.Drawing.Size(224, 26);
+
+			this.repeaterRestartToolStripMenuItem.Tag = "";
+			this.repeaterRestartToolStripMenuItem.Text = "Restart...";
 			// 
 			// repeaterStartAllToolStripMenuItem
 			// 
@@ -914,10 +903,13 @@ namespace VACARM.NET4.Views
 			this.repeaterStartAllToolStripMenuItem.Tag = "";
 			this.repeaterStartAllToolStripMenuItem.Text = "Start All";
 			// 
-			// repeaterToolStripSeparator2
+			// repeaterStartToolStripMenuItem
 			// 
-			this.repeaterToolStripSeparator2.Name = "repeaterToolStripSeparator2";
-			this.repeaterToolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+			this.repeaterStartToolStripMenuItem.CheckOnClick = true;
+			this.repeaterStartToolStripMenuItem.Name = "repeaterStartToolStripMenuItem";
+			this.repeaterStartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+			this.repeaterStartToolStripMenuItem.Tag = "";
+			this.repeaterStartToolStripMenuItem.Text = "Start...";
 			// 
 			// repeaterStopToolStripMenuItem
 			// 
@@ -942,34 +934,64 @@ namespace VACARM.NET4.Views
 			this.repeaterStopAllToolStripMenuItem.Tag = "";
 			this.repeaterStopAllToolStripMenuItem.Text = "Stop All";
 			// 
-			// viewToolStripMenuItem
+			// repeaterToolStripSeparator1
 			// 
-			this.viewToolStripMenuItem.DropDownItems
-				.AddRange(new System.Windows.Forms.ToolStripItem[]
-				{
-					this.viewToggleDarkModeToolStripMenuItem
-				});
-
-			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-
-			this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
-				((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.V)));
-
-			this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
-			this.viewToolStripMenuItem.Text = "View";
+			this.repeaterToolStripSeparator1.Name = "repeaterToolStripSeparator1";
+			this.repeaterToolStripSeparator1.Size = new System.Drawing.Size(221, 6);
 			// 
-			// viewToggleDarkModeToolStripMenuItem
+			// repeaterToolStripSeparator2
 			// 
-			this.viewToggleDarkModeToolStripMenuItem.CheckOnClick = true;
+			this.repeaterToolStripSeparator2.Name = "repeaterToolStripSeparator2";
+			this.repeaterToolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+			// 
+			// graphTab
+			// 
+			this.graphTab.Location = new System.Drawing.Point(0, 0);
+			this.graphTab.Name = "graphTab";
+			this.graphTab.Size = new System.Drawing.Size(0, 0);
+			this.graphTab.Text = "Graph";
+			// 
+			// gridTab
+			// 
+			this.gridTab.Controls.Add(this.gridTableLayoutPanel);
+			this.gridTab.Location = new System.Drawing.Point(1, 25);
+			this.gridTab.Name = "gridTab";
+			this.gridTab.Size = new System.Drawing.Size(620, 385);
+			this.gridTab.Text = "Grid";
+			// 
+			// gridTableLayoutPanel
+			// 
+			this.gridTableLayoutPanel.AutoScroll = true;
+			this.gridTableLayoutPanel.AutoSize = true;
+			this.gridTableLayoutPanel.BackColor = System.Drawing.SystemColors.Highlight;
+			this.gridTableLayoutPanel.ColumnCount = 2;
 
-			this.viewToggleDarkModeToolStripMenuItem.Name =
-				"viewToggleDarkModeToolStripMenuItem";
+			this.gridTableLayoutPanel.ColumnStyles.Add
+				(new System.Windows.Forms.ColumnStyle
+					(System.Windows.Forms.SizeType.Percent, 50F));
 
-			this.viewToggleDarkModeToolStripMenuItem.Size =
-				new System.Drawing.Size(83, 26);
+			this.gridTableLayoutPanel.ColumnStyles.Add
+				(new System.Windows.Forms.ColumnStyle
+					(System.Windows.Forms.SizeType.Percent, 50F));
 
-			this.viewToggleDarkModeToolStripMenuItem.Click +=
-				new System.EventHandler(this.viewToggleDarkModeToolStripMenuItem_Click);
+			this.gridTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+
+			this.gridTableLayoutPanel.GrowStyle =
+				System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+
+			this.gridTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+			this.gridTableLayoutPanel.Name = "gridTableLayoutPanel";
+			this.gridTableLayoutPanel.RowCount = 2;
+
+			this.gridTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle
+				(System.Windows.Forms.SizeType.Percent, 50F));
+
+			this.gridTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle
+				(System.Windows.Forms.SizeType.Percent, 50F));
+
+			this.gridTableLayoutPanel.Size = new System.Drawing.Size(620, 385);
+			this.gridTableLayoutPanel.TabIndex = 0;
+			this.gridTableLayoutPanel.TabStop = true;
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -1018,54 +1040,34 @@ namespace VACARM.NET4.Views
 			this.tabControl1.TabSize = new System.Drawing.Size(75, 25);
 			this.tabControl1.TabSizing = Manina.Windows.Forms.TabSizing.Fixed;
 			// 
-			// gridTab
+			// viewToolStripMenuItem
 			// 
-			this.gridTab.Controls.Add(this.gridTableLayoutPanel);
-			this.gridTab.Location = new System.Drawing.Point(1, 25);
-			this.gridTab.Name = "gridTab";
-			this.gridTab.Size = new System.Drawing.Size(620, 385);
-			this.gridTab.Text = "Grid";
+			this.viewToolStripMenuItem.DropDownItems
+				.AddRange(new System.Windows.Forms.ToolStripItem[]
+				{
+					this.viewToggleDarkModeToolStripMenuItem
+				});
+
+			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+
+			this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)
+				((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.V)));
+
+			this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+			this.viewToolStripMenuItem.Text = "View";
 			// 
-			// gridTableLayoutPanel
+			// viewToggleDarkModeToolStripMenuItem
 			// 
-			this.gridTableLayoutPanel.AutoScroll = true;
-			this.gridTableLayoutPanel.AutoSize = true;
-			this.gridTableLayoutPanel.BackColor = System.Drawing.SystemColors.Highlight;
-			this.gridTableLayoutPanel.ColumnCount = 2;
+			this.viewToggleDarkModeToolStripMenuItem.CheckOnClick = true;
 
-			this.gridTableLayoutPanel.ColumnStyles.Add
-				(new System.Windows.Forms.ColumnStyle
-					(System.Windows.Forms.SizeType.Percent, 50F));
+			this.viewToggleDarkModeToolStripMenuItem.Name =
+				"viewToggleDarkModeToolStripMenuItem";
 
-			this.gridTableLayoutPanel.ColumnStyles.Add
-				(new System.Windows.Forms.ColumnStyle
-					(System.Windows.Forms.SizeType.Percent, 50F));
+			this.viewToggleDarkModeToolStripMenuItem.Size =
+				new System.Drawing.Size(83, 26);
 
-			this.gridTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-
-			this.gridTableLayoutPanel.GrowStyle =
-				System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-
-			this.gridTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-			this.gridTableLayoutPanel.Name = "gridTableLayoutPanel";
-			this.gridTableLayoutPanel.RowCount = 2;
-
-			this.gridTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle
-				(System.Windows.Forms.SizeType.Percent, 50F));
-
-			this.gridTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle
-				(System.Windows.Forms.SizeType.Percent, 50F));
-
-			this.gridTableLayoutPanel.Size = new System.Drawing.Size(620, 385);
-			this.gridTableLayoutPanel.TabIndex = 0;
-			this.gridTableLayoutPanel.TabStop = true;
-			// 
-			// graphTab
-			// 
-			this.graphTab.Location = new System.Drawing.Point(0, 0);
-			this.graphTab.Name = "graphTab";
-			this.graphTab.Size = new System.Drawing.Size(0, 0);
-			this.graphTab.Text = "Graph";
+			this.viewToggleDarkModeToolStripMenuItem.Click +=
+				new System.EventHandler(this.viewToggleDarkModeToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
