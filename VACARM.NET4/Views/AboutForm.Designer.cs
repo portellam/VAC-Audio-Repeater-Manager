@@ -241,12 +241,13 @@ namespace VACARM.NET4.Views
         /// <summary>
         /// Set color theme given dark mode is enabled or not.
         /// </summary>
-        internal void SetColorTheme()
+        public void SetColorTheme()
         {
             FormColorUpdater.SetColorsOfConstructor(this);
             FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
             Invalidate();
+            Refresh();
         }
 
         /// <summary>
