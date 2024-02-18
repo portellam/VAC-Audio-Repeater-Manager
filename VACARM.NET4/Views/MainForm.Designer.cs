@@ -1199,6 +1199,12 @@ namespace VACARM.NET4.Views
 			toolStripItemList.Add(viewToolStripMenuItem);
 		}
 
+		/// <summary>
+		/// Initialize the device tool strip menu item.
+		/// </summary>
+		/// <param name="eventHandler">The event handler</param>
+		/// <param name="mMDevice">The MMDevice</param>
+		/// <param name="toolStripMenuItemList">The tool strip menu item list</param>
 		internal void InitializeDeviceItem(EventHandler eventHandler,
 			MMDevice mMDevice, ref List<ToolStripMenuItem> toolStripMenuItemList)
 		{
@@ -1291,6 +1297,11 @@ namespace VACARM.NET4.Views
 				(ref parentToolStripMenuItem);
 		}
 
+		/// <summary>
+		/// Initialize the text of the device tool strip menu item.
+		/// </summary>
+		/// <param name="dataFlow">The data flow</param>
+		/// <param name="toolStripMenuItem">The device tool strip menu item</param>
 		internal void InitializeDeviceItemText
 			(DataFlow dataFlow, ref ToolStripMenuItem toolStripMenuItem)
 		{
@@ -1304,7 +1315,11 @@ namespace VACARM.NET4.Views
 				("{0,4} {1}", prefix, toolStripMenuItem.Text);
 		}
 
-		internal void SetMousePropertiesOfToolStripMenuItemDropDown
+        /// <summary>
+        /// Set mouse properties of drop down tool strip menu item.
+        /// </summary>
+        /// <param name="toolStripMenuItem">The drop down tool strip menu item</param>
+        internal void SetMousePropertiesOfToolStripMenuItemDropDown
 			(ref ToolStripMenuItem toolStripMenuItem)
 		{
 			if (toolStripMenuItem is null)
@@ -1415,7 +1430,12 @@ namespace VACARM.NET4.Views
 			InitializeLists();
 			SetInitialChanges();
 			SetColorTheme();
-		}
+
+			if (aboutForm != null)
+			{
+				aboutForm.SetColorTheme();
+			}
+        }
 
 		/// <summary>
 		/// Logs event when property has changed.
@@ -1448,6 +1468,7 @@ namespace VACARM.NET4.Views
 			FormColorUpdater.SetColorsOfToolStripItemList(toolStripItemList);
 
 			Invalidate();
+			Refresh();
 		}
 
 		/// <summary>
