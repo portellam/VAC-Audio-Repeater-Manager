@@ -17,6 +17,8 @@ namespace VACARM.NET4.Views
 	{
 		#region Parameters
 
+		private AboutForm aboutForm;
+
 		private bool doAddSelectedWaveInOrWaveOutContainCheckedMenuItem
 		{
 			get
@@ -511,7 +513,8 @@ namespace VACARM.NET4.Views
 					(x => x.Close());
 			}
 
-			new AboutForm().Show();
+			aboutForm = new AboutForm();
+            aboutForm.Show();
 		}
 
 		#endregion
