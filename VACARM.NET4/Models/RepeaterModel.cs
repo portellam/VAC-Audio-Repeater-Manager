@@ -455,14 +455,13 @@ namespace VACARM.NET4.Models
         public RepeaterModel
             (DeviceControl inputDeviceControl, DeviceControl outputDeviceControl)
         {
-
             BitsPerSample = defaultBitsPerSample;
             BufferMs = defaultBufferMs;
             Buffers = defaultBuffers;
             ChannelConfig = channelConfig;
-			InputDeviceControl = inputDeviceControl;
+            InputDeviceControl = inputDeviceControl;
 
-			Link = new Line
+            Link = new Line
             {
                 Stroke = new SolidColorBrush(ColorExtension.ToMediaColor
                     (FormColorUpdater.ForeColor)),
@@ -470,8 +469,8 @@ namespace VACARM.NET4.Models
                 StrokeThickness = 2
             };
 
-			OutputDeviceControl = outputDeviceControl;
-			PathName = defaultPathName;
+            OutputDeviceControl = outputDeviceControl;
+            PathName = defaultPathName;
             Prefill = defaultPrefill;
             ResyncAt = defaultResyncAt;
             SamplingRate = defaultSamplingRate;
@@ -529,7 +528,7 @@ namespace VACARM.NET4.Models
         /// <summary>
         /// Sets the Constructor properties.
         /// </summary>
-        /// <param name="infoList">the info list</param>
+        /// <param name="infoList">The info list</param>
         public void SetConstructorProperties(List<string> infoList)
         {
             if (infoList is null)
@@ -538,17 +537,17 @@ namespace VACARM.NET4.Models
             }
 
             BitsPerSample = byte.Parse(infoList[1]);
-			BufferMs = ushort.Parse(infoList[4]);
-			Buffers = byte.Parse(infoList[5]);
-			ChannelMask = uint.Parse(infoList[2]);
+            BufferMs = ushort.Parse(infoList[4]);
+            Buffers = byte.Parse(infoList[5]);
+            ChannelMask = uint.Parse(infoList[2]);
             ChannelConfig = (ChannelConfig)int.Parse(infoList[3]);
             Prefill = byte.Parse(infoList[6]);
             ResyncAt = byte.Parse(infoList[7]);
-			SamplingRate = uint.Parse(infoList[0]);
-		}
+            SamplingRate = uint.Parse(infoList[0]);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 
     //TODO: add logic to determine lesser property value between Input and output,
     //and set max value to that.
