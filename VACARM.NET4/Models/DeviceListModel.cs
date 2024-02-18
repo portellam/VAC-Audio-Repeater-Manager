@@ -81,7 +81,7 @@ namespace VACARM.NET4.Models
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="allDeviceList">the MMDevice list</param>
+		/// <param name="allDeviceList">The MMDevice list</param>
 		public DeviceListModel(List<MMDevice> allDeviceList)
 		{
 			AllDeviceList = allDeviceList.Where
