@@ -247,7 +247,6 @@ namespace VACARM.NET4.Views
             FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
             Invalidate();
-            Refresh();
         }
 
         /// <summary>
