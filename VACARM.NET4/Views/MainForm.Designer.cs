@@ -9,7 +9,7 @@ using VACARM.NET4.ViewModels;
 
 namespace VACARM.NET4.Views
 {
-    public partial class MainForm : INotifyPropertyChanged
+    public partial class MainForm
     {
         #region Parameters
 
@@ -19,7 +19,7 @@ namespace VACARM.NET4.Views
             {
                 string text = "Dark Mode";
 
-                if (IsDarkModeEnabledDuringRunTime)
+                if (IsDarkModeEnabled)
                 {
                     return $"Disable {text}";
                 }
@@ -32,23 +32,25 @@ namespace VACARM.NET4.Views
         private List<Control> controlList = new List<Control>();
         private List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
 
-        public bool IsDarkModeEnabledDuringRunTime
+        public bool IsDarkModeEnabled
         {
             get
             {
-                Program.IsDarkModeEnabledDuringRunTime =
-                    viewToggleDarkModeToolStripMenuItem.Checked;
-                return viewToggleDarkModeToolStripMenuItem.Checked;
+                bool isDarkModeEnabled = Program.DoesSystemSupportDarkMode();
+
+                if (isDarkModeEnabled != Program.IsDarkModeEnabled)
+                {
+                    return isDarkModeEnabled;
+                }
+
+                return Program.IsDarkModeEnabled;
             }
             set
             {
-                Program.IsDarkModeEnabledDuringRunTime = value;
+                Program.SetIsDarkModeEnabled(value);
                 viewToggleDarkModeToolStripMenuItem.Checked = value;
-                OnPropertyChanged(nameof(IsDarkModeEnabledDuringRunTime));
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
@@ -1438,15 +1440,6 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Logs event when property has changed.
-        /// </summary>
-        /// <param name="propertyName">The property name</param>
-        internal void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
         /// Save renderer to new parameter before making changes.
         /// </summary>
         internal void SaveInitialRenderer()
@@ -1468,7 +1461,6 @@ namespace VACARM.NET4.Views
             FormColorUpdater.SetColorsOfToolStripItemList(toolStripItemList);
 
             Invalidate();
-            Refresh();
         }
 
         /// <summary>
@@ -1477,7 +1469,7 @@ namespace VACARM.NET4.Views
         internal void SetInitialChanges()
         {
             Text = AssemblyInformationAccessor.AssemblyTitle;
-            IsDarkModeEnabledDuringRunTime = Program.IsDarkModeEnabledBeforeRunTime;
+            IsDarkModeEnabled = Program.IsDarkModeEnabled;
         }
 
         /// <summary>
@@ -1485,7 +1477,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void ToggleDarkModeRenderer()
         {
-            if (IsDarkModeEnabledDuringRunTime)
+            if (IsDarkModeEnabled)
             {
                 menuStrip1.RenderMode = ToolStripRenderMode.Professional;
                 menuStrip1.Renderer = new ToolStripProfessionalRenderer

@@ -20,26 +20,26 @@ namespace VACARM.NET4
 
         #region Execution flags
 
-        private static bool isDarkModeEnabledDuringRunTime { get; set; }
+        private static bool isDarkModeEnabled { get; set; }
 
         public static bool IsDarkModeEnabledBeforeRunTime { get; private set; }
 
-        public static bool IsDarkModeEnabledDuringRunTime
+        public static bool IsDarkModeEnabled
         {
             get
             {
                 DoesSystemSupportDarkMode();
-                return isDarkModeEnabledDuringRunTime;
+                return isDarkModeEnabled;
             }
             set
             {
                 if (value != IsDarkModeEnabledBeforeRunTime)
                 {
-                    isDarkModeEnabledDuringRunTime = value;
+                    isDarkModeEnabled = value;
                     return;
                 }
 
-                isDarkModeEnabledDuringRunTime = IsDarkModeEnabledBeforeRunTime;
+                isDarkModeEnabled = IsDarkModeEnabledBeforeRunTime;
             }
         }
 
