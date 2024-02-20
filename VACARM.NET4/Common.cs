@@ -62,7 +62,7 @@ namespace VACARM.NET4
         public const byte AudioRepeaterMaxCountForWindowsNT6AndAbove = byte.MaxValue;
         public const ushort genericUIElementMaxCount = ushort.MaxValue;
 
-        public bool IsWindowsNT5
+        public static bool IsWindowsNT5
         {
             get
             {
@@ -70,7 +70,7 @@ namespace VACARM.NET4
             }
         }
 
-        public bool IsWindowsNT6OrAbove
+        public static bool IsWindowsNT6OrAbove
         {
             get
             {
@@ -78,7 +78,7 @@ namespace VACARM.NET4
             }
         }
 
-        public bool IsWindowsNT
+        public static bool IsWindowsNT
         {
             get
             {
