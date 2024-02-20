@@ -19,7 +19,7 @@ namespace VACARM.NET4.Views
             {
                 string text = "Dark Mode";
 
-                if (IsDarkModeEnabled)
+                if (Program.IsDarkModeEnabled)
                 {
                     return $"Disable {text}";
                 }
@@ -32,23 +32,18 @@ namespace VACARM.NET4.Views
         private List<Control> controlList = new List<Control>();
         private List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
 
-        public bool IsDarkModeEnabled
+        public bool IsDarkModeEnabledByUser
         {
             get
             {
-                bool isDarkModeEnabled = Program.DoesSystemSupportDarkMode();
-
-                if (isDarkModeEnabled != Program.IsDarkModeEnabled)
+                if (viewToggleDarkModeToolStripMenuItem is null)
                 {
-                    return isDarkModeEnabled;
+                    return false;
                 }
-
-                return Program.IsDarkModeEnabled;
-            }
-            set
-            {
-                Program.SetIsDarkModeEnabled(value);
-                viewToggleDarkModeToolStripMenuItem.Checked = value;
+                else
+                {
+                    return viewToggleDarkModeToolStripMenuItem.Checked;
+                }
             }
         }
 
@@ -1453,8 +1448,8 @@ namespace VACARM.NET4.Views
         internal void SetColorTheme()
         {
             ToggleDarkModeRenderer();
-            viewToggleDarkModeToolStripMenuItem.Text = darkModeText;
 
+            viewToggleDarkModeToolStripMenuItem.Text = darkModeText;
             FormColorUpdater.SetColorsOfConstructor(this);
             FormColorUpdater.SetColorsOfControlCollection(Controls);
             FormColorUpdater.SetColorsOfControlList(controlList);
@@ -1469,7 +1464,6 @@ namespace VACARM.NET4.Views
         internal void SetInitialChanges()
         {
             Text = AssemblyInformationAccessor.AssemblyTitle;
-            IsDarkModeEnabled = Program.IsDarkModeEnabled;
         }
 
         /// <summary>
@@ -1477,7 +1471,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void ToggleDarkModeRenderer()
         {
-            if (IsDarkModeEnabled)
+            if (Program.IsDarkModeEnabled)
             {
                 menuStrip1.RenderMode = ToolStripRenderMode.Professional;
                 menuStrip1.Renderer = new ToolStripProfessionalRenderer
