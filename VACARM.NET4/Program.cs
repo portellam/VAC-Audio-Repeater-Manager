@@ -50,18 +50,18 @@ namespace VACARM.NET4
 
                 firstTimeToSetIsDarkModeIsEnabled = !firstTimeToSetIsDarkModeIsEnabled;
 
-                if (IsDarkModeEnabledByArgument is null)
+                if (IsDarkModeEnabledByArgumentBeforeRunTime is null)
                 {
                     isDarkModeEnabled = isDarkModeEnabledBySystemBeforeRunTime;
                 }
                 else
                 {
-                    isDarkModeEnabled = IsDarkModeEnabledByArgument.Value;
+                    isDarkModeEnabled = IsDarkModeEnabledByArgumentBeforeRunTime.Value;
                 }
             }
         }
 
-        public static bool? IsDarkModeEnabledByArgument { get; private set; }
+        public static bool? IsDarkModeEnabledByArgumentBeforeRunTime { get; private set; }
 
         #endregion
 
@@ -100,7 +100,7 @@ namespace VACARM.NET4
                 switch (argument)
                 {
                     case "/darkmode":
-                        IsDarkModeEnabledByArgument = true;
+                        IsDarkModeEnabledByArgumentBeforeRunTime = true;
                         break;
 
                     default:
