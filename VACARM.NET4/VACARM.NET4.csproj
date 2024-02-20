@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -57,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
+    <Compile Include="DarkModeValidator.cs" />
     <Compile Include="Extensions\ColorExtension.cs" />
     <Compile Include="Extensions\MessageBoxWrapper.cs" />
     <Compile Include="Models\DeviceListModel.cs" />
