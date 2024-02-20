@@ -20,28 +20,48 @@ namespace VACARM.NET4
 
         #region Execution flags
 
-        private static bool isDarkModeEnabled { get; set; }
+        private static bool firstTimeToSetIsDarkModeIsEnabled = true;
 
-        public static bool IsDarkModeEnabledBeforeRunTime { get; private set; }
+        private readonly static bool isDarkModeEnabledBySystemBeforeRunTime =
+            DoesSystemSupportDarkMode();
+
+        private static bool IsDarkModeEnabledDuringRunTime
+        {
+            get
+            {
+                return DoesSystemSupportDarkMode();
+            }
+        }
+
+        private static bool isDarkModeEnabled { get; set; }
 
         public static bool IsDarkModeEnabled
         {
             get
             {
-                DoesSystemSupportDarkMode();
                 return isDarkModeEnabled;
             }
             set
             {
-                if (value != IsDarkModeEnabledBeforeRunTime)
+                if (!firstTimeToSetIsDarkModeIsEnabled)
                 {
                     isDarkModeEnabled = value;
-                    return;
                 }
 
-                isDarkModeEnabled = IsDarkModeEnabledBeforeRunTime;
+                firstTimeToSetIsDarkModeIsEnabled = !firstTimeToSetIsDarkModeIsEnabled;
+
+                if (IsDarkModeEnabledByArgument is null)
+                {
+                    isDarkModeEnabled = isDarkModeEnabledBySystemBeforeRunTime;
+                }
+                else
+                {
+                    isDarkModeEnabled = IsDarkModeEnabledByArgument.Value;
+                }
             }
         }
+
+        public static bool? IsDarkModeEnabledByArgument { get; private set; }
 
         #endregion
 
@@ -56,7 +76,7 @@ namespace VACARM.NET4
         {
             Arguments = arguments;
             ParseArguments();
-            DoesSystemSupportDarkMode();
+            IsDarkModeEnabled = true;
             Application.Run(new MainForm());
         }
 
@@ -80,7 +100,7 @@ namespace VACARM.NET4
                 switch (argument)
                 {
                     case "/darkmode":
-                        IsDarkModeEnabledBeforeRunTime = true;
+                        IsDarkModeEnabledByArgument = true;
                         break;
 
                     default:
@@ -94,35 +114,26 @@ namespace VACARM.NET4
         /// and if it is enabled.
         /// Easy way to check if system is Windows 10 or later.
         /// </summary>
-        internal static void DoesSystemSupportDarkMode()
+        /// <returns>True/False</returns>
+        internal static bool DoesSystemSupportDarkMode()
         {
-            if (IsDarkModeEnabledBeforeRunTime)
-            {
-                return;
-            }
-
-            const string subKey =
+            const string registrySubKey =
                 @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
 
             try
             {
-                var registryKey = Registry.CurrentUser.OpenSubKey(subKey);
+                var registryKey = Registry.LocalMachine.OpenSubKey(registrySubKey);
                 const string registryKeyValue = "AppsUseLightTheme";
 
                 var windowsLightThemeIsEnabled = registryKey?.GetValue
                     (registryKeyValue);
 
-                if (windowsLightThemeIsEnabled is null)
-                {
-                    return;
-                }
-
-                IsDarkModeEnabledBeforeRunTime = !Convert.ToBoolean
+                return !Convert.ToBoolean
                     (windowsLightThemeIsEnabled, CultureInfo.InvariantCulture);
             }
             catch
             {
-                return;
+                return false;
             }
         }
 
