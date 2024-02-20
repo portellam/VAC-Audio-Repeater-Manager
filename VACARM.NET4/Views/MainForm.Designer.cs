@@ -19,33 +19,18 @@ namespace VACARM.NET4.Views
             {
                 string text = "Dark Mode";
 
-                if (Program.IsDarkModeEnabled)
+                if (DarkModeValidator.IsLightThemeEnabled)
                 {
-                    return $"Disable {text}";
+                    return $"Enable {text}";
                 }
 
-                return $"Enable {text}";
+                return $"Disable {text}";
             }
         }
 
         private BackgroundWorker backgroundWorker1;
         private List<Control> controlList = new List<Control>();
         private List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
-
-        public bool IsDarkModeEnabledByUser
-        {
-            get
-            {
-                if (viewToggleDarkModeToolStripMenuItem is null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return viewToggleDarkModeToolStripMenuItem.Checked;
-                }
-            }
-        }
 
         #endregion
 
@@ -1459,11 +1444,17 @@ namespace VACARM.NET4.Views
         }
 
         /// <summary>
-        /// Set initial changes to form.
+        /// Set initial changes to form and its children.
         /// </summary>
         internal void SetInitialChanges()
         {
             Text = AssemblyInformationAccessor.AssemblyTitle;
+
+            viewToggleDarkModeToolStripMenuItem.Checked =
+                !DarkModeValidator.IsLightThemeEnabled;
+
+            viewToggleDarkModeToolStripMenuItem.Enabled =
+                !Program.DoesArgumentForceColorTheme;
         }
 
         /// <summary>
@@ -1471,17 +1462,17 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void ToggleDarkModeRenderer()
         {
-            if (Program.IsDarkModeEnabled)
+            if (DarkModeValidator.IsLightThemeEnabled)
+            {
+                menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+                menuStrip1.Renderer = initialMenuStrip1Renderer;
+            }
+            else
             {
                 menuStrip1.RenderMode = ToolStripRenderMode.Professional;
                 menuStrip1.Renderer = new ToolStripProfessionalRenderer
                     (new DarkColorTable());
                 //menuStrip1.Renderer = new ToolStripDarkRenderer();                    //NOTE: breaks context menu colors.
-            }
-            else
-            {
-                menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-                menuStrip1.Renderer = initialMenuStrip1Renderer;
             }
         }
 

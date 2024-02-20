@@ -1,6 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Globalization;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using VACARM.NET4.Views;
@@ -9,6 +7,8 @@ namespace VACARM.NET4
 {
     public class Program
     {
+        private static MainForm mainForm;
+
         #region Arguments
 
         /// <summary>
@@ -16,52 +16,30 @@ namespace VACARM.NET4
         /// </summary>
         public static string[] Arguments { get; private set; }
 
-        #endregion
-
-        #region Execution flags
-
-        private static bool firstTimeToSetIsDarkModeIsEnabled = true;
-
-        private readonly static bool isDarkModeEnabledBySystemBeforeRunTime =
-            DoesSystemSupportDarkMode();
-
-        private static bool IsDarkModeEnabledDuringRunTime
+        public static bool DoesArgumentForceColorTheme
         {
             get
             {
-                return DoesSystemSupportDarkMode();
+                return doForceDarkThemeAtStart.HasValue
+                    || doForceLightThemeAtStart.HasValue;
             }
         }
 
-        private static bool isDarkModeEnabled { get; set; }
-
-        public static bool IsDarkModeEnabled
+        public static bool ForcedLightTheme
         {
             get
             {
-                return isDarkModeEnabled;
-            }
-            set
-            {
-                if (!firstTimeToSetIsDarkModeIsEnabled)
+                if (doForceLightThemeAtStart.HasValue)
                 {
-                    isDarkModeEnabled = value;
+                    return doForceLightThemeAtStart.Value;
                 }
 
-                firstTimeToSetIsDarkModeIsEnabled = !firstTimeToSetIsDarkModeIsEnabled;
-
-                if (IsDarkModeEnabledByArgumentBeforeRunTime is null)
-                {
-                    isDarkModeEnabled = isDarkModeEnabledBySystemBeforeRunTime;
-                }
-                else
-                {
-                    isDarkModeEnabled = IsDarkModeEnabledByArgumentBeforeRunTime.Value;
-                }
+                return false;
             }
         }
 
-        public static bool? IsDarkModeEnabledByArgumentBeforeRunTime { get; private set; }
+        private static bool? doForceDarkThemeAtStart;
+        private static bool? doForceLightThemeAtStart;
 
         #endregion
 
@@ -76,7 +54,6 @@ namespace VACARM.NET4
         {
             Arguments = arguments;
             ParseArguments();
-            IsDarkModeEnabled = true;
             Application.Run(new MainForm());
         }
 
@@ -99,42 +76,18 @@ namespace VACARM.NET4
 
                 switch (argument)
                 {
-                    case "/darkmode":
-                        IsDarkModeEnabledByArgumentBeforeRunTime = true;
+                    case "/forcedarkmode":
+                        doForceDarkThemeAtStart = true;
+                        break;
+
+                    case "/forcelightmode":
+                        doForceLightThemeAtStart = true;
                         break;
 
                     default:
                         break;
                 }
             });
-        }
-
-        /// <summary>
-        /// Check if system has Registry key to indicate it supports Dark Mode,
-        /// and if it is enabled.
-        /// Easy way to check if system is Windows 10 or later.
-        /// </summary>
-        /// <returns>True/False</returns>
-        internal static bool DoesSystemSupportDarkMode()
-        {
-            const string registrySubKey =
-                @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
-
-            try
-            {
-                var registryKey = Registry.LocalMachine.OpenSubKey(registrySubKey);
-                const string registryKeyValue = "AppsUseLightTheme";
-
-                var windowsLightThemeIsEnabled = registryKey?.GetValue
-                    (registryKeyValue);
-
-                return !Convert.ToBoolean
-                    (windowsLightThemeIsEnabled, CultureInfo.InvariantCulture);
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         #endregion
