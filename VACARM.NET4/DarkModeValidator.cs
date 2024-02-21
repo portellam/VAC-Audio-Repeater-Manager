@@ -88,6 +88,14 @@ namespace VACARM.NET4
         private readonly static bool isLightThemeEnabledAtStart =
             IsLightThemeEnabledInRegistry;
 
+        public static bool DoesLightThemeDifferFromRegistry
+        {
+            get
+            {
+                return IsLightThemeEnabled != IsLightThemeEnabledInRegistry;
+            }
+        }
+
         public static bool IsLightThemeEnabled
         {
             get
