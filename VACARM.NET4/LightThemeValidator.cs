@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace VACARM.NET4
 {
-    public class DarkModeValidator
+    public static class LightThemeValidator
     {
         #region Parameters
 

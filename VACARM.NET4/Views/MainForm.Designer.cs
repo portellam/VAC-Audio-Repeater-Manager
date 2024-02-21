@@ -19,7 +19,7 @@ namespace VACARM.NET4.Views
             {
                 string text = "Dark Mode";
 
-                if (DarkModeValidator.IsLightThemeEnabled)
+                if (LightThemeValidator.IsLightThemeEnabled)
                 {
                     return $"Enable {text}";
                 }
@@ -1451,7 +1451,7 @@ namespace VACARM.NET4.Views
             Text = AssemblyInformationAccessor.AssemblyTitle;
 
             viewToggleDarkModeToolStripMenuItem.Checked =
-                !DarkModeValidator.IsLightThemeEnabled;
+                !LightThemeValidator.IsLightThemeEnabled;
 
             viewToggleDarkModeToolStripMenuItem.Enabled =
                 !Program.DoesArgumentForceColorTheme;
@@ -1462,7 +1462,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void ToggleDarkModeRenderer()
         {
-            if (DarkModeValidator.IsLightThemeEnabled)
+            if (LightThemeValidator.IsLightThemeEnabled)
             {
                 menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
                 menuStrip1.Renderer = initialMenuStrip1Renderer;

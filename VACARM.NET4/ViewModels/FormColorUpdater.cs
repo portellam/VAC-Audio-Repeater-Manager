@@ -17,7 +17,7 @@ namespace VACARM.NET4.ViewModels
         {
             get
             {
-                if (!DarkModeValidator.IsLightThemeEnabled)
+                if (!LightThemeValidator.IsLightThemeEnabled)
                 {
                     return darkBackColor;
                 }
@@ -32,7 +32,7 @@ namespace VACARM.NET4.ViewModels
         {
             get
             {
-                if (!DarkModeValidator.IsLightThemeEnabled)
+                if (!LightThemeValidator.IsLightThemeEnabled)
                 {
                     return darkTextColor;
                 }

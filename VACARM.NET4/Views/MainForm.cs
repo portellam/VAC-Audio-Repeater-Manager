@@ -35,6 +35,7 @@ namespace VACARM.NET4.Views
         private DeviceListModel deviceListModel;
         private DeviceControl inputDeviceControl { get; set; }
         private DeviceControl outputDeviceControl { get; set; }
+
         private RepeaterDataModel repeaterDataModel { get; set; }
 
         public const string WaveInAsString = "Wave In";
@@ -492,7 +493,7 @@ namespace VACARM.NET4.Views
         internal void viewToggleDarkModeToolStripMenuItem_Click
             (object sender, EventArgs eventArgs)
         {
-            DarkModeValidator.IsLightThemeEnabled =
+            LightThemeValidator.IsLightThemeEnabled =
                 !viewToggleDarkModeToolStripMenuItem.Checked;
 
             SetColorTheme();
