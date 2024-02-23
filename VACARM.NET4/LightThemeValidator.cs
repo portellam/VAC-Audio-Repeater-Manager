@@ -1,10 +1,13 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Windows.Documents;
+using VACARM.NET4.Extensions;
 
 namespace VACARM.NET4
 {
-    public static class LightThemeValidator
+    public class LightThemeValidator
     {
         #region Parameters
 
@@ -121,6 +124,42 @@ namespace VACARM.NET4
                     || currentUserAppUseLightTheme
                     || currentUserSystemUsesLightTheme;
             }
+        }
+
+        public static WmiRegistryEventListener WmiRegistryEventListener;
+
+        #endregion
+
+        #region
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public LightThemeValidator()
+        {
+            RegistryKey registryKey =
+                Registry.CurrentUser.OpenSubKey(darkModeRegistrySubKey);
+
+            List<string> registryKeyValueList = new List<string>()
+            {
+                string.Concat
+                    (darkModeRegistrySubKey, "\\" , appUsesLightThemeRegistryKeyValue),
+
+                string.Concat
+                    (darkModeRegistrySubKey, "\\", systemUsesLightThemeRegistryKeyValue)
+            };
+
+            Dictionary<RegistryKey, List<string>> registryKeyAndSubKeyPathListDictionary
+                = new Dictionary<RegistryKey, List<string>>
+                {
+                    {
+                        registryKey, registryKeyValueList
+
+                    },
+                };
+
+            WmiRegistryEventListener =
+                new WmiRegistryEventListener(registryKeyAndSubKeyPathListDictionary);
         }
 
         #endregion
