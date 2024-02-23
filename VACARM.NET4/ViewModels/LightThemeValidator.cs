@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using VACARM.NET4.Extensions;
 
 namespace VACARM.NET4.ViewModels
@@ -10,7 +11,10 @@ namespace VACARM.NET4.ViewModels
     {
         #region Parameters
 
-        private readonly static string appUsesLightThemeRegistryKeyValue =
+        private Dictionary<RegistryKey, List<string>>
+            registryKeyAndSubKeyPathListDictionary;
+
+		private readonly static string appUsesLightThemeRegistryKeyValue =
             "AppsUseLightTheme";
 
         private readonly static string darkModeRegistrySubKey =
@@ -63,28 +67,6 @@ namespace VACARM.NET4.ViewModels
             }
         }
 
-        private static bool localMachineAppUseLightTheme
-        {
-            get
-            {
-                try
-                {
-                    var registryKey =
-                        Registry.LocalMachine.OpenSubKey(darkModeRegistrySubKey);
-
-                    var appUseLightThemeIsEnabled =
-                        registryKey?.GetValue(appUsesLightThemeRegistryKeyValue);
-
-                    return Convert.ToBoolean(appUseLightThemeIsEnabled,
-                        CultureInfo.InvariantCulture);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
-
         private static bool isLightThemeEnabled = isLightThemeEnabledAtStart;
 
         private readonly static bool isLightThemeEnabledAtStart =
@@ -119,13 +101,12 @@ namespace VACARM.NET4.ViewModels
         {
             get
             {
-                return localMachineAppUseLightTheme
-                    || currentUserAppUseLightTheme
+                return currentUserAppUseLightTheme
                     || currentUserSystemUsesLightTheme;
             }
         }
 
-        public static WmiRegistryEventListener WmiRegistryEventListener;
+        public static WMIRegistryEventListener WMIRegistryEventListener;
 
         #endregion
 
@@ -136,10 +117,15 @@ namespace VACARM.NET4.ViewModels
         /// </summary>
         public LightThemeValidator()
         {
-            RegistryKey registryKey =
+            if (Program.DoesArgumentForceColorTheme)
+            {
+                return;
+            }
+
+			RegistryKey registryKey =
                 Registry.CurrentUser.OpenSubKey(darkModeRegistrySubKey);
 
-            List<string> registryKeyValueList = new List<string>()
+            List<string> registryKeyPathList = new List<string>()
             {
                 string.Concat
                     (darkModeRegistrySubKey, "\\" , appUsesLightThemeRegistryKeyValue),
@@ -148,19 +134,30 @@ namespace VACARM.NET4.ViewModels
                     (darkModeRegistrySubKey, "\\", systemUsesLightThemeRegistryKeyValue)
             };
 
-            Dictionary<RegistryKey, List<string>> registryKeyAndSubKeyPathListDictionary
+            registryKeyAndSubKeyPathListDictionary
                 = new Dictionary<RegistryKey, List<string>>
                 {
                     {
-                        registryKey, registryKeyValueList
+                        registryKey, registryKeyPathList
 
                     },
                 };
 
-            WmiRegistryEventListener =
-                new WmiRegistryEventListener(registryKeyAndSubKeyPathListDictionary);
+            WMIRegistryEventListener =
+                new WMIRegistryEventListener(registryKeyAndSubKeyPathListDictionary);
         }
 
-        #endregion
-    }
+
+  //      public async void WatchAndSetLightThemeEnabled()
+  //      {
+  //          if (WMIRegistryEventListener is null)
+  //          {
+  //              return;
+  //          }
+
+  //          //TODO: add task here
+		//}
+
+		#endregion
+	}
 }
