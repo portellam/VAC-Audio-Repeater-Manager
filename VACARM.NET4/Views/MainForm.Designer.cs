@@ -19,7 +19,7 @@ namespace VACARM.NET4.Views
             {
                 string text = "Dark Mode";
 
-                if (LightThemeValidator.IsLightThemeEnabled)
+                if (!viewToggleDarkModeToolStripMenuItem.Checked)
                 {
                     return $"Enable {text}";
                 }
@@ -29,14 +29,16 @@ namespace VACARM.NET4.Views
         }
 
         private BackgroundWorker backgroundWorker1;
-        private List<Control> controlList = new List<Control>();
+        private LightThemeValidator lightThemeValidator;
+
+		private List<Control> controlList = new List<Control>();
         private List<ToolStripItem> toolStripItemList = new List<ToolStripItem>();
 
-        #endregion
+		#endregion
 
-        #region Windows Form Designer generated parameters
+		#region Windows Form Designer generated parameters
 
-        private Manina.Windows.Forms.TabControl tabControl1;
+		private Manina.Windows.Forms.TabControl tabControl1;
         private Manina.Windows.Forms.Tab gridTab;
         private Manina.Windows.Forms.Tab graphTab;
 
@@ -1407,6 +1409,8 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void PostInitializeComponent()
         {
+            lightThemeValidator = new LightThemeValidator();
+
             SetRepeaterDataModel();
             ModifyListItemsBeforeInitialization();
             InitializeLists();
@@ -1462,7 +1466,7 @@ namespace VACARM.NET4.Views
         /// </summary>
         internal void ToggleDarkModeRenderer()
         {
-            if (LightThemeValidator.IsLightThemeEnabled)
+            if (!viewToggleDarkModeToolStripMenuItem.Checked)
             {
                 menuStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
                 menuStrip1.Renderer = initialMenuStrip1Renderer;
