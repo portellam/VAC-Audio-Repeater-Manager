@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,21 +17,19 @@ namespace VACARM.NET4.Extensions
         //TODO: add logic to watch for given sub key and its values.
         //  Track the values changed, or if it does change (boolean).
 
-        //TODO: add way to retrieve registry sub key full path.
-
         #region Parameters
 
         private Thread thread;
 
         private Dictionary<RegistryKey, List<string>>
-            registryKeyAndSubKeyPathListDictionary;
+            registryKeyAndSubKeyListDictionary;
 
         /// <summary>
         /// Nested dictionary of registry key, registry sub key, management event
         /// watcher, and query result.
         /// </summary>
         private Dictionary<RegistryKey, Dictionary<string, Dictionary
-            <ManagementEventWatcher, object>>>
+            <ManagementEventWatcher, string>>>
             registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary;
 
         private List<Task> taskList;
@@ -73,7 +72,7 @@ namespace VACARM.NET4.Extensions
         /// Constructor
         /// </summary>
         /// <param name="registryKey">The registry key</param>
-        /// <param name="registrySubKeyList">The registry sub key path list</param>
+        /// <param name="registrySubKeyList">The registry sub key list</param>
         public WMIRegistryEventListener
             (RegistryKey registryKey, List<string> registrySubKeyList)
         {
@@ -82,7 +81,7 @@ namespace VACARM.NET4.Extensions
                 return;
             }
 
-            this.registryKeyAndSubKeyPathListDictionary =
+            this.registryKeyAndSubKeyListDictionary =
                 new Dictionary<RegistryKey, List<string>>()
                 {
                     {
@@ -90,9 +89,11 @@ namespace VACARM.NET4.Extensions
                     },
                 };
 
+
+            InitializeDictionary();
             ParseRegistryKeyAndSubKeyListAndSetDictionary();
-            this.registryKeyAndSubKeyPathListDictionary = null;
-			StartAllManagementEventWatchers();
+            ClearListDictionary();
+            StartAllManagementEventWatchers();
         }
 
         /// <summary>
@@ -103,35 +104,13 @@ namespace VACARM.NET4.Extensions
         public WMIRegistryEventListener(Dictionary<RegistryKey, List<string>>
             registryKeyAndSubKeyPathListDictionary)
         {
-            this.registryKeyAndSubKeyPathListDictionary =
+            this.registryKeyAndSubKeyListDictionary =
                 registryKeyAndSubKeyPathListDictionary;
 
+            InitializeDictionary();
             ParseRegistryKeyAndSubKeyListAndSetDictionary();
-            this.registryKeyAndSubKeyPathListDictionary = null;
+            ClearListDictionary();
             StartAllManagementEventWatchers();
-        }
-
-        /// <summary>
-        /// Get the database query as a string.
-        /// </summary>
-        /// <param name="registryKey">The registry key</param>
-        /// <param name="registrySubKeyFullPath">The registry sub key full path</param>
-        internal string GetQuery(RegistryKey registryKey, string registrySubKeyFullPath)
-        {
-            if (registryKey is null)
-            {
-                return string.Empty;
-            }
-
-            string hive = registryKey.Name;
-
-            if (hive is null || hive == string.Empty || registrySubKeyFullPath is null
-                || registrySubKeyFullPath == string.Empty)
-            {
-                return string.Empty;
-            }
-
-            return $" WHERE Hive='{hive} AND RootPath='{registrySubKeyFullPath}'";
         }
 
         /// <summary>
@@ -151,93 +130,50 @@ namespace VACARM.NET4.Extensions
         }
 
         /// <summary>
-        /// Parse registry key and sub key path list dictionary and set dictionary.
-        /// </summary>
-        internal void ParseRegistryKeyAndSubKeyListAndSetDictionary()
-        {
-            if (registryKeyAndSubKeyPathListDictionary is null
-                || registryKeyAndSubKeyPathListDictionary.Count == 0)
-            {
-                return;
-            }
-
-            registryKeyAndSubKeyPathListDictionary.Keys.ToList().ForEach(registryKey =>
-                {
-                    ParseRegistryKeyToSetDictionary(registryKey);
-                });
-        }
-
-        /// <summary>
-        /// Parse registry key for sub key path list and set dictionary.
+        /// Get the database query as a string.
         /// </summary>
         /// <param name="registryKey">The registry key</param>
-        internal void ParseRegistryKeyToSetDictionary(RegistryKey registryKey)
+        /// <param name="registrySubKey">The registry sub key</param>
+        internal string GetQuery(RegistryKey registryKey, string registrySubKey)
         {
-            List<string> registrySubKeyPathList =
-                registryKeyAndSubKeyPathListDictionary[registryKey];
-
-            if (registrySubKeyPathList is null || registrySubKeyPathList.Count == 0)
+            if (registryKey is null)
             {
-                return;
+                return string.Empty;
             }
 
-            registrySubKeyPathList.ForEach(registrySubKeyPath =>
-            {
-                ParseRegistryKeyAndSubKeyPathToSetDictionary
-                    (registryKey, registrySubKeyPath);
-            });
-        }
+            List<string> registryKeyPathSplitList =
+                registryKey.Name.Split('\\').ToList();
 
-        /// <summary>
-        /// Set dictionary if registry key, registry sub key path, and query are valid.
-        /// </summary>
-        /// <param name="registryKey">The registry key</param>
-        /// <param name="registrySubKeyPath">The registry sub key path</param>
-        internal void ParseRegistryKeyAndSubKeyPathToSetDictionary
-            (RegistryKey registryKey, string registrySubKeyPath)
-        {
-            if (registryKey is null || string.IsNullOrEmpty(registrySubKeyPath))
+            if (string.IsNullOrEmpty(registrySubKey) || registryKeyPathSplitList is null
+                || registryKeyPathSplitList.Count == 0)
             {
-                return;
+                return string.Empty;
             }
 
-            var subKeyValue = registryKey?.GetValue(registrySubKeyPath);
+            string hive = registryKeyPathSplitList.FirstOrDefault();
 
-            if (subKeyValue is null)
+            if (!registryBaseKeyHiveValueDictionary.ContainsKey(hive)
+                || string.IsNullOrEmpty(hive))
             {
-                return;
+                return string.Empty;
             }
 
-            string query = GetQuery(registryKey, registrySubKeyPath);
+            registryKeyPathSplitList.RemoveAt(0);
 
-            if (string.IsNullOrEmpty(query))
+            if (registryKeyPathSplitList.Count == 0)
             {
-                return;
+                return string.Empty;
             }
 
-            ManagementEventWatcher managementEventWatcher =
-                GetManagementEventWatcher(query);
+            string registrySubKeyPathExceptHive =
+                string.Join("\\", registryKeyPathSplitList.ToArray() + registrySubKey);
 
-            Dictionary<ManagementEventWatcher, object>
-                managementEventWatcherAndResultDictionary =
-                new Dictionary<ManagementEventWatcher, object>()
-                {
-                    {
-                        managementEventWatcher, subKeyValue
-                    }
-                };
+            if (string.IsNullOrEmpty(registrySubKeyPathExceptHive))
+            {
+                return string.Empty;
+            }
 
-            Dictionary<string, Dictionary<ManagementEventWatcher, object>>
-                registrySubKeyPathAndNestedDictionary =
-                new Dictionary<string, Dictionary<ManagementEventWatcher, object>>()
-                {
-                    {
-                        registrySubKeyPath, managementEventWatcherAndResultDictionary
-                    }
-                };
-
-            registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
-                .Add(registryKey, registrySubKeyPathAndNestedDictionary);
+            return $" WHERE Hive='{hive} AND RootPath='{registrySubKeyPathExceptHive}'";
         }
 
         /// <summary>
@@ -270,6 +206,123 @@ namespace VACARM.NET4.Extensions
         }
 
         /// <summary>
+        /// Clear list dictionary.
+        /// </summary>
+        internal void ClearListDictionary()
+        {
+            this.registryKeyAndSubKeyListDictionary = null;
+        }
+
+        /// <summary>
+        /// Initialize dictionary.
+        /// </summary>
+        internal void InitializeDictionary()
+        {
+            registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+                    = new Dictionary<RegistryKey, Dictionary<string,
+                        Dictionary<ManagementEventWatcher, string>>>();
+        }
+
+        /// <summary>
+        /// Parse registry key and sub key list dictionary and set dictionary.
+        /// </summary>
+        internal void ParseRegistryKeyAndSubKeyListAndSetDictionary()
+        {
+            if (registryKeyAndSubKeyListDictionary is null
+                || registryKeyAndSubKeyListDictionary.Count == 0)
+            {
+                return;
+            }
+
+            registryKeyAndSubKeyListDictionary.Keys.ToList().ForEach(registryKey =>
+            {
+                ParseRegistryKeyToSetDictionary(registryKey);
+            });
+        }
+
+        /// <summary>
+        /// Parse registry key for sub key path list and set dictionary.
+        /// </summary>
+        /// <param name="registryKey">The registry key</param>
+        internal void ParseRegistryKeyToSetDictionary(RegistryKey registryKey)
+        {
+            List<string> registrySubKeyPathList =
+                registryKeyAndSubKeyListDictionary[registryKey];
+
+            if (registrySubKeyPathList is null || registrySubKeyPathList.Count == 0)
+            {
+                return;
+            }
+
+            registrySubKeyPathList.ForEach(registrySubKeyPath =>
+            {
+                ParseRegistryKeyAndSubKeyPathToSetDictionary
+                    (registryKey, registrySubKeyPath);
+            });
+        }
+
+        /// <summary>
+        /// Set dictionary if registry key, registry sub key, and query are valid.
+        /// </summary>
+        /// <param name="registryKey">The registry key</param>
+        /// <param name="registrySubKey">The registry sub key</param>
+        internal void ParseRegistryKeyAndSubKeyPathToSetDictionary
+            (RegistryKey registryKey, string registrySubKey)
+        {
+            if (registryKey is null || string.IsNullOrEmpty(registrySubKey))
+            {
+                return;
+            }
+
+            var subKeyValue = registryKey?.GetValue(registrySubKey).ToString();
+
+            if (subKeyValue is null)
+            {
+                return;
+            }
+
+            string query = GetQuery(registryKey, registrySubKey);
+
+            if (string.IsNullOrEmpty(query))
+            {
+                return;
+            }
+
+            ManagementEventWatcher managementEventWatcher =
+                GetManagementEventWatcher(query);
+
+            Dictionary<ManagementEventWatcher, string>
+                managementEventWatcherAndResultDictionary =
+                new Dictionary<ManagementEventWatcher, string>()
+                {
+                    {
+                        managementEventWatcher, subKeyValue
+                    }
+                };
+
+            Dictionary<string, Dictionary<ManagementEventWatcher, string>>
+                registrySubKeyPathAndNestedDictionary =
+                new Dictionary<string, Dictionary<ManagementEventWatcher, string>>()
+                {
+                    {
+                        registrySubKey, managementEventWatcherAndResultDictionary
+                    }
+                };
+
+            if (registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+                .ContainsKey(registryKey))
+            {
+                registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+                    [registryKey].Concat(registrySubKeyPathAndNestedDictionary);
+
+                return;
+            }
+
+            registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+                .Add(registryKey, registrySubKeyPathAndNestedDictionary);
+        }
+
+        /// <summary>
         /// Whenever an event is received, write the event to console.
         /// </summary>
         /// <param name="sender">The sender object</param>
@@ -293,12 +346,12 @@ namespace VACARM.NET4.Extensions
             Console.WriteLine();
         }
 
-		/// <summary>
-		/// Get the new event properties and write to console.
-		/// </summary>
-		/// <param name="sender">The sender object</param>
-		/// <param name="propertyData">The property data</param>
-		internal void RegistryEventHandlerGetNewEventProperties
+        /// <summary>
+        /// Get the new event properties and write to console.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="propertyData">The property data</param>
+        internal void RegistryEventHandlerGetNewEventProperties
             (object sender, PropertyData propertyData)
         {
             Console.WriteLine($"{propertyData.Name}:{propertyData.Value.ToString()}");
@@ -309,13 +362,13 @@ namespace VACARM.NET4.Extensions
         /// </summary>
         internal void StartAllManagementEventWatchers()
         {
-			if (registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
-				is null)
-			{
-				//return;
-			}
+            if (registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+                is null)
+            {
+                return;
+            }
 
-			List<ManagementEventWatcher> managementEventWatcherList =
+            List<ManagementEventWatcher> managementEventWatcherList =
                 GetManagementEventWatcherList();
 
             if (managementEventWatcherList is null
@@ -351,13 +404,13 @@ namespace VACARM.NET4.Extensions
         /// </summary>
         internal void StopAllManagementEventWatchers()
         {
-			if (registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
-				is null)
-			{
-				return;
-			}
+            if (registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+                is null)
+            {
+                return;
+            }
 
-			List<ManagementEventWatcher> managementEventWatcherList =
+            List<ManagementEventWatcher> managementEventWatcherList =
                 GetManagementEventWatcherList();
 
             if (managementEventWatcherList is null
