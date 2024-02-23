@@ -129,7 +129,7 @@ namespace VACARM.NET4.ViewModels
 
         #endregion
 
-        #region
+        #region Logic
 
         /// <summary>
         /// Constructor
