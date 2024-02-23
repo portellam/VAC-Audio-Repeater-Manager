@@ -58,9 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
-    <Compile Include="DarkModeValidator.cs" />
+    <Compile Include="LightThemeValidator.cs" />
     <Compile Include="Extensions\ColorExtension.cs" />
     <Compile Include="Extensions\MessageBoxWrapper.cs" />
+    <Compile Include="Extensions\WMIRegistryEventListener.cs" />
     <Compile Include="Models\DeviceListModel.cs" />
     <Compile Include="Models\RepeaterModel.cs" />
     <Compile Include="Models\RepeaterDataModel.cs" />
