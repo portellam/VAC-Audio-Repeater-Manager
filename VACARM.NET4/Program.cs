@@ -7,8 +7,6 @@ namespace VACARM.NET4
 {
     public class Program
     {
-        private static MainForm mainForm;
-
         #region Arguments
 
         /// <summary>
@@ -52,7 +50,6 @@ namespace VACARM.NET4
         [STAThread]
         public static void Main(string[] arguments)
         {
-            LightThemeValidator lightThemeValidator = new LightThemeValidator();
             Arguments = arguments;
             ParseArguments();
             Application.Run(new MainForm());
