@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows.Documents;
 using VACARM.NET4.Extensions;
 
-namespace VACARM.NET4
+namespace VACARM.NET4.ViewModels
 {
     public class LightThemeValidator
     {

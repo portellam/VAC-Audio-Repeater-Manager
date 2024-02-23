@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
-    <Compile Include="LightThemeValidator.cs" />
+    <Compile Include="ViewModels\LightThemeValidator.cs" />
     <Compile Include="Extensions\ColorExtension.cs" />
     <Compile Include="Extensions\MessageBoxWrapper.cs" />
     <Compile Include="Extensions\WMIRegistryEventListener.cs" />
@@ -74,7 +74,7 @@
     </Compile>
     <Compile Include="Structs\ChannelConfig.cs" />
     <Compile Include="Structs\Channel.cs" />
-    <Compile Include="ViewModels\AssemblyInformationAccessor.cs" />
+    <Compile Include="ViewModels\Accessors\AssemblyInformationAccessor.cs" />
     <Compile Include="ViewModels\DeviceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -82,8 +82,8 @@
       <DependentUpon>DeviceControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\FormColorUpdater.cs" />
-    <Compile Include="ViewModels\DarkColorTable.cs" />
-    <Compile Include="ViewModels\ToolStripDarkRenderer.cs" />
+    <Compile Include="ViewModels\ColorTable\DarkColorTable.cs" />
+    <Compile Include="ViewModels\Renderer\ToolStripDarkRenderer.cs" />
     <Compile Include="Views\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
