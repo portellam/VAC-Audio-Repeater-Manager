@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VACARM.NET4.Extensions
 {
-    public class WmiRegistryEventListener : IDisposable
+    public class WMIRegistryEventListener : IDisposable
     {
         //TODO: create new thread with async tasks, monitor for new event on registry
         //  key, and check for new value on event, and retrieve value.
@@ -74,7 +74,7 @@ namespace VACARM.NET4.Extensions
         /// </summary>
         /// <param name="registryKey">The registry key</param>
         /// <param name="registrySubKeyList">The registry sub key path list</param>
-        public WmiRegistryEventListener
+        public WMIRegistryEventListener
             (RegistryKey registryKey, List<string> registrySubKeyList)
         {
             if (registryKey.SubKeyCount == 0)
@@ -92,7 +92,7 @@ namespace VACARM.NET4.Extensions
 
             ParseRegistryKeyAndSubKeyListAndSetDictionary();
             this.registryKeyAndSubKeyPathListDictionary = null;
-            StartAllManagementEventWatchers();
+			StartAllManagementEventWatchers();
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace VACARM.NET4.Extensions
         /// </summary>
         /// <param name="registryKeyAndSubKeyPathListDictionary">The dictionary of
         /// registry key and sub key list</param>
-        public WmiRegistryEventListener(Dictionary<RegistryKey, List<string>>
+        public WMIRegistryEventListener(Dictionary<RegistryKey, List<string>>
             registryKeyAndSubKeyPathListDictionary)
         {
             this.registryKeyAndSubKeyPathListDictionary =
@@ -241,10 +241,10 @@ namespace VACARM.NET4.Extensions
         }
 
         /// <summary>
-        /// 
+        /// Get the management event watcher.
         /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
+        /// <param name="query">The query</param>
+        /// <returns>The management event watcher</returns>
         internal ManagementEventWatcher GetManagementEventWatcher(string query)
         {
             ManagementEventWatcher managementEventWatcher =
@@ -293,15 +293,14 @@ namespace VACARM.NET4.Extensions
             Console.WriteLine();
         }
 
-        /// <summary>
-        /// Get the new event properties and write to console.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="propertyData">The property data</param>
-        internal void RegistryEventHandlerGetNewEventProperties
+		/// <summary>
+		/// Get the new event properties and write to console.
+		/// </summary>
+		/// <param name="sender">The sender object</param>
+		/// <param name="propertyData">The property data</param>
+		internal void RegistryEventHandlerGetNewEventProperties
             (object sender, PropertyData propertyData)
         {
-            var theSender = sender;
             Console.WriteLine($"{propertyData.Name}:{propertyData.Value.ToString()}");
         }
 
@@ -310,7 +309,13 @@ namespace VACARM.NET4.Extensions
         /// </summary>
         internal void StartAllManagementEventWatchers()
         {
-            List<ManagementEventWatcher> managementEventWatcherList =
+			if (registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+				is null)
+			{
+				//return;
+			}
+
+			List<ManagementEventWatcher> managementEventWatcherList =
                 GetManagementEventWatcherList();
 
             if (managementEventWatcherList is null
@@ -346,7 +351,13 @@ namespace VACARM.NET4.Extensions
         /// </summary>
         internal void StopAllManagementEventWatchers()
         {
-            List<ManagementEventWatcher> managementEventWatcherList =
+			if (registryKey_SubKeyPath_ManagementEventWatcherDictionary_AndResultDictionary
+				is null)
+			{
+				return;
+			}
+
+			List<ManagementEventWatcher> managementEventWatcherList =
                 GetManagementEventWatcherList();
 
             if (managementEventWatcherList is null
