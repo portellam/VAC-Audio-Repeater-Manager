@@ -12,9 +12,9 @@ namespace VACARM.NET4.ViewModels
         #region Parameters
 
         private Dictionary<RegistryKey, List<string>>
-            registryKeyAndSubKeyPathListDictionary;
+            registryKeyAndSubKeyListDictionary;
 
-		private readonly static string appUsesLightThemeRegistryKeyValue =
+        private readonly static string appUsesLightThemeRegistryKeyValue =
             "AppsUseLightTheme";
 
         private readonly static string darkModeRegistrySubKey =
@@ -122,42 +122,37 @@ namespace VACARM.NET4.ViewModels
                 return;
             }
 
-			RegistryKey registryKey =
+            RegistryKey registryKey =
                 Registry.CurrentUser.OpenSubKey(darkModeRegistrySubKey);
 
-            List<string> registryKeyPathList = new List<string>()
+            List<string> registryKeyList = new List<string>()
             {
-                string.Concat
-                    (darkModeRegistrySubKey, "\\" , appUsesLightThemeRegistryKeyValue),
-
-                string.Concat
-                    (darkModeRegistrySubKey, "\\", systemUsesLightThemeRegistryKeyValue)
+                appUsesLightThemeRegistryKeyValue, systemUsesLightThemeRegistryKeyValue
             };
 
-            registryKeyAndSubKeyPathListDictionary
+            registryKeyAndSubKeyListDictionary
                 = new Dictionary<RegistryKey, List<string>>
                 {
                     {
-                        registryKey, registryKeyPathList
-
+                        registryKey, registryKeyList
                     },
                 };
 
             WMIRegistryEventListener =
-                new WMIRegistryEventListener(registryKeyAndSubKeyPathListDictionary);
+                new WMIRegistryEventListener(registryKeyAndSubKeyListDictionary);
         }
 
 
-  //      public async void WatchAndSetLightThemeEnabled()
-  //      {
-  //          if (WMIRegistryEventListener is null)
-  //          {
-  //              return;
-  //          }
+        //      public async void WatchAndSetLightThemeEnabled()
+        //      {
+        //          if (WMIRegistryEventListener is null)
+        //          {
+        //              return;
+        //          }
 
-  //          //TODO: add task here
-		//}
+        //          //TODO: add task here
+        //}
 
-		#endregion
-	}
+        #endregion
+    }
 }
