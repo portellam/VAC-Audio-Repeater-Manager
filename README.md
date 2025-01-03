@@ -1,3 +1,6 @@
+<img align="left" width="100" height="100" src="/logo.png"/>
+<br>
+
 # Virtual Audio Cable Audio Repeater Manager
 ##### VAC Audio Repeater Manager (VACARM)
 ### In Development
