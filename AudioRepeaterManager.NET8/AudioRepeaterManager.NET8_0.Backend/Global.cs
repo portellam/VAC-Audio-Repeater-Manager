@@ -103,22 +103,21 @@ namespace AudioRepeaterManager.NET8_0.Backend
     private readonly static string executableName = "audiorepeater.exe";
 
     /// <summary>
-    /// Typically "C:\Program Files\Virtual Audio Cable\audiorepeater.exe".
+    /// The name of the executable.
     /// </summary>
-    private static string executablePathNameForBitMatchedProcessAndSystem =
-      $"{systemRootPathName}Program Files\\{firstParentPathNameForExecutable}";
+    private readonly static string legacyExecutableName = "audiorepeater_ks.exe";
 
     /// <summary>
-    /// Typically "C:\Program Files (x86)\Virtual Audio Cable\audiorepeater.exe".
+    /// Typically "C:\Program Files\Virtual Audio Cable\".
     /// </summary>
-    private static string executablePathNameForBitUnmatchedProcessAndSystem =
-      $"{systemRootPathName}Program Files (x86)\\{firstParentPathNameForExecutable}";
+    private static string parentPathNameForBitMatchedProcessAndSystem =
+      $"{systemRootPathName}Program Files\\{ReferencedApplicationName}\\";
 
     /// <summary>
-    /// Typically "Virtual Audio Cable\audiorepeater.exe".
+    /// Typically "C:\Program Files (x86)\Virtual Audio Cable\".
     /// </summary>
-    private readonly static string firstParentPathNameForExecutable =
-      $"{ReferencedApplicationName}\\{executableName}";
+    private static string parentPathNameForBitUnmatchedProcessAndSystem =
+      $"{systemRootPathName}Program Files (x86)\\{ReferencedApplicationName}\\";
 
     /// <summary>
     /// Typically "C:\".
@@ -143,13 +142,28 @@ namespace AudioRepeaterManager.NET8_0.Backend
       {
         if (doesProcessAndSystemBitMatch)
         {
-          return executablePathNameForBitMatchedProcessAndSystem;
+          return $"{parentPathNameForBitMatchedProcessAndSystem}{executableName}";
         }
 
-        return executablePathNameForBitUnmatchedProcessAndSystem;
+        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{executableName}";
       }
     }
 
+    /// <summary>
+    /// The expected legacy executable full path name.
+    /// </summary>
+    public static string ExpectedLegacyExecutableFullPathName
+    {
+      get
+      {
+        if (doesProcessAndSystemBitMatch)
+        {
+          return $"{parentPathNameForBitMatchedProcessAndSystem}{legacyExecutableName}";
+        }
+
+        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{legacyExecutableName}";
+      }
+    }
 
     /// <summary>
     /// Does audio repeater executable exist.
