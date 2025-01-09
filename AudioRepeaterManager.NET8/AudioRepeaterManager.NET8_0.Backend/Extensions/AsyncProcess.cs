@@ -38,7 +38,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Extensions
         )
       {
         return await RunProcessAsync(process)
-          .ConfigureAwait(false);
+          .ConfigureAwait(false); //TODO: determine TaskStatus after start of process.
       }
     }
 
