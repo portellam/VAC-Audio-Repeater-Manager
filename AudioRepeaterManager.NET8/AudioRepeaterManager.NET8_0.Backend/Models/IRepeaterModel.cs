@@ -30,8 +30,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     string InputDeviceName { get; set; }
     string OutputDeviceName { get; set; }
     string PathName { get; set; }
-    string WindowName { get; set; }
+    string StartArguments { get; }
+    string StopArguments { get; }
+    string WindowName { get; }
     uint ChannelMask { get; set; }
+    uint ProcessId { get; set; }
     uint SampleRateKHz { get; set; }
     ushort BufferDurationMs { get; set; }
 
@@ -53,13 +56,15 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       out string inputDeviceName,
       out string outputDeviceName,
       out string pathName,
+      out string startCommand,
+      out string stopCommand,
       out string windowName,
       out uint channelMask,
+      out uint processId,
       out uint sampleRateKHz,
       out ushort bufferDurationMs
     );
 
-    string ToCommand();
     string ToString();
     void Set(List<string> infoList);
 
