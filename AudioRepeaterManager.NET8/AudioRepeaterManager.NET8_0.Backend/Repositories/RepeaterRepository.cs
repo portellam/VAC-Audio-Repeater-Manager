@@ -33,6 +33,22 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       }
     }
 
+    private uint MaxId
+    {
+      get
+      {
+        return Global.MaxRepeaterCount;
+      }
+    }
+
+    private uint MaxProcessId
+    { 
+      get
+      {
+        return uint.MaxValue;
+      }
+    }
+
     /// <summary>
     /// The next valid repeater ID.
     /// </summary>
