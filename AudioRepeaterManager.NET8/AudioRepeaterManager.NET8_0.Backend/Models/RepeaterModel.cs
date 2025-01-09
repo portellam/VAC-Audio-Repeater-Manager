@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using AudioRepeaterManager.NET8_0.Backend.Extensions;
 using AudioRepeaterManager.NET8_0.Backend.Structs;
 
 namespace AudioRepeaterManager.NET8_0.Backend.Models
@@ -16,8 +18,39 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     public byte defaultBufferAmount = BufferOptions[2];
     public byte defaultPrefillPercentage = PrefillOptions[2];
     public byte defaultResyncAtPercentage = ResyncAtOptions[3];
-    //public string defaultPathName = Common.ExpectedExecutableFullPath; //FIXME
-    public string defaultWindowName = "{0} to {0}";
+
+    /// <summary>
+    /// The window name.
+    /// </summary>
+    public string WindowName
+    { 
+      get
+      {
+        int startIndex = 0;
+        int maxLength = 30;
+
+        return string.Format
+          (
+            "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
+            id.ToString(),
+            inputDeviceId.ToString(),
+            outputDeviceId.ToString(),
+
+            inputDeviceName.Substring
+              (
+                startIndex,
+                maxLength
+              ),
+
+            outputDeviceName.Substring
+              (
+                startIndex,
+                maxLength
+              )
+          );
+      }
+    }
+    
     public uint defaultSampleRateKHz = SampleRateOptions[5];
     public ushort defaultBufferDurationMs = BufferMsOptions[2];
 
@@ -37,7 +70,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     private string inputDeviceName;
     private string outputDeviceName;
     private string pathName;
-    private string windowName;
+    private uint processId;
     private uint sampleRateKHz;
     private ushort bufferDurationMs;
 
@@ -109,17 +142,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
-
-    /// TODO: determine what this does?
-    public IEnumerable<ChannelConfig> ChannelConfigEnum
-    {
-      get
-      {
-        return Enum
-          .GetValues(typeof(ChannelConfig))
-          .Cast<ChannelConfig>();
-      }
-    }
 
     /// <summary>
     /// The amount of bits per sample.
@@ -252,6 +274,17 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       }
     }
 
+    /// TODO: determine what this does?
+    public IEnumerable<ChannelConfig> ChannelConfigEnum
+    {
+      get
+      {
+        return Enum
+          .GetValues(typeof(ChannelConfig))
+          .Cast<ChannelConfig>();
+      }
+    }
+
     /// <summary>
     /// The individual Channels available to the repeater, given the Channel layout.
     /// </summary>
@@ -336,28 +369,40 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     }
 
     /// <summary>
-    /// The window name.
+    /// Batch command to create and start an audio repeater.
     /// </summary>
-    public string WindowName
+    public string StartArguments
     {
       get
       {
-        return windowName;
+        return
+          $"start " +
+          $"/min \"{Global.ExpectedExecutableFullPathName}\" \"{PathName}\" " +
+          $"/Input:\"{InputDeviceName}\" " +
+          $"/Output:\"{OutputDeviceName}\" " +
+          $"/SampleRate:{SampleRateKHz} " +
+          $"/BitsPerSample:{BitsPerSample} " +
+          $"/Channels:{ChannelList.Count} " +
+          $"/ChanCfg:custom={ChannelMask} " +
+          $"/BufferMs:{BufferDurationMs} " +
+          $"/Prefill:{PrefillPercentage} " +
+          $"/ResyncAt:{ResyncAtPercentage} " +
+          $"/WindowName:\"{WindowName}\" " +
+          $"/AutoStart";
       }
-      set
-      {
-        windowName = value
-          .Replace
-          (
-            "{0}",
-            InputDeviceName
-          ).Replace
-          (
-            "{1}",
-            OutputDeviceName
-          );
+    }
 
-        OnPropertyChanged(nameof(WindowName));
+    /// <summary>
+    /// Batch command to stop an audio repeater.
+    /// </summary>
+    public string StopArguments
+    {
+      get
+      {
+        return
+          $"start \"{Global.ExpectedExecutableFullPathName}\" " +
+          $"\"{PathName}\" " +
+          $"/CloseInstance:\"{WindowName}\"";
       }
     }
 
@@ -622,7 +667,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       PrefillPercentage = defaultPrefillPercentage;
       ResyncAtPercentage = defaultResyncAtPercentage;
       SampleRateKHz = defaultSampleRateKHz;
-      WindowName = defaultWindowName;
     }
 
     /// <summary>
@@ -641,6 +685,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <param name="propertyList">The property list</param>
     /// <param name="resyncAtPercentage">The resync at percentage</param>
     /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
+    /// <param name="startCommand">The start command</param>
+    /// <param name="stopCommand">The stop command</param>
     /// <param name="windowName">The window name</param>
     [ExcludeFromCodeCoverage]
     public void Deconstruct
@@ -657,6 +703,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       out string inputDeviceName,
       out string outputDeviceName,
       out string pathName,
+      out string startCommand,
+      out string stopCommand,
       out string windowName,
       out uint channelMask,
       out uint sampleRateKHz,
@@ -678,9 +726,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       propertyList = PropertyList;
       resyncAtPercentage = ResyncAtPercentage;
       sampleRateKHz = SampleRateKHz;
+      startCommand = StartArguments;
+      stopCommand = StopArguments;
       windowName = WindowName;
     }
 
+    //TODO: implement?
     //~RepeaterModel()
     //{
     //  //destruct
@@ -706,29 +757,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
           propertyName
         )
       );
-    }
-
-    /// <summary>
-    /// Compiles a terminal command, to create and start an audio repeater.
-    /// Also, use in batch script.
-    /// </summary>
-    /// <returns>The terminal command</returns>
-    public string ToCommand()
-    {
-      return
-        $"start " +
-        $"/min \"audiorepeater\" \"{PathName}\" " +
-        $"/Input:\"{InputDeviceName}\" " +
-        $"/Output:\"{OutputDeviceName}\" " +
-        $"/SampleRate:{SampleRateKHz} " +
-        $"/BitsPerSample:{BitsPerSample} " +
-        $"/Channels:{ChannelList.Count} " +
-        $"/ChanCfg:custom={ChannelMask} " +
-        $"/BufferMs:{BufferDurationMs} " +
-        $"/Prefill:{PrefillPercentage} " +
-        $"/ResyncAt:{ResyncAtPercentage} " +
-        $"/WindowName:\"{WindowName}\" " +
-        $"/AutoStart";
     }
 
     /// <summary>

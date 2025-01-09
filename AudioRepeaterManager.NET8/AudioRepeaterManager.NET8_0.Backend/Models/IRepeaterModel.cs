@@ -34,7 +34,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     string StopArguments { get; }
     string WindowName { get; }
     uint ChannelMask { get; set; }
-    uint ProcessId { get; set; }
     uint SampleRateKHz { get; set; }
     ushort BufferDurationMs { get; set; }
 
@@ -60,7 +59,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       out string stopCommand,
       out string windowName,
       out uint channelMask,
-      out uint processId,
       out uint sampleRateKHz,
       out ushort bufferDurationMs
     );
