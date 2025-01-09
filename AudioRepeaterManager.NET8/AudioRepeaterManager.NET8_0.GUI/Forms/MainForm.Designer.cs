@@ -42,6 +42,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       toolStrip1 = new ToolStrip();
       fileToolStripLabel = new ToolStripDropDownButton();
       fileNewToolStripMenuItem = new ToolStripMenuItem();
@@ -903,6 +904,7 @@
       ClientSize = new Size(800, 450);
       Controls.Add(toolStrip1);
       DoubleBuffered = true;
+      Icon = (Icon)resources.GetObject("$this.Icon");
       Name = "MainForm";
       Text = "MainForm";
       Load += MainForm_Load;
