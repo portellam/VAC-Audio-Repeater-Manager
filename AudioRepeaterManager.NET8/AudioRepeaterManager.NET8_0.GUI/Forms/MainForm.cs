@@ -1,9 +1,9 @@
 using AudioRepeaterManager.NET8_0.GUI.Helpers;
 using AudioRepeaterManager.NET8_0.Backend;
 using AudioRepeaterManager.NET8_0.Backend.Repositories;
-using AudioRepeaterManager.NET8_0.GUI.Extensions;
-using System.ComponentModel;
 using AudioRepeaterManager.NET8_0.GUI.Forms;
+using AudioRepeaterManager.NET8_0.Backend.Models;
+using AudioSwitcher.AudioApi;
 
 namespace AudioRepeaterManager.NET8_0.GUI
 {
@@ -96,6 +96,15 @@ namespace AudioRepeaterManager.NET8_0.GUI
 
         viewPreferSystemThemeToolStripMenuItem.Checked = value;
         viewPreferDarkThemeToolStripMenuItem.Checked = !value;
+      }
+    }
+
+    private DeviceRepository selectedDeviceRepository
+    {
+      get
+      {
+        return deviceRepositoryHashSet
+          .ElementAtOrDefault(selectedDeviceRepositoryindex);
       }
     }
 
@@ -203,24 +212,41 @@ namespace AudioRepeaterManager.NET8_0.GUI
           new DeviceRepository()
         );
 
-      deviceRepositoryHashSet
-        .ElementAtOrDefault(selectedDeviceRepositoryindex)
+      selectedDeviceRepository
         .GetAll()
         .ForEach
         (
           x =>
           {
-            string text = string.Format
+            int maxIdLength = 7;
+
+            string idWhiteSpace = new string
               (
-                "{0,-6} {1,9}  {2}",
-                $"{x.Id} ",
-                $"({x.Availability})",
-                x.Name
+                ' ',
+                maxIdLength - x.Id
+                  .ToString()
+                  .Length
               );
+
+            string nameWhiteSpace = new string
+            (
+              ' ',
+              maxIdLength
+            );
+
+            string text = string.Format
+            (
+              "ID:{0}{1},{2}Name: {3}",
+              idWhiteSpace,
+              x.Id,
+              nameWhiteSpace,
+              x.Name
+            );
 
             ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(text)
             {
-              ToolTipText = x.Name
+              CheckOnClick = true,
+              ToolTipText = x.Id.ToString(),
             };
 
             if (x.IsInput)
@@ -249,17 +275,14 @@ namespace AudioRepeaterManager.NET8_0.GUI
 
     private void SetDeviceComponentsAbilityProperties()
     {
-      var deviceRepository =
-        deviceRepositoryHashSet.ElementAtOrDefault(selectedDeviceRepositoryindex);
-
       deviceToolStripMenuItemsAbility = false;
 
       if
       (
         deviceRepositoryHashSet is null
         || deviceRepositoryHashSet.Count == 0
-        || deviceRepository is null
-        || deviceRepository.GetAll().Count == 0
+        || selectedDeviceRepository is null
+        || selectedDeviceRepository.GetAll().Count == 0
       )
       {
         return;
@@ -267,19 +290,19 @@ namespace AudioRepeaterManager.NET8_0.GUI
 
       deviceToolStripMenuItemsAbility = true;
 
-      if (deviceRepository.GetAllDuplex().Count == 0)
+      if (selectedDeviceRepository.GetAllDuplex().Count == 0)
       {
         deviceSelectAllDuplexToolStripMenuItem.Enabled = false;
         deviceSelectDuplexToolStripMenuItem.Enabled = false;
       }
 
-      if (deviceRepository.GetAllInput().Count == 0)
+      if (selectedDeviceRepository.GetAllInput().Count == 0)
       {
         deviceSelectAllInputsToolStripMenuItem.Enabled = false;
         deviceSelectInputToolStripMenuItem.Enabled = false;
       }
 
-      if (deviceRepository.GetAllOutput().Count == 0)
+      if (selectedDeviceRepository.GetAllOutput().Count == 0)
       {
         deviceSelectAllOutputsToolStripMenuItem.Enabled = false;
         deviceSelectOutputToolStripMenuItem.Enabled = false;
@@ -1039,7 +1062,7 @@ namespace AudioRepeaterManager.NET8_0.GUI
       EventArgs eventArgs
     )
     {
-      new DeviceFindForm()
+      new DeviceFindForm(selectedDeviceRepository)
         .ShowDialog();
     }
 
