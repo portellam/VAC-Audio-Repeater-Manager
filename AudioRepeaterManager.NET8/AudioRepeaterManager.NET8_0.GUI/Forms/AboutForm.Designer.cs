@@ -170,6 +170,7 @@
       Margin = new Padding(4, 3, 4, 3);
       MaximizeBox = false;
       MinimizeBox = false;
+      Icon = (Icon)resources.GetObject("$this.Icon");
       Name = "AboutForm";
       Padding = new Padding(10);
       ShowIcon = false;
