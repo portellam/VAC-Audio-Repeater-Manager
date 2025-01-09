@@ -56,6 +56,7 @@
       deviceFindNextArrowButton = new Button();
       deviceFindPreviousArrowButton = new Button();
       deviceFindComboBox = new ComboBox();
+      deviceFindDuplexCheckBox = new CheckBox();
       SuspendLayout();
       // 
       // deviceFindInputCheckBox
@@ -72,7 +73,7 @@
       // deviceFindPresentCheckBox
       // 
       deviceFindPresentCheckBox.AutoSize = true;
-      deviceFindPresentCheckBox.Location = new Point(12, 124);
+      deviceFindPresentCheckBox.Location = new Point(12, 149);
       deviceFindPresentCheckBox.Name = "deviceFindPresentCheckBox";
       deviceFindPresentCheckBox.Size = new Size(65, 19);
       deviceFindPresentCheckBox.TabIndex = 2;
@@ -158,7 +159,7 @@
       // deviceFindEnabledCheckBox
       // 
       deviceFindEnabledCheckBox.AutoSize = true;
-      deviceFindEnabledCheckBox.Location = new Point(12, 99);
+      deviceFindEnabledCheckBox.Location = new Point(12, 124);
       deviceFindEnabledCheckBox.Name = "deviceFindEnabledCheckBox";
       deviceFindEnabledCheckBox.Size = new Size(68, 19);
       deviceFindEnabledCheckBox.TabIndex = 9;
@@ -208,15 +209,26 @@
       deviceFindComboBox.Location = new Point(100, 6);
       deviceFindComboBox.Name = "deviceFindComboBox";
       deviceFindComboBox.Size = new Size(165, 23);
-      deviceFindComboBox.Sorted = true;
       deviceFindComboBox.TabIndex = 0;
       deviceFindComboBox.SelectedIndexChanged += deviceFindComboBox_SelectedIndexChanged;
+      // 
+      // deviceFindDuplexCheckBox
+      // 
+      deviceFindDuplexCheckBox.AutoSize = true;
+      deviceFindDuplexCheckBox.Location = new Point(12, 99);
+      deviceFindDuplexCheckBox.Name = "deviceFindDuplexCheckBox";
+      deviceFindDuplexCheckBox.Size = new Size(63, 19);
+      deviceFindDuplexCheckBox.TabIndex = 14;
+      deviceFindDuplexCheckBox.Text = "Duplex";
+      deviceFindDuplexCheckBox.UseVisualStyleBackColor = true;
+      deviceFindDuplexCheckBox.CheckedChanged += deviceFindDuplexCheckBox_CheckedChanged;
       // 
       // DeviceFindForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
-      ClientSize = new Size(502, 148);
+      ClientSize = new Size(502, 173);
+      Controls.Add(deviceFindDuplexCheckBox);
       Controls.Add(deviceFindInSelectionCheckBox);
       Controls.Add(deviceFindPreviousArrowButton);
       Controls.Add(deviceFindCountButton);
@@ -232,7 +244,7 @@
       Controls.Add(deviceFindInputCheckBox);
       Controls.Add(deviceFindComboBox);
       DoubleBuffered = true;
-      MinimumSize = new Size(518, 187);
+      MinimumSize = new Size(518, 212);
       Name = "DeviceFindForm";
       StartPosition = FormStartPosition.CenterParent;
       Text = "Find";
@@ -257,11 +269,13 @@
     private CheckBox deviceFindInSelectionCheckBox;
     private CheckBox deviceFindOutputCheckBox;
     private CheckBox deviceFindPresentCheckBox;
+    private ComboBox deviceFindComboBox;
     private GroupBox deviceFindInSelectionGroupBox;
     private Label deviceFindLabel;
 
     #endregion
 
-    private ComboBox deviceFindComboBox;
+    private CheckBox checkBox1;
+    private CheckBox deviceFindDuplexCheckBox;
   }
 }
