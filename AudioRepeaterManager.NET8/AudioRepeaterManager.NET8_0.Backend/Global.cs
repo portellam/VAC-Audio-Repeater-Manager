@@ -98,16 +98,6 @@ namespace AudioRepeaterManager.NET8_0.Backend
     #region Executable path names
 
     /// <summary>
-    /// The name of the executable.
-    /// </summary>
-    private readonly static string executableName = "audiorepeater.exe";
-
-    /// <summary>
-    /// The name of the executable.
-    /// </summary>
-    private readonly static string legacyExecutableName = "audiorepeater_ks.exe";
-
-    /// <summary>
     /// Typically "C:\Program Files\Virtual Audio Cable\".
     /// </summary>
     private static string parentPathNameForBitMatchedProcessAndSystem =
@@ -133,6 +123,24 @@ namespace AudioRepeaterManager.NET8_0.Backend
     private static bool doesProcessAndSystemBitMatch =
       Environment.Is64BitProcess == Environment.Is64BitOperatingSystem;
 
+    public static bool PreferLegacyExecutable = false;
+
+    /// <summary>
+    /// The name of the executable.
+    /// </summary>
+    public static string ExecutableName
+    {
+      get
+      {
+        if (PreferLegacyExecutable)
+        {
+          return "audiorepeater_ks.exe";
+        }
+
+        return "audiorepeater.exe";
+      }
+    }
+
     /// <summary>
     /// The expected executable full path name.
     /// </summary>
@@ -142,26 +150,10 @@ namespace AudioRepeaterManager.NET8_0.Backend
       {
         if (doesProcessAndSystemBitMatch)
         {
-          return $"{parentPathNameForBitMatchedProcessAndSystem}{executableName}";
+          return $"{parentPathNameForBitMatchedProcessAndSystem}{ExecutableName}";
         }
 
-        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{executableName}";
-      }
-    }
-
-    /// <summary>
-    /// The expected legacy executable full path name.
-    /// </summary>
-    public static string ExpectedLegacyExecutableFullPathName
-    {
-      get
-      {
-        if (doesProcessAndSystemBitMatch)
-        {
-          return $"{parentPathNameForBitMatchedProcessAndSystem}{legacyExecutableName}";
-        }
-
-        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{legacyExecutableName}";
+        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{ExecutableName}";
       }
     }
 
@@ -181,6 +173,7 @@ namespace AudioRepeaterManager.NET8_0.Backend
     #region Limitations
 
     public static bool DoIgnoreSafeMaxRepeaterCount = false;
+    public static bool DoIgnoreMaxLegacyEndpointCount = false;
 
     /// <summary>
     /// Limit the maximum amount of endpoints (audio devices).
@@ -190,7 +183,11 @@ namespace AudioRepeaterManager.NET8_0.Backend
     {
       get
       {
-        if (Environment.OSVersion.Version.Major < 6)
+        if
+        (
+          Environment.OSVersion.Version.Major < 6
+          ! && DoIgnoreMaxLegacyEndpointCount
+        )
         {
           return WindowsNT5MaxEndpointCount;
         }
