@@ -31,7 +31,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     );
 
     List<RepeaterModel> GetRange(List<uint?> idList);
-    void Insert(RepeaterModel repeaterModel);
+    void Insert(RepeaterModel model);
 
     void Insert
     (
@@ -67,7 +67,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       string deviceName
     );
 
-    void Update(RepeaterModel repeaterModel);
+    void Update(RepeaterModel model);
 
     void Update
     (

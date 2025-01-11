@@ -16,12 +16,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <summary>
     /// The list of actual devices.
     /// </summary>
-    private List<MMDevice> MMDeviceList;
+    private List<MMDevice> List;
 
     /// <summary>
     /// The enumerator of actual devices.
     /// </summary>
-    private MMDeviceEnumerator mMDeviceEnumerator;
+    private MMDeviceEnumerator Enumerator;
 
     #endregion
 
@@ -33,23 +33,23 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     [ExcludeFromCodeCoverage]
     public MMDeviceRepository()
     {
-      mMDeviceEnumerator = new MMDeviceEnumerator();
+      Enumerator = new MMDeviceEnumerator();
       Update();
     }
 
     /// <summary>
     /// Disable an actual device.
     /// </summary>
-    /// <param name="mMDevice">the actual device</param>
-    private void Disable(MMDevice mMDevice)
+    /// <param name="model">the actual device</param>
+    private void Disable(MMDevice model)
     {
-      if (mMDevice is null)
+      if (model is null)
       {
         Debug.WriteLine("Failed to get audio device. Audio device is null.");
         return;
       }
 
-      if (mMDevice.State == DeviceState.Disabled)
+      if (model.State == DeviceState.Disabled)
       {
         Debug
           .WriteLine
@@ -58,14 +58,14 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
             .Format
             (
               "Audio {0} device is already disabled.",
-              mMDevice.FriendlyName
+              model.FriendlyName
             )
           );
 
         return;
       }
 
-      mMDevice
+      model
         .AudioClient
         .Stop();
 
@@ -76,12 +76,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
           .Format
           (
             "Audio {0} device disabled.",
-            mMDevice.FriendlyName
+            model.FriendlyName
           )
         );
 
 
-      mMDevice
+      model
         .AudioClient
         .Reset();
 
@@ -89,7 +89,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         .WriteLine
         ("Reset audio devices.");
 
-      mMDevice
+      model
         .AudioSessionManager
         .RefreshSessions();
 
@@ -101,16 +101,16 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <summary>
     /// Enable an actual device.
     /// </summary>
-    /// <param name="mMDevice">the actual device</param>
-    private void Enable(MMDevice mMDevice)
+    /// <param name="model">the actual device</param>
+    private void Enable(MMDevice model)
     {
-      if (mMDevice is null)
+      if (model is null)
       {
         Debug.WriteLine("Failed to get audio device. Audio device is null.");
         return;
       }
 
-      if (mMDevice.State != DeviceState.Disabled)
+      if (model.State != DeviceState.Disabled)
       {
         Debug
           .WriteLine
@@ -119,14 +119,14 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
             .Format
             (
               "Audio {0} device is already enabled.",
-              mMDevice.FriendlyName
+              model.FriendlyName
             )
           );
 
         return;
       }
 
-      mMDevice
+      model
         .AudioClient
         .Start();
 
@@ -137,11 +137,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
           .Format
           (
             "Audio {0} device enabled.",
-            mMDevice.FriendlyName
+            model.FriendlyName
           )
         );
 
-      mMDevice
+      model
         .AudioSessionManager
         .RefreshSessions();
 
@@ -168,10 +168,10 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return null;
       }
 
-      MMDevice mMDevice = MMDeviceList
+      MMDevice model = List
         .FirstOrDefault(x => x.ID == id);
 
-      if (mMDevice is null)
+      if (model is null)
       {
         Debug.WriteLine("Audio device is null.");
       }
@@ -183,12 +183,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
           string.Format
           (
             "Got audio device\t=> ID: {0}",
-            mMDevice.ID
+            model.ID
           )
         );
       }
 
-      return mMDevice;
+      return model;
     }
 
     /// <summary>
@@ -199,8 +199,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     {
       if
       (
-        MMDeviceList is null
-        || MMDeviceList.Count == 0
+        List is null
+        || List.Count == 0
       )
       {
         Debug.WriteLine
@@ -217,11 +217,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Got audio device(s) => Count: {0}",
-          MMDeviceList.Count()
+          List.Count()
         )
       );
 
-      return MMDeviceList;
+      return List;
     }
 
     /// <summary>
@@ -232,8 +232,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     {
       if
       (
-        MMDeviceList is null
-        || MMDeviceList.Count == 0
+        List is null
+        || List.Count == 0
       )
       {
         Debug.WriteLine
@@ -250,7 +250,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Got audio disabled device(s) => Count: {0}",
-          MMDeviceList
+          List
             .Where
             (
               x =>
@@ -259,7 +259,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         )
       );
 
-      return MMDeviceList;
+      return List;
     }
 
     /// <summary>
@@ -270,8 +270,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     {
       if
       (
-        MMDeviceList is null
-        || MMDeviceList.Count == 0
+        List is null
+        || List.Count == 0
       )
       {
         Debug.WriteLine
@@ -288,7 +288,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Got audio enabled device(s) => Count: {0}",
-          MMDeviceList
+          List
             .Where
             (
               x =>
@@ -297,7 +297,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         )
       );
 
-      return MMDeviceList;
+      return List;
     }
 
     /// <summary>
@@ -311,8 +311,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       (
         idList is null
         || idList.Count == 0
-        || MMDeviceList is null
-        || MMDeviceList.Count == 0
+        || List is null
+        || List.Count == 0
       )
       {
         Debug.WriteLine
@@ -325,13 +325,13 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return new List<MMDevice>();
       }
 
-      List<MMDevice> mMDeviceList = new List<MMDevice>();
+      List<MMDevice> modelList = new List<MMDevice>();
 
       idList
         .ForEach
         (
           id =>
-          mMDeviceList
+          modelList
             .Add(Get(id))
         );
 
@@ -340,11 +340,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Got audio device(s) => Count: {0}",
-          mMDeviceList.Count()
+          modelList.Count()
         )
       );
 
-      return mMDeviceList;
+      return modelList;
     }
 
     /// <summary>
@@ -353,8 +353,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <param name="id">the actual device ID</param>
     public void Disable(string id)
     {
-      MMDevice mMDevice = Get(id);
-      Disable(mMDevice);
+      MMDevice model = Get(id);
+      Disable(model);
     }
 
     /// <summary>
@@ -363,8 +363,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <param name="id">the actual device ID</param>
     public void Enable(string id)
     {
-      MMDevice mMDevice = Get(id);
-      Enable(mMDevice);
+      MMDevice model = Get(id);
+      Enable(model);
     }
 
     /// <summary>
@@ -372,7 +372,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// </summary>
     public void Update()
     {
-      MMDeviceList = mMDeviceEnumerator
+      List = Enumerator
         .EnumerateAudioEndPoints
         (
           DataFlow.All,

@@ -14,25 +14,28 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <summary>
     /// The collection of repeaters.
     /// </summary>
-    private HashSet<RepeaterModel> RepeaterModelHashSet;
+    private HashSet<RepeaterModel> HashSet;
 
     /// <summary>
-    /// The list of repeater IDs.
+    /// The list of IDs.
     /// </summary>
     private List<uint> IdList
     {
       get
       {
-        List<uint> list =
-          RepeaterModelHashSet
+        List<uint> idList =
+          HashSet
             .Select(x => x.Id)
             .ToList();
 
-        list.Sort();
-        return list;
+        idList.Sort();
+        return idList;
       }
     }
 
+    /// <summary>
+    /// The max ID.
+    /// </summary>
     private uint MaxId
     {
       get
@@ -41,16 +44,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       }
     }
 
-    private uint MaxProcessId
-    { 
-      get
-      {
-        return uint.MaxValue;
-      }
-    }
-
     /// <summary>
-    /// The next valid repeater ID.
+    /// The next valid ID.
     /// </summary>
     private uint NextId
     {
@@ -74,20 +69,20 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     [ExcludeFromCodeCoverage]
     public RepeaterRepository()
     {
-      RepeaterModelHashSet = new HashSet<RepeaterModel>();
+      HashSet = new HashSet<RepeaterModel>();
     }
 
     /// <summary>
     /// Does repeater contain device.
     /// </summary>
-    /// <param name="repeaterModel">The repeater</param>
+    /// <param name="model">The repeater</param>
     /// <param name="deviceName">The device name</param>
     /// <param name="isInputDevice">True/false is input device</param>
     /// <param name="isOutputDevice">True/false is output device</param>
     /// <returns>True/false does repeater contain device.</returns>
     private bool RepeaterContainsDevice
     (
-      RepeaterModel repeaterModel,
+      RepeaterModel model,
       string deviceName,
       bool isInputDevice,
       bool isOutputDevice
@@ -96,7 +91,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       if
       (
         isInputDevice
-        && repeaterModel.InputDeviceName == deviceName
+        && model.InputDeviceName == deviceName
       )
       {
         Debug.WriteLine
@@ -114,7 +109,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       else if
       (
         isOutputDevice
-        && repeaterModel.OutputDeviceName == deviceName
+        && model.OutputDeviceName == deviceName
       )
       {
         Debug.WriteLine
@@ -131,8 +126,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 
       else if
       (
-        repeaterModel.InputDeviceName == deviceName
-        || repeaterModel.OutputDeviceName == deviceName
+        model.InputDeviceName == deviceName
+        || model.OutputDeviceName == deviceName
       )
       {
         Debug.WriteLine
@@ -168,10 +163,10 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return null;
       }
 
-      RepeaterModel repeaterModel = RepeaterModelHashSet
+      RepeaterModel model = HashSet
         .FirstOrDefault(x => x.Id == id);
 
-      if (repeaterModel is null)
+      if (model is null)
       {
         Debug.WriteLine("Repeater is null.");
       }
@@ -183,12 +178,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
           string.Format
           (
             "Got repeater\t=> Id: {0}",
-            repeaterModel.Id
+            model.Id
           )
         );
       }
 
-      return repeaterModel;
+      return model;
     }
 
     /// <summary>
@@ -218,7 +213,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return null;
       }
 
-      RepeaterModel repeaterModel = RepeaterModelHashSet
+      RepeaterModel model = HashSet
         .FirstOrDefault
         (
           x =>
@@ -231,7 +226,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
           )
         );
 
-      if (repeaterModel is null)
+      if (model is null)
       {
         Debug.WriteLine("Repeater is null.");
       }
@@ -243,12 +238,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
           string.Format
           (
             "Got repeater\t=> Id: {0}",
-            repeaterModel.Id
+            model.Id
           )
         );
       }
 
-      return repeaterModel;
+      return model;
     }
 
     /// <summary>
@@ -257,7 +252,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <returns>The repeater list.</returns>
     public List<RepeaterModel> GetAll()
     {
-      if (RepeaterModelHashSet is null)
+      if (HashSet is null)
       {
         Debug.WriteLine("Failed to get repeater(s). Repeater collection is null.");
         return new List<RepeaterModel>();
@@ -268,11 +263,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Got repeater(s) => Count: {0}",
-          RepeaterModelHashSet.Count()
+          HashSet.Count()
         )
       );
 
-      return RepeaterModelHashSet.ToList();
+      return HashSet.ToList();
     }
 
     /// <summary>
@@ -295,9 +290,9 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return new List<RepeaterModel>();
       }
 
-      List<RepeaterModel> repeaterModelList = new List<RepeaterModel>();
+      List<RepeaterModel> modelList = new List<RepeaterModel>();
 
-      RepeaterModelHashSet
+      HashSet
         .ToList()
         .ForEach
         (
@@ -314,7 +309,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
               )
             )
             {
-              repeaterModelList.Add(x);
+              modelList.Add(x);
             }
           }
         );
@@ -324,11 +319,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Got repeater(s) => Count: {0}",
-          repeaterModelList.Count()
+          modelList.Count()
         )
       );
 
-      return repeaterModelList;
+      return modelList;
     }
 
     /// <summary>
@@ -340,8 +335,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     {
       if
       (
-        RepeaterModelHashSet is null
-        || RepeaterModelHashSet.Count == 0
+        HashSet is null
+        || HashSet.Count == 0
         || idList is null
         || idList.Count == 0
       )
@@ -356,13 +351,13 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return new List<RepeaterModel>();
       }
 
-      List<RepeaterModel> repeaterModelList = new List<RepeaterModel>();
+      List<RepeaterModel> modelList = new List<RepeaterModel>();
 
       idList
         .ForEach
         (
           id =>
-          repeaterModelList
+          modelList
             .Add(Get(id))
         );
 
@@ -371,26 +366,26 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Got repeater(s) => Count: {0}",
-          repeaterModelList.Count()
+          modelList.Count()
         )
       );
 
-      return repeaterModelList;
+      return modelList;
     }
 
     /// <summary>
     /// Insert a repeater.
     /// </summary>
-    /// <param name="repeaterModel">The repeater</param>
-    public void Insert(RepeaterModel repeaterModel)
+    /// <param name="model">The repeater</param>
+    public void Insert(RepeaterModel model)
     {
-      if (repeaterModel is null)
+      if (model is null)
       {
         Debug.WriteLine("Failed to insert repeater. Repeater is null.");
         return;
       }
 
-      if (RepeaterModelHashSet.Count() >= Global.MaxRepeaterCount)
+      if (HashSet.Count() >= Global.MaxRepeaterCount)
       {
         Console.WriteLine
         (
@@ -404,7 +399,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return;
       }
 
-      uint id = repeaterModel.Id;
+      uint id = model.Id;
 
       if (IdList.Contains(id))
       {
@@ -420,7 +415,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         id = NextId;
       }
 
-      if (!RepeaterModelHashSet.Add(repeaterModel))
+      if (!HashSet.Add(model))
       {
         Debug.WriteLine
         (
@@ -477,7 +472,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       ushort bufferDurationMs
     )
     {
-      RepeaterModel repeaterModel = new RepeaterModel
+      RepeaterModel model = new RepeaterModel
       (
         id,
         inputDeviceId,
@@ -491,13 +486,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         InputDeviceName = inputDeviceName,
         OutputDeviceName = outputDeviceName,
         PathName = pathName,
-        WindowName = windowName,
         ChannelMask = channelMask,
         SampleRateKHz = sampleRateKHz,
         BufferDurationMs = bufferDurationMs
       };
 
-      Insert(repeaterModel);
+      Insert(model);
     }
 
     /// <summary>
@@ -512,7 +506,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return;
       }
 
-      int count = RepeaterModelHashSet
+      int count = HashSet
         .RemoveWhere(x => x.Id == id);
 
       if (count == 0)
@@ -550,20 +544,20 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       uint? secondDeviceId
     )
     {
-      RepeaterModel repeaterModel = Get
+      RepeaterModel model = Get
       (
         firstDeviceId,
         secondDeviceId
       );
 
-      if (repeaterModel is null)
+      if (model is null)
       {
         Debug.WriteLine("Failed to remove repeater. Repeater is null.");
         return;
       }
 
-      int count = RepeaterModelHashSet
-        .RemoveWhere(x => x.Id == repeaterModel.Id);
+      int count = HashSet
+        .RemoveWhere(x => x.Id == model.Id);
 
       if (count == 0)
       {
@@ -608,7 +602,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return;
       }
 
-      int count = RepeaterModelHashSet
+      int count = HashSet
         .RemoveWhere
         (
           x =>
@@ -644,10 +638,10 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <summary>
     /// Update a repeater.
     /// </summary>
-    /// <param name="repeaterModel">The repeater to update.</param>
-    public void Update(RepeaterModel repeaterModel)
+    /// <param name="model">The repeater to update.</param>
+    public void Update(RepeaterModel model)
     {
-      if (repeaterModel is null)
+      if (model is null)
       {
         Debug.WriteLine("Failed to update repeater. Repeater is null.");
         return;
@@ -655,9 +649,9 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 
       if
       (
-        RepeaterModelHashSet
+        HashSet
           .RemoveWhere
-          (x => x.Id == repeaterModel.Id) == 0
+          (x => x.Id == model.Id) == 0
       )
       {
         Debug.WriteLine
@@ -665,21 +659,21 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
           string.Format
           (
             "Failed to update repeater. Repeater does not exist\t=> Id: {0}",
-            repeaterModel.Id
+            model.Id
           )
         );
 
         return;
       }
 
-      if (!RepeaterModelHashSet.Add(repeaterModel))
+      if (!HashSet.Add(model))
       {
         Debug.WriteLine
         (
           string.Format
           (
             "Failed to update repeater\t=> Id: {0}",
-            repeaterModel.Id
+            model.Id
           )
         );
 
@@ -691,7 +685,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         string.Format
         (
           "Updated repeater\t=> Id: {0}",
-          repeaterModel.Id
+          model.Id
         )
       );
     }
@@ -729,7 +723,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       ushort bufferDurationMs
     )
     {
-      RepeaterModel repeaterModel = new RepeaterModel
+      RepeaterModel model = new RepeaterModel
       (
         id,
         inputDeviceId,
@@ -743,13 +737,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         InputDeviceName = inputDeviceName,
         OutputDeviceName = outputDeviceName,
         PathName = pathName,
-        WindowName = windowName,
         ChannelMask = channelMask,
         SampleRateKHz = sampleRateKHz,
         BufferDurationMs = bufferDurationMs
       };
 
-      Update(repeaterModel);
+      Update(model);
     }
 
     #endregion
