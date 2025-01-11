@@ -28,9 +28,9 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
 
     #region Logic
 
-    Task<int> Restart();
-    Task<int> Start();
-    Task<int> Stop();
+    int Restart();
+    int Start();
+    int Stop();
     void Update();
 
     #endregion
