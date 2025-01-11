@@ -2,8 +2,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using AudioRepeaterManager.NET8_0.Backend.Extensions;
 using AudioRepeaterManager.NET8_0.Backend.Structs;
 
 namespace AudioRepeaterManager.NET8_0.Backend.Models
@@ -17,40 +15,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     public byte defaultBitsPerSample = BitsPerSampleOptions[2];
     public byte defaultBufferAmount = BufferOptions[2];
     public byte defaultPrefillPercentage = PrefillOptions[2];
-    public byte defaultResyncAtPercentage = ResyncAtOptions[3];
-
-    /// <summary>
-    /// The window name.
-    /// </summary>
-    public string WindowName
-    { 
-      get
-      {
-        int startIndex = 0;
-        int maxLength = 30;
-
-        return string.Format
-          (
-            "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
-            id.ToString(),
-            inputDeviceId.ToString(),
-            outputDeviceId.ToString(),
-
-            inputDeviceName.Substring
-              (
-                startIndex,
-                maxLength
-              ),
-
-            outputDeviceName.Substring
-              (
-                startIndex,
-                maxLength
-              )
-          );
-      }
-    }
-    
+    public byte defaultResyncAtPercentage = ResyncAtOptions[3];    
     public uint defaultSampleRateKHz = SampleRateOptions[5];
     public ushort defaultBufferDurationMs = BufferMsOptions[2];
 
@@ -70,7 +35,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     private string inputDeviceName;
     private string outputDeviceName;
     private string pathName;
-    private uint processId;
     private uint sampleRateKHz;
     private ushort bufferDurationMs;
 
@@ -407,6 +371,38 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     }
 
     /// <summary>
+    /// The window name.
+    /// </summary>
+    public string WindowName
+    {
+      get
+      {
+        int startIndex = 0;
+        int maxLength = 30;
+
+        return string.Format
+          (
+            "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
+            id.ToString(),
+            inputDeviceId.ToString(),
+            outputDeviceId.ToString(),
+
+            inputDeviceName.Substring
+              (
+                startIndex,
+                maxLength
+              ),
+
+            outputDeviceName.Substring
+              (
+                startIndex,
+                maxLength
+              )
+          );
+      }
+    }
+
+    /// <summary>
     /// The mask of the current configuration of Channels.
     /// </summary>
     public uint ChannelMask
@@ -685,8 +681,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <param name="propertyList">The property list</param>
     /// <param name="resyncAtPercentage">The resync at percentage</param>
     /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
-    /// <param name="startCommand">The start command</param>
-    /// <param name="stopCommand">The stop command</param>
+    /// <param name="startArguments">The start arguments</param>
+    /// <param name="stopArguments">The stop arguments</param>
     /// <param name="windowName">The window name</param>
     [ExcludeFromCodeCoverage]
     public void Deconstruct
@@ -703,8 +699,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       out string inputDeviceName,
       out string outputDeviceName,
       out string pathName,
-      out string startCommand,
-      out string stopCommand,
+      out string startArguments,
+      out string stopArguments,
       out string windowName,
       out uint channelMask,
       out uint sampleRateKHz,
@@ -726,8 +722,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       propertyList = PropertyList;
       resyncAtPercentage = ResyncAtPercentage;
       sampleRateKHz = SampleRateKHz;
-      startCommand = StartArguments;
-      stopCommand = StopArguments;
+      startArguments = StartArguments;
+      stopArguments = StopArguments;
       windowName = WindowName;
     }
 
