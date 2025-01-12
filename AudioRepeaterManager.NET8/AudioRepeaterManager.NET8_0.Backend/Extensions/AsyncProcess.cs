@@ -12,7 +12,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Extensions
     /// <param name="fileName">the executable file name</param>
     /// <param name="arguments">the arguments</param>
     /// <returns>The async task.</returns>
-    public static async Task<int> RunProcessAsync
+    public static async Task<int> RunAsync
     (
       string fileName,
       string arguments
@@ -37,8 +37,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Extensions
           }
         )
       {
-        return await RunProcessAsync(process)
-          .ConfigureAwait(false); //TODO: determine TaskStatus after start of process.
+        return await RunAsync(process)
+          .ConfigureAwait(false);
       }
     }
 
@@ -47,7 +47,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Extensions
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The task.</returns>
-    private static Task<int> RunProcessAsync(Process process)
+    private static Task<int> RunAsync(Process process)
     {
       TaskCompletionSource<int> taskCompletionSource = new TaskCompletionSource<int>();
 
