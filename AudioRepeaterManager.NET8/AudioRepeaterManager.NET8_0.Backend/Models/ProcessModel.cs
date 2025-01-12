@@ -39,8 +39,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       }
     }
 
-    private string startArguments { get; set; } = string.Empty;
-    private string stopArguments { get; set; } = string.Empty;
+    private string? startArguments { get; set; } = string.Empty;
+    private string? stopArguments { get; set; } = string.Empty;
     private string fileName { get; set; } = string.Empty;
 
     /// <summary>
@@ -82,7 +82,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <summary>
     /// The start arguments.
     /// </summary>
-    public string StartArguments
+    public string? StartArguments
     {
       get
       {
@@ -98,7 +98,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <summary>
     /// The stop arguments.
     /// </summary>
-    public string StopArguments
+    public string? StopArguments
     {
       get
       {
@@ -151,6 +151,32 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="fileName">the file name</param>
+    [ExcludeFromCodeCoverage]
+    public ProcessModel(string fileName)
+    {
+      FileName = fileName;
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="fileName">the file name</param>
+    /// <param name="startArguments">the start arguments</param>
+    [ExcludeFromCodeCoverage]
+    public ProcessModel
+    (
+      string fileName,
+      string startArguments
+    )
+    {
+      FileName = fileName;
+      StartArguments = startArguments;
+    }
 
     /// <summary>
     /// Constructor
@@ -265,7 +291,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     }
 
     /// <summary>
-    /// Restart the application.
+    /// Restart the process.
     /// </summary>
     /// <returns>The exit code.</returns>
     public async Task<int> Restart()
@@ -278,7 +304,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         (
           string.Format
           (
-            "Failed to restart the application\t=> Id: {0}",
+            "Failed to restart the process\t=> Id: {0}",
             id
           )
         );
@@ -294,7 +320,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         (
           string.Format
           (
-            "Failed to restart the application\t=> Id: {0}",
+            "Failed to restart the process\t=> Id: {0}",
             id
           )
         );
@@ -306,7 +332,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         (
           string.Format
           (
-            "Restarted the application\t=> Id: {0}",
+            "Restarted the process\t=> Id: {0}",
             id
           )
         );
@@ -316,7 +342,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     }
 
     /// <summary>
-    /// Start the application.
+    /// Start the process.
     /// </summary>
     /// <returns>The exit code.</returns>
     public async Task<int> Start()
@@ -331,7 +357,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         (
           string.Format
           (
-            "Failed to start the application\t=> Id: {0}",
+            "Failed to start the process\t=> Id: {0}",
             id
           )
         );
@@ -343,7 +369,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         (
           string.Format
           (
-            "Started the application\t=> Id: {0}",
+            "Started the process\t=> Id: {0}",
             id
           )
         );
@@ -353,14 +379,26 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     }
 
     /// <summary>
-    /// Stop the application.
+    /// Stop the process.
     /// </summary>
     /// <returns>The exit code.</returns>
     public async Task<int> Stop()
     {
-      process.StartInfo.Arguments = StopArguments;
-      var result = await RunAsync();
-      Update();
+      int result = 1;
+
+      if (string.IsNullOrWhiteSpace(StopArguments))
+      {
+        process.Kill();
+        Update();
+        result = Convert.ToInt32(IsRunning);
+      }
+
+      else
+      {
+        process.StartInfo.Arguments = StopArguments;
+        result = await RunAsync();
+        Update();
+      }
 
       if (IsRunning)
       {
@@ -368,7 +406,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         (
           string.Format
           (
-            "Failed to stop the application\t=> Id: {0}",
+            "Failed to stop the process\t=> Id: {0}",
             id
           )
         );
@@ -380,7 +418,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         (
           string.Format
           (
-            "Stopped the application\t=> Id: {0}",
+            "Stopped the process\t=> Id: {0}",
             id
           )
         );

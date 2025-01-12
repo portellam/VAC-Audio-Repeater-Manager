@@ -13,8 +13,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
 
     bool IsRunning { get; }
     event PropertyChangedEventHandler? PropertyChanged;
-    string StartArguments { get; set; }
-    string StopArguments { get; set; }
+    string? StartArguments { get; set; }
+    string? StopArguments { get; set; }
     string FileName { get; set; }
     string Priority { get; }
 
