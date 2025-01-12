@@ -39,7 +39,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       }
     }
 
-    private string arguments { get; set; } = string.Empty;
+    private string startArguments { get; set; } = string.Empty;
+    private string stopArguments { get; set; } = string.Empty;
     private string fileName { get; set; } = string.Empty;
 
     /// <summary>
@@ -79,25 +80,34 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
-    /// The process arguments.
+    /// The start arguments.
     /// </summary>
-    public string Arguments
+    public string StartArguments
     {
       get
       {
-        return arguments;
+        return startArguments;
       }
       set
       {
-        arguments = value;
+        startArguments = value;
+        OnPropertyChanged(nameof(StartArguments));
+      }
+    }
 
-        if (process is not null)
-        {
-          process.StartInfo.Arguments = arguments;
-          OnPropertyChanged(nameof(process));
-        }
-
-        OnPropertyChanged(nameof(Arguments));
+    /// <summary>
+    /// The stop arguments.
+    /// </summary>
+    public string StopArguments
+    {
+      get
+      {
+        return stopArguments;
+      }
+      set
+      {
+        stopArguments = value;
+        OnPropertyChanged(nameof(StopArguments));
       }
     }
 
@@ -146,16 +156,19 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// Constructor
     /// </summary>
     /// <param name="fileName">the file name</param>
-    /// <param name="arguments">the arguments</param>
+    /// <param name="startArguments">the start arguments</param>
+    /// <param name="stopArguments">the stop arguments</param>
     [ExcludeFromCodeCoverage]
     public ProcessModel
     (
       string fileName,
-      string arguments
+      string startArguments,
+      string stopArguments
     )
     {
       FileName = fileName;
-      Arguments = arguments;
+      StartArguments = startArguments;
+      StopArguments = stopArguments;
     }
 
     /// <summary>
@@ -308,6 +321,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <returns>The exit code.</returns>
     public async Task<int> Start()
     {
+      process.StartInfo.Arguments = StartArguments;
       var result = await RunAsync();
       Update();
 
@@ -344,6 +358,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <returns>The exit code.</returns>
     public async Task<int> Stop()
     {
+      process.StartInfo.Arguments = StopArguments;
       var result = await RunAsync();
       Update();
 
