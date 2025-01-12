@@ -386,7 +386,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     {
       int result = 1;
 
-      if (string.IsNullOrWhiteSpace(StopArguments))
+      if
+      (
+        string.IsNullOrEmpty(StopArguments)
+        || string.IsNullOrWhiteSpace(StopArguments)
+      )
       {
         process.Kill();
         Update();
