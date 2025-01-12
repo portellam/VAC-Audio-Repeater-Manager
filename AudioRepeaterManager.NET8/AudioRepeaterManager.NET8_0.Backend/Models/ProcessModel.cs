@@ -2,6 +2,12 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
+/*
+ * TODO:
+ * - add performance counter logic?
+ * - have it be a separate class which monitors by process ID only?
+ */
+
 namespace AudioRepeaterManager.NET8_0.Backend.Models
 {
   public class ProcessModel :
