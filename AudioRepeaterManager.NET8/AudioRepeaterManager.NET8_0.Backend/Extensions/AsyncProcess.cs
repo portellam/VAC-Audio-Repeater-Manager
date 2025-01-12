@@ -9,42 +9,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Extensions
     /// <summary>
     /// Run process asynchronously.
     /// </summary>
-    /// <param name="fileName">the executable file name</param>
-    /// <param name="arguments">the arguments</param>
-    /// <returns>The async task.</returns>
-    public static async Task<int> RunAsync
-    (
-      string fileName,
-      string arguments
-    )
-    {
-      using
-        (
-          var process = new Process()
-          {
-            StartInfo =
-            {
-              Arguments = arguments,
-              CreateNoWindow = true,
-              FileName = fileName,
-              RedirectStandardError = true,
-              RedirectStandardOutput = true,
-              UseShellExecute = false,
-              WindowStyle = ProcessWindowStyle.Hidden,
-            },
-
-            EnableRaisingEvents = true
-          }
-        )
-      {
-        return await RunAsync(process)
-          .ConfigureAwait(false);
-      }
-    }
-
-    /// <summary>
-    /// Run process asynchronously.
-    /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The task.</returns>
     private static Task<int> RunAsync(Process process)
@@ -86,6 +50,42 @@ namespace AudioRepeaterManager.NET8_0.Backend.Extensions
       }
 
       return taskCompletionSource.Task;
+    }
+
+    /// <summary>
+    /// Run process asynchronously.
+    /// </summary>
+    /// <param name="fileName">the executable file name</param>
+    /// <param name="arguments">the arguments</param>
+    /// <returns>The async task.</returns>
+    public static async Task<int> RunAsync
+    (
+      string fileName,
+      string arguments
+    )
+    {
+      using
+        (
+          var process = new Process()
+          {
+            StartInfo =
+            {
+              Arguments = arguments,
+              CreateNoWindow = true,
+              FileName = fileName,
+              RedirectStandardError = true,
+              RedirectStandardOutput = true,
+              UseShellExecute = false,
+              WindowStyle = ProcessWindowStyle.Hidden,
+            },
+
+            EnableRaisingEvents = true
+          }
+        )
+      {
+        return await RunAsync(process)
+          .ConfigureAwait(false);
+      }
     }
 
     #endregion
