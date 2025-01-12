@@ -27,6 +27,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     byte PrefillPercentage { get; set; }
     byte ResyncAtPercentage { get; set; }
     List<Channel> ChannelList { get; set; }
+    ProcessModel ProcessModel { get; }
     string InputDeviceName { get; set; }
     string OutputDeviceName { get; set; }
     string PathName { get; set; }
@@ -52,6 +53,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       out byte resyncAtPercentage,
       out ChannelConfig channelConfig,
       out List<string> propertyList,
+      out ProcessModel processModel,
       out string inputDeviceName,
       out string outputDeviceName,
       out string pathName,
@@ -64,6 +66,9 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     );
 
     string ToString();
+    Task<int> Restart();
+    Task<int> Start();
+    Task<int> Stop();
     void Set(List<string> infoList);
 
     #endregion
