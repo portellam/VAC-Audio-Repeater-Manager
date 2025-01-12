@@ -11,7 +11,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
   {
     #region Parameters
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
     /// The list of actual devices.

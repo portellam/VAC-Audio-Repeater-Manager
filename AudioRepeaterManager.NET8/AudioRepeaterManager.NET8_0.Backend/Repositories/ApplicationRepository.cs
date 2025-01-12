@@ -47,7 +47,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public List<ApplicationModel> List
     {
@@ -256,7 +256,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
             ApplicationModel model = new ApplicationModel
               (
                 NextId,
-                x.Id
+                x
               );
 
             list.Add(model);

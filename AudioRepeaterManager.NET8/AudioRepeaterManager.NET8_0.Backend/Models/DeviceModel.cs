@@ -130,7 +130,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public string Name
     {
