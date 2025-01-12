@@ -11,12 +11,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
   {
     #region Parameters
 
-    private uint id;
-    private string actualId;
-    private bool? isInput;
-    private bool? isOutput;
-    private bool? isPresent;
-    private string name;
+    private uint id { get; set; }
+    private string actualId { get; set; }
+    private bool? isInput { get; set; }
+    private bool? isOutput { get; set; }
+    private bool? isPresent { get; set; }
+    private string name { get; set; }
 
     /// <summary>
     /// Primary Key
