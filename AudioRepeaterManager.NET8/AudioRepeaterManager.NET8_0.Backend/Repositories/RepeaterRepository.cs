@@ -17,6 +17,21 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     private HashSet<RepeaterModel> HashSet;
 
     /// <summary>
+    /// The list of executables.
+    /// </summary>
+    private List<string> ExecutableNameList
+    {
+      get
+      {
+        return new List<string>
+        {
+          Global.KSExecutableName,
+          Global.MMEExecutableName,
+        };
+      }
+    }
+
+    /// <summary>
     /// The list of IDs.
     /// </summary>
     private List<uint> IdList
@@ -56,8 +71,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return id;
       }
     }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     #endregion
 
