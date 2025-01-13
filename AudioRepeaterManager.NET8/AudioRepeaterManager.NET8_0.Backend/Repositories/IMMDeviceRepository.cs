@@ -1,16 +1,9 @@
 ﻿using NAudio.CoreAudioApi;
-using System.ComponentModel;
 
 namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 {
   public interface IMMDeviceRepository
   {
-    #region Parameters
-
-    event PropertyChangedEventHandler PropertyChanged;
-
-    #endregion
-
     #region Logic
 
     List<MMDevice> GetAll();

@@ -16,17 +16,17 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <summary>
     /// The controller of actual devices.
     /// </summary>
-    private CoreAudioController CoreAudioController;
+    private CoreAudioController CoreAudioController { get; set; }
 
     /// <summary>
     /// The collection of devices.
     /// </summary>
-    private HashSet<DeviceModel> HashSet;
+    private HashSet<DeviceModel> HashSet { get; set; }
 
     /// <summary>
     /// The collection of actual devices.
     /// </summary>
-    private MMDeviceRepository MMDeviceRepository;
+    private MMDeviceRepository MMDeviceRepository { get; set; }
 
     /// <summary>
     /// The list of IDs.
@@ -176,6 +176,28 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       return deviceState == DeviceState.Active
         || deviceState == DeviceState.Disabled
         || deviceState == DeviceState.Unplugged;
+    }
+
+    /// <summary>
+    /// Logs event when property has changed.
+    /// </summary>
+    /// <param name="propertyName">The property name</param>
+    private void OnPropertyChanged(string propertyName)
+    {
+      PropertyChanged?.Invoke
+      (
+        this,
+        new PropertyChangedEventArgs(propertyName)
+      );
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "PropertyChanged: {0}",
+          propertyName
+        )
+      );
     }
 
     /// <summary>

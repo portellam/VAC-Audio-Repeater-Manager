@@ -1,27 +1,22 @@
 ﻿using NAudio.CoreAudioApi;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 {
-  public class MMDeviceRepository :
-    IMMDeviceRepository,
-    INotifyPropertyChanged
+  public class MMDeviceRepository : IMMDeviceRepository
   {
     #region Parameters
-
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
     /// The list of actual devices.
     /// </summary>
-    private List<MMDevice> List;
+    private List<MMDevice> List { get; set; }
 
     /// <summary>
     /// The enumerator of actual devices.
     /// </summary>
-    private MMDeviceEnumerator Enumerator;
+    private MMDeviceEnumerator Enumerator { get; set; }
 
     #endregion
 

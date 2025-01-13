@@ -1,16 +1,9 @@
-﻿using System.ComponentModel;
-using AudioRepeaterManager.NET8_0.Backend.Models;
+﻿using AudioRepeaterManager.NET8_0.Backend.Models;
 
 namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 {
   public interface IRepeaterRepository
   {
-    #region Parameters
-
-    event PropertyChangedEventHandler PropertyChanged;
-
-    #endregion
-
     #region Logic
 
     RepeaterModel Get(uint? id);

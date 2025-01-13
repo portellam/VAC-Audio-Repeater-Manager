@@ -1,20 +1,17 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using AudioRepeaterManager.NET8_0.Backend.Models;
 
 namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 {
-  public class RepeaterRepository :
-    INotifyPropertyChanged,
-    IRepeaterRepository
+  public class RepeaterRepository : IRepeaterRepository
   {
     #region Parameters
 
     /// <summary>
     /// The collection of repeaters.
     /// </summary>
-    private HashSet<RepeaterModel> HashSet;
+    private HashSet<RepeaterModel> HashSet { get; set; }
 
     /// <summary>
     /// The list of executables.
