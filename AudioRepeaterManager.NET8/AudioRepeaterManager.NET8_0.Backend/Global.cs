@@ -126,18 +126,40 @@ namespace AudioRepeaterManager.NET8_0.Backend
     public static bool PreferLegacyExecutable = false;
 
     /// <summary>
-    /// The name of the executable.
+    /// The name of the executable for Multi Media Extensions (MME) or legacy use-cases.
     /// </summary>
-    public static string ExecutableName
+    public static string MMEExecutableName
+    {
+      get
+      {
+        return "audiorepeater.exe";
+      }
+    }
+
+    /// <summary>
+    /// The name of the executable for Kernel Streaming (KS).
+    /// </summary>
+    public static string KSExecutableName
+    {
+      get
+      {
+        return "audiorepeater_ks.exe";
+      }
+    }
+
+    /// <summary>
+    /// The preferred name of the executable.
+    /// </summary>
+    public static string PreferredExecutableName
     {
       get
       {
         if (PreferLegacyExecutable)
         {
-          return "audiorepeater_ks.exe";
+          return MMEExecutableName;
         }
 
-        return "audiorepeater.exe";
+        return KSExecutableName;
       }
     }
 
@@ -150,10 +172,10 @@ namespace AudioRepeaterManager.NET8_0.Backend
       {
         if (doesProcessAndSystemBitMatch)
         {
-          return $"{parentPathNameForBitMatchedProcessAndSystem}{ExecutableName}";
+          return $"{parentPathNameForBitMatchedProcessAndSystem}{PreferredExecutableName}";
         }
 
-        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{ExecutableName}";
+        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{PreferredExecutableName}";
       }
     }
 
