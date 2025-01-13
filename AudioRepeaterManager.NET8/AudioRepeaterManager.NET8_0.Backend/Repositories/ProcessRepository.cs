@@ -288,30 +288,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <returns>The exit code.</returns>
     public async Task<int> Run(int id)
     {
-      int failCode = 1;
-
-      if
-      (
-        id < 0
-        || !List.Any(x => x.Id == id)
-      )
-      {
-        Debug.WriteLine
-        (
-         string.Format
-          (
-            "Failed to start process. " +
-            "Process ID is either less than zero, " +
-            "or no process matches by ID\t=> Id: {0}",
-            id
-          )
-        );
-
-        return failCode;
-      }
-
-      var process = List
-        .FirstOrDefault(x => x.Id == id);
+      Process process = Get(id);
 
       return await Run(process)
         .ConfigureAwait(false);
@@ -334,77 +311,10 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <returns>The exit code.</returns>
     public async Task<int> RunRange(List<int> idList)
     {
-      int result = 1;
+      List<Process> processList = GetRange(idList);
 
-      if
-      (
-        idList is null
-        || idList.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to run process(es). " +
-          "Process ID list is null or empty."
-        );
-
-        return result;
-      }
-
-      var taskList = idList
-        .Select
-        (
-          x =>
-          Run(x)
-        );
-
-      var resultList = await Task.WhenAll(taskList);
-
-      bool hasAnyFailed = resultList
-        .ToList()
-        .Any
-        (
-          x =>
-          x != 0
-        );
-
-      int count = idList.Count;
-
-      if (hasAnyFailed)
-      {
-        int difference = count - resultList
-          .ToList()
-          .Count
-          (
-            x =>
-            x != 0
-          );
-
-        Debug.WriteLine
-        (
-          string.Format
-          (
-            "Failed to run some process(es) => Count: {0}",
-            difference
-          )
-        );
-      }
-
-      else
-      {
-        result = 0;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Ran process(es) => Count: {0}",
-          count
-        )
-      );
-
-      return result;
+      return await RunRange(processList)
+        .ConfigureAwait(false);
     }
 
     /// <summary>
