@@ -19,10 +19,10 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     Process Get(int id);
     Task<int> Run(int id);
     Task<int> RunAll();
-    Task<int> RunRange(int id);
+    Task<int> RunRange(List<int> id);
     Task<int> Kill(int id);
     Task<int> KillAll();
-    Task<int> KillRange(int id);
+    Task<int> KillRange(List<int> id);
     void Update();
 
     #endregion

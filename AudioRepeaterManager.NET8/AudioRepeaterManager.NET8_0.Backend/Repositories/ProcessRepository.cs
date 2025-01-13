@@ -219,11 +219,191 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
+    /// Kill a process.
+    /// </summary>
+    /// <param name="process">the process</param>
+    /// <returns>The exit code.</returns>
+    private static Task<int> Kill(Process? process)
+    {
+      TaskCompletionSource<int> taskCompletionSource =
+        new TaskCompletionSource<int>();
+
+      Task<int> task;
+      int passCode = 0;
+      int failCode = 1;
+
+      if (process is null)
+      {
+        Debug.WriteLine
+        (
+          "Failed to kill process. " +
+           "The process is null."
+        );
+
+        taskCompletionSource.SetResult(passCode);
+        task = taskCompletionSource.Task;
+        return task;
+      }
+
+      process.Exited +=
+        (
+          sender,
+          arguments
+        ) => taskCompletionSource
+          .SetResult(process.ExitCode);
+
+      process.OutputDataReceived +=
+        (
+          sender,
+          arguments
+        ) => Console.WriteLine(arguments.Data);
+
+      process.ErrorDataReceived +=
+        (
+          sender,
+          arguments
+        ) => Console.WriteLine("ERR: " + arguments.Data);
+
+      process.Kill();
+
+      if (!process.HasExited)
+      {
+        Debug.WriteLine("Failed to kill process: " + process);
+        taskCompletionSource.SetResult(failCode);
+      }
+
+      else
+      {
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+      }
+
+      task = taskCompletionSource.Task;
+      return task;
+    }
+
+    /// <summary>
+    /// Kill a process.
+    /// </summary>
+    /// <param name="id">the process ID</param>
+    /// <returns>The exit code.</returns>
+    public async Task<int> Kill(int id)
+    {
+      Process process = Get(id);
+
+      return await Kill(process)
+        .ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Kill all processes.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<int> KillAll()
+    {
+      return await KillRange(List)
+        .ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Kill a list of processes.
+    /// </summary>
+    /// <param name="idList">the process ID list</param>
+    /// <returns>The exit code.</returns>
+    public async Task<int> KillRange(List<int> idList)
+    {
+      List<Process> processList = GetRange(idList);
+
+      return await KillRange(processList)
+        .ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Kill a list of processes.
+    /// </summary>
+    /// <param name="processList">the process list</param>
+    /// <returns>The exit code.</returns>
+    public async Task<int> KillRange(List<Process> processList)
+    {
+      int result = 1;
+
+      if
+      (
+        processList is null
+        || processList.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to kill process(es). " +
+          "Process list is null or empty."
+        );
+
+        return result;
+      }
+
+      var taskList = processList
+        .Select
+        (
+          x =>
+          Kill(x)
+        );
+
+      var resultList = await Task.WhenAll(taskList);
+
+      bool hasAnyFailed = resultList
+        .ToList()
+        .Any
+        (
+          x =>
+          x != 0
+        );
+
+      int count = processList.Count;
+
+      if (hasAnyFailed)
+      {
+        int difference = count - resultList
+          .ToList()
+          .Count
+          (
+            x =>
+            x != 0
+          );
+
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to kill some process(es) => Count: {0}",
+            difference
+          )
+        );
+      }
+
+      else
+      {
+        result = 0;
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Killed process(es) => Count: {0}",
+          count
+        )
+      );
+
+      return result;
+    }
+
+    /// <summary>
     /// Run a process.
     /// </summary>
     /// <param name="process">the process</param>
     /// <returns>The exit code.</returns>
-    private Task<int> Run(Process? process)
+    private static Task<int> Run(Process? process)
     {
       TaskCompletionSource<int> taskCompletionSource =
         new TaskCompletionSource<int>();
