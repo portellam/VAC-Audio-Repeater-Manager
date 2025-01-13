@@ -46,6 +46,81 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
+    /// Get a process.
+    /// </summary>
+    /// <param name="id">the process ID</param>
+    /// <returns>The process.</returns>
+    public Process Get(int id)
+    {
+      if (id < 0)
+      {
+        Debug.WriteLine
+        (
+          "Failed to get process. " +
+          "Process ID is less than zero."
+        );
+
+        return new Process();
+      }
+
+      Process? process = List
+        .FirstOrDefault(x => x.Id == id);
+
+      if (process is null)
+      {
+        Debug.WriteLine("Audio device is null.");
+        process = new Process();
+      }
+
+      else
+      {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Got audio device\t=> ID: {0}",
+            process.Id
+          )
+        );
+      }
+
+      return process;
+    }
+
+    /// <summary>
+    /// Get the list of processes.
+    /// </summary>
+    /// <returns>The list of processes.</returns>
+    public List<Process> GetAll()
+    {
+      if
+      (
+        List is null
+        || List.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to get process(es). " +
+          "Process list is null or empty."
+        );
+
+        return new List<Process>();
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Got process(es) => Count: {0}",
+          List.Count()
+        )
+      );
+
+      return List;
+    }
+
+    /// <summary>
     /// Set the process list.
     /// </summary>
     public void Update()
