@@ -10,10 +10,14 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     List<MMDevice> GetAllDisabled();
     List<MMDevice> GetAllEnabled();
     List<MMDevice> GetRange(List<string> idList);
-    MMDevice Get(string id);
+    MMDevice? Get(string id);
     void Disable(string id);
+    void DisableAll(List<string> idList);
+    void DisableRange(List<string> idList);
+    void EnableAll(List<string> idList);
+    void EnableRange(List<string> idList);
     void Enable(string id);
-    void Update();
+    void UpdateAll();
 
     #endregion
   }

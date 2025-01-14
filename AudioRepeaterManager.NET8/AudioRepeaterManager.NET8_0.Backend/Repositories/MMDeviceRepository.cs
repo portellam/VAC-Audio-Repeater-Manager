@@ -9,12 +9,12 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     #region Parameters
 
     /// <summary>
-    /// The list of actual devices.
+    /// The list of audio devices.
     /// </summary>
-    private List<MMDevice> List { get; set; }
+    private List<MMDevice> List { get; set; } = new List<MMDevice>();
 
     /// <summary>
-    /// The enumerator of actual devices.
+    /// The enumerator of audio devices.
     /// </summary>
     private MMDeviceEnumerator Enumerator { get; set; }
 
@@ -29,79 +29,23 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     public MMDeviceRepository()
     {
       Enumerator = new MMDeviceEnumerator();
-      Update();
+      UpdateAll();
     }
 
     /// <summary>
-    /// Disable an actual device.
+    /// Disable an audio device.
     /// </summary>
-    /// <param name="model">the actual device</param>
+    /// <param name="model">the audio device</param>
     private void Disable(MMDevice model)
     {
       if (model is null)
       {
-        Debug.WriteLine("Failed to get audio device. Audio device is null.");
-        return;
-      }
-
-      if (model.State == DeviceState.Disabled)
-      {
-        Debug
-          .WriteLine
+        Debug.WriteLine
           (
-            string
-            .Format
-            (
-              "Audio {0} device is already disabled.",
-              model.FriendlyName
-            )
+            "Failed to disable audio device. " +
+            "Audio device is null."
           );
 
-        return;
-      }
-
-      model
-        .AudioClient
-        .Stop();
-
-      Debug
-        .WriteLine
-        (
-          string
-          .Format
-          (
-            "Audio {0} device disabled.",
-            model.FriendlyName
-          )
-        );
-
-
-      model
-        .AudioClient
-        .Reset();
-
-      Debug
-        .WriteLine
-        ("Reset audio devices.");
-
-      model
-        .AudioSessionManager
-        .RefreshSessions();
-
-      Debug
-        .WriteLine
-        ("Refreshed audio devices.");
-    }
-
-    /// <summary>
-    /// Enable an actual device.
-    /// </summary>
-    /// <param name="model">the actual device</param>
-    private void Enable(MMDevice model)
-    {
-      if (model is null)
-      {
-        Debug.WriteLine("Failed to get audio device. Audio device is null.");
         return;
       }
 
@@ -113,7 +57,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
             string
             .Format
             (
-              "Audio {0} device is already enabled.",
+              "Audio device is already disabled\t=> Name: {0}.",
               model.FriendlyName
             )
           );
@@ -121,75 +65,203 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         return;
       }
 
-      model
-        .AudioClient
-        .Start();
-
-      Debug
-        .WriteLine
-        (
-          string
-          .Format
-          (
-            "Audio {0} device enabled.",
-            model.FriendlyName
-          )
-        );
-
-      model
-        .AudioSessionManager
-        .RefreshSessions();
-
-      Debug
-        .WriteLine
-        ("Refreshed audio devices.");
-    }
-
-    /// <summary>
-    /// Get an actual device.
-    /// </summary>
-    /// <param name="id">the actual device ID</param>
-    /// <returns>The actual device.</returns>
-    public MMDevice Get(string id)
-    {
-      if (string.IsNullOrWhiteSpace(id))
+      try
       {
-        Debug.WriteLine
-        (
-          "Failed to get audio device. " +
-          "Actual device ID is either null or whitespace."
-        );
-
-        return null;
+        model.AudioClient
+          .Start();
       }
-
-      MMDevice model = List
-        .FirstOrDefault(x => x.ID == id);
-
-      if (model is null)
-      {
-        Debug.WriteLine("Audio device is null.");
-      }
-
-      else
+      catch
       {
         Debug.WriteLine
         (
           string.Format
           (
-            "Got audio device\t=> ID: {0}",
-            model.ID
+            "Failed to disable audio device\t=> Name: {0}.",
+            model.FriendlyName
           )
         );
+
+        return;
       }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Disable audio device\t=> Name: {0}.",
+          model.FriendlyName
+        )
+      );
+
+      Update(model);
+    }
+
+    /// <summary>
+    /// Enable the audio device.
+    /// </summary>
+    /// <param name="model">the audio device</param>
+    private void Enable(MMDevice model)
+    {
+      if (model is null)
+      {
+        Debug.WriteLine
+          (
+            "Failed to enable audio device. " +
+            "Audio device is null."
+          );
+
+        return;
+      }
+
+      if (model.State != DeviceState.Disabled)
+      {
+        Debug
+          .WriteLine
+          (
+            string
+            .Format
+            (
+              "Audio device is already enabled\t=> Name: {0}.",
+              model.FriendlyName
+            )
+          );
+
+        return;
+      }
+
+      try
+      {
+        model.AudioClient
+          .Start();
+      }
+      catch
+      {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to enable audio device\t=> Name: {0}.",
+            model.FriendlyName
+          )
+        );
+
+        return;
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Enabled audio device\t=> Name: {0}.",
+          model.FriendlyName
+        )
+      );
+
+      Update(model);
+    }
+
+    /// <summary>
+    /// Update an audio device.
+    /// </summary>
+    /// <param name="model">The audio device</param>
+    private void Update(MMDevice model)
+    {
+      if (model is null)
+      {
+        Debug.WriteLine
+          (
+            "Failed to refresh audio device. " +
+            "Audio device is null."
+          );
+
+        return;
+      }
+
+      try
+      {
+        model.AudioSessionManager
+          .RefreshSessions();
+      }
+      catch
+      {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to refresh audio device\t=> Name: {0}.",
+            model.FriendlyName
+          )
+        );
+
+        return;
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Refreshed audio device\t=> Name: {0}.",
+          model.FriendlyName
+        )
+      );
+    }
+
+    /// <summary>
+    /// Get an audio device.
+    /// </summary>
+    /// <param name="id">the audio device ID</param>
+    /// <returns>The audio device.</returns>
+    public MMDevice? Get(string id)
+    {
+      MMDevice? model = null;
+
+      if (string.IsNullOrWhiteSpace(id))
+      {
+        Debug.WriteLine
+        (
+          "Failed to get audio device. " +
+          "Audio device ID is either null or whitespace."
+        );
+
+        return model;
+      }
+
+      try
+      {
+        model = List.FirstOrDefault(x => x.ID == id);
+
+        if (model is null)
+        {
+          throw new NullReferenceException();
+        }
+      }
+      catch
+      {
+        Debug.WriteLine
+        (
+          "Failed to get audio device. " +
+          "Audio device is either null or does not exist in list."
+        );
+
+        return model;
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Got audio device\t=> ID: {0}",
+          model.ID
+        )
+      );
 
       return model;
     }
 
     /// <summary>
-    /// Get the list of actual devices.
+    /// Get the list of audio devices.
     /// </summary>
-    /// <returns>The list of actual devices.</returns>
+    /// <returns>The list of audio devices.</returns>
     public List<MMDevice> GetAll()
     {
       if
@@ -211,7 +283,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       (
         string.Format
         (
-          "Got audio device(s) => Count: {0}",
+          "Got audio device(s)\t=> Count: {0}",
           List.Count()
         )
       );
@@ -220,9 +292,9 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Get the list of disabled actual devices.
+    /// Get the list of disabled audio devices.
     /// </summary>
-    /// <returns>The list of disabled actual devices.</returns>
+    /// <returns>The list of disabled audio devices.</returns>
     public List<MMDevice> GetAllDisabled()
     {
       if
@@ -244,9 +316,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       (
         string.Format
         (
-          "Got audio disabled device(s) => Count: {0}",
-          List
-            .Where
+          "Got disabled audio device(s)\t=> Count: {0}",
+          List.Where
             (
               x =>
               x.State == DeviceState.Disabled
@@ -258,9 +329,9 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Get the list of enabled actual devices.
+    /// Get the list of enabled audio devices.
     /// </summary>
-    /// <returns>The list of enabled actual devices.</returns>
+    /// <returns>The list of enabled audio devices.</returns>
     public List<MMDevice> GetAllEnabled()
     {
       if
@@ -282,9 +353,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       (
         string.Format
         (
-          "Got audio enabled device(s) => Count: {0}",
-          List
-            .Where
+          "Got enabled audio device(s)\t=> Count: {0}",
+          List.Where
             (
               x =>
               x.State != DeviceState.Disabled
@@ -296,10 +366,10 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Get a list of actual devices.
+    /// Get a list of audio devices.
     /// </summary>
-    /// <param name="idList">the actual device ID list</param>
-    /// <returns>A list of actual devices.</returns>
+    /// <param name="idList">the audio device ID list</param>
+    /// <returns>A list of audio devices.</returns>
     public List<MMDevice> GetRange(List<string> idList)
     {
       if
@@ -313,7 +383,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         Debug.WriteLine
         (
           "Failed to get audio device(s). " +
-          "Either actual ID list is null or empty, " +
+          "Either audio device ID list is null or empty, " +
           "or audio device list is null or empty."
         );
 
@@ -322,19 +392,24 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 
       List<MMDevice> modelList = new List<MMDevice>();
 
-      idList
-        .ForEach
+      idList.ForEach
         (
           id =>
-          modelList
-            .Add(Get(id))
+          {
+            MMDevice? model = Get(id);
+
+            if (model is not null)
+            {
+              modelList.Add(model);
+            }
+          }
         );
 
       Debug.WriteLine
       (
         string.Format
         (
-          "Got audio device(s) => Count: {0}",
+          "Got audio device(s)\t=> Count: {0}",
           modelList.Count()
         )
       );
@@ -343,32 +418,31 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Disable an actual device.
+    /// Disable an audio device.
     /// </summary>
-    /// <param name="id">the actual device ID</param>
+    /// <param name="id">the audio device ID</param>
     public void Disable(string id)
     {
-      MMDevice model = Get(id);
+      MMDevice? model = Get(id);
       Disable(model);
     }
 
     /// <summary>
-    /// Enable an actual device.
+    /// Enable an audio device.
     /// </summary>
-    /// <param name="id">the actual device ID</param>
+    /// <param name="id">the audio device ID</param>
     public void Enable(string id)
     {
-      MMDevice model = Get(id);
+      MMDevice? model = Get(id);
       Enable(model);
     }
 
     /// <summary>
-    /// Set the actual device list.
+    /// Set the audio device list.
     /// </summary>
-    public void Update()
+    public void UpdateAll()
     {
-      List = Enumerator
-        .EnumerateAudioEndPoints
+      List = Enumerator.EnumerateAudioEndPoints
         (
           DataFlow.All,
           DeviceState.All
@@ -377,8 +451,14 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         .OrderBy(x => x.ID)
         .ToList();
 
-      Debug
-        .WriteLine("Updated audio devices.");
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Got audio device(s)\t=> Count: {0}",
+          List.Count()
+        )
+      );
     }
 
     #endregion
