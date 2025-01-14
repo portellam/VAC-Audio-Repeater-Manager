@@ -12,12 +12,185 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
   {
     #region Default Parameters
 
-    public byte defaultBitsPerSample = BitsPerSampleOptions[2];
-    public byte defaultBufferAmount = BufferOptions[2];
-    public byte defaultPrefillPercentage = PrefillOptions[2];
-    public byte defaultResyncAtPercentage = ResyncAtOptions[3];    
-    public uint defaultSampleRateKHz = SampleRateOptions[5];
-    public ushort defaultBufferDurationMs = BufferMsOptions[2];
+    /// <summary>
+    /// Enumerable of the Channel Config.
+    /// </summary>
+    public IEnumerable<ChannelConfig> ChannelConfigEnum
+    {
+      get
+      {
+        return Enum
+          .GetValues(typeof(ChannelConfig))
+          .Cast<ChannelConfig>();
+      }
+    }
+
+    public static byte defaultBitsPerSample
+    { 
+      get
+      {
+        return BitsPerSampleOptions[2];
+      }
+    }
+
+    public static byte defaultBufferAmount
+    {
+      get
+      {
+        return BufferAmountOptions[2];
+      }
+    }
+
+    public static byte defaultPrefillPercentage
+    {
+      get
+      {
+        return PrefillPercentageOptions[2];
+      }
+    }
+
+    public static byte defaultResyncAtPercentage
+    {
+      get
+      {
+        return ResyncAtPercentageOptions[2];
+      }
+    }
+
+    public static uint defaultSampleRateKHz
+    {
+      get
+      {
+        return SampleRateKHzOptions[2];
+      }
+    }
+
+    public static ushort defaultBufferDurationMs
+    {
+      get
+      {
+        return BufferDurationMsOptions[2];
+      }
+    }
+
+    public static ChannelConfig defaultChannelConfig
+    {
+      get
+      {
+        return ChannelConfig.Stereo;
+      }
+    }
+
+    /// <summary>
+    /// Available choices for BitsPerSample.
+    /// </summary>
+    public static ReadOnlyCollection<byte> BitsPerSampleOptions =
+      new ReadOnlyCollection<byte>
+      (
+        new byte[]
+        {
+          8,
+          16,
+          18,
+          20,
+          22,
+          24,
+          32
+        }
+      );
+
+    /// <summary>
+    /// Available choices for Buffer.
+    /// </summary>
+    public static ReadOnlyCollection<byte> BufferAmountOptions =
+      new ReadOnlyCollection<byte>
+      (
+        new byte[]
+        {
+          2,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24,
+          32
+        }
+      );
+
+    /// <summary>
+    /// Available choices for Prefill percentage.
+    /// </summary>
+    public static ReadOnlyCollection<byte> PrefillPercentageOptions =
+      new ReadOnlyCollection<byte>
+      (
+        new byte[]
+        {
+          0,
+          20,
+          50,
+          70,
+          100
+        }
+      );
+
+    /// <summary>
+    /// Available choices for ResyncAt percentage.
+    /// </summary>
+    public static ReadOnlyCollection<byte> ResyncAtPercentageOptions =
+      new ReadOnlyCollection<byte>(
+        new byte[]
+        {
+          0,
+          10,
+          15,
+          20,
+          25,
+          30,
+          40,
+          50
+        }
+      );
+
+    /// <summary>
+    /// Available choices for sample rate in KiloHertz.
+    /// </summary>
+    public static ReadOnlyCollection<uint> SampleRateKHzOptions =
+      new ReadOnlyCollection<uint>(
+        new uint[]
+        {
+          5000,
+          8000,
+          11025,
+          22050,
+          44100,
+          48000,
+          96000,
+          192000
+        }
+      );
+
+    /// <summary>
+    /// Available choices for Buffer time in milliseconds.
+    /// </summary>
+    public static ReadOnlyCollection<ushort> BufferDurationMsOptions =
+      new ReadOnlyCollection<ushort>
+      (
+        new ushort[]
+        {
+          20,
+          50,
+          100,
+          200,
+          400,
+          800,
+          1000,
+          2000,
+          4000,
+          8000
+        }
+      );
+
 
     #endregion
 
@@ -26,18 +199,18 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     private uint id { get; set; }
     private uint inputDeviceId { get; set; }
     private uint outputDeviceId { get; set; }
-    private byte bitsPerSample { get; set; }
-    private byte bufferAmount { get; set; }
-    private byte prefillPercentage { get; set; }
-    private byte resyncAtPercentage { get; set; }
-    private ChannelConfig channelConfig { get; set; }
+    private byte bitsPerSample { get; set; } = defaultBitsPerSample;
+    private byte bufferAmount { get; set; } = defaultBufferAmount;
+    private byte prefillPercentage { get; set; } = defaultPrefillPercentage;
+    private byte resyncAtPercentage { get; set; } = defaultResyncAtPercentage;
+    private ChannelConfig channelConfig { get; set; } = defaultChannelConfig;
     private List<Channel> channelList { get; set; }
     private ProcessModel processModel { get; set; }
     private string inputDeviceName { get; set; }
     private string outputDeviceName { get; set; }
     private string pathName { get; set; }
-    private uint sampleRateKHz { get; set; }
-    private ushort bufferDurationMs { get; set; }
+    private uint sampleRateKHz { get; set; } = defaultSampleRateKHz;
+    private ushort bufferDurationMs { get; set; } = defaultBufferDurationMs;
 
     /// <summary>
     /// Primary Key
@@ -101,7 +274,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         }
 
         channelConfig = value;
-
         OnPropertyChanged(nameof(ChannelConfig));
       }
     }
@@ -194,8 +366,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       {
         if
         (
-          value >= PrefillOptions.FirstOrDefault()
-          && value <= PrefillOptions.Last()
+          value >= PrefillPercentageOptions.FirstOrDefault()
+          && value <= PrefillPercentageOptions.Last()
         )
         {
           prefillPercentage = value;
@@ -239,17 +411,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       }
     }
 
-    /// TODO: determine what this does?
-    public IEnumerable<ChannelConfig> ChannelConfigEnum
-    {
-      get
-      {
-        return Enum
-          .GetValues(typeof(ChannelConfig))
-          .Cast<ChannelConfig>();
-      }
-    }
-
     /// <summary>
     /// The individual Channels available to the repeater, given the Channel layout.
     /// </summary>
@@ -290,7 +451,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       {
         if (value.Length > 31)
         {
-          value = value.Substring(0, 31);
+          value = value.Substring
+            (
+              0, 
+              31
+            );
         }
 
         inputDeviceName = value;
@@ -311,7 +476,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       {
         if (value.Length > 31)
         {
-          value = value.Substring(0, 31);
+          value = value.Substring
+            (
+              0, 
+              31
+            );
         }
 
         outputDeviceName = value;
@@ -423,8 +592,14 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       {
         uint sum = 0;
 
-        ChannelList.ForEach(channel
-            => sum += (uint)channel);
+        if (ChannelList is not null)
+        {
+          ChannelList.ForEach
+            (
+              channel
+              => sum += (uint)channel
+            );
+        }
 
         return sum;
       }
@@ -452,8 +627,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
 
           if (digit > 0)
           {
-            newChanneList
-              .Add((Channel)digit);
+            newChanneList.Add
+              ((Channel)digit);
           }
 
           value -= digit;
@@ -478,8 +653,8 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       {
         if
         (
-          value >= SampleRateOptions.FirstOrDefault()
-          && value <= SampleRateOptions.Last()
+          value >= SampleRateKHzOptions.FirstOrDefault()
+          && value <= SampleRateKHzOptions.Last()
         )
         {
           sampleRateKHz = value;
@@ -536,116 +711,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         nameof(SampleRateKHz)
       };
 
-    /// <summary>
-    /// Available choices for BitsPerSample.
-    /// </summary>
-    public static ReadOnlyCollection<byte> BitsPerSampleOptions =
-      new ReadOnlyCollection<byte>
-      (
-        new byte[]
-        {
-          8,
-          16,
-          18,
-          20,
-          22,
-          24,
-          32
-        }
-      );
-
-    /// <summary>
-    /// Available choices for Buffer.
-    /// </summary>
-    public static ReadOnlyCollection<byte> BufferOptions =
-      new ReadOnlyCollection<byte>
-      (
-        new byte[]
-        {
-          2,
-          4,
-          8,
-          12,
-          16,
-          20,
-          24,
-          32
-        }
-      );
-
-    /// <summary>
-    /// Available choices for Prefill percentage.
-    /// </summary>
-    public static ReadOnlyCollection<byte> PrefillOptions =
-      new ReadOnlyCollection<byte>
-      (
-        new byte[]
-        {
-          0,
-          20,
-          50,
-          70,
-          100
-        }
-      );
-
-    /// <summary>
-    /// Available choices for ResyncAt percentage.
-    /// </summary>
-    public static ReadOnlyCollection<byte> ResyncAtOptions =
-      new ReadOnlyCollection<byte>(
-        new byte[]
-        {
-          0,
-          10,
-          15,
-          20,
-          25,
-          30,
-          40,
-          50
-        }
-      );
-
-    /// <summary>
-    /// Available choices for sample rate in KiloHertz.
-    /// </summary>
-    public static ReadOnlyCollection<uint> SampleRateOptions =
-      new ReadOnlyCollection<uint>(
-        new uint[]
-        {
-          5000,
-          8000,
-          11025,
-          22050,
-          44100,
-          48000,
-          96000,
-          192000
-        }
-      );
-
-    /// <summary>
-    /// Available choices for Buffer time in milliseconds.
-    /// </summary>
-    public static ReadOnlyCollection<ushort> BufferMsOptions =
-      new ReadOnlyCollection<ushort>
-      (
-        new ushort[]
-        {
-          20,
-          50,
-          100,
-          200,
-          400,
-          800,
-          1000,
-          2000,
-          4000,
-          8000
-        }
-      );
-
+    
     #endregion
 
     #region Logic
@@ -664,17 +730,66 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       uint outputDeviceId
     )
     {
-
       InputDeviceId = inputDeviceId;
       OutputDeviceId = outputDeviceId;
-      BitsPerSample = defaultBitsPerSample;
-      BufferDurationMs = defaultBufferDurationMs;
-      BufferAmount = defaultBufferAmount;
-      ChannelConfig = channelConfig;
       PathName = pathName;
-      PrefillPercentage = defaultPrefillPercentage;
-      ResyncAtPercentage = defaultResyncAtPercentage;
-      SampleRateKHz = defaultSampleRateKHz;
+
+      processModel = new ProcessModel
+        (
+          pathName,
+          StartArguments,
+          StopArguments
+        );
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="id">The repeater ID</param>
+    /// <param name="inputDeviceId">The input device ID</param>
+    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="bitsPerSample">The amount of bits per sample</param>
+    /// <param name="bufferAmount">The buffer amount</param>
+    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
+    /// <param name="channelConfig">The channel configuration</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
+    /// <param name="prefillPercentage">The prefill percentage</param>
+    /// <param name="resyncAtPercentage">The resync at percentage</param>
+    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
+
+    [ExcludeFromCodeCoverage]
+    public RepeaterModel
+    (
+      uint id,
+      uint inputDeviceId,
+      uint outputDeviceId,
+      byte bitsPerSample,
+      byte bufferAmount,
+      byte prefillPercentage,
+      byte resyncAtPercentage,
+      ChannelConfig channelConfig,
+      string inputDeviceName,
+      string outputDeviceName,
+      string pathName,
+      uint sampleRateKHz,
+      ushort bufferDurationMs
+    )
+    {
+      Id = id;
+      InputDeviceId = inputDeviceId;
+      OutputDeviceId = outputDeviceId;
+      BitsPerSample = bitsPerSample;
+      BufferDurationMs = bufferDurationMs;
+      BufferAmount = bufferAmount;
+      ChannelConfig = channelConfig;
+      InputDeviceName = inputDeviceName;
+      OutputDeviceName = outputDeviceName;
+      PathName = pathName;
+      PrefillPercentage = prefillPercentage;
+      ResyncAtPercentage = resyncAtPercentage;
+      SampleRateKHz = sampleRateKHz;
 
       processModel = new ProcessModel
         (
@@ -693,8 +808,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <param name="bitsPerSample">The amount of bits per sample</param>
     /// <param name="bufferAmount">The buffer amount</param>
     /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
-    /// <param name="channelList">The channel list</param>
-    /// <param name="channelMask">The channel mask</param>
     /// <param name="channelConfig">The channel configuration</param>
     /// <param name="inputDeviceName">The input device name</param>
     /// <param name="outputDeviceName">The output device name</param>
@@ -718,6 +831,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       out byte prefillPercentage,
       out byte resyncAtPercentage,
       out ChannelConfig channelConfig,
+      out List<Channel> channelList,
       out List<string> propertyList,
       out ProcessModel processModel,
       out string inputDeviceName,
@@ -738,6 +852,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       bufferDurationMs = BufferDurationMs;
       bufferAmount = BufferAmount;
       channelConfig = ChannelConfig;
+      channelList = ChannelList;
       channelMask = ChannelMask;
       inputDeviceName = InputDeviceName;
       outputDeviceName = OutputDeviceName;
@@ -848,13 +963,41 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       if
       (
         infoList is null
-        || !byte.TryParse(infoList[5], out byte bitsPerSample)
-        || !ushort.TryParse(infoList[4], out ushort bufferDurationMs)
-        || !int.TryParse(infoList[3], out int channelConfig)
-        || !uint.TryParse(infoList[2], out uint channelMask)
-        || !byte.TryParse(infoList[6], out byte prefillPercentage)
-        || !byte.TryParse(infoList[7], out byte resyncAtPercentage)
-        || !uint.TryParse(infoList[0], out uint sampleRateKHz)
+        || !byte.TryParse
+            (
+              infoList[5],
+              out byte bitsPerSample
+            )
+        || !ushort.TryParse
+            (
+              infoList[4],
+              out ushort bufferDurationMs
+            )
+        || !int.TryParse
+            (
+              infoList[3],
+              out int channelConfig
+            )
+        || !uint.TryParse
+            (
+              infoList[2],
+              out uint channelMask
+            )
+        || !byte.TryParse
+            (
+              infoList[6],
+              out byte prefillPercentage
+            )
+        || !byte.TryParse
+            (
+              infoList[7],
+              out byte resyncAtPercentage
+            )
+        || !uint.TryParse
+            (
+              infoList[0],
+              out uint sampleRateKHz
+            )
       )
       {
         return;
