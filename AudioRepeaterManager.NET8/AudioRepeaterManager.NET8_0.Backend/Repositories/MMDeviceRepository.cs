@@ -36,7 +36,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// Disable an audio device.
     /// </summary>
     /// <param name="model">the audio device</param>
-    private void Disable(MMDevice model)
+    private void Disable(MMDevice? model)
     {
       if (model is null)
       {
@@ -100,7 +100,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// Enable the audio device.
     /// </summary>
     /// <param name="model">the audio device</param>
-    private void Enable(MMDevice model)
+    private void Enable(MMDevice? model)
     {
       if (model is null)
       {
@@ -164,7 +164,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// Update an audio device.
     /// </summary>
     /// <param name="model">The audio device</param>
-    private void Update(MMDevice model)
+    private void Update(MMDevice? model)
     {
       if (model is null)
       {
@@ -259,7 +259,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Get the list of audio devices.
+    /// Get all of audio devices.
     /// </summary>
     /// <returns>The list of audio devices.</returns>
     public List<MMDevice> GetAll()
@@ -292,7 +292,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Get the list of disabled audio devices.
+    /// Get a range of disabled audio devices.
     /// </summary>
     /// <returns>The list of disabled audio devices.</returns>
     public List<MMDevice> GetAllDisabled()
@@ -329,7 +329,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Get the list of enabled audio devices.
+    /// Get a range of enabled audio devices.
     /// </summary>
     /// <returns>The list of enabled audio devices.</returns>
     public List<MMDevice> GetAllEnabled()
@@ -366,7 +366,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
-    /// Get a list of audio devices.
+    /// Get a range of audio devices.
     /// </summary>
     /// <param name="idList">the audio device ID list</param>
     /// <returns>A list of audio devices.</returns>
@@ -418,6 +418,69 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
+    /// Disable all audio devices.
+    /// </summary>
+    public void DisableAll()
+    {
+      if
+      (
+        List is null
+        || List.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to disable audio device(s). " +
+          "Audio device list is null or empty."
+        );
+
+        return;
+      }
+
+      List.ForEach
+        (
+          x =>
+          Disable((MMDevice?)x)
+        );
+    }
+
+    /// <summary>
+    /// Disable a range of audio devices.
+    /// </summary>
+    /// <param name="idList">The audio device ID list</param>
+    public void DisableRange(List<string> idList)
+    {
+      if
+     (
+       idList is null
+       || idList.Count == 0
+       || List is null
+       || List.Count == 0
+     )
+      {
+        Debug.WriteLine
+        (
+          "Failed to disable audio device(s). " +
+          "Either audio device ID list is null or empty, " +
+          "or audio device list is null or empty."
+        );
+
+        return;
+      }
+
+      List<MMDevice> modelList = new List<MMDevice>();
+
+      idList.ForEach
+        (
+          id =>
+          {
+            MMDevice? model = Get(id);
+            Disable(model);
+          }
+        );
+    }
+
+    /// <summary>
     /// Disable an audio device.
     /// </summary>
     /// <param name="id">the audio device ID</param>
@@ -425,6 +488,69 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     {
       MMDevice? model = Get(id);
       Disable(model);
+    }
+
+    /// <summary>
+    /// Enable all audio devices.
+    /// </summary>
+    public void Enable()
+    {
+      if
+      (
+        List is null
+        || List.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to enable audio device(s). " +
+          "Audio device list is null or empty."
+        );
+
+        return;
+      }
+
+      List.ForEach
+        (
+          x =>
+          Enable((MMDevice?)x)
+        );
+    }
+
+    /// <summary>
+    /// Enable a range of audio devices.
+    /// </summary>
+    /// <param name="idList">The audio device ID list</param>
+    public void EnableRange(List<string> idList)
+    {
+      if
+     (
+       idList is null
+       || idList.Count == 0
+       || List is null
+       || List.Count == 0
+     )
+      {
+        Debug.WriteLine
+        (
+          "Failed to enable audio device(s). " +
+          "Either audio device ID list is null or empty, " +
+          "or audio device list is null or empty."
+        );
+
+        return;
+      }
+
+      List<MMDevice> modelList = new List<MMDevice>();
+
+      idList.ForEach
+        (
+          id =>
+          {
+            MMDevice? model = Get(id);
+            Enable(model);
+          }
+        );
     }
 
     /// <summary>
