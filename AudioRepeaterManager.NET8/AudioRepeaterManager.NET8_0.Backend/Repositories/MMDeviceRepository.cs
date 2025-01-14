@@ -493,7 +493,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// <summary>
     /// Enable all audio devices.
     /// </summary>
-    public void Enable()
+    public void EnableAll()
     {
       if
       (
