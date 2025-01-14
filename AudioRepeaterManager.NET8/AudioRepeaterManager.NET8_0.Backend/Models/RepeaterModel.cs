@@ -26,7 +26,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     }
 
     public static byte defaultBitsPerSample
-    { 
+    {
       get
       {
         return BitsPerSampleOptions[2];
@@ -206,9 +206,9 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     private ChannelConfig channelConfig { get; set; } = defaultChannelConfig;
     private List<Channel> channelList { get; set; }
     private ProcessModel processModel { get; set; }
-    private string inputDeviceName { get; set; }
-    private string outputDeviceName { get; set; }
-    private string pathName { get; set; }
+    private string inputDeviceName { get; set; } = string.Empty;
+    private string outputDeviceName { get; set; } = string.Empty;
+    private string pathName { get; set; } = string.Empty;
     private uint sampleRateKHz { get; set; } = defaultSampleRateKHz;
     private ushort bufferDurationMs { get; set; } = defaultBufferDurationMs;
 
@@ -453,7 +453,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         {
           value = value.Substring
             (
-              0, 
+              0,
               31
             );
         }
@@ -478,7 +478,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         {
           value = value.Substring
             (
-              0, 
+              0,
               31
             );
         }
@@ -520,8 +520,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     {
       get
       {
-        return
-          $"start " +
+        return $"start " +
           $"/min \"{Global.ExpectedExecutableFullPathName}\" \"{PathName}\" " +
           $"/Input:\"{InputDeviceName}\" " +
           $"/Output:\"{OutputDeviceName}\" " +
@@ -619,7 +618,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         }
 
         uint bit = 1;
-        List<Channel> newChanneList = new List<Channel>();
+        List<Channel> newChannelList = new List<Channel>();
 
         while (value != 0)
         {
@@ -627,7 +626,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
 
           if (digit > 0)
           {
-            newChanneList.Add
+            newChannelList.Add
               ((Channel)digit);
           }
 
@@ -635,7 +634,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
           bit <<= 1;
         }
 
-        ChannelList = newChanneList;
+        ChannelList = newChannelList;
         OnPropertyChanged(nameof(ChannelMask));
       }
     }
@@ -711,7 +710,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
         nameof(SampleRateKHz)
       };
 
-    
+
     #endregion
 
     #region Logic
@@ -722,16 +721,24 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <param name="id">The repeater ID</param>
     /// <param name="inputDeviceId">The input device ID</param>
     /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
     [ExcludeFromCodeCoverage]
     public RepeaterModel
     (
       uint id,
       uint inputDeviceId,
-      uint outputDeviceId
+      uint outputDeviceId,
+      string inputDeviceName,
+      string outputDeviceName,
+      string pathName
     )
     {
       InputDeviceId = inputDeviceId;
+      InputDeviceName = inputDeviceName;
       OutputDeviceId = outputDeviceId;
+      OutputDeviceName = outputDeviceName;
       PathName = pathName;
 
       processModel = new ProcessModel
@@ -748,13 +755,13 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <param name="id">The repeater ID</param>
     /// <param name="inputDeviceId">The input device ID</param>
     /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
     /// <param name="bitsPerSample">The amount of bits per sample</param>
     /// <param name="bufferAmount">The buffer amount</param>
     /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
     /// <param name="channelConfig">The channel configuration</param>
-    /// <param name="inputDeviceName">The input device name</param>
-    /// <param name="outputDeviceName">The output device name</param>
-    /// <param name="pathName">The path name</param>
     /// <param name="prefillPercentage">The prefill percentage</param>
     /// <param name="resyncAtPercentage">The resync at percentage</param>
     /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
@@ -765,14 +772,14 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       uint id,
       uint inputDeviceId,
       uint outputDeviceId,
+      string inputDeviceName,
+      string outputDeviceName,
+      string pathName,
       byte bitsPerSample,
       byte bufferAmount,
       byte prefillPercentage,
       byte resyncAtPercentage,
       ChannelConfig channelConfig,
-      string inputDeviceName,
-      string outputDeviceName,
-      string pathName,
       uint sampleRateKHz,
       ushort bufferDurationMs
     )
@@ -901,8 +908,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     /// <returns>The output</returns>
     public override string ToString()
     {
-      return
-        $"{SampleRateKHz}\n" +
+      return $"{SampleRateKHz}\n" +
         $"{BitsPerSample}\n" +
         $"{ChannelMask}\n" +
         $"{(int)ChannelConfig}\n" +
@@ -920,6 +926,16 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     {
       if (ProcessModel is null)
       {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to restart the repeater. " +
+            "The process is null.\t=> Id: {0}",
+            id
+          )
+        );
+
         return 1;
       }
 
@@ -934,6 +950,16 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     {
       if (ProcessModel is null)
       {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to start the repeater. " +
+            "The process is null.\t=> Id: {0}",
+            id
+          )
+        );
+
         return 1;
       }
 
@@ -948,6 +974,16 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
     {
       if (ProcessModel is null)
       {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to stop the repeater. " +
+            "The process is null.\t=> Id: {0}",
+            id
+          )
+        );
+
         return 1;
       }
 
@@ -1000,6 +1036,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
             )
       )
       {
+        Debug.WriteLine("Failed to set the info list.");
         return;
       }
 
@@ -1008,9 +1045,11 @@ namespace AudioRepeaterManager.NET8_0.Backend.Models
       BufferDurationMs = bufferDurationMs;
       ChannelConfig = (ChannelConfig)channelConfig;
       ChannelMask = channelMask;
+
       PrefillPercentage = prefillPercentage;
       ResyncAtPercentage = resyncAtPercentage;
       SampleRateKHz = sampleRateKHz;
+      Debug.WriteLine("Set the info list.");
     }
 
     #endregion
