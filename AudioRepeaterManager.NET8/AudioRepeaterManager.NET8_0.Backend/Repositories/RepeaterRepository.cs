@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using AudioRepeaterManager.NET8_0.Backend.Models;
+using AudioRepeaterManager.NET8_0.Backend.Structs;
 
 namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 {
@@ -12,21 +14,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     /// The collection of repeaters.
     /// </summary>
     private HashSet<RepeaterModel> HashSet { get; set; }
-
-    /// <summary>
-    /// The list of executables.
-    /// </summary>
-    private List<string> ExecutableNameList
-    {
-      get
-      {
-        return new List<string>
-        {
-          Global.KSExecutableName,
-          Global.MMEExecutableName,
-        };
-      }
-    }
 
     /// <summary>
     /// The list of IDs.
@@ -66,6 +53,21 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
         uint id = IdList.LastOrDefault();
         id++;
         return id;
+      }
+    }
+
+    /// <summary>
+    /// The list of executables.
+    /// </summary>
+    public List<string> ExecutableNameList
+    {
+      get
+      {
+        return new List<string>
+        {
+          Global.KSExecutableName,
+          Global.MMEExecutableName,
+        };
       }
     }
 
@@ -336,6 +338,49 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       return modelList;
     }
 
+
+    /// <summary>
+    /// Get repeater list by device ID.
+    /// </summary>
+    /// <param name="deviceId">The input or output device ID</param>
+    /// <returns>The repeater list.</returns>
+    public List<RepeaterModel> GetRangeByDeviceId(uint? deviceId)
+    {
+      List<RepeaterModel> modelList = new List<RepeaterModel>();
+
+      if
+      (
+        deviceId is null
+        || deviceId < uint.MinValue
+      )
+      {
+        Debug.WriteLine("Failed to get repeater(s).");
+        return modelList;
+      }
+
+      modelList =
+        HashSet
+          .Where
+          (
+            x =>
+            x.InputDeviceId == deviceId
+            || x.OutputDeviceId == deviceId
+          )
+          .ToList();
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Got repeater(s) => Count: {0}",
+          modelList.Count()
+        )
+      );
+
+      return modelList;
+    }
+
+
     /// <summary>
     /// Get a list of repeaters.
     /// </summary>
@@ -450,6 +495,157 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     }
 
     /// <summary>
+    /// Add a repeater.
+    /// </summary>
+    /// <param name="inputDeviceId">The input device ID</param>
+    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
+
+    public void Add
+    (
+      uint inputDeviceId,
+      uint outputDeviceId,
+      string inputDeviceName,
+      string outputDeviceName,
+      string pathName
+    )
+    {
+      RepeaterModel model = new RepeaterModel
+        (
+          NextId,
+          inputDeviceId,
+          outputDeviceId,
+          inputDeviceName,
+          outputDeviceName,
+          pathName
+        );
+
+      HashSet.Add(model);
+
+      Debug.WriteLine
+        (
+          string.Format
+          (
+            "Added repeater\t=> Id: {0}",
+            model.Id
+          )
+        );
+    }
+
+    /// <summary>
+    /// Add a repeater.
+    /// </summary>
+    /// <param name="inputDeviceId">The input device ID</param>
+    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
+    /// <param name="bitsPerSample">The amount of bits per sample</param>
+    /// <param name="bufferAmount">The buffer amount</param>
+    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
+    /// <param name="channelConfig">The channel config</param>
+    /// <param name="pathName">The path name</param>
+    /// <param name="prefillPercentage">The prefill percentage</param>
+    /// <param name="resyncAtPercentage">The resync at percentage</param>
+    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
+
+    public void Add
+    (
+      uint inputDeviceId,
+      uint outputDeviceId,
+      string inputDeviceName,
+      string outputDeviceName,
+      string pathName,
+      byte bitsPerSample,
+      byte bufferAmount,
+      byte prefillPercentage,
+      byte resyncAtPercentage,
+      ChannelConfig channelConfig,
+      uint sampleRateKHz,
+      ushort bufferDurationMs
+    )
+    {
+      RepeaterModel model = new RepeaterModel
+        (
+          NextId,
+          inputDeviceId,
+          outputDeviceId,
+          inputDeviceName,
+          outputDeviceName,
+          pathName
+      );
+
+      HashSet.Add(model);
+
+      Debug.WriteLine
+        (
+          string.Format
+          (
+            "Added repeater\t=> Id: {0}",
+            model.Id
+          )
+        );
+    }
+
+    /// <summary>
+    /// Insert a repeater.
+    /// </summary>
+    /// <param name="id">The repeater ID</param>
+    /// <param name="inputDeviceId">The input device ID</param>
+    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
+    /// <param name="bitsPerSample">The amount of bits per sample</param>
+    /// <param name="bufferAmount">The buffer amount</param>
+    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
+    /// <param name="channelConfig">The channel config</param>
+    /// <param name="pathName">The path name</param>
+    /// <param name="prefillPercentage">The prefill percentage</param>
+    /// <param name="resyncAtPercentage">The resync at percentage</param>
+    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
+    public void Insert
+    (
+      uint id,
+      uint inputDeviceId,
+      uint outputDeviceId,
+      string inputDeviceName,
+      string outputDeviceName,
+      string pathName,
+      byte bitsPerSample,
+      byte bufferAmount,
+      byte prefillPercentage,
+      byte resyncAtPercentage,
+      ChannelConfig channelConfig,
+      uint sampleRateKHz,
+      ushort bufferDurationMs
+    )
+    {
+      RepeaterModel model = new RepeaterModel
+      (
+        id,
+        inputDeviceId,
+        outputDeviceId,
+        inputDeviceName,
+        outputDeviceName,
+        pathName
+      )
+      {
+        BitsPerSample = bitsPerSample,
+        BufferAmount = bufferAmount,
+        PrefillPercentage = prefillPercentage,
+        ResyncAtPercentage = resyncAtPercentage,
+        ChannelConfig = channelConfig,
+        SampleRateKHz = sampleRateKHz,
+        BufferDurationMs = bufferDurationMs
+      };
+
+      Insert(model);
+    }
+
+    /// <summary>
     /// Insert a repeater.
     /// </summary>
     /// <param name="id">The repeater ID</param>
@@ -476,7 +672,6 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       string inputDeviceName,
       string outputDeviceName,
       string pathName,
-      string windowName,
       uint channelMask,
       uint sampleRateKHz,
       ushort bufferDurationMs
@@ -486,16 +681,16 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
       (
         id,
         inputDeviceId,
-        outputDeviceId
+        outputDeviceId,
+        inputDeviceName,
+        outputDeviceName,
+        pathName
       )
       {
         BitsPerSample = bitsPerSample,
         BufferAmount = bufferAmount,
         PrefillPercentage = prefillPercentage,
         ResyncAtPercentage = resyncAtPercentage,
-        InputDeviceName = inputDeviceName,
-        OutputDeviceName = outputDeviceName,
-        PathName = pathName,
         ChannelMask = channelMask,
         SampleRateKHz = sampleRateKHz,
         BufferDurationMs = bufferDurationMs
@@ -754,7 +949,7 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
 
       Update(model);
     }
-
+    
     #endregion
   }
 }
