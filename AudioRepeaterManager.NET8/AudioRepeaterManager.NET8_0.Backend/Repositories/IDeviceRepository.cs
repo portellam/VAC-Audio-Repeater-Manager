@@ -26,6 +26,19 @@ namespace AudioRepeaterManager.NET8_0.Backend.Repositories
     List<DeviceModel> GetAllPresent();
     List<DeviceModel> GetRange(List<string> actualIdList);
     List<DeviceModel> GetRange(List<uint?> idList);
+
+    void Add(DeviceModel model);
+
+    void Add
+    (
+      uint id,
+      string actualId,
+      string name,
+      bool? isInput,
+      bool? isOutput,
+      bool? isPresent
+    );
+
     void DisableActual(string actualId);
     void EnableActual(string actualId);
     void Insert(DeviceModel model);
