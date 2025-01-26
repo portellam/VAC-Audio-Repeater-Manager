@@ -24,9 +24,8 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
     /// <summary>
     /// Foreign key
     /// </summary>
-    int ProcessId { get; set; }
+    int? ProcessId { get; set; }
 
-    bool IsRunning { get; set; }
     byte BitsPerSample { get; set; }
     byte BufferAmount { get; set; }
     byte ChannelCount { get; }
@@ -52,7 +51,7 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
       out uint id,
       out uint inputDeviceId,
       out uint outputDeviceId,
-      out bool isRunning,
+      out int? processId,
       out byte bitsPerSample,
       out byte bufferAmount,
       out byte prefillPercentage,
@@ -69,12 +68,9 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
       out uint channelMask,
       out uint sampleRateKHz,
       out ushort bufferDurationMs
-    );
+    )
 
     string ToString();
-    Task<int> Restart();
-    Task<int> Start();
-    Task<int> Stop();
     void Set(List<string> infoList);
 
     #endregion
