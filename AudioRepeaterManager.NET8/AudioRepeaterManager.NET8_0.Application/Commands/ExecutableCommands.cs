@@ -6,15 +6,73 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
   {
     #region Logic
 
+    private static Process defaultProcess { get; set; } = new Process()
+    {
+      EnableRaisingEvents = true,
+
+      StartInfo =
+        {
+          CreateNoWindow = true,
+          RedirectStandardError = true,
+          RedirectStandardOutput = true,
+          UseShellExecute = false,
+          WindowStyle = ProcessWindowStyle.Hidden,
+        },
+    };
+
+    /// <summary>
+    /// Get the process for the executable.
+    /// </summary>
+    /// <param name="processId">The process ID</param>
+    /// <returns>The process</returns>
+    private static Process? Get(int? processId)
+    {
+      if
+      (
+        processId is null
+        || processId < 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Process ID is either null or less than zero."
+        );
+
+        return null;
+      }
+
+      try
+      {
+        return Process.GetProcessById((int)processId);
+      }
+      catch
+      {
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// Is the executable running.
+    /// </summary>
+    /// <param name="processId">The process ID</param>
+    /// <returns>True/false is the executable running.</returns>
+    public static bool IsRunning(int? processId)
+    {
+      return Get(processId) != null;
+    }
+
     /// <summary>
     /// Restart the executable.
     /// </summary>
-    /// <param name="process">The process</param>
+    /// <param name="processId">The process ID</param>
+    /// <param name="fileName">The executable file name</param>
     /// <param name="startArguments">The start arguments</param>
-    /// <returns>The exit code.</returns>
-    public async static Task<int> Restart
+    /// <param name="stopArguments">The stop arguments</param>
+    /// <returns>The process ID.</returns>
+    public async static Task<int?> Restart
     (
-      Process? process,
+      int? processId,
+      string fileName,
       string startArguments,
       string stopArguments
     )
@@ -23,20 +81,20 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Restarting executable\t=> Process: {0}",
-          process
+          "Restarting executable\t=> Process ID: {0}",
+          processId
         )
       );
 
-      var result = await Stop
+      int? result = await Stop
         (
-          process,
+          processId,
           stopArguments
         );
 
-      bool isStarted = result == 0;
+      bool isRunning = result == 0;
 
-      if (isStarted)
+      if (isRunning)
       {
         Debug.WriteLine("Failed to restart executable.");
         return result;
@@ -44,13 +102,14 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       result = await Start
         (
-          process,
+          processId,
+          fileName,
           startArguments
         );
 
-      isStarted = result == 0;
+      isRunning = IsRunning(result);
 
-      if (!isStarted)
+      if (!isRunning)
       {
         Debug.WriteLine("Failed to restart executable.");
       }
@@ -66,38 +125,73 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// <summary>
     /// Start the executable.
     /// </summary>
-    /// <param name="process">The process</param>
+    /// <param name="processId">The process ID</param>
+    /// <param name="fileName">The executable file name</param>
     /// <param name="startArguments">The start arguments</param>
-    /// <returns>The exit code.</returns>
-    public async static Task<int> Start
+    /// <returns>The actual process ID.</returns>
+    public async static Task<int?> Start
     (
-      Process? process,
+      int? processId,
+      string fileName,
       string startArguments
     )
     {
-      var result = 1;
+      Process? process = Get(processId);
 
-      if (process is null)
+      if
+      (
+        string.IsNullOrEmpty(fileName)
+        || string.IsNullOrWhiteSpace(fileName)
+      )
       {
         Debug.WriteLine
         (
-          "Failed to start executable. " +
-          "Process is null."
+          string.Format
+          (
+            "Failed to start executable. " +
+            "File name is either empty, null, or whitespace\t=> " +
+            "ProcessId: {0}, FileName: {1}, StartArguments: {2}",
+            processId,
+            fileName,
+            startArguments
+          )
         );
 
-        return result;
+        return null;
+      }
+
+      if (process != null)
+      {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Executable already started\t=> " +
+            "ProcessId: {0}, FileName: {1}, StartArguments: {2}",
+            processId,
+            fileName,
+            startArguments
+          )
+        );
+
+        return processId;
       }
 
       Debug.WriteLine
       (
         string.Format
         (
-          "Starting executable\t=> Process: {0}, StartArguments: {1}",
-          process,
+          "Starting executable\t=> " +
+          "ProcessId: {0}, FileName: {1}, StartArguments: {2}",
+          processId,
+          fileName,
           startArguments
         )
       );
 
+      process = defaultProcess;
+      process.StartInfo.FileName = fileName;
+        
       bool isArgumentsValid =
         !(
           string.IsNullOrEmpty(startArguments)
@@ -109,9 +203,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         process.StartInfo.Arguments = startArguments;
       }
 
-      result = await ProcessCommands.RunAsync(process);
-
-      bool isRunning = result == 0;
+      var result = await ProcessCommands.RunAsync(process);
+      bool isRunning = IsRunning(result);
 
       if (isRunning)
       {
@@ -123,31 +216,38 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         Debug.WriteLine("Started executable.");
       }
 
-      return result;
+      return process.Id;
     }
 
     /// <summary>
     /// Stop the executable.
     /// </summary>
-    /// <param name="process">The process</param>
+    /// <param name="processId">The process ID</param>
     /// <param name="stopArguments">The stop arguments</param>
     /// <returns>The exit code.</returns>
     public async static Task<int> Stop
     (
-      Process? process,
+      int? processId,
       string stopArguments
     )
     {
       int result = 1;
+      Process? process = Get(processId);
 
       if (process is null)
       {
         Debug.WriteLine
         (
-          "Failed to stop executable. " +
-          "Process is null."
+          string.Format
+          (
+            "Executable already stopped\t=> " +
+            "ProcessId: {0}, StopArguments: {1}",
+            processId,
+            stopArguments
+          )
         );
 
+        result = 0;
         return result;
       }
 
@@ -155,8 +255,9 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Stopping executable\t=> Process: {0}, StopArguments: {1}",
-          process,
+          "Starting executable\t=> " +
+          "ProcessId: {0}, StopArguments: {1}",
+          processId,
           stopArguments
         )
       );
@@ -193,7 +294,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         result = await ProcessCommands.RunAsync(process);
       }
 
-      bool isRunning = result == 0;
+      bool isRunning = IsRunning(result);
 
       if (isRunning)
       {

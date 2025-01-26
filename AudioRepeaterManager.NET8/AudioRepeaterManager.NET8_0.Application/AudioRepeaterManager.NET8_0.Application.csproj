@@ -7,15 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Device\Commands\" />
-    <Folder Include="Device\Events\" />
-    <Folder Include="Device\Queries\" />
-    <Folder Include="Process\Commands\" />
-    <Folder Include="Process\Events\" />
-    <Folder Include="Process\Queries\" />
-    <Folder Include="Repeater\Commands\" />
-    <Folder Include="Repeater\Events\" />
-    <Folder Include="Repeater\Queries\" />
+    <Folder Include="Events\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AudioRepeaterManager.NET8_0.Domain\AudioRepeaterManager.NET8_0.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NAudio">
+      <HintPath>..\..\AudioRepeaterManager\AudioRepeaterManager.NET4_6.Backend\bin\Debug\NAudio.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

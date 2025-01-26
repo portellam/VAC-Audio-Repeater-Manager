@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using AudioRepeaterManager.NET8_0.Application.Commands;
 using AudioRepeaterManager.NET8_0.Domain.Shared;
 using AudioRepeaterManager.NET8_0.Domain.Structs;
 
@@ -206,7 +207,6 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
     private byte resyncAtPercentage { get; set; } = defaultResyncAtPercentage;
     private ChannelConfig channelConfig { get; set; } = defaultChannelConfig;
     private List<Channel> channelList { get; set; }
-    private ProcessModel processModel { get; set; }
     private string inputDeviceName { get; set; } = string.Empty;
     private string outputDeviceName { get; set; } = string.Empty;
     private string pathName { get; set; } = string.Empty;
@@ -260,6 +260,18 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
         OnPropertyChanged(nameof(OutputDeviceId));
       }
     }
+
+    /// <summary>
+    /// Foreign key
+    /// </summary>
+    public uint ProcessId
+    {
+      get
+      {
+        return ApplicationException.;
+      }
+    }
+
 
     public ChannelConfig ChannelConfig
     {

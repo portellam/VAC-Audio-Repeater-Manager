@@ -21,13 +21,18 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
     /// </summary>
     uint OutputDeviceId { get; set; }
 
+    /// <summary>
+    /// Foreign key
+    /// </summary>
+    int ProcessId { get; set; }
+
+    bool IsRunning { get; set; }
     byte BitsPerSample { get; set; }
     byte BufferAmount { get; set; }
     byte ChannelCount { get; }
     byte PrefillPercentage { get; set; }
     byte ResyncAtPercentage { get; set; }
     List<Channel> ChannelList { get; set; }
-    ProcessModel ProcessModel { get; }
     string InputDeviceName { get; set; }
     string OutputDeviceName { get; set; }
     string PathName { get; set; }
@@ -47,6 +52,7 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
       out uint id,
       out uint inputDeviceId,
       out uint outputDeviceId,
+      out bool isRunning,
       out byte bitsPerSample,
       out byte bufferAmount,
       out byte prefillPercentage,
@@ -54,7 +60,6 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
       out ChannelConfig channelConfig,
       out List<Channel> channelList,
       out List<string> propertyList,
-      out ProcessModel processModel,
       out string inputDeviceName,
       out string outputDeviceName,
       out string pathName,

@@ -10,18 +10,28 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// <summary>
     /// Get the process for the repeater.
     /// </summary>
-    /// <param name="model">The repeater model</param>
+    /// <param name="processId">The process ID</param>
     /// <returns>The process</returns>
-    private static Process? Get(RepeaterModel model)
+    private static Process? Get(int processId)
     {
       try
       {
-        return Process.GetProcessById(model.ProcessId);
+        return Process.GetProcessById(processId);
       }
       catch
       {
         return null;
       }
+    }
+
+    /// <summary>
+    /// Is the repeater running.
+    /// </summary>
+    /// <param name="processId">The process ID</param>
+    /// <returns>True/false is the repeater running.</returns>
+    public static bool IsRunning(int processId)
+    {
+      return Get(processId) != null;
     }
 
     /// <summary>
