@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="BackgroundJobs\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
