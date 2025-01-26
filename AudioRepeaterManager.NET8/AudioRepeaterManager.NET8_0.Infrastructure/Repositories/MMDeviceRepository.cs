@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using AudioRepeaterManager.NET8_0.Application.Commands;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 
-namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
+namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
   public class MMDeviceRepository : IMMDeviceRepository
   {

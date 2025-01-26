@@ -4,7 +4,7 @@ using AudioRepeaterManager.NET8_0.Domain.Models;
 using AudioRepeaterManager.NET8_0.Domain.Structs;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 
-namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
+namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
   public class RepeaterRepository : IRepeaterRepository
   {
@@ -229,13 +229,13 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
         .FirstOrDefault
         (
           x =>
-          (
+          
             x.InputDeviceId == firstDeviceId
             && x.OutputDeviceId == secondDeviceId
-          ) || (
+           || 
             x.InputDeviceId == secondDeviceId
             && x.OutputDeviceId == firstDeviceId
-          )
+          
         );
 
       if (model is null)
@@ -949,7 +949,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
 
       Update(model);
     }
-    
+
     #endregion
   }
 }
