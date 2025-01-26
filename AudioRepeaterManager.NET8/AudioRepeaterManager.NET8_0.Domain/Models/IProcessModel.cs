@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace AudioRepeaterManager.NET8_0.Backend.Models
+namespace AudioRepeaterManager.NET8_0.Domain.Models
 {
   public interface IProcessModel
   {

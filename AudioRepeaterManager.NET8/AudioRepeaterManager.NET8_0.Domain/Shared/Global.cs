@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Security.Policy;
 
-namespace AudioRepeaterManager.NET8_0.Backend
+namespace AudioRepeaterManager.NET8_0.Domain
 {
   /// <summary>
   /// Global parameters

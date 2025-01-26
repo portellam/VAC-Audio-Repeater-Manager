@@ -1,7 +1,7 @@
-﻿using AudioRepeaterManager.NET8_0.Backend.Models;
-using AudioRepeaterManager.NET8_0.Backend.Structs;
+﻿using AudioRepeaterManager.NET8_0.Domain.Models;
+using AudioRepeaterManager.NET8_0.Domain.Structs;
 
-namespace AudioRepeaterManager.NET8_0.Backend.Repositories
+namespace AudioRepeaterManager.NET8_0.Domain.Repositories
 {
   public interface IRepeaterRepository
   {
