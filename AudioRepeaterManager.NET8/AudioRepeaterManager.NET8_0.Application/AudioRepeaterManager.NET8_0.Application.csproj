@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Device\Commands\" />
+    <Folder Include="Device\Events\" />
+    <Folder Include="Device\Queries\" />
+    <Folder Include="Process\Commands\" />
+    <Folder Include="Process\Events\" />
+    <Folder Include="Process\Queries\" />
+    <Folder Include="Repeater\Commands\" />
+    <Folder Include="Repeater\Events\" />
+    <Folder Include="Repeater\Queries\" />
+  </ItemGroup>
+
 </Project>
