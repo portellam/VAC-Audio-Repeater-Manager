@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AudioRepeaterManager.NET8_0.Domain\AudioRepeaterManager.NET8_0.Domain.csproj" />
   </ItemGroup>
 
