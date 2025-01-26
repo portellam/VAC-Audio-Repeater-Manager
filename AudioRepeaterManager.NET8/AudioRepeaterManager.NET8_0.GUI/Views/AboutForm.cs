@@ -1,5 +1,5 @@
 ﻿using AudioRepeaterManager.NET8_0.GUI.Accessors;
-using AudioRepeaterManager.NET8_0.Backend;
+using AudioRepeaterManager.NET8_0.Domain.Shared;
 
 namespace AudioRepeaterManager.NET8_0.GUI
 {

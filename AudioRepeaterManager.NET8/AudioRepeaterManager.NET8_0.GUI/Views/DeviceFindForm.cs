@@ -1,6 +1,6 @@
-﻿using AudioRepeaterManager.NET8_0.Backend.Models;
-using AudioRepeaterManager.NET8_0.Backend.Repositories;
+﻿using AudioRepeaterManager.NET8_0.Domain.Models;
 using AudioRepeaterManager.NET8_0.GUI.Extensions;
+using AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories;
 using System.Text;
 
 namespace AudioRepeaterManager.NET8_0.GUI.Forms

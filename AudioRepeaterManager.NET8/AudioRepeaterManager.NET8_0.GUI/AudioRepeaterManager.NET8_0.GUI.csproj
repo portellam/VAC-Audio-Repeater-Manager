@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AudioRepeaterManager.NET8_0.Backend\AudioRepeaterManager.NET8_0.Backend.csproj" />
+    <ProjectReference Include="..\AudioRepeaterManager.NET8_0.Infrastructure\AudioRepeaterManager.NET8_0.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

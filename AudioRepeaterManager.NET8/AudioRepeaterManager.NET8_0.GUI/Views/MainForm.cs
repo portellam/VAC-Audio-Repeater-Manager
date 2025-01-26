@@ -1,8 +1,8 @@
 using AudioRepeaterManager.NET8_0.GUI.Helpers;
-using AudioRepeaterManager.NET8_0.Backend;
-using AudioRepeaterManager.NET8_0.Backend.Repositories;
+using AudioRepeaterManager.NET8_0.Domain;
+using AudioRepeaterManager.NET8_0.Domain.Models;
 using AudioRepeaterManager.NET8_0.GUI.Forms;
-using AudioRepeaterManager.NET8_0.Backend.Models;
+using AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories;
 using AudioSwitcher.AudioApi;
 
 namespace AudioRepeaterManager.NET8_0.GUI

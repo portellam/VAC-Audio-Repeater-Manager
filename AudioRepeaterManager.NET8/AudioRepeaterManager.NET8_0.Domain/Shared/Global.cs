@@ -1,12 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using System.Security.Policy;
+﻿using System.Runtime.InteropServices;
 
-namespace AudioRepeaterManager.NET8_0.Domain
+namespace AudioRepeaterManager.NET8_0.Domain.Shared
 {
   /// <summary>
   /// Global parameters

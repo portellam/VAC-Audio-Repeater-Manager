@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using AudioRepeaterManager.NET8_0.Domain.Shared;
 using AudioRepeaterManager.NET8_0.Domain.Structs;
 
 namespace AudioRepeaterManager.NET8_0.Domain.Models
