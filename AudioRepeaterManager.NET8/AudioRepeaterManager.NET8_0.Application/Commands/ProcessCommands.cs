@@ -89,13 +89,11 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       if (!isStarted)
       {
-        Debug.WriteLine("Failed to start process.");
         taskCompletionSource.SetResult(failCode);
       }
 
       else
       {
-        Debug.WriteLine("Started process.");
         process.BeginOutputReadLine();
         process.BeginErrorReadLine();
       }
