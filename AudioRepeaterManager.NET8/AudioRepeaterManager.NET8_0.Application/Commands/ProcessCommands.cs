@@ -11,7 +11,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The exit code.</returns>
-    public async static Task<int> RunAsync(Process process)
+    public async static Task<int> RunAsync(Process? process)
     {
       return await Run(process)
         .ConfigureAwait(false);
@@ -22,7 +22,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The exit code.</returns>
-    public static Task<int> Run(Process process)
+    public static Task<int> Run(Process? process)
     {
       TaskCompletionSource<int> taskCompletionSource =
         new TaskCompletionSource<int>();
@@ -85,15 +85,35 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
           )
         );
 
-      bool isStarted = process.Start();
+      bool isRunning = false;
 
-      if (!isStarted)
+      try
       {
+        isRunning = process.Start();
+      }
+      catch (Exception exception)
+      {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Error\t=> Exception: {0}",
+            exception
+          )
+        );
+
+        isRunning = false;
+      }
+
+      if (!isRunning)
+      {
+        Debug.WriteLine("Failed to run process. ");
         taskCompletionSource.SetResult(failCode);
       }
 
       else
       {
+        Debug.WriteLine("Running process. ");
         process.BeginOutputReadLine();
         process.BeginErrorReadLine();
       }

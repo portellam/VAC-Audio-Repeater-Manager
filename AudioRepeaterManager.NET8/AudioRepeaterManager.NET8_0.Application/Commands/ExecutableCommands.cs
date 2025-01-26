@@ -7,36 +7,6 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     #region Logic
 
     /// <summary>
-    /// Is the executable running.
-    /// </summary>
-    /// <param name="process">The process</param>
-    /// <returns>True/false is the executable running.</returns>
-    private static bool IsRunning(Process process)
-    {
-      if (process is null)
-      {
-        Debug.WriteLine
-        (
-          "Executable is not running. " +
-          "Process is null."
-        );
-
-        return false;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Executable is running\t=> Process:{0}",
-          process
-        )
-      );
-
-      return true;
-    }
-
-    /// <summary>
     /// Restart the executable.
     /// </summary>
     /// <param name="process">The process</param>
@@ -44,7 +14,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// <returns>The exit code.</returns>
     public async static Task<int> Restart
     (
-      Process process,
+      Process? process,
       string startArguments,
       string stopArguments
     )
@@ -101,18 +71,32 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// <returns>The exit code.</returns>
     public async static Task<int> Start
     (
-      Process process,
+      Process? process,
       string startArguments
     )
     {
-      bool isRunning = IsRunning(process);
       var result = 1;
 
-      if (isRunning)
+      if (process is null)
       {
-        result = 0;
+        Debug.WriteLine
+        (
+          "Failed to start executable. " +
+          "Process is null."
+        );
+
         return result;
       }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Starting executable\t=> Process: {0}, StartArguments: {1}",
+          process,
+          startArguments
+        )
+      );
 
       bool isArgumentsValid =
         !(
@@ -127,16 +111,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       result = await ProcessCommands.RunAsync(process);
 
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Starting executable\t=> StartArguments: {0}",
-          startArguments
-        )
-      );
-
-      isRunning = result == 0;
+      bool isRunning = result == 0;
 
       if (isRunning)
       {
@@ -159,16 +134,20 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// <returns>The exit code.</returns>
     public async static Task<int> Stop
     (
-      Process process,
+      Process? process,
       string stopArguments
     )
     {
       int result = 1;
-      bool isRunning = IsRunning(process);
 
-      if (!isRunning)
+      if (process is null)
       {
-        result = 0;
+        Debug.WriteLine
+        (
+          "Failed to stop executable. " +
+          "Process is null."
+        );
+
         return result;
       }
 
@@ -176,7 +155,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Stopping executable\t=> StopArguments: {0}",
+          "Stopping executable\t=> Process: {0}, StopArguments: {1}",
+          process,
           stopArguments
         )
       );
@@ -187,9 +167,24 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         || string.IsNullOrWhiteSpace(stopArguments)
       )
       {
-        process.Kill();
-        isRunning = IsRunning(process);
-        result = Convert.ToInt32(isRunning);
+        try
+        {
+          process.Kill();
+          result = 0;
+        }
+        catch (Exception exception)
+        {
+          Debug.WriteLine
+          (
+            string.Format
+            (
+              "Error\t=> Exception: {0}",
+              exception
+            )
+          );
+
+          result = 1;
+        }
       }
 
       else
@@ -197,6 +192,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         process.StartInfo.Arguments = stopArguments;
         result = await ProcessCommands.RunAsync(process);
       }
+
+      bool isRunning = result == 0;
 
       if (isRunning)
       {
