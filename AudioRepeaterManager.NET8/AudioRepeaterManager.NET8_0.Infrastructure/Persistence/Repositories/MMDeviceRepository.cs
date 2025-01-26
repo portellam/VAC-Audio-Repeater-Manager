@@ -50,21 +50,21 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
     }
 
     /// <summary>
-    /// Stop the audio device.
-    /// </summary>
-    /// <param name="model">the audio device</param>
-    private void Stop(MMDevice? model)
-    {
-      DeviceCommands.Stop(model);
-    }
-
-    /// <summary>
     /// Start the audio device.
     /// </summary>
     /// <param name="model">the audio device</param>
     private void Start(MMDevice? model)
     {
       DeviceCommands.Start(model);
+    }
+
+    /// <summary>
+    /// Stop the audio device.
+    /// </summary>
+    /// <param name="model">the audio device</param>
+    private void Stop(MMDevice? model)
+    {
+      DeviceCommands.Stop(model);
     }
 
     /// <summary>
@@ -288,6 +288,85 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
     }
 
     /// <summary>
+    /// Start an audio device.
+    /// </summary>
+    /// <param name="id">the audio device ID</param>
+    public void Start(string id)
+    {
+      MMDevice? model = Get(id);
+      Start(model);
+    }
+
+    /// <summary>
+    /// Start all audio devices.
+    /// </summary>
+    public void StartAll()
+    {
+      if
+      (
+        List is null
+        || List.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to start audio device(s). " +
+          "Audio device list is null or empty."
+        );
+
+        return;
+      }
+
+      List.ForEach
+        (
+          x =>
+          Start((MMDevice?)x)
+        );
+    }
+
+    /// <summary>
+    /// Start a range of audio devices.
+    /// </summary>
+    /// <param name="idList">The audio device ID list</param>
+    public void StartRange(List<string> idList)
+    {
+      if
+      (
+        idList is null
+        || idList.Count == 0
+        || List is null
+        || List.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to start audio device(s). " +
+          "Either audio device ID list is null or empty, " +
+          "or audio device list is null or empty."
+        );
+
+        return;
+      }
+
+      List<MMDevice> modelList = new List<MMDevice>();
+
+      idList.ForEach
+        (
+          id => Start(id)
+        );
+    }
+
+    /// <summary>
+    /// Stop an audio device.
+    /// </summary>
+    /// <param name="id">the audio device ID</param>
+    public void Stop(string id)
+    {
+      MMDevice? model = Get(id);
+      Stop(model);
+    }
+
+    /// <summary>
     /// Stop all audio devices.
     /// </summary>
     public void StopAll()
@@ -344,85 +423,6 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
         (
           id => Stop(id)
         );
-    }
-
-    /// <summary>
-    /// Stop an audio device.
-    /// </summary>
-    /// <param name="id">the audio device ID</param>
-    public void Stop(string id)
-    {
-      MMDevice? model = Get(id);
-      Stop(model);
-    }
-
-    /// <summary>
-    /// Start all audio devices.
-    /// </summary>
-    public void StartAll()
-    {
-      if
-      (
-        List is null
-        || List.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to start audio device(s). " +
-          "Audio device list is null or empty."
-        );
-
-        return;
-      }
-
-      List.ForEach
-        (
-          x =>
-          Start((MMDevice?)x)
-        );
-    }
-
-    /// <summary>
-    /// Start a range of audio devices.
-    /// </summary>
-    /// <param name="idList">The audio device ID list</param>
-    public void StartRange(List<string> idList)
-    {
-      if
-     (
-       idList is null
-       || idList.Count == 0
-       || List is null
-       || List.Count == 0
-     )
-      {
-        Debug.WriteLine
-        (
-          "Failed to start audio device(s). " +
-          "Either audio device ID list is null or empty, " +
-          "or audio device list is null or empty."
-        );
-
-        return;
-      }
-
-      List<MMDevice> modelList = new List<MMDevice>();
-
-      idList.ForEach
-        (
-          id => Start(id)
-        );
-    }
-
-    /// <summary>
-    /// Start an audio device.
-    /// </summary>
-    /// <param name="id">the audio device ID</param>
-    public void Start(string id)
-    {
-      MMDevice? model = Get(id);
-      Start(model);
     }
 
     /// <summary>
