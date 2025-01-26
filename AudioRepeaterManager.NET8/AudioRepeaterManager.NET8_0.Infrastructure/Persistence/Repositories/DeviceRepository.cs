@@ -3,6 +3,7 @@ using AudioSwitcher.AudioApi.CoreAudio;                                         
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using AudioRepeaterManager.NET8_0.Domain.Models;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
