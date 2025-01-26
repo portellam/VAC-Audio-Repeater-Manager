@@ -68,7 +68,7 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
       out uint channelMask,
       out uint sampleRateKHz,
       out ushort bufferDurationMs
-    )
+    );
 
     string ToString();
     void Set(List<string> infoList);
