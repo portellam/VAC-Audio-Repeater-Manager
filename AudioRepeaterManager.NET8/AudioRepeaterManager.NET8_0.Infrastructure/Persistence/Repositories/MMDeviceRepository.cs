@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using AudioRepeaterManager.NET8_0.Application.Commands;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
@@ -8,6 +9,21 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
   public class MMDeviceRepository : IMMDeviceRepository
   {
     #region Parameters
+
+    /// <summary>
+    /// Is the audio device started.
+    /// </summary>
+    /// <param name="model">The audio device</param>
+    /// <returns></returns>
+    private bool IsStarted(MMDevice? model)
+    {
+      if (model is null)
+      {
+        return false;
+      }
+
+      return model.State != DeviceState.Stopd;
+    }
 
     /// <summary>
     /// The list of audio devices.
@@ -34,177 +50,30 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
     }
 
     /// <summary>
-    /// Disable an audio device.
+    /// Stop the audio device.
     /// </summary>
     /// <param name="model">the audio device</param>
-    private void Disable(MMDevice? model)
+    private void Stop(MMDevice? model)
     {
-      if (model is null)
-      {
-        Debug.WriteLine
-          (
-            "Failed to disable audio device. " +
-            "Audio device is null."
-          );
-
-        return;
-      }
-
-      if (model.State != DeviceState.Disabled)
-      {
-        Debug
-          .WriteLine
-          (
-            string
-            .Format
-            (
-              "Audio device is already disabled\t=> Name: {0}.",
-              model.FriendlyName
-            )
-          );
-
-        return;
-      }
-
-      try
-      {
-        model.AudioClient
-          .Start();
-      }
-      catch
-      {
-        Debug.WriteLine
-        (
-          string.Format
-          (
-            "Failed to disable audio device\t=> Name: {0}.",
-            model.FriendlyName
-          )
-        );
-
-        return;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Disable audio device\t=> Name: {0}.",
-          model.FriendlyName
-        )
-      );
-
-      Update(model);
+      DeviceCommands.Stop(model);
     }
 
     /// <summary>
-    /// Enable the audio device.
+    /// Start the audio device.
     /// </summary>
     /// <param name="model">the audio device</param>
-    private void Enable(MMDevice? model)
+    private void Start(MMDevice? model)
     {
-      if (model is null)
-      {
-        Debug.WriteLine
-          (
-            "Failed to enable audio device. " +
-            "Audio device is null."
-          );
-
-        return;
-      }
-
-      if (model.State != DeviceState.Disabled)
-      {
-        Debug
-          .WriteLine
-          (
-            string
-            .Format
-            (
-              "Audio device is already enabled\t=> Name: {0}.",
-              model.FriendlyName
-            )
-          );
-
-        return;
-      }
-
-      try
-      {
-        model.AudioClient
-          .Start();
-      }
-      catch
-      {
-        Debug.WriteLine
-        (
-          string.Format
-          (
-            "Failed to enable audio device\t=> Name: {0}.",
-            model.FriendlyName
-          )
-        );
-
-        return;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Enabled audio device\t=> Name: {0}.",
-          model.FriendlyName
-        )
-      );
-
-      Update(model);
+      DeviceCommands.Start(model);
     }
 
     /// <summary>
-    /// Update an audio device.
+    /// Update the audio device.
     /// </summary>
     /// <param name="model">The audio device</param>
     private void Update(MMDevice? model)
     {
-      if (model is null)
-      {
-        Debug.WriteLine
-          (
-            "Failed to refresh audio device. " +
-            "Audio device is null."
-          );
-
-        return;
-      }
-
-      try
-      {
-        model.AudioSessionManager
-          .RefreshSessions();
-      }
-      catch
-      {
-        Debug.WriteLine
-        (
-          string.Format
-          (
-            "Failed to refresh audio device\t=> Name: {0}.",
-            model.FriendlyName
-          )
-        );
-
-        return;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Refreshed audio device\t=> Name: {0}.",
-          model.FriendlyName
-        )
-      );
+      DeviceCommands.Update(model);
     }
 
     /// <summary>
@@ -293,10 +162,10 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
     }
 
     /// <summary>
-    /// Get a range of disabled audio devices.
+    /// Get a range of stopped audio devices.
     /// </summary>
-    /// <returns>The list of disabled audio devices.</returns>
-    public List<MMDevice> GetAllDisabled()
+    /// <returns>The list of stopped audio devices.</returns>
+    public List<MMDevice> GetAllStopped()
     {
       if
       (
@@ -306,7 +175,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get disabled audio device(s). " +
+          "Failed to get stopped audio device(s). " +
           "Audio device list is null or empty."
         );
 
@@ -317,11 +186,11 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       (
         string.Format
         (
-          "Got disabled audio device(s)\t=> Count: {0}",
+          "Got stopped audio device(s)\t=> Count: {0}",
           List.Where
             (
               x =>
-              x.State == DeviceState.Disabled
+              !IsStarted(x)
             ).Count()
         )
       );
@@ -330,10 +199,10 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
     }
 
     /// <summary>
-    /// Get a range of enabled audio devices.
+    /// Get a range of started audio devices.
     /// </summary>
-    /// <returns>The list of enabled audio devices.</returns>
-    public List<MMDevice> GetAllEnabled()
+    /// <returns>The list of started audio devices.</returns>
+    public List<MMDevice> GetAllStarted()
     {
       if
       (
@@ -343,7 +212,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get enabled audio device(s). " +
+          "Failed to get started audio device(s). " +
           "Audio device list is null or empty."
         );
 
@@ -354,11 +223,11 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       (
         string.Format
         (
-          "Got enabled audio device(s)\t=> Count: {0}",
+          "Got started audio device(s)\t=> Count: {0}",
           List.Where
             (
               x =>
-              x.State != DeviceState.Disabled
+              IsStarted(x)
             ).Count()
         )
       );
@@ -419,9 +288,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
     }
 
     /// <summary>
-    /// Disable all audio devices.
+    /// Stop all audio devices.
     /// </summary>
-    public void DisableAll()
+    public void StopAll()
     {
       if
       (
@@ -431,7 +300,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to disable audio device(s). " +
+          "Failed to stop audio device(s). " +
           "Audio device list is null or empty."
         );
 
@@ -441,15 +310,15 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       List.ForEach
         (
           x =>
-          Disable((MMDevice?)x)
+          Stop((MMDevice?)x)
         );
     }
 
     /// <summary>
-    /// Disable a range of audio devices.
+    /// Stop a range of audio devices.
     /// </summary>
     /// <param name="idList">The audio device ID list</param>
-    public void DisableRange(List<string> idList)
+    public void StopRange(List<string> idList)
     {
       if
      (
@@ -461,7 +330,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to disable audio device(s). " +
+          "Failed to stop audio device(s). " +
           "Either audio device ID list is null or empty, " +
           "or audio device list is null or empty."
         );
@@ -473,28 +342,24 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
 
       idList.ForEach
         (
-          id =>
-          {
-            MMDevice? model = Get(id);
-            Disable(model);
-          }
+          id => Stop(id)
         );
     }
 
     /// <summary>
-    /// Disable an audio device.
+    /// Stop an audio device.
     /// </summary>
     /// <param name="id">the audio device ID</param>
-    public void Disable(string id)
+    public void Stop(string id)
     {
       MMDevice? model = Get(id);
-      Disable(model);
+      Stop(model);
     }
 
     /// <summary>
-    /// Enable all audio devices.
+    /// Start all audio devices.
     /// </summary>
-    public void EnableAll()
+    public void StartAll()
     {
       if
       (
@@ -504,7 +369,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to enable audio device(s). " +
+          "Failed to start audio device(s). " +
           "Audio device list is null or empty."
         );
 
@@ -514,15 +379,15 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       List.ForEach
         (
           x =>
-          Enable((MMDevice?)x)
+          Start((MMDevice?)x)
         );
     }
 
     /// <summary>
-    /// Enable a range of audio devices.
+    /// Start a range of audio devices.
     /// </summary>
     /// <param name="idList">The audio device ID list</param>
-    public void EnableRange(List<string> idList)
+    public void StartRange(List<string> idList)
     {
       if
      (
@@ -534,7 +399,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to enable audio device(s). " +
+          "Failed to start audio device(s). " +
           "Either audio device ID list is null or empty, " +
           "or audio device list is null or empty."
         );
@@ -546,22 +411,60 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Persistence.Repositories
 
       idList.ForEach
         (
-          id =>
-          {
-            MMDevice? model = Get(id);
-            Enable(model);
-          }
+          id => Start(id)
         );
     }
 
     /// <summary>
-    /// Enable an audio device.
+    /// Start an audio device.
     /// </summary>
     /// <param name="id">the audio device ID</param>
-    public void Enable(string id)
+    public void Start(string id)
     {
       MMDevice? model = Get(id);
-      Enable(model);
+      Start(model);
+    }
+
+    /// <summary>
+    /// Update the audio device.
+    /// </summary>
+    /// <param name="id">the audio device ID</param>
+    public void Update(string id)
+    {
+      MMDevice? model = Get(id);
+      Update(model);
+    }
+
+    /// <summary>
+    /// Update a range of audio devices.
+    /// </summary>
+    /// <param name="idList">The audio device ID list</param>
+    public void UpdateRange(List<string> idList)
+    {
+      if
+     (
+       idList is null
+       || idList.Count == 0
+       || List is null
+       || List.Count == 0
+     )
+      {
+        Debug.WriteLine
+        (
+          "Failed to update audio device(s). " +
+          "Either audio device ID list is null or empty, " +
+          "or audio device list is null or empty."
+        );
+
+        return;
+      }
+
+      List<MMDevice> modelList = new List<MMDevice>();
+
+      idList.ForEach
+        (
+          id => Update(id)
+        );
     }
 
     /// <summary>

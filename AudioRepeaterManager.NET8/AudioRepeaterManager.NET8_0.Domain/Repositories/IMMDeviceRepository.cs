@@ -7,18 +7,20 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     #region Logic
 
     List<MMDevice> GetAll();
-    List<MMDevice> GetAllDisabled();
-    List<MMDevice> GetAllEnabled();
+    List<MMDevice> GetAllStarted();
+    List<MMDevice> GetAllStopped();
     List<MMDevice> GetRange(List<string> idList);
     MMDevice? Get(string id);
-    void Disable(string id);
-    void DisableAll();
-    void DisableRange(List<string> idList);
-    void EnableAll();
-    void EnableRange(List<string> idList);
-    void Enable(string id);
+    void StartAll();
+    void StartRange(List<string> idList);
+    void Start(string id);
+    void Stop(string id);
+    void StopAll();
+    void StopRange(List<string> idList);
+    void Update(string id);
     void UpdateAll();
-
+    void UpdateRange(List<string> idList);
+    
     #endregion
   }
 }
