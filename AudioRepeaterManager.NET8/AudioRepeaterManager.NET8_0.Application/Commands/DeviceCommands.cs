@@ -90,8 +90,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       {
         Debug.WriteLine
           (
-            "Failed to start audio device. " +
-            "Audio device is null."
+            "Failed to start the audio device. " +
+            "The audio device is null."
           );
 
         return;
@@ -105,7 +105,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
             string
             .Format
             (
-              "Audio device is already started\t=> Name: {0}.",
+              "The audio device is already started\t=> Name: {0}.",
               model.FriendlyName
             )
           );
@@ -124,7 +124,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         (
           string.Format
           (
-            "Failed to start audio device\t=> Name: {0}.",
+            "Failed to start the audio device\t=> Name: {0}.",
             model.FriendlyName
           )
         );
@@ -136,7 +136,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Start audio device\t=> Name: {0}.",
+          "Start the audio device\t=> Name: {0}.",
           model.FriendlyName
         )
       );
@@ -154,8 +154,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       {
         Debug.WriteLine
           (
-            "Failed to stop audio device. " +
-            "Audio device is null."
+            "Failed to stop the audio device. " +
+            "The audio device is null."
           );
 
         return;
@@ -169,7 +169,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
             string
             .Format
             (
-              "Audio device is already stopped\t=> Name: {0}.",
+              "The audio device is already stopped\t=> Name: {0}.",
               model.FriendlyName
             )
           );
@@ -188,7 +188,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         (
           string.Format
           (
-            "Failed to stop audio device\t=> Name: {0}.",
+            "Failed to stop the audio device\t=> Name: {0}.",
             model.FriendlyName
           )
         );
@@ -200,7 +200,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Stop audio device\t=> Name: {0}.",
+          "Stopped the audio device\t=> Name: {0}.",
           model.FriendlyName
         )
       );
@@ -218,8 +218,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       {
         Debug.WriteLine
           (
-            "Failed to update audio device. " +
-            "Audio device is null."
+            "Failed to update the audio device. " +
+            "The audio device is null."
           );
 
         return;
@@ -236,7 +236,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         (
           string.Format
           (
-            "Failed to update audio device\t=> Name: {0}.",
+            "Failed to update the audio device\t=> Name: {0}.",
             model.FriendlyName
           )
         );
@@ -248,7 +248,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Updated audio device\t=> Name: {0}.",
+          "Updated the audio device\t=> Name: {0}.",
           model.FriendlyName
         )
       );

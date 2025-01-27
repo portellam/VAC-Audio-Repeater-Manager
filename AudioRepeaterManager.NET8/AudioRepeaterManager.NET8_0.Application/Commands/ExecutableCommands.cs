@@ -6,7 +6,10 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
   {
     #region Logic
 
-    private static Process defaultProcess { get; set; } = new Process()
+    /// <summary>
+    /// The default process.
+    /// </summary>
+    private static Process DefaultProcess { get; set; } = new Process()
     {
       EnableRaisingEvents = true,
 
@@ -27,6 +30,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     /// <returns>The process</returns>
     private static Process? Get(int? processId)
     {
+      Process? process = null;
+
       if
       (
         processId is null
@@ -38,17 +43,35 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
           "Process ID is either null or less than zero."
         );
 
-        return null;
+        return process;
       }
 
       try
       {
-        return Process.GetProcessById((int)processId);
+        process = Process.GetProcessById((int)processId);
+
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Process: {0}",
+            process
+          )
+        );
       }
-      catch
+
+      catch (Exception exception)
       {
-        return null;
+        Debug.WriteLine
+        (
+          "Failed to get process. " +
+          "Process ID is either null or less than zero."
+        );
+
+        process = null;
       }
+
+      return process;
     }
 
     /// <summary>
@@ -81,7 +104,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Restarting executable\t=> Process ID: {0}",
+          "Restarting the executable\t=> Process ID: {0}",
           processId
         )
       );
@@ -96,7 +119,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       if (isRunning)
       {
-        Debug.WriteLine("Failed to restart executable.");
+        Debug.WriteLine("Failed to restart the executable.");
         return result;
       }
 
@@ -111,12 +134,12 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       if (!isRunning)
       {
-        Debug.WriteLine("Failed to restart executable.");
+        Debug.WriteLine("Failed to restart the executable.");
       }
 
       else
       {
-        Debug.WriteLine("Restarted executable.");
+        Debug.WriteLine("Restarted the executable.");
       }
 
       return result;
@@ -150,7 +173,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
           (
             "Failed to start executable. " +
             "File name is either empty, null, or whitespace\t=> " +
-            "ProcessId: {0}, FileName: {1}, StartArguments: {2}",
+            "Process ID: {0}, File Name: {1}, Start Arguments: {2}",
             processId,
             fileName,
             startArguments
@@ -167,7 +190,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
           string.Format
           (
             "Executable already started\t=> " +
-            "ProcessId: {0}, FileName: {1}, StartArguments: {2}",
+            "Process ID: {0}, File Name: {1}, Start Arguments: {2}",
             processId,
             fileName,
             startArguments
@@ -182,14 +205,14 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         string.Format
         (
           "Starting executable\t=> " +
-          "ProcessId: {0}, FileName: {1}, StartArguments: {2}",
+          "Process ID: {0}, File Name: {1}, Start Arguments: {2}",
           processId,
           fileName,
           startArguments
         )
       );
 
-      process = defaultProcess;
+      process = DefaultProcess;
       process.StartInfo.FileName = fileName;
 
       bool startAnArgument =
@@ -208,12 +231,12 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       if (isRunning)
       {
-        Debug.WriteLine("Failed to start executable.");
+        Debug.WriteLine("Failed to start the executable.");
       }
 
       else
       {
-        Debug.WriteLine("Started executable.");
+        Debug.WriteLine("Started the executable.");
       }
 
       return process.Id;
@@ -240,8 +263,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         (
           string.Format
           (
-            "Executable already stopped\t=> " +
-            "ProcessId: {0}, StopArguments: {1}",
+            "The executable has already stopped\t=> " +
+            "Process ID: {0}, Stop Arguments: {1}",
             processId,
             stopArguments
           )
@@ -255,8 +278,8 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Starting executable\t=> " +
-          "ProcessId: {0}, StopArguments: {1}",
+          "Starting the executable\t=> " +
+          "Process ID: {0}, Stop Arguments: {1}",
           processId,
           stopArguments
         )
@@ -281,12 +304,12 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       if (isRunning)
       {
-        Debug.WriteLine("Failed to stop executable.");
+        Debug.WriteLine("Failed to stop the executable.");
       }
 
       else
       {
-        Debug.WriteLine("Stopped executable.");
+        Debug.WriteLine("Stopped the executable.");
       }
 
       return result;
