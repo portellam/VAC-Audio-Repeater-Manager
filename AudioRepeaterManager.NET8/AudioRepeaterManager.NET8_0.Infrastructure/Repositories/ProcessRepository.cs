@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using AudioRepeaterManager.NET8_0.Application.Commands;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
@@ -16,18 +17,18 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// </summary>
     private List<Process> List { get; set; }
 
-    private List<string> executableNameList { get; set; }
+    private List<string> fileNameList { get; set; } = new List<string>();
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
-    /// The executable name list.
+    /// The file name list.
     /// </summary>
-    public List<string> ExecutableNameList
+    public List<string> FileNameList
     {
       get
       {
-        return executableNameList;
+        return fileNameList;
       }
       set
       {
@@ -53,8 +54,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           );
         }
 
-        executableNameList = value;
-        OnPropertyChanged(nameof(ExecutableNameList));
+        fileNameList = value;
+        OnPropertyChanged(nameof(FileNameList));
       }
     }
 
@@ -65,14 +66,173 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
-    /// </summary>
-    /// <param name="executableNameList">the executable name list</param>
+    /// <param name="fileNameList">the executable name list</param>
     [ExcludeFromCodeCoverage]
-    public ProcessRepository(List<string> executableNameList)
+    public ProcessRepository(List<string> fileNameList)
     {
       List = new List<Process>();
-      ExecutableNameList = executableNameList;
+      FileNameList = fileNameList;
       Update();
+    }
+
+    /// <summary>
+    /// Kill a list of processes.
+    /// </summary>
+    /// <param name="processList">the process list</param>
+    /// <returns>The exit code.</returns>
+    private async Task<int[]> KillRange(List<Process> processList)
+    {
+      int[] resultArray = new int[] { 1 };
+
+      if
+      (
+        processList is null
+        || processList.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to run process(es). " +
+          "Process list is null or empty."
+        );
+
+        return resultArray;
+      }
+
+      resultArray = await Task.WhenAll
+        (
+          processList.Select
+          (
+            x =>
+            ProcessCommands.RunAsync(x)
+          )
+        );
+
+      bool hasAnyFailed = resultArray
+        .ToList()
+        .Any
+        (
+          x =>
+          x != 0
+        );
+
+      int count = processList.Count;
+
+      if (hasAnyFailed)
+      {
+        int difference = count - resultArray
+          .ToList()
+          .Count
+          (
+            x =>
+            x != 0
+          );
+
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to kill some process(es)\t=> Count: {0}",
+            difference
+          )
+        );
+      }
+
+      else
+      {
+        resultArray = new int[] { 0 };
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Killed process(es)\t=> Count: {0}",
+          count
+        )
+      );
+
+      return resultArray;
+    }
+
+    /// <summary>
+    /// Run a range of processes.
+    /// </summary>
+    /// <param name="processList">the process list</param>
+    /// <returns>The exit code.</returns>
+    private async Task<int[]> RunRange(List<Process> processList)
+    {
+      int[] resultArray = new int[] { 1 };
+
+      if
+      (
+        processList is null
+        || processList.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to run process(es). " +
+          "Process list is null or empty."
+        );
+
+        return resultArray;
+      }
+
+      resultArray = await Task.WhenAll
+        (
+          processList.Select
+          (
+            x =>
+            ProcessCommands.RunAsync(x)
+          )
+        );
+
+      bool hasAnyFailed = resultArray
+        .ToList()
+        .Any
+        (
+          x =>
+          x != 0
+        );
+
+      int count = processList.Count;
+
+      if (hasAnyFailed)
+      {
+        int difference = count - resultArray
+          .ToList()
+          .Count
+          (
+            x =>
+            x != 0
+          );
+
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to run some process(es)\t=> Count: {0}",
+            difference
+          )
+        );
+      }
+
+      else
+      {
+        resultArray = new int[] { 0 };
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Ran process(es)\t=> Count: {0}",
+          count
+        )
+      );
+
+      return resultArray;
     }
 
     /// <summary>
@@ -96,7 +256,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         )
       );
     }
-
+    
     /// <summary>
     /// Get a process.
     /// </summary>
@@ -164,7 +324,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got process(es) => Count: {0}",
+          "Got process(es)\t=> Count: {0}",
           List.Count()
         )
       );
@@ -211,7 +371,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got process(es) => Count: {0}",
+          "Got process(es)\t=> Count: {0}",
           list.Count()
         )
       );
@@ -222,85 +382,19 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Kill a process.
     /// </summary>
-    /// <param name="process">the process</param>
-    /// <returns>The exit code.</returns>
-    private static Task<int> Kill(Process? process)
-    {
-      TaskCompletionSource<int> taskCompletionSource =
-        new TaskCompletionSource<int>();
-
-      Task<int> task;
-      int passCode = 0;
-      int failCode = 1;
-
-      if (process is null)
-      {
-        Debug.WriteLine
-        (
-          "Failed to kill process. " +
-           "The process is null."
-        );
-
-        taskCompletionSource.SetResult(passCode);
-        task = taskCompletionSource.Task;
-        return task;
-      }
-
-      process.Exited +=
-        (
-          sender,
-          arguments
-        ) => taskCompletionSource
-          .SetResult(process.ExitCode);
-
-      process.OutputDataReceived +=
-        (
-          sender,
-          arguments
-        ) => Console.WriteLine(arguments.Data);
-
-      process.ErrorDataReceived +=
-        (
-          sender,
-          arguments
-        ) => Console.WriteLine("ERR: " + arguments.Data);
-
-      process.Kill();
-
-      if (!process.HasExited)
-      {
-        Debug.WriteLine("Failed to kill process: " + process);
-        taskCompletionSource.SetResult(failCode);
-      }
-
-      else
-      {
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-      }
-
-      task = taskCompletionSource.Task;
-      return task;
-    }
-
-    /// <summary>
-    /// Kill a process.
-    /// </summary>
     /// <param name="id">the process ID</param>
     /// <returns>The exit code.</returns>
     public async Task<int> Kill(int id)
     {
       Process process = Get(id);
-
-      return await Kill(process)
-        .ConfigureAwait(false);
+      return await ProcessCommands.KillAsync(process);
     }
 
     /// <summary>
     /// Kill all processes.
     /// </summary>
     /// <returns></returns>
-    public async Task<int> KillAll()
+    public async Task<int[]> KillAll()
     {
       return await KillRange(List)
         .ConfigureAwait(false);
@@ -311,155 +405,12 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// </summary>
     /// <param name="idList">the process ID list</param>
     /// <returns>The exit code.</returns>
-    public async Task<int> KillRange(List<int> idList)
+    public async Task<int[]> KillRange(List<int> idList)
     {
       List<Process> processList = GetRange(idList);
 
       return await KillRange(processList)
         .ConfigureAwait(false);
-    }
-
-    /// <summary>
-    /// Kill a list of processes.
-    /// </summary>
-    /// <param name="processList">the process list</param>
-    /// <returns>The exit code.</returns>
-    public async Task<int> KillRange(List<Process> processList)
-    {
-      int result = 1;
-
-      if
-      (
-        processList is null
-        || processList.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to kill process(es). " +
-          "Process list is null or empty."
-        );
-
-        return result;
-      }
-
-      var taskList = processList
-        .Select
-        (
-          x =>
-          Kill(x)
-        );
-
-      var resultList = await Task.WhenAll(taskList);
-
-      bool hasAnyFailed = resultList
-        .ToList()
-        .Any
-        (
-          x =>
-          x != 0
-        );
-
-      int count = processList.Count;
-
-      if (hasAnyFailed)
-      {
-        int difference = count - resultList
-          .ToList()
-          .Count
-          (
-            x =>
-            x != 0
-          );
-
-        Debug.WriteLine
-        (
-          string.Format
-          (
-            "Failed to kill some process(es) => Count: {0}",
-            difference
-          )
-        );
-      }
-
-      else
-      {
-        result = 0;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Killed process(es) => Count: {0}",
-          count
-        )
-      );
-
-      return result;
-    }
-
-    /// <summary>
-    /// Run a process.
-    /// </summary>
-    /// <param name="process">the process</param>
-    /// <returns>The exit code.</returns>
-    private static Task<int> Run(Process? process)
-    {
-      TaskCompletionSource<int> taskCompletionSource =
-        new TaskCompletionSource<int>();
-
-      Task<int> task;
-      int failCode = 1;
-
-      if (process is null)
-      {
-        Debug.WriteLine
-        (
-          "Failed to start process. " +
-           "The process is null."
-        );
-
-        taskCompletionSource.SetResult(failCode);
-        task = taskCompletionSource.Task;
-        return task;
-      }
-
-      process.Exited +=
-        (
-          sender,
-          arguments
-        ) => taskCompletionSource
-          .SetResult(process.ExitCode);
-
-      process.OutputDataReceived +=
-        (
-          sender,
-          arguments
-        ) => Console.WriteLine(arguments.Data);
-
-      process.ErrorDataReceived +=
-        (
-          sender,
-          arguments
-        ) => Console.WriteLine("ERR: " + arguments.Data);
-
-      bool isStarted = process.Start();
-
-      if (!isStarted)
-      {
-        Debug.WriteLine("Failed to start process: " + process);
-        taskCompletionSource.SetResult(failCode);
-      }
-
-      else
-      {
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-      }
-
-      task = taskCompletionSource.Task;
-      return task;
     }
 
     /// <summary>
@@ -470,16 +421,14 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     public async Task<int> Run(int id)
     {
       Process process = Get(id);
-
-      return await Run(process)
-        .ConfigureAwait(false);
+      return await ProcessCommands.RunAsync(process);
     }
 
     /// <summary>
     /// Run all processes.
     /// </summary>
     /// <returns></returns>
-    public async Task<int> RunAll()
+    public async Task<int[]> RunAll()
     {
       return await RunRange(List)
         .ConfigureAwait(false);
@@ -490,94 +439,14 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// </summary>
     /// <param name="idList">the process ID list</param>
     /// <returns>The exit code.</returns>
-    public async Task<int> RunRange(List<int> idList)
+    public async Task<int[]> RunRange(List<int> idList)
     {
       List<Process> processList = GetRange(idList);
 
       return await RunRange(processList)
         .ConfigureAwait(false);
     }
-
-    /// <summary>
-    /// Run a range of processes.
-    /// </summary>
-    /// <param name="processList">the process list</param>
-    /// <returns>The exit code.</returns>
-    public async Task<int> RunRange(List<Process> processList)
-    {
-      int result = 1;
-
-      if
-      (
-        processList is null
-        || processList.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to run process(es). " +
-          "Process list is null or empty."
-        );
-
-        return result;
-      }
-
-      var taskList = processList
-        .Select
-        (
-          x =>
-          Run(x)
-        );
-
-      var resultList = await Task.WhenAll(taskList);
-
-      bool hasAnyFailed = resultList
-        .ToList()
-        .Any
-        (
-          x =>
-          x != 0
-        );
-
-      int count = processList.Count;
-
-      if (hasAnyFailed)
-      {
-        int difference = count - resultList
-          .ToList()
-          .Count
-          (
-            x =>
-            x != 0
-          );
-
-        Debug.WriteLine
-        (
-          string.Format
-          (
-            "Failed to run some process(es) => Count: {0}",
-            difference
-          )
-        );
-      }
-
-      else
-      {
-        result = 0;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Ran process(es) => Count: {0}",
-          count
-        )
-      );
-
-      return result;
-    }
-
+        
     /// <summary>
     /// Set the process list.
     /// </summary>
@@ -585,7 +454,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     {
       List.Clear();
 
-      ExecutableNameList
+      FileNameList
         .ForEach
         (
           x =>
