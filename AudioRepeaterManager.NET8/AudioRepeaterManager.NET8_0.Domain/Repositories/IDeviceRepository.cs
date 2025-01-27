@@ -18,12 +18,12 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     DeviceModel Get(uint? id);
     List<DeviceModel> GetAll();
     List<DeviceModel> GetAllAbsent();
-    List<DeviceModel> GetAllDisabled();
     List<DeviceModel> GetAllDuplex();
-    List<DeviceModel> GetAllEnabled();
     List<DeviceModel> GetAllInput();
     List<DeviceModel> GetAllOutput();
     List<DeviceModel> GetAllPresent();
+    List<DeviceModel> GetAllStarted();
+    List<DeviceModel> GetAllStopped();
     List<DeviceModel> GetRange(List<string> actualIdList);
     List<DeviceModel> GetRange(List<uint?> idList);
 
