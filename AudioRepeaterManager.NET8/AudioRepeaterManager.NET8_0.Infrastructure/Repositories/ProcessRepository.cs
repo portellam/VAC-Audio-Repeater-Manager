@@ -469,7 +469,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
               (
                 string.Format
                 (
-                  "Found no processes\t=> ExecutableName: {0}",
+                  "Found no processes\t=> FileName: {0}",
                   x
                 )
               );
@@ -481,7 +481,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
               (
                string.Format
                (
-                 "Found processes\t=> ExecutableName: {0}, Count: {1}",
+                 "Found processes\t=> FileName: {0}, Count: {1}",
                  x,
                  list.Count()
                )
