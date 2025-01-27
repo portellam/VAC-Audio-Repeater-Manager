@@ -16,9 +16,9 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     );
 
     List<RepeaterModel> GetAll();
-    List<RepeaterModel> GetRange(string deviceName); // NOTE: this may be useful.
+    List<RepeaterModel> GetRange(string deviceName);
     List<RepeaterModel> GetRange(uint? id);
-    List<RepeaterModel> GetRange(List<string> deviceNameList); // NOTE: I may keep this one.
+    List<RepeaterModel> GetRange(List<string> deviceNameList);
     List<RepeaterModel> GetRange(List<uint?> idList);
     List<RepeaterModel> GetRangeByDeviceId(List<uint?> deviceIdList);
     Task<int> Restart(RepeaterModel model);
