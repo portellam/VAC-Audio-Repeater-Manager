@@ -90,6 +90,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       {
         process.Kill();
       }
+
       catch (Exception exception)
       {
         Debug.WriteLine
@@ -97,7 +98,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
           string.Format
           (
             "Error\t=> Exception: {0}",
-            exception
+            exception.Message
           )
         );
       }
@@ -204,6 +205,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       {
         isRunning = process.Start();
       }
+
       catch (Exception exception)
       {
         Debug.WriteLine
@@ -211,7 +213,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
           string.Format
           (
             "Error\t=> Exception: {0}",
-            exception
+            exception.Message
           )
         );
 

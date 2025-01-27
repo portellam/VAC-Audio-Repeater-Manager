@@ -960,7 +960,15 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
             )
       )
       {
-        Debug.WriteLine("Failed to set the info list.");
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to update the repeater\t=> Info List: {0}",
+            infoList
+          )
+        );
+
         return;
       }
 
@@ -973,7 +981,15 @@ namespace AudioRepeaterManager.NET8_0.Domain.Models
       PrefillPercentage = prefillPercentage;
       ResyncAtPercentage = resyncAtPercentage;
       SampleRateKHz = sampleRateKHz;
-      Debug.WriteLine("Set the info list.");
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Updated the repeater\t=> Info List: {0}",
+          infoList
+        )
+      );
     }
 
     #endregion
