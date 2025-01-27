@@ -13,7 +13,12 @@ namespace AudioRepeaterManager.NET8_0.GUI.Helpers
     {
       if (string.IsNullOrWhiteSpace(url))
       {
-        Debug.WriteLine("Failed open URL in browser. URL is null or whitespace.");
+        Debug.WriteLine
+        (
+          "Failed open URL in browser. " +
+          "URL is null or whitespace."
+        );
+
         return;
       }
 
@@ -25,7 +30,7 @@ namespace AudioRepeaterManager.NET8_0.GUI.Helpers
         (
           string.Format
           (
-            "Trying to open URL in browser: '{1}'",
+            "Trying to open URL in browser\t=> URL: '{0}'",
             url
           )
         );
@@ -33,46 +38,74 @@ namespace AudioRepeaterManager.NET8_0.GUI.Helpers
 
       catch
       {
-        // hack because of this: https://github.com/dotnet/corefx/issues/10361
+        /*
+         * The following implementation is a hack because of this: 
+         * https://github.com/dotnet/corefx/issues/10361.
+         */
+
+        string newValue;
+        string oldValue;
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-          url = url.Replace
-            (
-              "&",
-              "^&"
-            );
-
-          Process.Start
-            (
-              new ProcessStartInfo(url)
-              {
-                UseShellExecute = true
-              }
-            );
+          newValue = "^&";
+          oldValue = "&";
         }
 
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-          Process.Start
-            (
-              "xdg-open",
-              url
-            );
+          newValue = url;
+          oldValue = "xdg-open";
         }
 
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-          Process.Start
-            (
-              "open",
-              url
-            );
+          newValue = url;
+          oldValue = "open";
         }
 
         else
         {
-          Debug.WriteLine("Failed open URL in browser.");
+          Debug.WriteLine
+          (
+            "Failed open URL in browser. " +
+            "Failed to detect valid OS platform."
+          );
+
           throw;
+        }
+
+        url = url.Replace
+        (
+          newValue,
+          oldValue
+        );
+
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Detected valid OS platform and updated URL\t=> " +
+            "OS Description: {0}, URL: '{1}'",
+            RuntimeInformation.OSDescription,
+            url
+          )
+        );
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+          Process.Start
+          (
+            new ProcessStartInfo(url)
+            {
+              UseShellExecute = true
+            }
+          );
+        }
+
+        else
+        {
+          Process.Start(new ProcessStartInfo(url));
         }
 
         Debug.WriteLine("Opened URL in browser.");
