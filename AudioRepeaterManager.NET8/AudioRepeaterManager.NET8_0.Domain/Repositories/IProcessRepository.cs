@@ -8,7 +8,7 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     #region Parameters
 
     event PropertyChangedEventHandler PropertyChanged;
-    List<string> ExecutableNameList { get; set; }
+    List<string> FileNameList { get; set; }
 
     #endregion
 
@@ -18,11 +18,11 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     List<Process> GetRange(List<int> idList);
     Process Get(int id);
     Task<int> Run(int id);
-    Task<int> RunAll();
-    Task<int> RunRange(List<int> id);
+    Task<int[]> RunAll();
+    Task<int[]> RunRange(List<int> id);
     Task<int> Kill(int id);
-    Task<int> KillAll();
-    Task<int> KillRange(List<int> id);
+    Task<int[]> KillAll();
+    Task<int[]> KillRange(List<int> id);
     void Update();
 
     #endregion
