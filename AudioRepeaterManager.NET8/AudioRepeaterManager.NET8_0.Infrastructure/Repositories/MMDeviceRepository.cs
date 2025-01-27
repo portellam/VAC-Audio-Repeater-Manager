@@ -1,6 +1,6 @@
-﻿using NAudio.CoreAudioApi;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using NAudio.CoreAudioApi;
 using AudioRepeaterManager.NET8_0.Application.Commands;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 
