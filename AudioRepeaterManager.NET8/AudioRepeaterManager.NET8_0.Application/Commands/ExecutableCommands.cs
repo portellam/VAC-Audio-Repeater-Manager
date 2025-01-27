@@ -191,14 +191,14 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       process = defaultProcess;
       process.StartInfo.FileName = fileName;
-        
-      bool isArgumentsValid =
+
+      bool startAnArgument =
         !(
           string.IsNullOrEmpty(startArguments)
           || string.IsNullOrWhiteSpace(startArguments)
         );
 
-      if (isArgumentsValid)
+      if (startAnArgument)
       {
         process.StartInfo.Arguments = startArguments;
       }
@@ -262,30 +262,13 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
         )
       );
 
-      if
-      (
+      bool killWithPrejudice =
         string.IsNullOrEmpty(stopArguments)
-        || string.IsNullOrWhiteSpace(stopArguments)
-      )
-      {
-        try
-        {
-          process.Kill();
-          result = 0;
-        }
-        catch (Exception exception)
-        {
-          Debug.WriteLine
-          (
-            string.Format
-            (
-              "Error\t=> Exception: {0}",
-              exception
-            )
-          );
+        || string.IsNullOrWhiteSpace(stopArguments);
 
-          result = 1;
-        }
+      if (killWithPrejudice)
+      {
+        result = await ProcessCommands.KillAsync(process);
       }
 
       else
