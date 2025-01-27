@@ -1,17 +1,10 @@
 ﻿using NAudio.CoreAudioApi;
-using System.ComponentModel;
 using AudioRepeaterManager.NET8_0.Domain.Models;
 
 namespace AudioRepeaterManager.NET8_0.Domain.Repositories
 {
   public interface IDeviceRepository
   {
-    #region Parameters
-
-    event PropertyChangedEventHandler PropertyChanged;
-
-    #endregion
-
     #region Logic
 
     DeviceModel Get(string actualId);

@@ -1,17 +1,14 @@
-﻿using NAudio.CoreAudioApi;
-using AudioSwitcher.AudioApi.CoreAudio;                                         // NAudio Issue #421: AudioSwitcher must succeed NAudio.
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using NAudio.CoreAudioApi;
+using AudioSwitcher.AudioApi.CoreAudio;                                         // NAudio Issue #421: AudioSwitcher must succeed NAudio.
 using AudioRepeaterManager.NET8_0.Domain.Models;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 using AudioRepeaterManager.NET8_0.Domain.Shared;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
-  public class DeviceRepository :
-    IDeviceRepository,
-    INotifyPropertyChanged
+  public class DeviceRepository : IDeviceRepository
   {
     #region Parameters
 
@@ -70,8 +67,6 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         return id;
       }
     }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     #endregion
 
@@ -181,28 +176,6 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">the property name</param>
-    private void OnPropertyChanged(string propertyName)
-    {
-      PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
-    }
-
-    /// <summary>
     /// Get the audio device.
     /// </summary>
     /// <param name="actualId">the actual audio device ID</param>
@@ -220,7 +193,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         return null;
       }
 
-      return HashSet        .FirstOrDefault(x => x.ActualId == actualId);
+      return HashSet.FirstOrDefault(x => x.ActualId == actualId);
     }
 
     /// <summary>
