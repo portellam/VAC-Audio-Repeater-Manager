@@ -109,8 +109,13 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get audio device. " +
-          "Audio device is either null or does not exist in list."
+          string.Format
+          (
+            "Failed to get the audio device. " +
+            "The audio device is either null or does not exist in list\t=> " +
+            "ID: {0}",
+            id
+          )
         );
 
         return model;
@@ -120,7 +125,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got audio device\t=> ID: {0}",
+          "Got the audio device\t=> ID: {0}",
           model.ID
         )
       );
@@ -142,8 +147,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get audio device(s). " +
-          "Audio device list is null or empty."
+          "Failed to get the list of all audio device(s). " +
+          "The audio device list is null or empty."
         );
 
         return new List<MMDevice>();
@@ -153,7 +158,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got audio device(s)\t=> Count: {0}",
+          "Got list of all audio device(s)\t=> Count: {0}",
           List.Count()
         )
       );
@@ -175,8 +180,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get stopped audio device(s). " +
-          "Audio device list is null or empty."
+          "Failed to get list of stopped audio device(s). " +
+          "The audio device list is null or empty."
         );
 
         return new List<MMDevice>();
@@ -186,7 +191,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got stopped audio device(s)\t=> Count: {0}",
+          "Got list of stopped audio device(s)\t=> Count: {0}",
           List.Where
             (
               x =>
@@ -212,8 +217,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get started audio device(s). " +
-          "Audio device list is null or empty."
+          "Failed to get list of started audio device(s). " +
+          "The audio device list is null or empty."
         );
 
         return new List<MMDevice>();
@@ -223,7 +228,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got started audio device(s)\t=> Count: {0}",
+          "Got list of started audio device(s)\t=> Count: {0}",
           List.Where
             (
               x =>
@@ -252,9 +257,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get audio device(s). " +
-          "Either audio device ID list is null or empty, " +
-          "or audio device list is null or empty."
+          "Failed to get the audio device(s). " +
+          "Either the audio device ID list is null or empty, " +
+          "or the audio device list is null or empty."
         );
 
         return new List<MMDevice>();
@@ -310,8 +315,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to start audio device(s). " +
-          "Audio device list is null or empty."
+          "Failed to start the audio device(s). " +
+          "The audio device list is null or empty."
         );
 
         return;
@@ -340,9 +345,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to start audio device(s). " +
-          "Either audio device ID list is null or empty, " +
-          "or audio device list is null or empty."
+          "Failed to start the audio device(s). " +
+          "Either the audio device ID list is null or empty, " +
+          "or the audio device list is null or empty."
         );
 
         return;
@@ -379,8 +384,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to stop audio device(s). " +
-          "Audio device list is null or empty."
+          "Failed to stop the audio device(s). " +
+          "The audio device list is null or empty."
         );
 
         return;
@@ -409,9 +414,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to stop audio device(s). " +
-          "Either audio device ID list is null or empty, " +
-          "or audio device list is null or empty."
+          "Failed to stop the audio device(s). " +
+          "Either the audio device ID list is null or empty, " +
+          "or the audio device list is null or empty."
         );
 
         return;
@@ -451,9 +456,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to update audio device(s). " +
-          "Either audio device ID list is null or empty, " +
-          "or audio device list is null or empty."
+          "Failed to update the audio device(s). " +
+          "Either the audio device ID list is null or empty, " +
+          "or the audio device list is null or empty."
         );
 
         return;
