@@ -39,8 +39,8 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
       bool? isPresent
     );
 
-    void DisableActual(string actualId);
-    void EnableActual(string actualId);
+    void Start(string actualId);
+    void Stop(string actualId);
     void Insert(DeviceModel model);
     void Insert(MMDevice mMDevice);
 
