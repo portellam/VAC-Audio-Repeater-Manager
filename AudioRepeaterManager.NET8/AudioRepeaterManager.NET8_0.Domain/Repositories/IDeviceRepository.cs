@@ -7,8 +7,8 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
   {
     #region Logic
 
-    DeviceModel Get(string actualId);
-    DeviceModel Get(uint? id);
+    DeviceModel? Get(string actualId);
+    DeviceModel? Get(uint? id);
     List<DeviceModel> GetAll();
     List<DeviceModel> GetAllAbsent();
     List<DeviceModel> GetAllDuplex();

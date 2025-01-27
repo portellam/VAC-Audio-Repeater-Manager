@@ -180,7 +180,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// </summary>
     /// <param name="actualId">the actual audio device ID</param>
     /// <returns>the audio device.</returns>
-    public DeviceModel Get(string actualId)
+    public DeviceModel? Get(string actualId)
     {
       if (string.IsNullOrWhiteSpace(actualId))
       {
