@@ -260,14 +260,19 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get repeater list.
+    /// Get the list of audio repeaters.
     /// </summary>
-    /// <returns>The repeater list.</returns>
+    /// <returns>The audio repeater list.</returns>
     public List<RepeaterModel> GetAll()
     {
       if (HashSet is null)
       {
-        Debug.WriteLine("Failed to get repeater(s). Repeater collection is null.");
+        Debug.WriteLine
+        (
+          "Failed to get the list of audio repeater(s). " +
+          "The audio repeater collection is null."
+        );
+
         return new List<RepeaterModel>();
       }
 
@@ -275,7 +280,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got repeater(s) => Count: {0}",
+          "Got the list of audio repeater(s)\t=> Count: {0}",
           HashSet.Count()
         )
       );
@@ -339,7 +344,6 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       return modelList;
     }
 
-
     /// <summary>
     /// Get repeater list by device ID.
     /// </summary>
@@ -380,7 +384,6 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 
       return modelList;
     }
-
 
     /// <summary>
     /// Get a list of repeaters.
