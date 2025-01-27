@@ -13,7 +13,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     #region Parameters
 
     /// <summary>
-    /// The list of processes.
+    /// The list of process(es).
     /// </summary>
     private List<Process> List { get; set; }
 
@@ -66,7 +66,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="fileNameList">the executable name list</param>
+    /// <param name="fileNameList">the file name list</param>
     [ExcludeFromCodeCoverage]
     public ProcessRepository(List<string> fileNameList)
     {
@@ -76,11 +76,11 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Kill a list of processes.
+    /// Kill a list of process(es).
     /// </summary>
     /// <param name="processList">the process list</param>
     /// <returns>The exit code.</returns>
-    private async Task<int[]> KillRange(List<Process> processList)
+    private async static Task<int[]> KillRange(List<Process> processList)
     {
       int[] resultArray = new int[] { 1 };
 
@@ -92,7 +92,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to run process(es). " +
+          "Failed to kill process(es). " +
           "Process list is null or empty."
         );
 
@@ -103,8 +103,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           processList.Select
           (
-            x =>
-            ProcessCommands.RunAsync(x)
+            async x =>
+            await ProcessCommands.RunAsync(x)
           )
         );
 
@@ -156,11 +156,11 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Run a range of processes.
+    /// Run a range of process(es).
     /// </summary>
     /// <param name="processList">the process list</param>
     /// <returns>The exit code.</returns>
-    private async Task<int[]> RunRange(List<Process> processList)
+    private async static Task<int[]> RunRange(List<Process> processList)
     {
       int[] resultArray = new int[] { 1 };
 
@@ -183,8 +183,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           processList.Select
           (
-            x =>
-            ProcessCommands.RunAsync(x)
+            async x =>
+            await ProcessCommands.RunAsync(x)
           )
         );
 
@@ -300,9 +300,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the list of processes.
+    /// Get the list of process(es).
     /// </summary>
-    /// <returns>The list of processes.</returns>
+    /// <returns>The list of process(es).</returns>
     public List<Process> GetAll()
     {
       if
@@ -333,10 +333,10 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get range of processes.
+    /// Get range of process(es).
     /// </summary>
     /// <param name="idList">The process ID list</param>
-    /// <returns>The list of processes.</returns>
+    /// <returns>The list of process(es).</returns>
     public List<Process> GetRange(List<int> idList)
     {
       if
@@ -391,7 +391,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Kill all processes.
+    /// Kill all process(es).
     /// </summary>
     /// <returns></returns>
     public async Task<int[]> KillAll()
@@ -401,7 +401,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Kill a list of processes.
+    /// Kill a list of process(es).
     /// </summary>
     /// <param name="idList">the process ID list</param>
     /// <returns>The exit code.</returns>
@@ -425,7 +425,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Run all processes.
+    /// Run all process(es).
     /// </summary>
     /// <returns></returns>
     public async Task<int[]> RunAll()
@@ -435,7 +435,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Run a range of processes.
+    /// Run a range of process(es).
     /// </summary>
     /// <param name="idList">the process ID list</param>
     /// <returns>The exit code.</returns>
@@ -469,7 +469,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
               (
                 string.Format
                 (
-                  "Found no processes\t=> FileName: {0}",
+                  "Found no process(es)\t=> FileName: {0}",
                   x
                 )
               );
@@ -481,7 +481,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
               (
                string.Format
                (
-                 "Found processes\t=> FileName: {0}, Count: {1}",
+                 "Found process(es)\t=> FileName: {0}, Count: {1}",
                  x,
                  list.Count()
                )
