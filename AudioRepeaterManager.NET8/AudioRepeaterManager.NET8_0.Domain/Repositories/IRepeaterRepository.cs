@@ -43,7 +43,6 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     Task<int> StopRange(List<RepeaterModel> model);
     Task<int> StopRange(List<uint?> idList);
     Task<int> StopRange(KeyValuePair<uint?, uint?> inputAndOutputDeviceId);
-    void Add(RepeaterModel model);
 
     void Add
     (
@@ -69,37 +68,10 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
       uint? sampleRateKHz,
       ushort bufferDurationMs
     );
+
     void AddRange(List<RepeaterModel> modelList);
 
     void Insert(RepeaterModel model);
-
-    void Insert
-    (
-      uint? id,
-      uint? inputDeviceId,
-      uint? outputDeviceId,
-      string inputDeviceName,
-      string outputDeviceName,
-      string pathName
-    );
-
-    void Insert
-    (
-      uint? id,
-      uint? inputDeviceId,
-      uint? outputDeviceId,
-      string inputDeviceName,
-      string outputDeviceName,
-      string pathName,
-      byte bitsPerSample,
-      byte bufferAmount,
-      byte prefillPercentage,
-      byte resyncAtPercentage,
-      ChannelConfig channelConfig,
-      uint? sampleRateKHz,
-      ushort bufferDurationMs
-    );
-
     void InsertRange(List<RepeaterModel> modelList);
     void Remove(uint? id);
 
@@ -109,42 +81,11 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
       uint? secondDeviceId
     );
 
-    void RemoveRange(string deviceName); // NOTE: redundant. See Line 116.
-    void RemoveRange(List<uint?> idList); // NOTE: looks good.
-    void RemoveRangeByDeviceId(uint? deviceId); // NOTE: looks good.
-    void RemoveRange(List<KeyValuePair<uint?, uint?>> deviceIdPairList); // NOTE: redundant. We should not have more than one repeater with the same input and output.
-    void RemoveRange(List<string> deviceNameList); // NOTE: redundant. Why? Because we should not have records without primary or foreign keys.
-    void RemoveRangeByDeviceId(List<uint?> deviceIdList); // NOTE: looks good.
-    void Update(RepeaterModel model); // NOTE: looks good.
-
-    void Update // NOTE: redundant.
-    (
-      uint? id,
-      uint? inputDeviceId,
-      uint? outputDeviceId,
-      string inputDeviceName,
-      string outputDeviceName,
-      string pathName
-    );
-
-    void Update // NOTE: redundant.
-    (
-      uint? id,
-      uint? inputDeviceId,
-      uint? outputDeviceId,
-      string inputDeviceName,
-      string outputDeviceName,
-      string pathName,
-      byte bitsPerSample,
-      byte bufferAmount,
-      byte prefillPercentage,
-      byte resyncAtPercentage,
-      ChannelConfig channelConfig,
-      uint? sampleRateKHz,
-      ushort bufferDurationMs
-    );
-
-    void UpdateRange(List<RepeaterModel> modelList); // NOTE: looks good.
+    void RemoveRange(List<uint?> idList);
+    void RemoveRangeByDeviceId(uint? deviceId);
+    void RemoveRangeByDeviceId(List<uint?> deviceIdList);
+    void Update(RepeaterModel model);
+    void UpdateRange(List<RepeaterModel> modelList);
 
     #endregion
   }
