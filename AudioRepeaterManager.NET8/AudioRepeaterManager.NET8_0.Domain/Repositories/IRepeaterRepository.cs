@@ -16,10 +16,10 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     );
 
     List<RepeaterModel> GetAll();
-    List<RepeaterModel> GetAllDisabled();
-    List<RepeaterModel> GetAllEnabled();
-    List<RepeaterModel> GetAllStarted();
-    List<RepeaterModel> GetAllStopped();
+    List<RepeaterModel> GetAllDisabled();  // NOTE: I do think we can only do this in a Controller with DeviceRepository.
+    List<RepeaterModel> GetAllEnabled();  // NOTE: I do think we can only do this in a Controller with DeviceRepository.
+    List<RepeaterModel> GetAllStarted();  // NOTE: I do think we can only do this in a Controller with ProcessRepository or DeviceRepository.
+    List<RepeaterModel> GetAllStopped();  // NOTE: I do think we can only do this in a Controller with ProcessRepository or DeviceRepository.
     List<RepeaterModel> GetRange(string deviceName); // NOTE: this may be useful.
     List<RepeaterModel> GetRange(uint? id);
     List<RepeaterModel> GetRange(List<string> deviceNameList); // NOTE: I may keep this one.
