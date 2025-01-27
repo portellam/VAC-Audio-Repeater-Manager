@@ -169,7 +169,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Is an audio device present.
+    /// Is the audio device present.
     /// </summary>
     /// <param name="deviceState">The audio device state</param>
     /// <returns>True/false is the audio device present.</returns>
@@ -532,7 +532,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get an audio device list.
+    /// Get the audio device list.
     /// </summary>
     /// <param name="actualIdList">the list of actual audio device IDs</param>
     /// <returns>The audio device list.</returns>
@@ -585,7 +585,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get an audio device list.
+    /// Get the audio device list.
     /// </summary>
     /// <param name="idList">the list of audio device IDs</param>
     /// <returns>The audio device list.</returns>
@@ -656,7 +656,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Insert an audio device.
+    /// Insert the audio device.
     /// </summary>
     /// <param name="model">The audio device</param>
     public void Insert(DeviceModel model)
@@ -728,7 +728,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Insert an audio device.
+    /// Insert the audio device.
     /// </summary>
     /// <param name="mMDevice">The actual audio device</param>
     public void Insert(MMDevice mMDevice)
@@ -755,12 +755,12 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Insert an audio device.
+    /// Insert the audio device.
     /// </summary>
     /// <param name="actualId">The actual audio device ID</param>
     /// <param name="name">The actual audio device name</param>
-    /// <param name="isInput">True/false is an input audio device</param>
-    /// <param name="isOutput">True/false is an output audio device</param>
+    /// <param name="isInput">True/false is the input audio device</param>
+    /// <param name="isOutput">True/false is the output audio device</param>
     /// <param name="isPresent">True/false is the audio device present</param>
     public void Insert
     (
@@ -785,7 +785,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Remove an audio device.
+    /// Remove the audio device.
     /// </summary>
     /// <param name="id">The audio device ID</param>
     public void Remove(uint? id)
@@ -873,7 +873,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Remove a list of audio devices.
+    /// Remove the list of audio devices.
     /// </summary>
     /// <param name="name">The audio device name</param>
     public void RemoveRange(string name)
@@ -971,7 +971,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Update an audio device.
+    /// Update the audio device.
     /// </summary>
     /// <param name="model">The audio device</param>
     public void Update(DeviceModel model)
@@ -1032,7 +1032,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Update an audio device.
+    /// Update the audio device.
     /// </summary>
     /// <param name="id">The audio device ID</param>
     /// <param name="mMDevice">The actual audio device</param>
@@ -1073,13 +1073,13 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Update an audio device.
+    /// Update the audio device.
     /// </summary>
     /// <param name="id">The audio device ID</param>
     /// <param name="actualId">The actual audio device ID</param>
     /// <param name="name">The actual audio device name</param>
-    /// <param name="isInput">True/false is an input audio device</param>
-    /// <param name="isOutput">True/false is an output audio device</param>
+    /// <param name="isInput">True/false is the input audio device</param>
+    /// <param name="isOutput">True/false is the output audio device</param>
     /// <param name="isPresent">True/false is the audio device present</param>
     public void Update
     (
