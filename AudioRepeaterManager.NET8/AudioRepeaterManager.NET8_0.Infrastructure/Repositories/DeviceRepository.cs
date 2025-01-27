@@ -15,7 +15,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     #region Parameters
 
     /// <summary>
-    /// The controller of actual devices.
+    /// The controller of actual audio devices.
     /// </summary>
     private CoreAudioController CoreAudioController { get; set; }
 
@@ -25,7 +25,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     private HashSet<DeviceModel> HashSet { get; set; }
 
     /// <summary>
-    /// The collection of actual devices.
+    /// The collection of actual audio devices.
     /// </summary>
     private MMDeviceRepository MMDeviceRepository { get; set; }
 
@@ -175,7 +175,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     private bool IsPresent(DeviceState deviceState)
     {
       return deviceState == DeviceState.Active
-        || deviceState == DeviceState.Disabled
+        || deviceState == DeviceState.Stopd
         || deviceState == DeviceState.Unplugged;
     }
 
@@ -204,7 +204,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Get the device.
     /// </summary>
-    /// <param name="actualId">the actual device ID</param>
+    /// <param name="actualId">the actual audio device ID</param>
     /// <returns>The device to get.</returns>
     public DeviceModel Get(string actualId)
     {
@@ -252,7 +252,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           string.Format
           (
             "Failed to get device. " +
-            "Device is null\t=> Id: {0}",
+            "Device is null\t=> ID: {0}",
             id
           )
         );
@@ -264,7 +264,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Got device\t=> Id: {0}",
+            "Got device\t=> ID: {0}",
             model.Id
           )
         );
@@ -329,7 +329,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// Get the disabled device list.
     /// </summary>
     /// <returns>The disabled device list.</returns>
-    public List<DeviceModel> GetAllDisabled()
+    public List<DeviceModel> GetAllStopd()
     {
       if (MMDeviceRepository is null)
       {
@@ -343,7 +343,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       }
 
       List<string> actualIdList = MMDeviceRepository
-        .GetAllDisabled()
+        .GetAllStopd()
         .Select(x => x.ID)
         .ToList();
 
@@ -396,16 +396,16 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the enabled device list.
+    /// Get the started device list.
     /// </summary>
-    /// <returns>The enabled device list.</returns>
-    public List<DeviceModel> GetAllEnabled()
+    /// <returns>The started device list.</returns>
+    public List<DeviceModel> GetAllStarted()
     {
       if (MMDeviceRepository is null)
       {
         Debug.WriteLine
           (
-            "Failed to get enabled device(s). " +
+            "Failed to get started device(s). " +
             "Device collection is null."
           );
 
@@ -413,7 +413,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       }
 
       List<string> actualIdList = MMDeviceRepository
-        .GetAllEnabled()
+        .GetAllStarted()
         .Select(x => x.ID)
         .ToList();
 
@@ -424,7 +424,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got enabled device(s) => Count: {0}",
+          "Got started device(s) => Count: {0}",
           modelList.Count()
         )
       );
@@ -534,7 +534,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Get a device list.
     /// </summary>
-    /// <param name="actualIdList">the list of actual device IDs</param>
+    /// <param name="actualIdList">the list of actual audio device IDs</param>
     /// <returns>The device list.</returns>
     public List<DeviceModel> GetRange(List<string> actualIdList)
     {
@@ -624,21 +624,21 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Disable the actual device.
+    /// Stop the audio device.
     /// </summary>
-    /// <param name="actualId">The actual device ID</param>
-    public void DisableActual(string actualId)
+    /// <param name="actualId">The actual audio device ID</param>
+    public void Stop(string actualId)
     {
-      MMDeviceRepository.Disable(actualId);
+      MMDeviceRepository.Stop(actualId);
     }
 
     /// <summary>
-    /// Enable the actual device.
+    /// Start the audio device.
     /// </summary>
-    /// <param name="actualId">The actual device ID</param>
-    public void EnableActual(string actualId)
+    /// <param name="actualId">The actual audio device ID</param>
+    public void Start(string actualId)
     {
-      MMDeviceRepository.Enable(actualId);
+      MMDeviceRepository.Start(actualId);
     }
 
     /// <summary>
@@ -651,8 +651,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
           (
-            "Failed to insert device. " +
-            "Device is null."
+            "Failed to insert the audio device. " +
+            "The audio device is null."
           );
 
         return;
@@ -664,8 +664,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to insert device. " +
-            "Device list will exceed maximum of {0}.",
+            "Failed to insert the audio device. " +
+            "The audio device list will exceed the maximum\t=> Maximum: {0}.",
             MaxId
           )
         );
@@ -681,7 +681,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Device ID is not valid\t=> Id: {0}",
+            "The audio device ID is not valid\t=> ID: {0}",
             id
           )
         );
@@ -695,7 +695,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to insert device\t=> Id: {0}",
+            "Failed to insert the audio device\t=> ID: {0}",
             id
           )
         );
@@ -707,7 +707,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Inserted device\t=> Id: {0}",
+          "Inserted the audio device\t=> ID: {0}",
           id
         )
       );
@@ -716,14 +716,14 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Insert a device.
     /// </summary>
-    /// <param name="mMDevice">The actual device</param>
+    /// <param name="mMDevice">The actual audio device</param>
     public void Insert(MMDevice mMDevice)
     {
       if (mMDevice is null)
       {
         Debug.WriteLine
           (
-            "Failed to update actual device. " +
+            "Failed to update the audio device. " +
             "Device is null."
           );
 
@@ -743,8 +743,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Insert a device.
     /// </summary>
-    /// <param name="actualId">The actual device ID</param>
-    /// <param name="name">The actual device name</param>
+    /// <param name="actualId">The actual audio device ID</param>
+    /// <param name="name">The actual audio device name</param>
     /// <param name="isInput">True/false is an input device</param>
     /// <param name="isOutput">True/false is an output device</param>
     /// <param name="isPresent">True/false is the device present</param>
@@ -780,15 +780,14 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
           (
-            "Failed to remove device. " +
-            "Device ID is null."
+            "Failed to remove the audio device. " +
+            "The audio device ID is null."
           );
 
         return;
       }
 
-      int count = HashSet
-        .RemoveWhere(x => x.Id == id);
+      int count = HashSet.RemoveWhere(x => x.Id == id);
 
       if (count == 0)
       {
@@ -796,8 +795,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to remove device. " +
-            "Device does not exist\t=> Id: {0}",
+            "Failed to remove the audio device. " +
+            "The audio device does not exist\t=> ID: {0}",
             id
           )
         );
@@ -809,7 +808,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Removed device\t=> Id: {0}",
+          "Removed the audio device\t=> ID: {0}",
           id
         )
       );
@@ -818,22 +817,21 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Remove device(s).
     /// </summary>
-    /// <param name="actualId">The actual device ID</param>
+    /// <param name="actualId">The actual audio device ID</param>
     public void Remove(string actualId)
     {
       if (string.IsNullOrWhiteSpace(actualId))
       {
         Debug.WriteLine
         (
-          "Failed to remove device. " +
-          "Actual device ID is null or whitespace."
+          "Failed to remove the audio device. " +
+          "The audio device ID is null or whitespace."
         );
 
         return;
       }
 
-      int count = HashSet
-        .RemoveWhere(x => x.ActualId == actualId);
+      int count = HashSet.RemoveWhere(x => x.ActualId == actualId);
 
       if (count == 0)
       {
@@ -841,8 +839,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to remove device. " +
-            "Device does not exist\t=> ActualId: {0}",
+            "Failed to remove the audio device. " +
+            "The audio device does not exist\t=> Actual ID: {0}",
             actualId
           )
         );
@@ -854,7 +852,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Removed device(s)\t=> Count: {0}",
+          "Removed audio device(s)\t=> Count: {0}",
           count
         )
       );
@@ -877,8 +875,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         return;
       }
 
-      int count = HashSet
-        .RemoveWhere(x => x.Name == name);
+      int count = HashSet.RemoveWhere(x => x.Name == name);
 
       if (count == 0)
       {
@@ -886,7 +883,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to remove device. Device does not exist\t=> Name: {0}",
+            "Failed to remove the audio device. " +
+            "The audio device does not exist\t=> Name: {0}",
             name
           )
         );
@@ -898,19 +896,19 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Removed device(s)\t=> Count: {0}",
+          "Removed audio device(s)\t=> Count: {0}",
           count
         )
       );
     }
 
     /// <summary>
-    /// Set the actual device as default.
+    /// Set the audio device as default.
     /// </summary>
-    /// <param name="actualId">the actual device ID</param>
+    /// <param name="actualId">the actual audio device ID</param>
     public void SetAsDefault(string actualId)
     {
-      MMDevice mMDevice = MMDeviceRepository.Get(actualId);
+      MMDevice? mMDevice = MMDeviceRepository.Get(actualId);
 
       if (mMDevice is null)
       {
@@ -918,8 +916,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to set actual device as default. " +
-            "Actual device does not exist\t => Id: {0}",
+            "Failed to set the audio device as default. " +
+            "The audio device does not exist\t => ID: {0}",
             actualId
           )
         );
@@ -927,8 +925,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         return;
       }
 
-      CoreAudioDevice coreAudioDevice = CoreAudioController
-        .GetDevice
+      CoreAudioDevice coreAudioDevice = CoreAudioController.GetDevice
         (
           Guid.Parse(actualId)
         );
@@ -937,23 +934,25 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         coreAudioDevice.SetAsDefault();
       }
+
       catch (Exception exception)
       {
         Debug.WriteLine
         (
           string.Format
           (
-            "Failed to set actual device as default. " +
-            "An exception occurred\t=> Ex: {0}",
-            exception
+            "Failed to set the audio device as default\t=> Exception: {0}",
+            exception.Message
           )
         );
+
+        return;
       }
 
       Debug.WriteLine
       (
-        "Set actual device as default. " +
-        "Actual Device is null."
+        "Set the audio device as default. " +
+        "The audio device is null."
       );
     }
 
@@ -986,7 +985,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           string.Format
           (
             "Failed to update device. " +
-            "Device does not exist\t=> Id: {0}",
+            "Device does not exist\t=> ID: {0}",
             model.Id
           )
         );
@@ -1000,7 +999,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to update device\t=> Id: {0}",
+            "Failed to update device\t=> ID: {0}",
             model.Id
           )
         );
@@ -1012,7 +1011,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Updated device\t=> Id: {0}",
+          "Updated device\t=> ID: {0}",
           model.Id
         )
       );
@@ -1022,7 +1021,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// Update a device.
     /// </summary>
     /// <param name="id">The device ID</param>
-    /// <param name="mMDevice">The actual device</param>
+    /// <param name="mMDevice">The actual audio device</param>
     public void Update
     (
       uint id,
@@ -1039,7 +1038,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           string.Format
           (
             "Failed to update device. " +
-            "Actual device is null\t=> Id: {0}",
+            "Actual device is null\t=> ID: {0}",
             id
           )
         );
@@ -1063,8 +1062,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// Update a device.
     /// </summary>
     /// <param name="id">The device ID</param>
-    /// <param name="actualId">The actual device ID</param>
-    /// <param name="name">The actual device name</param>
+    /// <param name="actualId">The actual audio device ID</param>
+    /// <param name="name">The actual audio device name</param>
     /// <param name="isInput">True/false is an input device</param>
     /// <param name="isOutput">True/false is an output device</param>
     /// <param name="isPresent">True/false is the device present</param>
