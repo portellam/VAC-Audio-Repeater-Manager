@@ -27,11 +27,10 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     List<DeviceModel> GetRange(List<string> actualIdList);
     List<DeviceModel> GetRange(List<uint?> idList);
 
-    void Add(DeviceModel model);
+    void Add(MMDevice mMDevice);
 
     void Add
     (
-      uint id,
       string actualId,
       string name,
       bool? isInput,
@@ -42,10 +41,10 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     void Start(string actualId);
     void Stop(string actualId);
     void Insert(DeviceModel model);
-    void Insert(MMDevice mMDevice);
 
     void Insert
     (
+      uint id,
       string actualId,
       string name,
       bool? isInput,
