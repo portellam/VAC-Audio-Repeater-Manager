@@ -7,7 +7,120 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     #region Logic
 
     /// <summary>
-    /// Run process asynchronously.
+    /// Kill a process asynchronously.
+    /// </summary>
+    /// <param name="process">The process</param>
+    /// <returns>The exit code.</returns>
+    public async static Task<int> KillAsync(Process? process)
+    {
+      return await Kill(process)
+        .ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Kill a process.
+    /// </summary>
+    /// <param name="process">the process</param>
+    /// <returns>The exit code.</returns>
+    private static Task<int> Kill(Process? process)
+    {
+      TaskCompletionSource<int> taskCompletionSource =
+        new TaskCompletionSource<int>();
+
+      Task<int> task;
+      int passCode = 0;
+      int failCode = 1;
+
+      if (process is null)
+      {
+        Debug.WriteLine
+        (
+          "Failed to kill the process. " +
+          "The process is null."
+        );
+
+        taskCompletionSource.SetResult(passCode);
+        task = taskCompletionSource.Task;
+        return task;
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Killing the process\t=> Process: {0}",
+          process
+        )
+      );
+
+      process.Exited +=
+        (
+          sender,
+          arguments
+        ) => taskCompletionSource
+          .SetResult(process.ExitCode);
+
+      process.OutputDataReceived +=
+        (
+          sender,
+          arguments
+        ) => Debug.WriteLine
+        (
+          string.Format
+          (
+            "Output\t=> Arguments: {0}",
+            arguments.Data
+          )
+        );
+
+      process.ErrorDataReceived +=
+        (
+          sender,
+          arguments
+        ) => Debug.WriteLine
+        (
+          string.Format
+          (
+            "Error\t=> Arguments: {0}",
+            arguments.Data
+          )
+        );
+
+      try
+      {
+        process.Kill();
+      }
+      catch (Exception exception)
+      {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Error\t=> Exception: {0}",
+            exception
+          )
+        );
+      }
+
+      if (!process.HasExited)
+      {
+        Debug.WriteLine("Failed to kill process.");
+        taskCompletionSource.SetResult(failCode);
+      }
+
+      else
+      {
+        Debug.WriteLine("Killed process.");
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+      }
+
+      task = taskCompletionSource.Task;
+      return task;
+    }
+
+    /// <summary>
+    /// Run a process asynchronously.
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The exit code.</returns>
@@ -18,7 +131,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
     }
 
     /// <summary>
-    /// Run process.
+    /// Run a process.
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The exit code.</returns>
@@ -34,7 +147,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       {
         Debug.WriteLine
         (
-          "Failed to run process. " +
+          "Failed to run the process. " +
           "The process is null."
         );
 
@@ -47,7 +160,7 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
       (
         string.Format
         (
-          "Running process\t=> Process: {0}",
+          "Running the process\t=> Process: {0}",
           process
         )
       );
@@ -107,13 +220,13 @@ namespace AudioRepeaterManager.NET8_0.Application.Commands
 
       if (!isRunning)
       {
-        Debug.WriteLine("Failed to run process. ");
+        Debug.WriteLine("Failed to run process.");
         taskCompletionSource.SetResult(failCode);
       }
 
       else
       {
-        Debug.WriteLine("Running process. ");
+        Debug.WriteLine("Running process.");
         process.BeginOutputReadLine();
         process.BeginErrorReadLine();
       }
