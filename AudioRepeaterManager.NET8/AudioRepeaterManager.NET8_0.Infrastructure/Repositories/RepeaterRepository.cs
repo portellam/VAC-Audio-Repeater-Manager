@@ -6,6 +6,7 @@ using AudioRepeaterManager.NET8_0.Domain.Structs;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
 using System.Reflection;
 using System.Collections.Generic;
+using AudioSwitcher.AudioApi;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
@@ -706,19 +707,23 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Remove a repeater.
+    /// Remove the audio repeater.
     /// </summary>
     /// <param name="id">The repeater ID</param>
     public void Remove(uint? id)
     {
       if (id is null)
       {
-        Debug.WriteLine("Failed to remove repeater. Repeater ID is null.");
+        Debug.WriteLine
+        (
+          "Failed to remove the audio repeater. " +
+          "The ID is null."
+        );
+
         return;
       }
 
-      int count = HashSet
-        .RemoveWhere(x => x.Id == id);
+      int count = HashSet.RemoveWhere(x => x.Id == id);
 
       if (count == 0)
       {
@@ -726,7 +731,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to remove repeater. Repeater does not exist\t=> Id: {0}",
+            "Failed to remove the audio repeater. " +
+            "The audio repeater does not exist\t=> ID: {0}",
             id
           )
         );
@@ -738,17 +744,17 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Removed repeater\t=> Id: {0}",
+          "Removed the audio repeater\t=> ID: {0}",
           id
         )
       );
     }
 
     /// <summary>
-    /// Remove a repeater.
+    /// Remove the audio repeater.
     /// </summary>
-    /// <param name="firstDeviceId">The first device ID</param>
-    /// <param name="secondDeviceId">The second device ID</param>
+    /// <param name="firstDeviceId">The first audio device ID</param>
+    /// <param name="secondDeviceId">The second audio device ID</param>
     public void Remove
     (
       uint? firstDeviceId,
@@ -763,12 +769,16 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 
       if (model is null)
       {
-        Debug.WriteLine("Failed to remove repeater. Repeater is null.");
+        Debug.WriteLine
+        (
+          "Failed to remove the audio repeater. " +
+          "Repeater is null."
+        );
+
         return;
       }
 
-      int count = HashSet
-        .RemoveWhere(x => x.Id == model.Id);
+      int count = HashSet.RemoveWhere(x => x.Id == model.Id);
 
       if (count == 0)
       {
@@ -776,8 +786,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to remove Repeater. " +
-            "Repeater does not exist\t=> FirstDeviceId: {0}, SecondDeviceId {1}",
+            "Failed to remove the audio repeater(s). " +
+            "No match(es) found" +
+            "\t=> First Device ID: {0}, Second Device ID: {1}",
             firstDeviceId,
             secondDeviceId
           )
@@ -790,7 +801,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Removed repeater(s)\t=> Count: {0}",
+          "Removed the audio repeater(s)\t=> Count: {0}",
           count
         )
       );
@@ -799,7 +810,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Remove the list of audio repeater(s).
     /// </summary>
-    /// <param name="idList">the audio repeater ID list</param>
+    /// <param name="idList">the ID list</param>
     public void RemoveRange(List<uint?> idList)
     {
       if
@@ -810,7 +821,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to remove any audio repeater(s)." +
+          "Failed to remove the audio repeater(s)." +
           "The ID list is either empty or null."
         );
 
@@ -872,8 +883,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to remove audio repeater. " +
-          "Input or output device name is null or whitespace."
+          "Failed to remove the audio repeater. " +
+          "The input or output audio device name is null or whitespace."
         );
 
         return;
@@ -886,6 +897,80 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           {
             return x.InputDeviceName == deviceName
               || x.OutputDeviceName == deviceName;
+          }
+        ).Select(y => (uint?)y.Id)
+        .ToList();
+
+      RemoveRange(idList);
+    }
+
+    /// <summary>
+    /// Remove the list of audio repeater(s).
+    /// </summary>
+    /// <param name="deviceId">The list of input or output audio device ID(s)</param>
+    public void RemoveRangeByDeviceId(List<uint?> deviceIdList)
+    {
+      if
+      (
+        deviceIdList is null
+        || deviceIdList.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to remove the audio repeater(s)." +
+          "The input or output audio device ID list is either empty or null."
+        );
+
+        return;
+      }
+
+      deviceIdList
+        .ForEach
+        (
+          x =>
+          {
+            List<uint?> idList =
+              HashSet
+              .Where
+              (
+                y =>
+                {
+                  return y.InputDeviceId == x
+                || y.OutputDeviceId == x;
+                }
+              ).Select(y => (uint?)y.Id)
+              .ToList();
+
+            RemoveRange(idList);
+          }
+        );
+    }
+
+    /// <summary>
+    /// Remove the list of audio repeater(s).
+    /// </summary>
+    /// <param name="deviceId">The input or output audio device ID</param>
+    public void RemoveRangeByDeviceId(uint? deviceId)
+    {
+      if (deviceId is null)
+      {
+        Debug.WriteLine
+        (
+          "Failed to remove the audio repeater. " +
+          "The input or output audio device ID is null."
+        );
+
+        return;
+      }
+
+      List<uint?> idList = HashSet
+        .Where
+        (
+          x =>
+          {
+            return x.InputDeviceId == deviceId
+              || x.OutputDeviceId == deviceId;
           }
         ).Select(y => (uint?)y.Id)
         .ToList();
@@ -977,7 +1062,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           x =>
           {
-            bool hasMatch = HashSet.Select(y => y.Id == x.Id).Any();
+            bool hasMatch = HashSet
+              .Select(y => y.Id == x.Id)
+              .Any();
 
             if (hasMatch)
             {
