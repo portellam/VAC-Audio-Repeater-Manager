@@ -1065,8 +1065,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to update audio device. " +
-            "Actual audio device is null\t=> ID: {0}",
+            "Failed to update the audio device. " +
+            "The actual audio device is null\t=> ID: {0}",
             id
           )
         );
