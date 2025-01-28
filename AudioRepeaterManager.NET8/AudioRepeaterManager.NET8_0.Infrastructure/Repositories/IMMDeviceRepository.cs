@@ -1,6 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 
-namespace AudioRepeaterManager.NET8_0.Domain.Repositories
+namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
   public interface IMMDeviceRepository
   {

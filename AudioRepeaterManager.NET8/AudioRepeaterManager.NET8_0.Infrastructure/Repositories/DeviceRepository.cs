@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using NAudio.CoreAudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;                                         // NAudio Issue #421: AudioSwitcher must succeed NAudio.
 using AudioRepeaterManager.NET8_0.Domain.Models;
-using AudioRepeaterManager.NET8_0.Domain.Repositories;
 using AudioRepeaterManager.NET8_0.Domain.Shared;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories

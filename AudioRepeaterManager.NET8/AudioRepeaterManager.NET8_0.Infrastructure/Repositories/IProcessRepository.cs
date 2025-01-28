@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 
-namespace AudioRepeaterManager.NET8_0.Domain.Repositories
+namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
   public interface IProcessRepository
   {
