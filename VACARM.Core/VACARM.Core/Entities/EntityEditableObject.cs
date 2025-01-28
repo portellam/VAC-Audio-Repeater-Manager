@@ -6,7 +6,8 @@ namespace VACARM.Core.Entities
 {
   public partial class Entity :
     IEditableObject,
-    INotifyPropertyChanged
+    INotifyPropertyChanged,
+    IEntity
   {
     #region Parameters
 

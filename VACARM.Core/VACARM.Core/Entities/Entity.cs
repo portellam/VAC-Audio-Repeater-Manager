@@ -5,7 +5,8 @@ using System.Runtime.CompilerServices;
 namespace VACARM.Core.Entities
 {
   public partial class Entity :
-    INotifyPropertyChanged
+    INotifyPropertyChanged,
+    IEntity
   {
     #region Parameters
 

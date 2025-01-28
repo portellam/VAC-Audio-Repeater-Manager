@@ -6,7 +6,8 @@ using System.ComponentModel.DataAnnotations;
 namespace VACARM.Core.Entities
 {
   public partial class Entity :
-    INotifyDataErrorInfo
+    INotifyDataErrorInfo,
+    IEntity
   {
     #region Parameters
 
