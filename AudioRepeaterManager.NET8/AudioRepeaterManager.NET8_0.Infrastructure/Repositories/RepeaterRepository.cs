@@ -455,7 +455,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           string.Format
           (
             "Failed to insert the audio repeater. " +
-            "The audio repeater list will exceed maximum\t=> Count: {0}",
+            "The audio repeater list will exceed the maximum\t=> Count: {0}",
             MaxId
           )
         );

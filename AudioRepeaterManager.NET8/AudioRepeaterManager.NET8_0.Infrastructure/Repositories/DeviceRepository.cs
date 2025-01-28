@@ -717,7 +717,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           string.Format
           (
             "Failed to insert the audio device. " +
-            "The audio device list will exceed the maximum\t=> Maximum: {0}.",
+            "The audio device list will exceed the maximum\t=> Count: {0}.",
             MaxId
           )
         );
