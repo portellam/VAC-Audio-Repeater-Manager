@@ -448,7 +448,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         return;
       }
 
-      if (HashSet.Count() >= Global.MaxRepeaterCount)
+      if (HashSet.Count() >= MaxId)
       {
         Console.WriteLine
         (
@@ -456,7 +456,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           (
             "Failed to insert the audio repeater. " +
             "The audio repeater list will exceed maximum\t=> Count: {0}",
-            Global.MaxRepeaterCount
+            MaxId
           )
         );
 
