@@ -72,6 +72,7 @@ namespace AudioRepeaterManager.NET8_0.Domain.Repositories
     );
 
     void RemoveRange(List<uint?> idList);
+    void RemoveRange(string deviceName);
     void RemoveRangeByDeviceId(uint? deviceId);
     void RemoveRangeByDeviceId(List<uint?> deviceIdList);
     void Update(RepeaterModel model);

@@ -799,37 +799,6 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Remove the list of audio repeater(s).
     /// </summary>
-    /// <param name="deviceName">The input or output audio device name</param>
-    public void RemoveRange(string deviceName)
-    {
-      if (string.IsNullOrWhiteSpace(deviceName))
-      {
-        Debug.WriteLine
-        (
-          "Failed to remove audio repeater. " +
-          "Input or output device name is null or whitespace."
-        );
-
-        return;
-      }
-
-      List<uint?> idList = HashSet
-        .Where
-        (
-          x =>
-          {
-            return x.InputDeviceName == deviceName
-              || x.OutputDeviceName == deviceName;
-          }
-        ).Select(y => (uint?)y.Id)
-        .ToList();
-
-      RemoveRange(idList);
-    }
-
-    /// <summary>
-    /// Remove the list of audio repeater(s).
-    /// </summary>
     /// <param name="idList">the audio repeater ID list</param>
     public void RemoveRange(List<uint?> idList)
     {
@@ -891,6 +860,37 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           idList.Count
         )
       );
+    }
+
+    /// <summary>
+    /// Remove the list of audio repeater(s).
+    /// </summary>
+    /// <param name="deviceName">The input or output audio device name</param>
+    public void RemoveRange(string deviceName)
+    {
+      if (string.IsNullOrWhiteSpace(deviceName))
+      {
+        Debug.WriteLine
+        (
+          "Failed to remove audio repeater. " +
+          "Input or output device name is null or whitespace."
+        );
+
+        return;
+      }
+
+      List<uint?> idList = HashSet
+        .Where
+        (
+          x =>
+          {
+            return x.InputDeviceName == deviceName
+              || x.OutputDeviceName == deviceName;
+          }
+        ).Select(y => (uint?)y.Id)
+        .ToList();
+
+      RemoveRange(idList);
     }
 
     /// <summary>
