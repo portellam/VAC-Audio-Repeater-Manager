@@ -4,6 +4,8 @@ using AudioRepeaterManager.NET8_0.Domain.Models;
 using AudioRepeaterManager.NET8_0.Domain.Shared;
 using AudioRepeaterManager.NET8_0.Domain.Structs;
 using AudioRepeaterManager.NET8_0.Domain.Repositories;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
@@ -12,7 +14,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     #region Parameters
 
     /// <summary>
-    /// The collection of repeaters.
+    /// The collection of repeater(s).
     /// </summary>
     private HashSet<RepeaterModel> HashSet { get; set; }
 
@@ -230,13 +232,13 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         .FirstOrDefault
         (
           x =>
-          
+
             x.InputDeviceId == firstDeviceId
             && x.OutputDeviceId == secondDeviceId
-           || 
+           ||
             x.InputDeviceId == secondDeviceId
             && x.OutputDeviceId == firstDeviceId
-          
+
         );
 
       if (model is null)
@@ -260,7 +262,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the list of audio repeaters.
+    /// Get the list of audio repeater(s).
     /// </summary>
     /// <returns>The audio repeater list.</returns>
     public List<RepeaterModel> GetAll()
@@ -386,10 +388,10 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get a list of repeaters.
+    /// Get a list of repeater(s).
     /// </summary>
     /// <param name="idList">the repeater ID list</param>
-    /// <returns>A list of repeaters.</returns>
+    /// <returns>A list of repeater(s).</returns>
     public List<RepeaterModel> GetRange(List<uint?> idList)
     {
       if
@@ -795,16 +797,16 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Remove a list of repeaters.
+    /// Remove the list of audio repeater(s).
     /// </summary>
-    /// <param name="deviceName">The input or output device name</param>
+    /// <param name="deviceName">The input or output audio device name</param>
     public void RemoveRange(string deviceName)
     {
       if (string.IsNullOrWhiteSpace(deviceName))
       {
         Debug.WriteLine
         (
-          "Failed to remove repeater. " +
+          "Failed to remove audio repeater. " +
           "Input or output device name is null or whitespace."
         );
 
@@ -826,7 +828,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           string.Format
           (
             "Failed to remove repeater. " +
-            "Repeater name does not exist\t=> DeviceName: {0}",
+            "Repeater name does not exist\t=> Device Name: {0}",
             deviceName
           )
         );
@@ -845,29 +847,30 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Update a repeater.
+    /// Update the audio repeater.
     /// </summary>
-    /// <param name="model">The repeater to update.</param>
+    /// <param name="model">the audio repeater</param>
     public void Update(RepeaterModel model)
     {
       if (model is null)
       {
-        Debug.WriteLine("Failed to update repeater. Repeater is null.");
+        Debug.WriteLine
+        (
+          "Failed to update the audio repeater. " +
+          "The audio repeater is null."
+        );
+
         return;
       }
 
-      if
-      (
-        HashSet
-          .RemoveWhere
-          (x => x.Id == model.Id) == 0
-      )
+      if (HashSet.RemoveWhere(x => x.Id == model.Id) == 0)
       {
         Debug.WriteLine
         (
           string.Format
           (
-            "Failed to update repeater. Repeater does not exist\t=> Id: {0}",
+            "Failed to update the audio repeater. " +
+            "The audio repeater does not exist\t=> ID: {0}",
             model.Id
           )
         );
@@ -881,7 +884,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to update repeater\t=> Id: {0}",
+            "Failed to update the audio repeater\t=> ID: {0}",
             model.Id
           )
         );
@@ -893,65 +896,88 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Updated repeater\t=> Id: {0}",
+          "Updated the audio repeater\t=> ID: {0}",
           model.Id
         )
       );
     }
 
     /// <summary>
-    /// Update a repeater.
+    /// Update the list of audio repeater(s).
     /// </summary>
-    /// <param name="id">The repeater ID</param>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
-    /// <param name="bitsPerSample">The amount of bits per sample</param>
-    /// <param name="bufferAmount">The buffer amount</param>
-    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
-    /// <param name="channelMask">The channel mask</param>
-    /// <param name="pathName">The path name</param>
-    /// <param name="prefillPercentage">The prefill percentage</param>
-    /// <param name="resyncAtPercentage">The resync at percentage</param>
-    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
-    /// <param name="windowName">The window name</param>
-    public void Update
-    (
-      uint id,
-      uint inputDeviceId,
-      uint outputDeviceId,
-      byte bitsPerSample,
-      byte bufferAmount,
-      byte prefillPercentage,
-      byte resyncAtPercentage,
-      string inputDeviceName,
-      string outputDeviceName,
-      string pathName,
-      string windowName,
-      uint channelMask,
-      uint sampleRateKHz,
-      ushort bufferDurationMs
-    )
+    /// <param name="modelList">The list of audio repeater(s)</param>
+    public void UpdateRange(List<RepeaterModel> modelList)
     {
-      RepeaterModel model = new RepeaterModel
+      if
       (
-        id,
-        inputDeviceId,
-        outputDeviceId
+        modelList is null
+        || modelList.Count == 0
       )
       {
-        BitsPerSample = bitsPerSample,
-        BufferAmount = bufferAmount,
-        PrefillPercentage = prefillPercentage,
-        ResyncAtPercentage = resyncAtPercentage,
-        InputDeviceName = inputDeviceName,
-        OutputDeviceName = outputDeviceName,
-        PathName = pathName,
-        ChannelMask = channelMask,
-        SampleRateKHz = sampleRateKHz,
-        BufferDurationMs = bufferDurationMs
-      };
+        Debug.WriteLine
+        (
+          "Failed to update any audio repeater(s)." +
+          "The audio repeater list is either empty or null."
+        );
 
-      Update(model);
+        return;
+      }
+
+      List<uint> idList = new List<uint>();
+
+      modelList
+        .ForEach
+        (
+          x =>
+          {
+            bool hasMatch = HashSet.Select(y => y.Id == x.Id).Any();
+
+            if (hasMatch)
+            {
+              HashSet.RemoveWhere(y => y.Id == x.Id);
+              idList.Add(x.Id);
+            }
+          }
+        );
+
+      idList
+        .ForEach
+        (
+          x =>
+          {
+            RepeaterModel model = modelList.First(y => y.Id == x);
+            HashSet.Add(model);
+
+            Debug.WriteLine
+              (
+                string.Format
+                (
+                  "Updated the audio repeater\t=> ID: {0}",
+                  x
+                )
+              );
+          }
+        );
+
+      if (count == 0)
+      {
+        Debug.WriteLine
+        (
+          "Failed to remove the audio repeater(s). " +
+          "No match(es) found."
+        );
+
+        return;
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Removed the audio repeater(s)\t=> Count: {0}",
+          count
+        )
+      );
     }
 
     #endregion
