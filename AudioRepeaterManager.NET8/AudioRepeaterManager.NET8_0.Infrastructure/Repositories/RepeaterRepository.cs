@@ -813,24 +813,71 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         return;
       }
 
-      int count = HashSet
-        .RemoveWhere
+      List<uint?> idList = HashSet
+        .Where
         (
           x =>
-          x.InputDeviceName == deviceName
-          || x.OutputDeviceName == deviceName
-        );
+          {
+            return x.InputDeviceName == deviceName
+              || x.OutputDeviceName == deviceName;
+          }
+        ).Select(y => (uint?)y.Id)
+        .ToList();
 
-      if (count == 0)
+      RemoveRange(idList);
+    }
+
+    /// <summary>
+    /// Remove the list of audio repeater(s).
+    /// </summary>
+    /// <param name="idList">the audio repeater ID list</param>
+    public void RemoveRange(List<uint?> idList)
+    {
+      if
+      (
+        idList is null
+        || idList.Count == 0
+      )
       {
         Debug.WriteLine
         (
-          string.Format
-          (
-            "Failed to remove repeater. " +
-            "Repeater name does not exist\t=> Device Name: {0}",
-            deviceName
-          )
+          "Failed to remove any audio repeater(s)." +
+          "The ID list is either empty or null."
+        );
+
+        return;
+      }
+
+      int count = 0;
+
+      idList
+        .ForEach
+        (
+          x =>
+          {
+            HashSet.RemoveWhere
+            (
+              y =>
+              {
+                if (y.Id != x)
+                {
+                  return false;
+                }
+
+                Remove(x);
+                count++;
+                return true;
+              }
+            );
+          }
+        );
+
+      if (idList.Count == 0)
+      {
+        Debug.WriteLine
+        (
+          "Failed to remove the audio repeater(s). " +
+          "No match(es) found."
         );
 
         return;
@@ -840,8 +887,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Removed repeater(s)\t=> Count: {0}",
-          count
+          "Removed the audio repeater(s)\t=> Count: {0}",
+          idList.Count
         )
       );
     }
@@ -905,7 +952,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Update the list of audio repeater(s).
     /// </summary>
-    /// <param name="modelList">The list of audio repeater(s)</param>
+    /// <param name="modelList">the list of audio repeater(s)</param>
     public void UpdateRange(List<RepeaterModel> modelList)
     {
       if
@@ -916,7 +963,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to update any audio repeater(s)." +
+          "Failed to update the audio repeater(s)." +
           "The audio repeater list is either empty or null."
         );
 
