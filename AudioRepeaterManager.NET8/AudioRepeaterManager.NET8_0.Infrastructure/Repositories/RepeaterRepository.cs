@@ -7,6 +7,7 @@ using AudioRepeaterManager.NET8_0.Domain.Repositories;
 using System.Reflection;
 using System.Collections.Generic;
 using AudioSwitcher.AudioApi;
+using System.Collections;
 
 namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
 {
@@ -91,8 +92,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Does repeater contain device.
     /// </summary>
-    /// <param name="model">The repeater</param>
-    /// <param name="deviceName">The device name</param>
+    /// <param name="model">the repeater</param>
+    /// <param name="deviceName">the device name</param>
     /// <param name="isInputDevice">True/false is input device</param>
     /// <param name="isOutputDevice">True/false is output device</param>
     /// <returns>True/false does repeater contain device.</returns>
@@ -165,7 +166,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// Get repeater.
     /// </summary>
     /// <param name="id">the repeater ID</param>
-    /// <returns>The repeater.</returns>
+    /// <returns>the repeater.</returns>
     public RepeaterModel Get(uint? id)
     {
       if (id is null)
@@ -173,7 +174,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         Debug.WriteLine
         (
           "Failed to get repeater. " +
-          "Repeater ID is null."
+          "ID is null."
         );
 
         return null;
@@ -205,9 +206,9 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Get repeater.
     /// </summary>
-    /// <param name="firstDeviceId">The first device ID</param>
-    /// <param name="secondDeviceId">The second device ID</param>
-    /// <returns>The repeater.</returns>
+    /// <param name="firstDeviceId">the first device ID</param>
+    /// <param name="secondDeviceId">the second device ID</param>
+    /// <returns>the repeater.</returns>
     public RepeaterModel Get
     (
       uint? firstDeviceId,
@@ -265,7 +266,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Get the list of audio repeater(s).
     /// </summary>
-    /// <returns>The audio repeater list.</returns>
+    /// <returns>the audio repeater list.</returns>
     public List<RepeaterModel> GetAll()
     {
       if (HashSet is null)
@@ -294,10 +295,10 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Get repeater list.
     /// </summary>
-    /// <param name="deviceName">The device name</param>
+    /// <param name="deviceName">the device name</param>
     /// <param name="isInputDevice">True/false is input device</param>
     /// <param name="isOutputDevice">True/false is output device</param>
-    /// <returns>The repeater list.</returns>
+    /// <returns>the repeater list.</returns>
     public List<RepeaterModel> GetRange
     (
       string deviceName,
@@ -350,8 +351,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Get repeater list by device ID.
     /// </summary>
-    /// <param name="deviceId">The input or output device ID</param>
-    /// <returns>The repeater list.</returns>
+    /// <param name="deviceId">the input or output device ID</param>
+    /// <returns>the repeater list.</returns>
     public List<RepeaterModel> GetRangeByDeviceId(uint? deviceId)
     {
       List<RepeaterModel> modelList = new List<RepeaterModel>();
@@ -406,7 +407,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         Debug.WriteLine
         (
           "Failed to get repeater(s). " +
-          "Repeater ID list is either null or empty, " +
+          "ID list is either null or empty, " +
           "or repeater collection is either null or empty."
         );
 
@@ -438,12 +439,17 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Insert a repeater.
     /// </summary>
-    /// <param name="model">The repeater</param>
+    /// <param name="model">the repeater</param>
     public void Insert(RepeaterModel model)
     {
       if (model is null)
       {
-        Debug.WriteLine("Failed to insert repeater. Repeater is null.");
+        Debug.WriteLine
+        (
+          "Failed to insert the audio repeater. " +
+          "The audio repeater is null."
+        );
+
         return;
       }
 
@@ -453,7 +459,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to insert repeater. Repeater list will exceed maximum of {0}.",
+            "Failed to insert the audio repeater. " +
+            "The audio repeater list will exceed maximum\t=> Count: {0}",
             Global.MaxRepeaterCount
           )
         );
@@ -469,7 +476,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Repeater ID is not valid\t=> Id: {0}",
+            "ID is not valid\t=> ID: {0}",
             id
           )
         );
@@ -483,7 +490,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         (
           string.Format
           (
-            "Failed to insert repeater\t=> Id: {0}",
+            "Failed to insert the audio repeater\t=> ID: {0}",
             id
           )
         );
@@ -495,7 +502,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
       (
         string.Format
         (
-          "Inserted repeater\t=> Id: {0}",
+          "Inserted the audio repeater\t=> ID: {0}",
           id
         )
       );
@@ -504,16 +511,18 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Add a repeater.
     /// </summary>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
-    /// <param name="inputDeviceName">The input device name</param>
-    /// <param name="outputDeviceName">The output device name</param>
-    /// <param name="pathName">The path name</param>
+    /// <param name="inputDeviceId">the input device ID</param>
+    /// <param name="outputDeviceId">the output device ID</param>
+    /// <param name="processId">the process ID</param>
+    /// <param name="inputDeviceName">the input device name</param>
+    /// <param name="outputDeviceName">the output device name</param>
+    /// <param name="pathName">the path name</param>
 
     public void Add
     (
       uint inputDeviceId,
       uint outputDeviceId,
+      int? processId,
       string inputDeviceName,
       string outputDeviceName,
       string pathName
@@ -524,6 +533,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           NextId,
           inputDeviceId,
           outputDeviceId,
+          processId,
           inputDeviceName,
           outputDeviceName,
           pathName
@@ -544,24 +554,26 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Add a repeater.
     /// </summary>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
-    /// <param name="inputDeviceName">The input device name</param>
-    /// <param name="outputDeviceName">The output device name</param>
-    /// <param name="pathName">The path name</param>
-    /// <param name="bitsPerSample">The amount of bits per sample</param>
-    /// <param name="bufferAmount">The buffer amount</param>
-    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
-    /// <param name="channelConfig">The channel config</param>
-    /// <param name="pathName">The path name</param>
-    /// <param name="prefillPercentage">The prefill percentage</param>
-    /// <param name="resyncAtPercentage">The resync at percentage</param>
-    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
+    /// <param name="inputDeviceId">the input device ID</param>
+    /// <param name="outputDeviceId">the output device ID</param>
+    /// <param name="processId">the process ID</param>
+    /// <param name="inputDeviceName">the input device name</param>
+    /// <param name="outputDeviceName">the output device name</param>
+    /// <param name="pathName">the path name</param>
+    /// <param name="bitsPerSample">the amount of bits per sample</param>
+    /// <param name="bufferAmount">the buffer amount</param>
+    /// <param name="bufferDurationMs">the buffer duration in milliseconds</param>
+    /// <param name="channelConfig">the channel config</param>
+    /// <param name="pathName">the path name</param>
+    /// <param name="prefillPercentage">the prefill percentage</param>
+    /// <param name="resyncAtPercentage">the resync at percentage</param>
+    /// <param name="sampleRateKHz">the sample rate in KiloHertz</param>
 
     public void Add
     (
       uint inputDeviceId,
       uint outputDeviceId,
+      int? processId,
       string inputDeviceName,
       string outputDeviceName,
       string pathName,
@@ -579,6 +591,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           NextId,
           inputDeviceId,
           outputDeviceId,
+          processId,
           inputDeviceName,
           outputDeviceName,
           pathName
@@ -599,25 +612,27 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Insert a repeater.
     /// </summary>
-    /// <param name="id">The repeater ID</param>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
-    /// <param name="inputDeviceName">The input device name</param>
-    /// <param name="outputDeviceName">The output device name</param>
-    /// <param name="pathName">The path name</param>
-    /// <param name="bitsPerSample">The amount of bits per sample</param>
-    /// <param name="bufferAmount">The buffer amount</param>
-    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
-    /// <param name="channelConfig">The channel config</param>
-    /// <param name="pathName">The path name</param>
-    /// <param name="prefillPercentage">The prefill percentage</param>
-    /// <param name="resyncAtPercentage">The resync at percentage</param>
-    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
+    /// <param name="id">the repeater ID</param>
+    /// <param name="inputDeviceId">the input device ID</param>
+    /// <param name="outputDeviceId">the output device ID</param>
+    /// <param name="processId">the process ID</param>
+    /// <param name="inputDeviceName">the input device name</param>
+    /// <param name="outputDeviceName">the output device name</param>
+    /// <param name="pathName">the path name</param>
+    /// <param name="bitsPerSample">the amount of bits per sample</param>
+    /// <param name="bufferAmount">the buffer amount</param>
+    /// <param name="bufferDurationMs">the buffer duration in milliseconds</param>
+    /// <param name="channelConfig">the channel config</param>
+    /// <param name="pathName">the path name</param>
+    /// <param name="prefillPercentage">the prefill percentage</param>
+    /// <param name="resyncAtPercentage">the resync at percentage</param>
+    /// <param name="sampleRateKHz">the sample rate in KiloHertz</param>
     public void Insert
     (
       uint id,
       uint inputDeviceId,
       uint outputDeviceId,
+      int? processId,
       string inputDeviceName,
       string outputDeviceName,
       string pathName,
@@ -635,6 +650,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         id,
         inputDeviceId,
         outputDeviceId,
+        processId,
         inputDeviceName,
         outputDeviceName,
         pathName
@@ -655,23 +671,24 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Insert a repeater.
     /// </summary>
-    /// <param name="id">The repeater ID</param>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
-    /// <param name="bitsPerSample">The amount of bits per sample</param>
-    /// <param name="bufferAmount">The buffer amount</param>
-    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
-    /// <param name="channelMask">The channel mask</param>
-    /// <param name="pathName">The path name</param>
-    /// <param name="prefillPercentage">The prefill percentage</param>
-    /// <param name="resyncAtPercentage">The resync at percentage</param>
-    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
-    /// <param name="windowName">The window name</param>
+    /// <param name="id">the repeater ID</param>
+    /// <param name="inputDeviceId">the input device ID</param>
+    /// <param name="outputDeviceId">the output device ID</param>
+    /// <param name="processId">the process ID</param>
+    /// <param name="bitsPerSample">the amount of bits per sample</param>
+    /// <param name="bufferAmount">the buffer amount</param>
+    /// <param name="bufferDurationMs">the buffer duration in milliseconds</param>
+    /// <param name="channelMask">the channel mask</param>
+    /// <param name="pathName">the path name</param>
+    /// <param name="prefillPercentage">the prefill percentage</param>
+    /// <param name="resyncAtPercentage">the resync at percentage</param>
+    /// <param name="sampleRateKHz">the sample rate in KiloHertz</param>
     public void Insert
     (
       uint id,
       uint inputDeviceId,
       uint outputDeviceId,
+      int? processId,
       byte bitsPerSample,
       byte bufferAmount,
       byte prefillPercentage,
@@ -689,6 +706,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         id,
         inputDeviceId,
         outputDeviceId,
+        processId,
         inputDeviceName,
         outputDeviceName,
         pathName
@@ -707,9 +725,33 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     }
 
     /// <summary>
+    /// Insert the list of audio repeater(s).
+    /// </summary>
+    /// <param name="modelList">the list of audio repeater(s)</param>
+    public void InsertRange(List<RepeaterModel> modelList)
+    {
+      if
+      (
+        modelList is null
+        || modelList.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to remove the audio repeater(s)." +
+          "The audio repeater list is either empty or null."
+        );
+
+        return;
+      }
+
+      modelList.ForEach(x => Insert(x));
+    }
+
+    /// <summary>
     /// Remove the audio repeater.
     /// </summary>
-    /// <param name="id">The repeater ID</param>
+    /// <param name="id">the repeater ID</param>
     public void Remove(uint? id)
     {
       if (id is null)
@@ -753,8 +795,8 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Remove the audio repeater.
     /// </summary>
-    /// <param name="firstDeviceId">The first audio device ID</param>
-    /// <param name="secondDeviceId">The second audio device ID</param>
+    /// <param name="firstDeviceId">the first audio device ID</param>
+    /// <param name="secondDeviceId">the second audio device ID</param>
     public void Remove
     (
       uint? firstDeviceId,
@@ -876,7 +918,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Remove the list of audio repeater(s).
     /// </summary>
-    /// <param name="deviceName">The input or output audio device name</param>
+    /// <param name="deviceName">the input or output audio device name</param>
     public void RemoveRange(string deviceName)
     {
       if (string.IsNullOrWhiteSpace(deviceName))
@@ -907,7 +949,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Remove the list of audio repeater(s).
     /// </summary>
-    /// <param name="deviceId">The list of input or output audio device ID(s)</param>
+    /// <param name="deviceId">the list of input or output audio device ID(s)</param>
     public void RemoveRangeByDeviceId(List<uint?> deviceIdList)
     {
       if
@@ -950,7 +992,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
     /// <summary>
     /// Remove the list of audio repeater(s).
     /// </summary>
-    /// <param name="deviceId">The input or output audio device ID</param>
+    /// <param name="deviceId">the input or output audio device ID</param>
     public void RemoveRangeByDeviceId(uint? deviceId)
     {
       if (deviceId is null)
