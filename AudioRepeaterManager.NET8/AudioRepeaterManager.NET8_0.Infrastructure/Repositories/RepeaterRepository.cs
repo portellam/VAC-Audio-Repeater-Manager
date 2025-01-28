@@ -959,7 +959,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
           }
         );
 
-      if (count == 0)
+      if (idList.Count == 0)
       {
         Debug.WriteLine
         (
@@ -975,7 +975,7 @@ namespace AudioRepeaterManager.NET8_0.Infrastructure.Repositories
         string.Format
         (
           "Removed the audio repeater(s)\t=> Count: {0}",
-          count
+          idList.Count
         )
       );
     }
