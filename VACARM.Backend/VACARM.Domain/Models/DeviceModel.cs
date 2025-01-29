@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using VACARM.Core.Structs;
+using VACARM.Backend.Domain.Structs;
 
-namespace VACARM.Core.Models
+namespace VACARM.Backend.Domain.Models
 {
   public class DeviceModel :
     IDeviceModel,

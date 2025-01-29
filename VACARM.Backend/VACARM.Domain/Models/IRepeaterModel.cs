@@ -1,6 +1,6 @@
-﻿using VACARM.Core.Structs;
+﻿using VACARM.Backend.Domain.Structs;
 
-namespace VACARM.Core.Models
+namespace VACARM.Backend.Domain.Models
 {
   public interface IRepeaterModel
   {

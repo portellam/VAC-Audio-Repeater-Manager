@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using VACARM.Core.Shared;
-using VACARM.Core.Structs;
+using VACARM.Backend.Common;
+using VACARM.Backend.Domain.Structs;
 
-namespace VACARM.Core.Models
+namespace VACARM.Backend.Domain.Models
 {
   public class RepeaterModel :
     IRepeaterModel,
@@ -531,7 +531,7 @@ namespace VACARM.Core.Models
       get
       {
         return $"start " +
-          $"/min \"{Global.ExpectedExecutableFullPathName}\" \"{PathName}\" " +
+          $"/min \"{Info.ExpectedExecutableFullPathName}\" \"{PathName}\" " +
           $"/Input:\"{InputDeviceName}\" " +
           $"/Output:\"{OutputDeviceName}\" " +
           $"/SampleRate:{SampleRateKHz} " +
@@ -554,7 +554,7 @@ namespace VACARM.Core.Models
       get
       {
         return
-          $"start \"{Global.ExpectedExecutableFullPathName}\" " +
+          $"start \"{Info.ExpectedExecutableFullPathName}\" " +
           $"\"{PathName}\" " +
           $"/CloseInstance:\"{WindowName}\"";
       }
