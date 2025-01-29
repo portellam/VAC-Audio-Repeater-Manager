@@ -1,4 +1,4 @@
-﻿namespace VACARM.Backend.Infrastructure.Services
+﻿namespace VACARM.Infrastructure.Services
 {
   public interface IXMLFileService
   {

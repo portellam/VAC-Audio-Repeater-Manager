@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace VACARM.Backend.ApplicationCommands
+namespace VACARM.Application.Commands
 {
   public class ExecutableCommands
   {

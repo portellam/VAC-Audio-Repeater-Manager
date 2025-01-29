@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace VACARM.Backend.Domain.Models
+namespace VACARM.Domain.Models
 {
   public interface IDeviceModel
   {

@@ -1,6 +1,6 @@
-﻿using VACARM.Backend.Domain.Models;
+﻿using VACARM.Domain.Models;
 
-namespace VACARM.Backend.Infrastructure.Repositories
+namespace VACARM.Infrastructure.Repositories
 {
   public interface IDeviceRepository
   {

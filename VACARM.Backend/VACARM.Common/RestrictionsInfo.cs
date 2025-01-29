@@ -1,4 +1,4 @@
-﻿namespace VACARM.Backend.Common
+﻿namespace VACARM.Common
 {
   public partial class Info
   {
