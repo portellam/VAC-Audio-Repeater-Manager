@@ -1,8 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace VACARM.Common
+namespace VACARM.Backend.Common
 {
-  public partial class Common
+  public partial class Info
   {
     #region Parameters
 
