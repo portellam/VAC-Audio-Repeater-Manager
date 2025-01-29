@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using NAudio.CoreAudioApi;
 
-namespace VACARM.Application.Commands
+namespace VACARM.Backend.ApplicationCommands
 {
   public static class DeviceCommands
   {
