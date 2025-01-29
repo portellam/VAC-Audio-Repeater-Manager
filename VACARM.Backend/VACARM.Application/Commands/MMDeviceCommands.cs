@@ -3,7 +3,7 @@ using NAudio.CoreAudioApi;
 
 namespace VACARM.Application.Commands
 {
-  public static class DeviceCommands
+  public static class MMDeviceCommands
   {
     #region Logic
 
