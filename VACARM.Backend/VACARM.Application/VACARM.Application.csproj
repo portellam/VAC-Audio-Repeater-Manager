@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="NAudio">
-      <HintPath>..\..\AudioRepeaterManager\AudioRepeaterManager.NET4_6.Backend\bin\Debug\NAudio.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Reference Include="NAudio">
+      <HintPath>..\..\AudioRepeaterManager\AudioRepeaterManager.NET4_6.Backend\bin\Debug\NAudio.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
