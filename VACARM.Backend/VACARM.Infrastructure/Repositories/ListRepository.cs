@@ -1,4 +1,4 @@
-﻿namespace VACARM.Core.Repositories
+﻿namespace VACARM.Backend.Infrastructure.Repositories
 {
   public class ListRepository<T> : IRepository<T>
   {
