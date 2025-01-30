@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IDeviceRepository
+  public interface IDeviceRepository : IRepository<DeviceModel>
   {
     #region Logic
 
@@ -11,6 +11,8 @@ namespace VACARM.Infrastructure.Repositories
     List<DeviceModel> GetAllInput();
     List<DeviceModel> GetAllOutput();
     List<DeviceModel> GetAllPresent();
+    List<DeviceModel> GetAllStarted();
+    List<DeviceModel> GetAllStopped();
 
     #endregion
   }

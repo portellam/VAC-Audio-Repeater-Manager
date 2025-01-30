@@ -2,15 +2,12 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IRepeaterRepository
+  public interface IRepeaterRepository : IRepository<RepeaterModel>
   {
     #region Logic
 
-    List<DeviceModel> GetAllAbsent();
-    List<DeviceModel> GetAllInAlphabeticalOrder();
-    List<DeviceModel> GetAllInput();
-    List<DeviceModel> GetAllOutput();
-    List<DeviceModel> GetAllPresent();
+    List<RepeaterModel> GetAllStarted();
+    List<RepeaterModel> GetAllStopped();
 
     #endregion
   }

@@ -5,16 +5,16 @@
     #region Logic
 
     T? Get(Func<T, bool> predicate);
-    List<T> GetAll();
-    List<T> GetRange(Func<T, bool> predicate);
+    IEnumerable<T> GetAll();
+    IEnumerable<T> GetRange(Func<T, bool> predicate);
     IQueryable<T> Queryable();
+    void Add(T t);
+    void AddRange(IEnumerable<T> enumerable);
     void Remove(T t);
+    void Remove(Func<T, bool> predicate);
     void RemoveAll();
     void RemoveRange(Func<T, bool> predicate);
-    void Set(T t);
-    void SetRange(IEnumerable<T> enumerable);
-    void Update(T t);
-    void UpdateRange(IEnumerable<T> enumerable);
+    void RemoveRange(IEnumerable<T> enumerable);
 
     #endregion
   }

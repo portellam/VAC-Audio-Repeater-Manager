@@ -6,14 +6,9 @@ namespace VACARM.Infrastructure.Repositories
   /// Constructor
   /// </summary>
   /// <param name="list">the device list</param>
-  public class RepeaterRepository<T>(List<RepeaterModel> list)
-    where T : RepeaterModel
+  public class RepeaterRepository :
+    Repository<RepeaterModel>,
+    IRepeaterRepository
   {
-    #region Parameters
-
-    private ListRepository<RepeaterModel> ListRepository =
-      new ListRepository<RepeaterModel>(list);
-
-    #endregion
   }
 }
