@@ -2,7 +2,7 @@
 
 namespace VACARM.Domain.Models
 {
-  public interface IModel
+  public interface IBaseModel
   {
     #region Parameters
 

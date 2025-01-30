@@ -6,7 +6,7 @@ using VACARM.Domain.Structs;
 namespace VACARM.Domain.Models
 {
   public class DeviceModel :
-    Model,
+    BaseModel,
     IDeviceModel,
     INotifyPropertyChanged
   {

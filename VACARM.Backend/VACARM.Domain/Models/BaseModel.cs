@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace VACARM.Domain.Models
 {
-  public class Model : IModel
+  public class BaseModel : IBaseModel
   {
     #region Parameters
 

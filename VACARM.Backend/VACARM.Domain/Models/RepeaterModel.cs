@@ -8,7 +8,7 @@ using VACARM.Domain.Structs;
 namespace VACARM.Domain.Models
 {
   public class RepeaterModel :
-    Model,
+    BaseModel,
     IRepeaterModel,
     INotifyPropertyChanged
   {
