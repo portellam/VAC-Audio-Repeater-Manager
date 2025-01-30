@@ -2,14 +2,9 @@
 
 namespace VACARM.Domain.Models
 {
-  public interface IDeviceModel
+  public interface IDeviceModel : IDomainModel
   {
     #region Parameters
-
-    /// <summary>
-    /// Primary Key
-    /// </summary>
-    uint Id { get; set; }
 
     /// <summary>
     /// Foreign key

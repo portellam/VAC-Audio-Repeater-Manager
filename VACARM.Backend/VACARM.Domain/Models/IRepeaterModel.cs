@@ -2,14 +2,9 @@
 
 namespace VACARM.Domain.Models
 {
-  public interface IRepeaterModel
+  public interface IRepeaterModel : IDomainModel
   {
     #region Parameters
-
-    /// <summary>
-    /// Primary key
-    /// </summary>
-    uint Id { get; set; }
 
     /// <summary>
     /// Foreign key

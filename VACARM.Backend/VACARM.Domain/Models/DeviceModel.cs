@@ -18,9 +18,6 @@ namespace VACARM.Domain.Models
     private bool? isPresent { get; set; }
     private string name { get; set; }
 
-    /// <summary>
-    /// Primary Key
-    /// </summary>
     public uint Id
     {
       get
@@ -34,9 +31,6 @@ namespace VACARM.Domain.Models
       }
     }
 
-    /// <summary>
-    /// Foreign key
-    /// </summary>
     public string ActualId
     {
       get
