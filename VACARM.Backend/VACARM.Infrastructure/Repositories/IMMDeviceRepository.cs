@@ -6,7 +6,6 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Logic
 
-    List<MMDevice> GetAll();
     List<MMDevice> GetAllStarted();
     List<MMDevice> GetAllStopped();
     List<MMDevice> GetRange(List<string> idList);

@@ -2,7 +2,7 @@
 
 namespace VACARM.Application.Controllers
 {
-  public interface IDeviceController
+  public interface IDeviceController : IDomainController<DeviceModel>
   {
     #region Logic
 
