@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NAudio">
+      <HintPath>..\..\AudioRepeaterManager\AudioRepeaterManager.NET4_6.Backend\bin\Debug\NAudio.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
