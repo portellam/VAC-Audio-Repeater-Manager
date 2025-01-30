@@ -6,30 +6,17 @@ using VACARM.Domain.Structs;
 namespace VACARM.Domain.Models
 {
   public class DeviceModel :
+    Model,
     IDeviceModel,
     INotifyPropertyChanged
   {
     #region Parameters
 
-    private uint id { get; set; }
     private string actualId { get; set; }
     private bool? isInput { get; set; }
     private bool? isOutput { get; set; }
     private bool? isPresent { get; set; }
     private string name { get; set; }
-
-    public uint Id
-    {
-      get
-      {
-        return id;
-      }
-      set
-      {
-        id = value;
-        OnPropertyChanged(nameof(id));
-      }
-    }
 
     public string ActualId
     {
@@ -124,7 +111,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public override event PropertyChangedEventHandler? PropertyChanged;
 
     public string Name
     {

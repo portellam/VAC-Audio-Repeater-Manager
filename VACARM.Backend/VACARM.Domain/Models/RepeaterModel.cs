@@ -8,6 +8,7 @@ using VACARM.Domain.Structs;
 namespace VACARM.Domain.Models
 {
   public class RepeaterModel :
+    Model,
     IRepeaterModel,
     INotifyPropertyChanged
   {
@@ -212,25 +213,6 @@ namespace VACARM.Domain.Models
     private uint sampleRateKHz { get; set; } = defaultSampleRateKHz;
     private ushort bufferDurationMs { get; set; } = defaultBufferDurationMs;
 
-    /// <summary>
-    /// Primary Key
-    /// </summary>
-    public uint Id
-    {
-      get
-      {
-        return id;
-      }
-      set
-      {
-        id = value;
-        OnPropertyChanged(nameof(Id));
-      }
-    }
-
-    /// <summary>
-    /// Foreign key
-    /// </summary>
     public uint InputDeviceId
     {
       get
@@ -244,9 +226,6 @@ namespace VACARM.Domain.Models
       }
     }
 
-    /// <summary>
-    /// Foreign key
-    /// </summary>
     public uint OutputDeviceId
     {
       get
@@ -260,9 +239,6 @@ namespace VACARM.Domain.Models
       }
     }
 
-    /// <summary>
-    /// Foreign key
-    /// </summary>
     public int? ProcessId
     {
       get
@@ -294,7 +270,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public override event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
     /// The amount of bits per sample.

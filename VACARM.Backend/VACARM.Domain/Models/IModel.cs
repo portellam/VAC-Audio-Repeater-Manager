@@ -1,4 +1,6 @@
-﻿namespace VACARM.Domain.Models
+﻿using System.ComponentModel;
+
+namespace VACARM.Domain.Models
 {
   public interface IModel
   {
@@ -8,6 +10,8 @@
     /// Primary key
     /// </summary>
     uint Id { get; set; }
+
+    event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
   }

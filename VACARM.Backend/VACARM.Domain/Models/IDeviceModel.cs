@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace VACARM.Domain.Models
+﻿namespace VACARM.Domain.Models
 {
   public interface IDeviceModel : IModel
   {
@@ -15,7 +13,6 @@ namespace VACARM.Domain.Models
     bool IsInput { get; set; }
     bool IsOutput { get; set; }
     bool IsPresent { get; set; }
-    event PropertyChangedEventHandler PropertyChanged;
     string Name { get; set; }
     string Availability { get; }
 
