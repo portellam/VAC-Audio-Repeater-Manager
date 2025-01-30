@@ -50,20 +50,6 @@ namespace VACARM.Infrastructure.Repositories
         .ToList();
     }
 
-    public List<DeviceModel> GetAllStarted()
-    {
-      return GetAll()
-        .Where(x => x.IsPresent)
-        .ToList();
-    }
-
-    public List<DeviceModel> GetAllStopped()
-    {
-      return GetAll()
-        .Where(x => x.IsPresent)
-        .ToList();
-    }
-
     #endregion
   }
 }

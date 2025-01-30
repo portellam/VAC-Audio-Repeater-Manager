@@ -11,8 +11,6 @@ namespace VACARM.Infrastructure.Repositories
     List<DeviceModel> GetAllInput();
     List<DeviceModel> GetAllOutput();
     List<DeviceModel> GetAllPresent();
-    List<DeviceModel> GetAllStarted();
-    List<DeviceModel> GetAllStopped();
 
     #endregion
   }
