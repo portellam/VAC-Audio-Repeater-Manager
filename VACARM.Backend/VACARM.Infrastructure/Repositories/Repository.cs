@@ -2,45 +2,45 @@
 {
   public class Repository<T> : IRepository<T>
   {
-    public List<T> List = new List<T>();
+    public HashSet<T> HashSet = new HashSet<T>();
 
     /// <summary>
     /// Constructor
     /// </summary>
     public Repository()
     {
-      List = new List<T>();
+      HashSet = new HashSet<T>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="list">the list of <typeparamref name="T"/></param>
-    public Repository(List<T> list)
+    /// <param name="hashSet">the hashSet of <typeparamref name="T"/></param>
+    public Repository(HashSet<T> hashSet)
     {
-      List = list;
+      HashSet = hashSet;
     }
 
     public T? Get(Func<T, bool> func)
     {
-      return List.FirstOrDefault(x => func(x));
+      return HashSet.FirstOrDefault(x => func(x));
     }
 
     public IEnumerable<T> GetAll()
     {
-      return List.AsEnumerable();
+      return HashSet.AsEnumerable();
     }
 
-    public IEnumerable<T> GetRange(Func<T, bool> predicate)
+    public IEnumerable<T> GetRange(Func<T, bool> func)
     {
-      return List
-        .Where(x => predicate(x))
+      return HashSet
+        .Where(x => func(x))
         .AsEnumerable();
     }
 
     public IQueryable<T> Queryable()
     {
-      return List.AsQueryable();
+      return HashSet.AsQueryable();
     }
 
     public void Add(T t)
@@ -50,12 +50,12 @@
         return;
       }
 
-      if (List.Contains(t))
+      if (HashSet.Contains(t))
       {
         return;
       }
 
-      List.Add(t);
+      HashSet.Add(t);
     }
 
     public void AddRange(IEnumerable<T> enumerable)
@@ -68,12 +68,12 @@
 
     public void Remove(T t)
     {
-      List.Remove(t);
+      HashSet.Remove(t);
     }
 
-    public void Remove(Func<T, bool> predicate)
+    public void Remove(Func<T, bool> func)
     {
-      T? t = List.FirstOrDefault(predicate);
+      T? t = HashSet.FirstOrDefault(func);
 
       if (t == null)
       {
@@ -85,16 +85,16 @@
 
     public void RemoveAll()
     {
-      List.Clear();
+      HashSet.Clear();
     }
 
-    public void RemoveRange(Func<T, bool> predicate)
+    public void RemoveRange(Func<T, bool> func)
     {
-      List<T> list = List
-        .Where(x => predicate(x))
+      HashSet<T> hashSet = HashSet
+        .Where(x => func(x))
         .ToList();
 
-      foreach (var t in list)
+      foreach (var t in hashSet)
       {
         Remove(t);
       }
