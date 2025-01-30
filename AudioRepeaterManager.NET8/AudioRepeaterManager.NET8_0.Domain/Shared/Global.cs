@@ -208,7 +208,7 @@ namespace AudioRepeaterManager.NET8_0.Domain.Shared
           return WindowsNT5MaxEndpointCount;
         }
 
-        return AudioRepeaterManageraxVirtualEndpointCount;
+        return AudioRepeaterManagerMaxVirtualEndpointCount;
       }
     }
 
@@ -236,7 +236,7 @@ namespace AudioRepeaterManager.NET8_0.Domain.Shared
     /// <summary>
     /// Maximum amount of virtual endpoints (virtual audio cables) for VAC.
     /// </summary>
-    public readonly static uint AudioRepeaterManageraxVirtualEndpointCount = 256;
+    public readonly static uint AudioRepeaterManagerMaxVirtualEndpointCount = 256;
 
     /// <summary>
     /// Maximum amount of endpoints (audio devices) for Windows 5.x and older.
