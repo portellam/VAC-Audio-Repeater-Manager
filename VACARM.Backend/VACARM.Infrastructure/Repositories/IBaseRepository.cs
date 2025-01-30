@@ -7,8 +7,22 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     BaseModel? Get(uint id);
-    List<BaseModel> GetRange(uint startId, uint endId);
+    
+    List<BaseModel> GetRange
+    (
+      uint startId,
+      uint endId
+    );
+
     List<BaseModel> GetRange(List<uint> idList);
+
+    void RemoveRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    void RemoveRange(List<uint> idList);
 
     #endregion
   }

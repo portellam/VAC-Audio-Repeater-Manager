@@ -90,14 +90,10 @@
 
     public void RemoveRange(Func<T, bool> func)
     {
-      HashSet<T> hashSet = HashSet
+      HashSet
         .Where(x => func(x))
-        .ToList();
-
-      foreach (var t in hashSet)
-      {
-        Remove(t);
-      }
+        .ToList()
+        .ForEach(x => Remove(x));
     }
 
     public void RemoveRange(IEnumerable<T> enumerable)

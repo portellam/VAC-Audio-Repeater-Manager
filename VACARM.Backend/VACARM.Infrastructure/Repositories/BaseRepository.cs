@@ -16,7 +16,11 @@ namespace VACARM.Infrastructure.Repositories
       return Get(func);
     }
 
-    public List<BaseModel> GetRange(uint startId, uint endId)
+    public List<BaseModel> GetRange
+    (
+      uint startId, 
+      uint endId
+    )
     {
       Func<BaseModel, bool> func = (BaseModel x) =>
         x.Id >= startId
@@ -47,5 +51,38 @@ namespace VACARM.Infrastructure.Repositories
       return modelList;
     }
 
+    public void RemoveRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      Func<BaseModel, bool> func = (BaseModel x) =>
+        x.Id >= startId
+        && x.Id <= endId;
+
+      RemoveRange(func);
+    }
+
+    public void RemoveRange(List<uint> idList)
+    {
+      List<BaseModel> modelList = new List<BaseModel>();
+
+      idList
+        .ForEach
+        (
+          x =>
+          {
+            BaseModel? model = Get(x);
+
+            if (model != null)
+            {
+              modelList.Add(model);
+            }
+          }
+        );
+
+      RemoveRange(modelList);
+    }
   }
 }
