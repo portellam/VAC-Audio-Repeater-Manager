@@ -1,62 +1,155 @@
-﻿using VACARM.Domain.Models;
+﻿using AudioSwitcher.AudioApi.CoreAudio;
+using VACARM.Domain.Models;
 
 namespace VACARM.Application.Controllers
 {
-  public interface IDeviceController : IController<DeviceModel>
+  /// <summary>
+  /// The wrapper which intersects audio device APIs.
+  /// </summary>
+  public interface IDeviceController : IGenericController<DeviceModel>
   {
     #region Logic
+
+    /// <summary>
+    /// Get the default communications audio device.
+    /// </summary>
+    /// <param name="isInput">True/false is the audio device an input</param>
+    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <returns>The audio device.</returns>
+    Task<DeviceModel?> GetDefaultCommunications
+    (
+      bool isInput,
+      bool isOutput
+    );
+
+    /// <summary>
+    /// Get the default console audio device.
+    /// </summary>
+    /// <param name="isInput">True/false is the audio device an input</param>
+    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <returns>The audio device.</returns>
+    Task<DeviceModel?> GetDefaultConsole
+    (
+      bool isInput,
+      bool isOutput
+    );
+
+    /// <summary>
+    /// Get the default multimedia audio device.
+    /// </summary>
+    /// <param name="isInput">True/false is the audio device an input</param>
+    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <returns>The audio device.</returns>
+    Task<DeviceModel?> GetDefaultMultimedia
+    (
+      bool isInput,
+      bool isOutput
+    );
+
+    /// <summary>
+    /// Mute a <typeparamref name="DeviceModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> Mute(uint id);
+
+    /// <summary>
+    /// Mute all <typeparamref name="DeviceModel"/>(s).
+    /// </summary>
+    /// <returns>The true/false result.</returns>
+    Task<bool> MuteAll();
+
+    /// <summary>
+    /// Mute some <typeparamref name="DeviceModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> MuteRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Restart a <typeparamref name="DeviceModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> Restart(uint id);
+
+    /// <summary>
+    /// Restart all <typeparamref name="DeviceModel"/>(s).
+    /// </summary>
+    /// <returns>The true/false result.</returns>
+    Task<bool> RestartAll();
+
+    /// <summary>
+    /// Restart some <typeparamref name="DeviceModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> RestartRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Restart some <typeparamref name="DeviceModel"/>(s).
+    /// </summary>
+    /// <param name="idList">The enumerable of ID(s)</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> RestartRange(List<uint> idList);
 
     /// <summary>
     /// Set a <typeparamref name="DeviceModel"/> as the default.
     /// </summary>
     /// <param name="id">The ID</param>
-    void SetAsDefault(uint id);
+    /// <returns>The true/false result.</returns>
+    Task<bool> SetAsDefault(uint id);
 
     /// <summary>
-    /// Restart a <typeparamref name="DeviceModel"/>.
+    /// Set a <typeparamref name="DeviceModel"/> as the default communications.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Restart(uint id);
+    /// <returns>The true/false result.</returns>
+    Task<bool> SetAsDefaultCommunications(uint id);
 
     /// <summary>
-    /// Restart all <typeparamref name="DeviceModel"/>(s).
+    /// Set the audio device volume.
     /// </summary>
-    void RestartAll();
-
-    /// <summary>
-    /// Restart some <typeparamref name="DeviceModel"/>(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    void RestartRange
+    /// <param name="id">The ID</param>
+    /// <param name="volume">The audio volume</param>
+    /// <returns>The true/false result.</returns>
+    /// <returns>The true/false result.</returns>
+        Task<bool> SetVolume
     (
-      uint startId,
-      uint endId
+      string id,
+      double? volume
     );
 
     /// <summary>
-    /// Restart some <typeparamref name="DeviceModel"/>(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    void RestartRange(List<uint> idList);
-
-    /// <summary>
     /// Restart a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Start(uint id);
+    /// <returns>The true/false result.</returns>
+    Task<bool> Start(uint id);
 
     /// <summary>
     /// Start all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
-    void StartAll();
+    /// <returns>The true/false result.</returns>
+    Task<bool> StartAll();
 
     /// <summary>
     /// Start some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    void StartRange
+    /// <returns>The true/false result.</returns>
+    Task<bool> StartRange
     (
       uint startId,
       uint endId
@@ -66,25 +159,28 @@ namespace VACARM.Application.Controllers
     /// Start some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
-    void StartRange(List<uint> idList);
+    Task<bool> StartRange(List<uint> idList);
 
     /// <summary>
     /// Stop a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Stop(uint id);
+    /// <returns>The true/false result.</returns>
+    Task<bool> Stop(uint id);
 
     /// <summary>
     /// Stop all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
-    void StopAll();
+    /// <returns>The true/false result.</returns>
+    Task<bool> StopAll();
 
     /// <summary>
     /// Stop some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    void StopRange
+    /// <returns>The true/false result.</returns>
+    Task<bool> StopRange
     (
       uint startId,
       uint endId
@@ -94,25 +190,54 @@ namespace VACARM.Application.Controllers
     /// Stop some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
-    void StopRange(List<uint> idList);
+    /// <returns>The true/false result.</returns>
+    Task<bool> StopRange(List<uint> idList);
+
+    /// <summary>
+    /// Unmute a <typeparamref name="DeviceModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> Unmute(uint id);
+
+    /// <summary>
+    /// Unmute all <typeparamref name="DeviceModel"/>(s).
+    /// </summary>
+    /// <returns>The true/false result.</returns>
+    Task<bool> UnmuteAll();
+
+    /// <summary>
+    /// Unmute some <typeparamref name="DeviceModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> UnmuteRange
+    (
+      uint startId,
+      uint endId
+    );
 
     /// <summary>
     /// Update a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Update(uint id);
+    /// <returns>The true/false result.</returns>
+    Task<bool> Update(uint id);
 
     /// <summary>
     /// Update all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
-    void UpdateAll();
+    /// <returns>The true/false result.</returns>
+    Task<bool> UpdateAll();
 
     /// <summary>
     /// Update some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    void UpdateRange
+    /// <returns>The true/false result.</returns>
+    Task<bool> UpdateRange
     (
       uint startId,
       uint endId
@@ -122,7 +247,8 @@ namespace VACARM.Application.Controllers
     /// Update some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
-    void UpdateRange(List<uint> idList);
+    /// <returns>The true/false result.</returns>
+    Task<bool> UpdateRange(List<uint> idList);
 
     #endregion
   }
