@@ -10,48 +10,49 @@ namespace VACARM.Application.Controllers
     /// Mute the audio device.
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <returns>The true/false result.</returns>
     Task<bool> DoMute(string id);
 
     /// <summary>
     /// Unmute the audio device.
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <returns>The true/false result.</returns>
     Task<bool> DoUnmute(string id);
 
     /// <summary>
     /// Is the audio device the default.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>True/false is the audio device the default.</returns>
+    /// <returns>The true/false result.</returns>
     Task<bool> IsDefault(string id);
 
     /// <summary>
     /// Is the audio device the default for communications.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>True/false is the audio device the default for 
-    /// communications.</returns>
+    /// <returns>The true/false result.</returns>
     Task<bool> IsDefaultCommunications(string id);
 
     /// <summary>
     /// Is the audio device muted.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>True/false is the audio device muted.</returns>
+    /// <returns>The true/false result.</returns>
     Task<bool> IsMuted(string id);
 
     /// <summary>
     /// Set the audio device as default.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The exit code.</returns>
+    /// <returns>The true/false result.</returns>
     Task<bool> SetAsDefault(string id);
 
     /// <summary>
     /// Set the audio device as default for communications.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The exit code.</returns>
+    /// <returns>The true/false result.</returns>
     Task<bool> SetAsDefaultCommunications(string id);
 
     /// <summary>
@@ -73,6 +74,7 @@ namespace VACARM.Application.Controllers
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="volume">The audio volume</param>
+    /// <returns>The true/false result.</returns>
     Task<bool> SetVolume
     (
       string id,

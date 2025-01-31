@@ -1,4 +1,5 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
+using VACARM.Application.Commands;
 
 namespace VACARM.Application.Controllers
 {
@@ -8,49 +9,11 @@ namespace VACARM.Application.Controllers
 
     private CoreAudioController Controller { get; set; }
 
-    /// <summary>
-    /// The maximum audio volume.
-    /// </summary>
-    private double MaxVolume
-    {
-      get
-      {
-        return 1;
-      }
-    }
-
-    /// <summary>
-    /// The minimum audio volume.
-    /// </summary>
-    private double MinVolume
-    {
-      get
-      {
-        return 0;
-      }
-    }
-
     private List<CoreAudioDevice> List { get; set; }
 
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Is the audio volume valid.
-    /// </summary>
-    /// <param name="volume">The volume</param>
-    /// <returns>True/false is the audio volume valid.</returns>
-    private bool IsVolumeValid(double? volume)
-    {
-      if (volume == null)
-      {
-        return false;
-      }
-
-      return volume <= MaxVolume
-        && volume >= MinVolume;
-    }
 
     /// <summary>
     /// Convert an ID from a <typeparamref name="string"/> to a 
@@ -133,88 +96,26 @@ namespace VACARM.Application.Controllers
 
     public async Task<bool> DoMute(string id)
     {
-      bool result = false;
-
       CoreAudioDevice? model = await Get(id);
-
-      if (model == null)
-      {
-        return result;
-      }
-
-      result = model.IsMuted;
-
-      if (result)
-      {
-        return result;
-      }
-
-      result = await model
-        .ToggleMuteAsync()
-        .ConfigureAwait(false);
-
-      return result;
+      return await CoreAudioCommands.DoMute(model);
     }
 
     public async Task<bool> DoUnmute(string id)
     {
-      bool result = false;
-
       CoreAudioDevice? model = await Get(id);
-
-      if (model == null)
-      {
-        return result;
-      }
-
-      result = !model.IsMuted;
-
-      if (result)
-      {
-        return result;
-      }
-
-      result = await model
-        .ToggleMuteAsync()
-        .ConfigureAwait(false);
-
-      return result;
+      return await CoreAudioCommands.DoUnmute(model);
     }
 
     public async Task<bool> SetAsDefault(string id)
     {
-      bool result = false;
-
       CoreAudioDevice? model = await Get(id);
-
-      if (model == null)
-      {
-        return result;
-      }
-
-      result = await model
-        .SetAsDefaultAsync()
-        .ConfigureAwait(false);
-
-      return result;
+      return await CoreAudioCommands.SetAsDefault(model);
     }
 
     public async Task<bool> SetAsDefaultCommunications(string id)
     {
-      bool result = false;
-
       CoreAudioDevice? model = await Get(id);
-
-      if (model == null)
-      {
-        return result;
-      }
-
-      result = await model
-        .SetAsDefaultCommunicationsAsync()
-        .ConfigureAwait(false);
-
-      return result;
+      return await CoreAudioCommands.SetAsDefaultCommunications(model);
     }
 
     public async Task<double> GetVolume(string id)
@@ -235,25 +136,13 @@ namespace VACARM.Application.Controllers
       double? volume
     )
     {
-      bool result = IsVolumeValid(volume);
-
-      if (!result)
-      {
-        return result;
-      }
-
       CoreAudioDevice? model = await Get(id);
 
-      if (model == null)
-      {
-        return result;
-      }
-
-      result = await model
-        .SetAsDefaultCommunicationsAsync()
-        .ConfigureAwait(false);
-
-      return result;
+      return CoreAudioCommands.SetVolume
+        (
+          model,
+          volume
+        );
     }
 
     #endregion
