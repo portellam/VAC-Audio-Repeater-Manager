@@ -2,46 +2,121 @@
 
 namespace VACARM.Application.Controllers
 {
-  public interface IRepeaterController
+  public interface IRepeaterController : IController<RepeaterModel>
   {
     #region Logic
 
-    IDeviceController Get();
-    List<RepeaterModel> Get(uint id);
-    List<RepeaterModel> GetAll();
-    List<RepeaterModel> GetByDeviceId(uint deviceId);
-    List<RepeaterModel> GetRange(List<uint> idList);
-    List<RepeaterModel> GetRangeByDeviceId(List<uint> deviceIdList);
+    /// <summary>
+    /// Restart a <typeparamref name="RepeaterModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
     void Restart(uint id);
+
+    /// <summary>
+    /// Restart all <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
     void RestartAll();
-    void RestartByDeviceId(uint deviceId);
-    void RestartByDeviceName(string deviceName);
+
+    /// <summary>
+    /// Restart some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    void RestartRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Restart some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="idList">The enumerable of ID(s)</param>
     void RestartRange(List<uint> idList);
-    void RestartRangeByDeviceId(List<uint> deviceIdList);
-    void RestartRangeByDeviceName(List<string> deviceNameList);
+
+    /// <summary>
+    /// Restart a <typeparamref name="RepeaterModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
     void Start(uint id);
+
+    /// <summary>
+    /// Start all <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
     void StartAll();
-    void StartByDeviceId(uint deviceId);
-    void StartByDeviceName(string deviceName);
+
+    /// <summary>
+    /// Start some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    void StartRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Start some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="idList">The enumerable of ID(s)</param>
     void StartRange(List<uint> idList);
-    void StartRangeByDeviceId(List<uint> deviceIdList);
-    void StartRangeByDeviceName(List<string> deviceNameList);
-    void Stop(string id);
+
+    /// <summary>
+    /// Stop a <typeparamref name="RepeaterModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
     void Stop(uint id);
+
+    /// <summary>
+    /// Stop all <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
     void StopAll();
-    void StopByDeviceId(uint deviceId);
-    void StopByDeviceName(string deviceName);
+
+    /// <summary>
+    /// Stop some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    void StopRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Stop some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="idList">The enumerable of ID(s)</param>
     void StopRange(List<uint> idList);
-    void StopRangeByDeviceId(List<uint> deviceIdList);
-    void StopRangeByDeviceName(List<string> deviceNameList);
-    void Update(string id);
+
+    /// <summary>
+    /// Update a <typeparamref name="RepeaterModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
     void Update(uint id);
+
+    /// <summary>
+    /// Update all <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
     void UpdateAll();
-    void UpdateByDeviceId(uint deviceId);
-    void UpdateByDeviceName(string deviceName);
+
+    /// <summary>
+    /// Update some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    void UpdateRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Update some <typeparamref name="RepeaterModel"/>(s).
+    /// </summary>
+    /// <param name="idList">The enumerable of ID(s)</param>
     void UpdateRange(List<uint> idList);
-    void UpdateRangeByDeviceId(List<uint> deviceIdList);
-    void UpdateRangeByDeviceName(List<string> deviceNameList);
 
     #endregion
   }
