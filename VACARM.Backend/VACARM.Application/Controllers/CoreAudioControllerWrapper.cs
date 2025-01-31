@@ -1,4 +1,5 @@
-﻿using AudioSwitcher.AudioApi.CoreAudio;
+﻿using AudioSwitcher.AudioApi;
+using AudioSwitcher.AudioApi.CoreAudio;
 using VACARM.Application.Commands;
 
 namespace VACARM.Application.Controllers
@@ -16,12 +17,58 @@ namespace VACARM.Application.Controllers
     #region Logic
 
     /// <summary>
+    /// Get the default audio device.
+    /// </summary>
+    /// <param name="role">The role</param>
+    /// <param name="deviceType">The device type</param>
+    /// <returns>The audio device.</returns>
+    private async Task<CoreAudioDevice?> GetDefault
+    (
+      Role role,
+      DeviceType deviceType
+    )
+    {
+      return await Controller
+        .GetDefaultDeviceAsync
+        (
+          deviceType,
+          role
+        )
+        .ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get the device type.
+    /// </summary>
+    /// <param name="isInput">True/false is the audio device an input</param>
+    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <returns>The device type.</returns>
+    private static DeviceType GetDeviceType
+    (
+      bool isInput,
+      bool isOutput
+    )
+    {
+      if (isInput == isOutput)
+      {
+        return DeviceType.All;
+      }
+
+      if (isInput)
+      {
+        return DeviceType.Capture;
+      }
+
+      return DeviceType.Playback;
+    }
+
+    /// <summary>
     /// Convert an ID from a <typeparamref name="string"/> to a 
     /// <typeparamref name="GUID"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The GUID</returns>
-    private Guid ToGuid(string id)
+    private static Guid ToGuid(string id)
     {
       if (string.IsNullOrWhiteSpace(id))
       {
@@ -75,11 +122,6 @@ namespace VACARM.Application.Controllers
       return model.IsMuted;
     }
 
-    /// <summary>
-    /// Get the audio device.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The audio device.</returns>
     public async Task<CoreAudioDevice?> Get(string id)
     {
       if (Controller == null)
@@ -92,6 +134,63 @@ namespace VACARM.Application.Controllers
       return await Controller
         .GetDeviceAsync(guid)
         .ConfigureAwait(false);
+    }
+
+    public async Task<CoreAudioDevice?> GetDefaultCommunications
+    (
+      bool isInput,
+      bool isOutput
+    )
+    {
+      DeviceType deviceType = GetDeviceType
+        (
+          isInput,
+          isOutput
+        );
+
+      return await GetDefault
+        (
+          Role.Communications,
+          deviceType
+        );
+    }
+
+    public async Task<CoreAudioDevice?> GetDefaultConsole
+    (
+      bool isInput,
+      bool isOutput
+    )
+    {
+      DeviceType deviceType = GetDeviceType
+        (
+          isInput,
+          isOutput
+        );
+
+      return await GetDefault
+        (
+          Role.Console,
+          deviceType
+        );
+    }
+
+    public async Task<CoreAudioDevice?> GetDefaultMultimedia
+    (
+      bool isInput,
+      bool isOutput
+    )
+    {
+      DeviceType deviceType = GetDeviceType
+        (
+          isInput,
+          isOutput
+        );
+
+      return await GetDefault
+        (
+          Role.Multimedia,
+          deviceType
+        );
     }
 
     public async Task<bool> DoMute(string id)

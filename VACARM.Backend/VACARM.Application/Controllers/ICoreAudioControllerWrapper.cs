@@ -56,6 +56,42 @@ namespace VACARM.Application.Controllers
     Task<bool> SetAsDefaultCommunications(string id);
 
     /// <summary>
+    /// Get the default communications audio device.
+    /// </summary>
+    /// <param name="isInput">True/false is the audio device an input</param>
+    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <returns>The audio device.</returns>
+    Task<CoreAudioDevice?> GetDefaultCommunications
+    (
+      bool isInput,
+      bool isOutput
+    );
+
+    /// <summary>
+    /// Get the default console audio device.
+    /// </summary>
+    /// <param name="isInput">True/false is the audio device an input</param>
+    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <returns>The audio device.</returns>
+    Task<CoreAudioDevice?> GetDefaultConsole
+    (
+      bool isInput,
+      bool isOutput
+    );
+
+    /// <summary>
+    /// Get the default multimedia audio device.
+    /// </summary>
+    /// <param name="isInput">True/false is the audio device an input</param>
+    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <returns>The audio device.</returns>
+    Task<CoreAudioDevice?> GetDefaultMultimedia
+    (
+      bool isInput,
+      bool isOutput
+    );
+
+    /// <summary>
     /// Get the audio device.
     /// </summary>
     /// <param name="id">The ID</param>
