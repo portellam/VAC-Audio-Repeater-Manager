@@ -31,7 +31,7 @@ namespace VACARM.Application.Commands
       int passCode = 0;
       int failCode = 1;
 
-      if (process is null)
+      if (process == null)
       {
         Debug.WriteLine
         (
@@ -144,7 +144,7 @@ namespace VACARM.Application.Commands
       Task<int> task;
       int failCode = 1;
 
-      if (process is null)
+      if (process == null)
       {
         Debug.WriteLine
         (

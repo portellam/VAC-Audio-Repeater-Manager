@@ -257,7 +257,7 @@ namespace VACARM.Application.Commands
       int result = 1;
       Process? process = Get(processId);
 
-      if (process is null)
+      if (process == null)
       {
         Debug.WriteLine
         (

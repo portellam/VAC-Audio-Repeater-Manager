@@ -335,7 +335,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (ChannelList is null)
+        if (ChannelList == null)
         {
           return 0;
         }
@@ -414,7 +414,7 @@ namespace VACARM.Domain.Models
       }
       set
       {
-        if (value is null)
+        if (value == null)
         {
           value = new List<Channel>();
         }

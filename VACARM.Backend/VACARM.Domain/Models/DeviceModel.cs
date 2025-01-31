@@ -46,7 +46,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (isInput is null)
+        if (isInput == null)
         {
           return false;
         }
@@ -55,7 +55,7 @@ namespace VACARM.Domain.Models
       }
       set
       {
-        if ((bool?)value is null)
+        if ((bool?)value == null)
         {
           return;
         }
@@ -69,7 +69,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (isOutput is null)
+        if (isOutput == null)
         {
           return false;
         }
@@ -78,7 +78,7 @@ namespace VACARM.Domain.Models
       }
       set
       {
-        if ((bool?)value is null)
+        if ((bool?)value == null)
         {
           return;
         }
@@ -92,7 +92,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (isPresent is null)
+        if (isPresent == null)
         {
           return false;
         }
@@ -101,7 +101,7 @@ namespace VACARM.Domain.Models
       }
       set
       {
-        if ((bool?)value is null)
+        if ((bool?)value == null)
         {
           return;
         }

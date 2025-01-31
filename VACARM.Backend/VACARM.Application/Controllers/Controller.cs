@@ -167,12 +167,12 @@ namespace VACARM.Application.Controllers
       Func<T, bool> func
     )
     {
-      if (action is null)
+      if (action == null)
       {
         return;
       }
 
-      if (func is null)
+      if (func == null)
       {
         return;
       }

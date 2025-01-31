@@ -23,7 +23,7 @@ namespace VACARM.Application.Commands
     /// <param name="model">the audio device</param>
     public static void Reset(MMDevice? model)
     {
-      if (model is null)
+      if (model == null)
       {
         Debug.WriteLine
           (
@@ -86,7 +86,7 @@ namespace VACARM.Application.Commands
     /// <param name="model">the audio device</param>
     public static void Start(MMDevice? model)
     {
-      if (model is null)
+      if (model == null)
       {
         Debug.WriteLine
           (
@@ -150,7 +150,7 @@ namespace VACARM.Application.Commands
     /// <param name="model">the audio device</param>
     public static void Stop(MMDevice? model)
     {
-      if (model is null)
+      if (model == null)
       {
         Debug.WriteLine
           (
@@ -214,7 +214,7 @@ namespace VACARM.Application.Commands
     /// <param name="model">The audio device</param>
     public static void Update(MMDevice? model)
     {
-      if (model is null)
+      if (model == null)
       {
         Debug.WriteLine
           (
