@@ -3,7 +3,7 @@
 namespace VACARM.Infrastructure.Repositories
 {
   public class BaseRepository :
-    Repository<BaseModel>,
+    GenericRepository<BaseModel>,
     IBaseRepository
   {
     #region Logic

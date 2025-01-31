@@ -1,13 +1,13 @@
 ﻿namespace VACARM.Infrastructure.Repositories
 {
-  public class Repository<T> : IRepository<T>
+  public class GenericRepository<T> : IGenericRepository<T>
   {
     public HashSet<T> HashSet = new HashSet<T>();
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public Repository()
+    public GenericRepository()
     {
       HashSet = new HashSet<T>();
     }
@@ -16,7 +16,7 @@
     /// Constructor
     /// </summary>
     /// <param name="hashSet">the hashSet of <typeparamref name="T"/></param>
-    public Repository(HashSet<T> hashSet)
+    public GenericRepository(HashSet<T> hashSet)
     {
       HashSet = hashSet;
     }

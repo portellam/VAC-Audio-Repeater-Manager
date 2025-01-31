@@ -3,14 +3,14 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public interface IController<T>
+  public interface IGenericController<T>
   {
     #region Parameters
 
     /// <summary>
     /// The <typeparamref name="T"/> repository.
     /// </summary>
-    IRepository<T> Repository { get; set; }
+    IGenericRepository<T> Repository { get; set; }
     event PropertyChangedEventHandler PropertyChanged;
 
     #endregion

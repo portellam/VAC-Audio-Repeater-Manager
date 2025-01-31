@@ -1,6 +1,6 @@
 ﻿namespace VACARM.Infrastructure.Repositories
 {
-  public interface IRepository<T>
+  public interface IGenericRepository<T>
   {
     #region Logic
 

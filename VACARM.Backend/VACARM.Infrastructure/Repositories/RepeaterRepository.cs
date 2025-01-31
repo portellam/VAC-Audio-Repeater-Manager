@@ -7,7 +7,7 @@ namespace VACARM.Infrastructure.Repositories
   /// </summary>
   /// <param name="list">the device list</param>
   public class RepeaterRepository :
-    Repository<RepeaterModel>,
+    GenericRepository<RepeaterModel>,
     IRepeaterRepository
   {
   }

@@ -2,7 +2,7 @@
 
 namespace VACARM.Application.Controllers
 {
-  public interface IBaseController<BaseModel> : IController<BaseModel>
+  public interface IBaseController<BaseModel> : IGenericController<BaseModel>
   {
     #region Parameters
 

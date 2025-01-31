@@ -2,7 +2,7 @@
 
 namespace VACARM.Application.Controllers
 {
-  public interface IRepeaterController : IController<RepeaterModel>
+  public interface IRepeaterController : IGenericController<RepeaterModel>
   {
     #region Logic
 

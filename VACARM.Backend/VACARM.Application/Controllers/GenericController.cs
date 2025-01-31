@@ -4,13 +4,13 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public class Controller<T> : IController<T>
+  public class GenericController<T> : IGenericController<T>
   {
     #region Parameters
 
-    private IRepository<T> repository { get; set; } = new Repository<T>();
+    private IGenericRepository<T> repository { get; set; } = new GenericRepository<T>();
 
-    public IRepository<T> Repository
+    public IGenericRepository<T> Repository
     {
       get
       {
@@ -54,9 +54,9 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public Controller()
+    public GenericController()
     {
-      Repository = new Repository<T>();
+      Repository = new GenericRepository<T>();
     }
 
     public T? Get(Func<T, bool> func)
