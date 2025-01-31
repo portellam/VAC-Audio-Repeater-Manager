@@ -6,13 +6,31 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Logic
 
-    List<MMDevice> GetAllStarted();
-    List<MMDevice> GetAllStopped();
-    List<MMDevice> GetRange(List<string> idList);
+    /// <summary>
+    /// Get an audio device.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The audio device.</returns>
     MMDevice? Get(string id);
-    void Update(string id);
-    void UpdateAll();
-    void UpdateRange(List<string> idList);
+
+    /// <summary>
+    /// Get a list of all started audio device(s).
+    /// </summary>
+    /// <returns>The list of all started audio device(s).</returns>
+    List<MMDevice> GetAllStarted();
+
+    /// <summary>
+    /// Get a list of all stopped audio device(s).
+    /// </summary>
+    /// <returns>The list of all stopped audio device(s).</returns>
+    List<MMDevice> GetAllStopped();
+
+    /// <summary>
+    /// Get a list of some audio device(s).
+    /// </summary>
+    /// <param name="idList">The list of ID(s)</param>
+    /// <returns>The list of some audio device(s).</returns>
+    List<MMDevice> GetRange(List<string> idList);
     
     #endregion
   }
