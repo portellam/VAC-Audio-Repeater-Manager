@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
 using NAudio.CoreAudioApi;
 
 namespace VACARM.Infrastructure.Repositories
@@ -56,262 +54,75 @@ namespace VACARM.Infrastructure.Repositories
         || deviceState == DeviceState.Unplugged;
     }
 
-    public MMDevice? Get(string id)
+    public MMDevice? Get(Func<MMDevice, bool> func)
     {
-      MMDevice? model = null;
-
-      if (string.IsNullOrWhiteSpace(id))
+      if (func == null)
       {
-        Debug.WriteLine
-        (
-          "Failed to get audio device. " +
-          "Audio device ID is either null or whitespace."
-        );
-
-        return model;
+        return null;
       }
 
-      try
-      {
-        model = List.FirstOrDefault(x => x.ID == id);
-
-        if (model == null)
-        {
-          throw new NullReferenceException();
-        }
-      }
-      catch
-      {
-        Debug.WriteLine
-        (
-          string.Format
-          (
-            "Failed to get the audio device. " +
-            "The audio device is either null or does not exist in list\t=> " +
-            "ID: {0}",
-            id
-          )
-        );
-
-        return model;
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Got the audio device\t=> ID: {0}",
-          model.ID
-        )
-      );
-
-      return model;
+      return List.FirstOrDefault(x => func(x));
     }
 
-    public List<MMDevice> GetAll()
+    public MMDevice? Get(string id)
     {
-      if
-      (
-        List is null
-        || List.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to get the list of all audio device(s). " +
-          "The audio device list is null or empty."
-        );
+      Func<MMDevice, bool> func = (MMDevice x) => x.ID == id;
+      return Get(func);
+    }
 
-        return new List<MMDevice>();
-      }
+    public IEnumerable<MMDevice> GetAll()
+    {
+      return List.AsEnumerable();
+    }
 
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Got list of all audio device(s)\t=> Count: {0}",
-          List.Count()
-        )
-      );
-
-      return List;
+    public IEnumerable<MMDevice> GetRange(Func<MMDevice, bool> func)
+    {
+      return List
+        .Where(x => func(x))
+        .AsEnumerable();
     }
 
     public List<MMDevice> GetAllAbsent()
     {
-      if
-      (
-        List is null
-        || List.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to get the list of absent audio device(s). " +
-          "The audio device list is null or empty."
-        );
-
-        return new List<MMDevice>();
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Got the list of absent audio device(s)\t=> Count: {0}",
-          List.Where
-            (
-              x =>
-              !IsPresent(x)
-            ).Count()
-        )
-      );
-
-      return List;
+      Func<MMDevice, bool> func = (MMDevice x) => !IsPresent(x);
+      return GetRange(func).ToList();
     }
 
     public List<MMDevice> GetAllPresent()
     {
-      if
-      (
-        List is null
-        || List.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to get the list of present audio device(s). " +
-          "The audio device list is null or empty."
-        );
-
-        return new List<MMDevice>();
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Got the list of present audio device(s)\t=> Count: {0}",
-          List.Where
-            (
-              x =>
-              IsPresent(x)
-            ).Count()
-        )
-      );
-
-      return List;
-    }
-
-    public List<MMDevice> GetAllStopped()
-    {
-      if
-      (
-        List is null
-        || List.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to get the list of stopped audio device(s). " +
-          "The audio device list is null or empty."
-        );
-
-        return new List<MMDevice>();
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Got the list of stopped audio device(s)\t=> Count: {0}",
-          List.Where
-            (
-              x =>
-              !IsStarted(x)
-            ).Count()
-        )
-      );
-
-      return List;
+      Func<MMDevice, bool> func = (MMDevice x) => IsPresent(x);
+      return GetRange(func).ToList();
     }
 
     public List<MMDevice> GetAllStarted()
     {
-      if
-      (
-        List is null
-        || List.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to get the list of started audio device(s). " +
-          "The audio device list is null or empty."
-        );
+      Func<MMDevice, bool> func = (MMDevice x) => IsStarted(x);
+      return GetRange(func).ToList();
+    }
 
-        return new List<MMDevice>();
-      }
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Got the list of started audio device(s)\t=> Count: {0}",
-          List.Where
-            (
-              x =>
-              IsStarted(x)
-            ).Count()
-        )
-      );
-
-      return List;
+    public List<MMDevice> GetAllStopped()
+    {
+      Func<MMDevice, bool> func = (MMDevice x) => !IsStarted(x);
+      return GetRange(func).ToList();
     }
 
     public List<MMDevice> GetRange(List<string> idList)
     {
-      if
-      (
-        idList is null
-        || idList.Count == 0
-        || List is null
-        || List.Count == 0
-      )
-      {
-        Debug.WriteLine
-        (
-          "Failed to get the audio device(s). " +
-          "Either the audio device ID list is null or empty, " +
-          "or the audio device list is null or empty."
-        );
-
-        return new List<MMDevice>();
-      }
-
       List<MMDevice> modelList = new List<MMDevice>();
 
       idList.ForEach
         (
-          id =>
+          x =>
           {
-            MMDevice? model = Get(id);
 
-            if (model is not null)
+            MMDevice? model = Get(x);
+
+            if (model != null)
             {
               modelList.Add(model);
             }
           }
         );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "Got the audio device(s)\t=> Count: {0}",
-          modelList.Count()
-        )
-      );
 
       return modelList;
     }
