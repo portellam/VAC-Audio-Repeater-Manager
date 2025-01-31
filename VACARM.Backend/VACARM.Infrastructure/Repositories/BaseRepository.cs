@@ -6,6 +6,11 @@ namespace VACARM.Infrastructure.Repositories
     Repository<BaseModel>,
     IBaseRepository
   {
+    #region Logic
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public BaseRepository()
     {
     }
@@ -84,5 +89,7 @@ namespace VACARM.Infrastructure.Repositories
 
       RemoveRange(modelList);
     }
+
+    #endregion
   }
 }

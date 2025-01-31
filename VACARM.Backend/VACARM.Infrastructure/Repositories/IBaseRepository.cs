@@ -6,22 +6,49 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Logic
 
+    /// <summary>
+    /// Get a <typeparamref name="BaseModel"/> item.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The <typeparamref name="BaseModel"/> item.</returns>
     BaseModel? Get(uint id);
-    
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    /// <returns>The enumerable of <typeparamref name="BaseModel"/> 
+    /// item(s).</returns>
     List<BaseModel> GetRange
     (
       uint startId,
       uint endId
     );
 
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="idList">The range of ID(s)</param>
+    /// <returns>The enumerable of <typeparamref name="BaseModel"/> 
+    /// item(s).</returns>
     List<BaseModel> GetRange(List<uint> idList);
 
+    /// <summary>
+    /// Remove a range of <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
     void RemoveRange
     (
       uint startId,
       uint endId
     );
 
+    /// <summary>
+    /// Remove a range of <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="idList">The range of ID(s)</param>
     void RemoveRange(List<uint> idList);
 
     #endregion
