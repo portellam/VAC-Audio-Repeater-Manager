@@ -2,16 +2,21 @@
 
 namespace VACARM.Application.Controllers
 {
-  public interface ICoreAudioControllerExtension
+  public interface ICoreAudioControllerWrapper
   {
     #region
 
     /// <summary>
-    /// Get the volume of the audio device.
+    /// Mute the audio device.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The audio volume.</returns>
-    double GetVolume(string id);
+    Task<bool> DoMute(string id);
+
+    /// <summary>
+    /// Unmute the audio device.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    Task<bool> DoUnmute(string id);
 
     /// <summary>
     /// Is the audio device the default.
@@ -36,6 +41,20 @@ namespace VACARM.Application.Controllers
     Task<bool> IsMuted(string id);
 
     /// <summary>
+    /// Set the audio device as default.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The exit code.</returns>
+    Task<bool> SetAsDefault(string id);
+
+    /// <summary>
+    /// Set the audio device as default for communications.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The exit code.</returns>
+    Task<bool> SetAsDefaultCommunications(string id);
+
+    /// <summary>
     /// Get the audio device.
     /// </summary>
     /// <param name="id">The ID</param>
@@ -43,40 +62,21 @@ namespace VACARM.Application.Controllers
     Task<CoreAudioDevice?> Get(string id);
 
     /// <summary>
-    /// Mute the audio device.
+    /// Get the volume of the audio device.
     /// </summary>
     /// <param name="id">The ID</param>
-    Task<int> DoMute(string id);
-
-    /// <summary>
-    /// Unmute the audio device.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    Task<int> DoUnmute(string id);
-
-    /// <summary>
-    /// Set the audio device as default.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The exit code.</returns>
-    Task<int> SetAsDefault(string id);
-
-    /// <summary>
-    /// Set the audio device as default for communications.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The exit code.</returns>
-    Task<int> SetAsDefaultCommunications(string id);
+    /// <returns>The audio volume.</returns>
+    Task<double> GetVolume(string id);
 
     /// <summary>
     /// Set the audio device volume.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="volume">The audio volume</param>
-    Task<int> SetVolume
+    Task<bool> SetVolume
     (
       string id,
-      double volume
+      double? volume
     );
 
     #endregion 
