@@ -38,11 +38,6 @@
         .AsEnumerable();
     }
 
-    public IQueryable<T> Queryable()
-    {
-      return HashSet.AsQueryable();
-    }
-
     public void Add(T t)
     {
       if (t == null)
