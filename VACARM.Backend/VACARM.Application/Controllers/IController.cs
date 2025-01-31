@@ -21,20 +21,20 @@ namespace VACARM.Application.Controllers
     /// Get a <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>The item.</returns>
+    /// <returns>The <typeparamref name="T"/> item.</returns>
     T? Get(Func<T, bool> func);
 
     /// <summary>
     /// Get an enumerable of all <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <returns>The enumerable.</returns>
+    /// <returns>The enumerable of <typeparamref name="T"/> items.</returns>
     IEnumerable<T> GetAll();
 
     /// <summary>
     /// Get an enumerable of some <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>The enumerable.</returns>
+    /// <returns>The enumerable of <typeparamref name="T"/> items.</returns>
     IEnumerable<T> GetRange(Func<T, bool> func);
 
     /// <summary>
@@ -52,7 +52,7 @@ namespace VACARM.Application.Controllers
     /// Do an action for a given <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="action">The action</param>
-    /// <param name="t">The item</param>
+    /// <param name="t">The <typeparamref name="T"/> item</param>
     void Do
     (
       Action<T> action,
@@ -69,7 +69,8 @@ namespace VACARM.Application.Controllers
     /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="action">The action</param>
-    /// <param name="enumerable">The enumerable</param>
+    /// <param name="enumerable">The enumerable of <typeparamref name="T"/>
+    /// item(s)</param>
     void DoRange
     (
       Action<T> action,

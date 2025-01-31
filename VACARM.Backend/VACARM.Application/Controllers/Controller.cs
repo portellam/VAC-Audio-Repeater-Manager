@@ -74,11 +74,6 @@ namespace VACARM.Application.Controllers
       return Repository.GetRange(func);
     }
 
-    public IQueryable<T> Queryable()
-    {
-      return Repository.Queryable();
-    }
-
     public void Do
     (
       Action<T> action,
