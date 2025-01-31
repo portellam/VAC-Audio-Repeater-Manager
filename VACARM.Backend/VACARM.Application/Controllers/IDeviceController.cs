@@ -6,42 +6,25 @@ namespace VACARM.Application.Controllers
   {
     #region Logic
 
-    void SetAsDefault(string actualId);
+    /// <summary>
+    /// Set a <typeparamref name="DeviceModel"/> as the default.
+    /// </summary>
+    /// <param name="id">The ID</param>
     void SetAsDefault(uint id);
-    DeviceModel Get(string actualId);
-    List<DeviceModel> GetRange(List<string> actualIdList);
-    void Restart(string id);
-    void Restart(uint id);
-    void RestartRange(List<string> actualIdList);
-    void RestartRange(List<uint> idList);
-    void Start(string id);
-    void Start(uint id);
-    void StartRange(List<string> actualIdList);
-    void StartRange(List<uint> idList);
-    void Stop(string id);
-    void Stop(uint id);
-    void StopRange(List<string> actualIdList);
-    void StopRange(List<uint> idList);
-    void Update(string id);
-    void Update(uint id);
-    void UpdateRange(List<string> actualIdList);
-    void UpdateRange(List<uint> idList);
-
-    #region Logic
 
     /// <summary>
-    /// Restart a <typeparamref name="BaseModel"/>.
+    /// Restart a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Restart(uint id);
 
     /// <summary>
-    /// Restart all <typeparamref name="BaseModel"/>(s).
+    /// Restart all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     void RestartAll();
 
     /// <summary>
-    /// Restart some <typeparamref name="BaseModel"/>(s).
+    /// Restart some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -52,24 +35,24 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Restart some <typeparamref name="BaseModel"/>(s).
+    /// Restart some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     void RestartRange(List<uint> idList);
 
     /// <summary>
-    /// Restart a <typeparamref name="BaseModel"/>.
+    /// Restart a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Start(uint id);
 
     /// <summary>
-    /// Start all <typeparamref name="BaseModel"/>(s).
+    /// Start all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     void StartAll();
 
     /// <summary>
-    /// Start some <typeparamref name="BaseModel"/>(s).
+    /// Start some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -80,24 +63,24 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Start some <typeparamref name="BaseModel"/>(s).
+    /// Start some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     void StartRange(List<uint> idList);
 
     /// <summary>
-    /// Stop a <typeparamref name="BaseModel"/>.
+    /// Stop a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Stop(uint id);
 
     /// <summary>
-    /// Stop all <typeparamref name="BaseModel"/>(s).
+    /// Stop all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     void StopAll();
 
     /// <summary>
-    /// Stop some <typeparamref name="BaseModel"/>(s).
+    /// Stop some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -108,24 +91,24 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Stop some <typeparamref name="BaseModel"/>(s).
+    /// Stop some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     void StopRange(List<uint> idList);
 
     /// <summary>
-    /// Update a <typeparamref name="BaseModel"/>.
+    /// Update a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Update(uint id);
 
     /// <summary>
-    /// Update all <typeparamref name="BaseModel"/>(s).
+    /// Update all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     void UpdateAll();
 
     /// <summary>
-    /// Update some <typeparamref name="BaseModel"/>(s).
+    /// Update some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -136,7 +119,7 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Update some <typeparamref name="BaseModel"/>(s).
+    /// Update some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     void UpdateRange(List<uint> idList);
