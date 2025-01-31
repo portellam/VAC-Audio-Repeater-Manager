@@ -42,6 +42,18 @@ namespace VACARM.Infrastructure.Repositories
     IEnumerable<MMDevice> GetAll();
 
     /// <summary>
+    /// Get a list of all absent audio device(s).
+    /// </summary>
+    /// <returns>The list of all absent audio device(s).</returns>
+    List<MMDevice> GetAllAbsent();
+
+    /// <summary>
+    /// Get a list of all present audio device(s).
+    /// </summary>
+    /// <returns>The list of all present audio device(s).</returns>
+    List<MMDevice> GetAllPresent();
+
+    /// <summary>
     /// Get a list of all started audio device(s).
     /// </summary>
     /// <returns>The list of all started audio device(s).</returns>

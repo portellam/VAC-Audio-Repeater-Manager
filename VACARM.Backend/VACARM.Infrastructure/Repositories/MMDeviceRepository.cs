@@ -85,25 +85,33 @@ namespace VACARM.Infrastructure.Repositories
     public List<MMDevice> GetAllAbsent()
     {
       Func<MMDevice, bool> func = (MMDevice x) => !IsPresent(x);
-      return GetRange(func).ToList();
+
+      return GetRange(func)
+        .ToList();
     }
 
     public List<MMDevice> GetAllPresent()
     {
       Func<MMDevice, bool> func = (MMDevice x) => IsPresent(x);
-      return GetRange(func).ToList();
+
+      return GetRange(func)
+        .ToList();
     }
 
     public List<MMDevice> GetAllStarted()
     {
       Func<MMDevice, bool> func = (MMDevice x) => IsStarted(x);
-      return GetRange(func).ToList();
+
+      return GetRange(func)
+        .ToList();
     }
 
     public List<MMDevice> GetAllStopped()
     {
       Func<MMDevice, bool> func = (MMDevice x) => !IsStarted(x);
-      return GetRange(func).ToList();
+
+      return GetRange(func)
+        .ToList();
     }
 
     public List<MMDevice> GetRange(List<string> idList)
