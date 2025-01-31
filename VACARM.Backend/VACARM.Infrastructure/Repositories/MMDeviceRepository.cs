@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using NAudio.CoreAudioApi;
 
 namespace VACARM.Infrastructure.Repositories
@@ -7,21 +8,6 @@ namespace VACARM.Infrastructure.Repositories
   public class MMDeviceRepository : IMMDeviceRepository
   {
     #region Parameters
-
-    /// <summary>
-    /// Is the audio device started.
-    /// </summary>
-    /// <param name="model">The audio device</param>
-    /// <returns></returns>
-    private bool IsStarted(MMDevice? model)
-    {
-      if (model == null)
-      {
-        return false;
-      }
-
-      return model.State != DeviceState.Disabled;
-    }
 
     /// <summary>
     /// The list of audio devices.
@@ -46,11 +32,30 @@ namespace VACARM.Infrastructure.Repositories
       Enumerator = new MMDeviceEnumerator();
     }
 
-    /// <summary>
-    /// Get an audio device.
-    /// </summary>
-    /// <param name="id">the audio device ID</param>
-    /// <returns>The audio device.</returns>
+    public bool IsStarted(MMDevice? model)
+    {
+      if (model == null)
+      {
+        return false;
+      }
+
+      DeviceState deviceState = model.State;
+      return deviceState != DeviceState.Disabled;
+    }
+
+    public bool IsPresent(MMDevice? model)
+    {
+      if (model == null)
+      {
+        return false;
+      }
+
+      DeviceState deviceState = model.State;
+      return deviceState == DeviceState.Active
+        || deviceState == DeviceState.Disabled
+        || deviceState == DeviceState.Unplugged;
+    }
+
     public MMDevice? Get(string id)
     {
       MMDevice? model = null;
@@ -132,7 +137,7 @@ namespace VACARM.Infrastructure.Repositories
       return List;
     }
 
-    public List<MMDevice> GetAllStopped()
+    public List<MMDevice> GetAllAbsent()
     {
       if
       (
@@ -142,7 +147,7 @@ namespace VACARM.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get list of stopped audio device(s). " +
+          "Failed to get the list of absent audio device(s). " +
           "The audio device list is null or empty."
         );
 
@@ -153,7 +158,73 @@ namespace VACARM.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got list of stopped audio device(s)\t=> Count: {0}",
+          "Got the list of absent audio device(s)\t=> Count: {0}",
+          List.Where
+            (
+              x =>
+              !IsPresent(x)
+            ).Count()
+        )
+      );
+
+      return List;
+    }
+
+    public List<MMDevice> GetAllPresent()
+    {
+      if
+      (
+        List is null
+        || List.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to get the list of present audio device(s). " +
+          "The audio device list is null or empty."
+        );
+
+        return new List<MMDevice>();
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Got the list of present audio device(s)\t=> Count: {0}",
+          List.Where
+            (
+              x =>
+              IsPresent(x)
+            ).Count()
+        )
+      );
+
+      return List;
+    }
+
+    public List<MMDevice> GetAllStopped()
+    {
+      if
+      (
+        List is null
+        || List.Count == 0
+      )
+      {
+        Debug.WriteLine
+        (
+          "Failed to get the list of stopped audio device(s). " +
+          "The audio device list is null or empty."
+        );
+
+        return new List<MMDevice>();
+      }
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "Got the list of stopped audio device(s)\t=> Count: {0}",
           List.Where
             (
               x =>
@@ -175,7 +246,7 @@ namespace VACARM.Infrastructure.Repositories
       {
         Debug.WriteLine
         (
-          "Failed to get list of started audio device(s). " +
+          "Failed to get the list of started audio device(s). " +
           "The audio device list is null or empty."
         );
 
@@ -186,7 +257,7 @@ namespace VACARM.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got list of started audio device(s)\t=> Count: {0}",
+          "Got the list of started audio device(s)\t=> Count: {0}",
           List.Where
             (
               x =>
@@ -237,7 +308,7 @@ namespace VACARM.Infrastructure.Repositories
       (
         string.Format
         (
-          "Got audio device(s)\t=> Count: {0}",
+          "Got the audio device(s)\t=> Count: {0}",
           modelList.Count()
         )
       );

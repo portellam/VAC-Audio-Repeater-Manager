@@ -7,6 +7,20 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
+    /// Is the audio device present.
+    /// </summary>
+    /// <param name="mMDevice">The audio device</param>
+    /// <returns>True/false is the audio device present.</returns>
+    bool IsPresent(MMDevice? mMDevice);
+
+    /// <summary>
+    /// Is the audio device started.
+    /// </summary>
+    /// <param name="mMDevice">The audio device</param>
+    /// <returns>True/false is the audio device started.</returns>
+    bool IsStarted(MMDevice? mMDevice);
+
+    /// <summary>
     /// Get an audio device.
     /// </summary>
     /// <param name="id">The ID</param>
