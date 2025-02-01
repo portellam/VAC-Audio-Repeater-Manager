@@ -5,7 +5,6 @@ using VACARM.Domain.Models;
 namespace VACARM.Infrastructure.Repositories
 {
   public class BaseRepository<T> :
-    GenericRepository<T>,
     IBaseRepository<BaseModel> where T : BaseModel
   {
     #region Parameters
@@ -26,7 +25,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public override event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
