@@ -8,7 +8,8 @@ namespace VACARM.Application.Controllers
   {
     #region Parameters
 
-    private IGenericRepository<T> repository { get; set; } = new GenericRepository<T>();
+    private IGenericRepository<T> repository { get; set; } = 
+      new GenericRepository<T>();
 
     public IGenericRepository<T> Repository
     {
@@ -121,7 +122,8 @@ namespace VACARM.Application.Controllers
         .ConfigureAwait(false);
     }
 
-    public async IAsyncEnumerable<bool> DoWorkAllAsync(Func<T, Task<bool>> actionFunc)
+    public async IAsyncEnumerable<bool> DoWorkAllAsync
+    (Func<T, Task<bool>> actionFunc)
     {
       if (actionFunc == null)
       {
