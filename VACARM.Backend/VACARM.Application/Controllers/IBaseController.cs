@@ -10,6 +10,8 @@ namespace VACARM.Application.Controllers
 
     #endregion
 
+    #region Logic
+
     /// <summary>
     /// Get a <typeparamref name="BaseModel"/> item.
     /// </summary>
