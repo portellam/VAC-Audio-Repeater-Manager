@@ -5,12 +5,6 @@ namespace VACARM.Application.Controllers
 {
   public interface IMMDeviceController
   {
-    #region Parameters
-
-    MMDeviceRepository MMDeviceRepository { get; set; }
-
-    #endregion
-
     #region Logic
 
     /// <summary>
@@ -36,12 +30,6 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Reset a <typeparamref name="MMDevice"/> item.
     /// </summary>
-    /// <param name="model">The item</param>
-    void Reset(MMDevice? model);
-
-    /// <summary>
-    /// Reset a <typeparamref name="MMDevice"/> item.
-    /// </summary>
     /// <param name="id">The ID</param>
     void Reset(string? id);
 
@@ -53,20 +41,8 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Reset an enumerable of some <typeparamref name="MMDevice"/> item(s).
     /// </summary>
-    /// <param name="model">The enumerable of item(s)</param>
-    void ResetRange(IEnumerable<MMDevice> model);
-
-    /// <summary>
-    /// Reset an enumerable of some <typeparamref name="MMDevice"/> item(s).
-    /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
     void ResetRange(IEnumerable<string> id);
-
-    /// <summary>
-    /// Start a <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="model">The item</param>
-    void Start(MMDevice? model);
 
     /// <summary>
     /// Start a <typeparamref name="MMDevice"/> item.
@@ -80,22 +56,10 @@ namespace VACARM.Application.Controllers
     void StartAll();
 
     /// <summary>
-    /// Start an enumerable of some <typeparamref name="MMDevice"/> item(s).
-    /// </summary>
-    /// <param name="model">The enumerable of item(s)</param>
-    void StartRange(IEnumerable<MMDevice> model);
-
-    /// <summary>
     /// Reset an enumerable of some <typeparamref name="MMDevice"/> item(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
     void StartRange(IEnumerable<string> id);
-
-    /// <summary>
-    /// Stop a <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="model">The item</param>
-    void Stop(MMDevice? model);
 
     /// <summary>
     /// Stop a <typeparamref name="MMDevice"/> item.
@@ -111,20 +75,8 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Stop an enumerable of some <typeparamref name="MMDevice"/> item(s).
     /// </summary>
-    /// <param name="model">The enumerable of item(s)</param>
-    void StopRange(IEnumerable<MMDevice> model);
-
-    /// <summary>
-    /// Stop an enumerable of some <typeparamref name="MMDevice"/> item(s).
-    /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
     void StopRange(IEnumerable<string> id);
-
-    /// <summary>
-    /// Update a <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="model">The item</param>
-    void Update(MMDevice? model);
 
     /// <summary>
     /// Update a <typeparamref name="MMDevice"/> item.
@@ -136,12 +88,6 @@ namespace VACARM.Application.Controllers
     /// Update an enumerable of all <typeparamref name="MMDevice"/> item(s).
     /// </summary>
     void UpdateAll();
-
-    /// <summary>
-    /// Update an enumerable of some <typeparamref name="MMDevice"/> item(s).
-    /// </summary>
-    /// <param name="model">The enumerable of item(s)</param>
-    void UpdateRange(IEnumerable<MMDevice> model);
 
     /// <summary>
     /// Update an enumerable of some <typeparamref name="MMDevice"/> item(s).
