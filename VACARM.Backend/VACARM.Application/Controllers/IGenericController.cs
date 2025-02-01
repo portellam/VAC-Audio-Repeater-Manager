@@ -18,6 +18,62 @@ namespace VACARM.Application.Controllers
     #region Logic
 
     /// <summary>
+    /// Do an action for a given <typeparamref name="T"/> item.
+    /// </summary>
+    /// <param name="action">The action</param>
+    /// <param name="func">The function</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> DoWorkAsync
+    (
+      Action<T> action,
+      Func<T, bool> func
+    );
+
+    /// <summary>
+    /// Do an action for a given <typeparamref name="T"/> item.
+    /// </summary>
+    /// <param name="action">The action</param>
+    /// <param name="t">The <typeparamref name="T"/> item</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> DoWorkAsync
+    (
+      Action<T> action,
+      T t
+    );
+
+    /// <summary>
+    /// Do an action for all <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="action">The action</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> DoWorkAllAsync(Action<T> action);
+
+    /// <summary>
+    /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="action">The action</param>
+    /// <param name="enumerable">The enumerable of <typeparamref name="T"/>
+    /// item(s)</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> DoWorkRangeAsync
+    (
+      Action<T> action,
+      IEnumerable<T> enumerable
+    );
+
+    /// <summary>
+    /// Do an action for some <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="action">The action</param>
+    /// <param name="func">The function</param>
+    /// <returns>The true/false result.</returns>
+    Task<bool> DoWorkRangeAsync
+    (
+      Action<T> action,
+      Func<T, bool> func
+    );
+
+    /// <summary>
     /// Get a <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="func">The function</param>
@@ -42,7 +98,7 @@ namespace VACARM.Application.Controllers
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>
-    void Do
+    void DoWork
     (
       Action<T> action,
       Func<T, bool> func
@@ -53,7 +109,7 @@ namespace VACARM.Application.Controllers
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="t">The <typeparamref name="T"/> item</param>
-    void Do
+    void DoWork
     (
       Action<T> action,
       T t
@@ -63,7 +119,7 @@ namespace VACARM.Application.Controllers
     /// Do an action for all <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="action">The action</param>
-    void DoAll(Action<T> action);
+    void DoWorkAll(Action<T> action);
 
     /// <summary>
     /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
@@ -71,7 +127,7 @@ namespace VACARM.Application.Controllers
     /// <param name="action">The action</param>
     /// <param name="enumerable">The enumerable of <typeparamref name="T"/>
     /// item(s)</param>
-    void DoRange
+    void DoWorkRange
     (
       Action<T> action,
       IEnumerable<T> enumerable
@@ -82,7 +138,7 @@ namespace VACARM.Application.Controllers
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>
-    void DoRange
+    void DoWorkRange
     (
       Action<T> action,
       Func<T, bool> func
