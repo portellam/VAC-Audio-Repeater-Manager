@@ -45,8 +45,8 @@ namespace VACARM.Application.Controllers
     /// Do an action for all <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
-    /// <returns>The true/false result enumerable.</returns>
-    Task<bool> DoWorkAllAsync(Func<T, Task<bool>> actionfunc);
+    /// <returns>The true/false result.</returns>
+    IAsyncEnumerable<bool> DoWorkAllAsync(Func<T, Task<bool>> actionfunc);
 
     /// <summary>
     /// Do an action for an enumerable of <typeparamref name="T"/> item(s).

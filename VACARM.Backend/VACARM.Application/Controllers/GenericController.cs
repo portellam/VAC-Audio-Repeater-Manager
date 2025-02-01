@@ -123,13 +123,11 @@ namespace VACARM.Application.Controllers
         .ConfigureAwait(false);
     }
 
-    public async Task<bool> DoWorkAllAsync(Func<T, Task<bool>> actionFunc)
+    public async IAsyncEnumerable<bool> DoWorkAllAsync(Func<T, Task<bool>> actionFunc)
     {
-      List<Task<bool>> taskList = new List<Task<bool>>();
-
       if (actionFunc == null)
       {
-        yield return taskList;
+        yield return false;
       }
 
       foreach (var t in GetAll())
@@ -140,10 +138,9 @@ namespace VACARM.Application.Controllers
         }
 
         Task<bool> task = Task.Run(() => actionFunc(t));
-        taskList.Add(task);
+        await task;
+        yield return task.Result;
       }
-
-      yield return await Task.WhenAll(taskList.ToArray());
     }
 
     public void DoWork
