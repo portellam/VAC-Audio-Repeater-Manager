@@ -26,7 +26,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public virtual event PropertyChangedEventHandler PropertyChanged;
+    public override event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
