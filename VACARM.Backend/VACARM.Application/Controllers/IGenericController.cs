@@ -33,7 +33,7 @@ namespace VACARM.Application.Controllers
     /// Do an action for a given <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="actionFunc">The action function</param>
-    /// <param name="t">The <typeparamref name="T"/> item</param>
+    /// <param name="t">The item</param>
     /// <returns>The true/false result.</returns>
     Task<bool> DoWorkAsync
     (
@@ -52,8 +52,7 @@ namespace VACARM.Application.Controllers
     /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
-    /// <param name="enumerable">The enumerable of <typeparamref name="T"/>
-    /// item(s)</param>
+    /// <param name="enumerable">The enumerable of item(s)</param>
     /// <returns>The true/false result enumerable.</returns>
     IAsyncEnumerable<bool> DoWorkRangeAsync
     (
@@ -108,7 +107,7 @@ namespace VACARM.Application.Controllers
     /// Do an action for a given <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="action">The action</param>
-    /// <param name="t">The <typeparamref name="T"/> item</param>
+    /// <param name="t">The item</param>
     void DoWork
     (
       Action<T> action,
@@ -125,8 +124,7 @@ namespace VACARM.Application.Controllers
     /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="action">The action</param>
-    /// <param name="enumerable">The enumerable of <typeparamref name="T"/>
-    /// item(s)</param>
+    /// <param name="enumerable">The enumerable of item(s)</param>
     void DoWorkRange
     (
       Action<T> action,
