@@ -90,34 +90,6 @@ namespace VACARM.Application.Controllers
     /// <param name="idList">The enumerable of ID(s)</param>
     void StopRange(List<uint> idList);
 
-    /// <summary>
-    /// Update a <typeparamref name="RepeaterModel"/>.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    void Update(uint id);
-
-    /// <summary>
-    /// Update all <typeparamref name="RepeaterModel"/>(s).
-    /// </summary>
-    void UpdateAll();
-
-    /// <summary>
-    /// Update some <typeparamref name="RepeaterModel"/>(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    void UpdateRange
-    (
-      uint startId,
-      uint endId
-    );
-
-    /// <summary>
-    /// Update some <typeparamref name="RepeaterModel"/>(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    void UpdateRange(List<uint> idList);
-
     #endregion
   }
 }
