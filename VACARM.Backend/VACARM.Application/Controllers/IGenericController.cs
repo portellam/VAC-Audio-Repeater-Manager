@@ -7,10 +7,6 @@ namespace VACARM.Application.Controllers
   {
     #region Parameters
 
-    /// <summary>
-    /// The <typeparamref name="T"/> repository.
-    /// </summary>
-    IGenericRepository<T> Repository { get; set; }
     event PropertyChangedEventHandler PropertyChanged;
 
     #endregion

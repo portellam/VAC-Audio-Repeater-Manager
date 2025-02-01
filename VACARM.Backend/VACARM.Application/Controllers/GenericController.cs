@@ -11,7 +11,7 @@ namespace VACARM.Application.Controllers
     private IGenericRepository<T> repository { get; set; } = 
       new GenericRepository<T>();
 
-    public IGenericRepository<T> Repository
+    private IGenericRepository<T> Repository
     {
       get
       {
