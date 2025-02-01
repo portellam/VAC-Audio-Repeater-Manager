@@ -1,29 +1,77 @@
-﻿using VACARM.Domain.Models;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public class BaseRepository<BaseModel> :
-    GenericRepository<BaseModel>,
+  public class BaseRepository<T> :
     IBaseRepository<BaseModel>
+    where T : 
+    GenericRepository<BaseModel>    
   {
+    #region Parameters
+
+    private IGenericRepository<BaseModel> genericRepository { get; set; } =
+      new GenericRepository<BaseModel>();
+
+    private IGenericRepository<BaseModel> GenericRepository
+    {
+      get
+      {
+        return genericRepository;
+      }
+      set
+      {
+        genericRepository = value;
+        OnPropertyChanged(nameof(genericRepository));
+      }
+    }
+
+    public virtual event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion
+
     #region Logic
+
+    /// <summary>
+    /// Logs event when property has changed.
+    /// </summary>
+    /// <param name="propertyName">The property name</param>
+    private void OnPropertyChanged(string propertyName)
+    {
+      PropertyChanged?.Invoke
+      (
+        this,
+        new PropertyChangedEventArgs(propertyName)
+      );
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "PropertyChanged: {0}",
+          propertyName
+        )
+      );
+    }
 
     /// <summary>
     /// Constructor
     /// </summary>
     public BaseRepository()
     {
+      GenericRepository = new GenericRepository<BaseModel>();
     }
 
     public BaseModel? Get(uint id)
     {
       Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
-      return Get(func);
+      return GenericRepository.Get(func);
     }
 
-    public List<BaseModel> GetRange
+    public IEnumerable<BaseModel> GetRange
     (
-      uint startId, 
+      uint startId,
       uint endId
     )
     {
@@ -31,29 +79,13 @@ namespace VACARM.Infrastructure.Repositories
         x.Id >= startId
         && x.Id <= endId;
 
-      return GetRange(func)
-        .ToList();
+      return GenericRepository.GetRange(func);
     }
 
-    public List<BaseModel> GetRange(List<uint> idList)
+    public IEnumerable<BaseModel> GetRange(List<uint> idList)
     {
-      List<BaseModel> modelList = new List<BaseModel>();
-
-      idList
-        .ForEach
-        (
-          x =>
-          {
-            BaseModel? model = Get(x);
-
-            if (model != null)
-            {
-              modelList.Add(model);
-            }
-          }
-        );
-
-      return modelList;
+      Func<BaseModel, bool> func = (BaseModel x) => idList.Contains(x.Id);
+      return GenericRepository.GetRange(func);
     }
 
     public void RemoveRange
@@ -66,28 +98,13 @@ namespace VACARM.Infrastructure.Repositories
         x.Id >= startId
         && x.Id <= endId;
 
-      RemoveRange(func);
+      GenericRepository.RemoveRange(func);
     }
 
     public void RemoveRange(List<uint> idList)
     {
-      List<BaseModel> modelList = new List<BaseModel>();
-
-      idList
-        .ForEach
-        (
-          x =>
-          {
-            BaseModel? model = Get(x);
-
-            if (model != null)
-            {
-              modelList.Add(model);
-            }
-          }
-        );
-
-      RemoveRange(modelList);
+      Func<BaseModel, bool> func = (BaseModel x) => idList.Contains(x.Id);
+      GenericRepository.RemoveRange(func);
     }
 
     #endregion
