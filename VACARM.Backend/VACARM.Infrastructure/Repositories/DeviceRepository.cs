@@ -3,7 +3,7 @@
 namespace VACARM.Infrastructure.Repositories
 {
   public class DeviceRepository :
-    GenericRepository<DeviceModel>,
+    BaseRepository<DeviceModel>,
     IDeviceRepository
   {
     #region Logic

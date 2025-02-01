@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IBaseRepository : IGenericRepository<BaseModel>
+  public interface IBaseRepository<BaseModel> : IGenericRepository<BaseModel>
   {
     #region Logic
 
