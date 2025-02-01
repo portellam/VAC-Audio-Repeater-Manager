@@ -13,12 +13,18 @@ namespace VACARM.Application.Controllers
     void Restart(uint id);
 
     /// <summary>
-    /// Restart all <typeparamref name="RepeaterModel"/>(s).
+    /// Restart a <typeparamref name="RepeaterModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    void Restart(RepeaterModel model);
+
+    /// <summary>
+    /// Restart all <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     void RestartAll();
 
     /// <summary>
-    /// Restart some <typeparamref name="RepeaterModel"/>(s).
+    /// Restart some <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -29,7 +35,7 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Restart some <typeparamref name="RepeaterModel"/>(s).
+    /// Restart some <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     void RestartRange(List<uint> idList);
@@ -41,12 +47,12 @@ namespace VACARM.Application.Controllers
     void Start(uint id);
 
     /// <summary>
-    /// Start all <typeparamref name="RepeaterModel"/>(s).
+    /// Start all <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     void StartAll();
 
     /// <summary>
-    /// Start some <typeparamref name="RepeaterModel"/>(s).
+    /// Start some <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -57,7 +63,7 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Start some <typeparamref name="RepeaterModel"/>(s).
+    /// Start some <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     void StartRange(List<uint> idList);
@@ -69,12 +75,12 @@ namespace VACARM.Application.Controllers
     void Stop(uint id);
 
     /// <summary>
-    /// Stop all <typeparamref name="RepeaterModel"/>(s).
+    /// Stop all <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     void StopAll();
 
     /// <summary>
-    /// Stop some <typeparamref name="RepeaterModel"/>(s).
+    /// Stop some <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -85,7 +91,7 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Stop some <typeparamref name="RepeaterModel"/>(s).
+    /// Stop some <typeparamref name="RepeaterModel"/> item(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     void StopRange(List<uint> idList);

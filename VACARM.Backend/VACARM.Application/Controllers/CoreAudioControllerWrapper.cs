@@ -17,11 +17,11 @@ namespace VACARM.Application.Controllers
     #region Logic
 
     /// <summary>
-    /// Get the default audio device.
+    /// Get the default <typeparamref name="CoreAudio"/> item.
     /// </summary>
     /// <param name="role">The role</param>
     /// <param name="deviceType">The device type</param>
-    /// <returns>The audio device.</returns>
+    /// <returns>The item.</returns>
     private async Task<CoreAudioDevice?> GetDefault
     (
       Role role,
@@ -40,8 +40,8 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Get the device type.
     /// </summary>
-    /// <param name="isInput">True/false is the audio device an input</param>
-    /// <param name="isOutput">True/false is the audio device an output</param>
+    /// <param name="isInput">True/false is an input</param>
+    /// <param name="isOutput">True/false is an output</param>
     /// <returns>The device type.</returns>
     private static DeviceType GetDeviceType
     (
