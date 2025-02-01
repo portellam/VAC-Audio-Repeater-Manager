@@ -10,7 +10,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Get a <typeparamref name="BaseModel"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The <typeparamref name="BaseModel"/> item.</returns>
+    /// <returns>The item.</returns>
     BaseModel? Get(uint id);
 
     /// <summary>
@@ -18,8 +18,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    /// <returns>The enumerable of <typeparamref name="BaseModel"/> 
-    /// item(s).</returns>
+    /// <returns>The enumerable of item(s).</returns>
     List<BaseModel> GetRange
     (
       uint startId,
@@ -30,8 +29,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
     /// </summary>
     /// <param name="idList">The range of ID(s)</param>
-    /// <returns>The enumerable of <typeparamref name="BaseModel"/> 
-    /// item(s).</returns>
+    /// <returns>The enumerable of item(s).</returns>
     List<BaseModel> GetRange(List<uint> idList);
 
     /// <summary>
