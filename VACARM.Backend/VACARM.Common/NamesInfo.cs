@@ -13,7 +13,7 @@ namespace VACARM.Common
         return string.Format
         (
           "{0}ARM",
-          ReferencedApplicationName
+          ReferencedApplicationAbbreviatedName
         );
       }
     }
