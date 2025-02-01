@@ -2,7 +2,13 @@
 {
   public class GenericRepository<T> : IGenericRepository<T>
   {
+    #region Parameters
+
     public HashSet<T> HashSet = new HashSet<T>();
+
+    #endregion
+
+    #region Logic
 
     /// <summary>
     /// Constructor
@@ -98,5 +104,7 @@
         Remove(t);
       }
     }
+
+    #endregion
   }
 }
