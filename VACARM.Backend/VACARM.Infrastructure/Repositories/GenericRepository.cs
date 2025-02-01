@@ -21,7 +21,7 @@ namespace VACARM.Infrastructure.Repositories
       set
       {
         hashSet = value;
-        OnPropertyChanged(nameof(hashSet));
+        OnPropertyChanged(nameof(HashSet));
       }
     }
 
