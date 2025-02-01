@@ -77,20 +77,20 @@ namespace VACARM.Application.Controllers
     /// Get a <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>The <typeparamref name="T"/> item.</returns>
+    /// <returns>The item.</returns>
     T? Get(Func<T, bool> func);
 
     /// <summary>
     /// Get an enumerable of all <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <returns>The enumerable of <typeparamref name="T"/> items.</returns>
+    /// <returns>The enumerable of item(s).</returns>
     IEnumerable<T> GetAll();
 
     /// <summary>
     /// Get an enumerable of some <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>The enumerable of <typeparamref name="T"/> items.</returns>
+    /// <returns>The enumerable of item(s).</returns>
     IEnumerable<T> GetRange(Func<T, bool> func);
 
     /// <summary>

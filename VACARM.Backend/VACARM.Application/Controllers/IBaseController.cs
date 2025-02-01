@@ -1,128 +1,34 @@
-﻿using VACARM.Infrastructure.Repositories;
-
-namespace VACARM.Application.Controllers
+﻿namespace VACARM.Application.Controllers
 {
   public interface IBaseController<BaseModel> : IGenericController<BaseModel>
   {
-    #region Parameters
-
-    BaseRepository Repository { get; set; }
-
-    #endregion
-
     #region Logic
 
     /// <summary>
-    /// Restart a <typeparamref name="BaseModel"/>.
+    /// Get a <typeparamref name="BaseModel"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Restart(uint id);
+    /// <returns>The item.</returns>
+    BaseModel? Get(uint id);
 
     /// <summary>
-    /// Restart all <typeparamref name="BaseModel"/>(s).
+    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
     /// </summary>
-    void RestartAll();
+    /// <param name="idList">The enumerable of ID(s)</param>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<BaseModel> GetRange(List<uint> idList);
 
     /// <summary>
-    /// Restart some <typeparamref name="BaseModel"/>(s).
+    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    void RestartRange
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<BaseModel> GetRange
     (
       uint startId,
       uint endId
     );
-
-    /// <summary>
-    /// Restart some <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    void RestartRange(List<uint> idList);
-
-    /// <summary>
-    /// Restart a <typeparamref name="BaseModel"/>.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    void Start(uint id);
-
-    /// <summary>
-    /// Start all <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    void StartAll();
-
-    /// <summary>
-    /// Start some <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    void StartRange
-    (
-      uint startId,
-      uint endId
-    );
-
-    /// <summary>
-    /// Start some <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    void StartRange(List<uint> idList);
-
-    /// <summary>
-    /// Stop a <typeparamref name="BaseModel"/>.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    void Stop(uint id);
-
-    /// <summary>
-    /// Stop all <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    void StopAll();
-
-    /// <summary>
-    /// Stop some <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    void StopRange
-    (
-      uint startId,
-      uint endId
-    );
-
-    /// <summary>
-    /// Stop some <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    void StopRange(List<uint> idList);
-
-    /// <summary>
-    /// Update a <typeparamref name="BaseModel"/>.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    void Update(uint id);
-
-    /// <summary>
-    /// Update all <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    void UpdateAll();
-
-    /// <summary>
-    /// Update some <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    void UpdateRange
-    (
-      uint startId,
-      uint endId
-    );
-
-    /// <summary>
-    /// Update some <typeparamref name="BaseModel"/>(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    void UpdateRange(List<uint> idList);
 
     #endregion
   }
