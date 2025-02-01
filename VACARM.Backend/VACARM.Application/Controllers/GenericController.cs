@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using VACARM.Infrastructure.Repositories;
 
@@ -74,7 +75,54 @@ namespace VACARM.Application.Controllers
       return Repository.GetRange(func);
     }
 
-    public void Do
+    public async Task<bool> DoWorkAsync
+    (
+      Func<T, Task<bool>> actionfunc,
+      Func<T, bool> matchFunc
+    )
+    {
+      if (actionfunc == null)
+      {
+        return false;
+      }
+
+      if (matchFunc == null)
+      {
+        return false;
+      }
+
+      var t = Repository.Get(matchFunc);
+
+      if (t == null)
+      {
+        return false;
+      }
+
+      return await actionfunc(t)
+        .ConfigureAwait(false);
+    }
+
+    public async Task<bool> DoWorkAsync
+    (
+      Func<T, Task<bool>> actionfunc,
+      T t
+    )
+    {
+      if (actionfunc == null)
+      {
+        return false;
+      }
+
+      if (t == null)
+      {
+        return false;
+      }
+
+      return await actionfunc(t)
+        .ConfigureAwait(false);
+    }
+
+    public void DoWork
     (
       Action<T> action,
       Func<T, bool> func
@@ -92,17 +140,17 @@ namespace VACARM.Application.Controllers
 
       var t = Repository.Get(func);
 
-      Do
+      DoWork
       (
         action,
         t
       );
     }
 
-    public void Do
+    public void DoWork
     (
       Action<T> action,
-      T? t
+      T t
     )
     {
       if (action == null)
@@ -118,7 +166,7 @@ namespace VACARM.Application.Controllers
       action(t);
     }
 
-    public void DoAll(Action<T> action)
+    public void DoWorkAll(Action<T> action)
     {
       if (action == null)
       {
@@ -127,7 +175,7 @@ namespace VACARM.Application.Controllers
 
       foreach (var t in Repository.GetAll())
       {
-        Do
+        DoWork
         (
           action,
           t
@@ -135,7 +183,7 @@ namespace VACARM.Application.Controllers
       }
     }
 
-    public void DoRange
+    public void DoWorkRange
     (
       Action<T> action,
       IEnumerable<T> enumerable
@@ -153,7 +201,7 @@ namespace VACARM.Application.Controllers
 
       foreach (var t in enumerable)
       {
-        Do
+        DoWork
         (
           action,
           t
@@ -161,7 +209,7 @@ namespace VACARM.Application.Controllers
       }
     }
 
-    public void DoRange
+    public void DoWorkRange
     (
       Action<T> action,
       Func<T, bool> func
@@ -177,7 +225,7 @@ namespace VACARM.Application.Controllers
         return;
       }
 
-      DoRange
+      DoWorkRange
       (
         action,
         Repository.GetRange(func)
