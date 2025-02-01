@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using VACARM.Infrastructure.Repositories;
+using static System.Collections.Specialized.BitVector32;
 
 namespace VACARM.Application.Controllers
 {
@@ -77,11 +78,11 @@ namespace VACARM.Application.Controllers
 
     public async Task<bool> DoWorkAsync
     (
-      Func<T, Task<bool>> actionfunc,
+      Func<T, Task<bool>> actionFunc,
       Func<T, bool> matchFunc
     )
     {
-      if (actionfunc == null)
+      if (actionFunc == null)
       {
         return false;
       }
@@ -98,17 +99,17 @@ namespace VACARM.Application.Controllers
         return false;
       }
 
-      return await actionfunc(t)
+      return await actionFunc(t)
         .ConfigureAwait(false);
     }
 
     public async Task<bool> DoWorkAsync
     (
-      Func<T, Task<bool>> actionfunc,
+      Func<T, Task<bool>> actionFunc,
       T t
     )
     {
-      if (actionfunc == null)
+      if (actionFunc == null)
       {
         return false;
       }
@@ -118,8 +119,31 @@ namespace VACARM.Application.Controllers
         return false;
       }
 
-      return await actionfunc(t)
+      return await actionFunc(t)
         .ConfigureAwait(false);
+    }
+
+    public async Task<bool> DoWorkAllAsync(Func<T, Task<bool>> actionFunc)
+    {
+      List<Task<bool>> taskList = new List<Task<bool>>();
+
+      if (actionFunc == null)
+      {
+        yield return taskList;
+      }
+
+      foreach (var t in GetAll())
+      {
+        if (t == null)
+        {
+          continue;
+        }
+
+        Task<bool> task = Task.Run(() => actionFunc(t));
+        taskList.Add(task);
+      }
+
+      yield return await Task.WhenAll(taskList.ToArray());
     }
 
     public void DoWork
@@ -173,7 +197,7 @@ namespace VACARM.Application.Controllers
         return;
       }
 
-      foreach (var t in Repository.GetAll())
+      foreach (var t in GetAll())
       {
         DoWork
         (
