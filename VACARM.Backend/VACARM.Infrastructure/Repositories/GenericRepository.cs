@@ -4,7 +4,10 @@
   {
     #region Parameters
 
-    public HashSet<T> HashSet = new HashSet<T>();
+    /// <summary>
+    /// The enumerable of all <typeparamref name="T"/> item(s).
+    /// </summary>
+    private HashSet<T> HashSet = new HashSet<T>();
 
     #endregion
 

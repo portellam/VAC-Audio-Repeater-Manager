@@ -8,38 +8,38 @@
     /// Get a <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>The <typeparamref name="T"/> item.</returns>
+    /// <returns>The item.</returns>
     T? Get(Func<T, bool> func);
 
     /// <summary>
     /// Get an enumerable of all <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <returns>The <typeparamref name="T"/> enumerable of item(s).</returns>
+    /// <returns>The enumerable of item(s).</returns>
     IEnumerable<T> GetAll();
 
     /// <summary>
     /// Get an enumerable of some <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>The <typeparamref name="T"/> enumerable of item(s).</returns>
+    /// <returns>The enumerable of item(s).</returns>
     IEnumerable<T> GetRange(Func<T, bool> func);
 
     /// <summary>
     /// Add a <typeparamref name="T"/> item.
     /// </summary>
-    /// <param name="t">The <typeparamref name="T"/> item</param>
+    /// <param name="t">The item</param>
     void Add(T t);
 
     /// <summary>
     /// Add a range of <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="t">The enumerable of <typeparamref name="T"/> item(s)</param>
+    /// <param name="t">The enumerable of item(s)</param>
     void AddRange(IEnumerable<T> enumerable);
 
     /// <summary>
     /// Remove a <typeparamref name="T"/> item.
     /// </summary>
-    /// <param name="t">The <typeparamref name="T"/> item</param>
+    /// <param name="t">The item</param>
     void Remove(T t);
 
     /// <summary>
@@ -62,7 +62,7 @@
     /// <summary>
     /// Remove a range of <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="enumerable">The enumerable of <typeparamref name="T"/> items</param>
+    /// <param name="enumerable">The enumerable of item(s)</param>
     void RemoveRange(IEnumerable<T> enumerable);
 
     #endregion
