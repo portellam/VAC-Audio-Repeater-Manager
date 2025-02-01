@@ -20,57 +20,57 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Do an action for a given <typeparamref name="T"/> item.
     /// </summary>
-    /// <param name="action">The action</param>
-    /// <param name="func">The function</param>
+    /// <param name="actionFunc">The action function</param>
+    /// <param name="matchFunc">The match function</param>
     /// <returns>The true/false result.</returns>
     Task<bool> DoWorkAsync
     (
-      Action<T> action,
-      Func<T, bool> func
+      Func<T, bool> actionFunc,
+      Func<T, bool> matchFunc
     );
 
     /// <summary>
     /// Do an action for a given <typeparamref name="T"/> item.
     /// </summary>
-    /// <param name="action">The action</param>
+    /// <param name="actionFunc">The action function</param>
     /// <param name="t">The <typeparamref name="T"/> item</param>
     /// <returns>The true/false result.</returns>
     Task<bool> DoWorkAsync
     (
-      Action<T> action,
+      Func<T, bool> actionFunc,
       T t
     );
 
     /// <summary>
     /// Do an action for all <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="action">The action</param>
+    /// <param name="actionFunc">The action function</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> DoWorkAllAsync(Action<T> action);
+    Task<bool> DoWorkAllAsync(Func<T, bool> actionFunc);
 
     /// <summary>
     /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="action">The action</param>
+    /// <param name="actionFunc">The action function</param>
     /// <param name="enumerable">The enumerable of <typeparamref name="T"/>
     /// item(s)</param>
     /// <returns>The true/false result.</returns>
     Task<bool> DoWorkRangeAsync
     (
-      Action<T> action,
+      Func<T, bool> actionFunc,
       IEnumerable<T> enumerable
     );
 
     /// <summary>
     /// Do an action for some <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="action">The action</param>
-    /// <param name="func">The function</param>
+    /// <param name="actionFunc">The action function</param>
+    /// <param name="matchFunc">The match function</param>
     /// <returns>The true/false result.</returns>
     Task<bool> DoWorkRangeAsync
     (
-      Action<T> action,
-      Func<T, bool> func
+      Func<T, bool> actionFunc,
+      Func<T, bool> matchFunc
     );
 
     /// <summary>
