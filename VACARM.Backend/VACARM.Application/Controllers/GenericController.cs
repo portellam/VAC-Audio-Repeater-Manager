@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
 using VACARM.Infrastructure.Repositories;
-using static System.Collections.Specialized.BitVector32;
 
 namespace VACARM.Application.Controllers
 {
@@ -138,7 +136,82 @@ namespace VACARM.Application.Controllers
         }
 
         Task<bool> task = Task.Run(() => actionFunc(t));
-        await task;
+        await task.ConfigureAwait(false);
+        yield return task.Result;
+      }
+    }
+
+    public async IAsyncEnumerable<bool> DoWorkRangeAsync
+    (
+      Func<T, Task<bool>> actionFunc,
+      IEnumerable<T> enumerable
+    )
+    {
+      if (actionFunc == null)
+      {
+        yield return false;
+      }
+
+      if (enumerable == null)
+      {
+        yield return false;
+      }
+
+      if (enumerable.Count() == 0)
+      {
+        yield return false;
+      }
+
+      foreach (var t in enumerable)
+      {
+        if (t == null)
+        {
+          continue;
+        }
+
+        Task<bool> task = Task.Run(() => actionFunc(t));
+        await task.ConfigureAwait(false);
+        yield return task.Result;
+      }
+    }
+
+    public async IAsyncEnumerable<bool> DoWorkRangeAsync
+    (
+      Func<T, Task<bool>> actionFunc,
+      Func<T, bool> matchFunc
+    )
+    {
+      if (actionFunc == null)
+      {
+        yield return false;
+      }
+
+      if (matchFunc == null)
+      {
+        yield return false;
+      }
+
+      var enumerable = Repository.GetRange(matchFunc);
+
+      if (enumerable == null)
+      {
+        yield return false;
+      }
+
+      if (enumerable.Count() == 0)
+      {
+        yield return false;
+      }
+
+      foreach (var t in enumerable)
+      {
+        if (t == null)
+        {
+          continue;
+        }
+
+        Task<bool> task = Task.Run(() => actionFunc(t));
+        await task.ConfigureAwait(false);
         yield return task.Result;
       }
     }
