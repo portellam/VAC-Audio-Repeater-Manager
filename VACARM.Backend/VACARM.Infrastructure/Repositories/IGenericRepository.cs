@@ -1,7 +1,15 @@
-﻿namespace VACARM.Infrastructure.Repositories
+﻿using System.ComponentModel;
+
+namespace VACARM.Infrastructure.Repositories
 {
   public interface IGenericRepository<T>
   {
+    #region Parameters
+
+    event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion
+
     #region Logic
 
     /// <summary>

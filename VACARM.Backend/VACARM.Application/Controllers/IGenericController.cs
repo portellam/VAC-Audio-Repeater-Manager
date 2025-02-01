@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {

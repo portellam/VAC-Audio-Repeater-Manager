@@ -1,17 +1,57 @@
-﻿namespace VACARM.Infrastructure.Repositories
+﻿using System.ComponentModel;
+using System.Diagnostics;
+
+namespace VACARM.Infrastructure.Repositories
 {
   public class GenericRepository<T> : IGenericRepository<T>
   {
     #region Parameters
 
+    private HashSet<T> hashSet { get; set; } = new HashSet<T>();
+
     /// <summary>
     /// The enumerable of all <typeparamref name="T"/> item(s).
     /// </summary>
-    private HashSet<T> HashSet = new HashSet<T>();
+    private HashSet<T> HashSet
+    {
+      get
+      {
+        return hashSet;
+      }
+      set
+      {
+        hashSet = value;
+        OnPropertyChanged(nameof(hashSet));
+      }
+    }
+
+    public virtual event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Logs event when property has changed.
+    /// </summary>
+    /// <param name="propertyName">The property name</param>
+    private void OnPropertyChanged(string propertyName)
+    {
+      PropertyChanged?.Invoke
+      (
+        this,
+        new PropertyChangedEventArgs(propertyName)
+      );
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "PropertyChanged: {0}",
+          propertyName
+        )
+      );
+    }
 
     /// <summary>
     /// Constructor
