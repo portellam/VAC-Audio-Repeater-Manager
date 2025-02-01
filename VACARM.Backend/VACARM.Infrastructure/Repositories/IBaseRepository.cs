@@ -1,9 +1,15 @@
-﻿using VACARM.Domain.Models;
+﻿using System.ComponentModel;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IBaseRepository<BaseModel> : IGenericRepository<BaseModel>
+  public interface IBaseRepository<BaseModel>
   {
+    #region Parameters
+
+    event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion
+
     #region Logic
 
     /// <summary>
@@ -19,7 +25,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The enumerable of item(s).</returns>
-    List<BaseModel> GetRange
+    IEnumerable<BaseModel> GetRange
     (
       uint startId,
       uint endId
@@ -30,7 +36,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="idList">The range of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    List<BaseModel> GetRange(List<uint> idList);
+    IEnumerable<BaseModel> GetRange(List<uint> idList);
 
     /// <summary>
     /// Remove a range of <typeparamref name="BaseModel"/> item(s).

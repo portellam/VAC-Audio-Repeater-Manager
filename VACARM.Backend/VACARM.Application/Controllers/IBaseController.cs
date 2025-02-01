@@ -1,8 +1,14 @@
-﻿namespace VACARM.Application.Controllers
+﻿using System.ComponentModel;
+
+namespace VACARM.Application.Controllers
 {
-  public interface IBaseController<BaseModel> : IGenericController<BaseModel>
+  public interface IBaseController<BaseModel>
   {
-    #region Logic
+    #region Parameters
+
+    event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion
 
     /// <summary>
     /// Get a <typeparamref name="BaseModel"/> item.
