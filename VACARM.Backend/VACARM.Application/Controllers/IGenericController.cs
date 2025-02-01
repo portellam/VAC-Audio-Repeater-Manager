@@ -45,8 +45,8 @@ namespace VACARM.Application.Controllers
     /// Do an action for all <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
-    /// <returns>The true/false result.</returns>
-    Task<bool> DoWorkAllAsync(Func<T, bool> actionFunc);
+    /// <returns>The true/false result enumerable.</returns>
+    IEnumerable<Task<bool>> DoWorkAllAsync(Func<T, bool> actionFunc);
 
     /// <summary>
     /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
@@ -54,8 +54,8 @@ namespace VACARM.Application.Controllers
     /// <param name="actionFunc">The action function</param>
     /// <param name="enumerable">The enumerable of <typeparamref name="T"/>
     /// item(s)</param>
-    /// <returns>The true/false result.</returns>
-    Task<bool> DoWorkRangeAsync
+    /// <returns>The true/false result enumerable.</returns>
+    IEnumerable<Task<bool>> DoWorkRangeAsync
     (
       Func<T, bool> actionFunc,
       IEnumerable<T> enumerable
@@ -66,8 +66,8 @@ namespace VACARM.Application.Controllers
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="matchFunc">The match function</param>
-    /// <returns>The true/false result.</returns>
-    Task<bool> DoWorkRangeAsync
+    /// <returns>The true/false result enumerable.</returns>
+    IEnumerable<Task<bool>> DoWorkRangeAsync
     (
       Func<T, bool> actionFunc,
       Func<T, bool> matchFunc
