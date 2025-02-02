@@ -3,7 +3,9 @@ using System.Diagnostics;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public class GenericRepository<T> : IGenericRepository<T>
+  public class GenericRepository<T> :
+    IGenericRepository<T> where T :
+    class
   {
     #region Parameters
 
@@ -99,11 +101,31 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
+      if (HashSet == null)
+      {
+        HashSet = new HashSet<T>();
+      }
+
       HashSet.Add(t);
     }
 
     public void AddRange(IEnumerable<T> enumerable)
     {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      if (enumerable.Count() == 0)
+      {
+        return;
+      }
+
+      if (HashSet == null)
+      {
+        HashSet = new HashSet<T>();
+      }
+
       foreach (var t in enumerable)
       {
         Add(t);
@@ -112,11 +134,26 @@ namespace VACARM.Infrastructure.Repositories
 
     public void Remove(T t)
     {
+      if (HashSet == null)
+      {
+        return;
+      }
+
+      if (HashSet.Count() == 0)
+      {
+        return;
+      }
+
       HashSet.Remove(t);
     }
 
     public void Remove(Func<T, bool> func)
     {
+      if (func == null)
+      {
+        return;
+      }
+
       T? t = HashSet.FirstOrDefault(func);
 
       if (t == null)
@@ -129,11 +166,36 @@ namespace VACARM.Infrastructure.Repositories
 
     public void RemoveAll()
     {
+      if (HashSet == null)
+      {
+        return;
+      }
+
+      if (HashSet.Count() == 0)
+      {
+        return;
+      }
+
       HashSet.Clear();
     }
 
     public void RemoveRange(Func<T, bool> func)
     {
+      if (HashSet == null)
+      {
+        return;
+      }
+
+      if (HashSet.Count() == 0)
+      {
+        return;
+      }
+
+      if (func == null)
+      {
+        return;
+      }
+
       HashSet
         .Where(x => func(x))
         .ToList()
@@ -142,6 +204,16 @@ namespace VACARM.Infrastructure.Repositories
 
     public void RemoveRange(IEnumerable<T> enumerable)
     {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      if (enumerable.Count() == 0)
+      {
+        return;
+      }
+
       foreach (var t in enumerable)
       {
         Remove(t);
