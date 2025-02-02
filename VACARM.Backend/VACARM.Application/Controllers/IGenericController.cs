@@ -2,7 +2,7 @@
 
 namespace VACARM.Application.Controllers
 {
-  public interface IGenericController<T>
+  public interface IGenericController<T> where T : class
   {
     #region Parameters
 
@@ -88,6 +88,18 @@ namespace VACARM.Application.Controllers
     IEnumerable<T> GetRange(Func<T, bool> func);
 
     /// <summary>
+    /// Add a <typeparamref name="T"/> item.
+    /// </summary>
+    /// <param name="t">The item</param>
+    void Add(T t);
+
+    /// <summary>
+    /// Add a range of <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="t">The enumerable of item(s)</param>
+    void AddRange(IEnumerable<T> enumerable);
+
+    /// <summary>
     /// Do an action for a given <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="action">The action</param>
@@ -136,6 +148,35 @@ namespace VACARM.Application.Controllers
       Action<T> action,
       Func<T, bool> func
     );
+
+    /// <summary>
+    /// Remove a <typeparamref name="T"/> item.
+    /// </summary>
+    /// <param name="t">The item</param>
+    void Remove(T t);
+
+    /// <summary>
+    /// Remove a <typeparamref name="T"/> item.
+    /// </summary>
+    /// <param name="func">The function</param>
+    void Remove(Func<T, bool> func);
+
+    /// <summary>
+    /// Remove all <typeparamref name="T"/> item(s).
+    /// </summary>
+    void RemoveAll();
+
+    /// <summary>
+    /// Remove some <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    void RemoveRange(Func<T, bool> func);
+
+    /// <summary>
+    /// Remove a range of <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    void RemoveRange(IEnumerable<T> enumerable);
 
     #endregion
   }
