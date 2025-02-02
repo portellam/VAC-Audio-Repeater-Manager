@@ -2,8 +2,9 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IMMDeviceRepository : 
-    IGenericRepository<MMDevice>
+  public interface IMMDeviceRepository<T> :
+    IGenericRepository<T> where T :
+    MMDevice
   {
     #region Logic
 
@@ -62,12 +63,6 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
     MMDevice? GetDefault();
-
-    /// <summary>
-    /// Get an enumerable of all <typeparamref name="MMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAll();
 
     /// <summary>
     /// Get an enumerable of all absent <typeparamref name="MMDevice"/> item(s).
