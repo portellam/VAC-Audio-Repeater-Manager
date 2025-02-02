@@ -1,12 +1,16 @@
 ﻿using System.ComponentModel;
+using VACARM.Domain.Models;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public interface IBaseController<BaseModel>
+  public interface IBaseController<T> :
+    IGenericRepository<T> where T :
+    BaseModel
   {
     #region Parameters
 
-    event PropertyChangedEventHandler PropertyChanged;
+    new event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
@@ -22,9 +26,9 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
     /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<BaseModel> GetRange(List<uint> idList);
+    IEnumerable<BaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
     /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
@@ -39,19 +43,19 @@ namespace VACARM.Application.Controllers
     );
 
     /// <summary>
-    /// Remove a <typeparamref name="T"/> item.
+    /// Remove a <typeparamref name="BaseModel"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     void Remove(uint id);
 
     /// <summary>
-    /// Remove some <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of some <typeparamref name="BaseModel"/> item(s).
     /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    void RemoveRange(List<uint> idList);
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    void RemoveRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
-    /// Remove a range of <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of some <typeparamref name="BaseModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -59,6 +63,44 @@ namespace VACARM.Application.Controllers
     (
       uint startId,
       uint endId
+    );
+
+    /// <summary>
+    /// Update a <typeparamref name="BaseModel"/> item.
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="model">The item</param>
+    void Update
+    (
+      Func<BaseModel, bool> func,
+      BaseModel model
+    );
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="modelEnumerable">The enumerable of item(s)</param>
+    /// <param name="model">The item</param>
+    void UpdateRange
+    (
+       IEnumerable<BaseModel> modelEnumerable,
+       BaseModel model
+    );
+
+    /// <summary>
+    /// Update an enumerable of all <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    void UpdateAll();
+
+    /// <summary>
+    /// Update an enumerable of all <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="model">The item</param>
+    void UpdateAll
+    (
+      Func<BaseModel, bool> func,
+      BaseModel model
     );
 
     #endregion
