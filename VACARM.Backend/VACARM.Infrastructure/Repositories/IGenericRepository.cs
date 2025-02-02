@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IGenericRepository<T>
+  public interface IGenericRepository<T> where T : class
   {
     #region Parameters
 
@@ -72,6 +72,15 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     void RemoveRange(IEnumerable<T> enumerable);
+
+    /*
+     * TODO:
+     * add
+     * - Update(func, value)
+     * - UpdateRange(func, value);
+     * - UpdateAll(value)
+     * 
+     */
 
     #endregion
   }
