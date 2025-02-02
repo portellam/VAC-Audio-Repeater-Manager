@@ -7,27 +7,43 @@ namespace VACARM.Application.Controllers
 {
   public class BaseController<T> :
     GenericController<T>,
-    IBaseController<BaseModel> where T : BaseModel
+    IBaseController<BaseModel> where T :
+    BaseModel
   {
     #region Parameters
 
-    private IBaseRepository<BaseModel> repository { get; set; } =
-      new BaseRepository<BaseModel>();
+    private GenericController<BaseModel> genericController { get; set; } =
+      new GenericController<BaseModel>();
 
-    private IBaseRepository<BaseModel> Repository
+    private GenericController<BaseModel> GenericController
     {
       get
       {
-        return repository;
+        return genericController;
       }
       set
       {
-        repository = value;
-        OnPropertyChanged(nameof(repository));
+        genericController = value;
+        OnPropertyChanged(nameof(GenericController));
+      }
+    }
+
+    internal BaseRepository<BaseModel> Repository
+    {
+      get
+      {
+        return (BaseRepository<BaseModel>)GenericController.Repository;
+      }
+      set
+      {
+        GenericController.Repository = value;
+        OnPropertyChanged(nameof(Repository));
       }
     }
 
     public override event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion
 
     #region Logic
 
@@ -58,7 +74,16 @@ namespace VACARM.Application.Controllers
     /// </summary>
     public BaseController()
     {
-      Repository = new BaseRepository<BaseModel>();
+      GenericRepository<BaseModel> repository = new BaseRepository<BaseModel>();
+      GenericController = new GenericController<BaseModel>(repository);
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public BaseController(BaseRepository<BaseModel> repository)
+    {
+      GenericController = new GenericController<BaseModel>(repository);
     }
 
     public BaseModel? Get(uint id)
