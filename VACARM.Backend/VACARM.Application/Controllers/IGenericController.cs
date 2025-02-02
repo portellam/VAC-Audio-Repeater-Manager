@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public interface IGenericController<T> where T : class
+  public partial interface IGenericController<T1, T2> where T1 :
+    IGenericRepository<T2> where T2 :
+    class
   {
     #region Parameters
 
@@ -13,170 +16,146 @@ namespace VACARM.Application.Controllers
     #region Logic
 
     /// <summary>
-    /// Do an action for a given <typeparamref name="T"/> item.
-    /// </summary>
-    /// <param name="actionFunc">The action function</param>
-    /// <param name="matchFunc">The match function</param>
-    /// <returns>The true/false result.</returns>
-    Task<bool> DoWorkAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      Func<T, bool> matchFunc
-    );
-
-    /// <summary>
-    /// Do an action for a given <typeparamref name="T"/> item.
-    /// </summary>
-    /// <param name="actionFunc">The action function</param>
-    /// <param name="t">The item</param>
-    /// <returns>The true/false result.</returns>
-    Task<bool> DoWorkAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      T t
-    );
-
-    /// <summary>
-    /// Do an action for all <typeparamref name="T"/> item(s).
-    /// </summary>
-    /// <param name="actionFunc">The action function</param>
-    /// <returns>The true/false result.</returns>
-    IAsyncEnumerable<bool> DoWorkAllAsync(Func<T, Task<bool>> actionFunc);
-
-    /// <summary>
-    /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
-    /// </summary>
-    /// <param name="actionFunc">The action function</param>
-    /// <param name="enumerable">The enumerable of item(s)</param>
-    /// <returns>The true/false result enumerable.</returns>
-    IAsyncEnumerable<bool> DoWorkRangeAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      IEnumerable<T> enumerable
-    );
-
-    /// <summary>
-    /// Do an action for some <typeparamref name="T"/> item(s).
-    /// </summary>
-    /// <param name="actionFunc">The action function</param>
-    /// <param name="matchFunc">The match function</param>
-    /// <returns>The true/false result enumerable.</returns>
-    IAsyncEnumerable<bool> DoWorkRangeAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      Func<T, bool> matchFunc
-    );
-
-    /// <summary>
-    /// Get a <typeparamref name="T"/> item.
+    /// Get a <typeparamref name="T2"/> item.
     /// </summary>
     /// <param name="func">The function</param>
     /// <returns>The item.</returns>
-    T? Get(Func<T, bool> func);
+    T2? Get(Func<T2, bool> func);
 
     /// <summary>
-    /// Get an enumerable of all <typeparamref name="T"/> item(s).
+    /// Get an enumerable of all <typeparamref name="T2"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<T> GetAll();
+    IEnumerable<T2> GetAll();
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="T"/> item(s).
+    /// Get an enumerable of some <typeparamref name="T2"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<T> GetRange(Func<T, bool> func);
+    IEnumerable<T2> GetRange(Func<T2, bool> func);
 
     /// <summary>
-    /// Add a <typeparamref name="T"/> item.
+    /// Add a <typeparamref name="T2"/> item.
     /// </summary>
-    /// <param name="t">The item</param>
-    void Add(T t);
+    /// <param name="item">The item</param>
+    void Add(T2 item);
 
     /// <summary>
-    /// Add a range of <typeparamref name="T"/> item(s).
+    /// Add an enumerable of some <typeparamref name="T2"/> item(s).
     /// </summary>
-    /// <param name="t">The enumerable of item(s)</param>
-    void AddRange(IEnumerable<T> enumerable);
+    /// <param name="item">The enumerable of item(s)</param>
+    void AddRange(IEnumerable<T2> enumerable);
 
     /// <summary>
-    /// Do an action for a given <typeparamref name="T"/> item.
+    /// Do an action for a <typeparamref name="T2"/> item.
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>
     void DoWork
     (
-      Action<T> action,
-      Func<T, bool> func
+      Action<T2> action,
+      Func<T2, bool> func
     );
 
     /// <summary>
-    /// Do an action for a given <typeparamref name="T"/> item.
+    /// Do an action for a <typeparamref name="T2"/> item.
     /// </summary>
     /// <param name="action">The action</param>
-    /// <param name="t">The item</param>
+    /// <param name="item">The item</param>
     void DoWork
     (
-      Action<T> action,
-      T t
+      Action<T2> action,
+      T2 item
     );
 
     /// <summary>
-    /// Do an action for all <typeparamref name="T"/> item(s).
+    /// Do an action for an enumerable of all <typeparamref name="T2"/> item(s).
     /// </summary>
     /// <param name="action">The action</param>
-    void DoWorkAll(Action<T> action);
+    void DoWorkAll(Action<T2> action);
 
     /// <summary>
-    /// Do an action for an enumerable of <typeparamref name="T"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="T2"/> item(s).
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="enumerable">The enumerable of item(s)</param>
     void DoWorkRange
     (
-      Action<T> action,
-      IEnumerable<T> enumerable
+      Action<T2> action,
+      IEnumerable<T2> enumerable
     );
 
     /// <summary>
-    /// Do an action for some <typeparamref name="T"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="T2"/> item(s).
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>
     void DoWorkRange
     (
-      Action<T> action,
-      Func<T, bool> func
+      Action<T2> action,
+      Func<T2, bool> func
     );
 
     /// <summary>
-    /// Remove a <typeparamref name="T"/> item.
+    /// Remove a <typeparamref name="T2"/> item.
     /// </summary>
-    /// <param name="t">The item</param>
-    void Remove(T t);
+    /// <param name="item">The item</param>
+    void Remove(T2 item);
 
     /// <summary>
-    /// Remove a <typeparamref name="T"/> item.
+    /// Remove a <typeparamref name="T2"/> item.
     /// </summary>
     /// <param name="func">The function</param>
-    void Remove(Func<T, bool> func);
+    void Remove(Func<T2, bool> func);
 
     /// <summary>
-    /// Remove all <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of all <typeparamref name="T2"/> item(s).
     /// </summary>
     void RemoveAll();
 
     /// <summary>
-    /// Remove some <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of some <typeparamref name="T2"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
-    void RemoveRange(Func<T, bool> func);
+    void RemoveRange(Func<T2, bool> func);
 
     /// <summary>
-    /// Remove a range of <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of some <typeparamref name="T2"/> item(s).
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
-    void RemoveRange(IEnumerable<T> enumerable);
+    void RemoveRange(IEnumerable<T2> enumerable);
+
+    /// <summary>
+    /// Update a <typeparamref name="T2"/> item.
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="item">The item</param>
+    void Update
+    (
+      Func<T2, bool> func,
+      T2 item
+    );
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="T2"/> item(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="item">The item</param>
+    void UpdateRange
+    (
+       Func<T2, bool> func,
+       T2 item
+    );
+
+    /// <summary>
+    /// Update an enumerable of all <typeparamref name="T2"/> item(s).
+    /// </summary>
+    /// <param name="item">The item</param>
+    void UpdateAll
+    (
+      T2 item
+    );
 
     #endregion
   }
