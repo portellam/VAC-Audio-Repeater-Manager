@@ -5,7 +5,9 @@ using VACARM.Domain.Models;
 namespace VACARM.Infrastructure.Repositories
 {
   public class BaseRepository<T> :
-    IBaseRepository<BaseModel> where T : BaseModel
+    GenericRepository<T>,
+    IBaseRepository<BaseModel> where T : 
+    BaseModel
   {
     #region Parameters
 
