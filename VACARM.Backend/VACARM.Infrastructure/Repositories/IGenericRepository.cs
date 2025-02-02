@@ -73,14 +73,36 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="enumerable">The enumerable of item(s)</param>
     void RemoveRange(IEnumerable<T> enumerable);
 
-    /*
-     * TODO:
-     * add
-     * - Update(func, value)
-     * - UpdateRange(func, value);
-     * - UpdateAll(value)
-     * 
-     */
+    /// <summary>
+    /// Update a <typeparamref name="T"/> item.
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="t">The item</param>
+    void Update
+    (
+      Func<T, bool> func,
+      T t
+    );
+
+    /// <summary>
+    /// Update a range of some <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="t">The item</param>
+    void UpdateRange
+    (
+       Func<T, bool> func,
+       T t
+    );
+
+    /// <summary>
+    /// Update all <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="t">The item</param>
+    void UpdateAll
+    (
+      T t
+    );
 
     #endregion
   }
