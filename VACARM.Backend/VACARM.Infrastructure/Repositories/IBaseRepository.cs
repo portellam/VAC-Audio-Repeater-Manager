@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel;
+using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IBaseRepository<BaseModel>
+  public interface IBaseRepository<T> :
+    IGenericRepository<T> where T :
+    BaseModel
   {
     #region Parameters
 
-    event PropertyChangedEventHandler PropertyChanged;
+    new event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
@@ -34,9 +37,9 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
     /// </summary>
-    /// <param name="idList">The range of ID(s)</param>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<BaseModel> GetRange(List<uint> idList);
+    IEnumerable<BaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
     /// Remove a range of <typeparamref name="BaseModel"/> item(s).
@@ -52,19 +55,46 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Remove a range of <typeparamref name="BaseModel"/> item(s).
     /// </summary>
-    /// <param name="idList">The range of ID(s)</param>
-    void RemoveRange(List<uint> idList);
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    void RemoveRange(IEnumerable<uint> idEnumerable);
 
-    /*
-     * TODO:
-     * add
-     * - Update(id, value);
-     * - Update(model); validate by model.Id
-     * - UpdateRange(func, value);
-     * - UpdateRange(IEnumerable<Model>, value); validate by model.Id
-     * - UpdateAll(value)
-     * 
-     */
+    /// <summary>
+    /// Update a <typeparamref name="BaseModel"/> item.
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="model">The item</param>
+    void Update
+    (
+      Func<BaseModel, bool> func,
+      BaseModel model
+    );
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="modelEnumerable">The enumerable of item(s)</param>
+    /// <param name="model">The item</param>
+    void UpdateRange
+    (
+       IEnumerable<BaseModel> modelEnumerable,
+       BaseModel model
+    );
+
+    /// <summary>
+    /// Update an enumerable of all <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    void UpdateAll();
+
+    /// <summary>
+    /// Update an enumerable of all <typeparamref name="BaseModel"/> item(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="model">The item</param>
+    void UpdateAll
+    (
+      Func<BaseModel, bool> func,
+      BaseModel model
+    );
 
     #endregion
   }
