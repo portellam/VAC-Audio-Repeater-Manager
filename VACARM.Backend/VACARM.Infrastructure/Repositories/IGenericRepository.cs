@@ -35,20 +35,20 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Add a <typeparamref name="T"/> item.
     /// </summary>
-    /// <param name="t">The item</param>
-    void Add(T t);
+    /// <param name="item">The item</param>
+    void Add(T item);
 
     /// <summary>
     /// Add a range of <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="t">The enumerable of item(s)</param>
+    /// <param name="item">The enumerable of item(s)</param>
     void AddRange(IEnumerable<T> enumerable);
 
     /// <summary>
     /// Remove a <typeparamref name="T"/> item.
     /// </summary>
-    /// <param name="t">The item</param>
-    void Remove(T t);
+    /// <param name="item">The item</param>
+    void Remove(T item);
 
     /// <summary>
     /// Remove a <typeparamref name="T"/> item.
@@ -77,31 +77,31 @@ namespace VACARM.Infrastructure.Repositories
     /// Update a <typeparamref name="T"/> item.
     /// </summary>
     /// <param name="func">The function</param>
-    /// <param name="t">The item</param>
+    /// <param name="item">The item</param>
     void Update
     (
       Func<T, bool> func,
-      T t
+      T item
     );
 
     /// <summary>
     /// Update a range of some <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
-    /// <param name="t">The item</param>
+    /// <param name="item">The item</param>
     void UpdateRange
     (
        Func<T, bool> func,
-       T t
+       T item
     );
 
     /// <summary>
     /// Update all <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="t">The item</param>
+    /// <param name="item">The item</param>
     void UpdateAll
     (
-      T t
+      T item
     );
 
     #endregion

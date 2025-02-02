@@ -89,14 +89,14 @@ namespace VACARM.Infrastructure.Repositories
         .AsEnumerable();
     }
 
-    public void Add(T t)
+    public void Add(T item)
     {
-      if (t == null)
+      if (item == null)
       {
         return;
       }
 
-      if (HashSet.Contains(t))
+      if (HashSet.Contains(item))
       {
         return;
       }
@@ -106,7 +106,7 @@ namespace VACARM.Infrastructure.Repositories
         HashSet = new HashSet<T>();
       }
 
-      HashSet.Add(t);
+      HashSet.Add(item);
     }
 
     public void AddRange(IEnumerable<T> enumerable)
@@ -132,7 +132,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public void Remove(T t)
+    public void Remove(T item)
     {
       if (HashSet == null)
       {
@@ -144,7 +144,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      HashSet.Remove(t);
+      HashSet.Remove(item);
     }
 
     public void Remove(Func<T, bool> func)
@@ -217,6 +217,79 @@ namespace VACARM.Infrastructure.Repositories
       foreach (var t in enumerable)
       {
         Remove(t);
+      }
+    }
+
+    public void Update
+    (
+      Func<T, bool> func,
+      T item
+    )
+    {
+      if (HashSet == null)
+      {
+        return;
+      }
+
+      if (HashSet.Count() == 0)
+      {
+        return;
+      }
+
+      int result = HashSet.RemoveWhere(x => func(x));
+
+      if (result == 0)
+      {
+        return;
+      }
+
+      HashSet.Add(item);
+    }
+
+    public void UpdateRange
+    (
+       Func<T, bool> func,
+       T item
+    )
+    {
+      if (HashSet == null)
+      {
+        return;
+      }
+
+      if (HashSet.Count() == 0)
+      {
+        return;
+      }
+
+      int result = HashSet.RemoveWhere(x => func(x));
+
+      if (result == 0)
+      {
+        return;
+      }
+
+      for (int i = 0; i < result; i++)
+      {
+        HashSet.Add(item);
+      }
+    }
+
+    public void UpdateAll(T item)
+    {
+      if (HashSet == null)
+      {
+        return;
+      }
+
+      if (HashSet.Count() == 0)
+      {
+        return;
+      }
+
+      for (int i = 0; i < HashSet.Count(); i++)
+      {
+        HashSet.Add(item);
       }
     }
 
