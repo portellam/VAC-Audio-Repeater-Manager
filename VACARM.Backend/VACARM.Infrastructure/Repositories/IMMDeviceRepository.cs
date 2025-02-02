@@ -9,48 +9,6 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Is a capture <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
-    bool IsCapture(string id);
-
-    /// <summary>
-    /// Is a default <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
-    bool IsDefault(string id);
-
-    /// <summary>
-    /// Is a duplex <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
-    bool IsDuplex(string id);
-
-    /// <summary>
-    /// Is an enabled <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>True/false is an enabled item.</returns>
-    bool IsEnabled(string id);
-
-    /// <summary>
-    /// Is a <typeparamref name="MMDevice"/> item present.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
-    bool IsPresent(string id);
-
-    /// <summary>
-    /// Is a render <typeparamref name="MMDevice"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
-    bool IsRender(string id);
-
-    /// <summary>
     /// Get a <typeparamref name="MMDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
@@ -60,9 +18,35 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Get the default <typeparamref name="MMDevice"/> item.
     /// </summary>
-    /// <param name="id">The ID</param>
+    /// <param name="dataFlow">The data flow</param>
+    /// <param name="role">The role</param>
     /// <returns>The item.</returns>
-    MMDevice? GetDefault();
+    MMDevice? GetDefault
+    (
+      DataFlow dataFlow,
+      Role role
+    );
+
+    /// <summary>
+    /// Get the default communications <typeparamref name="MMDevice"/> item.
+    /// </summary>
+    /// <param name="dataFlow">The data flow</param>
+    /// <returns>The item.</returns>
+    MMDevice? GetDefaultCommunications(DataFlow dataFlow);
+
+    /// <summary>
+    /// Get the default console <typeparamref name="MMDevice"/> item.
+    /// </summary>
+    /// <param name="dataFlow">The data flow</param>
+    /// <returns>The item.</returns>
+    MMDevice? GetDefaultConsole(DataFlow dataFlow);
+
+    /// <summary>
+    /// Get the default multimedia <typeparamref name="MMDevice"/> item.
+    /// </summary>
+    /// <param name="dataFlow">The data flow</param>
+    /// <returns>The item.</returns>
+    MMDevice? GetDefaultMultimedia(DataFlow dataFlow);
 
     /// <summary>
     /// Get an enumerable of all absent <typeparamref name="MMDevice"/> item(s).
@@ -109,9 +93,20 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Get an enumerable of some <typeparamref name="MMDevice"/> item(s).
     /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetRange(IEnumerable<string> idList);
+    IEnumerable<MMDevice> GetRange(IEnumerable<string> idEnumerable);
+
+    /// <summary>
+    /// Update the enumerable of all <typeparamref name="MMDevice"/> item(s).
+    /// </summary>
+    void UpdateAll();
+
+    /// <summary>
+    /// Update the enumerable of all default 
+    /// <typeparamref name="MMDevice"/> item(s).
+    /// </summary>
+    void UpdateAllDefaults();
 
     #endregion
   }
