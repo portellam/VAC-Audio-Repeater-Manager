@@ -4,14 +4,14 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public class GenericController<T> : IGenericController<T>
+  public class GenericController<T> : IGenericController<T> where T : class
   {
     #region Parameters
 
-    private IGenericRepository<T> repository { get; set; } = 
+    private IGenericRepository<T> repository { get; set; } =
       new GenericRepository<T>();
 
-    private IGenericRepository<T> Repository
+    internal IGenericRepository<T> Repository
     {
       get
       {
@@ -58,6 +58,15 @@ namespace VACARM.Application.Controllers
     public GenericController()
     {
       Repository = new GenericRepository<T>();
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="repository">The repository</param>
+    public GenericController(IGenericRepository<T> repository)
+    {
+      Repository = repository;
     }
 
     public T? Get(Func<T, bool> func)
@@ -218,6 +227,16 @@ namespace VACARM.Application.Controllers
       }
     }
 
+    public void Add(T t)
+    {
+      Repository.Add(t);
+    }
+
+    public void AddRange(IEnumerable<T> enumerable)
+    {
+      Repository.AddRange(enumerable);
+    }
+
     public void DoWork
     (
       Action<T> action,
@@ -326,6 +345,34 @@ namespace VACARM.Application.Controllers
         action,
         Repository.GetRange(func)
       );
+    }
+
+    public void Remove(T t)
+    {
+      Repository.Remove(t);
+    }
+
+    public void Remove(Func<T, bool> func)
+    {
+      Repository.Remove(func);
+    }
+
+    public void RemoveAll()
+    {
+      Repository.RemoveAll();
+    }
+
+    public void RemoveRange(Func<T, bool> func)
+    {
+      RemoveRange(func);
+    }
+
+    public void RemoveRange(IEnumerable<T> enumerable)
+    {
+      foreach (var t in enumerable)
+      {
+        Remove(t);
+      }
     }
 
     #endregion
