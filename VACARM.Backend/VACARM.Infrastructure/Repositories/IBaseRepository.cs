@@ -55,6 +55,17 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="idList">The range of ID(s)</param>
     void RemoveRange(List<uint> idList);
 
+    /*
+     * TODO:
+     * add
+     * - Update(id, value);
+     * - Update(model); validate by model.Id
+     * - UpdateRange(func, value);
+     * - UpdateRange(IEnumerable<Model>, value); validate by model.Id
+     * - UpdateAll(value)
+     * 
+     */
+
     #endregion
   }
 }
