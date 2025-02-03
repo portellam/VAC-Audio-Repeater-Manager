@@ -9,25 +9,25 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    private HashSet<T> hashSet { get; set; } = new HashSet<T>();
+    private IEnumerable<T> enumerable { get; set; }
 
     /// <summary>
     /// The enumerable of all <typeparamref name="T"/> item(s).
     /// </summary>
-    private HashSet<T> HashSet
+    public virtual IEnumerable<T> Enumerable
     {
       get
       {
-        return hashSet;
+        return enumerable;
       }
       set
       {
-        hashSet = value;
-        OnPropertyChanged(nameof(HashSet));
+        enumerable = value;
+        OnPropertyChanged(nameof(Enumerable));
       }
     }
 
-    public virtual event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
@@ -60,31 +60,31 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     public GenericRepository()
     {
-      HashSet = new HashSet<T>();
+      Enumerable = Array.Empty<T>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="hashSet">the hashSet of <typeparamref name="T"/></param>
-    public GenericRepository(HashSet<T> hashSet)
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    public GenericRepository(IEnumerable<T> enumerable)
     {
-      HashSet = hashSet;
+      Enumerable = enumerable;
     }
 
     public T? Get(Func<T, bool> func)
     {
-      return HashSet.FirstOrDefault(x => func(x));
+      return Enumerable.FirstOrDefault(func);
     }
 
     public IEnumerable<T> GetAll()
     {
-      return HashSet.AsEnumerable();
+      return Enumerable.AsEnumerable();
     }
 
     public IEnumerable<T> GetRange(Func<T, bool> func)
     {
-      return HashSet
+      return Enumerable
         .Where(x => func(x))
         .AsEnumerable();
     }
@@ -96,17 +96,17 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      if (HashSet.Contains(item))
+      if (Enumerable.Contains(item))
       {
         return;
       }
 
-      if (HashSet == null)
+      if (Enumerable == null)
       {
-        HashSet = new HashSet<T>();
+        RemoveAll();
       }
 
-      HashSet.Add(item);
+      Enumerable.Append(item);
     }
 
     public void AddRange(IEnumerable<T> enumerable)
@@ -121,9 +121,9 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      if (HashSet == null)
+      if (Enumerable == null)
       {
-        HashSet = new HashSet<T>();
+        RemoveAll();
       }
 
       foreach (var t in enumerable)
@@ -132,165 +132,9 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public void Remove(T item)
-    {
-      if (HashSet == null)
-      {
-        return;
-      }
-
-      if (HashSet.Count() == 0)
-      {
-        return;
-      }
-
-      HashSet.Remove(item);
-    }
-
-    public void Remove(Func<T, bool> func)
-    {
-      if (func == null)
-      {
-        return;
-      }
-
-      T? t = HashSet.FirstOrDefault(func);
-
-      if (t == null)
-      {
-        return;
-      }
-
-      Remove(t);
-    }
-
     public void RemoveAll()
     {
-      if (HashSet == null)
-      {
-        return;
-      }
-
-      if (HashSet.Count() == 0)
-      {
-        return;
-      }
-
-      HashSet.Clear();
-    }
-
-    public void RemoveRange(Func<T, bool> func)
-    {
-      if (HashSet == null)
-      {
-        return;
-      }
-
-      if (HashSet.Count() == 0)
-      {
-        return;
-      }
-
-      if (func == null)
-      {
-        return;
-      }
-
-      HashSet
-        .Where(x => func(x))
-        .ToList()
-        .ForEach(x => Remove(x));
-    }
-
-    public void RemoveRange(IEnumerable<T> enumerable)
-    {
-      if (enumerable == null)
-      {
-        return;
-      }
-
-      if (enumerable.Count() == 0)
-      {
-        return;
-      }
-
-      foreach (var t in enumerable)
-      {
-        Remove(t);
-      }
-    }
-
-    public void Update
-    (
-      Func<T, bool> func,
-      T item
-    )
-    {
-      if (HashSet == null)
-      {
-        return;
-      }
-
-      if (HashSet.Count() == 0)
-      {
-        return;
-      }
-
-      int result = HashSet.RemoveWhere(x => func(x));
-
-      if (result == 0)
-      {
-        return;
-      }
-
-      HashSet.Add(item);
-    }
-
-    public void UpdateRange
-    (
-       Func<T, bool> func,
-       T item
-    )
-    {
-      if (HashSet == null)
-      {
-        return;
-      }
-
-      if (HashSet.Count() == 0)
-      {
-        return;
-      }
-
-      int result = HashSet.RemoveWhere(x => func(x));
-
-      if (result == 0)
-      {
-        return;
-      }
-
-      for (int i = 0; i < result; i++)
-      {
-        HashSet.Add(item);
-      }
-    }
-
-    public void UpdateAll(T item)
-    {
-      if (HashSet == null)
-      {
-        return;
-      }
-
-      if (HashSet.Count() == 0)
-      {
-        return;
-      }
-
-      for (int i = 0; i < HashSet.Count(); i++)
-      {
-        HashSet.Add(item);
-      }
+      Enumerable = Array.Empty<T>();
     }
 
     #endregion
