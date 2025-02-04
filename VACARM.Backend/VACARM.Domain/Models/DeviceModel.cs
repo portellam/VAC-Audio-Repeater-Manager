@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using VACARM.Domain.Structs;
 
 namespace VACARM.Domain.Models
 {
@@ -12,11 +11,17 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
-    private string actualId { get; set; }
-    private bool? isInput { get; set; }
-    private bool? isOutput { get; set; }
+    private string actualId { get; set; } = string.Empty;
+    private bool? isCapture { get; set; }
+    private bool? isDefault { get; set; }
+    private bool? isEnabled { get; set; }
+    private bool? isMuted { get; set; }
     private bool? isPresent { get; set; }
-    private string name { get; set; }
+    private bool? isRender { get; set; }
+    private string name { get; set; } = string.Empty;
+    private string role { get; set; } = string.Empty;
+
+    public override uint Id { get; set; }
 
     public string ActualId
     {
@@ -31,60 +36,83 @@ namespace VACARM.Domain.Models
       }
     }
 
-    /// <summary>
-    /// Is both Input and Output.
-    /// </summary>
+    public bool IsCapture
+    {
+      get
+      {
+        if (isCapture == null)
+        {
+          return false;
+        }
+
+        return (bool)isCapture;
+      }
+      set
+      {
+        isCapture = value;
+        OnPropertyChanged(nameof(IsCapture));
+      }
+    }
+
+    public bool IsDefault
+    {
+      get
+      {
+        if (isDefault == null)
+        {
+          return false;
+        }
+
+        return (bool)isDefault;
+      }
+      set
+      {
+        isDefault = value;
+        OnPropertyChanged(nameof(IsDefault));
+      }
+    }
+
     public bool IsDuplex
     {
       get
       {
-        return IsInput == IsOutput;
+        return IsCapture == IsRender;
       }
     }
 
-    public bool IsInput
+    public bool IsEnabled
     {
       get
       {
-        if (isInput == null)
+        if (isEnabled == null)
         {
           return false;
         }
 
-        return (bool)isInput;
+        return (bool)isEnabled;
       }
       set
       {
-        if ((bool?)value == null)
-        {
-          return;
-        }
-
-        isInput = value;
-        OnPropertyChanged(nameof(ChannelConfig));
+        isEnabled = value;
+        OnPropertyChanged(nameof(IsEnabled));
       }
     }
 
-    public bool IsOutput
+    public bool IsMuted
     {
       get
       {
-        if (isOutput == null)
+        if (isMuted == null)
         {
           return false;
         }
 
-        return (bool)isOutput;
+        return (bool)isMuted;
       }
       set
       {
-        if ((bool?)value == null)
-        {
-          return;
-        }
-
-        isOutput = value;
-        OnPropertyChanged(nameof(ChannelConfig));
+        isMuted = value;
+        OnPropertyChanged(nameof(IsMuted));
       }
     }
 
@@ -101,13 +129,26 @@ namespace VACARM.Domain.Models
       }
       set
       {
-        if ((bool?)value == null)
+        isPresent = value;
+        OnPropertyChanged(nameof(IsPresent));
+      }
+    }
+
+    public bool IsRender
+    {
+      get
+      {
+        if (isRender == null)
         {
-          return;
+          return false;
         }
 
-        isPresent = value;
-        OnPropertyChanged(nameof(ChannelConfig));
+        return (bool)isRender;
+      }
+      set
+      {
+        isRender = value;
+        OnPropertyChanged(nameof(IsRender));
       }
     }
 
@@ -122,12 +163,12 @@ namespace VACARM.Domain.Models
       set
       {
         name = value;
-        OnPropertyChanged(nameof(ChannelConfig));
+        OnPropertyChanged(nameof(Name));
       }
     }
 
     public string Availability
-    { 
+    {
       get
       {
         if
@@ -143,65 +184,22 @@ namespace VACARM.Domain.Models
       }
     }
 
+    public string Role
+    {
+      get
+      {
+        return role;
+      }
+      set
+      {
+        role = value;
+        OnPropertyChanged(nameof(Role));
+      }
+    }
+
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Abstract of the actual audio device.
-    /// </summary>
-    /// <param name="id">The device ID</param>
-    /// <param name="actualId">The actual device ID</param>
-    /// <param name="name">The device name</param>
-    /// <param name="isInput">True/false is an input device</param>
-    /// <param name="isOutput">True/false is an output device</param>
-    /// <param name="isPresent">True/false is the device present</param>
-    [ExcludeFromCodeCoverage]
-    public DeviceModel
-    (
-      uint id,
-      string actualId,
-      string name,
-      bool? isInput,
-      bool? isOutput,
-      bool? isPresent
-    )
-    {
-      Id = id;
-      ActualId = actualId;
-      Name = name;
-      IsInput = (bool)isInput;
-      IsOutput = (bool)isOutput;
-      IsPresent = (bool)isPresent;
-    }
-
-    /// <summary>
-    /// Deconstructor
-    /// </summary>
-    /// <param name="id">The device ID</param>
-    /// <param name="actualId">The actual device ID</param>
-    /// <param name="name">The device name</param>
-    /// <param name="isInput">True/false is an input device</param>
-    /// <param name="isOutput">True/false is an output device</param>
-    /// <param name="isPresent">True/false is the device present</param>
-    [ExcludeFromCodeCoverage]
-    public void Deconstruct
-    (
-      out uint id,
-      out string actualId,
-      out string name,
-      out bool? isInput,
-      out bool? isOutput,
-      out bool? isPresent
-    )
-    {
-      id = Id;
-      actualId = ActualId;
-      name = Name;
-      isInput = IsInput;
-      isOutput = IsOutput;
-      isPresent = IsPresent;
-    }
 
     /// <summary>
     /// Logs event when property has changed.
@@ -223,6 +221,71 @@ namespace VACARM.Domain.Models
           propertyName
         )
       );
+    }
+
+    /// <summary>
+    /// Abstract of the actual audio device.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <param name="actualId">The actual ID</param>
+    /// <param name="name">The name</param>
+    /// <param name="isCapture">True/false is a capture device</param>
+    /// <param name="isEnabled">True/false is the device enabled</param>
+    /// <param name="isMuted">True/false is the device muted</param>
+    /// <param name="isPresent">True/false is the device present</param>
+    /// <param name="isRender">True/false is a render device</param>
+    [ExcludeFromCodeCoverage]
+    public DeviceModel
+    (
+      uint id,
+      string actualId,
+      string name,
+      bool? isCapture,
+      bool? isDefault,
+      bool? isEnabled,
+      bool? isMuted,
+      bool? isRender,
+      bool? isPresent,
+      string role
+    ) : base(id)
+    {
+      Id = id;
+      ActualId = actualId;
+      Name = name;
+      IsCapture = (bool)isCapture;
+      IsDefault = (bool)isDefault;
+      IsEnabled = (bool)isEnabled;
+      IsMuted = (bool)isMuted;
+      IsPresent = (bool)isPresent;
+      IsRender = (bool)isRender;
+      Role = role;
+    }
+
+    [ExcludeFromCodeCoverage]
+    public void Deconstruct
+    (
+      out uint id,
+      out string actualId,
+      out string name,
+      out bool? isCapture,
+      out bool? isDefault,
+      out bool? isEnabled,
+      out bool? isMuted,
+      out bool? isPresent,
+      out bool? isRender,
+      out string role
+    )
+    {
+      id = Id;
+      actualId = ActualId;
+      name = Name;
+      isCapture = IsCapture;
+      isDefault = IsDefault;
+      isEnabled = IsEnabled;
+      isMuted = IsMuted;
+      isRender = IsRender;
+      isPresent = IsPresent;
+      role = Role;
     }
 
     #endregion

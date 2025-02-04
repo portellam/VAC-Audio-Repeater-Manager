@@ -1,19 +1,23 @@
-﻿using VACARM.Domain.Structs;
+﻿using System.ComponentModel.DataAnnotations;
+using VACARM.Domain.Structs;
 
 namespace VACARM.Domain.Models
 {
-  public interface IRepeaterModel : IBaseModel
+  public interface IRepeaterModel : 
+    IBaseModel
   {
     #region Parameters
 
     /// <summary>
     /// Foreign key
     /// </summary>
+    [Required]
     uint InputDeviceId { get; set; }
 
     /// <summary>
     /// Foreign key
     /// </summary>
+    [Required]
     uint OutputDeviceId { get; set; }
 
     /// <summary>
@@ -53,7 +57,6 @@ namespace VACARM.Domain.Models
       out byte resyncAtPercentage,
       out ChannelConfig channelConfig,
       out List<Channel> channelList,
-      out List<string> propertyList,
       out string inputDeviceName,
       out string outputDeviceName,
       out string pathName,

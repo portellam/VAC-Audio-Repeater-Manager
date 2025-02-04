@@ -197,7 +197,6 @@ namespace VACARM.Domain.Models
 
     #region Parameters
 
-    private uint id { get; set; }
     private uint inputDeviceId { get; set; }
     private uint outputDeviceId { get; set; }
     private int? processId { get; set; } = null;
@@ -549,7 +548,7 @@ namespace VACARM.Domain.Models
         return string.Format
           (
             "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
-            id.ToString(),
+            Id.ToString(),
             inputDeviceId.ToString(),
             outputDeviceId.ToString(),
 
@@ -681,21 +680,6 @@ namespace VACARM.Domain.Models
       }
     }
 
-    /// <summary>
-    /// List of relevant properties.
-    /// </summary>
-    public readonly List<string> PropertyList = new List<string>()
-      {
-        nameof(BitsPerSample),
-        nameof(BufferAmount),
-        nameof(BufferDurationMs),
-        nameof(ChannelConfig),
-        nameof(ChannelMask),
-        nameof(PrefillPercentage),
-        nameof(ResyncAtPercentage),
-        nameof(SampleRateKHz)
-      };
-
     #endregion
 
     #region Logic
@@ -720,7 +704,7 @@ namespace VACARM.Domain.Models
       string inputDeviceName,
       string outputDeviceName,
       string pathName
-    )
+    ) : base(id)
     {
       InputDeviceId = inputDeviceId;
       InputDeviceName = inputDeviceName;
@@ -764,7 +748,7 @@ namespace VACARM.Domain.Models
       ChannelConfig channelConfig,
       uint sampleRateKHz,
       ushort bufferDurationMs
-    )
+    ) : base(id)
     {
       Id = id;
       InputDeviceId = inputDeviceId;
@@ -799,7 +783,6 @@ namespace VACARM.Domain.Models
     /// <param name="outputDeviceName">The output device name</param>
     /// <param name="pathName">The path name</param>
     /// <param name="prefillPercentage">The prefill percentage</param>
-    /// <param name="propertyList">The property list</param>
     /// <param name="resyncAtPercentage">The resync at percentage</param>
     /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
     /// <param name="startArguments">The start arguments</param>
@@ -818,7 +801,6 @@ namespace VACARM.Domain.Models
       out byte resyncAtPercentage,
       out ChannelConfig channelConfig,
       out List<Channel> channelList,
-      out List<string> propertyList,
       out string inputDeviceName,
       out string outputDeviceName,
       out string pathName,
@@ -844,7 +826,6 @@ namespace VACARM.Domain.Models
       outputDeviceName = OutputDeviceName;
       pathName = PathName;
       prefillPercentage = PrefillPercentage;
-      propertyList = PropertyList;
       resyncAtPercentage = ResyncAtPercentage;
       sampleRateKHz = SampleRateKHz;
       startArguments = StartArguments;
