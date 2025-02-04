@@ -45,7 +45,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// The enumerable of all <typeparamref name="MMDevice"/> item(s).
     /// </summary>
-    internal override IEnumerable<T> Enumerable
+    public override IEnumerable<T> Enumerable
     {
       get
       {
