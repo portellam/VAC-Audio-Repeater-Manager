@@ -1,48 +1,53 @@
-﻿using System.ComponentModel;
-using VACARM.Domain.Models;
+﻿using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
 {
   public interface IBaseRepository<T> :
-    IGenericRepository<T> where T :
+    IGenericListRepository<T> where T :
     BaseModel
   {
-    #region Parameters
-
-    new event PropertyChangedEventHandler PropertyChanged;
-
-    #endregion
-
     #region Logic
 
     /// <summary>
-    /// Get a <typeparamref name="BaseModel"/> item.
+    /// Get a <typeparamref name="IBaseModel"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    BaseModel? Get(uint id);
+    IBaseModel? Get(uint id);
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// Get an enumerable of some <typeparamref name="IBaseModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<BaseModel> GetRange
+    IEnumerable<IBaseModel> GetRange
     (
       uint startId,
       uint endId
     );
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// Get an enumerable of some <typeparamref name="IBaseModel"/> item(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<BaseModel> GetRange(IEnumerable<uint> idEnumerable);
+    IEnumerable<IBaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
-    /// Remove a range of <typeparamref name="BaseModel"/> item(s).
+    /// Remove a <typeparamref name="IBaseModel"/> item.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    void Remove(uint id);
+
+    /// <summary>
+    /// Remove an enumerable of <typeparamref name="IBaseModel"/> item(s).
+    /// </summary>
+    /// <param name="id">The ID</param>
+    void RemoveRange(uint id);
+
+    /// <summary>
+    /// Remove an enumerable of <typeparamref name="IBaseModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -53,47 +58,31 @@ namespace VACARM.Infrastructure.Repositories
     );
 
     /// <summary>
-    /// Remove a range of <typeparamref name="BaseModel"/> item(s).
+    /// Remove an enumerable of <typeparamref name="IBaseModel"/> item(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     void RemoveRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
-    /// Update a <typeparamref name="BaseModel"/> item.
+    /// Update a <typeparamref name="IBaseModel"/> item.
     /// </summary>
-    /// <param name="func">The function</param>
+    /// <param name="id">The ID</param>
     /// <param name="model">The item</param>
     void Update
     (
-      Func<BaseModel, bool> func,
-      BaseModel model
+      uint id,
+      IBaseModel model
     );
 
     /// <summary>
-    /// Update an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// Update an enumerable of some <typeparamref name="IBaseModel"/> item(s).
     /// </summary>
-    /// <param name="modelEnumerable">The enumerable of item(s)</param>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="model">The item</param>
     void UpdateRange
     (
-       IEnumerable<BaseModel> modelEnumerable,
-       BaseModel model
-    );
-
-    /// <summary>
-    /// Update an enumerable of all <typeparamref name="BaseModel"/> item(s).
-    /// </summary>
-    void UpdateAll();
-
-    /// <summary>
-    /// Update an enumerable of all <typeparamref name="BaseModel"/> item(s).
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <param name="model">The item</param>
-    void UpdateAll
-    (
-      Func<BaseModel, bool> func,
-      BaseModel model
+       IEnumerable<uint> idEnumerable,
+       IBaseModel model
     );
 
     #endregion
