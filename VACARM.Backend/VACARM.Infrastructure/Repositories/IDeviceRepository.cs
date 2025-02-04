@@ -2,10 +2,28 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IDeviceRepository : 
+  public interface IDeviceRepository :
     IBaseRepository<DeviceModel>
   {
     #region Logic
+
+    /// <summary>
+    /// Get a default communications <typeparamref name="DeviceModel"/> item.
+    /// </summary>
+    /// <returns>The item.</returns>
+    public DeviceModel? GetDefaultCommunications();
+
+    /// <summary>
+    /// Get a default console <typeparamref name="DeviceModel"/> item.
+    /// </summary>
+    /// <returns>The item.</returns>
+    public DeviceModel? GetDefaultConsole();
+
+    /// <summary>
+    /// Get a default multimedia <typeparamref name="DeviceModel"/> item.
+    /// </summary>
+    /// <returns>The item.</returns>
+    public DeviceModel? GetDefaultMultimedia();
 
     /// <summary>
     /// Get an enumerable of all absent <typeparamref name="DeviceModel"/> item(s).
@@ -27,6 +45,25 @@ namespace VACARM.Infrastructure.Repositories
     IEnumerable<DeviceModel> GetAllCapture();
 
     /// <summary>
+    /// Get an enumerable of all communications <typeparamref name="DeviceModel"/> 
+    /// item(s).
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<DeviceModel> GetAllCommunications();
+
+    /// <summary>
+    /// Get an enumerable of all console <typeparamref name="DeviceModel"/> item(s).
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<DeviceModel> GetAllConsole();
+
+    /// <summary>
+    /// Get an enumerable of all default <typeparamref name="DeviceModel"/> item(s).
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<DeviceModel> GetAllDefault();
+
+    /// <summary>
     /// Get an enumerable of all disabled <typeparamref name="DeviceModel"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
@@ -43,6 +80,13 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<DeviceModel> GetAllEnabled();
+
+    /// <summary>
+    /// Get an enumerable of all multimedia <typeparamref name="DeviceModel"/>
+    /// item(s).
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<DeviceModel> GetAllMultimedia();
 
     /// <summary>
     /// Get an enumerable of all muted <typeparamref name="DeviceModel"/> item(s).
@@ -74,7 +118,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <typeparamref name="DeviceModel"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<DeviceModel> GetAllInReverseAlphabeticalOrder();
+    IEnumerable<DeviceModel> GetAllReverseAlphabeticalOrder();
 
     #endregion
   }
