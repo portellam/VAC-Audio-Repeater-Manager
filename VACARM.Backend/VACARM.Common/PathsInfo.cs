@@ -7,28 +7,58 @@
     /// <summary>
     /// Typically "C:\Program Files\Virtual Audio Cable\".
     /// </summary>
-    private static string parentPathNameForBitMatchedProcessAndSystem =
-      $"{systemRootPathName}Program Files\\{ReferencedApplicationName}\\";
+    private static string parentPathNameForBitMatchedProcessAndSystem
+    {
+      get
+      {
+        return $"{systemRootPathName}Program Files\\" +
+          $"{ReferencedApplicationName}\\";
+      }
+    }
 
     /// <summary>
     /// Typically "C:\Program Files (x86)\Virtual Audio Cable\".
     /// </summary>
-    private static string parentPathNameForBitUnmatchedProcessAndSystem =
-      $"{systemRootPathName}Program Files (x86)\\{ReferencedApplicationName}\\";
+    private static string parentPathNameForBitUnmatchedProcessAndSystem
+    {
+      get
+      {
+        return $"{systemRootPathName}Program Files (x86)\\" +
+          $"{ReferencedApplicationName}\\";
+      }
+    }
 
     /// <summary>
     /// Typically "C:\".
     /// </summary>
-    private static string systemRootPathName = Path.GetPathRoot
-      (
-        Environment.GetFolderPath
+    private static string systemRootPathName
+    {
+      get
+      {
+        string? name = Path.GetPathRoot
         (
-          Environment.SpecialFolder.System
-        )
-      );
+          Environment.GetFolderPath
+          (
+            Environment.SpecialFolder.System
+          )
+        );
 
-    private static bool doesProcessAndSystemBitMatch =
-      Environment.Is64BitProcess == Environment.Is64BitOperatingSystem;
+        if (string.IsNullOrEmpty(name))
+        {
+          name = "C:\\";
+        }
+
+        return name;
+      }
+    }
+
+    private static bool doesProcessAndSystemBitMatch
+    {
+      get
+      {
+        return Environment.Is64BitProcess == Environment.Is64BitOperatingSystem;
+      }
+    }
 
     public static bool PreferLegacyExecutable = false;
 
@@ -79,10 +109,12 @@
       {
         if (doesProcessAndSystemBitMatch)
         {
-          return $"{parentPathNameForBitMatchedProcessAndSystem}{PreferredExecutableName}";
+          return $"{parentPathNameForBitMatchedProcessAndSystem}" +
+            $"{PreferredExecutableName}";
         }
 
-        return $"{parentPathNameForBitUnmatchedProcessAndSystem}{PreferredExecutableName}";
+        return $"{parentPathNameForBitUnmatchedProcessAndSystem}" +
+          $"{PreferredExecutableName}";
       }
     }
 
