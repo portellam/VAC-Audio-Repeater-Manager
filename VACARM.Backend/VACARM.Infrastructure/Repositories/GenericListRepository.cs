@@ -27,11 +27,6 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    /// <summary>
-    /// The enumerable of all <typeparamref name="T"/> item(s).
-    /// </summary>
-    public override IEnumerable<T> Enumerable { get; set; }
-
     public new event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
@@ -217,10 +212,6 @@ namespace VACARM.Infrastructure.Repositories
 
       List.RemoveAt(index);
     }
-
-
-
-
     public void Remove(T item)
     {
       if (IsNullOrEmpty(List))
@@ -230,9 +221,6 @@ namespace VACARM.Infrastructure.Repositories
 
       List.Remove(item);
     }
-
-
-
     public void Remove(Func<T, bool> func)
     {
       if (IsNullOrEmpty(List))
