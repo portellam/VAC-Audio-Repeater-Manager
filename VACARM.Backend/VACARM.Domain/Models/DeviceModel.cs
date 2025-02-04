@@ -4,6 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.Domain.Models
 {
+  /// <summary>
+  /// A snapshot record of a system audio device.
+  /// </summary>
   public class DeviceModel :
     BaseModel,
     IDeviceModel,

@@ -7,6 +7,10 @@ using VACARM.Domain.Structs;
 
 namespace VACARM.Domain.Models
 {
+  /// <summary>
+  /// A snapshot record of the relationship between a capture and render audio 
+  /// device pair.
+  /// </summary>
   public class RepeaterModel :
     BaseModel,
     IRepeaterModel,
