@@ -1,91 +1,56 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using VACARM.Domain.Models;
+﻿using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
 {
   public class BaseRepository<T> :
-    GenericRepository<T>,
-    IBaseRepository<BaseModel> where T : 
-    BaseModel
+    GenericListRepository<T>,
+    IBaseRepository<T> where T : BaseModel
   {
-    #region Parameters
-
-    private IGenericRepository<BaseModel> genericRepository { get; set; } =
-      new GenericRepository<BaseModel>();
-
-    private IGenericRepository<BaseModel> GenericRepository
-    {
-      get
-      {
-        return genericRepository;
-      }
-      set
-      {
-        genericRepository = value;
-        OnPropertyChanged(nameof(genericRepository));
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    #endregion
-
     #region Logic
-
-    /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
-    {
-      PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
-    }
 
     /// <summary>
     /// Constructor
     /// </summary>
     public BaseRepository()
     {
-      GenericRepository = new GenericRepository<BaseModel>();
+      List = new List<T>();
     }
 
-    public BaseModel? Get(uint id)
+    public IBaseModel? Get(uint id)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
-      return GenericRepository.Get(func);
+      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+      return Get(func);
     }
 
-    public IEnumerable<BaseModel> GetRange
+    public IEnumerable<IBaseModel> GetRange
     (
       uint startId,
       uint endId
     )
     {
-      Func<BaseModel, bool> func = (BaseModel x) =>
+      Func<IBaseModel, bool> func = (IBaseModel x) =>
         x.Id >= startId
         && x.Id <= endId;
 
-      return GenericRepository.GetRange(func);
+      return GetRange(func);
     }
 
-    public IEnumerable<BaseModel> GetRange(List<uint> idList)
+    public IEnumerable<IBaseModel> GetRange(IEnumerable<uint> idEnumerable)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => idList.Contains(x.Id);
-      return GenericRepository.GetRange(func);
+      Func<IBaseModel, bool> func = (IBaseModel x) => idEnumerable.Contains(x.Id);
+      return GetRange(func);
+    }
+
+    public void Remove(uint id)
+    {
+      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+      Remove(func);
+    }
+
+    public void RemoveRange(uint id)
+    {
+      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+      RemoveRange(func);
     }
 
     public void RemoveRange
@@ -94,17 +59,47 @@ namespace VACARM.Infrastructure.Repositories
       uint endId
     )
     {
-      Func<BaseModel, bool> func = (BaseModel x) =>
+      Func<IBaseModel, bool> func = (IBaseModel x) =>
         x.Id >= startId
         && x.Id <= endId;
 
-      GenericRepository.RemoveRange(func);
+      RemoveRange(func);
     }
 
-    public void RemoveRange(List<uint> idList)
+    public void RemoveRange(IEnumerable<uint> idEnumerable)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => idList.Contains(x.Id);
-      GenericRepository.RemoveRange(func);
+      Func<IBaseModel, bool> func = (IBaseModel x) => idEnumerable.Contains(x.Id);
+      RemoveRange(func);
+    }
+
+    public void Update
+    (
+      uint id,
+      IBaseModel model
+    )
+    {
+      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+
+      Update
+      (
+        func,
+        (T)model
+      );
+    }
+
+    public void UpdateRange
+    (
+       IEnumerable<uint> idEnumerable,
+       IBaseModel model
+    )
+    {
+      Func<IBaseModel, bool> func = (IBaseModel x) => idEnumerable.Contains(x.Id);
+
+      UpdateRange
+      (
+        func,
+        (T)model
+      );
     }
 
     #endregion
