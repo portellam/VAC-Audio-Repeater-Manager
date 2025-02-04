@@ -1,15 +1,17 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.Domain.Models
 {
-  public class BaseModel : IBaseModel
+  public class BaseModel :
+    IBaseModel
   {
     #region Parameters
 
     private uint id { get; set; }
 
-    public uint Id
+    public virtual uint Id
     {
       get
       {
@@ -18,7 +20,7 @@ namespace VACARM.Domain.Models
       set
       {
         id = value;
-        OnPropertyChanged(nameof(id));
+        OnPropertyChanged(nameof(Id));
       }
     }
 
@@ -48,6 +50,17 @@ namespace VACARM.Domain.Models
           propertyName
         )
       );
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="id">The ID</param>
+
+    [ExcludeFromCodeCoverage]
+    public BaseModel(uint id)
+    {
+      Id = id;
     }
 
     #endregion
