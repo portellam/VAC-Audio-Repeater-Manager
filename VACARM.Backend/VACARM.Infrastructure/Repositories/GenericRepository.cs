@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -11,9 +12,14 @@ namespace VACARM.Infrastructure.Repositories
 
     private IEnumerable<T> enumerable { get; set; }
 
-    /// <summary>
-    /// The enumerable of all <typeparamref name="T"/> item(s).
-    /// </summary>
+    public virtual int MaxCount
+    {
+      get
+      {
+        return int.MaxValue;
+      }
+    }
+
     public virtual IEnumerable<T> Enumerable
     {
       get
@@ -72,6 +78,17 @@ namespace VACARM.Infrastructure.Repositories
       Enumerable = enumerable;
     }
 
+    public bool IsNullOrEmpty(IEnumerable<T> enumerable)
+    {
+      return IEnumerableExtension<T>.IsNullOrEmpty(enumerable);
+    }
+
+    public bool IsValidIndex(int index)
+    {
+      return index >= 0
+        && index <= MaxCount;
+    }
+
     public T? Get(Func<T, bool> func)
     {
       return Enumerable.FirstOrDefault(func);
@@ -101,6 +118,11 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
+      if (Enumerable.Count() <= MaxCount)
+      {
+        return;
+      }
+
       if (Enumerable == null)
       {
         RemoveAll();
@@ -111,12 +133,12 @@ namespace VACARM.Infrastructure.Repositories
 
     public void AddRange(IEnumerable<T> enumerable)
     {
-      if (enumerable == null)
+      if (IsNullOrEmpty(enumerable))
       {
         return;
       }
 
-      if (enumerable.Count() == 0)
+      if (Enumerable.Count() <= MaxCount)
       {
         return;
       }

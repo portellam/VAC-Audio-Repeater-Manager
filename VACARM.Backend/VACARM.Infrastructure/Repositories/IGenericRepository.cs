@@ -6,13 +6,35 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
+    event PropertyChangedEventHandler PropertyChanged;
+
+    /// <summary>
+    /// The enumerable of all <typeparamref name="T"/> item(s).
+    /// </summary>
     IEnumerable<T> Enumerable { get; set; }
 
-    event PropertyChangedEventHandler PropertyChanged;
+    /// <summary>
+    /// The maximum count of <typeparamref name="T"/> item(s).
+    /// </summary>
+    int MaxCount { get; }
 
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Is enumerable null or empty.
+    /// </summary>
+    /// <param name="enumerable">The enumerable</param>
+    /// <returns>True/false</returns>
+    bool IsNullOrEmpty(IEnumerable<T> enumerable);
+
+    /// <summary>
+    /// Is index valid.
+    /// </summary>
+    /// <param name="index">The index</param>
+    /// <returns>True/false</returns>
+    bool IsValidIndex(int index);
 
     /// <summary>
     /// Get a <typeparamref name="T"/> item.
