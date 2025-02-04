@@ -1,36 +1,36 @@
-﻿using AudioSwitcher.AudioApi.CoreAudio;
-using NAudio.CoreAudioApi;
+﻿using AudioSwitcher.AudioApi;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public partial interface ICoreAudioRepository : 
-    IGenericRepository<MMDevice>
+  public partial interface ICoreAudioRepository<T> :
+    IGenericRepository<T> where T :
+    Device
   {
     #region Logic
 
     /// <summary>
-    /// Is a default <typeparamref name="CoreAudio"/> item.
+    /// Is a default <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     bool IsDefault(string id);
 
     /// <summary>
-    /// Is a default communications<typeparamref name="CoreAudio"/> item.
+    /// Is a default communications<typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     bool IsDefaultCommunications(string id);
 
     /// <summary>
-    /// Is a muted <typeparamref name="CoreAudio"/> item.
+    /// Is a muted <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     bool IsMuted(string id);
 
     /// <summary>
-    /// Set the <typeparamref name="CoreAudio"/> item volume.
+    /// Set the <typeparamref name="Device"/> item volume.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="volume">The audio volume</param>
@@ -42,67 +42,67 @@ namespace VACARM.Infrastructure.Repositories
     );
 
     /// <summary>
-    /// Get the volume of the <typeparamref name="CoreAudio"/> item.
+    /// Get the volume of the <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The audio volume.</returns>
     double GetVolume(string id);
 
     /// <summary>
-    /// Get a <typeparamref name="CoreAudioDevice"/> item.
+    /// Get a <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    CoreAudioDevice? Get(string id);
+    Device? Get(string id);
 
     /// <summary>
-    /// Get a default communications <typeparamref name="CoreAudioDevice"/> item.
+    /// Get a default communications <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    CoreAudioDevice? GetDefaultCommunications(string id);
+    Device? GetDefaultCommunications(string id);
 
     /// <summary>
-    /// Get a default console <typeparamref name="CoreAudioDevice"/> item.
+    /// Get a default console <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    CoreAudioDevice? GetDefaultConsole(string id);
+    Device? GetDefaultConsole(string id);
 
     /// <summary>
-    /// Get a default multimedia <typeparamref name="CoreAudioDevice"/> item.
+    /// Get a default multimedia <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    CoreAudioDevice? GetDefaultMultimedia(string id);
+    Device? GetDefaultMultimedia(string id);
 
     /// <summary>
-    /// Get an enumerable of all muted <typeparamref name="CoreAudioDevice"/> 
+    /// Get an enumerable of all muted <typeparamref name="Device"/> 
     /// item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<CoreAudioDevice> GetAllMuted();
+    IEnumerable<Device> GetAllMuted();
 
     /// <summary>
-    /// Get an enumerable of all not muted <typeparamref name="CoreAudioDevice"/> 
+    /// Get an enumerable of all not muted <typeparamref name="Device"/> 
     /// item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<CoreAudioDevice> GetAllNotMuted();
+    IEnumerable<Device> GetAllNotMuted();
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="CoreAudioDevice"/> item(s).
+    /// Get an enumerable of some <typeparamref name="Device"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<CoreAudioDevice> GetRange(Func<CoreAudioDevice, bool> func);
+    IEnumerable<Device> GetRange(Func<Device, bool> func);
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="CoreAudioDevice"/> item(s).
+    /// Get an enumerable of some <typeparamref name="Device"/> item(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<CoreAudioDevice> GetRange(IEnumerable<string> idList);
+    IEnumerable<Device> GetRange(IEnumerable<string> idList);
 
     #endregion
   }
