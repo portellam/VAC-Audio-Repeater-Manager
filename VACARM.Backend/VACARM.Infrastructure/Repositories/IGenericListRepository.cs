@@ -90,8 +90,8 @@
     /// <summary>
     /// Remove a list of some <typeparamref name="T"/> item(s).
     /// </summary>
-    /// <param name="idEnumerable">The enumerable of index(es)</param>
-    void RemoveRange(IEnumerable<int> idEnumerable);
+    /// <param name="indexEnumerable">The enumerable of index(es)</param>
+    void RemoveRange(IEnumerable<int> indexEnumerable);
 
     /// <summary>
     /// Remove a list of some <typeparamref name="T"/> item(s).
