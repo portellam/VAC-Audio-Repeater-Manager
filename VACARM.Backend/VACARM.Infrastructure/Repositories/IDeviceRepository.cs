@@ -32,7 +32,8 @@ namespace VACARM.Infrastructure.Repositories
     IEnumerable<DeviceModel> GetAllAbsent();
 
     /// <summary>
-    /// Get an enumerable of all alphebetical order 
+    /// Get an enumerable of all <typeparamref name="DeviceModel"/> item(s) in
+    /// alphebetical order.
     /// <typeparamref name="DeviceModel"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
@@ -114,8 +115,8 @@ namespace VACARM.Infrastructure.Repositories
     IEnumerable<DeviceModel> GetAllRender();
 
     /// <summary>
-    /// Get an enumerable of all reverse alphebetical order 
-    /// <typeparamref name="DeviceModel"/> item(s).
+    /// Get an enumerable of all <typeparamref name="DeviceModel"/> item(s) in
+    /// reverse alphebetical order.
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<DeviceModel> GetAllReverseAlphabeticalOrder();
