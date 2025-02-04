@@ -31,16 +31,39 @@ namespace VACARM.Infrastructure.Repositories
       List = enumerable.ToList();
     }
 
+    public IEnumerable<RepeaterModel> GetAllAlphabeticalOrder()
+    {
+      return List
+        .OrderBy(x => x.WindowName);
+    }
+
+    public IEnumerable<RepeaterModel> GetAllByDeviceId(uint deviceId)
+    {
+      return List
+        .Where
+        (
+          x =>
+          x.InputDeviceId == deviceId
+          || x.OutputDeviceId == deviceId
+        );
+    }
+
+    public IEnumerable<RepeaterModel> GetAllReverseAlphabeticalOrder()
+    {
+      return List
+        .OrderByDescending(x => x.WindowName);
+    }
+
     public IEnumerable<RepeaterModel> GetAllStarted()
     {
       return List
-        .Select(x => x.IsStarted);
+        .Where(x => x.IsStarted);
     }
 
     public IEnumerable<RepeaterModel> GetAllStopped()
     {
       return List
-        .Select(x => !x.IsStarted);
+        .Where(x => !x.IsStarted);
     }
 
     #endregion

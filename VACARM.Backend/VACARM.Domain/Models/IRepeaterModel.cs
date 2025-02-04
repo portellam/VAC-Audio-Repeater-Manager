@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Structs;
 
 namespace VACARM.Domain.Models
@@ -25,6 +26,7 @@ namespace VACARM.Domain.Models
     /// </summary>
     int? ProcessId { get; set; }
 
+    bool IsStarted { get; set; }
     byte BitsPerSample { get; set; }
     byte BufferAmount { get; set; }
     byte ChannelCount { get; }
@@ -45,12 +47,37 @@ namespace VACARM.Domain.Models
 
     #region Logic
 
+    /// <summary>
+    /// Deconstructor
+    /// </summary>
+    /// <param name="id">The repeater ID</param>
+    /// <param name="inputDeviceId">The input device ID</param>
+    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="processId">The process ID</param>
+    /// <param name="bitsPerSample">The amount of bits per sample</param>
+    /// <param name="bufferAmount">The buffer amount</param>
+    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
+    /// <param name="channelConfig">The channel configuration</param>
+    /// <param name="channelList">The channel list</param>
+    /// <param name="channelMask">The channel mask</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="isStarted">True/false is the repeater started</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
+    /// <param name="prefillPercentage">The prefill percentage</param>
+    /// <param name="resyncAtPercentage">The resync at percentage</param>
+    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
+    /// <param name="startArguments">The start arguments</param>
+    /// <param name="stopArguments">The stop arguments</param>
+    /// <param name="windowName">The window name</param>
+    [ExcludeFromCodeCoverage]
     void Deconstruct
     (
       out uint id,
       out uint inputDeviceId,
       out uint outputDeviceId,
       out int? processId,
+      bool isStarted,
       out byte bitsPerSample,
       out byte bufferAmount,
       out byte prefillPercentage,

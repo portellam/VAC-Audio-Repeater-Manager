@@ -204,6 +204,7 @@ namespace VACARM.Domain.Models
     private uint inputDeviceId { get; set; }
     private uint outputDeviceId { get; set; }
     private int? processId { get; set; } = null;
+    private bool isStarted { get; set; } = false;
     private byte bitsPerSample { get; set; } = defaultBitsPerSample;
     private byte bufferAmount { get; set; } = defaultBufferAmount;
     private byte prefillPercentage { get; set; } = defaultPrefillPercentage;
@@ -252,6 +253,19 @@ namespace VACARM.Domain.Models
       {
         processId = value;
         OnPropertyChanged(nameof(ProcessId));
+      }
+    }
+
+    public bool IsStarted
+    {
+      get
+      {
+        return isStarted;
+      }
+      set
+      {
+        isStarted = value;
+        OnPropertyChanged(nameof(IsStarted));
       }
     }
 
@@ -745,6 +759,7 @@ namespace VACARM.Domain.Models
       string inputDeviceName,
       string outputDeviceName,
       string pathName,
+      bool isStarted,
       byte bitsPerSample,
       byte bufferAmount,
       byte prefillPercentage,
@@ -763,6 +778,7 @@ namespace VACARM.Domain.Models
       BufferAmount = bufferAmount;
       ChannelConfig = channelConfig;
       InputDeviceName = inputDeviceName;
+      IsStarted = isStarted;
       OutputDeviceName = outputDeviceName;
       PathName = pathName;
       PrefillPercentage = prefillPercentage;
@@ -770,35 +786,13 @@ namespace VACARM.Domain.Models
       SampleRateKHz = sampleRateKHz;
     }
 
-    /// <summary>
-    /// Deconstructor
-    /// </summary>
-    /// <param name="id">The repeater ID</param>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
-    /// <param name="processId">The process ID</param>
-    /// <param name="bitsPerSample">The amount of bits per sample</param>
-    /// <param name="bufferAmount">The buffer amount</param>
-    /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
-    /// <param name="channelConfig">The channel configuration</param>
-    /// <param name="channelList">The channel list</param>
-    /// <param name="channelMask">The channel mask</param>
-    /// <param name="inputDeviceName">The input device name</param>
-    /// <param name="outputDeviceName">The output device name</param>
-    /// <param name="pathName">The path name</param>
-    /// <param name="prefillPercentage">The prefill percentage</param>
-    /// <param name="resyncAtPercentage">The resync at percentage</param>
-    /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
-    /// <param name="startArguments">The start arguments</param>
-    /// <param name="stopArguments">The stop arguments</param>
-    /// <param name="windowName">The window name</param>
-    [ExcludeFromCodeCoverage]
     public void Deconstruct
     (
       out uint id,
       out uint inputDeviceId,
       out uint outputDeviceId,
       out int? processId,
+      bool isStarted,
       out byte bitsPerSample,
       out byte bufferAmount,
       out byte prefillPercentage,
@@ -827,6 +821,7 @@ namespace VACARM.Domain.Models
       channelList = ChannelList;
       channelMask = ChannelMask;
       inputDeviceName = InputDeviceName;
+      isStarted = IsStarted;
       outputDeviceName = OutputDeviceName;
       pathName = PathName;
       prefillPercentage = PrefillPercentage;
