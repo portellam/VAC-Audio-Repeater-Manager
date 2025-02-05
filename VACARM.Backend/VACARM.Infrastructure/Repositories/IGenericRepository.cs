@@ -16,7 +16,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// The maximum count of <typeparamref name="T"/> item(s).
     /// </summary>
-    int MaxCount { get; }
+    int MaxCount { get; set; }
 
     #endregion
 
@@ -67,6 +67,24 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="item">The enumerable of item(s)</param>
     void AddRange(IEnumerable<T> enumerable);
+
+    /// <summary>
+    /// Remove a <typeparamref name="T"/> item.
+    /// </summary>
+    /// <param name="item">The item</param>
+    void Remove(T item);
+
+    /// <summary>
+    /// Remove an enumerable of some <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    void RemoveRange(Func<T, bool> func);
+
+    /// <summary>
+    /// Remove an enumerable of some <typeparamref name="T"/> item(s).
+    /// </summary>
+    /// <param name="item">The enumerable of item(s)</param>
+    void RemoveRange(IEnumerable<T> enumerable);
 
     /// <summary>
     /// Remove an enumerable of all <typeparamref name="T"/> item(s).

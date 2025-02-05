@@ -11,13 +11,20 @@ namespace VACARM.Infrastructure.Repositories
     #region Parameters
 
     private IEnumerable<T> enumerable { get; set; }
+    private int maxCount { get; set; } = int.MaxValue;
 
     public virtual int MaxCount
     {
       get
       {
-        return int.MaxValue;
+        return maxCount;
       }
+      set
+      {
+        maxCount = value;
+        OnPropertyChanged(nameof(MaxCount));
+      }
+
     }
 
     public virtual IEnumerable<T> Enumerable
@@ -91,16 +98,31 @@ namespace VACARM.Infrastructure.Repositories
 
     public T? Get(Func<T, bool> func)
     {
+      if (IsNullOrEmpty(Enumerable))
+      {
+        return null;
+      }
+
       return Enumerable.FirstOrDefault(func);
     }
 
     public IEnumerable<T> GetAll()
     {
+      if (IsNullOrEmpty(Enumerable))
+      {
+        return Array.Empty<T>();
+      }
+
       return Enumerable.AsEnumerable();
     }
 
     public IEnumerable<T> GetRange(Func<T, bool> func)
     {
+      if (IsNullOrEmpty(Enumerable))
+      {
+        return Array.Empty<T>();
+      }
+
       return Enumerable
         .Where(x => func(x))
         .AsEnumerable();
@@ -152,6 +174,46 @@ namespace VACARM.Infrastructure.Repositories
       {
         Add(t);
       }
+    }
+
+    public void Remove(T item)
+    {
+      if (IsNullOrEmpty(Enumerable))
+      {
+        return;
+      }
+
+      Enumerable = Enumerable.Where(x => x != item);
+    }
+
+    public void RemoveRange(Func<T, bool> func)
+    {
+      if (IsNullOrEmpty(Enumerable))
+      {
+        return;
+      }
+
+      if (func == null)
+      {
+        return;
+      }
+
+      Enumerable = Enumerable.Where(func);
+    }
+
+    public void RemoveRange(IEnumerable<T> enumerable)
+    {
+      if (IsNullOrEmpty(Enumerable))
+      {
+        return;
+      }
+
+      if (IsNullOrEmpty(enumerable))
+      {
+        return;
+      }
+
+      Enumerable = Enumerable.Where(x => !enumerable.Contains(x));
     }
 
     public void RemoveAll()

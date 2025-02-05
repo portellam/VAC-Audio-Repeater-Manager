@@ -6,6 +6,39 @@ namespace VACARM.Infrastructure.Repositories
     GenericListRepository<T>,
     IBaseRepository<T> where T : BaseModel
   {
+    #region Parameters
+
+    /// <summary>
+    /// The list of IDs.
+    /// </summary>
+    private List<uint> IdList
+    {
+      get
+      {
+        List<uint> idList = List
+          .Select(x => x.Id)
+          .ToList();
+
+        idList.Order();
+        return idList;
+      }
+    }
+
+    /// <summary>
+    /// The next valid ID.
+    /// </summary>
+    private uint NextId
+    {
+      get
+      {
+        uint id = IdList.Max();
+        id++;
+        return id;
+      }
+    }
+
+    #endregion
+
     #region Logic
 
     /// <summary>
@@ -14,6 +47,60 @@ namespace VACARM.Infrastructure.Repositories
     public BaseRepository()
     {
       List = new List<T>();
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="maxCount">The maximum count of item(s)</param>
+    public BaseRepository(int maxCount)
+    {
+      List = new List<T>();
+      MaxCount = maxCount;
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="list">The list of item(s)</param>
+    public BaseRepository(List<T> list)
+    {
+      List = list;
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="list">The list of item(s)</param>
+    /// <param name="maxCount">The maximum count of item(s)</param>
+    public BaseRepository
+    (
+      List<T> list,
+      int maxCount
+    )
+    {
+      List = list;
+      MaxCount = maxCount;
+    }
+
+    public void Add(IBaseModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      if (List.Contains(model))
+      {
+        return;
+      }
+
+      if (IdList.Contains(model.Id))
+      {
+        model.Id = NextId;
+      }
+
+      Add(model);
     }
 
     public IBaseModel? Get(uint id)
