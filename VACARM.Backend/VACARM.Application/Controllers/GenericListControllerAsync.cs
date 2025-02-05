@@ -3,9 +3,9 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public partial class GenericController<T1, T2> :
-    IGenericController<T1, T2> where T1 :
-    GenericRepository<T2> where T2 :
+  public partial class GenericListController<T1, T2> :
+    IGenericListController<T1, T2> where T1 :
+    GenericListRepository<T2> where T2 :
     class
   {
     #region Logic

@@ -5,9 +5,9 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public partial class GenericController<T1, T2> : 
-    IGenericController<T1, T2> where T1 :
-    GenericRepository<T2> where T2 :
+  public partial class GenericListController<T1, T2> : 
+    IGenericListController<T1, T2> where T1 :
+    GenericListRepository<T2> where T2 :
     class
   {
     #region Parameters
@@ -59,7 +59,7 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public GenericController()
+    public GenericListController()
     {
       Repository = new GenericRepository<T2>();
     }
@@ -68,7 +68,7 @@ namespace VACARM.Application.Controllers
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public GenericController(IGenericRepository<T2> repository)
+    public GenericListController(IGenericRepository<T2> repository)
     {
       Repository = repository;
     }
