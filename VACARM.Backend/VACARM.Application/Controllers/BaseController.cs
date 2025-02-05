@@ -6,10 +6,10 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Controllers
 {
   public class BaseController<T1, T2> :
-  GenericListController<T1, T2>,
-  IBaseController<T1, T2> where T1 :
-  BaseRepository<T2> where T2 :
-  BaseModel
+    GenericListController<T1, T2>,
+    IBaseController<T1, T2> where T1 :
+    BaseRepository<T2> where T2 :
+    BaseModel
   {
     #region Parameters
 
