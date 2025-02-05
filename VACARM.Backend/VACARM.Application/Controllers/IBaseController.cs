@@ -5,9 +5,9 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Controllers
 {
   public interface IBaseController<T1, T2> :
-  IGenericListController<T1, T2> where T1 :
-  IBaseRepository<T2> where T2 :
-  BaseModel
+    IGenericListController<T1, T2> where T1 :
+    IBaseRepository<T2> where T2 :
+    BaseModel
   {
     #region Parameters
 
