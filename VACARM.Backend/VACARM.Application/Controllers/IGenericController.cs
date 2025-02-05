@@ -104,12 +104,6 @@ namespace VACARM.Application.Controllers
     void Remove(T2 item);
 
     /// <summary>
-    /// Remove a <typeparamref name="T2"/> item.
-    /// </summary>
-    /// <param name="func">The function</param>
-    void Remove(Func<T2, bool> func);
-
-    /// <summary>
     /// Remove an enumerable of all <typeparamref name="T2"/> item(s).
     /// </summary>
     void RemoveAll();
@@ -125,37 +119,6 @@ namespace VACARM.Application.Controllers
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     void RemoveRange(IEnumerable<T2> enumerable);
-
-    /// <summary>
-    /// Update a <typeparamref name="T2"/> item.
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <param name="item">The item</param>
-    void Update
-    (
-      Func<T2, bool> func,
-      T2 item
-    );
-
-    /// <summary>
-    /// Update an enumerable of some <typeparamref name="T2"/> item(s).
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <param name="item">The item</param>
-    void UpdateRange
-    (
-       Func<T2, bool> func,
-       T2 item
-    );
-
-    /// <summary>
-    /// Update an enumerable of all <typeparamref name="T2"/> item(s).
-    /// </summary>
-    /// <param name="item">The item</param>
-    void UpdateAll
-    (
-      T2 item
-    );
 
     #endregion
   }
