@@ -524,7 +524,7 @@ namespace VACARM.Domain.Models
       get
       {
         return $"start " +
-          $"/min \"{Info.ExpectedExecutableFullPathName}\" \"{PathName}\" " +
+          $"/min \"{Info.ExpectedExecutablePathName}\" \"{PathName}\" " +
           $"/Input:\"{InputDeviceName}\" " +
           $"/Output:\"{OutputDeviceName}\" " +
           $"/SampleRate:{SampleRateKHz} " +
@@ -547,7 +547,7 @@ namespace VACARM.Domain.Models
       get
       {
         return
-          $"start \"{Info.ExpectedExecutableFullPathName}\" " +
+          $"start \"{Info.ExpectedExecutablePathName}\" " +
           $"\"{PathName}\" " +
           $"/CloseInstance:\"{WindowName}\"";
       }
