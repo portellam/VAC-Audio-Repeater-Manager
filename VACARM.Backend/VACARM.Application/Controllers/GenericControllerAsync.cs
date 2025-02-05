@@ -3,7 +3,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public partial class GenericControllerAsync<T1, T2> : 
+  public partial class GenericController<T1, T2> :
     IGenericController<T1, T2> where T1 :
     GenericRepository<T2> where T2 :
     class
