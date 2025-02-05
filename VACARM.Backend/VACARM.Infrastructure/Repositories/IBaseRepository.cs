@@ -13,7 +13,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    IBaseModel? Get(uint id);
+    BaseModel? Get(uint id);
 
     /// <summary>
     /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
@@ -21,7 +21,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<IBaseModel> GetRange
+    IEnumerable<BaseModel> GetRange
     (
       uint startId,
       uint endId
@@ -32,13 +32,13 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<IBaseModel> GetRange(IEnumerable<uint> idEnumerable);
+    IEnumerable<BaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
     /// Add a <typeparamref name="BaseModel"/> item.
     /// </summary>
     /// <param name="model"></param>
-    void Add(IBaseModel model);
+    void Add(BaseModel model);
 
     /// <summary>
     /// Remove a <typeparamref name="BaseModel"/> item.
@@ -77,7 +77,7 @@ namespace VACARM.Infrastructure.Repositories
     void Update
     (
       uint id,
-      IBaseModel model
+      BaseModel model
     );
 
     /// <summary>
@@ -88,7 +88,7 @@ namespace VACARM.Infrastructure.Repositories
     void UpdateRange
     (
        IEnumerable<uint> idEnumerable,
-       IBaseModel model
+       BaseModel model
     );
 
     #endregion

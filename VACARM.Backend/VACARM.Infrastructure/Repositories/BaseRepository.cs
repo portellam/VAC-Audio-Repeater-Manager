@@ -83,7 +83,7 @@ namespace VACARM.Infrastructure.Repositories
       MaxCount = maxCount;
     }
 
-    public void Add(IBaseModel model)
+    public void Add(BaseModel model)
     {
       if (model == null)
       {
@@ -103,40 +103,40 @@ namespace VACARM.Infrastructure.Repositories
       Add(model);
     }
 
-    public IBaseModel? Get(uint id)
+    public BaseModel? Get(uint id)
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
       return Get(func);
     }
 
-    public IEnumerable<IBaseModel> GetRange
+    public IEnumerable<BaseModel> GetRange
     (
       uint startId,
       uint endId
     )
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) =>
+      Func<BaseModel, bool> func = (BaseModel x) =>
         x.Id >= startId
         && x.Id <= endId;
 
       return GetRange(func);
     }
 
-    public IEnumerable<IBaseModel> GetRange(IEnumerable<uint> idEnumerable)
+    public IEnumerable<BaseModel> GetRange(IEnumerable<uint> idEnumerable)
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) => idEnumerable.Contains(x.Id);
+      Func<BaseModel, bool> func = (BaseModel x) => idEnumerable.Contains(x.Id);
       return GetRange(func);
     }
 
     public void Remove(uint id)
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
       Remove(func);
     }
 
     public void RemoveRange(uint id)
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
       RemoveRange(func);
     }
 
@@ -146,7 +146,7 @@ namespace VACARM.Infrastructure.Repositories
       uint endId
     )
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) =>
+      Func<BaseModel, bool> func = (BaseModel x) =>
         x.Id >= startId
         && x.Id <= endId;
 
@@ -155,17 +155,17 @@ namespace VACARM.Infrastructure.Repositories
 
     public void RemoveRange(IEnumerable<uint> idEnumerable)
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) => idEnumerable.Contains(x.Id);
+      Func<BaseModel, bool> func = (BaseModel x) => idEnumerable.Contains(x.Id);
       RemoveRange(func);
     }
 
     public void Update
     (
       uint id,
-      IBaseModel model
+      BaseModel model
     )
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) => x.Id == id;
+      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
 
       Update
       (
@@ -177,10 +177,10 @@ namespace VACARM.Infrastructure.Repositories
     public void UpdateRange
     (
        IEnumerable<uint> idEnumerable,
-       IBaseModel model
+       BaseModel model
     )
     {
-      Func<IBaseModel, bool> func = (IBaseModel x) => idEnumerable.Contains(x.Id);
+      Func<BaseModel, bool> func = (BaseModel x) => idEnumerable.Contains(x.Id);
 
       UpdateRange
       (
