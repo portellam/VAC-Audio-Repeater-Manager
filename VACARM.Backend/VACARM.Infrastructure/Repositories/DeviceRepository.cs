@@ -6,9 +6,9 @@ namespace VACARM.Infrastructure.Repositories
   /// <summary>
   /// A snapshot repository of system audio devices.
   /// </summary>
-  public class DeviceRepository :
+  public class DeviceRepository<T> :
     BaseRepository<DeviceModel>,
-    IDeviceRepository
+    IDeviceRepository<DeviceModel>
   {
     #region Logic
 

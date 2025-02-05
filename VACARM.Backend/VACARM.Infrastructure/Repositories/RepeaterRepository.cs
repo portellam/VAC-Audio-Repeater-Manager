@@ -4,11 +4,11 @@ using VACARM.Domain.Models;
 namespace VACARM.Infrastructure.Repositories
 {
   /// <summary>
-  /// A snapshot of audio device repeaters.
+  /// A snapshot repository of audio device repeaters.
   /// </summary>
-  public class RepeaterRepository :
+  public class RepeaterRepository<T> :
     BaseRepository<RepeaterModel>,
-    IRepeaterRepository
+    IRepeaterRepository<RepeaterModel>
   {
     #region Logic
 
