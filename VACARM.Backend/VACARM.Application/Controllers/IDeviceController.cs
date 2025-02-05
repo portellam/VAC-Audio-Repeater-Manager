@@ -1,11 +1,12 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  /// <summary>
-  /// The wrapper which intersects audio device APIs.
-  /// </summary>
-  public interface IDeviceController : IGenericController<DeviceModel>
+  public interface IDeviceController<T1, T2> :
+    IBaseController<T1, T2> where T1 :
+    IDeviceRepository<T2> where T2 :
+    DeviceModel
   {
     #region Logic
 
