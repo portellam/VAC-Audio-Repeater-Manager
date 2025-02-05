@@ -5,7 +5,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public partial class GenericControllerAsync<T1, T2> : 
+  public partial class GenericController<T1, T2> : 
     IGenericController<T1, T2> where T1 :
     GenericRepository<T2> where T2 :
     class
@@ -59,7 +59,7 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public GenericControllerAsync()
+    public GenericController()
     {
       Repository = new GenericRepository<T2>();
     }
@@ -68,7 +68,7 @@ namespace VACARM.Application.Controllers
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public GenericControllerAsync(IGenericRepository<T2> repository)
+    public GenericController(IGenericRepository<T2> repository)
     {
       Repository = repository;
     }
