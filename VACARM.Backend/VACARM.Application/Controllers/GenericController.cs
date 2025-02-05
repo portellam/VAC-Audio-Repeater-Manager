@@ -1,17 +1,21 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public class GenericController<T> : IGenericController<T> where T : class
+  public partial class GenericControllerAsync<T1, T2> : 
+    IGenericController<T1, T2> where T1 :
+    GenericRepository<T2> where T2 :
+    class
   {
     #region Parameters
 
-    private IGenericRepository<T> repository { get; set; } =
-      new GenericRepository<T>();
+    private IGenericRepository<T2> repository { get; set; } =
+      new GenericRepository<T2>();
 
-    internal IGenericRepository<T> Repository
+    internal IGenericRepository<T2> Repository
     {
       get
       {
@@ -20,7 +24,7 @@ namespace VACARM.Application.Controllers
       set
       {
         repository = value;
-        OnPropertyChanged(nameof(repository));
+        OnPropertyChanged(nameof(Repository));
       }
     }
 
@@ -55,192 +59,49 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public GenericController()
+    public GenericControllerAsync()
     {
-      Repository = new GenericRepository<T>();
+      Repository = new GenericRepository<T2>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public GenericController(IGenericRepository<T> repository)
+    public GenericControllerAsync(IGenericRepository<T2> repository)
     {
       Repository = repository;
     }
 
-    public T? Get(Func<T, bool> func)
+    public T2? Get(Func<T2, bool> func)
     {
       return Repository.Get(func);
     }
 
-    public IEnumerable<T> GetAll()
+    public IEnumerable<T2> GetAll()
     {
       return Repository.GetAll();
     }
 
-    public IEnumerable<T> GetRange(Func<T, bool> func)
+    public IEnumerable<T2> GetRange(Func<T2, bool> func)
     {
       return Repository.GetRange(func);
     }
 
-    public async Task<bool> DoWorkAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      Func<T, bool> matchFunc
-    )
+    public void Add(T2 item)
     {
-      if (actionFunc == null)
-      {
-        return false;
-      }
-
-      if (matchFunc == null)
-      {
-        return false;
-      }
-
-      var t = Repository.Get(matchFunc);
-
-      if (t == null)
-      {
-        return false;
-      }
-
-      return await actionFunc(t)
-        .ConfigureAwait(false);
+      Repository.Add(item);
     }
 
-    public async Task<bool> DoWorkAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      T t
-    )
-    {
-      if (actionFunc == null)
-      {
-        return false;
-      }
-
-      if (t == null)
-      {
-        return false;
-      }
-
-      return await actionFunc(t)
-        .ConfigureAwait(false);
-    }
-
-    public async IAsyncEnumerable<bool> DoWorkAllAsync
-    (Func<T, Task<bool>> actionFunc)
-    {
-      if (actionFunc == null)
-      {
-        yield return false;
-      }
-
-      foreach (var t in GetAll())
-      {
-        if (t == null)
-        {
-          continue;
-        }
-
-        Task<bool> task = Task.Run(() => actionFunc(t));
-        await task.ConfigureAwait(false);
-        yield return task.Result;
-      }
-    }
-
-    public async IAsyncEnumerable<bool> DoWorkRangeAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      IEnumerable<T> enumerable
-    )
-    {
-      if (actionFunc == null)
-      {
-        yield return false;
-      }
-
-      if (enumerable == null)
-      {
-        yield return false;
-      }
-
-      if (enumerable.Count() == 0)
-      {
-        yield return false;
-      }
-
-      foreach (var t in enumerable)
-      {
-        if (t == null)
-        {
-          continue;
-        }
-
-        Task<bool> task = Task.Run(() => actionFunc(t));
-        await task.ConfigureAwait(false);
-        yield return task.Result;
-      }
-    }
-
-    public async IAsyncEnumerable<bool> DoWorkRangeAsync
-    (
-      Func<T, Task<bool>> actionFunc,
-      Func<T, bool> matchFunc
-    )
-    {
-      if (actionFunc == null)
-      {
-        yield return false;
-      }
-
-      if (matchFunc == null)
-      {
-        yield return false;
-      }
-
-      var enumerable = Repository.GetRange(matchFunc);
-
-      if (enumerable == null)
-      {
-        yield return false;
-      }
-
-      if (enumerable.Count() == 0)
-      {
-        yield return false;
-      }
-
-      foreach (var t in enumerable)
-      {
-        if (t == null)
-        {
-          continue;
-        }
-
-        Task<bool> task = Task.Run(() => actionFunc(t));
-        await task.ConfigureAwait(false);
-        yield return task.Result;
-      }
-    }
-
-    public void Add(T t)
-    {
-      Repository.Add(t);
-    }
-
-    public void AddRange(IEnumerable<T> enumerable)
+    public void AddRange(IEnumerable<T2> enumerable)
     {
       Repository.AddRange(enumerable);
     }
 
     public void DoWork
     (
-      Action<T> action,
-      Func<T, bool> func
+      Action<T2> action,
+      Func<T2, bool> func
     )
     {
       if (action == null)
@@ -253,19 +114,19 @@ namespace VACARM.Application.Controllers
         return;
       }
 
-      var t = Repository.Get(func);
+      var item = Repository.Get(func);
 
       DoWork
       (
         action,
-        t
+        item
       );
     }
 
     public void DoWork
     (
-      Action<T> action,
-      T t
+      Action<T2> action,
+      T2 item
     )
     {
       if (action == null)
@@ -273,61 +134,56 @@ namespace VACARM.Application.Controllers
         return;
       }
 
-      if (t == null)
+      if (item == null)
       {
         return;
       }
 
-      action(t);
+      action(item);
     }
 
-    public void DoWorkAll(Action<T> action)
+    public void DoWorkAll(Action<T2> action)
     {
       if (action == null)
       {
         return;
       }
 
-      foreach (var t in GetAll())
+      foreach (var item in GetAll())
       {
         DoWork
         (
           action,
-          t
+          item
         );
       }
     }
 
     public void DoWorkRange
     (
-      Action<T> action,
-      IEnumerable<T> enumerable
+      Action<T2> action,
+      IEnumerable<T2> enumerable
     )
     {
-      if (enumerable == null)
+      if (IEnumerableExtension<T2>.IsNullOrEmpty(enumerable))
       {
         return;
       }
 
-      if (enumerable.Count() == 0)
-      {
-        return;
-      }
-
-      foreach (var t in enumerable)
+      foreach (var item in enumerable)
       {
         DoWork
         (
           action,
-          t
+          item
         );
       }
     }
 
     public void DoWorkRange
     (
-      Action<T> action,
-      Func<T, bool> func
+      Action<T2> action,
+      Func<T2, bool> func
     )
     {
       if (action == null)
@@ -347,14 +203,9 @@ namespace VACARM.Application.Controllers
       );
     }
 
-    public void Remove(T t)
+    public void Remove(T2 item)
     {
-      Repository.Remove(t);
-    }
-
-    public void Remove(Func<T, bool> func)
-    {
-      Repository.Remove(func);
+      Repository.Remove(item);
     }
 
     public void RemoveAll()
@@ -362,17 +213,14 @@ namespace VACARM.Application.Controllers
       Repository.RemoveAll();
     }
 
-    public void RemoveRange(Func<T, bool> func)
+    public void RemoveRange(Func<T2, bool> func)
     {
       RemoveRange(func);
     }
 
-    public void RemoveRange(IEnumerable<T> enumerable)
+    public void RemoveRange(IEnumerable<T2> enumerable)
     {
-      foreach (var t in enumerable)
-      {
-        Remove(t);
-      }
+      Repository.RemoveRange(enumerable);
     }
 
     #endregion
