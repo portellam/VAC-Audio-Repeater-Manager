@@ -1,8 +1,13 @@
-﻿using AudioSwitcher.AudioApi.CoreAudio;
+﻿using AudioSwitcher.AudioApi;
+using AudioSwitcher.AudioApi.CoreAudio;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public interface ICoreAudioControllerWrapper
+  public interface ICoreAudioController<T1, T2> :
+    IGenericListController<IGenericListRepository<T2>, T2> where T1 :
+    ICoreAudioRepository<T2> where T2 :
+    Device
   {
     #region
 

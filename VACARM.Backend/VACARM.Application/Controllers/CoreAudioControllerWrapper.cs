@@ -1,10 +1,21 @@
 ﻿using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
+using NAudio.CoreAudioApi;
 using VACARM.Application.Commands;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public class CoreAudioControllerWrapper : ICoreAudioControllerWrapper
+  /// <summary>
+  /// A controller for the <typeparamref name="CoreAudioRepository"/>.
+  /// </summary>
+  /// <typeparam name="T1">The repository</typeparam>
+  /// <typeparam name="T2">The item</typeparam>
+  public class CoreAudioControllerWrapper<T1, T2> :
+    GenericListController<GenericListRepository<T2>, T2>,
+    ICoreAudioController<CoreAudioRepository<T2>, T2> where T1 :
+    CoreAudioRepository<T2> where T2 :
+    Device
   {
     #region Parameters
 
