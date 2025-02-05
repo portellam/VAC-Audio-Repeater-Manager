@@ -4,14 +4,30 @@
   {
     #region Parameters
 
-    public static bool DoIgnoreSafeMaxRepeaterCount = false;
-    public static bool DoIgnoreMaxLegacyEndpointCount = false;
+    /// <summary>
+    /// Safe maximum amount of virtual endpoints (virtual audio cables) for VAC.
+    /// </summary>
+    public readonly static uint SafeMaxVirtualEndpointCount = 10;
 
     /// <summary>
-    /// Limit the maximum amount of endpoints (audio devices).
-    /// Note: Windows NT 6.x and newer does not have a maximum amount of endpoints.
+    /// Unsafe maximum amount of virtual endpoints (virtual audio cables) for VAC.
     /// </summary>
-    public static uint MaxEndpointCount
+    public readonly static uint UnsafeMaxVirtualEndpointCount = 100;
+
+    /// <summary>
+    /// Maximum amount of endpoints (audio devices) for Windows 5.x and older.
+    /// </summary>
+    public readonly static uint WindowsNT5MaxEndpointCount = 32;
+
+    public static bool DoIgnoreSafeMaxRepeaterCount { get; set; } = false;
+    public static bool DoIgnoreMaxLegacyEndpointCount { get; set; } = false;
+
+    /// <summary>
+    /// Limit the maximum amount of virtual endpoints (virtual audio cables).
+    /// Note: Windows NT 6.x and newer does not have a maximum amount of actual 
+    /// endpoints.
+    /// </summary>
+    public static uint MaxVirtualEndpointCount
     {
       get
       {
@@ -24,7 +40,7 @@
           return WindowsNT5MaxEndpointCount;
         }
 
-        return AudioRepeaterManagerMaxVirtualEndpointCount;
+        return SafeMaxVirtualEndpointCount;
       }
     }
 
@@ -47,17 +63,19 @@
     /// <summary>
     /// Arbitrary maximum amount of repeaters.
     /// </summary>
-    public readonly static uint SafeMaxRepeaterCount = 1024;
+    public static uint SafeMaxRepeaterCount { get; } =
+      UnsafeMaxVirtualEndpointCount / 2;
 
     /// <summary>
-    /// Maximum amount of virtual endpoints (virtual audio cables) for VAC.
+    /// Arbitrary maximum amount of repeaters.
     /// </summary>
-    public readonly static uint AudioRepeaterManagerMaxVirtualEndpointCount = 256;
-
-    /// <summary>
-    /// Maximum amount of endpoints (audio devices) for Windows 5.x and older.
-    /// </summary>
-    public readonly static uint WindowsNT5MaxEndpointCount = 32;
+    public static uint UnsafeMaxRepeaterCount
+    {
+      get
+      {
+        return UnsafeMaxVirtualEndpointCount * 2;
+      }
+    }
 
     #endregion
   }
