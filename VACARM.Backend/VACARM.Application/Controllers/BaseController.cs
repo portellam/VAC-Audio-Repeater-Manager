@@ -5,39 +5,24 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Controllers
 {
-  public class BaseController<T> :
-    GenericController<T>,
-    IBaseController<BaseModel> where T :
-    BaseModel
+  public class BaseController<T1, T2> :
+  GenericListController<T1, T2>,
+  IBaseController<T1, T2> where T1 :
+  BaseRepository<T2> where T2 :
+  BaseModel
   {
     #region Parameters
 
-    private GenericController<BaseModel> genericController { get; set; } =
-      new GenericController<BaseModel>();
-
-    private GenericController<BaseModel> GenericController
+    internal BaseRepository<T2> BaseRepository
     {
       get
       {
-        return genericController;
+        return (BaseRepository<T2>)Repository;
       }
       set
       {
-        genericController = value;
-        OnPropertyChanged(nameof(GenericController));
-      }
-    }
-
-    internal BaseRepository<BaseModel> Repository
-    {
-      get
-      {
-        return (BaseRepository<BaseModel>)GenericController.Repository;
-      }
-      set
-      {
-        GenericController.Repository = value;
-        OnPropertyChanged(nameof(Repository));
+        Repository = value;
+        OnPropertyChanged(nameof(BaseRepository));
       }
     }
 
@@ -74,26 +59,25 @@ namespace VACARM.Application.Controllers
     /// </summary>
     public BaseController()
     {
-      GenericRepository<BaseModel> repository = new BaseRepository<BaseModel>();
-      GenericController = new GenericController<BaseModel>(repository);
+      Repository = new BaseRepository<T2>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    public BaseController(BaseRepository<BaseModel> repository)
+    public BaseController(BaseRepository<T2> repository)
     {
-      GenericController = new GenericController<BaseModel>(repository);
+      BaseRepository = repository;
     }
 
     public BaseModel? Get(uint id)
     {
-      return Repository.Get(id);
+      return BaseRepository.Get(id);
     }
 
     public IEnumerable<BaseModel> GetRange(List<uint> idList)
     {
-      return Repository.GetRange(idList);
+      return BaseRepository.GetRange(idList);
     }
 
     public IEnumerable<BaseModel> GetRange
@@ -102,7 +86,7 @@ namespace VACARM.Application.Controllers
       uint endId
     )
     {
-      return Repository.GetRange
+      return BaseRepository.GetRange
         (
           startId,
           endId
