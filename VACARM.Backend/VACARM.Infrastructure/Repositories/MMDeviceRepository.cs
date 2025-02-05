@@ -6,7 +6,7 @@ using NAudio.CoreAudioApi;
 namespace VACARM.Infrastructure.Repositories
 {
   /// <summary>
-  /// A up-to-date repository of all system audio devices.
+  /// An up-to-date repository of all system audio devices.
   /// </summary>
   public class MMDeviceRepository<T> :
     GenericRepository<T>,
