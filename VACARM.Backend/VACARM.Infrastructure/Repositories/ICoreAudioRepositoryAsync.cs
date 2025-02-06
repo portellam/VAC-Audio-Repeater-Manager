@@ -1,6 +1,5 @@
 ﻿using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
-using NAudio.CoreAudioApi;
 
 namespace VACARM.Infrastructure.Repositories
 {
