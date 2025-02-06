@@ -1,4 +1,5 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -44,6 +45,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public BaseRepository()
     {
       List = new List<T>();
@@ -53,6 +55,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     /// <param name="maxCount">The maximum count of item(s)</param>
+    [ExcludeFromCodeCoverage]
     public BaseRepository(int maxCount)
     {
       List = new List<T>();
@@ -63,6 +66,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     /// <param name="list">The list of item(s)</param>
+    [ExcludeFromCodeCoverage]
     public BaseRepository(List<T> list)
     {
       List = list;
@@ -73,6 +77,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="list">The list of item(s)</param>
     /// <param name="maxCount">The maximum count of item(s)</param>
+    [ExcludeFromCodeCoverage]
     public BaseRepository
     (
       List<T> list,
