@@ -9,11 +9,6 @@ namespace VACARM.Infrastructure.Repositories
     event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
-    /// The enumerable of all <typeparamref name="T"/> item(s).
-    /// </summary>
-    IEnumerable<T> Enumerable { get; set; }
-
-    /// <summary>
     /// The maximum count of <typeparamref name="T"/> item(s).
     /// </summary>
     int MaxCount { get; set; }
@@ -75,6 +70,11 @@ namespace VACARM.Infrastructure.Repositories
     void Remove(T item);
 
     /// <summary>
+    /// Remove an enumerable of all <typeparamref name="T"/> item(s).
+    /// </summary>
+    void RemoveAll();
+
+    /// <summary>
     /// Remove an enumerable of some <typeparamref name="T"/> item(s).
     /// </summary>
     /// <param name="func">The function</param>
@@ -85,11 +85,6 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="item">The enumerable of item(s)</param>
     void RemoveRange(IEnumerable<T> enumerable);
-
-    /// <summary>
-    /// Remove an enumerable of all <typeparamref name="T"/> item(s).
-    /// </summary>
-    void RemoveAll();
 
     #endregion
   }

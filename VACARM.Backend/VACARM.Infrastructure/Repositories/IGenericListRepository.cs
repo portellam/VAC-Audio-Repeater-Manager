@@ -6,7 +6,7 @@
   {
     #region Parameters
 
-    IList<T> List { get; set; }
+    List<T> List { get; set; }
 
     #endregion
 

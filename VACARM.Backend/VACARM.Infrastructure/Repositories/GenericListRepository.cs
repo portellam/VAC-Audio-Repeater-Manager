@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using VACARM.Infrastructure.Extensions;
+﻿using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -14,46 +12,22 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// The list of all <typeparamref name="T"/> item(s).
     /// </summary>
-    public IList<T> List
+    public virtual List<T> List
     {
       get
       {
-        return Enumerable.ToList();
+        return base.Enumerable.ToList();
       }
       set
       {
-        Enumerable = value;
+        base.Enumerable = value;
         OnPropertyChanged(nameof(List));
       }
     }
 
-    public new event PropertyChangedEventHandler PropertyChanged;
-
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
-    {
-      PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
-    }
 
     /// <summary>
     /// Constructor
@@ -203,6 +177,16 @@ namespace VACARM.Infrastructure.Repositories
         );
     }
 
+    public override void Remove(T item)
+    {
+      if (IsNullOrEmpty(List))
+      {
+        return;
+      }
+
+      List.Remove(item);
+    }
+
     public void Remove(int index)
     {
       if (IsValidIndex(index))
@@ -212,15 +196,7 @@ namespace VACARM.Infrastructure.Repositories
 
       List.RemoveAt(index);
     }
-    public void Remove(T item)
-    {
-      if (IsNullOrEmpty(List))
-      {
-        return;
-      }
 
-      List.Remove(item);
-    }
     public void Remove(Func<T, bool> func)
     {
       if (IsNullOrEmpty(List))
@@ -243,7 +219,7 @@ namespace VACARM.Infrastructure.Repositories
       Remove(item);
     }
 
-    public void RemoveRange(Func<T, bool> func)
+    public override void RemoveRange(Func<T, bool> func)
     {
       if (IsNullOrEmpty(List))
       {
@@ -262,6 +238,24 @@ namespace VACARM.Infrastructure.Repositories
       RemoveRange(list);
     }
 
+    public override void RemoveRange(IEnumerable<T> enumerable)
+    {
+      if (IsNullOrEmpty(List))
+      {
+        return;
+      }
+
+      if (IsNullOrEmpty(enumerable))
+      {
+        return;
+      }
+
+      foreach (var t in enumerable)
+      {
+        Remove(t);
+      }
+    }
+
     public void RemoveRange(IEnumerable<int> indexEnumerable)
     {
       if (IsNullOrEmpty(List))
@@ -277,24 +271,6 @@ namespace VACARM.Infrastructure.Repositories
       foreach (var index in indexEnumerable)
       {
         Remove(index);
-      }
-    }
-
-    public void RemoveRange(IEnumerable<T> enumerable)
-    {
-      if (IsNullOrEmpty(List))
-      {
-        return;
-      }
-
-      if (IsNullOrEmpty(enumerable))
-      {
-        return;
-      }
-
-      foreach (var t in enumerable)
-      {
-        Remove(t);
       }
     }
 
@@ -418,7 +394,6 @@ namespace VACARM.Infrastructure.Repositories
           );
       }
     }
-
 
     #endregion
   }

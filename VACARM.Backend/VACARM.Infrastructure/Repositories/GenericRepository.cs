@@ -10,6 +10,22 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
+    /// <summary>
+    /// The enumerable of all <typeparamref name="T"/> item(s).
+    /// </summary>
+    internal virtual IEnumerable<T> Enumerable
+    {
+      get
+      {
+        return enumerable;
+      }
+      set
+      {
+        enumerable = value;
+        OnPropertyChanged(nameof(Enumerable));
+      }
+    }
+
     private IEnumerable<T> enumerable { get; set; }
     private int maxCount { get; set; } = int.MaxValue;
 
@@ -24,23 +40,9 @@ namespace VACARM.Infrastructure.Repositories
         maxCount = value;
         OnPropertyChanged(nameof(MaxCount));
       }
-
     }
 
-    public virtual IEnumerable<T> Enumerable
-    {
-      get
-      {
-        return enumerable;
-      }
-      set
-      {
-        enumerable = value;
-        OnPropertyChanged(nameof(Enumerable));
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
+    public virtual event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
@@ -50,7 +52,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Logs event when property has changed.
     /// </summary>
     /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
+    internal void OnPropertyChanged(string propertyName)
     {
       PropertyChanged?.Invoke
       (
@@ -176,7 +178,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public void Remove(T item)
+    public virtual void Remove(T item)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -186,7 +188,12 @@ namespace VACARM.Infrastructure.Repositories
       Enumerable = Enumerable.Where(x => x != item);
     }
 
-    public void RemoveRange(Func<T, bool> func)
+    public void RemoveAll()
+    {
+      Enumerable = Array.Empty<T>();
+    }
+
+    public virtual void RemoveRange(Func<T, bool> func)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -201,7 +208,7 @@ namespace VACARM.Infrastructure.Repositories
       Enumerable = Enumerable.Where(func);
     }
 
-    public void RemoveRange(IEnumerable<T> enumerable)
+    public virtual void RemoveRange(IEnumerable<T> enumerable)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -214,11 +221,6 @@ namespace VACARM.Infrastructure.Repositories
       }
 
       Enumerable = Enumerable.Where(x => !enumerable.Contains(x));
-    }
-
-    public void RemoveAll()
-    {
-      Enumerable = Array.Empty<T>();
     }
 
     #endregion
