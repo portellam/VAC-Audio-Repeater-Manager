@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
@@ -73,6 +74,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public GenericRepository()
     {
       Enumerable = Array.Empty<T>();
@@ -82,6 +84,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
+    [ExcludeFromCodeCoverage]
     public GenericRepository(IEnumerable<T> enumerable)
     {
       Enumerable = enumerable;

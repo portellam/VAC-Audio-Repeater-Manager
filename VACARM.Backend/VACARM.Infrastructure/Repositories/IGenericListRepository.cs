@@ -4,12 +4,6 @@
     IGenericRepository<T> where T :
     class
   {
-    #region Parameters
-
-    List<T> List { get; set; }
-
-    #endregion
-
     #region Logic
 
     /// <summary>

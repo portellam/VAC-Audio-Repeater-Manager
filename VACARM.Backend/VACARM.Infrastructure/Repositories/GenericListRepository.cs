@@ -1,4 +1,5 @@
-﻿using VACARM.Infrastructure.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -12,7 +13,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// The list of all <typeparamref name="T"/> item(s).
     /// </summary>
-    public virtual List<T> List
+    internal virtual List<T> List
     {
       get
       {
@@ -32,6 +33,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public GenericListRepository()
     {
       List = new List<T>();
@@ -41,6 +43,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     /// <param name="list">The list of item(s)</param>
+    [ExcludeFromCodeCoverage]
     public GenericListRepository(List<T> list)
     {
       List = list;
