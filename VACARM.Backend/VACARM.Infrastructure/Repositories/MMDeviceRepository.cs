@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using NAudio.CoreAudioApi;
 
 namespace VACARM.Infrastructure.Repositories
@@ -9,11 +7,27 @@ namespace VACARM.Infrastructure.Repositories
   /// An up-to-date repository of all system audio devices.
   /// </summary>
   public class MMDeviceRepository<T> :
-    GenericRepository<T>,
-    IMMDeviceRepository<T> where T :
+    GenericRepository<MMDevice>,
+    IMMDeviceRepository<MMDevice> where T :
     MMDevice
   {
     #region Parameters
+
+    /// <summary>
+    /// The enumerable of all <typeparamref name="MMDevice"/> item(s).
+    /// </summary>
+    internal override IEnumerable<MMDevice> Enumerable
+    {
+      get
+      {
+        return base.Enumerable;
+      }
+      set
+      {
+        base.Enumerable = value;
+        OnPropertyChanged(nameof(Enumerable));
+      }
+    }
 
     private DeviceState DeviceStatePresent
     {
@@ -42,29 +56,13 @@ namespace VACARM.Infrastructure.Repositories
 
     private IEnumerable<MMDevice> enumerable { get; set; }
 
-    /// <summary>
-    /// The enumerable of all <typeparamref name="MMDevice"/> item(s).
-    /// </summary>
-    public override IEnumerable<T> Enumerable
-    {
-      get
-      {
-        return (IEnumerable<T>)enumerable;
-      }
-      set
-      {
-        enumerable = value;
-        OnPropertyChanged(nameof(Enumerable));
-      }
-    }
-
     private MMDeviceEnumerator enumerator { get; set; } = new MMDeviceEnumerator();
 
     /// <summary>
     /// The enumerator of audio devices.
     /// </summary>
     private MMDeviceEnumerator Enumerator
-    { 
+    {
       get
       {
         return enumerator;
@@ -76,8 +74,6 @@ namespace VACARM.Infrastructure.Repositories
         OnPropertyChanged(nameof(Enumerator));
       }
     }
-
-    public new event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
@@ -150,28 +146,6 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
-    {
-      PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
-    }
-
-    /// <summary>
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
@@ -179,7 +153,6 @@ namespace VACARM.Infrastructure.Repositories
     {
       Enumerator = new MMDeviceEnumerator();
     }
-
     public MMDevice? Get(string id)
     {
       Func<MMDevice, bool> func = (MMDevice x) => x.ID == id;
@@ -284,11 +257,11 @@ namespace VACARM.Infrastructure.Repositories
 
       if (Enumerator == null)
       {
-        Enumerable = Array.Empty<T>();
+        Enumerable = Array.Empty<MMDevice>();
         return;
       }
 
-      Enumerable = (IEnumerable<T>)Enumerator.EnumerateAudioEndPoints
+      Enumerable = Enumerator.EnumerateAudioEndPoints
         (
           DataFlow.All,
           DeviceState.All
@@ -328,5 +301,4 @@ namespace VACARM.Infrastructure.Repositories
 
     #endregion
   }
-}
 }
