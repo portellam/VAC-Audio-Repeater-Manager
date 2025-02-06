@@ -4,7 +4,7 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Controllers
 {
   public interface IMMDeviceController<T1, T2> :
-    IGenericListController<IGenericListRepository<T2>, T2> where T1 :
+    IGenericController<IGenericRepository<T2>, T2> where T1 :
     IMMDeviceRepository<T2> where T2 :
     MMDevice
   {

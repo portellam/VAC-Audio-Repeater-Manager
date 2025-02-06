@@ -1,10 +1,12 @@
-﻿using AudioSwitcher.AudioApi.CoreAudio;
+﻿using AudioSwitcher.AudioApi;
+using AudioSwitcher.AudioApi.CoreAudio;
 using NAudio.CoreAudioApi;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public partial interface ICoreAudioRepository : 
-    IGenericRepository<MMDevice>
+  public partial interface ICoreAudioRepository<T> :
+    IGenericRepository<T> where T :
+    Device
   {
     #region Logic
 
