@@ -30,18 +30,6 @@ namespace VACARM.Infrastructure.Repositories
     bool IsMuted(string id);
 
     /// <summary>
-    /// Set the <typeparamref name="Device"/> item volume.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <param name="volume">The audio volume</param>
-    /// <returns>The true/false result.</returns>
-    bool SetVolume
-    (
-      string id,
-      double volume
-    );
-
-    /// <summary>
     /// Get the volume of the <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
@@ -60,21 +48,14 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    Device? GetDefaultCommunications(string id);
+    Device? GetDefaultCommunications();
 
     /// <summary>
-    /// Get a default console <typeparamref name="Device"/> item.
+    /// Get a default <typeparamref name="Device"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    Device? GetDefaultConsole(string id);
-
-    /// <summary>
-    /// Get a default multimedia <typeparamref name="Device"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>The item.</returns>
-    Device? GetDefaultMultimedia(string id);
+    Device? GetDefault();
 
     /// <summary>
     /// Get an enumerable of all muted <typeparamref name="Device"/> 
@@ -93,16 +74,9 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Get an enumerable of some <typeparamref name="Device"/> item(s).
     /// </summary>
-    /// <param name="func">The function</param>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<Device> GetRange(Func<Device, bool> func);
-
-    /// <summary>
-    /// Get an enumerable of some <typeparamref name="Device"/> item(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<Device> GetRange(IEnumerable<string> idList);
+    IEnumerable<Device> GetRange(IEnumerable<string> idEnumerable);
 
     #endregion
   }
