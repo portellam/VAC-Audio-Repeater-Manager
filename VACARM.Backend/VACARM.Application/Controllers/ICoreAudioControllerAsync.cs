@@ -30,14 +30,14 @@ namespace VACARM.Application.Controllers
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> IsDefault(string id);
+    Task<bool> IsDefaultAsync(string id);
 
     /// <summary>
     /// Is the <typeparamref name="CoreAudioDevice"/> item the default for communications.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> IsDefaultCommunications(string id);
+    Task<bool> IsDefaultCommunicationsAsync(string id);
 
     /// <summary>
     /// Is the <typeparamref name="CoreAudioDevice"/> item muted.

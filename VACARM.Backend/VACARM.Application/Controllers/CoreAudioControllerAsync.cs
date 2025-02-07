@@ -51,7 +51,7 @@ namespace VACARM.Application.Controllers
       return await CoreAudioCommands.DoUnmute(model);
     }
 
-    public async Task<bool> IsDefault(string id)
+    public async Task<bool> IsDefaultAsync(string id)
     {
       CoreAudioDevice? model = await GetAsync(id);
 
@@ -63,7 +63,7 @@ namespace VACARM.Application.Controllers
       return model.IsDefaultDevice;
     }
 
-    public async Task<bool> IsDefaultCommunications(string id)
+    public async Task<bool> IsDefaultCommunicationsAsync(string id)
     {
       CoreAudioDevice? model = await GetAsync(id);
 
