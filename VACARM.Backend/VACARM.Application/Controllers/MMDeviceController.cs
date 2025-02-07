@@ -10,9 +10,8 @@ namespace VACARM.Application.Controllers
   /// <typeparam name="T1">The repository</typeparam>
   /// <typeparam name="T2">The item</typeparam>
   public class MMDeviceController<T1, T2> :
-    GenericController<GenericRepository<T2>, T2>,
-    IMMDeviceController<MMDeviceRepository<T2>, T2> where T1 :
-    MMDeviceRepository<T2> where T2 :
+    GenericController<GenericRepository<MMDevice>, MMDevice> where T1 :
+    MMDeviceRepository<MMDevice> where T2 :
     MMDevice
   {
     private MMDeviceRepository mMDeviceRepository;
