@@ -49,14 +49,19 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the <typeparamref name="Guid"/>.
+    /// Convert an ID from a <typeparamref name="string"/> to a 
+    /// <typeparamref name="GUID"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The ID</returns>
-    private Guid GetGuid(string id)
+    /// <returns>The GUID</returns>
+    private static Guid ToGuid(string id)
     {
-      Guid.TryParse(id, out Guid guid);
-      return guid;
+      if (string.IsNullOrWhiteSpace(id))
+      {
+        id = string.Empty;
+      }
+
+      return new Guid(id);
     }
 
     public bool IsDefault(string id)
@@ -118,7 +123,7 @@ namespace VACARM.Infrastructure.Repositories
 
       try
       {
-        guid = GetGuid(id);
+        guid = ToGuid(id);
       }
       catch
       {

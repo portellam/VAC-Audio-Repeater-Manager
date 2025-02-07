@@ -3,7 +3,7 @@
 namespace VACARM.Infrastructure.Repositories
 {
   public partial interface ICoreAudioRepository<T> :
-    IGenericRepository<T> where T :
+    IGenericRepository<Device> where T :
     Device
   {
     #region Logic
