@@ -12,10 +12,10 @@ namespace VACARM.Application.Controllers
   {
     #region Parameters
 
-    private IGenericRepository<T2> repository { get; set; } =
+    private GenericRepository<T2> repository { get; set; } =
       new GenericRepository<T2>();
 
-    internal IGenericRepository<T2> Repository
+    internal virtual GenericRepository<T2> Repository
     {
       get
       {
@@ -38,7 +38,7 @@ namespace VACARM.Application.Controllers
     /// Logs event when property has changed.
     /// </summary>
     /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
+    internal virtual void OnPropertyChanged(string propertyName)
     {
       PropertyChanged?.Invoke
       (
@@ -68,7 +68,7 @@ namespace VACARM.Application.Controllers
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public GenericController(IGenericRepository<T2> repository)
+    public GenericController(GenericRepository<T2> repository)
     {
       Repository = repository;
     }
