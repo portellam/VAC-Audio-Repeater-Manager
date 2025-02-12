@@ -39,7 +39,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public GenericListRepository()
     {
-      List = new List<TItem>();
+      this.List = new List<TItem>();
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public GenericListRepository(List<TItem> list)
     {
-      List = list;
+      this.List = list;
     }
 
     public override void Add(TItem? item)
@@ -59,34 +59,34 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      if (List.Contains(item))
+      if (this.List.Contains(item))
       {
         return;
       }
 
-      List.Add(item);
+      this.List.Add(item);
     }
 
     public TItem? Get(int index)
     {
-      return List.ElementAt(index);
+      return this.List.ElementAt(index);
     }
 
     public int? GetIndex(Func<TItem, bool> func)
     {
-      TItem? item = Get(func);
+      TItem? item = this.Get(func);
 
       if (item == null)
       {
         return null;
       }
 
-      return List.IndexOf(item);
+      return this.List.IndexOf(item);
     }
 
     public int? GetIndex(TItem item)
     {
-      return List.IndexOf(item);
+      return this.List.IndexOf(item);
     }
 
     public IEnumerable<int> GetIndexRange(Func<TItem, bool> func)
@@ -96,16 +96,16 @@ namespace VACARM.Infrastructure.Repositories
         yield break;
       }
 
-      IEnumerable<TItem> enumerable = GetRange(func);
+      IEnumerable<TItem> enumerable = this.GetRange(func);
 
-      if (IsNullOrEmpty(enumerable))
+      if (this.IsNullOrEmpty(enumerable))
       {
         yield break;
       }
 
       foreach (var item in enumerable)
       {
-        var index = GetIndex(item);
+        var index = this.GetIndex(item);
 
         if (index == null)
         {
@@ -125,7 +125,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (int index in indexEnumerable)
       {
-        TItem? item = Get(index);
+        TItem? item = this.Get(index);
 
         if (item == null)
         {
@@ -142,12 +142,12 @@ namespace VACARM.Infrastructure.Repositories
       int endIndex
     )
     {
-      if (IsValidIndex(startIndex))
+      if (this.IsValidIndex(startIndex))
       {
         yield break;
       }
 
-      if (IsValidIndex(endIndex))
+      if (this.IsValidIndex(endIndex))
       {
         yield break;
       }
@@ -159,7 +159,7 @@ namespace VACARM.Infrastructure.Repositories
 
       for (int index = startIndex; index <= endIndex; index++)
       {
-        TItem? item = Get(index);
+        TItem? item = this.Get(index);
 
         if (item == null)
         {
@@ -176,22 +176,22 @@ namespace VACARM.Infrastructure.Repositories
       TItem item
     )
     {
-      if (List == null)
+      if (this.List == null)
       {
         List = new List<TItem>();
       }
 
-      if (List.Count() <= MaxCount)
+      if (this.List.Count() <= this.MaxCount)
       {
         return;
       }
 
-      if (IsValidIndex(index))
+      if (this.IsValidIndex(index))
       {
         return;
       }
 
-      List.Insert
+      this.List.Insert
         (
           index,
           item
@@ -200,27 +200,27 @@ namespace VACARM.Infrastructure.Repositories
 
     public override void Remove(TItem item)
     {
-      if (IsNullOrEmpty(List))
+      if (this.IsNullOrEmpty(List))
       {
         return;
       }
 
-      List.Remove(item);
+      this.List.Remove(item);
     }
 
     public void Remove(int index)
     {
-      if (IsValidIndex(index))
+      if (this.IsValidIndex(index))
       {
         return;
       }
 
-      List.RemoveAt(index);
+      this.List.RemoveAt(index);
     }
 
     public void Remove(Func<TItem, bool> func)
     {
-      if (IsNullOrEmpty(List))
+      if (this.IsNullOrEmpty(List))
       {
         return;
       }
@@ -230,19 +230,19 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      TItem? item = List.FirstOrDefault(func);
+      TItem? item = this.List.FirstOrDefault(func);
 
       if (item == null)
       {
         return;
       }
 
-      Remove(item);
+      this.Remove(item);
     }
 
     public override void RemoveRange(Func<TItem, bool> func)
     {
-      if (IsNullOrEmpty(List))
+      if (this.IsNullOrEmpty(List))
       {
         return;
       }
@@ -256,30 +256,30 @@ namespace VACARM.Infrastructure.Repositories
         .Where(func)
         .ToList();
 
-      RemoveRange(list);
+      this.RemoveRange(list);
     }
 
     public override void RemoveRange(IEnumerable<TItem> enumerable)
     {
-      if (IsNullOrEmpty(List))
+      if (this.IsNullOrEmpty(List))
       {
         return;
       }
 
-      if (IsNullOrEmpty(enumerable))
+      if (this.IsNullOrEmpty(enumerable))
       {
         return;
       }
 
       foreach (var t in enumerable)
       {
-        Remove(t);
+        this.Remove(t);
       }
     }
 
     public void RemoveRange(IEnumerable<int> indexEnumerable)
     {
-      if (IsNullOrEmpty(List))
+      if (this.IsNullOrEmpty(List))
       {
         return;
       }
@@ -291,7 +291,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var index in indexEnumerable)
       {
-        Remove(index);
+        this.Remove(index);
       }
     }
 
@@ -301,12 +301,12 @@ namespace VACARM.Infrastructure.Repositories
       int endIndex
     )
     {
-      if (IsValidIndex(startIndex))
+      if (this.IsValidIndex(startIndex))
       {
         return;
       }
 
-      if (IsValidIndex(endIndex))
+      if (this.IsValidIndex(endIndex))
       {
         return;
       }
@@ -318,7 +318,7 @@ namespace VACARM.Infrastructure.Repositories
 
       for (int index = startIndex; index <= endIndex; index++)
       {
-        List.RemoveAt(index);
+        this.List.RemoveAt(index);
       }
     }
 
@@ -328,12 +328,12 @@ namespace VACARM.Infrastructure.Repositories
       TItem item
     )
     {
-      if (IsNullOrEmpty(List))
+      if (this.IsNullOrEmpty(List))
       {
         return;
       }
 
-      if (IsValidIndex(index))
+      if (this.IsValidIndex(index))
       {
         return;
       }
@@ -343,7 +343,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      Insert
+      this.Insert
         (
           index,
           item
@@ -356,7 +356,7 @@ namespace VACARM.Infrastructure.Repositories
       TItem newItem
     )
     {
-      if (IsNullOrEmpty(List))
+      if (this.IsNullOrEmpty(List))
       {
         return;
       }
@@ -366,17 +366,17 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      TItem? oldItem = Get(func);
+      TItem? oldItem = this.Get(func);
 
       if (oldItem == null)
       {
         return;
       }
 
-      int index = List.IndexOf(oldItem);
-      Remove(func);
+      int index = this.List.IndexOf(oldItem);
+      this.Remove(func);
 
-      Insert
+      this.Insert
         (
           index,
           newItem
@@ -389,7 +389,7 @@ namespace VACARM.Infrastructure.Repositories
       TItem item
     )
     {
-      if (IsNullOrEmpty(List))
+      if (IsNullOrEmpty(this.List))
       {
         return;
       }
@@ -399,7 +399,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      IEnumerable<int> indexEnumerable = GetIndexRange(func);
+      IEnumerable<int> indexEnumerable = this.GetIndexRange(func);
 
       if (indexEnumerable == null)
       {
@@ -408,7 +408,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var index in indexEnumerable)
       {
-        Update
+        this.Update
           (
             index,
             item

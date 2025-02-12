@@ -22,11 +22,11 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        return enumerable;
+        return this.enumerable;
       }
       set
       {
-        enumerable = value;
+        this.enumerable = value;
         OnPropertyChanged(nameof(Enumerable));
       }
     }
@@ -38,11 +38,11 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        return maxCount;
+        return this.maxCount;
       }
       set
       {
-        maxCount = value;
+        this.maxCount = value;
         OnPropertyChanged(nameof(MaxCount));
       }
     }
@@ -81,7 +81,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public GenericRepository()
     {
-      Enumerable = Array.Empty<TItem>();
+      this.Enumerable = Array.Empty<TItem>();
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public GenericRepository(IEnumerable<TItem> enumerable)
     {
-      Enumerable = enumerable;
+      this.Enumerable = enumerable;
     }
 
     public bool IsNullOrEmpty(IEnumerable<TItem> enumerable)
@@ -102,37 +102,37 @@ namespace VACARM.Infrastructure.Repositories
     public bool IsValidIndex(int index)
     {
       return index >= 0
-        && index <= MaxCount;
+        && index <= this.MaxCount;
     }
 
     public TItem? Get(Func<TItem, bool> func)
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (IsNullOrEmpty(this.Enumerable))
       {
         return null;
       }
 
-      return Enumerable.FirstOrDefault(func);
+      return this.Enumerable.FirstOrDefault(func);
     }
 
     public IEnumerable<TItem> GetAll()
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (IsNullOrEmpty(this.Enumerable))
       {
         return Array.Empty<TItem>();
       }
 
-      return Enumerable.AsEnumerable();
+      return this.Enumerable.AsEnumerable();
     }
 
     public IEnumerable<TItem> GetRange(Func<TItem, bool> func)
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (IsNullOrEmpty(this.Enumerable))
       {
         return Array.Empty<TItem>();
       }
 
-      return Enumerable
+      return this.Enumerable
         .Where(x => func(x))
         .AsEnumerable();
     }
@@ -144,22 +144,22 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      if (Enumerable.Contains(item))
+      if (this.Enumerable.Contains(item))
       {
         return;
       }
 
-      if (Enumerable.Count() <= MaxCount)
+      if (this.Enumerable.Count() <= this.MaxCount)
       {
         return;
       }
 
-      if (Enumerable == null)
+      if (this.Enumerable == null)
       {
         RemoveAll();
       }
 
-      Enumerable.Append(item);
+      this.Enumerable.Append(item);
     }
 
     public void AddRange(IEnumerable<TItem> enumerable)
@@ -169,12 +169,12 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      if (Enumerable.Count() <= MaxCount)
+      if (this.Enumerable.Count() <= this.MaxCount)
       {
         return;
       }
 
-      if (Enumerable == null)
+      if (this.Enumerable == null)
       {
         RemoveAll();
       }
@@ -192,7 +192,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      Enumerable = Enumerable.Where(x => x != item);
+      this.Enumerable = this.Enumerable.Where(x => x != item);
     }
 
     public void RemoveAll()
@@ -212,7 +212,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      Enumerable = Enumerable.Where(func);
+      this.Enumerable = this.Enumerable.Where(func);
     }
 
     public virtual void RemoveRange(IEnumerable<TItem> enumerable)
@@ -227,7 +227,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      Enumerable = Enumerable.Where(x => !enumerable.Contains(x));
+      this.Enumerable = this.Enumerable.Where(x => !enumerable.Contains(x));
     }
 
     #endregion
