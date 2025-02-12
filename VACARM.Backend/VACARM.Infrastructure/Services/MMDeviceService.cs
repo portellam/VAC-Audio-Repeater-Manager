@@ -7,7 +7,7 @@ namespace VACARM.Application.Services
   /// <summary>
   /// A service for the <typeparamref name="MMDeviceRepository"/>.
   /// </summary>
-  public class TMMDeviceService<TRepository, TMMDevice> :
+  public class MMDeviceService<TRepository, TMMDevice> :
     GenericService<MMDeviceRepository<TMMDevice>, TMMDevice> where TRepository :
     MMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
@@ -15,7 +15,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    public TMMDeviceService()
+    public MMDeviceService()
     {
       _Repository = new MMDeviceRepository<TMMDevice>();
     }
