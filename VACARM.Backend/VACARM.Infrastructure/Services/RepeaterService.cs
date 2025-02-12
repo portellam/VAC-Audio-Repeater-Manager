@@ -8,26 +8,27 @@ namespace VACARM.Application.Services
   /// </summary>
   public class RepeaterService<TRepository, TRepeaterModel> :
     BaseService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>,
-    IRepeaterService<RepeaterRepository<TRepeaterModel>, TRepeaterModel> 
+    IRepeaterService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>
     where TRepository :
     RepeaterRepository<TRepeaterModel> where TRepeaterModel :
     RepeaterModel
   {
     #region Parameters
 
-    private DeviceRepository<DeviceModel> deviceRepository { get; set; }
-      = new DeviceRepository<DeviceModel>();
+    private DeviceService<DeviceRepository<DeviceModel>, DeviceModel>
+      deviceService
+    { get; set; } = new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
 
-    private DeviceRepository<DeviceModel> DeviceRepository
+    public DeviceService<DeviceRepository<DeviceModel>, DeviceModel> DeviceService
     {
       get
       {
-        return this.deviceRepository;
+        return this.deviceService;
       }
-      set
+      private set
       {
-        deviceRepository = value;
-        base.OnPropertyChanged(nameof(DeviceRepository));
+        this.deviceService = value;
+        base.OnPropertyChanged(nameof(DeviceService));
       }
     }
 
@@ -41,7 +42,9 @@ namespace VACARM.Application.Services
     public RepeaterService()
     {
       base._Repository = new RepeaterRepository<TRepeaterModel>();
-      this.DeviceRepository = new DeviceRepository<DeviceModel>();
+      
+      this.DeviceService = 
+        new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
     }
 
     /// <summary>
@@ -57,20 +60,20 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    /// <param name="deviceRepository">The device repository</param>
+    /// <param name="deviceService">The device service</param>
     public RepeaterService
     (
       RepeaterRepository<TRepeaterModel> repository,
-      DeviceRepository<DeviceModel> deviceRepository
+      DeviceService<DeviceRepository<DeviceModel>, DeviceModel> deviceService
     )
     {
       base._Repository = repository;
-      this.DeviceRepository = deviceRepository;
+      this.DeviceService = deviceService;
     }
 
     public void Restart(uint id)
     {
-      throw new NotImplementedException();
+      TRepeaterModel? model = base._Repository.Get(id);
     }
 
     public void RestartAll()
@@ -104,7 +107,7 @@ namespace VACARM.Application.Services
 
     public void StartRange
     (
-      uint startId, 
+      uint startId,
       uint endId
     )
     {
@@ -128,7 +131,7 @@ namespace VACARM.Application.Services
 
     public void StopRange
     (
-      uint startId, 
+      uint startId,
       uint endId
     )
     {
