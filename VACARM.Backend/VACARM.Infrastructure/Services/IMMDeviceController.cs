@@ -1,11 +1,11 @@
 ﻿using NAudio.CoreAudioApi;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
-  public interface IMMDeviceController<T1, T2> :
-    IGenericController<GenericRepository<MMDevice>, MMDevice> where T1 :
-    MMDeviceRepository<MMDevice> where T2 :
+  public interface IMMDeviceService<TRepository, TItem> :
+    IGenericService<GenericRepository<MMDevice>, MMDevice> where TRepository :
+    MMDeviceRepository<MMDevice> where TItem :
     MMDevice
   {
     #region Logic

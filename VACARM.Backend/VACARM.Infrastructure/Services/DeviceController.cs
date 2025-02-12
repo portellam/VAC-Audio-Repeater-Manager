@@ -1,15 +1,15 @@
 ﻿using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
   /// <summary>
-  /// The controller of the <typeparamref name="DeviceRepository"/>.
+  /// The service of the <typeparamref name="DeviceRepository"/>.
   /// </summary>
-  public class DeviceController<T1, T2> :
-    BaseController<DeviceRepository<DeviceModel>, DeviceModel>,
-    IDeviceController<DeviceRepository<DeviceModel>, DeviceModel> where T1 :
-    DeviceRepository<DeviceModel> where T2 :
+  public class DeviceService<TRepository, TItem> :
+    BaseService<DeviceRepository<DeviceModel>, DeviceModel>,
+    IDeviceService<DeviceRepository<DeviceModel>, DeviceModel> where TRepository :
+    DeviceRepository<DeviceModel> where TItem :
     DeviceModel
   {
     #region Parameters

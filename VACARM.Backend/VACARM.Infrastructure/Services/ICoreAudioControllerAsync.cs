@@ -2,10 +2,10 @@
 using AudioSwitcher.AudioApi.CoreAudio;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
-  public partial interface ICoreAudioController<TRepository, TItem> :
-    IGenericController<CoreAudioRepository<Device>, Device> where TRepository :
+  public partial interface ICoreAudioService<TRepository, TItem> :
+    IGenericService<CoreAudioRepository<Device>, Device> where TRepository :
     CoreAudioRepository<Device> where TItem :
     Device
   {

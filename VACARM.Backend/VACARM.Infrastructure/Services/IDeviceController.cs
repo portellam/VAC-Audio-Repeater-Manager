@@ -1,11 +1,11 @@
 ﻿using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
-  public interface IDeviceController<T1, T2> :
-    IBaseController<T1, T2> where T1 :
-    IDeviceRepository<T2> where T2 :
+  public interface IDeviceService<TRepository, TItem> :
+    IBaseService<TRepository, TItem> where TRepository :
+    IDeviceRepository<TItem> where TItem :
     DeviceModel
   {
     #region Logic
@@ -124,11 +124,11 @@ namespace VACARM.Application.Controllers
     /// <param name="volume">The audio volume</param>
     /// <returns>The true/false result.</returns>
     /// <returns>The true/false result.</returns>
-        Task<bool> SetVolume
-    (
-      string id,
-      double? volume
-    );
+    Task<bool> SetVolume
+(
+  string id,
+  double? volume
+);
 
     /// <summary>
     /// Restart a <typeparamref name="DeviceModel"/>.

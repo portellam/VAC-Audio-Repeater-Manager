@@ -1,11 +1,11 @@
 ﻿using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
-  public interface IRepeaterController<T1, T2> :
-    IBaseController<T1, T2> where T1 :
-    IRepeaterRepository<T2> where T2 :
+  public interface IRepeaterService<TRepository, TItem> :
+    IBaseService<TRepository, TItem> where TRepository :
+    IRepeaterRepository<TItem> where TItem :
     RepeaterModel
   {
     #region Logic
