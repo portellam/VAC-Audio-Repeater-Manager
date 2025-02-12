@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Structs;
 
 namespace VACARM.Domain.Models
