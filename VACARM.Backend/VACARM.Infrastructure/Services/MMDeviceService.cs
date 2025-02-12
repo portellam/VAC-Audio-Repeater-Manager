@@ -2,16 +2,18 @@
 using VACARM.Application.Commands;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+// TODO: make partial with async
+
+namespace VACARM.Application.Services
 {
   /// <summary>
-  /// A controller for the <typeparamref name="MMDeviceRepository"/>.
+  /// A service for the <typeparamref name="MMDeviceRepository"/>.
   /// </summary>
-  /// <typeparam name="T1">The repository</typeparam>
-  /// <typeparam name="T2">The item</typeparam>
-  public class MMDeviceController<T1, T2> :
-    GenericController<GenericRepository<MMDevice>, MMDevice> where T1 :
-    MMDeviceRepository<MMDevice> where T2 :
+  /// <typeparam name="TRepository">The repository</typeparam>
+  /// <typeparam name="TItem">The item</typeparam>
+  public class MMDeviceService<TRepository, TItem> :
+    GenericService<GenericRepository<MMDevice>, MMDevice> where TRepository :
+    MMDeviceRepository<MMDevice> where TItem :
     MMDevice
   {
     private MMDeviceRepository<MMDevice> mMDeviceRepository { get; set; }
@@ -32,7 +34,7 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public MMDeviceController()
+    public MMDeviceService()
     {
       Repository = new MMDeviceRepository<MMDevice>();
     }
@@ -41,7 +43,7 @@ namespace VACARM.Application.Controllers
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public MMDeviceController(MMDeviceRepository<MMDevice> repository)
+    public MMDeviceService(MMDeviceRepository<MMDevice> repository)
     {
       Repository = repository;
     }
