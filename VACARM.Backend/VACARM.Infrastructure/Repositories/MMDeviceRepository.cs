@@ -6,17 +6,17 @@ namespace VACARM.Infrastructure.Repositories
   /// <summary>
   /// An up-to-date repository of all system audio devices.
   /// </summary>
-  public class MMDeviceRepository<T> :
-    GenericRepository<MMDevice>,
-    IMMDeviceRepository<MMDevice> where T :
+  public class TMMDeviceRepository<TMMDevice> :
+    GenericRepository<TMMDevice>,
+    ITMMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
     #region Parameters
 
     /// <summary>
-    /// The enumerable of all <typeparamref name="MMDevice"/> item(s).
+    /// The enumerable of all <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
-    internal override IEnumerable<MMDevice> Enumerable
+    internal override IEnumerable<TMMDevice> Enumerable
     {
       get
       {
@@ -39,9 +39,9 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    private Dictionary<Role, MMDevice> defaultDictionary { get; set; }
+    private Dictionary<Role, TMMDevice> defaultDictionary { get; set; }
 
-    private Dictionary<Role, MMDevice> DefaultDictionary
+    private Dictionary<Role, TMMDevice> DefaultDictionary
     {
       get
       {
@@ -54,7 +54,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    private IEnumerable<MMDevice> enumerable { get; set; }
+    private IEnumerable<TMMDevice> enumerable { get; set; }
 
     private MMDeviceEnumerator enumerator { get; set; } = new MMDeviceEnumerator();
 
@@ -80,12 +80,12 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Get the default <typeparamref name="MMDevice"/> item.
+    /// Get the default <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <param name="role">The role</param>
     /// <returns>The item.</returns>
-    private MMDevice? getDefault
+    private TMMDevice? getDefault
     (
       DataFlow dataFlow,
       Role role
@@ -104,11 +104,11 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default communications <typeparamref name="MMDevice"/> item.
+    /// Get the default communications <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    private MMDevice? getDefaultCommunications(DataFlow dataFlow)
+    private TMMDevice? getDefaultCommunications(DataFlow dataFlow)
     {
       return getDefault
         (
@@ -118,11 +118,11 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default console <typeparamref name="MMDevice"/> item.
+    /// Get the default console <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    private MMDevice? getDefaultConsole(DataFlow dataFlow)
+    private TMMDevice? getDefaultConsole(DataFlow dataFlow)
     {
       return getDefault
         (
@@ -132,11 +132,11 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default multimedia <typeparamref name="MMDevice"/> item.
+    /// Get the default multimedia <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    private MMDevice? getDefaultMultimedia(DataFlow dataFlow)
+    private TMMDevice? getDefaultMultimedia(DataFlow dataFlow)
     {
       return getDefault
         (
@@ -153,13 +153,13 @@ namespace VACARM.Infrastructure.Repositories
     {
       Enumerator = new MMDeviceEnumerator();
     }
-    public MMDevice? Get(string id)
+    public TMMDevice? Get(string id)
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.ID == id;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.ID == id;
       return Get(func);
     }
 
-    public MMDevice? GetDefault
+    public TMMDevice? GetDefault
     (
       DataFlow dataFlow,
       Role role
@@ -176,7 +176,7 @@ namespace VACARM.Infrastructure.Repositories
         ).Value;
     }
 
-    public MMDevice? GetDefaultCommunications(DataFlow dataFlow)
+    public TMMDevice? GetDefaultCommunications(DataFlow dataFlow)
     {
       return GetDefault
         (
@@ -185,7 +185,7 @@ namespace VACARM.Infrastructure.Repositories
         );
     }
 
-    public MMDevice? GetDefaultConsole(DataFlow dataFlow)
+    public TMMDevice? GetDefaultConsole(DataFlow dataFlow)
     {
       return GetDefault
         (
@@ -194,7 +194,7 @@ namespace VACARM.Infrastructure.Repositories
         );
     }
 
-    public MMDevice? GetDefaultMultimedia(DataFlow dataFlow)
+    public TMMDevice? GetDefaultMultimedia(DataFlow dataFlow)
     {
       return GetDefault
         (
@@ -203,51 +203,51 @@ namespace VACARM.Infrastructure.Repositories
         );
     }
 
-    public IEnumerable<MMDevice> GetAllAbsent()
+    public IEnumerable<TMMDevice> GetAllAbsent()
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.State != DeviceStatePresent;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.State != DeviceStatePresent;
       return GetRange(func);
     }
 
-    public IEnumerable<MMDevice> GetAllCapture()
+    public IEnumerable<TMMDevice> GetAllCapture()
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.DataFlow == DataFlow.Capture;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.Capture;
       return GetRange(func);
     }
 
-    public IEnumerable<MMDevice> GetAllDisabled()
+    public IEnumerable<TMMDevice> GetAllDisabled()
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.State == DeviceState.Disabled;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.State == DeviceState.Disabled;
       return GetRange(func);
     }
 
-    public IEnumerable<MMDevice> GetAllDuplex()
+    public IEnumerable<TMMDevice> GetAllDuplex()
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.DataFlow == DataFlow.All;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.All;
       return GetRange(func);
     }
 
-    public IEnumerable<MMDevice> GetAllEnabled()
+    public IEnumerable<TMMDevice> GetAllEnabled()
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.State != DeviceState.Disabled;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.State != DeviceState.Disabled;
       return GetRange(func);
     }
 
-    public IEnumerable<MMDevice> GetAllPresent()
+    public IEnumerable<TMMDevice> GetAllPresent()
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.State == DeviceStatePresent;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.State == DeviceStatePresent;
       return GetRange(func);
     }
 
-    public IEnumerable<MMDevice> GetAllRender()
+    public IEnumerable<TMMDevice> GetAllRender()
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.DataFlow == DataFlow.Render;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.Render;
       return GetRange(func);
     }
 
-    public IEnumerable<MMDevice> GetRange(IEnumerable<string> idEnumerable)
+    public IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable)
     {
-      Func<MMDevice, bool> func = (MMDevice x) => idEnumerable.Contains(x.ID);
+      Func<TMMDevice, bool> func = (TMMDevice x) => idEnumerable.Contains(x.ID);
       return GetRange(func);
     }
 
@@ -257,7 +257,7 @@ namespace VACARM.Infrastructure.Repositories
 
       if (Enumerator == null)
       {
-        Enumerable = Array.Empty<MMDevice>();
+        Enumerable = Array.Empty<TMMDevice>();
         return;
       }
 

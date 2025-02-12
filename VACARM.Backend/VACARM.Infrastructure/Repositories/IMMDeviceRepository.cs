@@ -2,109 +2,109 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IMMDeviceRepository<T> :
-    IGenericRepository<T> where T :
+  public interface ITMMDeviceRepository<TMMDevice> :
+    IGenericRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
     #region Logic
 
     /// <summary>
-    /// Get a <typeparamref name="MMDevice"/> item.
+    /// Get a <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    MMDevice? Get(string id);
+    TMMDevice? Get(string id);
 
     /// <summary>
-    /// Get the default <typeparamref name="MMDevice"/> item.
+    /// Get the default <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <param name="role">The role</param>
     /// <returns>The item.</returns>
-    MMDevice? GetDefault
+    TMMDevice? GetDefault
     (
       DataFlow dataFlow,
       Role role
     );
 
     /// <summary>
-    /// Get the default communications <typeparamref name="MMDevice"/> item.
+    /// Get the default communications <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    MMDevice? GetDefaultCommunications(DataFlow dataFlow);
+    TMMDevice? GetDefaultCommunications(DataFlow dataFlow);
 
     /// <summary>
-    /// Get the default console <typeparamref name="MMDevice"/> item.
+    /// Get the default console <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    MMDevice? GetDefaultConsole(DataFlow dataFlow);
+    TMMDevice? GetDefaultConsole(DataFlow dataFlow);
 
     /// <summary>
-    /// Get the default multimedia <typeparamref name="MMDevice"/> item.
+    /// Get the default multimedia <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    MMDevice? GetDefaultMultimedia(DataFlow dataFlow);
+    TMMDevice? GetDefaultMultimedia(DataFlow dataFlow);
 
     /// <summary>
-    /// Get an enumerable of all absent <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of all absent <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAllAbsent();
+    IEnumerable<TMMDevice> GetAllAbsent();
 
     /// <summary>
-    /// Get an enumerable of all capture <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of all capture <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAllCapture();
+    IEnumerable<TMMDevice> GetAllCapture();
 
     /// <summary>
-    /// Get an enumerable of all disabled <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of all disabled <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAllDisabled();
+    IEnumerable<TMMDevice> GetAllDisabled();
 
     /// <summary>
-    /// Get an enumerable of all duplex <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of all duplex <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAllDuplex();
+    IEnumerable<TMMDevice> GetAllDuplex();
 
     /// <summary>
-    /// Get an enumerable of all enabled <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of all enabled <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAllEnabled();
+    IEnumerable<TMMDevice> GetAllEnabled();
 
     /// <summary>
-    /// Get an enumerable of all present <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of all present <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAllPresent();
+    IEnumerable<TMMDevice> GetAllPresent();
 
     /// <summary>
-    /// Get an enumerable of all render <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of all render <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetAllRender();
+    IEnumerable<TMMDevice> GetAllRender();
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="MMDevice"/> item(s).
+    /// Get an enumerable of some <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<MMDevice> GetRange(IEnumerable<string> idEnumerable);
+    IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable);
 
     /// <summary>
-    /// Update the enumerable of all <typeparamref name="MMDevice"/> item(s).
+    /// Update the enumerable of all <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     void UpdateAll();
 
     /// <summary>
     /// Update the enumerable of all default 
-    /// <typeparamref name="MMDevice"/> item(s).
+    /// <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     void UpdateAllDefaults();
 
