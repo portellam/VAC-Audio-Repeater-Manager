@@ -1,10 +1,10 @@
 ﻿using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
-  public partial class GenericController<TRepository, TItem> :
-    IGenericController<TRepository, TItem> where TRepository :
+  public partial class GenericService<TRepository, TItem> :
+    IGenericService<TRepository, TItem> where TRepository :
     GenericRepository<TItem> where TItem :
     class
   {

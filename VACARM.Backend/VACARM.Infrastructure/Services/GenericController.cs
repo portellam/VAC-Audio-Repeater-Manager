@@ -3,10 +3,10 @@ using System.Diagnostics;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
-  public partial class GenericController<TRepository, TItem> :
-    IGenericController<TRepository, TItem> where TRepository :
+  public partial class GenericService<TRepository, TItem> :
+    IGenericService<TRepository, TItem> where TRepository :
     GenericRepository<TItem> where TItem :
     class
   {
@@ -15,11 +15,11 @@ namespace VACARM.Application.Controllers
     private GenericRepository<TItem> repository { get; set; } =
       new GenericRepository<TItem>();
 
-    internal virtual GenericRepository<TItem> Repository
+    internal virtual TRepository Repository
     {
       get
       {
-        return repository;
+        return (TRepository)repository;
       }
       set
       {
@@ -59,7 +59,7 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public GenericController()
+    public GenericService()
     {
       Repository = new GenericRepository<TItem>();
     }
@@ -68,7 +68,7 @@ namespace VACARM.Application.Controllers
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public GenericController(GenericRepository<TItem> repository)
+    public GenericService(GenericRepository<TItem> repository)
     {
       Repository = repository;
     }
