@@ -1,4 +1,5 @@
-﻿using VACARM.Infrastructure.Repositories;
+﻿using System.Diagnostics.CodeAnalysis;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
@@ -13,6 +14,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public GenericListService()
     {
       base._Repository = new GenericListRepository<TItem>();
@@ -22,6 +24,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
+    [ExcludeFromCodeCoverage]
     public GenericListService(GenericListRepository<TItem> repository)
     {
       base._Repository = repository;

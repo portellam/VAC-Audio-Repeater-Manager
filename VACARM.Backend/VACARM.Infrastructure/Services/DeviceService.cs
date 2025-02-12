@@ -3,6 +3,7 @@
 using AudioSwitcher.AudioApi;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.Application.Services
 {
@@ -59,6 +60,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public DeviceService()
     {
       base._Repository = new DeviceRepository<TDeviceModel>();

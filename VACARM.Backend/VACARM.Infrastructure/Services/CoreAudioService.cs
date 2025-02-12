@@ -1,5 +1,6 @@
 ﻿using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
+using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
@@ -79,6 +80,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public CoreAudioService()
     {
       base._Repository = new CoreAudioRepository<TDevice>();

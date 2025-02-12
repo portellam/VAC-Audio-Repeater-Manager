@@ -1,4 +1,5 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
@@ -39,6 +40,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public RepeaterService()
     {
       base._Repository = new RepeaterRepository<TRepeaterModel>();
@@ -51,6 +53,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
+    [ExcludeFromCodeCoverage]
     public RepeaterService(RepeaterRepository<TRepeaterModel> repository)
     {
       base._Repository = repository;
@@ -61,6 +64,7 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="repository">The repository</param>
     /// <param name="deviceService">The device service</param>
+    [ExcludeFromCodeCoverage]
     public RepeaterService
     (
       RepeaterRepository<TRepeaterModel> repository,

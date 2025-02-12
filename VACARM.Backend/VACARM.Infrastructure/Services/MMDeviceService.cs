@@ -1,4 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
+using System.Diagnostics.CodeAnalysis;
 using VACARM.Application.Commands;
 using VACARM.Infrastructure.Repositories;
 
@@ -15,6 +16,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public MMDeviceService()
     {
       _Repository = new MMDeviceRepository<TMMDevice>();

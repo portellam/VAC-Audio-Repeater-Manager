@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 
@@ -67,6 +68,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public GenericService()
     {
       repository = new GenericRepository<TItem>();
