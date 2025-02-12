@@ -6,9 +6,10 @@ namespace VACARM.Infrastructure.Repositories
   /// <summary>
   /// A snapshot repository of system audio devices.
   /// </summary>
-  public class DeviceRepository<T> :
-    BaseRepository<DeviceModel>,
-    IDeviceRepository<DeviceModel>
+  public class DeviceRepository<TDeviceModel> :
+    BaseRepository<TDeviceModel>,
+    IDeviceRepository<TDeviceModel> where TDeviceModel :
+    DeviceModel
   {
     #region Logic
 
@@ -18,7 +19,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public DeviceRepository()
     {
-      List = new List<DeviceModel>();
+      List = new List<TDeviceModel>();
     }
 
     /// <summary>
@@ -26,117 +27,99 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public DeviceRepository(IEnumerable<DeviceModel> enumerable)
+    public DeviceRepository(IEnumerable<TDeviceModel> enumerable)
     {
       List = enumerable.ToList();
     }
 
-    public DeviceModel? GetDefaultCommunications()
+    public TDeviceModel? GetDefaultCommunications()
     {
-      return GetAllCommunications()
-        .FirstOrDefault(x => x.IsDefault);
+      return GetAllCommunications().FirstOrDefault(x => x.IsDefault);
     }
 
-    public DeviceModel? GetDefaultConsole()
+    public TDeviceModel? GetDefaultConsole()
     {
-      return GetAllConsole()
-        .FirstOrDefault(x => x.IsDefault);
+      return GetAllConsole().FirstOrDefault(x => x.IsDefault);
     }
 
-    public DeviceModel? GetDefaultMultimedia()
+    public TDeviceModel? GetDefaultMultimedia()
     {
-      return GetAllMultimedia()
-        .FirstOrDefault(x => x.IsDefault);
+      return GetAllMultimedia().FirstOrDefault(x => x.IsDefault);
     }
 
-    public IEnumerable<DeviceModel> GetAllAbsent()
+    public IEnumerable<TDeviceModel> GetAllAbsent()
     {
-      return GetAll()
-        .Where(x => !x.IsPresent);
+      return GetAll().Where(x => !x.IsPresent);
     }
 
-    public IEnumerable<DeviceModel> GetAllAlphabeticalOrder()
+    public IEnumerable<TDeviceModel> GetAllAlphabetical()
     {
-      return GetAll()
-        .OrderBy(x => x.Name);
+      return GetAll().OrderBy(x => x.Name);
     }
 
-    public IEnumerable<DeviceModel> GetAllCapture()
+    public IEnumerable<TDeviceModel> GetAllAlphabeticalDescending()
     {
-      return GetAll()
-        .Where(x => x.IsCapture);
+      return GetAll().OrderByDescending(x => x.Name);
     }
 
-    public IEnumerable<DeviceModel> GetAllCommunications()
+    public IEnumerable<TDeviceModel> GetAllCapture()
     {
-      return GetAll()
-        .Where(x => x.Role == "Communications");
+      return GetAll().Where(x => x.IsCapture);
     }
 
-    public IEnumerable<DeviceModel> GetAllConsole()
+    public IEnumerable<TDeviceModel> GetAllCommunications()
     {
-      return GetAll()
-        .Where(x => x.Role == "Console");
+      return GetAll().Where(x => x.Role == "Communications");
     }
 
-    public IEnumerable<DeviceModel> GetAllDefault()
+    public IEnumerable<TDeviceModel> GetAllConsole()
     {
-      return GetAll()
-        .Where(x => x.IsDefault);
+      return GetAll().Where(x => x.Role == "Console");
     }
 
-    public IEnumerable<DeviceModel> GetAllDisabled()
+    public IEnumerable<TDeviceModel> GetAllDefault()
     {
-      return GetAll()
-        .Where(x => !x.IsEnabled);
+      return GetAll().Where(x => x.IsDefault);
     }
 
-    public IEnumerable<DeviceModel> GetAllDuplex()
+    public IEnumerable<TDeviceModel> GetAllDisabled()
     {
-      return GetAll()
-        .Where(x => x.IsDuplex);
+      return GetAll().Where(x => !x.IsEnabled);
     }
 
-    public IEnumerable<DeviceModel> GetAllEnabled()
+    public IEnumerable<TDeviceModel> GetAllDuplex()
     {
-      return GetAll()
-        .Where(x => x.IsEnabled);
+      return GetAll().Where(x => x.IsDuplex);
     }
 
-    public IEnumerable<DeviceModel> GetAllMultimedia()
+    public IEnumerable<TDeviceModel> GetAllEnabled()
     {
-      return GetAll()
-        .Where(x => x.Role == "Multimedia");
+      return GetAll().Where(x => x.IsEnabled);
     }
 
-    public IEnumerable<DeviceModel> GetAllMuted()
+    public IEnumerable<TDeviceModel> GetAllMultimedia()
     {
-      return GetAll()
-        .Where(x => x.IsMuted);
+      return GetAll().Where(x => x.Role == "Multimedia");
     }
 
-    public IEnumerable<DeviceModel> GetAllNotMuted()
+    public IEnumerable<TDeviceModel> GetAllMuted()
     {
-      return GetAll()
-        .Where(x => !x.IsMuted);
+      return GetAll().Where(x => x.IsMuted);
     }
 
-    public IEnumerable<DeviceModel> GetAllRender()
+    public IEnumerable<TDeviceModel> GetAllNotMuted()
     {
-      return GetAll()
-        .Where(x => x.IsRender);
+      return GetAll().Where(x => !x.IsMuted);
     }
 
-    public IEnumerable<DeviceModel> GetAllReverseAlphabeticalOrder()
+    public IEnumerable<TDeviceModel> GetAllRender()
     {
-      return GetAll()
-        .OrderByDescending(x => x.Name);
+      return GetAll().Where(x => x.IsRender);
     }
 
-    public IEnumerable<DeviceModel> GetAllPresent()
+    public IEnumerable<TDeviceModel> GetAllPresent()
     {
-      return GetAll()
-        .Where(x => x.IsPresent);
+      return GetAll().Where(x => x.IsPresent);
     }
 
     #endregion
