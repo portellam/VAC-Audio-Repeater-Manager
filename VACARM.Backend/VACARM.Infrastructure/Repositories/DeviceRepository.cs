@@ -49,9 +49,8 @@ namespace VACARM.Infrastructure.Repositories
 
     public IEnumerable<TDeviceModel> GetAllAbsent()
     {
-      return base
-        .GetAll()
-        .Where(x => !x.IsPresent);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => !x.IsPresent;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllAlphabetical()
@@ -70,86 +69,80 @@ namespace VACARM.Infrastructure.Repositories
 
     public IEnumerable<TDeviceModel> GetAllCapture()
     {
-      return base
-        .GetAll()
-        .Where(x => x.IsCapture);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.IsCapture;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllCommunications()
     {
-      return base
-        .GetAll()
-        .Where(x => x.Role == "Communications");
+      Func<TDeviceModel, bool> func = (TDeviceModel x) =>
+        x.Role == "Communications";
+      
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllConsole()
     {
-      return base
-        .GetAll()
-        .Where(x => x.Role == "Console");
+      Func<TDeviceModel, bool> func = (TDeviceModel x) =>
+        x.Role == "Console";
+
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllDefault()
     {
-      return base
-        .GetAll()
-        .Where(x => x.IsDefault);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.IsDefault;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllDisabled()
     {
-      return base
-        .GetAll()
-        .Where(x => !x.IsEnabled);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => !x.IsEnabled;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllDuplex()
     {
-      return base
-        .GetAll()
-        .Where(x => x.IsDuplex);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.IsDuplex;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllEnabled()
     {
-      return base
-        .GetAll()
-        .Where(x => x.IsEnabled);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.IsEnabled;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllMultimedia()
     {
-      return base
-        .GetAll()
-        .Where(x => x.Role == "Multimedia");
+      Func<TDeviceModel, bool> func = (TDeviceModel x) =>
+        x.Role == "Multimedia";
+
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllMuted()
     {
-      return base
-        .GetAll()
-        .Where(x => x.IsMuted);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.IsMuted;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllNotMuted()
     {
-      return base
-        .GetAll()
-        .Where(x => !x.IsMuted);
-    }
-
-    public IEnumerable<TDeviceModel> GetAllRender()
-    {
-      return base
-        .GetAll()
-        .Where(x => x.IsRender);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => !x.IsMuted;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllPresent()
     {
-      return base
-        .GetAll()
-        .Where(x => x.IsPresent);
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.IsPresent;
+      return base.GetRange(func);
+    }
+
+    public IEnumerable<TDeviceModel> GetAllRender()
+    {
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.IsRender;
+      return base.GetRange(func);
     }
 
     #endregion

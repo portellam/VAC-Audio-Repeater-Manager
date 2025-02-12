@@ -53,27 +53,23 @@ namespace VACARM.Infrastructure.Repositories
 
     public IEnumerable<TRepeaterModel> GetAllByDeviceId(uint deviceId)
     {
-      return base
-        .GetAll()
-        .Where
-        (
-          x => deviceId == x.InputDeviceId
-          || deviceId == x.OutputDeviceId
-        );
+      Func<TRepeaterModel, bool> func = (TRepeaterModel x) =>
+        deviceId == x.InputDeviceId
+        || deviceId == x.OutputDeviceId;
+
+      return base.GetRange(func);
     }
 
     public IEnumerable<TRepeaterModel> GetAllStarted()
     {
-      return base
-        .GetAll()
-        .Where(x => x.IsStarted);
+      Func<TRepeaterModel, bool> func = (TRepeaterModel x) => x.IsStarted;
+      return base.GetRange(func);
     }
 
     public IEnumerable<TRepeaterModel> GetAllStopped()
     {
-      return base
-        .GetAll()
-        .Where(x => !x.IsStarted);
+      Func<TRepeaterModel, bool> func = (TRepeaterModel x) => !x.IsStarted;
+      return base.GetRange(func);
     }
 
     #endregion
