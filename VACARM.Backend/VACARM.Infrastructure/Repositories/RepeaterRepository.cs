@@ -6,9 +6,10 @@ namespace VACARM.Infrastructure.Repositories
   /// <summary>
   /// A snapshot repository of audio device repeaters.
   /// </summary>
-  public class RepeaterRepository<T> :
-    BaseRepository<RepeaterModel>,
-    IRepeaterRepository<RepeaterModel>
+  public class RepeaterRepository<TRepeaterModel> :
+    BaseRepository<TRepeaterModel>,
+    IRepeaterRepository<TRepeaterModel> where TRepeaterModel :
+    RepeaterModel
   {
     #region Logic
 
@@ -18,7 +19,12 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public RepeaterRepository()
     {
-      List = new List<RepeaterModel>();
+      List = new List<TRepeaterModel>();
+    }
+
+    public TRepeaterModel? Get(uint id)
+    {
+      return base.Get(id);
     }
 
     /// <summary>
@@ -26,43 +32,47 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public RepeaterRepository(IEnumerable<RepeaterModel> enumerable)
+    public RepeaterRepository(IEnumerable<TRepeaterModel> enumerable)
     {
       List = enumerable.ToList();
     }
 
-    public IEnumerable<RepeaterModel> GetAllAlphabeticalOrder()
+    public IEnumerable<TRepeaterModel> GetAllAlphabetical()
     {
-      return List
+      return base
+        .GetAll()
         .OrderBy(x => x.WindowName);
     }
 
-    public IEnumerable<RepeaterModel> GetAllByDeviceId(uint deviceId)
+    public IEnumerable<TRepeaterModel> GetAllAlphabeticalDescending()
     {
-      return List
-        .Where
-        (
-          x =>
-          x.InputDeviceId == deviceId
-          || x.OutputDeviceId == deviceId
-        );
-    }
-
-    public IEnumerable<RepeaterModel> GetAllReverseAlphabeticalOrder()
-    {
-      return List
+      return base
+        .GetAll()
         .OrderByDescending(x => x.WindowName);
     }
 
-    public IEnumerable<RepeaterModel> GetAllStarted()
+    public IEnumerable<TRepeaterModel> GetAllByDeviceId(uint deviceId)
     {
-      return List
+      return base
+        .GetAll()
+        .Where
+        (
+          x => deviceId == x.InputDeviceId
+          || deviceId == x.OutputDeviceId
+        );
+    }
+
+    public IEnumerable<TRepeaterModel> GetAllStarted()
+    {
+      return base
+        .GetAll()
         .Where(x => x.IsStarted);
     }
 
-    public IEnumerable<RepeaterModel> GetAllStopped()
+    public IEnumerable<TRepeaterModel> GetAllStopped()
     {
-      return List
+      return base
+        .GetAll()
         .Where(x => !x.IsStarted);
     }
 
