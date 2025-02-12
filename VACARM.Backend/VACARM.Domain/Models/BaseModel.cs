@@ -37,7 +37,7 @@ namespace VACARM.Domain.Models
     /// Logs event when property has changed.
     /// </summary>
     /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
+    internal void OnPropertyChanged(string propertyName)
     {
       PropertyChanged?.Invoke
       (

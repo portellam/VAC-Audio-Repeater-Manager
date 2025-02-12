@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.Domain.Models
@@ -35,7 +34,7 @@ namespace VACARM.Domain.Models
       set
       {
         actualId = value;
-        OnPropertyChanged(nameof(actualId));
+        base.OnPropertyChanged(nameof(actualId));
       }
     }
 
@@ -53,7 +52,7 @@ namespace VACARM.Domain.Models
       set
       {
         isCapture = value;
-        OnPropertyChanged(nameof(IsCapture));
+        base.OnPropertyChanged(nameof(IsCapture));
       }
     }
 
@@ -71,7 +70,7 @@ namespace VACARM.Domain.Models
       set
       {
         isDefault = value;
-        OnPropertyChanged(nameof(IsDefault));
+        base.OnPropertyChanged(nameof(IsDefault));
       }
     }
 
@@ -97,7 +96,7 @@ namespace VACARM.Domain.Models
       set
       {
         isEnabled = value;
-        OnPropertyChanged(nameof(IsEnabled));
+        base.OnPropertyChanged(nameof(IsEnabled));
       }
     }
 
@@ -115,7 +114,7 @@ namespace VACARM.Domain.Models
       set
       {
         isMuted = value;
-        OnPropertyChanged(nameof(IsMuted));
+        base.OnPropertyChanged(nameof(IsMuted));
       }
     }
 
@@ -133,7 +132,7 @@ namespace VACARM.Domain.Models
       set
       {
         isPresent = value;
-        OnPropertyChanged(nameof(IsPresent));
+        base.OnPropertyChanged(nameof(IsPresent));
       }
     }
 
@@ -151,11 +150,9 @@ namespace VACARM.Domain.Models
       set
       {
         isRender = value;
-        OnPropertyChanged(nameof(IsRender));
+        base.OnPropertyChanged(nameof(IsRender));
       }
     }
-
-    public override event PropertyChangedEventHandler? PropertyChanged;
 
     public string Name
     {
@@ -166,7 +163,7 @@ namespace VACARM.Domain.Models
       set
       {
         name = value;
-        OnPropertyChanged(nameof(Name));
+        base.OnPropertyChanged(nameof(Name));
       }
     }
 
@@ -196,35 +193,13 @@ namespace VACARM.Domain.Models
       set
       {
         role = value;
-        OnPropertyChanged(nameof(Role));
+        base.OnPropertyChanged(nameof(Role));
       }
     }
 
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
-    {
-      PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
-    }
 
     /// <summary>
     /// Abstract of the actual audio device.

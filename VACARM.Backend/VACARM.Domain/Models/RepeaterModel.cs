@@ -226,7 +226,7 @@ namespace VACARM.Domain.Models
       set
       {
         inputDeviceId = value;
-        OnPropertyChanged(nameof(InputDeviceId));
+        base.OnPropertyChanged(nameof(InputDeviceId));
       }
     }
 
@@ -239,7 +239,7 @@ namespace VACARM.Domain.Models
       set
       {
         outputDeviceId = value;
-        OnPropertyChanged(nameof(OutputDeviceId));
+        base.OnPropertyChanged(nameof(OutputDeviceId));
       }
     }
 
@@ -252,7 +252,7 @@ namespace VACARM.Domain.Models
       set
       {
         processId = value;
-        OnPropertyChanged(nameof(ProcessId));
+        base.OnPropertyChanged(nameof(ProcessId));
       }
     }
 
@@ -265,7 +265,7 @@ namespace VACARM.Domain.Models
       set
       {
         isStarted = value;
-        OnPropertyChanged(nameof(IsStarted));
+        base.OnPropertyChanged(nameof(IsStarted));
       }
     }
 
@@ -283,11 +283,9 @@ namespace VACARM.Domain.Models
         }
 
         channelConfig = value;
-        OnPropertyChanged(nameof(ChannelConfig));
+        base.OnPropertyChanged(nameof(ChannelConfig));
       }
     }
-
-    public override event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
     /// The amount of bits per sample.
@@ -313,7 +311,7 @@ namespace VACARM.Domain.Models
           bitsPerSample = 16;
         }
 
-        OnPropertyChanged(nameof(BitsPerSample));
+        base.OnPropertyChanged(nameof(BitsPerSample));
       }
     }
 
@@ -341,7 +339,7 @@ namespace VACARM.Domain.Models
           bufferAmount = 8;
         }
 
-        OnPropertyChanged(nameof(BufferAmount));
+        base.OnPropertyChanged(nameof(BufferAmount));
       }
     }
 
@@ -386,7 +384,7 @@ namespace VACARM.Domain.Models
           prefillPercentage = 50;
         }
 
-        OnPropertyChanged(nameof(PrefillPercentage));
+        base.OnPropertyChanged(nameof(PrefillPercentage));
       }
     }
 
@@ -416,7 +414,7 @@ namespace VACARM.Domain.Models
             .Round((double)(prefillPercentage / 2));
         }
 
-        OnPropertyChanged(nameof(ResyncAtPercentage));
+        base.OnPropertyChanged(nameof(ResyncAtPercentage));
       }
     }
 
@@ -437,7 +435,7 @@ namespace VACARM.Domain.Models
         }
 
         channelList = value;
-        OnPropertyChanged(nameof(ChannelList));
+        base.OnPropertyChanged(nameof(ChannelList));
       }
     }
 
@@ -462,7 +460,7 @@ namespace VACARM.Domain.Models
         }
 
         inputDeviceName = value;
-        OnPropertyChanged(nameof(InputDeviceName));
+        base.OnPropertyChanged(nameof(InputDeviceName));
       }
     }
 
@@ -487,7 +485,7 @@ namespace VACARM.Domain.Models
         }
 
         outputDeviceName = value;
-        OnPropertyChanged(nameof(OutputDeviceName));
+        base.OnPropertyChanged(nameof(OutputDeviceName));
       }
     }
 
@@ -512,7 +510,7 @@ namespace VACARM.Domain.Models
         }
 
         pathName = value;
-        OnPropertyChanged(nameof(PathName));
+        base.OnPropertyChanged(nameof(PathName));
       }
     }
 
@@ -617,7 +615,7 @@ namespace VACARM.Domain.Models
         if (channelConfig != ChannelConfig.Custom)
         {
           channelConfig = ChannelConfig.Custom;
-          OnPropertyChanged(nameof(ChannelConfig));
+          base.OnPropertyChanged(nameof(ChannelConfig));
         }
 
         uint bit = 1;
@@ -638,7 +636,7 @@ namespace VACARM.Domain.Models
         }
 
         ChannelList = newChannelList;
-        OnPropertyChanged(nameof(ChannelMask));
+        base.OnPropertyChanged(nameof(ChannelMask));
       }
     }
 
@@ -666,7 +664,7 @@ namespace VACARM.Domain.Models
           sampleRateKHz = 48000;
         }
 
-        OnPropertyChanged(nameof(SampleRateKHz));
+        base.OnPropertyChanged(nameof(SampleRateKHz));
       }
     }
 
@@ -694,7 +692,7 @@ namespace VACARM.Domain.Models
           bufferDurationMs = 500;
         }
 
-        OnPropertyChanged(nameof(BufferDurationMs));
+        base.OnPropertyChanged(nameof(BufferDurationMs));
       }
     }
 
@@ -786,6 +784,7 @@ namespace VACARM.Domain.Models
       SampleRateKHz = sampleRateKHz;
     }
 
+    [ExcludeFromCodeCoverage]
     public void Deconstruct
     (
       out uint id,
@@ -830,28 +829,6 @@ namespace VACARM.Domain.Models
       startArguments = StartArguments;
       stopArguments = StopArguments;
       windowName = WindowName;
-    }
-
-    /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">The property name</param>
-    private void OnPropertyChanged(string propertyName)
-    {
-      PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
     }
 
     /// <summary>

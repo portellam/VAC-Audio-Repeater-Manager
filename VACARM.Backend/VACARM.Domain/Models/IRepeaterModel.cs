@@ -70,7 +70,6 @@ namespace VACARM.Domain.Models
     /// <param name="startArguments">The start arguments</param>
     /// <param name="stopArguments">The stop arguments</param>
     /// <param name="windowName">The window name</param>
-    [ExcludeFromCodeCoverage]
     void Deconstruct
     (
       out uint id,

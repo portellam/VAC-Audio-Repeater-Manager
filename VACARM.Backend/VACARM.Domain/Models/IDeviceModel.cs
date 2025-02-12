@@ -45,7 +45,6 @@ namespace VACARM.Domain.Models
     /// <param name="isRender">True/false is a render device</param>
     /// <param name="name">The name</param>
     /// <param name="role">The role</param>
-
     void Deconstruct
     (
       out uint id,
