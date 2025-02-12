@@ -12,6 +12,19 @@ namespace VACARM.Application.Services
   {
     #region Parameters
 
+    internal virtual TRepository _Repository
+    {
+      get
+      {
+        return (TRepository)repository;
+      }
+      set
+      {
+        repository = value;
+        OnPropertyChanged(nameof(_Repository));
+      }
+    }
+
     private GenericRepository<TItem> repository { get; set; } =
       new GenericRepository<TItem>();
 
@@ -19,12 +32,7 @@ namespace VACARM.Application.Services
     {
       get
       {
-        return (TRepository)repository;
-      }
-      private set
-      {
-        repository = value;
-        OnPropertyChanged(nameof(Repository));
+        return _Repository;
       }
     }
 
@@ -89,7 +97,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var item = Repository.Get(func);
+      var item = _Repository.Get(func);
 
       DoWork
       (
@@ -124,7 +132,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      foreach (var item in Repository.GetAll())
+      foreach (var item in _Repository.GetAll())
       {
         DoWork
         (
@@ -174,7 +182,7 @@ namespace VACARM.Application.Services
       DoWorkRange
       (
         action,
-        Repository.GetRange(func)
+        _Repository.GetRange(func)
       );
     }
 
