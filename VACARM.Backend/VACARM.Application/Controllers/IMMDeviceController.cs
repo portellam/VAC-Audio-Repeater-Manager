@@ -17,11 +17,6 @@ namespace VACARM.Application.Controllers
     /// <returns>The <typeparamref name="MMDevice"/> item.</returns>
     MMDevice? Get(string id);
 
-    /// <summary>
-    /// Get an enumerable of all <typeparamref name="MMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of <typeparamref name="MMDevice"/> items.</returns>
-    IEnumerable<MMDevice> GetAll();
 
     /// <summary>
     /// Get an enumerable of all <typeparamref name="MMDevice"/> item(s).
@@ -34,52 +29,52 @@ namespace VACARM.Application.Controllers
     /// Reset a <typeparamref name="MMDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Reset(string? id);
+    Task<bool> Reset(string? id);
 
     /// <summary>
     /// Reset an enumerable of all <typeparamref name="MMDevice"/> item(s).
     /// </summary>
-    void ResetAll();
+    Task<bool> ResetAll();
 
     /// <summary>
     /// Reset an enumerable of some <typeparamref name="MMDevice"/> item(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
-    void ResetRange(IEnumerable<string> id);
+    IAsyncEnumerable<Task<bool>> ResetRange(IEnumerable<string> id);
 
     /// <summary>
     /// Start a <typeparamref name="MMDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Start(string? id);
+    Task<bool> Start(string? id);
 
     /// <summary>
     /// Start an enumerable of all <typeparamref name="MMDevice"/> item(s).
     /// </summary>
-    void StartAll();
+    IAsyncEnumerable<Task<bool>> StartAll();
 
     /// <summary>
     /// Reset an enumerable of some <typeparamref name="MMDevice"/> item(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
-    void StartRange(IEnumerable<string> id);
+    IAsyncEnumerable<Task<bool>> StartRange(IEnumerable<string> id);
 
     /// <summary>
     /// Stop a <typeparamref name="MMDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Stop(string? id);
+    Task<bool> Stop(string? id);
 
     /// <summary>
     /// Stop an enumerable of all <typeparamref name="MMDevice"/> item(s).
     /// </summary>
-    void StopAll();
+    IAsyncEnumerable<Task<bool>> StopAll();
 
     /// <summary>
     /// Stop an enumerable of some <typeparamref name="MMDevice"/> item(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
-    void StopRange(IEnumerable<string> id);
+    IAsyncEnumerable<Task<bool>> StopRange(IEnumerable<string> id);
 
     /// <summary>
     /// Update a <typeparamref name="MMDevice"/> item.
