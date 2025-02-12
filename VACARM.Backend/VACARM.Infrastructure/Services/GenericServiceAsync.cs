@@ -65,7 +65,7 @@ namespace VACARM.Application.Services
         yield return false;
       }
 
-      foreach (var item in GetAll())
+      foreach (var item in Repository.GetAll())
       {
         if (item == null)
         {
