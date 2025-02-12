@@ -15,13 +15,13 @@ namespace VACARM.Application.Services
     private GenericRepository<TItem> repository { get; set; } =
       new GenericRepository<TItem>();
 
-    internal virtual TRepository Repository
+    public TRepository Repository
     {
       get
       {
         return (TRepository)repository;
       }
-      set
+      private set
       {
         repository = value;
         OnPropertyChanged(nameof(Repository));
@@ -61,7 +61,7 @@ namespace VACARM.Application.Services
     /// </summary>
     public GenericService()
     {
-      Repository = new GenericRepository<TItem>();
+      repository = new GenericRepository<TItem>();
     }
 
     /// <summary>
@@ -70,32 +70,7 @@ namespace VACARM.Application.Services
     /// <param name="repository">The repository</param>
     public GenericService(GenericRepository<TItem> repository)
     {
-      Repository = repository;
-    }
-
-    public TItem? Get(Func<TItem, bool> func)
-    {
-      return Repository.Get(func);
-    }
-
-    public IEnumerable<TItem> GetAll()
-    {
-      return Repository.GetAll();
-    }
-
-    public IEnumerable<TItem> GetRange(Func<TItem, bool> func)
-    {
-      return Repository.GetRange(func);
-    }
-
-    public void Add(TItem item)
-    {
-      Repository.Add(item);
-    }
-
-    public void AddRange(IEnumerable<TItem> enumerable)
-    {
-      Repository.AddRange(enumerable);
+      this.repository = repository;
     }
 
     public void DoWork
@@ -149,7 +124,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      foreach (var item in GetAll())
+      foreach (var item in Repository.GetAll())
       {
         DoWork
         (
@@ -201,26 +176,6 @@ namespace VACARM.Application.Services
         action,
         Repository.GetRange(func)
       );
-    }
-
-    public void Remove(TItem item)
-    {
-      Repository.Remove(item);
-    }
-
-    public void RemoveAll()
-    {
-      Repository.RemoveAll();
-    }
-
-    public void RemoveRange(Func<TItem, bool> func)
-    {
-      RemoveRange(func);
-    }
-
-    public void RemoveRange(IEnumerable<TItem> enumerable)
-    {
-      Repository.RemoveRange(enumerable);
     }
 
     #endregion
