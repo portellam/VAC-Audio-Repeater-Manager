@@ -3,11 +3,16 @@ using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public class BaseRepository<T> :
-    GenericListRepository<T>,
-    IBaseRepository<T> where T : BaseModel
+  /// <summary>
+  /// The <typeparamref name="TBaseModel"/> repository.
+  /// </summary>
+  public class BaseRepository<TBaseModel> :
+    GenericListRepository<TBaseModel>,
+    IBaseRepository<TBaseModel> where TBaseModel :
+    BaseModel
   {
     #region Parameters
+
 
     /// <summary>
     /// The list of IDs.
@@ -48,7 +53,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public BaseRepository()
     {
-      List = new List<T>();
+      List = new List<TBaseModel>();
     }
 
     /// <summary>
@@ -58,7 +63,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public BaseRepository(int maxCount)
     {
-      List = new List<T>();
+      List = new List<TBaseModel>();
       MaxCount = maxCount;
     }
 
@@ -67,7 +72,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="list">The list of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public BaseRepository(List<T> list)
+    public BaseRepository(List<TBaseModel> list)
     {
       List = list;
     }
@@ -80,7 +85,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public BaseRepository
     (
-      List<T> list,
+      List<TBaseModel> list,
       int maxCount
     )
     {
@@ -88,61 +93,77 @@ namespace VACARM.Infrastructure.Repositories
       MaxCount = maxCount;
     }
 
-    public void Add(BaseModel model)
+    public override void Add(TBaseModel? item)
     {
-      if (model == null)
+      if (item == null)
       {
         return;
       }
 
-      if (List.Contains(model))
+      if (item.GetType() != typeof(TBaseModel))
       {
         return;
       }
+
+      TBaseModel? model = (TBaseModel?)item;
 
       if (IdList.Contains(model.Id))
       {
         model.Id = NextId;
       }
 
-      Add(model);
+      base.Add((TBaseModel?)model);
     }
 
-    public BaseModel? Get(uint id)
+    public TBaseModel? Get(uint id)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
-      return Get(func);
+      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
+      return base.Get(func);
     }
 
-    public IEnumerable<BaseModel> GetRange
+    public IEnumerable<TBaseModel> GetAllById()
+    {
+      return base
+        .GetAll()
+        .OrderBy(x => x.Id);
+    }
+
+    public IEnumerable<TBaseModel> GetAllByIdDescending()
+    {
+      return base
+        .GetAll()
+        .OrderByDescending(x => x.Id);
+    }
+
+    public IEnumerable<TBaseModel> GetRange
     (
       uint startId,
       uint endId
     )
     {
-      Func<BaseModel, bool> func = (BaseModel x) =>
+      Func<TBaseModel, bool> func = (TBaseModel x) =>
         x.Id >= startId
         && x.Id <= endId;
 
-      return GetRange(func);
+      return base.GetRange(func);
     }
 
-    public IEnumerable<BaseModel> GetRange(IEnumerable<uint> idEnumerable)
+    public IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => idEnumerable.Contains(x.Id);
-      return GetRange(func);
+      Func<TBaseModel, bool> func = (TBaseModel x) => idEnumerable.Contains(x.Id);
+      return base.GetRange(func);
     }
 
     public void Remove(uint id)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
-      Remove(func);
+      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
+      base.Remove(func);
     }
 
     public void RemoveRange(uint id)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
-      RemoveRange(func);
+      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
+      base.RemoveRange(func);
     }
 
     public void RemoveRange
@@ -151,46 +172,46 @@ namespace VACARM.Infrastructure.Repositories
       uint endId
     )
     {
-      Func<BaseModel, bool> func = (BaseModel x) =>
+      Func<TBaseModel, bool> func = (TBaseModel x) =>
         x.Id >= startId
         && x.Id <= endId;
 
-      RemoveRange(func);
+      base.RemoveRange(func);
     }
 
     public void RemoveRange(IEnumerable<uint> idEnumerable)
     {
-      Func<BaseModel, bool> func = (BaseModel x) => idEnumerable.Contains(x.Id);
-      RemoveRange(func);
+      Func<TBaseModel, bool> func = (TBaseModel x) => idEnumerable.Contains(x.Id);
+      base.RemoveRange(func);
     }
 
     public void Update
     (
       uint id,
-      BaseModel model
+      TBaseModel model
     )
     {
-      Func<BaseModel, bool> func = (BaseModel x) => x.Id == id;
+      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
 
-      Update
+      base.Update
       (
         func,
-        (T)model
+        (TBaseModel)model
       );
     }
 
     public void UpdateRange
     (
        IEnumerable<uint> idEnumerable,
-       BaseModel model
+       TBaseModel model
     )
     {
-      Func<BaseModel, bool> func = (BaseModel x) => idEnumerable.Contains(x.Id);
+      Func<TBaseModel, bool> func = (TBaseModel x) => idEnumerable.Contains(x.Id);
 
-      UpdateRange
+      base.UpdateRange
       (
         func,
-        (T)model
+        (TBaseModel)model
       );
     }
 

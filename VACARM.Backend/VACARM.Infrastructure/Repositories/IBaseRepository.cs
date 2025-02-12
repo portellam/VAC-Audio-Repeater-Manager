@@ -2,58 +2,72 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IBaseRepository<T> :
-    IGenericListRepository<T> where T :
+  public interface IBaseRepository<TBaseModel> :
+    IGenericListRepository<TBaseModel> where TBaseModel :
     BaseModel
   {
     #region Logic
 
     /// <summary>
-    /// Get a <typeparamref name="BaseModel"/> item.
+    /// Get a <typeparamref name="TBaseModel"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    BaseModel? Get(uint id);
+    TBaseModel? Get(uint id);
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// Get an enumerable of all <typeparamref name="TBaseModel"/> item(s) in ID
+    /// order.
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TBaseModel> GetAllById();
+
+    /// <summary>
+    /// Get an enumerable of all <typeparamref name="TBaseModel"/> item(s) in ID
+    /// descending order.
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TBaseModel> GetAllByIdDescending();
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<BaseModel> GetRange
+    IEnumerable<TBaseModel> GetRange
     (
       uint startId,
       uint endId
     );
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<BaseModel> GetRange(IEnumerable<uint> idEnumerable);
+    IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
-    /// Add a <typeparamref name="BaseModel"/> item.
+    /// Add a <typeparamref name="TBaseModel"/> item.
     /// </summary>
     /// <param name="model"></param>
-    void Add(BaseModel model);
+    void Add(TBaseModel model);
 
     /// <summary>
-    /// Remove a <typeparamref name="BaseModel"/> item.
+    /// Remove a <typeparamref name="TBaseModel"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     void Remove(uint id);
 
     /// <summary>
-    /// Remove an enumerable of <typeparamref name="BaseModel"/> item(s).
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
     /// <param name="id">The ID</param>
     void RemoveRange(uint id);
 
     /// <summary>
-    /// Remove an enumerable of <typeparamref name="BaseModel"/> item(s).
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -64,31 +78,31 @@ namespace VACARM.Infrastructure.Repositories
     );
 
     /// <summary>
-    /// Remove an enumerable of <typeparamref name="BaseModel"/> item(s).
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     void RemoveRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
-    /// Update a <typeparamref name="BaseModel"/> item.
+    /// Update a <typeparamref name="TBaseModel"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="model">The item</param>
     void Update
     (
       uint id,
-      BaseModel model
+      TBaseModel model
     );
 
     /// <summary>
-    /// Update an enumerable of some <typeparamref name="BaseModel"/> item(s).
+    /// Update an enumerable of some <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="model">The item</param>
     void UpdateRange
     (
        IEnumerable<uint> idEnumerable,
-       BaseModel model
+       TBaseModel model
     );
 
     #endregion
