@@ -2,8 +2,6 @@
 using VACARM.Application.Commands;
 using VACARM.Infrastructure.Repositories;
 
-// TODO: make partial with async
-
 namespace VACARM.Application.Services
 {
   /// <summary>
