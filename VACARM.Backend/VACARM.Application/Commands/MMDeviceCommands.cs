@@ -10,20 +10,20 @@ namespace VACARM.Application.Commands
     /// <summary>
     /// Is the audio device started.
     /// </summary>
-    /// <param name="model">The audio device</param>
+    /// <param name="item">The audio device</param>
     /// <returns>True/false is the audio device started.</returns>
-    private static bool IsStarted(MMDevice model)
+    private static bool IsStarted(MMDevice item)
     {
-      return model.State != DeviceState.Disabled;
+      return item.State != DeviceState.Disabled;
     }
 
     /// <summary>
     /// Reset the audio device.
     /// </summary>
-    /// <param name="model">the audio device</param>
-    public static void Reset(MMDevice? model)
+    /// <param name="item">the audio device</param>
+    public static void Reset(MMDevice? item)
     {
-      if (model == null)
+      if (item == null)
       {
         Debug.WriteLine
           (
@@ -34,7 +34,7 @@ namespace VACARM.Application.Commands
         return;
       }
 
-      if (IsStarted(model))
+      if (IsStarted(item))
       {
         Debug
           .WriteLine
@@ -44,7 +44,7 @@ namespace VACARM.Application.Commands
             (
               "Failed to reset audio device. " +
               "Audio device is already started\t=> Name: {0}.",
-              model.FriendlyName
+              item.FriendlyName
             )
           );
 
@@ -53,7 +53,7 @@ namespace VACARM.Application.Commands
 
       try
       {
-        model.AudioClient
+        item.AudioClient
           .Reset();
       }
       catch
@@ -63,7 +63,7 @@ namespace VACARM.Application.Commands
           string.Format
           (
             "Failed to reset audio device\t=> Name: {0}.",
-            model.FriendlyName
+            item.FriendlyName
           )
         );
 
@@ -75,7 +75,7 @@ namespace VACARM.Application.Commands
         string.Format
         (
           "Reset audio device\t=> Name: {0}.",
-          model.FriendlyName
+          item.FriendlyName
         )
       );
     }
@@ -83,10 +83,10 @@ namespace VACARM.Application.Commands
     /// <summary>
     /// Start the audio device.
     /// </summary>
-    /// <param name="model">the audio device</param>
-    public static void Start(MMDevice? model)
+    /// <param name="item">the audio device</param>
+    public static void Start(MMDevice? item)
     {
-      if (model == null)
+      if (item == null)
       {
         Debug.WriteLine
           (
@@ -97,7 +97,7 @@ namespace VACARM.Application.Commands
         return;
       }
 
-      if (IsStarted(model))
+      if (IsStarted(item))
       {
         Debug
           .WriteLine
@@ -106,7 +106,7 @@ namespace VACARM.Application.Commands
             .Format
             (
               "The audio device is already started\t=> Name: {0}.",
-              model.FriendlyName
+              item.FriendlyName
             )
           );
 
@@ -115,7 +115,7 @@ namespace VACARM.Application.Commands
 
       try
       {
-        model.AudioClient
+        item.AudioClient
           .Start();
       }
       catch
@@ -125,7 +125,7 @@ namespace VACARM.Application.Commands
           string.Format
           (
             "Failed to start the audio device\t=> Name: {0}.",
-            model.FriendlyName
+            item.FriendlyName
           )
         );
 
@@ -137,20 +137,20 @@ namespace VACARM.Application.Commands
         string.Format
         (
           "Start the audio device\t=> Name: {0}.",
-          model.FriendlyName
+          item.FriendlyName
         )
       );
 
-      Update(model);
+      Update(item);
     }
 
     /// <summary>
     /// Stop the audio device.
     /// </summary>
-    /// <param name="model">the audio device</param>
-    public static void Stop(MMDevice? model)
+    /// <param name="item">the audio device</param>
+    public static void Stop(MMDevice? item)
     {
-      if (model == null)
+      if (item == null)
       {
         Debug.WriteLine
           (
@@ -161,7 +161,7 @@ namespace VACARM.Application.Commands
         return;
       }
 
-      if (!IsStarted(model))
+      if (!IsStarted(item))
       {
         Debug
           .WriteLine
@@ -170,7 +170,7 @@ namespace VACARM.Application.Commands
             .Format
             (
               "The audio device is already stopped\t=> Name: {0}.",
-              model.FriendlyName
+              item.FriendlyName
             )
           );
 
@@ -179,7 +179,7 @@ namespace VACARM.Application.Commands
 
       try
       {
-        model.AudioClient
+        item.AudioClient
           .Stop();
       }
       catch
@@ -189,7 +189,7 @@ namespace VACARM.Application.Commands
           string.Format
           (
             "Failed to stop the audio device\t=> Name: {0}.",
-            model.FriendlyName
+            item.FriendlyName
           )
         );
 
@@ -201,20 +201,20 @@ namespace VACARM.Application.Commands
         string.Format
         (
           "Stopped the audio device\t=> Name: {0}.",
-          model.FriendlyName
+          item.FriendlyName
         )
       );
 
-      Update(model);
+      Update(item);
     }
 
     /// <summary>
     /// Update the audio device.
     /// </summary>
-    /// <param name="model">The audio device</param>
-    public static void Update(MMDevice? model)
+    /// <param name="item">The audio device</param>
+    public static void Update(MMDevice? item)
     {
-      if (model == null)
+      if (item == null)
       {
         Debug.WriteLine
           (
@@ -227,7 +227,7 @@ namespace VACARM.Application.Commands
 
       try
       {
-        model.AudioSessionManager
+        item.AudioSessionManager
           .RefreshSessions();
       }
       catch
@@ -237,7 +237,7 @@ namespace VACARM.Application.Commands
           string.Format
           (
             "Failed to update the audio device\t=> Name: {0}.",
-            model.FriendlyName
+            item.FriendlyName
           )
         );
 
@@ -249,7 +249,7 @@ namespace VACARM.Application.Commands
         string.Format
         (
           "Updated the audio device\t=> Name: {0}.",
-          model.FriendlyName
+          item.FriendlyName
         )
       );
     }

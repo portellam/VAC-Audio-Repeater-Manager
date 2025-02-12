@@ -2,6 +2,9 @@
 
 namespace VACARM.Application.Commands
 {
+  /// <summary>
+  /// Start, stop, and query an executable's process.
+  /// </summary>
   public class ExecutableCommands
   {
     #region Logic

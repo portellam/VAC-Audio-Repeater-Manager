@@ -2,6 +2,9 @@
 
 namespace VACARM.Application.Commands
 {
+  /// <summary>
+  /// Extended functionality over <typeparamref name="MMDevice"/>.
+  /// </summary>
   public static class CoreAudioCommands
   {
     #region Parameters
@@ -51,12 +54,12 @@ namespace VACARM.Application.Commands
     /// <summary>
     /// Set the audio device volume.
     /// </summary>
-    /// <param name="model">The audio device</param>
+    /// <param name="item">The audio device</param>
     /// <param name="volume">The audio volume</param>
     /// <returns>The true/false result.</returns>
     public static bool SetVolume
     (
-      CoreAudioDevice? model,
+      CoreAudioDevice? item,
       double? volume
     )
     {
@@ -67,12 +70,12 @@ namespace VACARM.Application.Commands
         return result;
       }
 
-      if (model == null)
+      if (item == null)
       {
         return result;
       }
 
-      model.Volume = (double)volume;
+      item.Volume = (double)volume;
       return result;
     }
 
@@ -81,23 +84,23 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> DoMute(CoreAudioDevice? model)
+    public async static Task<bool> DoMute(CoreAudioDevice? item)
     {
       bool result = false;
 
-      if (model == null)
+      if (item == null)
       {
         return result;
       }
 
-      result = model.IsMuted;
+      result = item.IsMuted;
 
       if (result)
       {
         return result;
       }
 
-      result = await model
+      result = await item
         .ToggleMuteAsync()
         .ConfigureAwait(false);
 
@@ -109,23 +112,23 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> DoUnmute(CoreAudioDevice? model)
+    public async static Task<bool> DoUnmute(CoreAudioDevice? item)
     {
       bool result = false;
 
-      if (model == null)
+      if (item == null)
       {
         return result;
       }
 
-      result = !model.IsMuted;
+      result = !item.IsMuted;
 
       if (result)
       {
         return result;
       }
 
-      result = await model
+      result = await item
         .ToggleMuteAsync()
         .ConfigureAwait(false);
 
@@ -135,18 +138,18 @@ namespace VACARM.Application.Commands
     /// <summary>
     /// Set the audio device as default.
     /// </summary>
-    /// <param name="model">The audio device</param>
+    /// <param name="item">The audio device</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> SetAsDefault(CoreAudioDevice? model)
+    public async static Task<bool> SetAsDefault(CoreAudioDevice? item)
     {
       bool result = false;
 
-      if (model == null)
+      if (item == null)
       {
         return result;
       }
 
-      result = await model
+      result = await item
         .SetAsDefaultAsync()
         .ConfigureAwait(false);
 
@@ -156,19 +159,19 @@ namespace VACARM.Application.Commands
     /// <summary>
     /// Set the audio device as default for communications.
     /// </summary>
-    /// <param name="model">The audio device</param>
+    /// <param name="item">The audio device</param>
     /// <returns>The true/false result.</returns>
     public async static Task<bool> SetAsDefaultCommunications
-    (CoreAudioDevice? model)
+    (CoreAudioDevice? item)
     {
       bool result = false;
 
-      if (model == null)
+      if (item == null)
       {
         return result;
       }
 
-      result = await model
+      result = await item
         .SetAsDefaultCommunicationsAsync()
         .ConfigureAwait(false);
 
