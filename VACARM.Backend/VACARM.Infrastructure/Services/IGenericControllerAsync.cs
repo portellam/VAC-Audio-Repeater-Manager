@@ -1,61 +1,61 @@
 ﻿using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
-  public partial interface IGenericController<T1, T2> where T1 :
-    IGenericRepository<T2> where T2 :
+  public partial interface IGenericService<TRepository, TItem> where TRepository :
+    IGenericRepository<TItem> where TItem :
     class
   {
     #region Logic
 
     /// <summary>
-    /// Do an action for a <typeparamref name="T2"/> item.
+    /// Do an action for a <typeparamref name="TItem"/> item.
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="matchFunc">The match function</param>
     Task<bool> DoWorkAsync
     (
-      Func<T2, Task<bool>> actionFunc,
-      Func<T2, bool> matchFunc
+      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, bool> matchFunc
     );
 
     /// <summary>
-    /// Do an action for a <typeparamref name="T2"/> item.
+    /// Do an action for a <typeparamref name="TItem"/> item.
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="item">The item</param>
     Task<bool> DoWorkAsync
     (
-      Func<T2, Task<bool>> actionFunc,
-      T2 item
+      Func<TItem, Task<bool>> actionFunc,
+      TItem item
     );
 
     /// <summary>
-    /// Do an action for an enumerable of all <typeparamref name="T2"/> item(s).
+    /// Do an action for an enumerable of all <typeparamref name="TItem"/> item(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
-    IAsyncEnumerable<bool> DoWorkAllAsync(Func<T2, Task<bool>> actionFunc);
+    IAsyncEnumerable<bool> DoWorkAllAsync(Func<TItem, Task<bool>> actionFunc);
 
     /// <summary>
-    /// Do an action for an enumerable of some <typeparamref name="T2"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="TItem"/> item(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="enumerable">The enumerable of item(s)</param>
     IAsyncEnumerable<bool> DoWorkRangeAsync
     (
-      Func<T2, Task<bool>> actionFunc,
-      IEnumerable<T2> enumerable
+      Func<TItem, Task<bool>> actionFunc,
+      IEnumerable<TItem> enumerable
     );
 
     /// <summary>
-    /// Do an action for an enumerable of some <typeparamref name="T2"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="TItem"/> item(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="matchFunc">The match function</param>
     IAsyncEnumerable<bool> DoWorkRangeAsync
     (
-      Func<T2, Task<bool>> actionFunc,
-      Func<T2, bool> matchFunc
+      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, bool> matchFunc
     );
 
     #endregion
