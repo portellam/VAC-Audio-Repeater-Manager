@@ -1,35 +1,33 @@
 ﻿using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
-using VACARM.Application.Commands;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Controllers
+namespace VACARM.Application.Services
 {
   /// <summary>
-  /// A controller for the <typeparamref name="CoreAudioRepository"/>.
+  /// A service for the <typeparamref name="CoreAudioRepository"/>.
   /// </summary>
-  /// <typeparam name="T1">The repository</typeparam>
-  /// <typeparam name="T2">The item</typeparam>
-  public partial class CoreAudioController<T1, T2> :
-    GenericController<CoreAudioRepository<Device>, Device>,
-    ICoreAudioController<CoreAudioRepository<Device>, Device> where T1 :
-    CoreAudioRepository<Device> where T2 :
+  public partial class CoreAudioService<TRepository, TDevice> :
+    GenericService<CoreAudioRepository<TDevice>, TDevice>,
+    ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
+    CoreAudioRepository<TDevice> where TDevice :
     Device
   {
     #region Parameters
 
-    private CoreAudioController Controller { get; set; }
+    private CoreAudioController controller { get; set; } =
+      new CoreAudioController();
 
-    internal override GenericRepository<Device> Repository
+    private CoreAudioController Controller
     {
       get
       {
-        return (CoreAudioRepository<Device>)base.Repository;
+        return this.controller;
       }
       set
       {
-        base.Repository = value;
-        OnPropertyChanged(nameof(Repository));
+        this.controller = value;
+        base.OnPropertyChanged(nameof(Controller));
       }
     }
 
@@ -81,10 +79,11 @@ namespace VACARM.Application.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public CoreAudioController()
+    public CoreAudioService()
     {
+      base._Repository = new CoreAudioRepository<TDevice>();
       Controller = new CoreAudioController();
-      var result = UpdateAllAsync();
+      var result = this.UpdateAllAsync();
     }
 
     #endregion
