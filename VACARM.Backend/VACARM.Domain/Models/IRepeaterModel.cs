@@ -4,7 +4,7 @@ using VACARM.Domain.Structs;
 
 namespace VACARM.Domain.Models
 {
-  public interface IRepeaterModel : 
+  public interface IRepeaterModel :
     IBaseModel
   {
     #region Parameters

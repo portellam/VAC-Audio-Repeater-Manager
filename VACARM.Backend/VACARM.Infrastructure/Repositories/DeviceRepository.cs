@@ -77,7 +77,7 @@ namespace VACARM.Infrastructure.Repositories
     {
       Func<TDeviceModel, bool> func = (TDeviceModel x) =>
         x.Role == "Communications";
-      
+
       return base.GetRange(func);
     }
 

@@ -5,7 +5,7 @@
     class
   {
     #region Logic
-    
+
     /// <summary>
     /// Get a <typeparamref name="TItem"/> item.
     /// </summary>

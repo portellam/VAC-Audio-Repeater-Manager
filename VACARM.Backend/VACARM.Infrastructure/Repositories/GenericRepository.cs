@@ -13,7 +13,6 @@ namespace VACARM.Infrastructure.Repositories
     class
   {
     #region Parameters
-    #region Parameters
 
     /// <summary>
     /// The <typeparamref name="Enumerable"/> of all

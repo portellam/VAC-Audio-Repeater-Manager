@@ -25,7 +25,7 @@ namespace VACARM.Infrastructure.Repositories
       set
       {
         base.Enumerable = value;
-        OnPropertyChanged(nameof(List));
+        base.OnPropertyChanged(nameof(List));
       }
     }
 

@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IGenericRepository<TItem> where TItem : 
+  public interface IGenericRepository<TItem> where TItem :
     class
   {
     #region Parameters

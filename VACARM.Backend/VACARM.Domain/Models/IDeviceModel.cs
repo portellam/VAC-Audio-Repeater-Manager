@@ -2,7 +2,7 @@
 
 namespace VACARM.Domain.Models
 {
-  public interface IDeviceModel : 
+  public interface IDeviceModel :
     IBaseModel
   {
     #region Parameters
@@ -19,7 +19,7 @@ namespace VACARM.Domain.Models
     /// Is both Capture and Render.
     /// </summary>
     bool IsDuplex { get; }
-    
+
     bool IsEnabled { get; set; }
     bool IsMuted { get; set; }
     bool IsRender { get; set; }
