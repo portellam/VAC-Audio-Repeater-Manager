@@ -6,15 +6,16 @@ namespace VACARM.Infrastructure.Repositories
   /// <summary>
   /// An up-to-date repository of all system audio devices.
   /// </summary>
-  public class TMMDeviceRepository<TMMDevice> :
+  public class MMDeviceRepository<TMMDevice> :
     GenericRepository<TMMDevice>,
-    ITMMDeviceRepository<TMMDevice> where TMMDevice :
+    IMMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
     #region Parameters
 
     /// <summary>
-    /// The enumerable of all <typeparamref name="TMMDevice"/> item(s).
+    /// The <typeparamref name="Enumerable"/> of all
+    /// <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     internal override IEnumerable<TMMDevice> Enumerable
     {
@@ -85,7 +86,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="dataFlow">The data flow</param>
     /// <param name="role">The role</param>
     /// <returns>The item.</returns>
-    private TMMDevice? getDefault
+    private MMDevice? getDefault
     (
       DataFlow dataFlow,
       Role role
@@ -104,11 +105,11 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default communications <typeparamref name="TMMDevice"/> item.
+    /// Get the default communications <typeparamref name="MMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    private TMMDevice? getDefaultCommunications(DataFlow dataFlow)
+    private MMDevice? getDefaultCommunications(DataFlow dataFlow)
     {
       return getDefault
         (
@@ -118,11 +119,11 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default console <typeparamref name="TMMDevice"/> item.
+    /// Get the default console <typeparamref name="MMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    private TMMDevice? getDefaultConsole(DataFlow dataFlow)
+    private MMDevice? getDefaultConsole(DataFlow dataFlow)
     {
       return getDefault
         (
@@ -132,11 +133,11 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default multimedia <typeparamref name="TMMDevice"/> item.
+    /// Get the default multimedia <typeparamref name="MMDevice"/> item.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    private TMMDevice? getDefaultMultimedia(DataFlow dataFlow)
+    private MMDevice? getDefaultMultimedia(DataFlow dataFlow)
     {
       return getDefault
         (
@@ -261,11 +262,13 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      Enumerable = Enumerator.EnumerateAudioEndPoints
+      MMDeviceCollection collection = Enumerator.EnumerateAudioEndPoints
         (
           DataFlow.All,
           DeviceState.All
         );
+
+      Enumerable = (IEnumerable<TMMDevice>)collection.AsEnumerable();
     }
 
     public void UpdateAllDefaults()
@@ -276,25 +279,36 @@ namespace VACARM.Infrastructure.Repositories
       }
 
       DefaultDictionary.Clear();
+      Array array = Enum.GetValues(typeof(DataFlow));
 
-      foreach (DataFlow dataFlow in Enum.GetValues(typeof(DataFlow)))
+      if (array == null)
+      {
+        return;
+      }
+
+      if (array.Length == 0)
+      {
+        return;
+      }
+
+      foreach (DataFlow dataFlow in array)
       {
         DefaultDictionary.TryAdd
         (
-          Role.Multimedia, 
-          getDefaultCommunications(dataFlow)
+          Role.Multimedia,
+          (TMMDevice?)getDefaultCommunications(dataFlow)
         );
 
         DefaultDictionary.TryAdd
         (
           Role.Multimedia,
-          getDefaultConsole(dataFlow)
+          (TMMDevice?)getDefaultConsole(dataFlow)
         );
 
         DefaultDictionary.TryAdd
         (
           Role.Multimedia,
-          getDefaultMultimedia(dataFlow)          
+          (TMMDevice?)getDefaultMultimedia(dataFlow)
         );
       }
     }

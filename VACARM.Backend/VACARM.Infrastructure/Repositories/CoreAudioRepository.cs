@@ -5,16 +5,20 @@ namespace VACARM.Infrastructure.Repositories
 {
   /// <summary>
   /// A up-to-date repository of all system audio devices.
-  /// Improved functionality over <typeparamref name="MMDeviceRepository".
+  /// Extended functionality over <typeparamref name="MMDeviceRepository".
   /// </summary>
-  public class CoreAudioRepository<T> :
-    GenericRepository<Device>,
-    ICoreAudioRepository<Device> where T :
+  public class CoreAudioRepository<TDevice> :
+    GenericRepository<TDevice>,
+    ICoreAudioRepository<TDevice> where TDevice :
     Device
   {
     #region Parameters
 
-    internal override IEnumerable<Device> Enumerable
+    /// <summary>
+    /// The <typeparamref name="Enumerable"/> of all
+    /// <typeparamref name="TDevice"/> item(s).
+    /// </summary>
+    internal override IEnumerable<TDevice> Enumerable
     {
       get
       {
@@ -36,14 +40,14 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     public CoreAudioRepository()
     {
-      Enumerable = Array.Empty<Device>();
+      Enumerable = Array.Empty<TDevice>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
-    public CoreAudioRepository(IEnumerable<Device> enumerable)
+    public CoreAudioRepository(IEnumerable<TDevice> enumerable)
     {
       Enumerable = enumerable;
     }
@@ -112,7 +116,7 @@ namespace VACARM.Infrastructure.Repositories
       return device.Volume;
     }
 
-    public Device? Get(string id)
+    public TDevice? Get(string id)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -134,31 +138,31 @@ namespace VACARM.Infrastructure.Repositories
       return Get(func);
     }
 
-    public Device? GetDefaultCommunications()
+    public TDevice? GetDefaultCommunications()
     {
       Func<Device, bool> func = (Device x) => x.IsDefaultCommunicationsDevice;
       return Get(func);
     }
 
-    public Device? GetDefault()
+    public TDevice? GetDefault()
     {
       Func<Device, bool> func = (Device x) => x.IsDefaultDevice;
       return Get(func);
     }
 
-    public IEnumerable<Device> GetAllMuted()
+    public IEnumerable<TDevice> GetAllMuted()
     {
       Func<Device, bool> func = (Device x) => !x.IsMuted;
       return GetRange(func);
     }
 
-    public IEnumerable<Device> GetAllNotMuted()
+    public IEnumerable<TDevice> GetAllNotMuted()
     {
       Func<Device, bool> func = (Device x) => !x.IsMuted;
       return GetRange(func);
     }
 
-    public IEnumerable<Device> GetRange(IEnumerable<string> idEnumerable)
+    public IEnumerable<TDevice> GetRange(IEnumerable<string> idEnumerable)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -172,7 +176,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var id in idEnumerable)
       {
-        Device? device = Get(id);
+        TDevice? device = Get(id);
 
         if (device == null)
         {

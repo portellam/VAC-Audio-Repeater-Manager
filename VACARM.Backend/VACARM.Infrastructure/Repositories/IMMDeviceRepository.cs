@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface ITMMDeviceRepository<TMMDevice> :
+  public interface IMMDeviceRepository<TMMDevice> :
     IGenericRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
