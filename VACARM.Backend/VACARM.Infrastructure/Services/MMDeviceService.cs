@@ -9,118 +9,97 @@ namespace VACARM.Application.Services
   /// <summary>
   /// A service for the <typeparamref name="MMDeviceRepository"/>.
   /// </summary>
-  /// <typeparam name="TRepository">The repository</typeparam>
-  /// <typeparam name="TItem">The item</typeparam>
-  public class MMDeviceService<TRepository, TItem> :
-    GenericService<GenericRepository<MMDevice>, MMDevice> where TRepository :
-    MMDeviceRepository<MMDevice> where TItem :
+  public class TMMDeviceService<TRepository, TMMDevice> :
+    GenericService<MMDeviceRepository<TMMDevice>, TMMDevice> where TRepository :
+    MMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
-    private MMDeviceRepository<MMDevice> mMDeviceRepository { get; set; }
-
-    internal override GenericRepository<MMDevice> Repository
-    {
-      get
-      {
-        return mMDeviceRepository;
-      }
-      set
-      {
-        mMDeviceRepository = (MMDeviceRepository<MMDevice>)value;
-        OnPropertyChanged(nameof(Repository));
-      }
-    }
-
     /// <summary>
     /// Constructor
     /// </summary>
-    public MMDeviceService()
+    public TMMDeviceService()
     {
-      Repository = new MMDeviceRepository<MMDevice>();
+      _Repository = new MMDeviceRepository<TMMDevice>();
     }
 
     /// <summary>
-    /// Constructor
+    /// Reset a <typeparamref name="TMMDevice"/> item.
     /// </summary>
-    /// <param name="repository">The repository</param>
-    public MMDeviceService(MMDeviceRepository<MMDevice> repository)
+    /// <param name="item">The item</param>
+    private void Reset(TMMDevice? item)
     {
-      Repository = repository;
+      MMDeviceCommands.Reset(item);
     }
 
-    private void Reset(MMDevice? mMDevice)
+    /// <summary>
+    /// Start a <typeparamref name="TMMDevice"/> item.
+    /// </summary>
+    /// <param name="item">The item</param>
+    private void Start(TMMDevice? item)
     {
-      MMDeviceCommands.Reset(mMDevice);
+      MMDeviceCommands.Start(item);
     }
 
-    public MMDevice? Get(string id)
+    /// <summary>
+    /// Stop a <typeparamref name="TMMDevice"/> item.
+    /// </summary>
+    /// <param name="item">The item</param>
+    private void Stop(TMMDevice? item)
     {
-      Func<MMDevice, bool> func = (MMDevice x) => x.ID == id;
-      return Get(func);
+      MMDeviceCommands.Stop(item);
+    }
+
+    /// <summary>
+    /// Update a <typeparamref name="TMMDevice"/> item.
+    /// </summary>
+    /// <param name="item">The item</param>
+    private void Update(TMMDevice? item)
+    {
+      MMDeviceCommands.Update(item);
     }
 
     public void Reset(string id)
     {
-      Reset(Get(id));
+      this.Reset(base._Repository.Get(id));
     }
 
-    private void Start(MMDevice? mMDevice)
+    public void ResetAll()
     {
-      MMDeviceCommands.Start(mMDevice);
+      Action<TMMDevice> action = (TMMDevice x) => this.Reset(x);
+      base.DoWorkAll(action);
     }
 
     public void Start(string id)
     {
-      Start(Get(id));
+      this.Start(base._Repository.Get(id));
     }
 
-    private void Stop(MMDevice? mMDevice)
+    public void StartAll()
     {
-      MMDeviceCommands.Stop(mMDevice);
+      Action<TMMDevice> action = (TMMDevice x) => this.Start(x);
+      base.DoWorkAll(action);
     }
 
     public void Stop(string id)
     {
-      Stop(Get(id));
+      this.Stop(base._Repository.Get(id));
     }
 
     public void StopAll()
     {
-      Action<MMDevice> action = (MMDevice x) => Stop(x);
-      DoAll(action);
+      Action<TMMDevice> action = (TMMDevice x) => this.Stop(x);
+      base.DoWorkAll(action);
     }
 
-    public void DoAll(Action<MMDevice> action)
+    public void Update(string id)
     {
-      DoRange
-        (
-          action,
-          GetAll()
-        );
+      this.Update(base._Repository.Get(id));
     }
 
-    public void DoRange
-    (
-      Action<MMDevice> action,
-      IEnumerable<MMDevice> enumerable
-    )
+    public void UpdateAll()
     {
-      foreach(var item in enumerable)
-      {
-        action(item);
-      }
+      Action<TMMDevice> action = (TMMDevice x) => this.Update(x);
+      base.DoWorkAll(action);
     }
-
-    private void Update(MMDevice? mMDevice)
-    {
-      MMDeviceCommands.Update(mMDevice);
-    }
-
-    public List<MMDevice> GetRange(List<string> idList)
-    {
-      return Repository.GetRange(idList);
-    }
-
-
   }
 }
