@@ -1,5 +1,6 @@
-﻿using NAudio.CoreAudioApi;
-#warning AudioSwitcher.AudioApi must be used after NAudio.CoreAudioApi
+﻿#warning AudioSwitcher.AudioApi must initialize after NAudio.CoreAudioApi
+
+using NAudio.CoreAudioApi;
 using AudioSwitcher.AudioApi;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
@@ -22,6 +23,11 @@ namespace VACARM.Application.Services
       mMDeviceService
     { get; set; }
 
+    /// <summary>
+    /// <typeparamref name="AudioSwitcher.AudioApi"/> must declare after
+    /// <typeparamref name="NAudio.CoreAudioApi"/>.
+    /// Issue: <see cref="https://github.com/naudio/NAudio/issues/421"/>
+    /// </summary>
     public MMDeviceService<MMDeviceRepository<MMDevice>, MMDevice> MMDeviceService
     {
       get
@@ -35,11 +41,15 @@ namespace VACARM.Application.Services
       }
     }
 
-    #warning AudioSwitcher.AudioApi must declare after NAudio.CoreAudioApi
-
     private CoreAudioService<CoreAudioRepository<Device>, Device>
-      coreAudioService { get; set; }
-    
+      coreAudioService
+    { get; set; }
+
+    /// <summary>
+    /// <typeparamref name="AudioSwitcher.AudioApi"/> must declare after
+    /// <typeparamref name="NAudio.CoreAudioApi"/>.
+    /// Issue: <see cref="https://github.com/naudio/NAudio/issues/421"/>
+    /// </summary>
     public CoreAudioService<CoreAudioRepository<Device>, Device> CoreAudioService
     {
       get
@@ -68,10 +78,26 @@ namespace VACARM.Application.Services
       this.MMDeviceService =
         new MMDeviceService<MMDeviceRepository<MMDevice>, MMDevice>();
 
-      #warning AudioSwitcher.AudioApi must initialize after NAudio.CoreAudioApi
-
-      this.CoreAudioService = 
+      this.CoreAudioService =
         new CoreAudioService<CoreAudioRepository<Device>, Device>();
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="repository">The repository</param>
+    /// <param name="mMDeviceService">The MMDevice service</param>
+    /// <param name="coreAudioService">The Core Audio service</param>
+    public DeviceService
+    (
+      DeviceRepository<TDeviceModel> repository,
+      MMDeviceService<MMDeviceRepository<MMDevice>, MMDevice> mMDeviceService,
+      CoreAudioService<CoreAudioRepository<Device>, Device> coreAudioService
+    )
+    {
+      base._Repository = new DeviceRepository<TDeviceModel>();
+      this.MMDeviceService = mMDeviceService;
+      this.CoreAudioService = coreAudioService;
     }
 
     #endregion
