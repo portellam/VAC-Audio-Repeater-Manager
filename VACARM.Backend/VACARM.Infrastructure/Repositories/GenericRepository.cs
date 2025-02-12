@@ -5,16 +5,21 @@ using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public class GenericRepository<T> :
-    IGenericRepository<T> where T :
+  /// <summary>
+  /// The <typeparamref name="Enumerable"/> repository.
+  /// </summary>
+  public class GenericRepository<TItem> :
+    IGenericRepository<TItem> where TItem :
     class
   {
     #region Parameters
+    #region Parameters
 
     /// <summary>
-    /// The enumerable of all <typeparamref name="T"/> item(s).
+    /// The <typeparamref name="Enumerable"/> of all
+    /// <typeparamref name="TItem"/> item(s).
     /// </summary>
-    internal virtual IEnumerable<T> Enumerable
+    internal virtual IEnumerable<TItem> Enumerable
     {
       get
       {
@@ -27,7 +32,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    private IEnumerable<T> enumerable { get; set; }
+    private IEnumerable<TItem> enumerable { get; set; }
     private int maxCount { get; set; } = int.MaxValue;
 
     public virtual int MaxCount
@@ -77,7 +82,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public GenericRepository()
     {
-      Enumerable = Array.Empty<T>();
+      Enumerable = Array.Empty<TItem>();
     }
 
     /// <summary>
@@ -85,14 +90,14 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public GenericRepository(IEnumerable<T> enumerable)
+    public GenericRepository(IEnumerable<TItem> enumerable)
     {
       Enumerable = enumerable;
     }
 
-    public bool IsNullOrEmpty(IEnumerable<T> enumerable)
+    public bool IsNullOrEmpty(IEnumerable<TItem> enumerable)
     {
-      return IEnumerableExtension<T>.IsNullOrEmpty(enumerable);
+      return IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable);
     }
 
     public bool IsValidIndex(int index)
@@ -101,7 +106,7 @@ namespace VACARM.Infrastructure.Repositories
         && index <= MaxCount;
     }
 
-    public T? Get(Func<T, bool> func)
+    public TItem? Get(Func<TItem, bool> func)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -111,21 +116,21 @@ namespace VACARM.Infrastructure.Repositories
       return Enumerable.FirstOrDefault(func);
     }
 
-    public IEnumerable<T> GetAll()
+    public IEnumerable<TItem> GetAll()
     {
       if (IsNullOrEmpty(Enumerable))
       {
-        return Array.Empty<T>();
+        return Array.Empty<TItem>();
       }
 
       return Enumerable.AsEnumerable();
     }
 
-    public IEnumerable<T> GetRange(Func<T, bool> func)
+    public IEnumerable<TItem> GetRange(Func<TItem, bool> func)
     {
       if (IsNullOrEmpty(Enumerable))
       {
-        return Array.Empty<T>();
+        return Array.Empty<TItem>();
       }
 
       return Enumerable
@@ -133,7 +138,7 @@ namespace VACARM.Infrastructure.Repositories
         .AsEnumerable();
     }
 
-    public void Add(T item)
+    public virtual void Add(TItem item)
     {
       if (item == null)
       {
@@ -158,7 +163,7 @@ namespace VACARM.Infrastructure.Repositories
       Enumerable.Append(item);
     }
 
-    public void AddRange(IEnumerable<T> enumerable)
+    public void AddRange(IEnumerable<TItem> enumerable)
     {
       if (IsNullOrEmpty(enumerable))
       {
@@ -181,7 +186,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public virtual void Remove(T item)
+    public virtual void Remove(TItem item)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -193,10 +198,10 @@ namespace VACARM.Infrastructure.Repositories
 
     public void RemoveAll()
     {
-      Enumerable = Array.Empty<T>();
+      Enumerable = Array.Empty<TItem>();
     }
 
-    public virtual void RemoveRange(Func<T, bool> func)
+    public virtual void RemoveRange(Func<TItem, bool> func)
     {
       if (IsNullOrEmpty(Enumerable))
       {
@@ -211,7 +216,7 @@ namespace VACARM.Infrastructure.Repositories
       Enumerable = Enumerable.Where(func);
     }
 
-    public virtual void RemoveRange(IEnumerable<T> enumerable)
+    public virtual void RemoveRange(IEnumerable<TItem> enumerable)
     {
       if (IsNullOrEmpty(Enumerable))
       {

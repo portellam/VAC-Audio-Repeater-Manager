@@ -2,14 +2,15 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IGenericRepository<T> where T : class
+  public interface IGenericRepository<TItem> where TItem : 
+    class
   {
     #region Parameters
 
     event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
-    /// The maximum count of <typeparamref name="T"/> item(s).
+    /// The maximum count of <typeparamref name="TItem"/>(s).
     /// </summary>
     int MaxCount { get; set; }
 
@@ -22,69 +23,69 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="enumerable">The enumerable</param>
     /// <returns>True/false</returns>
-    bool IsNullOrEmpty(IEnumerable<T> enumerable);
+    bool IsNullOrEmpty(IEnumerable<TItem> enumerable);
 
     /// <summary>
-    /// Is index valid.
+    /// True/false is the index valid.
     /// </summary>
     /// <param name="index">The index</param>
     /// <returns>True/false</returns>
     bool IsValidIndex(int index);
 
     /// <summary>
-    /// Get a <typeparamref name="T"/> item.
+    /// Get a <typeparamref name="TItem"/> item.
     /// </summary>
     /// <param name="func">The function</param>
     /// <returns>The item.</returns>
-    T? Get(Func<T, bool> func);
+    TItem? Get(Func<TItem, bool> func);
 
     /// <summary>
-    /// Get an enumerable of all <typeparamref name="T"/> item(s).
+    /// Get an enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<T> GetAll();
+    /// <returns>The enumerable of(s).</returns>
+    IEnumerable<TItem> GetAll();
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="T"/> item(s).
+    /// Get an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<T> GetRange(Func<T, bool> func);
+    /// <returns>The enumerable of(s).</returns>
+    IEnumerable<TItem> GetRange(Func<TItem, bool> func);
 
     /// <summary>
-    /// Add a <typeparamref name="T"/> item.
+    /// Add a <typeparamref name="TItem"/> item.
     /// </summary>
     /// <param name="item">The item</param>
-    void Add(T item);
+    void Add(TItem item);
 
     /// <summary>
-    /// Add an enumerable of some <typeparamref name="T"/> item(s).
+    /// Add an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="item">The enumerable of item(s)</param>
-    void AddRange(IEnumerable<T> enumerable);
+    void AddRange(IEnumerable<TItem> enumerable);
 
     /// <summary>
-    /// Remove a <typeparamref name="T"/> item.
+    /// Remove a <typeparamref name="TItem"/> item.
     /// </summary>
     /// <param name="item">The item</param>
-    void Remove(T item);
+    void Remove(TItem item);
 
     /// <summary>
-    /// Remove an enumerable of all <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
     void RemoveAll();
 
     /// <summary>
-    /// Remove an enumerable of some <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="func">The function</param>
-    void RemoveRange(Func<T, bool> func);
+    void RemoveRange(Func<TItem, bool> func);
 
     /// <summary>
-    /// Remove an enumerable of some <typeparamref name="T"/> item(s).
+    /// Remove an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="item">The enumerable of item(s)</param>
-    void RemoveRange(IEnumerable<T> enumerable);
+    void RemoveRange(IEnumerable<TItem> enumerable);
 
     #endregion
   }

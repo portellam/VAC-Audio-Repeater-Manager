@@ -3,17 +3,20 @@ using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public class GenericListRepository<T> :
-    GenericRepository<T>,
-    IGenericListRepository<T> where T :
+  /// <summary>
+  /// The <typeparamref name="List"/> repository.
+  /// </summary>
+  public class GenericListRepository<TItem> :
+    GenericRepository<TItem>,
+    IGenericListRepository<TItem> where TItem :
     class
   {
     #region Parameters
 
     /// <summary>
-    /// The list of all <typeparamref name="T"/> item(s).
+    /// The <typeparamref name="List"/> of all <typeparamref name="TItem"/> item(s).
     /// </summary>
-    internal virtual List<T> List
+    internal virtual IList<TItem> List
     {
       get
       {
@@ -36,7 +39,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public GenericListRepository()
     {
-      List = new List<T>();
+      List = new List<TItem>();
     }
 
     /// <summary>
@@ -44,19 +47,34 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="list">The list of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public GenericListRepository(List<T> list)
+    public GenericListRepository(List<TItem> list)
     {
       List = list;
     }
 
-    public T? Get(int index)
+    public override void Add(TItem? item)
+    {
+      if (item == null)
+      {
+        return;
+      }
+
+      if (List.Contains(item))
+      {
+        return;
+      }
+
+      List.Add(item);
+    }
+
+    public TItem? Get(int index)
     {
       return List.ElementAt(index);
     }
 
-    public int? GetIndex(Func<T, bool> func)
+    public int? GetIndex(Func<TItem, bool> func)
     {
-      T? item = Get(func);
+      TItem? item = Get(func);
 
       if (item == null)
       {
@@ -66,19 +84,19 @@ namespace VACARM.Infrastructure.Repositories
       return List.IndexOf(item);
     }
 
-    public int? GetIndex(T item)
+    public int? GetIndex(TItem item)
     {
       return List.IndexOf(item);
     }
 
-    public IEnumerable<int> GetIndexRange(Func<T, bool> func)
+    public IEnumerable<int> GetIndexRange(Func<TItem, bool> func)
     {
       if (func == null)
       {
         yield break;
       }
 
-      IEnumerable<T> enumerable = GetRange(func);
+      IEnumerable<TItem> enumerable = GetRange(func);
 
       if (IsNullOrEmpty(enumerable))
       {
@@ -98,7 +116,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public IEnumerable<T> GetRange(IEnumerable<int> indexEnumerable)
+    public IEnumerable<TItem> GetRange(IEnumerable<int> indexEnumerable)
     {
       if (IEnumerableExtension<int>.IsNullOrEmpty(indexEnumerable))
       {
@@ -107,7 +125,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (int index in indexEnumerable)
       {
-        T? item = Get(index);
+        TItem? item = Get(index);
 
         if (item == null)
         {
@@ -118,7 +136,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public IEnumerable<T> GetRange
+    public IEnumerable<TItem> GetRange
     (
       int startIndex,
       int endIndex
@@ -141,7 +159,7 @@ namespace VACARM.Infrastructure.Repositories
 
       for (int index = startIndex; index <= endIndex; index++)
       {
-        T? item = Get(index);
+        TItem? item = Get(index);
 
         if (item == null)
         {
@@ -155,12 +173,12 @@ namespace VACARM.Infrastructure.Repositories
     public void Insert
     (
       int index,
-      T item
+      TItem item
     )
     {
       if (List == null)
       {
-        List = new List<T>();
+        List = new List<TItem>();
       }
 
       if (List.Count() <= MaxCount)
@@ -180,7 +198,7 @@ namespace VACARM.Infrastructure.Repositories
         );
     }
 
-    public override void Remove(T item)
+    public override void Remove(TItem item)
     {
       if (IsNullOrEmpty(List))
       {
@@ -200,7 +218,7 @@ namespace VACARM.Infrastructure.Repositories
       List.RemoveAt(index);
     }
 
-    public void Remove(Func<T, bool> func)
+    public void Remove(Func<TItem, bool> func)
     {
       if (IsNullOrEmpty(List))
       {
@@ -212,7 +230,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      T? item = List.FirstOrDefault(func);
+      TItem? item = List.FirstOrDefault(func);
 
       if (item == null)
       {
@@ -222,7 +240,7 @@ namespace VACARM.Infrastructure.Repositories
       Remove(item);
     }
 
-    public override void RemoveRange(Func<T, bool> func)
+    public override void RemoveRange(Func<TItem, bool> func)
     {
       if (IsNullOrEmpty(List))
       {
@@ -234,14 +252,14 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      IList<T> list = List
+      IList<TItem> list = List
         .Where(func)
         .ToList();
 
       RemoveRange(list);
     }
 
-    public override void RemoveRange(IEnumerable<T> enumerable)
+    public override void RemoveRange(IEnumerable<TItem> enumerable)
     {
       if (IsNullOrEmpty(List))
       {
@@ -307,7 +325,7 @@ namespace VACARM.Infrastructure.Repositories
     public void Update
     (
       int index,
-      T item
+      TItem item
     )
     {
       if (IsNullOrEmpty(List))
@@ -334,8 +352,8 @@ namespace VACARM.Infrastructure.Repositories
 
     public void Update
     (
-      Func<T, bool> func,
-      T newItem
+      Func<TItem, bool> func,
+      TItem newItem
     )
     {
       if (IsNullOrEmpty(List))
@@ -348,7 +366,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      T? oldItem = Get(func);
+      TItem? oldItem = Get(func);
 
       if (oldItem == null)
       {
@@ -367,8 +385,8 @@ namespace VACARM.Infrastructure.Repositories
 
     public void UpdateRange
     (
-      Func<T, bool> func,
-      T item
+      Func<TItem, bool> func,
+      TItem item
     )
     {
       if (IsNullOrEmpty(List))
