@@ -46,12 +46,12 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        return defaultDictionary;
+        return this.defaultDictionary;
       }
       set
       {
-        defaultDictionary = value;
-        OnPropertyChanged(nameof(DefaultDictionary));
+        this.defaultDictionary = value;
+        base.OnPropertyChanged(nameof(DefaultDictionary));
       }
     }
 
@@ -66,13 +66,13 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        return enumerator;
+        return this.enumerator;
       }
       set
       {
-        enumerator = value;
-        UpdateAll();
-        OnPropertyChanged(nameof(Enumerator));
+        this.enumerator = value;
+        this.UpdateAll();
+        base.OnPropertyChanged(nameof(Enumerator));
       }
     }
 
@@ -92,12 +92,12 @@ namespace VACARM.Infrastructure.Repositories
       Role role
     )
     {
-      if (Enumerator == null)
+      if (this.Enumerator == null)
       {
         return null;
       }
 
-      return Enumerator.GetDefaultAudioEndpoint
+      return this.Enumerator.GetDefaultAudioEndpoint
         (
           dataFlow,
           role
@@ -111,7 +111,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <returns>The item.</returns>
     private MMDevice? getDefaultCommunications(DataFlow dataFlow)
     {
-      return getDefault
+      return this.getDefault
         (
           dataFlow,
           Role.Communications
@@ -125,7 +125,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <returns>The item.</returns>
     private MMDevice? getDefaultConsole(DataFlow dataFlow)
     {
-      return getDefault
+      return this.getDefault
         (
           dataFlow,
           Role.Console
@@ -139,7 +139,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <returns>The item.</returns>
     private MMDevice? getDefaultMultimedia(DataFlow dataFlow)
     {
-      return getDefault
+      return this.getDefault
         (
           dataFlow,
           Role.Multimedia
@@ -152,8 +152,9 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public MMDeviceRepository()
     {
-      Enumerator = new MMDeviceEnumerator();
+      this.Enumerator = new MMDeviceEnumerator();
     }
+
     public TMMDevice? Get(string id)
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.ID == id;
@@ -166,7 +167,7 @@ namespace VACARM.Infrastructure.Repositories
       Role role
     )
     {
-      return DefaultDictionary
+      return this.DefaultDictionary
         .FirstOrDefault
         (
           x =>
@@ -179,7 +180,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public TMMDevice? GetDefaultCommunications(DataFlow dataFlow)
     {
-      return GetDefault
+      return this.GetDefault
         (
           dataFlow,
           Role.Communications
@@ -188,7 +189,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public TMMDevice? GetDefaultConsole(DataFlow dataFlow)
     {
-      return GetDefault
+      return this.GetDefault
         (
           dataFlow,
           Role.Console
@@ -197,7 +198,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public TMMDevice? GetDefaultMultimedia(DataFlow dataFlow)
     {
-      return GetDefault
+      return this.GetDefault
         (
           dataFlow,
           Role.Multimedia
@@ -207,78 +208,80 @@ namespace VACARM.Infrastructure.Repositories
     public IEnumerable<TMMDevice> GetAllAbsent()
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.State != DeviceStatePresent;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TMMDevice> GetAllCapture()
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.Capture;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TMMDevice> GetAllDisabled()
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.State == DeviceState.Disabled;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TMMDevice> GetAllDuplex()
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.All;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TMMDevice> GetAllEnabled()
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.State != DeviceState.Disabled;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TMMDevice> GetAllPresent()
     {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.State == DeviceStatePresent;
-      return GetRange(func);
+      Func<TMMDevice, bool> func = (TMMDevice x) => 
+        x.State == this.DeviceStatePresent;
+
+      return this.GetRange(func);
     }
 
     public IEnumerable<TMMDevice> GetAllRender()
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.Render;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable)
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => idEnumerable.Contains(x.ID);
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public void UpdateAll()
     {
-      UpdateAllDefaults();
+      this.UpdateAllDefaults();
 
-      if (Enumerator == null)
+      if (this.Enumerator == null)
       {
-        Enumerable = Array.Empty<TMMDevice>();
+        this.Enumerable = Array.Empty<TMMDevice>();
         return;
       }
 
-      MMDeviceCollection collection = Enumerator.EnumerateAudioEndPoints
+      MMDeviceCollection collection = this.Enumerator.EnumerateAudioEndPoints
         (
           DataFlow.All,
           DeviceState.All
         );
 
-      Enumerable = (IEnumerable<TMMDevice>)collection.AsEnumerable();
+      this.Enumerable = (IEnumerable<TMMDevice>)collection.AsEnumerable();
     }
 
     public void UpdateAllDefaults()
     {
-      if (Enumerator == null)
+      if (this.Enumerator == null)
       {
         return;
       }
 
-      DefaultDictionary.Clear();
+      this.DefaultDictionary.Clear();
       Array array = Enum.GetValues(typeof(DataFlow));
 
       if (array == null)
@@ -293,22 +296,22 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (DataFlow dataFlow in array)
       {
-        DefaultDictionary.TryAdd
+        this.DefaultDictionary.TryAdd
         (
           Role.Multimedia,
-          (TMMDevice?)getDefaultCommunications(dataFlow)
+          (TMMDevice?)this.getDefaultCommunications(dataFlow)
         );
 
-        DefaultDictionary.TryAdd
+        this.DefaultDictionary.TryAdd
         (
           Role.Multimedia,
-          (TMMDevice?)getDefaultConsole(dataFlow)
+          (TMMDevice?)this.getDefaultConsole(dataFlow)
         );
 
-        DefaultDictionary.TryAdd
+        this.DefaultDictionary.TryAdd
         (
           Role.Multimedia,
-          (TMMDevice?)getDefaultMultimedia(dataFlow)
+          (TMMDevice?)this.getDefaultMultimedia(dataFlow)
         );
       }
     }

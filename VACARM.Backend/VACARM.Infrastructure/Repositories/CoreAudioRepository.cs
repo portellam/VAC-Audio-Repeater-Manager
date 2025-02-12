@@ -40,7 +40,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     public CoreAudioRepository()
     {
-      Enumerable = Array.Empty<TDevice>();
+      this.Enumerable = Array.Empty<TDevice>();
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="enumerable">The enumerable of item(s)</param>
     public CoreAudioRepository(IEnumerable<TDevice> enumerable)
     {
-      Enumerable = enumerable;
+      this.Enumerable = enumerable;
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public bool IsDefault(string id)
     {
-      Device? device = Get(id);
+      Device? device = this.Get(id);
 
       if (device == null)
       {
@@ -82,7 +82,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public bool IsDefaultCommunications(string id)
     {
-      Device? device = Get(id);
+      Device? device = this.Get(id);
 
       if (device == null)
       {
@@ -94,7 +94,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public bool IsMuted(string id)
     {
-      Device? device = Get(id);
+      Device? device = this.Get(id);
 
       if (device == null)
       {
@@ -106,7 +106,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public double GetVolume(string id)
     {
-      Device? device = Get(id);
+      Device? device = this.Get(id);
 
       if (device == null)
       {
@@ -118,7 +118,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public TDevice? Get(string id)
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (this.IsNullOrEmpty(Enumerable))
       {
         return null;
       }
@@ -135,36 +135,36 @@ namespace VACARM.Infrastructure.Repositories
       }
 
       Func<Device, bool> func = (Device x) => x.Id == guid;
-      return Get(func);
+      return this.Get(func);
     }
 
     public TDevice? GetDefaultCommunications()
     {
       Func<Device, bool> func = (Device x) => x.IsDefaultCommunicationsDevice;
-      return Get(func);
+      return this.Get(func);
     }
 
     public TDevice? GetDefault()
     {
       Func<Device, bool> func = (Device x) => x.IsDefaultDevice;
-      return Get(func);
+      return this.Get(func);
     }
 
     public IEnumerable<TDevice> GetAllMuted()
     {
       Func<Device, bool> func = (Device x) => !x.IsMuted;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TDevice> GetAllNotMuted()
     {
       Func<Device, bool> func = (Device x) => !x.IsMuted;
-      return GetRange(func);
+      return this.GetRange(func);
     }
 
     public IEnumerable<TDevice> GetRange(IEnumerable<string> idEnumerable)
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (this.IsNullOrEmpty(this.Enumerable))
       {
         yield break;
       }
