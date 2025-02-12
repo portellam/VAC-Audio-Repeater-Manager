@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using VACARM.Domain.Models;
+﻿using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
@@ -24,6 +22,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    /// <param name="repository">The repository</param>
     public BaseService(BaseRepository<TBaseModel> repository)
     {
       base._Repository = repository;
