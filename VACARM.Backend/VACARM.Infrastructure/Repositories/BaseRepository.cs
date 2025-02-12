@@ -37,7 +37,7 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        uint id = IdList.Max();
+        uint id = this.IdList.Max();
         id++;
         return id;
       }
@@ -53,7 +53,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public BaseRepository()
     {
-      List = new List<TBaseModel>();
+      this.List = new List<TBaseModel>();
     }
 
     /// <summary>
@@ -63,8 +63,8 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public BaseRepository(int maxCount)
     {
-      List = new List<TBaseModel>();
-      MaxCount = maxCount;
+      this.List = new List<TBaseModel>();
+      this.MaxCount = maxCount;
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public BaseRepository(List<TBaseModel> list)
     {
-      List = list;
+      this.List = list;
     }
 
     /// <summary>
@@ -89,30 +89,28 @@ namespace VACARM.Infrastructure.Repositories
       int maxCount
     )
     {
-      List = list;
-      MaxCount = maxCount;
+      this.List = list;
+      this.MaxCount = maxCount;
     }
 
-    public override void Add(TBaseModel? item)
+    public override void Add(TBaseModel? model)
     {
-      if (item == null)
+      if (model == null)
       {
         return;
       }
 
-      if (item.GetType() != typeof(TBaseModel))
+      if (model.GetType() != typeof(TBaseModel))
       {
         return;
       }
-
-      TBaseModel? model = (TBaseModel?)item;
 
       if (IdList.Contains(model.Id))
       {
         model.Id = NextId;
       }
 
-      base.Add((TBaseModel?)model);
+      base.Add(model);
     }
 
     public TBaseModel? Get(uint id)
