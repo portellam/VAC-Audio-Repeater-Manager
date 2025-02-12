@@ -4,6 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.Domain.Models
 {
+  /// <summary>
+  /// Object with primary key.
+  /// </summary>
   public class BaseModel :
     IBaseModel
   {
