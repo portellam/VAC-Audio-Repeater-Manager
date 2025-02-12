@@ -3,9 +3,9 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public interface IDeviceService<TRepository, TItem> :
-    IBaseService<TRepository, TItem> where TRepository :
-    IDeviceRepository<TItem> where TItem :
+  public interface IDeviceService<TRepository, TDeviceModel> :
+    IBaseService<DeviceRepository<TDeviceModel>, TDeviceModel> where TRepository :
+    IDeviceRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
   {
     #region Logic

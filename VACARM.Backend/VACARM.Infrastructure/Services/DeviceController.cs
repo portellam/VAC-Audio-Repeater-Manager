@@ -6,10 +6,10 @@ namespace VACARM.Application.Services
   /// <summary>
   /// The service of the <typeparamref name="DeviceRepository"/>.
   /// </summary>
-  public class DeviceService<TRepository, TItem> :
-    BaseService<DeviceRepository<DeviceModel>, DeviceModel>,
-    IDeviceService<DeviceRepository<DeviceModel>, DeviceModel> where TRepository :
-    DeviceRepository<DeviceModel> where TItem :
+  public class DeviceService<TRepository, TDeviceModel> :
+    BaseService<DeviceRepository<TDeviceModel>, TDeviceModel>,
+    IDeviceService<DeviceRepository<TDeviceModel>, TDeviceModel> where TRepository :
+    DeviceRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
   {
     #region Parameters
