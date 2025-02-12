@@ -32,7 +32,7 @@ namespace VACARM.Application.Services
     {
       get
       {
-        return _Repository;
+        return this._Repository;
       }
     }
 
@@ -97,9 +97,9 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var item = _Repository.Get(func);
+      var item = this._Repository.Get(func);
 
-      DoWork
+      this.DoWork
       (
         action,
         item
@@ -132,9 +132,9 @@ namespace VACARM.Application.Services
         return;
       }
 
-      foreach (var item in _Repository.GetAll())
+      foreach (var item in this._Repository.GetAll())
       {
-        DoWork
+        this.DoWork
         (
           action,
           item
@@ -155,7 +155,7 @@ namespace VACARM.Application.Services
 
       foreach (var item in enumerable)
       {
-        DoWork
+        this.DoWork
         (
           action,
           item
@@ -179,10 +179,10 @@ namespace VACARM.Application.Services
         return;
       }
 
-      DoWorkRange
+      this.DoWorkRange
       (
         action,
-        _Repository.GetRange(func)
+        this._Repository.GetRange(func)
       );
     }
 
