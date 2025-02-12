@@ -19,7 +19,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public DeviceRepository()
     {
-      List = new List<TDeviceModel>();
+      this.List = new List<TDeviceModel>();
     }
 
     /// <summary>
@@ -29,22 +29,55 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public DeviceRepository(IEnumerable<TDeviceModel> enumerable)
     {
-      List = enumerable.ToList();
+      this.List = enumerable.ToList();
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="maxCount">The maximum count of item(s)</param>
+    [ExcludeFromCodeCoverage]
+    public DeviceRepository(int maxCount)
+    {
+      this.List = new List<TDeviceModel>();
+      this.MaxCount = maxCount;
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    /// <param name="maxCount">The maximum count of item(s)</param>
+    [ExcludeFromCodeCoverage]
+    public DeviceRepository
+    (
+      IEnumerable<TDeviceModel> enumerable,
+      int maxCount
+    )
+    {
+      this.List = enumerable.ToList();
+      this.MaxCount = maxCount;
     }
 
     public TDeviceModel? GetDefaultCommunications()
     {
-      return GetAllCommunications().FirstOrDefault(x => x.IsDefault);
+      return this
+        .GetAllCommunications()
+        .FirstOrDefault(x => x.IsDefault);
     }
 
     public TDeviceModel? GetDefaultConsole()
     {
-      return GetAllConsole().FirstOrDefault(x => x.IsDefault);
+      return this
+        .GetAllConsole()
+        .FirstOrDefault(x => x.IsDefault);
     }
 
     public TDeviceModel? GetDefaultMultimedia()
     {
-      return GetAllMultimedia().FirstOrDefault(x => x.IsDefault);
+      return this
+        .GetAllMultimedia()
+        .FirstOrDefault(x => x.IsDefault);
     }
 
     public IEnumerable<TDeviceModel> GetAllAbsent()

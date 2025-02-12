@@ -22,11 +22,6 @@ namespace VACARM.Infrastructure.Repositories
       List = new List<TRepeaterModel>();
     }
 
-    public TRepeaterModel? Get(uint id)
-    {
-      return base.Get(id);
-    }
-
     /// <summary>
     /// Constructor
     /// </summary>
@@ -34,7 +29,34 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public RepeaterRepository(IEnumerable<TRepeaterModel> enumerable)
     {
-      List = enumerable.ToList();
+      this.List = enumerable.ToList();
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="maxCount">The maximum count of item(s)</param>
+    [ExcludeFromCodeCoverage]
+    public RepeaterRepository(int maxCount)
+    {
+      this.List = new List<TRepeaterModel>();
+      this.MaxCount = maxCount;
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    /// <param name="maxCount">The maximum count of item(s)</param>
+    [ExcludeFromCodeCoverage]
+    public RepeaterRepository
+    (
+      IEnumerable<TRepeaterModel> enumerable,
+      int maxCount
+    )
+    {
+      this.List = enumerable.ToList();
+      this.MaxCount = maxCount;
     }
 
     public IEnumerable<TRepeaterModel> GetAllAlphabetical()
