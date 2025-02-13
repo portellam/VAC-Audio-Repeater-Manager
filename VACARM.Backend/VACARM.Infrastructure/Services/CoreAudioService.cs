@@ -9,7 +9,7 @@ namespace VACARM.Application.Services
   /// A service for the <typeparamref name="CoreAudioRepository"/>.
   /// </summary>
   public partial class CoreAudioService<TRepository, TDevice> :
-    GenericService<CoreAudioRepository<TDevice>, TDevice>,
+    Service<CoreAudioRepository<TDevice>, TDevice>,
     ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
     CoreAudioRepository<TDevice> where TDevice :
     Device

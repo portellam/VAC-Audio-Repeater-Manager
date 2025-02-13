@@ -3,9 +3,9 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class GenericListService<TRepository, TItem> :
-    GenericService<ListRepository<TItem>, TItem>,
-    IGenericListService<ListRepository<TItem>, TItem> where TRepository :
+  public partial class ListService<TRepository, TItem> :
+    Service<ListRepository<TItem>, TItem>,
+    IListService<ListRepository<TItem>, TItem> where TRepository :
     ListRepository<TItem> where TItem :
     class
   {
@@ -15,7 +15,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public GenericListService()
+    public ListService()
     {
       base._Repository = new ListRepository<TItem>();
     }
@@ -25,7 +25,7 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="repository">The repository</param>
     [ExcludeFromCodeCoverage]
-    public GenericListService(ListRepository<TItem> repository)
+    public ListService(ListRepository<TItem> repository)
     {
       base._Repository = repository;
     }

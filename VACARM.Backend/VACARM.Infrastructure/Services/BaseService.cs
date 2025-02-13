@@ -5,7 +5,7 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   public class BaseService<TRepository, TBaseModel> :
-    GenericListService<TRepository, TBaseModel>,
+    ListService<TRepository, TBaseModel>,
     IBaseService<TRepository, TBaseModel> where TRepository :
     BaseRepository<TBaseModel> where TBaseModel :
     BaseModel

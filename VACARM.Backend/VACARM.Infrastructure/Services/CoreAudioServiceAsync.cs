@@ -6,7 +6,7 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   public partial class CoreAudioService<TRepository, TDevice> :
-    GenericService<CoreAudioRepository<TDevice>, TDevice>,
+    Service<CoreAudioRepository<TDevice>, TDevice>,
     ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
     CoreAudioRepository<TDevice> where TDevice :
     Device

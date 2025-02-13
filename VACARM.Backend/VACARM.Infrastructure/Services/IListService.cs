@@ -2,8 +2,8 @@
 
 namespace VACARM.Application.Services
 {
-  public partial interface IGenericListService<TRepository, TItem> :
-    IGenericService<TRepository, TItem> where TRepository :
+  public partial interface IListService<TRepository, TItem> :
+    IService<TRepository, TItem> where TRepository :
     IListRepository<TItem> where TItem :
     class
   {

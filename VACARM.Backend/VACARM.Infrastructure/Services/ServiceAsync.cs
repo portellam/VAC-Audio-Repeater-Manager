@@ -3,8 +3,8 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class GenericService<TRepository, TItem> :
-    IGenericService<TRepository, TItem> where TRepository :
+  public partial class Service<TRepository, TItem> :
+    IService<TRepository, TItem> where TRepository :
     Repository<TItem> where TItem :
     class
   {

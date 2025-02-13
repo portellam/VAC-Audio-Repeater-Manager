@@ -6,8 +6,8 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class GenericService<TRepository, TItem> :
-    IGenericService<TRepository, TItem> where TRepository :
+  public partial class Service<TRepository, TItem> :
+    IService<TRepository, TItem> where TRepository :
     Repository<TItem> where TItem :
     class
   {
@@ -69,7 +69,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public GenericService()
+    public Service()
     {
       repository = new Repository<TItem>();
     }
@@ -78,7 +78,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public GenericService(Repository<TItem> repository)
+    public Service(Repository<TItem> repository)
     {
       this.repository = repository;
     }
