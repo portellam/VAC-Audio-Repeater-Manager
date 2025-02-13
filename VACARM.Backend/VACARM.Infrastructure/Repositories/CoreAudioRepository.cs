@@ -8,7 +8,7 @@ namespace VACARM.Infrastructure.Repositories
   /// Extended functionality over <typeparamref name="MMDeviceRepository".
   /// </summary>
   public class CoreAudioRepository<TDevice> :
-    GenericRepository<TDevice>,
+    Repository<TDevice>,
     ICoreAudioRepository<TDevice> where TDevice :
     Device
   {

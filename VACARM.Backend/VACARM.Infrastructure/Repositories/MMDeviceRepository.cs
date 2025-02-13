@@ -7,7 +7,7 @@ namespace VACARM.Infrastructure.Repositories
   /// An up-to-date repository of all system audio devices.
   /// </summary>
   public class MMDeviceRepository<TMMDevice> :
-    GenericRepository<TMMDevice>,
+    Repository<TMMDevice>,
     IMMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
   {

@@ -3,7 +3,7 @@
 namespace VACARM.Infrastructure.Repositories
 {
   public interface IBaseRepository<TBaseModel> :
-    IGenericListRepository<TBaseModel> where TBaseModel :
+    IListRepository<TBaseModel> where TBaseModel :
     BaseModel
   {
     #region Logic

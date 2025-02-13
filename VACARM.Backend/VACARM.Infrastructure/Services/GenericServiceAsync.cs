@@ -5,7 +5,7 @@ namespace VACARM.Application.Services
 {
   public partial class GenericService<TRepository, TItem> :
     IGenericService<TRepository, TItem> where TRepository :
-    GenericRepository<TItem> where TItem :
+    Repository<TItem> where TItem :
     class
   {
     #region Logic

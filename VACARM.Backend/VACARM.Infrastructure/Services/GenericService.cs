@@ -8,7 +8,7 @@ namespace VACARM.Application.Services
 {
   public partial class GenericService<TRepository, TItem> :
     IGenericService<TRepository, TItem> where TRepository :
-    GenericRepository<TItem> where TItem :
+    Repository<TItem> where TItem :
     class
   {
     #region Parameters
@@ -26,8 +26,8 @@ namespace VACARM.Application.Services
       }
     }
 
-    private GenericRepository<TItem> repository { get; set; } =
-      new GenericRepository<TItem>();
+    private Repository<TItem> repository { get; set; } =
+      new Repository<TItem>();
 
     public TRepository Repository
     {
@@ -71,14 +71,14 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public GenericService()
     {
-      repository = new GenericRepository<TItem>();
+      repository = new Repository<TItem>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public GenericService(GenericRepository<TItem> repository)
+    public GenericService(Repository<TItem> repository)
     {
       this.repository = repository;
     }

@@ -7,7 +7,7 @@ namespace VACARM.Infrastructure.Repositories
   /// The <typeparamref name="TBaseModel"/> repository.
   /// </summary>
   public class BaseRepository<TBaseModel> :
-    GenericListRepository<TBaseModel>,
+    ListRepository<TBaseModel>,
     IBaseRepository<TBaseModel> where TBaseModel :
     BaseModel
   {

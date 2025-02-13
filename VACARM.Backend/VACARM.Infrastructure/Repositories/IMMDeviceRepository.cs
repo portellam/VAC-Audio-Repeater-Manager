@@ -3,7 +3,7 @@
 namespace VACARM.Infrastructure.Repositories
 {
   public interface IMMDeviceRepository<TMMDevice> :
-    IGenericRepository<TMMDevice> where TMMDevice :
+    IRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
     #region Logic

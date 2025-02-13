@@ -1,7 +1,7 @@
 ﻿namespace VACARM.Infrastructure.Repositories
 {
-  public interface IGenericListRepository<TItem> :
-    IGenericRepository<TItem> where TItem :
+  public interface IListRepository<TItem> :
+    IRepository<TItem> where TItem :
     class
   {
     #region Logic

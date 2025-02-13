@@ -8,8 +8,8 @@ namespace VACARM.Infrastructure.Repositories
   /// <summary>
   /// The <typeparamref name="Enumerable"/> repository.
   /// </summary>
-  public class GenericRepository<TItem> :
-    IGenericRepository<TItem> where TItem :
+  public class Repository<TItem> :
+    IRepository<TItem> where TItem :
     class
   {
     #region Parameters
@@ -79,7 +79,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public GenericRepository()
+    public Repository()
     {
       this.Enumerable = Array.Empty<TItem>();
     }
@@ -89,7 +89,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public GenericRepository(IEnumerable<TItem> enumerable)
+    public Repository(IEnumerable<TItem> enumerable)
     {
       this.Enumerable = enumerable;
     }

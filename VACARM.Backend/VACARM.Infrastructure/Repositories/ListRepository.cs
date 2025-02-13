@@ -6,9 +6,9 @@ namespace VACARM.Infrastructure.Repositories
   /// <summary>
   /// The <typeparamref name="List"/> repository.
   /// </summary>
-  public class GenericListRepository<TItem> :
-    GenericRepository<TItem>,
-    IGenericListRepository<TItem> where TItem :
+  public class ListRepository<TItem> :
+    Repository<TItem>,
+    IListRepository<TItem> where TItem :
     class
   {
     #region Parameters
@@ -37,7 +37,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public GenericListRepository()
+    public ListRepository()
     {
       this.List = new List<TItem>();
     }
@@ -47,7 +47,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="list">The list of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public GenericListRepository(List<TItem> list)
+    public ListRepository(List<TItem> list)
     {
       this.List = list;
     }
