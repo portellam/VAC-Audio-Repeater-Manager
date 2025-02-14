@@ -19,7 +19,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public RepeaterRepository()
     {
-      List = new List<TRepeaterModel>();
+      this.List = new List<TRepeaterModel>();
     }
 
     /// <summary>
