@@ -12,27 +12,6 @@ namespace VACARM.Infrastructure.Repositories
     ICoreAudioRepository<TDevice> where TDevice :
     Device
   {
-    #region Parameters
-
-    /// <summary>
-    /// The <typeparamref name="Enumerable"/> of all
-    /// <typeparamref name="TDevice"/> item(s).
-    /// </summary>
-    protected override IEnumerable<TDevice> Enumerable
-    {
-      get
-      {
-        return base.Enumerable;
-      }
-      set
-      {
-        base.Enumerable = value;
-        OnPropertyChanged(nameof(Enumerable));
-      }
-    }
-
-    #endregion
-
     #region Logic
 
     /// <summary>

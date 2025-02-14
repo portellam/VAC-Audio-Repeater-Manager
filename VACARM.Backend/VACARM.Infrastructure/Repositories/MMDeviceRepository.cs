@@ -13,23 +13,6 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    /// <summary>
-    /// The <typeparamref name="Enumerable"/> of all
-    /// <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    protected override IEnumerable<TMMDevice> Enumerable
-    {
-      get
-      {
-        return base.Enumerable;
-      }
-      set
-      {
-        base.Enumerable = value;
-        OnPropertyChanged(nameof(Enumerable));
-      }
-    }
-
     private DeviceState DeviceStatePresent
     {
       get
@@ -54,8 +37,6 @@ namespace VACARM.Infrastructure.Repositories
         base.OnPropertyChanged(nameof(DefaultDictionary));
       }
     }
-
-    private IEnumerable<TMMDevice> enumerable { get; set; }
 
     private MMDeviceEnumerator enumerator { get; set; } = new MMDeviceEnumerator();
 
