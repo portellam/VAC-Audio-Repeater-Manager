@@ -18,7 +18,7 @@ namespace VACARM.Infrastructure.Repositories
     /// The <typeparamref name="Enumerable"/> of all
     /// <typeparamref name="TItem"/> item(s).
     /// </summary>
-    internal virtual IEnumerable<TItem> Enumerable
+    protected virtual IEnumerable<TItem> Enumerable
     {
       get
       {
