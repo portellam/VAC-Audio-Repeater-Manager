@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VACARM.Application\VACARM.Application.csproj" />
     <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj" />
   </ItemGroup>
 

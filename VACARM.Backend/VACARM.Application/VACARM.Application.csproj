@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj" />
-    <ProjectReference Include="..\VACARM.Infrastructure\VACARM.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
