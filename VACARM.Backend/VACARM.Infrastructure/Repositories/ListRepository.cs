@@ -16,7 +16,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// The <typeparamref name="List"/> of all <typeparamref name="TItem"/> item(s).
     /// </summary>
-    protected virtual IList<TItem> List
+    protected IList<TItem> List
     {
       get
       {
