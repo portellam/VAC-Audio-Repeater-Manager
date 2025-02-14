@@ -3,7 +3,7 @@
 namespace VACARM.Application.Services
 {
   public partial interface IService<TRepository, TItem> where TRepository :
-    IRepository<TItem> where TItem :
+    Repository<TItem> where TItem :
     class
   {
     #region Logic

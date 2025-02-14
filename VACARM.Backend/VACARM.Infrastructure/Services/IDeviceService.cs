@@ -3,9 +3,9 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial interface IDeviceService<TRepository, TDeviceModel> where 
+  public partial interface IDeviceService<TRepository, TDeviceModel> where
     TRepository :
-    IDeviceRepository<TDeviceModel> where TDeviceModel :
+    DeviceRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
   {
   }

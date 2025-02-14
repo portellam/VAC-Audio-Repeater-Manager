@@ -3,9 +3,9 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public interface IRepeaterService<TRepository, TRepeaterModel> :
-    IBaseService<RepeaterRepository<TRepeaterModel>, TRepeaterModel> where TRepository :
-    IRepeaterRepository<TRepeaterModel> where TRepeaterModel :
+  public interface IRepeaterService<TRepository, TRepeaterModel> where
+    TRepository :
+    RepeaterRepository<TRepeaterModel> where TRepeaterModel :
     RepeaterModel
   {
     #region Logic

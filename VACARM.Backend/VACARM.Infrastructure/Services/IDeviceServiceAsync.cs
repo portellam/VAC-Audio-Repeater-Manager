@@ -5,7 +5,7 @@ namespace VACARM.Application.Services
 {
   public partial interface IDeviceService<TRepository, TDeviceModel> where
     TRepository :
-    IDeviceRepository<TDeviceModel> where TDeviceModel :
+    DeviceRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
   {
     #region Logic
