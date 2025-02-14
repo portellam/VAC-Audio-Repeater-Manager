@@ -171,7 +171,6 @@ namespace VACARM.Application.Services
         .ConfigureAwait(false);
     }
 
-
     /// <summary>
     /// Mute an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
     /// </summary>
@@ -321,16 +320,6 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Start an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
     /// </summary>
-    public void StartAll()
-    {
-      this
-        .MMDeviceService
-        .StartAll();
-    }
-
-    /// <summary>
-    /// Start an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
-    /// </summary>
     /// <returns>True/false result.</returns>
     public async IAsyncEnumerable<bool> StartAllAsync()
     {
@@ -412,16 +401,6 @@ namespace VACARM.Application.Services
         .MMDeviceService
         .StopAsync(model.ActualId)
         .ConfigureAwait(false);
-    }
-
-    /// <summary>
-    /// Stop an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
-    /// </summary>
-    public void StopAll()
-    {
-      this
-        .MMDeviceService
-        .StopAll();
     }
 
     /// <summary>
@@ -580,31 +559,6 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Update a <typeparamref name="TDeviceModel"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    public void Update(uint id)
-    {
-      TDeviceModel? model = this
-        ._Repository
-        .Get(id);
-
-      this
-         .MMDeviceService
-         .Update(model.ActualId);
-    }
-
-    /// <summary>
-    /// Update an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
-    /// </summary>
-    public void UpdateAll()
-    {
-      this
-        .MMDeviceService
-        .UpdateAll();
-    }
-
-    /// <summary>
     /// Update an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
     /// </summary>
     /// <returns>True/false result.</returns>
@@ -614,51 +568,6 @@ namespace VACARM.Application.Services
         .CoreAudioService
         .UpdateAllAsync()
         .ConfigureAwait(false);
-    }
-
-    /// <summary>
-    /// Update an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    public void UpdateRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
-        .GetRange
-        (
-          startId,
-          endId
-        );
-
-      foreach (var item in enumerable)
-      {
-        this
-          .MMDeviceService
-          .Update(item.ActualId);
-      }
-    }
-
-    /// <summary>
-    /// Update an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
-    /// </summary>
-    /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    public void UpdateRange(IEnumerable<uint> idEnumerable)
-    {
-      IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
-        .GetRange(idEnumerable);
-
-      foreach (var item in enumerable)
-      {
-        this
-          .MMDeviceService
-          .Update(item.ActualId);
-      }
     }
 
     #endregion
