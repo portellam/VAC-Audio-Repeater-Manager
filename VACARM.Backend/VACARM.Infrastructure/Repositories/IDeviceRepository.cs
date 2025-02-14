@@ -9,22 +9,29 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
+    /// Get a <typeparamref name="TDeviceModel"/> item.
+    /// </summary>
+    /// <param name="actualId">The actual ID</param>
+    /// <returns>The item.</returns>
+    TDeviceModel? GetByActualId(string actualId);
+
+    /// <summary>
     /// Get a default communications <typeparamref name="TDeviceModel"/> item.
     /// </summary>
     /// <returns>The item.</returns>
-    public TDeviceModel? GetDefaultCommunications();
+    TDeviceModel? GetDefaultCommunications();
 
     /// <summary>
     /// Get a default console <typeparamref name="TDeviceModel"/> item.
     /// </summary>
     /// <returns>The item.</returns>
-    public TDeviceModel? GetDefaultConsole();
+    TDeviceModel? GetDefaultConsole();
 
     /// <summary>
     /// Get a default multimedia <typeparamref name="TDeviceModel"/> item.
     /// </summary>
     /// <returns>The item.</returns>
-    public TDeviceModel? GetDefaultMultimedia();
+    TDeviceModel? GetDefaultMultimedia();
 
     /// <summary>
     /// Get an enumerable of all absent <typeparamref name="TDeviceModel"/> item(s).

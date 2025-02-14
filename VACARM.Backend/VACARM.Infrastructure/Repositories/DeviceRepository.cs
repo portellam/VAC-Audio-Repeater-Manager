@@ -59,6 +59,12 @@ namespace VACARM.Infrastructure.Repositories
       this.MaxCount = maxCount;
     }
 
+    public TDeviceModel? GetByActualId(string actualId)
+    {
+      Func<TDeviceModel, bool> func = (TDeviceModel x) => x.ActualId == actualId;
+      return this.Get(func);
+    }
+
     public TDeviceModel? GetDefaultCommunications()
     {
       return this
