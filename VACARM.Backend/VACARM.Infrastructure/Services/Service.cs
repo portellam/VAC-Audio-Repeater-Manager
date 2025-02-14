@@ -91,25 +91,19 @@ namespace VACARM.Application.Services
       Func<TItem, bool> func
     )
     {
-      if (action == null)
-      {
-        return;
-      }
-
       if (func == null)
       {
         return;
       }
 
-      TItem? item = this
-        .Repository
+      var item = this.Repository
         .Get(func);
 
       this.DoWork
-      (
-        action,
-        item
-      );
+        (
+          action,
+          item
+        );
     }
 
     public void DoWork
@@ -133,23 +127,14 @@ namespace VACARM.Application.Services
 
     public void DoWorkAll(Action<TItem> action)
     {
-      if (action == null)
-      {
-        return;
-      }
-
-      IEnumerable<TItem> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetAll();
 
-      foreach (var item in enumerable)
-      {
-        this.DoWork
+      this.DoWorkRange
         (
           action,
-          item
+          enumerable
         );
-      }
     }
 
     public void DoWorkRange
@@ -158,6 +143,11 @@ namespace VACARM.Application.Services
       IEnumerable<TItem> enumerable
     )
     {
+      if (action == null)
+      {
+        return;
+      }
+
       if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))
       {
         return;
@@ -165,11 +155,7 @@ namespace VACARM.Application.Services
 
       foreach (var item in enumerable)
       {
-        this.DoWork
-        (
-          action,
-          item
-        );
+        action(item);
       }
     }
 
@@ -179,20 +165,18 @@ namespace VACARM.Application.Services
       Func<TItem, bool> func
     )
     {
-      if (action == null)
-      {
-        return;
-      }
-
       if (func == null)
       {
         return;
       }
 
+      var enumerable = this.Repository
+        .GetRange(func);
+
       this.DoWorkRange
       (
         action,
-        this.Repository.GetRange(func)
+        enumerable
       );
     }
 
