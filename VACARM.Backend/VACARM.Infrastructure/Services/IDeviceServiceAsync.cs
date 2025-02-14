@@ -3,8 +3,8 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial interface IDeviceService<TRepository, TDeviceModel> :
-    IBaseService<DeviceRepository<TDeviceModel>, TDeviceModel> where TRepository :
+  public partial interface IDeviceService<TRepository, TDeviceModel> where
+    TRepository :
     IDeviceRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
   {
@@ -16,7 +16,7 @@ namespace VACARM.Application.Services
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
     /// <returns>The audio device.</returns>
-    Task<DeviceModel?> GetDefaultCommunications
+    Task<DeviceModel?> GetDefaultCommunicationsAsync
     (
       bool isInput,
       bool isOutput
@@ -108,14 +108,14 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> SetAsDefault(uint id);
+    Task<bool> SetAsDefaultAsync(uint id);
 
     /// <summary>
     /// Set a <typeparamref name="DeviceModel"/> as the default communications.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> SetAsDefaultCommunications(uint id);
+    Task<bool> SetAsDefaultCommunicationsAsync(uint id);
 
     /// <summary>
     /// Set the audio device volume.
@@ -166,7 +166,7 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> Stop(uint id);
+    Task<bool> StopAsync(uint id);
 
     /// <summary>
     /// Stop all <typeparamref name="DeviceModel"/> item(s).
@@ -198,7 +198,7 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> Unmute(uint id);
+    Task<bool> UnmuteAsync(uint id);
 
     /// <summary>
     /// Unmute all <typeparamref name="DeviceModel"/> item(s).
