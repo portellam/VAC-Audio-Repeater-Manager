@@ -18,7 +18,7 @@ namespace VACARM.Infrastructure.Repositories
     /// The <typeparamref name="Enumerable"/> of all
     /// <typeparamref name="TDevice"/> item(s).
     /// </summary>
-    internal override IEnumerable<TDevice> Enumerable
+    protected override IEnumerable<TDevice> Enumerable
     {
       get
       {
