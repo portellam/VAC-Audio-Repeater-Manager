@@ -2,8 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IDeviceRepository<TDeviceModel> :
-    IBaseRepository<TDeviceModel> where TDeviceModel :
+  public interface IDeviceRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
   {
     #region Logic

@@ -2,8 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IRepeaterRepository<TRepeaterModel> :
-    IBaseRepository<TRepeaterModel> where TRepeaterModel :
+  public interface IRepeaterRepository<TRepeaterModel> where TRepeaterModel :
     RepeaterModel
   {
     #region Logic
