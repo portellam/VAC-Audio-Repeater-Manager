@@ -19,7 +19,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     public CoreAudioRepository()
     {
-      this.Enumerable = Array.Empty<TDevice>();
+      this.Enumerable = new HashSet<TDevice>();
     }
 
     /// <summary>
