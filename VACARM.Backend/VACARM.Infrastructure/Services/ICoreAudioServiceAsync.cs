@@ -16,14 +16,14 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> DoMuteAsync(string id);
+    Task<bool> MuteAsync(string id);
 
     /// <summary>
     /// Unmute the <typeparamref name="CoreAudioDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    Task<bool> DoUnmuteAsync(string id);
+    Task<bool> UnmuteAsync(string id);
 
     /// <summary>
     /// Is the <typeparamref name="CoreAudioDevice"/> item the default.
