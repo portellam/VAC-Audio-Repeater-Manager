@@ -7,33 +7,33 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   public partial class Service<TRepository, TItem> :
-    IService<TRepository, TItem> where TRepository :
+    IService<Repository<TItem>, TItem> where TRepository :
     Repository<TItem> where TItem :
     class
   {
     #region Parameters
 
-    internal virtual TRepository _Repository
-    {
-      get
-      {
-        return (TRepository)repository;
-      }
-      set
-      {
-        repository = value;
-        OnPropertyChanged(nameof(_Repository));
-      }
-    }
-
     private Repository<TItem> repository { get; set; } =
       new Repository<TItem>();
 
-    public TRepository Repository
+    protected virtual Repository<TItem> WritableRepository
     {
       get
       {
-        return this._Repository;
+        return this.repository;
+      }
+      set
+      {
+        this.repository = value;
+        OnPropertyChanged(nameof(WritableRepository));
+      }
+    }
+
+    public Repository<TItem> Repository
+    {
+      get
+      {
+        return this.WritableRepository;
       }
     }
 
@@ -49,7 +49,9 @@ namespace VACARM.Application.Services
     /// <param name="propertyName">The property name</param>
     internal virtual void OnPropertyChanged(string propertyName)
     {
-      PropertyChanged?.Invoke
+      this
+        .PropertyChanged?
+        .Invoke
       (
         this,
         new PropertyChangedEventArgs(propertyName)
@@ -71,7 +73,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public Service()
     {
-      repository = new Repository<TItem>();
+      this.WritableRepository = new Repository<TItem>();
     }
 
     /// <summary>
@@ -80,7 +82,7 @@ namespace VACARM.Application.Services
     /// <param name="repository">The repository</param>
     public Service(Repository<TItem> repository)
     {
-      this.repository = repository;
+      this.WritableRepository = repository;
     }
 
     public void DoWork
@@ -99,7 +101,9 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var item = this._Repository.Get(func);
+      TItem? item = this
+        .Repository
+        .Get(func);
 
       this.DoWork
       (
@@ -134,7 +138,11 @@ namespace VACARM.Application.Services
         return;
       }
 
-      foreach (var item in this._Repository.GetAll())
+      IEnumerable<TItem> enumerable = this
+        .Repository
+        .GetAll();
+
+      foreach (var item in enumerable)
       {
         this.DoWork
         (
@@ -184,7 +192,7 @@ namespace VACARM.Application.Services
       this.DoWorkRange
       (
         action,
-        this._Repository.GetRange(func)
+        this.Repository.GetRange(func)
       );
     }
 

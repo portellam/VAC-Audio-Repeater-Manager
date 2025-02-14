@@ -43,7 +43,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public RepeaterService()
     {
-      base._Repository = new RepeaterRepository<TRepeaterModel>();
+      base.WritableRepository = new RepeaterRepository<TRepeaterModel>();
       
       this.DeviceService = 
         new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
@@ -56,7 +56,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public RepeaterService(RepeaterRepository<TRepeaterModel> repository)
     {
-      base._Repository = repository;
+      base.WritableRepository = repository;
     }
 
     /// <summary>
@@ -71,13 +71,13 @@ namespace VACARM.Application.Services
       DeviceService<DeviceRepository<DeviceModel>, DeviceModel> deviceService
     )
     {
-      base._Repository = repository;
+      base.WritableRepository = repository;
       this.DeviceService = deviceService;
     }
 
     public void Restart(uint id)
     {
-      TRepeaterModel? model = base._Repository.Get(id);
+      TRepeaterModel? model = base.WritableRepository.Get(id);
     }
 
     public void RestartAll()

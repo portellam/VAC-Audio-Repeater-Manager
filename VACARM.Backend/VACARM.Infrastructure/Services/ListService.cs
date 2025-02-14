@@ -17,7 +17,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public ListService()
     {
-      base._Repository = new ListRepository<TItem>();
+      base.WritableRepository = new ListRepository<TItem>();
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public ListService(ListRepository<TItem> repository)
     {
-      base._Repository = repository;
+      base.WritableRepository = repository;
     }
 
     #endregion
