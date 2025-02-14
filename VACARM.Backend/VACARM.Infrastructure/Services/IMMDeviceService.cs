@@ -4,7 +4,7 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   public interface IMMDeviceService<TRepository, TMMDevice> :
-    IGenericService<GenericRepository<MMDevice>, MMDevice> where TRepository :
+    IService<Repository<MMDevice>, MMDevice> where TRepository :
     MMDeviceRepository<MMDevice> where TMMDevice :
     MMDevice
   {
@@ -26,7 +26,7 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Reset an enumerable of all <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
-    Task<bool> ResetAll();
+    IAsyncEnumerable<Task<bool>> ResetAll();
 
     /// <summary>
     /// Reset an enumerable of some <typeparamref name="TMMDevice"/> item(s).
@@ -38,7 +38,7 @@ namespace VACARM.Application.Services
     /// Start a <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
-    Task<bool> Start(string? id);
+    Task<bool> StartAsync(string? id);
 
     /// <summary>
     /// Start an enumerable of all <typeparamref name="TMMDevice"/> item(s).
@@ -55,7 +55,7 @@ namespace VACARM.Application.Services
     /// Stop a <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="id">The ID</param>
-    Task<bool> Stop(string? id);
+    Task<bool> StopAsync(string? id);
 
     /// <summary>
     /// Stop an enumerable of all <typeparamref name="TMMDevice"/> item(s).

@@ -9,7 +9,8 @@ namespace VACARM.Application.Services
   /// A service for the <typeparamref name="MMDeviceRepository"/>.
   /// </summary>
   public class MMDeviceService<TRepository, TMMDevice> :
-    GenericService<MMDeviceRepository<TMMDevice>, TMMDevice> where TRepository :
+    Service<MMDeviceRepository<TMMDevice>, TMMDevice>,
+    IMMDeviceService<MMDeviceRepository<TMMDevice>, TMMDevice> where TRepository :
     MMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
@@ -19,14 +20,14 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public MMDeviceService()
     {
-      _Repository = new MMDeviceRepository<TMMDevice>();
+      WritableRepository = new MMDeviceRepository<TMMDevice>();
     }
 
     /// <summary>
     /// Reset a <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="item">The item</param>
-    private void Reset(TMMDevice? item)
+    private Task<bool> Reset(TMMDevice? item)
     {
       MMDeviceCommands.Reset(item);
     }
@@ -35,7 +36,7 @@ namespace VACARM.Application.Services
     /// Start a <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="item">The item</param>
-    private void Start(TMMDevice? item)
+    private Task<bool> Start(TMMDevice? item)
     {
       MMDeviceCommands.Start(item);
     }
@@ -44,7 +45,7 @@ namespace VACARM.Application.Services
     /// Stop a <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="item">The item</param>
-    private void Stop(TMMDevice? item)
+    private Task<bool> Stop(TMMDevice? item)
     {
       MMDeviceCommands.Stop(item);
     }
@@ -53,53 +54,54 @@ namespace VACARM.Application.Services
     /// Update a <typeparamref name="TMMDevice"/> item.
     /// </summary>
     /// <param name="item">The item</param>
-    private void Update(TMMDevice? item)
+    private Task<bool> Update(TMMDevice? item)
     {
       MMDeviceCommands.Update(item);
     }
 
-    public void Reset(string id)
+    public Task<bool> Reset(string id)
     {
-      this.Reset(base._Repository.Get(id));
+      this.Reset(base.WritableRepository.Get(id));
     }
 
-    public void ResetAll()
+    public IAsyncEnumerable<bool> ResetAll()
     {
       Action<TMMDevice> action = (TMMDevice x) => this.Reset(x);
-      base.DoWorkAll(action);
+      return base.DoWorkAllAsync(action);
     }
 
-    public void Start(string id)
+    public Task<bool> StartAsync(string id)
     {
-      this.Start(base._Repository.Get(id));
+      this.Start(base.WritableRepository.Get(id));
     }
 
-    public void StartAll()
+    public IAsyncEnumerable<bool> StartAll()
     {
-      Action<TMMDevice> action = (TMMDevice x) => this.Start(x);
-      base.DoWorkAll(action);
+      Func<TMMDevice, Task<bool>> func = (TMMDevice x) => this.Start(x);
+      return base.DoWorkAllAsync(func);
     }
 
-    public void Stop(string id)
+    public Task<bool> StopAsync(string id)
     {
-      this.Stop(base._Repository.Get(id));
+      return this.Stop(base.WritableRepository.Get(id));
     }
 
-    public void StopAll()
+    public IAsyncEnumerable<bool> StopAll()
     {
-      Action<TMMDevice> action = (TMMDevice x) => this.Stop(x);
-      base.DoWorkAll(action);
+      Func<TMMDevice, Task<bool>> func = (TMMDevice x) => this.Stop(x);
+      return base.DoWorkAllAsync(func);
     }
 
-    public void Update(string id)
+    public Task<bool> Update(string id)
     {
-      this.Update(base._Repository.Get(id));
+      MMDevice? item = base.WritableRepository.Get(id);
+      return this.Update(item);
     }
 
-    public void UpdateAll()
+    public IAsyncEnumerable<bool> UpdateAll()
     {
-      Action<TMMDevice> action = (TMMDevice x) => this.Update(x);
-      base.DoWorkAll(action);
+      Func<TMMDevice, Task<bool>> func = (TMMDevice x) => this.Update(x);
+      return base.DoWorkAllAsync(func);
     }
   }
 }
