@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using NAudio.CoreAudioApi;
+using VACARM.Application.Commands;
+using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -12,16 +14,6 @@ namespace VACARM.Infrastructure.Repositories
     MMDevice
   {
     #region Parameters
-
-    private DeviceState DeviceStatePresent
-    {
-      get
-      {
-        return DeviceState.Active
-          | DeviceState.Disabled
-          | DeviceState.Unplugged;
-      }
-    }
 
     private Dictionary<Role, TMMDevice> defaultDictionary { get; set; }
 
@@ -133,13 +125,14 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public MMDeviceRepository()
     {
+      this.Enumerable = new HashSet<TMMDevice>();
       this.Enumerator = new MMDeviceEnumerator();
     }
 
     public TMMDevice? Get(string id)
     {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.ID == id;
-      return Get(func);
+      var func = MMDeviceFunctions<TMMDevice>.ContainsIdFunc(id);
+      return this.Get(func);
     }
 
     public TMMDevice? GetDefault
@@ -186,53 +179,11 @@ namespace VACARM.Infrastructure.Repositories
         );
     }
 
-    public IEnumerable<TMMDevice> GetAllAbsent()
-    {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.State != DeviceStatePresent;
-      return this.GetRange(func);
-    }
-
-    public IEnumerable<TMMDevice> GetAllCapture()
-    {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.Capture;
-      return this.GetRange(func);
-    }
-
-    public IEnumerable<TMMDevice> GetAllDisabled()
-    {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.State == DeviceState.Disabled;
-      return this.GetRange(func);
-    }
-
-    public IEnumerable<TMMDevice> GetAllDuplex()
-    {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.All;
-      return this.GetRange(func);
-    }
-
-    public IEnumerable<TMMDevice> GetAllEnabled()
-    {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.State != DeviceState.Disabled;
-      return this.GetRange(func);
-    }
-
-    public IEnumerable<TMMDevice> GetAllPresent()
-    {
-      Func<TMMDevice, bool> func = (TMMDevice x) => 
-        x.State == this.DeviceStatePresent;
-
-      return this.GetRange(func);
-    }
-
-    public IEnumerable<TMMDevice> GetAllRender()
-    {
-      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == DataFlow.Render;
-      return this.GetRange(func);
-    }
-
     public IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable)
     {
-      Func<TMMDevice, bool> func = (TMMDevice x) => idEnumerable.Contains(x.ID);
+      var func = MMDeviceFunctions<TMMDevice>
+        .ContainsIdEnumerableFunc(idEnumerable);
+      
       return this.GetRange(func);
     }
 
@@ -242,11 +193,12 @@ namespace VACARM.Infrastructure.Repositories
 
       if (this.Enumerator == null)
       {
-        this.Enumerable = Array.Empty<TMMDevice>();
+        this.Enumerator = new MMDeviceEnumerator();
         return;
       }
 
-      MMDeviceCollection collection = this.Enumerator.EnumerateAudioEndPoints
+      MMDeviceCollection collection = this.Enumerator
+        .EnumerateAudioEndPoints
         (
           DataFlow.All,
           DeviceState.All
@@ -262,7 +214,9 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      this.DefaultDictionary.Clear();
+      this.DefaultDictionary
+        .Clear();
+
       Array array = Enum.GetValues(typeof(DataFlow));
 
       if (array == null)
@@ -277,23 +231,26 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (DataFlow dataFlow in array)
       {
-        this.DefaultDictionary.TryAdd
-        (
-          Role.Multimedia,
-          (TMMDevice?)this.getDefaultCommunications(dataFlow)
-        );
+        this.DefaultDictionary
+          .TryAdd
+          (
+            Role.Multimedia,
+            (TMMDevice?)this.getDefaultCommunications(dataFlow)
+          );
 
-        this.DefaultDictionary.TryAdd
-        (
-          Role.Multimedia,
-          (TMMDevice?)this.getDefaultConsole(dataFlow)
-        );
+        this.DefaultDictionary
+          .TryAdd
+          (
+            Role.Multimedia,
+            (TMMDevice?)this.getDefaultConsole(dataFlow)
+          );
 
-        this.DefaultDictionary.TryAdd
-        (
-          Role.Multimedia,
-          (TMMDevice?)this.getDefaultMultimedia(dataFlow)
-        );
+        this.DefaultDictionary
+          .TryAdd
+          (
+            Role.Multimedia,
+            (TMMDevice?)this.getDefaultMultimedia(dataFlow)
+          );
       }
     }
 

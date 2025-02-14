@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Application.Commands;
+using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
@@ -14,6 +15,15 @@ namespace VACARM.Application.Services
     MMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
+    public new MMDeviceRepository<TMMDevice> Repository
+    {
+      get
+      {
+        return this.Repository as MMDeviceRepository<TMMDevice>;
+      }
+    }
+
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -50,15 +60,6 @@ namespace VACARM.Application.Services
       MMDeviceCommands.Stop(item);
     }
 
-    /// <summary>
-    /// Update a <typeparamref name="TMMDevice"/> item.
-    /// </summary>
-    /// <param name="item">The item</param>
-    private Task<bool> Update(TMMDevice? item)
-    {
-      MMDeviceCommands.Update(item);
-    }
-
     public Task<bool> Reset(string id)
     {
       this.Reset(base.WritableRepository.Get(id));
@@ -81,27 +82,46 @@ namespace VACARM.Application.Services
       return base.DoWorkAllAsync(func);
     }
 
-    public Task<bool> StopAsync(string id)
+    public void Stop(string id)
     {
-      return this.Stop(base.WritableRepository.Get(id));
+      var func = MMDeviceFunctions<TMMDevice>.ContainsIdFunc(id);
+      var item = this.Repository.Get(func);
+      MMDeviceCommands.Stop(item);
     }
 
-    public IAsyncEnumerable<bool> StopAll()
+
+
+    public void StopRange(IEnumerable<string> idEnumerable)
     {
-      Func<TMMDevice, Task<bool>> func = (TMMDevice x) => this.Stop(x);
-      return base.DoWorkAllAsync(func);
+      var enumerable = this.Repository
+        .GetRange(idEnumerable);
+
+      this.DoWorkRange
+        (
+          MMDeviceCommands.Stop,
+          enumerable
+        );
     }
 
-    public Task<bool> Update(string id)
+    public void StopAll()
     {
-      MMDevice? item = base.WritableRepository.Get(id);
-      return this.Update(item);
+      this.DoWorkAll(MMDeviceCommands.Stop);
     }
 
-    public IAsyncEnumerable<bool> UpdateAll()
+    public void Update(string id)
     {
-      Func<TMMDevice, Task<bool>> func = (TMMDevice x) => this.Update(x);
-      return base.DoWorkAllAsync(func);
+      var func = MMDeviceFunctions<TMMDevice>.ContainsIdFunc(id);
+
+      this.DoWork
+        (
+          MMDeviceCommands.Update,
+          func
+        );
+    }
+
+    public void UpdateAll()
+    {
+      this.Repository.UpdateAll();
     }
   }
 }
