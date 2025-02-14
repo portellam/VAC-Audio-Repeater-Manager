@@ -19,7 +19,7 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Is enumerable null or empty.
+    /// Is enumerable of <typeparamref name="TItem"/> item(s) null or empty.
     /// </summary>
     /// <param name="enumerable">The enumerable</param>
     /// <returns>True/false</returns>
