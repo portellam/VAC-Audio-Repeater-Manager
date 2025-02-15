@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
@@ -141,6 +142,17 @@ namespace VACARM.Infrastructure.Repositories
     {
       if (item == null)
       {
+        return;
+      }
+
+      if (this.Enumerable.GetType() == typeof(HashSet<TItem>))
+      {
+        if (this.Enumerable == null)
+        {
+          this.Enumerable = new HashSet<TItem>();
+        }
+
+        (this.Enumerable as HashSet<TItem>).Add(item);
         return;
       }
 
