@@ -30,7 +30,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public MMDeviceService()
     {
-      WritableRepository = new MMDeviceRepository<TMMDevice>();
+      base.Repository = new MMDeviceRepository<TMMDevice>();
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace VACARM.Application.Services
 
     public Task<bool> Reset(string id)
     {
-      this.Reset(base.WritableRepository.Get(id));
+      this.Reset(base.Repository.Get(id));
     }
 
     public IAsyncEnumerable<bool> ResetAll()
@@ -73,7 +73,7 @@ namespace VACARM.Application.Services
 
     public Task<bool> StartAsync(string id)
     {
-      this.Start(base.WritableRepository.Get(id));
+      this.Start(base.Repository.Get(id));
     }
 
     public IAsyncEnumerable<bool> StartAll()

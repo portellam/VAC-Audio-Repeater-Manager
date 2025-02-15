@@ -16,7 +16,7 @@ namespace VACARM.Application.Services
     private Repository<TItem> repository { get; set; } =
       new Repository<TItem>();
 
-    protected virtual Repository<TItem> WritableRepository
+    protected virtual Repository<TItem> Repository
     {
       get
       {
@@ -25,15 +25,15 @@ namespace VACARM.Application.Services
       set
       {
         this.repository = value;
-        OnPropertyChanged(nameof(WritableRepository));
+        OnPropertyChanged(nameof(Repository));
       }
     }
 
-    public Repository<TItem> Repository
+    public Repository<TItem> ItemRepository
     {
       get
       {
-        return this.WritableRepository;
+        return this.Repository;
       }
     }
 
@@ -73,7 +73,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public Service()
     {
-      this.WritableRepository = new Repository<TItem>();
+      this.Repository = new Repository<TItem>();
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ namespace VACARM.Application.Services
     /// <param name="repository">The repository</param>
     public Service(Repository<TItem> repository)
     {
-      this.WritableRepository = repository;
+      this.Repository = repository;
     }
 
     public void DoWork
@@ -96,7 +96,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var item = this.Repository
+      var item = this.ItemRepository
         .Get(func);
 
       this.DoWork
@@ -127,7 +127,7 @@ namespace VACARM.Application.Services
 
     public void DoWorkAll(Action<TItem> action)
     {
-      var enumerable = this.Repository
+      var enumerable = this.ItemRepository
         .GetAll();
 
       this.DoWorkRange
@@ -170,7 +170,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var enumerable = this.Repository
+      var enumerable = this.ItemRepository
         .GetRange(func);
 
       this.DoWorkRange

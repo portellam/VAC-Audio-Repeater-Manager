@@ -67,11 +67,11 @@ namespace VACARM.Application.Services
     {
       get
       {
-        return (TRepository)base.WritableRepository;
+        return (TRepository)base.Repository;
       }
       set
       {
-        base.WritableRepository = value;
+        base.Repository = value;
         base.OnPropertyChanged(nameof(_Repository));
       }
     }
@@ -86,7 +86,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public DeviceService()
     {
-      base.WritableRepository = new DeviceRepository<TDeviceModel>();
+      base.Repository = new DeviceRepository<TDeviceModel>();
 
       this.MMDeviceService =
         new MMDeviceService<MMDeviceRepository<MMDevice>, MMDevice>();
@@ -108,7 +108,7 @@ namespace VACARM.Application.Services
       CoreAudioService<CoreAudioRepository<Device>, Device> coreAudioService
     )
     {
-      base.WritableRepository = new DeviceRepository<TDeviceModel>();
+      base.Repository = new DeviceRepository<TDeviceModel>();
       this.MMDeviceService = mMDeviceService;
       this.CoreAudioService = coreAudioService;
     }

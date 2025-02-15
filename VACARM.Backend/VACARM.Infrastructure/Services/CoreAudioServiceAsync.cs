@@ -194,7 +194,7 @@ namespace VACARM.Application.Services
         return false;
       }
 
-      base.WritableRepository = new CoreAudioRepository<TDevice>
+      base.Repository = new CoreAudioRepository<TDevice>
         ((IEnumerable<TDevice>)enumerable);
       
       return false;

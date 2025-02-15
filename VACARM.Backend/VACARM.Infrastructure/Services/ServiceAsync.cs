@@ -26,7 +26,7 @@ namespace VACARM.Application.Services
         return false;
       }
 
-      var item = this.WritableRepository.Get(matchFunc);
+      var item = this.Repository.Get(matchFunc);
 
       if (item == null)
       {
@@ -65,7 +65,7 @@ namespace VACARM.Application.Services
         yield return false;
       }
 
-      foreach (var item in this.WritableRepository.GetAll())
+      foreach (var item in this.Repository.GetAll())
       {
         if (item == null)
         {
@@ -123,7 +123,7 @@ namespace VACARM.Application.Services
         yield return false;
       }
 
-      var enumerable = this.WritableRepository.GetRange(matchFunc);
+      var enumerable = this.Repository.GetRange(matchFunc);
 
       if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))
       {

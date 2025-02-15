@@ -83,7 +83,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public CoreAudioService()
     {
-      base.WritableRepository = new CoreAudioRepository<TDevice>();
+      base.Repository = new CoreAudioRepository<TDevice>();
       Controller = new CoreAudioController();
       var result = this.UpdateAllAsync();
     }

@@ -18,7 +18,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public BaseService()
     {
-      base.WritableRepository = new BaseRepository<TBaseModel>();
+      base.Repository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public BaseService(BaseRepository<TBaseModel> repository)
     {
-      base.WritableRepository = repository;
+      base.Repository = repository;
     }
 
     #endregion
