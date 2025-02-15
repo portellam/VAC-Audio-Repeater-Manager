@@ -2,8 +2,8 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal class RepeaterModelFunctions<TRepeaterModel> :
-    BaseModelFunctions<TRepeaterModel> where TRepeaterModel :
+  internal class RepeaterFunctions<TRepeaterModel> :
+    BaseFunctions<TRepeaterModel> where TRepeaterModel :
     RepeaterModel
   {
     #region Parameters

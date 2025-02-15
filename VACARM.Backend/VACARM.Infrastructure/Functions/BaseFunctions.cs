@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal class BaseModelFunctions<TBaseModel> where TBaseModel : 
+  internal class BaseFunctions<TBaseModel> where TBaseModel : 
     BaseModel
   {
     #region Logic
