@@ -84,7 +84,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> DoMute(CoreAudioDevice? item)
+    public async static Task<bool> DoMuteAsync(CoreAudioDevice? item)
     {
       bool result = false;
 
@@ -112,7 +112,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> DoUnmute(CoreAudioDevice? item)
+    public async static Task<bool> DoUnmuteAsync(CoreAudioDevice? item)
     {
       bool result = false;
 
@@ -140,7 +140,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="item">The audio device</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> SetAsDefault(CoreAudioDevice? item)
+    public async static Task<bool> SetAsDefaultAsync(CoreAudioDevice? item)
     {
       bool result = false;
 
@@ -161,7 +161,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="item">The audio device</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> SetAsDefaultCommunications
+    public async static Task<bool> SetAsDefaultCommunicationsAsync
     (CoreAudioDevice? item)
     {
       bool result = false;

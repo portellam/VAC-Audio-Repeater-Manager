@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal class BaseFunctions<TBaseModel> where TBaseModel : 
+  internal static class BaseFunctions<TBaseModel> where TBaseModel : 
     BaseModel
   {
     #region Logic
@@ -11,7 +11,7 @@ namespace VACARM.Infrastructure.Functions
     /// Match a <typeparamref name="TBaseModel"/> item ID.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The function</returns>
+    /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsId(uint? id)
     {
       return (TBaseModel item) => item.Id == id;
@@ -22,7 +22,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    /// <returns>The function</returns>
+    /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsIdRange
     (
       uint startId,
@@ -39,14 +39,11 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    /// <returns>The enumerable function(s)</returns>
-    internal static IEnumerable<Func<TBaseModel, bool>> ContainsIdEnumerable
+    /// <returns>The function.</returns>
+    internal static Func<TBaseModel, bool> ContainsIdEnumerable
     (IEnumerable<uint> idEnumerable)
     {
-      foreach (var item in idEnumerable)
-      {
-        yield return ContainsId(item);
-      }
+      return (TBaseModel item) => idEnumerable.Contains(item.Id);
     }   
 
     #endregion

@@ -95,7 +95,7 @@ namespace VACARM.Application.Commands
     /// <param name="startArguments">The start arguments</param>
     /// <param name="stopArguments">The stop arguments</param>
     /// <returns>The process ID.</returns>
-    public async static Task<int?> Restart
+    public async static Task<int?> RestartAsync
     (
       int? processId,
       string fileName,
@@ -112,7 +112,7 @@ namespace VACARM.Application.Commands
         )
       );
 
-      int? result = await Stop
+      int? result = await StopAsync
         (
           processId,
           stopArguments
@@ -126,7 +126,7 @@ namespace VACARM.Application.Commands
         return result;
       }
 
-      result = await Start
+      result = await StartAsync
         (
           processId,
           fileName,
@@ -155,7 +155,7 @@ namespace VACARM.Application.Commands
     /// <param name="fileName">The executable file name</param>
     /// <param name="startArguments">The start arguments</param>
     /// <returns>The actual process ID.</returns>
-    public async static Task<int?> Start
+    public async static Task<int?> StartAsync
     (
       int? processId,
       string fileName,
@@ -251,7 +251,7 @@ namespace VACARM.Application.Commands
     /// <param name="processId">The process ID</param>
     /// <param name="stopArguments">The stop arguments</param>
     /// <returns>The exit code.</returns>
-    public async static Task<int> Stop
+    public async static Task<int> StopAsync
     (
       int? processId,
       string stopArguments
