@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
@@ -34,6 +34,15 @@ namespace VACARM.Infrastructure.Repositories
 
     private IEnumerable<TItem> enumerable { get; set; }
     private int maxCount { get; set; } = int.MaxValue;
+
+    private Type Type
+    {
+      get
+      {
+        return this.Enumerable
+          .GetType();
+      }
+    }
 
     public virtual int MaxCount
     {
@@ -108,12 +117,13 @@ namespace VACARM.Infrastructure.Repositories
 
     public TItem? Get(Func<TItem, bool> func)
     {
-      if (IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty(this.Enumerable))
       {
         return null;
       }
 
-      return this.Enumerable.FirstOrDefault(func);
+      return this.Enumerable.
+        FirstOrDefault(func);
     }
 
     public IEnumerable<TItem> GetAll()
@@ -123,7 +133,8 @@ namespace VACARM.Infrastructure.Repositories
         return Array.Empty<TItem>();
       }
 
-      return this.Enumerable.AsEnumerable();
+      return this.Enumerable
+        .AsEnumerable();
     }
 
     public IEnumerable<TItem> GetRange(Func<TItem, bool> func)
@@ -145,17 +156,6 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      if (this.Enumerable.GetType() == typeof(HashSet<TItem>))
-      {
-        if (this.Enumerable == null)
-        {
-          this.Enumerable = new HashSet<TItem>();
-        }
-
-        (this.Enumerable as HashSet<TItem>).Add(item);
-        return;
-      }
-
       if (this.Enumerable.Contains(item))
       {
         return;
@@ -168,15 +168,16 @@ namespace VACARM.Infrastructure.Repositories
 
       if (this.Enumerable == null)
       {
-        RemoveAll();
+        this.RemoveAll();
       }
 
-      this.Enumerable.Append(item);
+      this.Enumerable
+        .Append(item);
     }
 
     public void AddRange(IEnumerable<TItem> enumerable)
     {
-      if (IsNullOrEmpty(enumerable))
+      if (this.IsNullOrEmpty(enumerable))
       {
         return;
       }
@@ -191,30 +192,65 @@ namespace VACARM.Infrastructure.Repositories
         RemoveAll();
       }
 
+      if (this.Type == typeof(List<TItem>))
+      {
+        (this.Enumerable as List<TItem>).AddRange(enumerable);
+        return;
+      }
+
       foreach (var t in enumerable)
       {
-        Add(t);
+        this.Add(t);
       }
     }
 
     public virtual void Remove(TItem item)
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (this.IsNullOrEmpty(this.Enumerable))
       {
         return;
       }
 
-      this.Enumerable = this.Enumerable.Where(x => x != item);
+      if (this.Type == typeof(Collection<TItem>))
+      {
+        (this.Enumerable as Collection<TItem>).Remove(item);
+      }
+
+      else if (this.Type == typeof(ObservableCollection<TItem>))
+      {
+        (this.Enumerable as ObservableCollection<TItem>).Remove(item);
+      }
+
+      else if (this.Type == typeof(HashSet<TItem>))
+      {
+        (this.Enumerable as HashSet<TItem>).Remove(item);
+      }
+
+      else if (this.Type == typeof(List<TItem>))
+      {
+        (this.Enumerable as List<TItem>).Remove(item);
+      }
+
+      else if (this.Type != typeof(LinkedList<TItem>))
+      {
+        (this.Enumerable as LinkedList<TItem>).Remove(item);
+      }
+
+      else
+      {
+        this.Enumerable = this.Enumerable
+          .Where(x => x != item);
+      }
     }
 
     public void RemoveAll()
     {
-      Enumerable = Array.Empty<TItem>();
+      this.Enumerable = Array.Empty<TItem>();
     }
 
     public virtual void RemoveRange(Func<TItem, bool> func)
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (this.IsNullOrEmpty(this.Enumerable))
       {
         return;
       }
@@ -224,22 +260,29 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      this.Enumerable = this.Enumerable.Where(func);
+      var predicate = new Predicate<TItem>(func);
+
+      if (this.Type == typeof(HashSet<TItem>))
+      {
+        (this.Enumerable as HashSet<TItem>).RemoveWhere(predicate);
+        return;
+      }
+
+      foreach (var item in enumerable)
+      {
+        this.Remove(item);
+      }
     }
 
     public virtual void RemoveRange(IEnumerable<TItem> enumerable)
     {
-      if (IsNullOrEmpty(Enumerable))
+      if (this.IsNullOrEmpty(enumerable))
       {
         return;
       }
 
-      if (IsNullOrEmpty(enumerable))
-      {
-        return;
-      }
-
-      this.Enumerable = this.Enumerable.Where(x => !enumerable.Contains(x));
+      var func = (TItem x) => !enumerable.Contains(x);
+      this.RemoveRange(func);
     }
 
     #endregion
