@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using NAudio.CoreAudioApi;
-using VACARM.Application.Commands;
 using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Repositories
@@ -9,7 +9,7 @@ namespace VACARM.Infrastructure.Repositories
   /// An up-to-date repository of all system audio devices.
   /// </summary>
   public class MMDeviceRepository<TMMDevice> :
-    Repository<TMMDevice>,
+    ReadonlyRepository<TMMDevice>,
     IMMDeviceRepository<TMMDevice> where TMMDevice :
     MMDevice
   {
@@ -125,7 +125,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public MMDeviceRepository()
     {
-      this.Enumerable = new HashSet<TMMDevice>();
+      this.Enumerable = new ObservableCollection<TMMDevice>();
       this.Enumerator = new MMDeviceEnumerator();
     }
 

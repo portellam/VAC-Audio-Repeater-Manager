@@ -1,4 +1,5 @@
 ﻿using AudioSwitcher.AudioApi;
+using System.Collections.ObjectModel;
 using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
@@ -8,7 +9,7 @@ namespace VACARM.Infrastructure.Repositories
   /// Extended functionality over <typeparamref name="MMDeviceRepository".
   /// </summary>
   public class CoreAudioRepository<TDevice> :
-    Repository<TDevice>,
+    ReadonlyRepository<TDevice>,
     ICoreAudioRepository<TDevice> where TDevice :
     Device
   {
@@ -17,16 +18,8 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
-    public CoreAudioRepository()
-    {
-      this.Enumerable = new HashSet<TDevice>();
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
-    public CoreAudioRepository(IEnumerable<TDevice> enumerable)
+    public CoreAudioRepository(ObservableCollection<TDevice> enumerable)
     {
       this.Enumerable = enumerable;
     }
