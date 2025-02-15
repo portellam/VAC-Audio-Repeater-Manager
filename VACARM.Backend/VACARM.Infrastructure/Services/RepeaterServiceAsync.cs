@@ -1,0 +1,199 @@
+﻿using VACARM.Application.Commands;
+using VACARM.Domain.Models;
+using VACARM.Infrastructure.Functions;
+using VACARM.Infrastructure.Repositories;
+
+namespace VACARM.Application.Services
+{
+  /// <summary>
+  /// The service of the <typeparamref name="RepeaterRepository"/>.
+  /// </summary>
+  public partial class RepeaterService<TRepository, TRepeaterModel> :
+    BaseService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>,
+    IRepeaterService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>
+    where TRepository :
+    RepeaterRepository<TRepeaterModel> where TRepeaterModel :
+    RepeaterModel
+  {
+    #region Logic
+
+    private async Task<int?> RestartAsync(TRepeaterModel model)
+    {
+      return await ExecutableCommands.RestartAsync
+        (
+          model.ProcessId,
+          this.ExecutableFullPathName,
+          model.StartArguments,
+          model.StopArguments
+        ).ConfigureAwait(false);
+    }
+
+    private async Task<int?> StartAsync(TRepeaterModel model)
+    {
+      return await ExecutableCommands.StartAsync
+        (
+          model.ProcessId,
+          this.ExecutableFullPathName,
+          model.StartArguments
+        ).ConfigureAwait(false);
+    }
+
+    private async Task<int> StopAsync(TRepeaterModel model)
+    {
+      return await ExecutableCommands.StopAsync
+        (
+          model.ProcessId,
+          model.StopArguments
+        ).ConfigureAwait(false);
+    }
+
+    public async IAsyncEnumerable<int?> RestartAllAsync()
+    {
+      var enumerable = this.ItemRepository
+        .GetAll();
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.RestartAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int?> RestartRangeAsync
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.RestartAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int?> RestartRangeAsync
+    (IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.RestartAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int?> StartAllAsync()
+    {
+      var enumerable = this.ItemRepository
+        .GetAll();
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StartAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int?> StartRangeAsync
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StartAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int?> StartRangeAsync
+    (IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StartAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int> StopAllAsync()
+    {
+      var enumerable = this.ItemRepository
+        .GetAll();
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StopAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int> StopRangeAsync
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StopAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int> StopRangeAsync
+    (IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StopAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    #endregion
+  }
+}
