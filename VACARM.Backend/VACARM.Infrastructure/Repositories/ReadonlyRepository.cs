@@ -26,27 +26,13 @@ namespace VACARM.Infrastructure.Repositories
       set
       {
         this.enumerable = value;
-        OnPropertyChanged(nameof(Enumerable));
+        this.OnPropertyChanged(nameof(Enumerable));
       }
     }
 
     private IEnumerable<TItem> enumerable { get; set; }
-    private int maxCount { get; set; } = int.MaxValue;
 
     public virtual event PropertyChangedEventHandler PropertyChanged;
-
-    public virtual int MaxCount
-    {
-      get
-      {
-        return this.maxCount;
-      }
-      set
-      {
-        this.maxCount = value;
-        OnPropertyChanged(nameof(MaxCount));
-      }
-    }
 
     #endregion
 
@@ -58,7 +44,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="propertyName">The property name</param>
     internal void OnPropertyChanged(string propertyName)
     {
-      PropertyChanged?.Invoke
+      this.PropertyChanged?.Invoke
       (
         this,
         new PropertyChangedEventArgs(propertyName)
@@ -81,23 +67,16 @@ namespace VACARM.Infrastructure.Repositories
     public ReadonlyRepository()
     {
       this.Enumerable = Array.Empty<TItem>();
-      this.MaxCount = int.MaxValue;
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
-    /// <param name="maxCount">The max count of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public ReadonlyRepository
-    (
-      IEnumerable<TItem> enumerable,
-      int maxCount
-    )
+    public ReadonlyRepository(IEnumerable<TItem> enumerable)
     {
       this.Enumerable = enumerable;
-      this.MaxCount = maxCount;
     }
 
     public bool ContainsIndex(int index)
@@ -109,12 +88,6 @@ namespace VACARM.Infrastructure.Repositories
     public bool IsNullOrEmpty(IEnumerable<TItem> enumerable)
     {
       return IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable);
-    }
-
-    public bool IsValidIndex(int index)
-    {
-      return index >= 0
-        && index <= this.MaxCount;
     }
 
     public TItem? Get(Func<TItem, bool> func)

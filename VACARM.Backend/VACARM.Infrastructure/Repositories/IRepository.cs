@@ -7,8 +7,6 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    event PropertyChangedEventHandler PropertyChanged;
-
     /// <summary>
     /// The maximum count of <typeparamref name="TItem"/>(s).
     /// </summary>

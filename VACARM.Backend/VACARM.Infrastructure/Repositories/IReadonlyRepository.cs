@@ -9,11 +9,6 @@ namespace VACARM.Infrastructure.Repositories
 
     event PropertyChangedEventHandler PropertyChanged;
 
-    /// <summary>
-    /// The maximum count of <typeparamref name="TItem"/>(s).
-    /// </summary>
-    int MaxCount { get; set; }
-
     #endregion
 
     #region Logic
@@ -31,13 +26,6 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="enumerable">The enumerable</param>
     /// <returns>True/false</returns>
     bool IsNullOrEmpty(IEnumerable<TItem> enumerable);
-
-    /// <summary>
-    /// True/false is the index valid.
-    /// </summary>
-    /// <param name="index">The index</param>
-    /// <returns>True/false</returns>
-    bool IsValidIndex(int index);
 
     /// <summary>
     /// Get a <typeparamref name="TItem"/>.
