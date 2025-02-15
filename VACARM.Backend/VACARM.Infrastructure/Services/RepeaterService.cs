@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using VACARM.Application.Commands;
 using VACARM.Domain.Models;
+using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
@@ -16,9 +18,40 @@ namespace VACARM.Application.Services
   {
     #region Parameters
 
+    private bool preferLegacyExecutable { get; set; } = false;
+
     private DeviceService<DeviceRepository<DeviceModel>, DeviceModel>
-      deviceService
+  deviceService
     { get; set; } = new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
+
+    private string customExecutablePathName { get; set; } =
+      Common.Info.ExpectedExecutablePathName;
+
+    private string ExecutableName
+    {
+      get
+      {
+        if (this.PreferLegacyExecutable)
+        {
+          return Common.Info.MMEExecutableName;
+        }
+
+        return Common.Info.KSExecutableName;
+      }
+    }
+    
+    public bool PreferLegacyExecutable
+    {
+      get
+      {
+        return this.preferLegacyExecutable;
+      }
+      set
+      {
+        this.preferLegacyExecutable = value;
+        this.OnPropertyChanged(nameof(PreferLegacyExecutable));
+      }
+    }
 
     public DeviceService<DeviceRepository<DeviceModel>, DeviceModel> DeviceService
     {
@@ -30,6 +63,36 @@ namespace VACARM.Application.Services
       {
         this.deviceService = value;
         base.OnPropertyChanged(nameof(DeviceService));
+      }
+    }
+
+    public string CustomExecutablePathName
+    {
+      get
+      {
+        return this.customExecutablePathName;
+      }
+      set
+      {
+        if
+        (
+          string.IsNullOrEmpty(value)
+          || string.IsNullOrWhiteSpace(value)
+        )
+        {
+          value = Common.Info.ExpectedExecutablePathName;
+        }
+
+        this.customExecutablePathName = value;
+        this.OnPropertyChanged(nameof(CustomExecutablePathName));
+      }
+    }
+
+    public string ExecutableFullPathName
+    {
+      get
+      {
+        return CustomExecutablePathName + ExecutableName;
       }
     }
 
@@ -53,98 +116,197 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    [ExcludeFromCodeCoverage]
-    public RepeaterService(RepeaterRepository<TRepeaterModel> repository)
-    {
-      base.Repository = repository;
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="repository">The repository</param>
     /// <param name="deviceService">The device service</param>
+    /// <param name="customExecutablePathName">The custom executable path name
+    /// </param>
     [ExcludeFromCodeCoverage]
     public RepeaterService
     (
       RepeaterRepository<TRepeaterModel> repository,
-      DeviceService<DeviceRepository<DeviceModel>, DeviceModel> deviceService
+      DeviceService<DeviceRepository<DeviceModel>, DeviceModel> deviceService,
+      string customExecutablePathName
     )
     {
       base.Repository = repository;
       this.DeviceService = deviceService;
+      this.CustomExecutablePathName = customExecutablePathName;
     }
 
-    public void Restart(uint id)
+    private async Task<int?> RestartAsync(TRepeaterModel model)
     {
-      TRepeaterModel? model = base.Repository.Get(id);
+      return await ExecutableCommands.RestartAsync
+        (
+          model.ProcessId,
+          this.ExecutableFullPathName,
+          model.StartArguments,
+          model.StopArguments
+        ).ConfigureAwait(false);
     }
 
-    public void RestartAll()
+    private async Task<int?> StartAsync(TRepeaterModel model)
     {
-      throw new NotImplementedException();
+      return await ExecutableCommands.StartAsync
+        (
+          model.ProcessId,
+          this.ExecutableFullPathName,
+          model.StartArguments
+        ).ConfigureAwait(false);
     }
 
-    public void RestartRange
+    private async Task<int> StopAsync(TRepeaterModel model)
+    {
+      return await ExecutableCommands.StopAsync
+        (
+          model.ProcessId,
+          model.StopArguments
+        ).ConfigureAwait(false);
+    }
+
+    public async IAsyncEnumerable<int?> RestartAllAsync()
+    {
+      var enumerable = this.ItemRepository
+        .GetAll();
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.RestartAsync(item)
+          .ConfigureAwait(false);
+      }
+    }
+
+    public async IAsyncEnumerable<int?> RestartRangeAsync
     (
       uint startId,
       uint endId
     )
     {
-      throw new NotImplementedException();
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.RestartAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
-    public void RestartRange(List<uint> idList)
+    public async IAsyncEnumerable<int?> RestartRangeAsync
+    (IEnumerable<uint> idEnumerable)
     {
-      throw new NotImplementedException();
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.RestartAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
-    public void Start(uint id)
+    public async IAsyncEnumerable<int?> StartAllAsync()
     {
-      throw new NotImplementedException();
+      var enumerable = this.ItemRepository
+        .GetAll();
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StartAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
-    public void StartAll()
-    {
-      throw new NotImplementedException();
-    }
-
-    public void StartRange
+    public async IAsyncEnumerable<int?> StartRangeAsync
     (
       uint startId,
       uint endId
     )
     {
-      throw new NotImplementedException();
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StartAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
-    public void StartRange(List<uint> idList)
+    public async IAsyncEnumerable<int?> StartRangeAsync
+    (IEnumerable<uint> idEnumerable)
     {
-      throw new NotImplementedException();
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StartAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
-    public void Stop(uint id)
+    public async IAsyncEnumerable<int> StopAllAsync()
     {
-      throw new NotImplementedException();
+      var enumerable = this.ItemRepository
+        .GetAll();
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StopAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
-    public void StopAll()
-    {
-      throw new NotImplementedException();
-    }
-
-    public void StopRange
+    public async IAsyncEnumerable<int> StopRangeAsync
     (
       uint startId,
       uint endId
     )
     {
-      throw new NotImplementedException();
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StopAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
-    public void StopRange(List<uint> idList)
+    public async IAsyncEnumerable<int> StopRangeAsync
+    (IEnumerable<uint> idEnumerable)
     {
-      throw new NotImplementedException();
+      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
+
+      var enumerable = this.ItemRepository
+        .GetRange(func);
+
+      foreach (var item in enumerable)
+      {
+        yield return await this.StopAsync(item)
+          .ConfigureAwait(false);
+      }
     }
 
     #endregion
