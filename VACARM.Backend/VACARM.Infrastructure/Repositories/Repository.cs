@@ -104,6 +104,12 @@ namespace VACARM.Infrastructure.Repositories
       this.Enumerable = enumerable;
     }
 
+    public bool ContainsIndex(int index)
+    {
+      return index >= 0
+        && index <= this.Enumerable.Count();
+    }
+
     public bool IsNullOrEmpty(IEnumerable<TItem> enumerable)
     {
       return IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable);
