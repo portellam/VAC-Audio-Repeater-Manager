@@ -131,7 +131,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public TMMDevice? Get(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdFunc(id);
+      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
       return this.Get(func);
     }
 
@@ -182,7 +182,7 @@ namespace VACARM.Infrastructure.Repositories
     public IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>
-        .ContainsIdEnumerableFunc(idEnumerable);
+        .ContainsIdEnumerable(idEnumerable);
       
       return this.GetRange(func);
     }

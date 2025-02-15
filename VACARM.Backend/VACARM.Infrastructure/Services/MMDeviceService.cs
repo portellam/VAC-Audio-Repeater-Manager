@@ -84,7 +84,7 @@ namespace VACARM.Application.Services
 
     public void Stop(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdFunc(id);
+      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
       var item = this.Repository.Get(func);
       MMDeviceCommands.Stop(item);
     }
@@ -110,7 +110,7 @@ namespace VACARM.Application.Services
 
     public void Update(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdFunc(id);
+      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
       this.DoWork
         (
