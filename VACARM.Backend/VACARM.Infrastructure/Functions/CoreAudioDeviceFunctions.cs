@@ -17,7 +17,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The function</returns>
-    public static Func<TDevice, bool> ContainsId(string id)
+    internal static Func<TDevice, bool> ContainsId(string id)
     {
       return (TDevice item) => item.Id == ToGuid(id);
     }
@@ -28,7 +28,7 @@ namespace VACARM.Infrastructure.Functions
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The function</returns>
-    public static Func<TDevice, bool> ContainsIdEnumerable
+    internal static Func<TDevice, bool> ContainsIdEnumerable
     (IEnumerable<string> idEnumerable)
     {
       return (TDevice item) =>

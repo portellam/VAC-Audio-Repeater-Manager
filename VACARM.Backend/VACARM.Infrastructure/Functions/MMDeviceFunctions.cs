@@ -12,25 +12,25 @@ namespace VACARM.Infrastructure.Functions
       | DeviceState.Disabled
       | DeviceState.Unplugged;
 
-    public readonly static Func<TMMDevice, bool> IsAbsent =
+    internal readonly static Func<TMMDevice, bool> IsAbsent =
       (TMMDevice x) => x.State != PresentDeviceState;
 
-    public readonly static Func<TMMDevice, bool> IsCapture =
+    internal readonly static Func<TMMDevice, bool> IsCapture =
       (TMMDevice x) => x.DataFlow == DataFlow.Capture;
 
-    public readonly static Func<TMMDevice, bool> IsDisabled =
+    internal readonly static Func<TMMDevice, bool> IsDisabled =
       (TMMDevice x) => x.State == DeviceState.Disabled;
 
-    public readonly static Func<TMMDevice, bool> IsDuplex =
+    internal readonly static Func<TMMDevice, bool> IsDuplex =
       (TMMDevice x) => x.DataFlow == DataFlow.All;
 
-    public readonly static Func<TMMDevice, bool> IsEnabled =
+    internal readonly static Func<TMMDevice, bool> IsEnabled =
       (TMMDevice x) => x.State != DeviceState.Disabled;
 
-    public readonly static Func<TMMDevice, bool> IsPresent =
+    internal readonly static Func<TMMDevice, bool> IsPresent =
       (TMMDevice x) => x.State == PresentDeviceState;
 
-    public readonly static Func<TMMDevice, bool> IsRender =
+    internal readonly static Func<TMMDevice, bool> IsRender =
       (TMMDevice x) => x.DataFlow == DataFlow.Render;
 
     #endregion
@@ -42,7 +42,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The function</returns>
-    public static Func<TMMDevice, bool> ContainsId(string id)
+    internal static Func<TMMDevice, bool> ContainsId(string id)
     {
       return (TMMDevice x) => x.ID == id;
     }
@@ -53,7 +53,7 @@ namespace VACARM.Infrastructure.Functions
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The function</returns>
-    public static Func<TMMDevice, bool> ContainsIdEnumerable
+    internal static Func<TMMDevice, bool> ContainsIdEnumerable
     (IEnumerable<string> idEnumerable)
     {
       return (TMMDevice x) => idEnumerable.Contains(x.ID);

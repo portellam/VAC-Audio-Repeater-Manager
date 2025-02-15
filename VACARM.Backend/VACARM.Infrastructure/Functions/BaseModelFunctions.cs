@@ -12,7 +12,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The function</returns>
-    public Func<TBaseModel, bool> ContainsId(uint? id)
+    internal static Func<TBaseModel, bool> ContainsId(uint? id)
     {
       return (TBaseModel item) => item.Id == id;
     }
@@ -23,7 +23,7 @@ namespace VACARM.Infrastructure.Functions
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The function</returns>
-    public Func<TBaseModel, bool> ContainsIdRange
+    internal static Func<TBaseModel, bool> ContainsIdRange
     (
       uint startId,
       uint endId
@@ -40,7 +40,7 @@ namespace VACARM.Infrastructure.Functions
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The enumerable function(s)</returns>
-    public IEnumerable<Func<TBaseModel, bool>> ContainsIdEnumerable
+    internal static IEnumerable<Func<TBaseModel, bool>> ContainsIdEnumerable
     (IEnumerable<uint> idEnumerable)
     {
       foreach (var item in idEnumerable)
