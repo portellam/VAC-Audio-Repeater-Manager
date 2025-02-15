@@ -17,6 +17,10 @@ namespace VACARM.Application.Services
   {
     #region Logic
 
+    /// <summary>
+    /// Restart a <typeparamref name="TRepeaterModel"/>.
+    /// </summary>
+    /// <param name="model">The item</param>
     private async Task<int?> RestartAsync(TRepeaterModel model)
     {
       return await ExecutableCommands.RestartAsync
@@ -28,6 +32,10 @@ namespace VACARM.Application.Services
         ).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Start a <typeparamref name="TRepeaterModel"/>.
+    /// </summary>
+    /// <param name="model">The item</param>
     private async Task<int?> StartAsync(TRepeaterModel model)
     {
       return await ExecutableCommands.StartAsync
@@ -38,6 +46,10 @@ namespace VACARM.Application.Services
         ).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Stop a <typeparamref name="TRepeaterModel"/>.
+    /// </summary>
+    /// <param name="model">The item</param>
     private async Task<int> StopAsync(TRepeaterModel model)
     {
       return await ExecutableCommands.StopAsync
@@ -45,6 +57,15 @@ namespace VACARM.Application.Services
           model.ProcessId,
           model.StopArguments
         ).ConfigureAwait(false);
+    }
+
+    public async Task<int?> RestartAsync(uint? id)
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
+      var item = this.Repository.Get(func);
+
+      return await this.RestartAsync(item)
+        .ConfigureAwait(false);
     }
 
     public async IAsyncEnumerable<int?> RestartAllAsync()
@@ -96,6 +117,15 @@ namespace VACARM.Application.Services
       }
     }
 
+    public async Task<int?> StartAsync(uint? id)
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
+      var item = this.Repository.Get(func);
+
+      return await this.StartAsync(item)
+        .ConfigureAwait(false);
+    }
+
     public async IAsyncEnumerable<int?> StartAllAsync()
     {
       var enumerable = this.ItemRepository
@@ -143,6 +173,15 @@ namespace VACARM.Application.Services
         yield return await this.StartAsync(item)
           .ConfigureAwait(false);
       }
+    }
+
+    public async Task<int> StopAsync(uint? id)
+    {
+      var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
+      var item = this.Repository.Get(func);
+
+      return await this.StopAsync(item)
+        .ConfigureAwait(false);
     }
 
     public async IAsyncEnumerable<int> StopAllAsync()
