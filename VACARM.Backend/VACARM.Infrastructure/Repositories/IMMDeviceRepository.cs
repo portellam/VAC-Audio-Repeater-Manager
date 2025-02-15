@@ -48,48 +48,6 @@ namespace VACARM.Infrastructure.Repositories
     TMMDevice? GetDefaultMultimedia(DataFlow dataFlow);
 
     /// <summary>
-    /// Get an enumerable of all absent <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAllAbsent();
-
-    /// <summary>
-    /// Get an enumerable of all capture <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAllCapture();
-
-    /// <summary>
-    /// Get an enumerable of all disabled <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAllDisabled();
-
-    /// <summary>
-    /// Get an enumerable of all duplex <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAllDuplex();
-
-    /// <summary>
-    /// Get an enumerable of all enabled <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAllEnabled();
-
-    /// <summary>
-    /// Get an enumerable of all present <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAllPresent();
-
-    /// <summary>
-    /// Get an enumerable of all render <typeparamref name="TMMDevice"/> item(s).
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAllRender();
-
-    /// <summary>
     /// Get an enumerable of some <typeparamref name="TMMDevice"/> item(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
