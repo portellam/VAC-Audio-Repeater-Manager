@@ -5,6 +5,48 @@ namespace VACARM.Infrastructure.Functions
   internal static class CoreAudioDeviceFunctions<TDevice> where TDevice :
     Device
   {
+    #region Parameters
+
+    private const DeviceState PresentDeviceState =
+      DeviceState.Active
+      | DeviceState.Disabled
+      | DeviceState.Unplugged;
+
+    internal readonly static Func<TDevice, bool> IsAbsent =
+      (TDevice x) => x.State != PresentDeviceState;
+
+    internal readonly static Func<TDevice, bool> IsCapture =
+      (TDevice x) => x.IsCaptureDevice;
+
+    internal readonly static Func<TDevice, bool> IsDefault =
+      (TDevice x) => x.IsDefaultDevice;
+
+    internal readonly static Func<TDevice, bool> IsDefaultCommunications =
+      (TDevice x) => x.IsDefaultCommunicationsDevice;
+
+    internal readonly static Func<TDevice, bool> IsDisabled =
+      (TDevice x) => x.State == DeviceState.Disabled;
+
+    internal readonly static Func<TDevice, bool> IsDuplex =
+      (TDevice x) => x.IsCaptureDevice == x.IsPlaybackDevice;
+
+    internal readonly static Func<TDevice, bool> IsEnabled =
+      (TDevice x) => x.State != DeviceState.Disabled;
+
+    internal readonly static Func<TDevice, bool> IsMuted =
+      (TDevice x) => x.IsMuted;
+
+    internal readonly static Func<TDevice, bool> IsPresent =
+      (TDevice x) => x.State == PresentDeviceState;
+
+    internal readonly static Func<TDevice, bool> IsPlayback =
+      (TDevice x) => x.IsPlaybackDevice;
+
+    internal readonly static Func<TDevice, bool> IsUnmuted =
+      (TDevice x) => !x.IsMuted;
+
+    #endregion
+
     #region Logic
 
     private static Guid ToGuid(string id)
