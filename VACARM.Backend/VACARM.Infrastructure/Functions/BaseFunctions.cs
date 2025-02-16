@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class BaseFunctions<TBaseModel> where TBaseModel : 
+  internal static class BaseFunctions<TBaseModel> where TBaseModel :
     BaseModel
   {
     #region Logic
@@ -37,14 +37,13 @@ namespace VACARM.Infrastructure.Functions
     /// <summary>
     /// Match an enumerable of <typeparamref name="TBaseModel"/> ID(s).
     /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsIdEnumerable
     (IEnumerable<uint> idEnumerable)
     {
       return (TBaseModel item) => idEnumerable.Contains(item.Id);
-    }   
+    }
 
     #endregion
   }
