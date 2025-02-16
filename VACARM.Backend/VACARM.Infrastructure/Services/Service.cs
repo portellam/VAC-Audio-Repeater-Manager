@@ -29,14 +29,6 @@ namespace VACARM.Application.Services
       }
     }
 
-    public Repository<TItem> ItemRepository
-    {
-      get
-      {
-        return this.Repository;
-      }
-    }
-
     public virtual event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
@@ -96,7 +88,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var item = this.ItemRepository
+      var item = this.Repository
         .Get(func);
 
       this.DoWork
@@ -127,7 +119,7 @@ namespace VACARM.Application.Services
 
     public void DoWorkAll(Action<TItem> action)
     {
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetAll();
 
       this.DoWorkRange
@@ -170,7 +162,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       this.DoWorkRange

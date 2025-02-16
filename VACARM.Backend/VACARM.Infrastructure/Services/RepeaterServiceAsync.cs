@@ -85,7 +85,7 @@ namespace VACARM.Application.Services
 
     public async IAsyncEnumerable<int?> RestartAllAsync()
     {
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetAll();
 
       foreach (var item in enumerable)
@@ -107,7 +107,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       foreach (var item in enumerable)
@@ -122,7 +122,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       foreach (var item in enumerable)
@@ -143,7 +143,7 @@ namespace VACARM.Application.Services
 
     public async IAsyncEnumerable<int?> StartAllAsync()
     {
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetAll();
 
       foreach (var item in enumerable)
@@ -165,7 +165,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       foreach (var item in enumerable)
@@ -180,7 +180,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       foreach (var item in enumerable)
@@ -201,7 +201,7 @@ namespace VACARM.Application.Services
 
     public async IAsyncEnumerable<int> StopAllAsync()
     {
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetAll();
 
       foreach (var item in enumerable)
@@ -223,7 +223,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       foreach (var item in enumerable)
@@ -238,7 +238,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      var enumerable = this.ItemRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       foreach (var item in enumerable)

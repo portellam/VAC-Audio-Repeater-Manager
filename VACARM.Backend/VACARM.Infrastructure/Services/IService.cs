@@ -10,7 +10,6 @@ namespace VACARM.Application.Services
     #region Parameters
 
     event PropertyChangedEventHandler PropertyChanged;
-    TRepository ItemRepository { get; }
 
     #endregion
 
