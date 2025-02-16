@@ -32,7 +32,6 @@ namespace VACARM.Infrastructure.Functions
 
     #region Logic
 
-
     /// <summary>
     /// Match a <typeparamref name="TDeviceModel"/> actual ID.
     /// </summary>
