@@ -59,6 +59,21 @@ namespace VACARM.Application.Services
         ).ConfigureAwait(false);
     }
 
+    public async Task<bool> UpdateServiceAsync()
+    {
+      if (this.DeviceService == null)
+      {
+        this.DeviceService =
+          new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
+
+        return false;
+      }
+
+      return await this.DeviceService
+        .UpdateServiceAsync()
+        .ConfigureAwait(false);
+    }
+
     public async Task<int?> RestartAsync(uint? id)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);

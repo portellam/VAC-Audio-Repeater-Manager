@@ -11,18 +11,24 @@ namespace VACARM.Application.Services
     #region Logic
 
     /// <summary>
+    /// Update the service.
+    /// </summary>
+    /// <returns>True/false result.</returns>
+    Task<bool> UpdateServiceAsync();
+
+    /// <summary>
     /// Restart a <typeparamref name="TRepeaterModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     Task<int?> RestartAsync(uint? id);
 
     /// <summary>
-    /// Restart all <typeparamref name="TRepeaterModel"/> item(s).
+    /// Restart all <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     IAsyncEnumerable<int?> RestartAllAsync();
 
     /// <summary>
-    /// Restart some <typeparamref name="TRepeaterModel"/> item(s).
+    /// Restart some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -33,7 +39,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Restart some <typeparamref name="TRepeaterModel"/> item(s).
+    /// Restart some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     IAsyncEnumerable<int?> RestartRangeAsync(IEnumerable<uint> idEnumerable);
@@ -45,12 +51,12 @@ namespace VACARM.Application.Services
     Task<int?> StartAsync(uint? id);
 
     /// <summary>
-    /// Start all <typeparamref name="TRepeaterModel"/> item(s).
+    /// Start all <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     IAsyncEnumerable<int?> StartAllAsync();
 
     /// <summary>
-    /// Start some <typeparamref name="TRepeaterModel"/> item(s).
+    /// Start some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -61,7 +67,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Start some <typeparamref name="TRepeaterModel"/> item(s).
+    /// Start some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     IAsyncEnumerable<int?> StartRangeAsync
@@ -74,12 +80,12 @@ namespace VACARM.Application.Services
     Task<int> StopAsync(uint? id);
 
     /// <summary>
-    /// Stop all <typeparamref name="TRepeaterModel"/> item(s).
+    /// Stop all <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     IAsyncEnumerable<int> StopAllAsync();
 
     /// <summary>
-    /// Stop some <typeparamref name="TRepeaterModel"/> item(s).
+    /// Stop some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -90,7 +96,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Stop some <typeparamref name="TRepeaterModel"/> item(s).
+    /// Stop some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     IAsyncEnumerable<int> StopRangeAsync(IEnumerable<uint> idEnumerable);
