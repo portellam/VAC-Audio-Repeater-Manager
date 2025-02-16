@@ -16,5 +16,42 @@ namespace VACARM.Application.Services
     string ExecutableFullPathName { get; }
 
     #endregion
+
+    #region Logic
+
+    /// <summary>
+    /// Get an enumerable of all <typeparamref name="TRepeaterModel"/>(s) in
+    /// alphebetical order.
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TRepeaterModel> GetAllAlphabetical();
+
+    /// <summary>
+    /// Get an enumerable of all <typeparamref name="TRepeaterModel"/>(s) with a
+    /// match of the audio device name of either the capture or render.
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TRepeaterModel> GetAllByDeviceId(uint deviceId);
+
+    /// <summary>
+    /// Get an enumerable of all <typeparamref name="TRepeaterModel"/>(s) with a
+    /// match of the audio device name of either the capture or render.
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TRepeaterModel> GetAllByDeviceName(string deviceId);
+
+    /// <summary>
+    /// Get an enumerable of all started <typeparamref name="TRepeaterModel"/>(s).
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TRepeaterModel> GetAllStarted();
+
+    /// <summary>
+    /// Get an enumerable of all started <typeparamref name="TRepeaterModel"/>(s).
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TRepeaterModel> GetAllStopped();
+
+    #endregion
   }
 }

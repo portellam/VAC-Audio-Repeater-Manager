@@ -59,41 +59,6 @@ namespace VACARM.Infrastructure.Repositories
       this.MaxCount = maxCount;
     }
 
-    public IEnumerable<TRepeaterModel> GetAllAlphabetical()
-    {
-      return base
-        .GetAll()
-        .OrderBy(x => x.WindowName);
-    }
-
-    public IEnumerable<TRepeaterModel> GetAllAlphabeticalDescending()
-    {
-      return base
-        .GetAll()
-        .OrderByDescending(x => x.WindowName);
-    }
-
-    public IEnumerable<TRepeaterModel> GetAllByDeviceId(uint deviceId)
-    {
-      Func<TRepeaterModel, bool> func = (TRepeaterModel x) =>
-        deviceId == x.InputDeviceId
-        || deviceId == x.OutputDeviceId;
-
-      return base.GetRange(func);
-    }
-
-    public IEnumerable<TRepeaterModel> GetAllStarted()
-    {
-      Func<TRepeaterModel, bool> func = (TRepeaterModel x) => x.IsStarted;
-      return base.GetRange(func);
-    }
-
-    public IEnumerable<TRepeaterModel> GetAllStopped()
-    {
-      Func<TRepeaterModel, bool> func = (TRepeaterModel x) => !x.IsStarted;
-      return base.GetRange(func);
-    }
-
     #endregion
   }
 }

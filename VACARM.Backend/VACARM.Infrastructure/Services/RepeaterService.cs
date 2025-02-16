@@ -132,6 +132,45 @@ namespace VACARM.Application.Services
       this.CustomExecutablePathName = customExecutablePathName;
     }
 
+    public IEnumerable<TRepeaterModel> GetAllAlphabetical()
+    {
+      return this.Repository
+        .GetAll()
+        .OrderBy(x => x.WindowName);
+    }
+
+    public IEnumerable<TRepeaterModel> GetAllByDeviceId(uint deviceId)
+    {
+      var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceId(deviceId);
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TRepeaterModel> GetAllByDeviceName(string deviceName)
+    {
+      var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceName(deviceName);
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TRepeaterModel> GetAllStarted()
+    {
+      var func = RepeaterFunctions<TRepeaterModel>.IsStarted;
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TRepeaterModel> GetAllStopped()
+    {
+      var func = RepeaterFunctions<TRepeaterModel>.IsStopped;
+
+      return this.Repository
+        .GetRange(func);
+    }
+
     #endregion
   }
 }
