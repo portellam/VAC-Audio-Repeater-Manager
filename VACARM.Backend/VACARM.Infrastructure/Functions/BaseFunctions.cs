@@ -5,13 +5,16 @@ namespace VACARM.Infrastructure.Functions
   internal static class BaseFunctions<TBaseModel> where TBaseModel :
     BaseModel
   {
-    #region Logic
-
     /// <summary>
     /// Match a <typeparamref name="TBaseModel"/> ID.
     /// </summary>
-    /// <param name="id">The ID</param>
+    /// <param name="model">The model</param>
     /// <returns>The function.</returns>
+    internal static Func<TBaseModel, bool> ContainsId(this TBaseModel model)
+      => (TBaseModel item) => item.Id == model.Id;
+
+    #region Logic
+
     internal static Func<TBaseModel, bool> ContainsId(uint? id)
     {
       return (TBaseModel item) => item.Id == id;
