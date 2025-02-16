@@ -12,49 +12,49 @@ namespace VACARM.Application.Services
     #region Logic
 
     /// <summary>
-    /// Is the <typeparamref name="CoreAudioDevice"/> the default.
+    /// Is the <typeparamref name="TDevice"/> the default.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     Task<bool> IsDefaultAsync(string id);
 
     /// <summary>
-    /// Is the <typeparamref name="CoreAudioDevice"/> the default for communications.
+    /// Is the <typeparamref name="TDevice"/> the default for communications.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     Task<bool> IsDefaultCommunicationsAsync(string id);
 
     /// <summary>
-    /// Is the <typeparamref name="CoreAudioDevice"/> muted.
+    /// Is the <typeparamref name="TDevice"/> muted.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     Task<bool> IsMutedAsync(string id);
 
     /// <summary>
-    /// Mute the <typeparamref name="CoreAudioDevice"/>.
+    /// Mute the <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     Task<bool> MuteAsync(string id);
 
     /// <summary>
-    /// Set the <typeparamref name="CoreAudioDevice"/> as default.
+    /// Set the <typeparamref name="TDevice"/> as default.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     Task<bool> SetAsDefaultAsync(string id);
 
     /// <summary>
-    /// Set the <typeparamref name="CoreAudioDevice"/> as default for communications.
+    /// Set the <typeparamref name="TDevice"/> as default for communications.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     Task<bool> SetAsDefaultCommunicationsAsync(string id);
 
     /// <summary>
-    /// Set the <typeparamref name="CoreAudioDevice"/> volume.
+    /// Set the <typeparamref name="TDevice"/> volume.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="volume">The audio volume</param>
@@ -66,28 +66,28 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Unmute the <typeparamref name="CoreAudioDevice"/>.
+    /// Unmute the <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
     Task<bool> UnmuteAsync(string id);
 
     /// <summary>
-    /// Update the enumerable of all <typeparamref name="CoreAudioDevice"/>
+    /// Update the enumerable of all <typeparamref name="TDevice"/>
     /// items.
     /// </summary>
     /// <returns>The true/false result.</returns>
     Task<bool> UpdateAllAsync();
 
     /// <summary>
-    /// Get the <typeparamref name="CoreAudioDevice"/>.
+    /// Get the <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
     Task<CoreAudioDevice?> GetAsync(string id);
 
     /// <summary>
-    /// Get the default communications <typeparamref name="CoreAudioDevice"/>.
+    /// Get the default communications <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
@@ -99,7 +99,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Get the default console <typeparamref name="CoreAudioDevice"/>.
+    /// Get the default console <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
@@ -111,7 +111,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Get the default multimedia <typeparamref name="CoreAudioDevice"/>.
+    /// Get the default multimedia <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
@@ -123,7 +123,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Get the volume of the <typeparamref name="CoreAudioDevice"/>.
+    /// Get the volume of the <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The audio volume.</returns>
