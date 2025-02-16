@@ -17,7 +17,8 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public BaseService()
+    public BaseService() :
+      base()
     {
       this.Repository = new BaseRepository<TBaseModel>();
     }
@@ -27,7 +28,8 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="repository">The repository</param>
     [ExcludeFromCodeCoverage]
-    public BaseService(BaseRepository<TBaseModel> repository)
+    public BaseService(BaseRepository<TBaseModel> repository) :
+      base(repository)
     {
       this.Repository = repository;
     }

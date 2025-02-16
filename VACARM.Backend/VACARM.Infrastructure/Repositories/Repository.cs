@@ -60,7 +60,8 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public Repository()
+    public Repository() :
+      base()
     {
       this.Enumerable = Array.Empty<TItem>();
       this.MaxCount = int.MaxValue;
@@ -76,7 +77,8 @@ namespace VACARM.Infrastructure.Repositories
     (
       IEnumerable<TItem> enumerable,
       int maxCount
-    )
+    ) :
+      base(enumerable)
     {
       this.Enumerable = enumerable;
       this.MaxCount = maxCount;

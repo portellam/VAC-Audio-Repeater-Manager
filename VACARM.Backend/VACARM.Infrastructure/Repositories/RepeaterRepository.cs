@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
@@ -25,37 +26,21 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="enumerable">The enumerable of item(s)</param>
-    [ExcludeFromCodeCoverage]
-    public RepeaterRepository(IEnumerable<TRepeaterModel> enumerable)
-    {
-      this.List = enumerable.ToList();
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="maxCount">The maximum count of item(s)</param>
-    [ExcludeFromCodeCoverage]
-    public RepeaterRepository(int maxCount)
-    {
-      this.List = new List<TRepeaterModel>();
-      this.MaxCount = maxCount;
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="enumerable">The enumerable of item(s)</param>
+    /// <param name="list">The list of item(s)</param>
     /// <param name="maxCount">The maximum count of item(s)</param>
     [ExcludeFromCodeCoverage]
     public RepeaterRepository
     (
-      IEnumerable<TRepeaterModel> enumerable,
+      List<TRepeaterModel> list,
       int maxCount
-    )
+    ) :
+      base
+      (
+        list,
+        maxCount
+      )
     {
-      this.List = enumerable.ToList();
+      this.List = list;
       this.MaxCount = maxCount;
     }
 

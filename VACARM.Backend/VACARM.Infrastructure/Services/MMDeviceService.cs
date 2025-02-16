@@ -28,7 +28,8 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public MMDeviceService()
+    public MMDeviceService() :
+      base()
     {
       base.Repository = new MMDeviceRepository<TMMDevice>();
     }

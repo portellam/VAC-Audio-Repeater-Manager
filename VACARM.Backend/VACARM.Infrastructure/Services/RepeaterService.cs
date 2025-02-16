@@ -39,7 +39,7 @@ namespace VACARM.Application.Services
         return Common.Info.KSExecutableName;
       }
     }
-    
+
     public bool PreferLegacyExecutable
     {
       get
@@ -104,11 +104,12 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public RepeaterService()
+    public RepeaterService() :
+      base()
     {
       base.Repository = new RepeaterRepository<TRepeaterModel>();
-      
-      this.DeviceService = 
+
+      this.DeviceService =
         new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
     }
 
@@ -125,7 +126,8 @@ namespace VACARM.Application.Services
       RepeaterRepository<TRepeaterModel> repository,
       DeviceService<DeviceRepository<DeviceModel>, DeviceModel> deviceService,
       string customExecutablePathName
-    )
+    ) :
+      base(repository)
     {
       base.Repository = repository;
       this.DeviceService = deviceService;

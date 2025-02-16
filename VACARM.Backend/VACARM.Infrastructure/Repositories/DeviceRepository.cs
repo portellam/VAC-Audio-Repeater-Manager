@@ -17,7 +17,8 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public DeviceRepository()
+    public DeviceRepository() :
+      base()
     {
       this.List = new List<TDeviceModel>();
     }
@@ -25,37 +26,21 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="enumerable">The enumerable of item(s)</param>
-    [ExcludeFromCodeCoverage]
-    public DeviceRepository(IEnumerable<TDeviceModel> enumerable)
-    {
-      this.List = enumerable.ToList();
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="maxCount">The maximum count of item(s)</param>
-    [ExcludeFromCodeCoverage]
-    public DeviceRepository(int maxCount)
-    {
-      this.List = new List<TDeviceModel>();
-      this.MaxCount = maxCount;
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="enumerable">The enumerable of item(s)</param>
+    /// <param name="list">The list of item(s)</param>
     /// <param name="maxCount">The maximum count of item(s)</param>
     [ExcludeFromCodeCoverage]
     public DeviceRepository
     (
-      IEnumerable<TDeviceModel> enumerable,
+      List<TDeviceModel> list,
       int maxCount
-    )
+    ) :
+      base
+      (
+        list,
+        maxCount
+      )
     {
-      this.List = enumerable.ToList();
+      this.List = list;
       this.MaxCount = maxCount;
     }
 

@@ -720,7 +720,8 @@ namespace VACARM.Domain.Models
       string inputDeviceName,
       string outputDeviceName,
       string pathName
-    ) : base(id)
+    ) : 
+      base(id)
     {
       InputDeviceId = inputDeviceId;
       InputDeviceName = inputDeviceName;

@@ -66,7 +66,8 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public BaseRepository()
+    public BaseRepository() : 
+      base()
     {
       this.List = new List<TBaseModel>();
     }
@@ -81,7 +82,12 @@ namespace VACARM.Infrastructure.Repositories
     (
       List<TBaseModel> list,
       int maxCount
-    )
+    ) : 
+      base
+      (
+        list,
+        maxCount
+      )
     {
       this.Enumerable = list;
       this.MaxCount = maxCount;

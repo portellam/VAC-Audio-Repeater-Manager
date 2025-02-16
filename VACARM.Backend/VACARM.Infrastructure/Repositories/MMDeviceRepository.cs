@@ -123,7 +123,8 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public MMDeviceRepository()
+    public MMDeviceRepository() :
+      base()
     {
       this.Enumerable = new ObservableCollection<TMMDevice>();
       this.Enumerator = new MMDeviceEnumerator();

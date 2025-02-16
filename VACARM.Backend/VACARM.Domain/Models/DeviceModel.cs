@@ -225,7 +225,8 @@ namespace VACARM.Domain.Models
       bool? isRender,
       bool? isPresent,
       string role
-    ) : base(id)
+    ) : 
+      base(id)
     {
       Id = id;
       ActualId = actualId;

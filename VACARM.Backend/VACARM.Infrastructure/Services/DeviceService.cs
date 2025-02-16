@@ -84,7 +84,8 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public DeviceService()
+    public DeviceService() :
+      base()
     {
       base.Repository = new DeviceRepository<TDeviceModel>();
 
@@ -106,7 +107,8 @@ namespace VACARM.Application.Services
       DeviceRepository<TDeviceModel> repository,
       MMDeviceService<MMDeviceRepository<MMDevice>, MMDevice> mMDeviceService,
       CoreAudioService<CoreAudioRepository<Device>, Device> coreAudioService
-    )
+    ) :
+      base(repository)
     {
       base.Repository = new DeviceRepository<TDeviceModel>();
       this.MMDeviceService = mMDeviceService;
