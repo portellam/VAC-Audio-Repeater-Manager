@@ -1,5 +1,6 @@
 ﻿using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Repositories;
 
@@ -9,7 +10,7 @@ namespace VACARM.Application.Services
   /// A service for the <typeparamref name="CoreAudioRepository"/>.
   /// </summary>
   public partial class CoreAudioService<TRepository, TDevice> :
-    Service<CoreAudioRepository<TDevice>, TDevice>,
+    Service<Repository<TDevice>, TDevice>,
     ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
     CoreAudioRepository<TDevice> where TDevice :
     Device
@@ -83,8 +84,11 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public CoreAudioService()
     {
-      base.Repository = new CoreAudioRepository<TDevice>();
       Controller = new CoreAudioController();
+
+      this.Repository = new CoreAudioRepository<TDevice>
+        (new ObservableCollection<TDevice>()) as Repository<TDevice>;
+
       var result = this.UpdateAllAsync();
     }
 

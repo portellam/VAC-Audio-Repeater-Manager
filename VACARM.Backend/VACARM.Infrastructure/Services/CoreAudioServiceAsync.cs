@@ -1,12 +1,13 @@
 ﻿using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
+using System.Collections.ObjectModel;
 using VACARM.Application.Commands;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
   public partial class CoreAudioService<TRepository, TDevice> :
-    Service<CoreAudioRepository<TDevice>, TDevice>,
+    Service<Repository<TDevice>, TDevice>,
     ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
     CoreAudioRepository<TDevice> where TDevice :
     Device
@@ -14,7 +15,7 @@ namespace VACARM.Application.Services
     #region Logic
 
     /// <summary>
-    /// Get the default <typeparamref name="CoreAudioDevice"/> item.
+    /// Get the default <typeparamref name="CoreAudioDevice"/>.
     /// </summary>
     /// <param name="role">The role</param>
     /// <param name="deviceType">The device type</param>
@@ -110,6 +111,32 @@ namespace VACARM.Application.Services
       return await CoreAudioCommands.DoUnmuteAsync(item);
     }
 
+    public async Task<bool> UpdateAllAsync()
+    {
+      var coreAudioDeviceEnumerable = await this
+        .Controller
+        .GetDevicesAsync()
+        .ConfigureAwait(false);
+
+      if (coreAudioDeviceEnumerable == null)
+      {
+        return false;
+      }
+
+      ObservableCollection<TDevice> collection =
+        new ObservableCollection<TDevice>();
+
+      foreach (var item in coreAudioDeviceEnumerable)
+      {
+        collection.Append(item as TDevice);
+      }
+
+      this.Repository = new CoreAudioRepository<TDevice>(collection)
+        as Repository<TDevice>;
+
+      return false;
+    }
+
     public async Task<CoreAudioDevice?> GetAsync(string id)
     {
       if (this.Controller == null)
@@ -182,23 +209,6 @@ namespace VACARM.Application.Services
         );
     }
 
-    public async Task<bool> UpdateAllAsync()
-    {
-      var enumerable = await this
-        .Controller
-        .GetDevicesAsync()
-        .ConfigureAwait(false);
-
-      if (enumerable == null)
-      {
-        return false;
-      }
-
-      base.Repository = new CoreAudioRepository<TDevice>
-        ((IEnumerable<TDevice>)enumerable);
-      
-      return false;
-    }
 
     public async Task<double> GetVolumeAsync(string id)
     {
