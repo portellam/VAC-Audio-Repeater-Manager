@@ -2,6 +2,7 @@
 using AudioSwitcher.AudioApi.CoreAudio;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
@@ -10,10 +11,10 @@ namespace VACARM.Application.Services
   /// A service for the <typeparamref name="CoreAudioRepository"/>.
   /// </summary>
   public partial class CoreAudioService<TRepository, TDevice> :
-    Service<Repository<TDevice>, TDevice>,
+    Service<CoreAudioRepository<TDevice>, TDevice>,
     ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
     CoreAudioRepository<TDevice> where TDevice :
-    Device
+    Device 
   {
     #region Parameters
 
@@ -82,7 +83,8 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public CoreAudioService()
+    public CoreAudioService() : 
+      base()
     {
       Controller = new CoreAudioController();
 
@@ -90,6 +92,82 @@ namespace VACARM.Application.Services
         (new ObservableCollection<TDevice>()) as Repository<TDevice>;
 
       var result = this.UpdateAllAsync();
+    }
+
+    public bool IsDefault(string id)
+    {
+      Device? device = this.Repository
+        .Get(id);
+
+      if (device == null)
+      {
+        return false;
+      }
+
+      return device.IsDefaultDevice;
+    }
+
+    public bool IsDefaultCommunications(string id)
+    {
+      Device? device = this.Repository
+        .Get(id);
+
+      if (device == null)
+      {
+        return false;
+      }
+
+      return device.IsDefaultCommunicationsDevice;
+    }
+
+    public bool IsMuted(string id)
+    {
+      Device? device = this.Repository
+        .Get(id);
+
+      if (device == null)
+      {
+        return false;
+      }
+
+      return device.IsMuted;
+    }
+
+    public double GetVolume(string id)
+    {
+      TDevice? device = this.Repository
+        .Get(id);
+
+      if (device == null)
+      {
+        return double.NaN;
+      }
+
+      return device.Volume;
+    }
+
+    public TDevice? GetDefault()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsDefault;
+      return this.Repository.Get(func);
+    }
+
+    public TDevice? GetDefaultCommunications()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsDefaultCommunications;
+      return this.Repository.Get(func);
+    }
+
+    public IEnumerable<TDevice> GetAllMuted()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsMuted;
+      return this.Repository.GetRange(func);
+    }
+
+    public IEnumerable<TDevice> GetAllUnmuted()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsUnmuted;
+      return this.Repository.GetRange(func);
     }
 
     #endregion
