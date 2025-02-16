@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
+using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -7,26 +8,24 @@ namespace VACARM.Infrastructure.Repositories
   /// The <typeparamref name="TBaseModel"/> repository.
   /// </summary>
   public class BaseRepository<TBaseModel> :
-    ListRepository<TBaseModel>,
+    Repository<TBaseModel>,
     IBaseRepository<TBaseModel> where TBaseModel :
     BaseModel
   {
     #region Parameters
 
-
     /// <summary>
-    /// The list of IDs.
+    /// The enumerable of ID(s).
     /// </summary>
-    private List<uint> IdList
+    private IEnumerable<uint> IdEnumerable
     {
       get
       {
-        List<uint> idList = List
-          .Select(x => x.Id)
-          .ToList();
+        IEnumerable<uint> idEnumerable = this.Enumerable
+          .Select(x => x.Id);
 
-        idList.Order();
-        return idList;
+        idEnumerable.Order();
+        return idEnumerable;
       }
     }
 
@@ -37,9 +36,25 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        uint id = this.IdList.Max();
+        uint id = this.IdEnumerable
+          .Max();
+
         id++;
         return id;
+      }
+    }
+
+    protected List<TBaseModel> List
+    {
+      get
+      {
+        return this.Enumerable
+          .ToList();
+      }
+      set
+      {
+        this.Enumerable = value;
+        this.OnPropertyChanged(nameof(List));
       }
     }
 
@@ -59,27 +74,6 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="maxCount">The maximum count of item(s)</param>
-    [ExcludeFromCodeCoverage]
-    public BaseRepository(int maxCount)
-    {
-      this.List = new List<TBaseModel>();
-      this.MaxCount = maxCount;
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="list">The list of item(s)</param>
-    [ExcludeFromCodeCoverage]
-    public BaseRepository(List<TBaseModel> list)
-    {
-      this.List = list;
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
     /// <param name="list">The list of item(s)</param>
     /// <param name="maxCount">The maximum count of item(s)</param>
     [ExcludeFromCodeCoverage]
@@ -89,7 +83,7 @@ namespace VACARM.Infrastructure.Repositories
       int maxCount
     )
     {
-      this.List = list;
+      this.Enumerable = list;
       this.MaxCount = maxCount;
     }
 
@@ -105,7 +99,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      if (IdList.Contains(model.Id))
+      if (IdEnumerable.Contains(model.Id))
       {
         model.Id = NextId;
       }
@@ -115,22 +109,8 @@ namespace VACARM.Infrastructure.Repositories
 
     public TBaseModel? Get(uint id)
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
       return base.Get(func);
-    }
-
-    public IEnumerable<TBaseModel> GetAllById()
-    {
-      return base
-        .GetAll()
-        .OrderBy(x => x.Id);
-    }
-
-    public IEnumerable<TBaseModel> GetAllByIdDescending()
-    {
-      return base
-        .GetAll()
-        .OrderByDescending(x => x.Id);
     }
 
     public IEnumerable<TBaseModel> GetRange
@@ -139,28 +119,30 @@ namespace VACARM.Infrastructure.Repositories
       uint endId
     )
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) =>
-        x.Id >= startId
-        && x.Id <= endId;
+      var func = BaseFunctions<TBaseModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
 
       return base.GetRange(func);
     }
 
     public IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable)
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) => idEnumerable.Contains(x.Id);
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
       return base.GetRange(func);
     }
 
     public void Remove(uint id)
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
       base.Remove(func);
     }
 
     public void RemoveRange(uint id)
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
       base.RemoveRange(func);
     }
 
@@ -170,47 +152,48 @@ namespace VACARM.Infrastructure.Repositories
       uint endId
     )
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) =>
-        x.Id >= startId
-        && x.Id <= endId;
+      var func = BaseFunctions<TBaseModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
 
       base.RemoveRange(func);
     }
 
     public void RemoveRange(IEnumerable<uint> idEnumerable)
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) => idEnumerable.Contains(x.Id);
-      base.RemoveRange(func);
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+      this.RemoveRange(func);
     }
 
-    public void Update
-    (
-      uint id,
-      TBaseModel model
-    )
+    public void Update(TBaseModel model)
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) => x.Id == id;
+      if (model == null)
+      {
+        return;
+      }
 
-      base.Update
-      (
-        func,
-        (TBaseModel)model
-      );
+      var func = BaseFunctions<TBaseModel>.ContainsId(model.Id);
+
+      if (!func(model))
+      {
+        return;
+      }
+
+      this.Remove(func);
+      this.Add(model);
     }
 
-    public void UpdateRange
-    (
-       IEnumerable<uint> idEnumerable,
-       TBaseModel model
-    )
+    public void UpdateRange(IEnumerable<TBaseModel> enumerable)
     {
-      Func<TBaseModel, bool> func = (TBaseModel x) => idEnumerable.Contains(x.Id);
+      var idEnumerable = enumerable.Select(x => x.Id);
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      base.UpdateRange
-      (
-        func,
-        (TBaseModel)model
-      );
+      foreach (var item in enumerable)
+      {
+        this.Update(item);
+      }
     }
 
     #endregion

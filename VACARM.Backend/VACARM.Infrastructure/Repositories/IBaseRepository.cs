@@ -15,20 +15,6 @@ namespace VACARM.Infrastructure.Repositories
     TBaseModel? Get(uint id);
 
     /// <summary>
-    /// Get an enumerable of all <typeparamref name="TBaseModel"/> item(s) in ID
-    /// order.
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TBaseModel> GetAllById();
-
-    /// <summary>
-    /// Get an enumerable of all <typeparamref name="TBaseModel"/> item(s) in ID
-    /// descending order.
-    /// </summary>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TBaseModel> GetAllByIdDescending();
-
-    /// <summary>
     /// Get an enumerable of some <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
@@ -85,24 +71,14 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Update a <typeparamref name="TBaseModel"/> item.
     /// </summary>
-    /// <param name="id">The ID</param>
     /// <param name="model">The item</param>
-    void Update
-    (
-      uint id,
-      TBaseModel model
-    );
+    void Update(TBaseModel model);
 
     /// <summary>
     /// Update an enumerable of some <typeparamref name="TBaseModel"/> item(s).
     /// </summary>
-    /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    /// <param name="model">The item</param>
-    void UpdateRange
-    (
-       IEnumerable<uint> idEnumerable,
-       TBaseModel model
-    );
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    void UpdateRange(IEnumerable<TBaseModel> enumerable);
 
     #endregion
   }
