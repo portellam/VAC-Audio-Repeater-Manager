@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
+using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
   public class BaseService<TRepository, TBaseModel> :
-    ListService<TRepository, TBaseModel>,
+    Service<TRepository, TBaseModel>,
     IBaseService<TRepository, TBaseModel> where TRepository :
     BaseRepository<TBaseModel> where TBaseModel :
     BaseModel
@@ -18,7 +19,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public BaseService()
     {
-      base.Repository = new BaseRepository<TBaseModel>();
+      this.Repository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
@@ -28,7 +29,15 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public BaseService(BaseRepository<TBaseModel> repository)
     {
-      base.Repository = repository;
+      this.Repository = repository;
+    }
+
+    public IEnumerable<TBaseModel> GetAllById(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      return this.Repository
+        .GetRange(func);
     }
 
     #endregion
