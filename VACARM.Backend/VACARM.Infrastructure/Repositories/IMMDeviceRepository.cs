@@ -8,14 +8,14 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Get a <typeparamref name="TMMDevice"/> item.
+    /// Get a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
     TMMDevice? Get(string id);
 
     /// <summary>
-    /// Get the default <typeparamref name="TMMDevice"/> item.
+    /// Get the default <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <param name="role">The role</param>
@@ -27,41 +27,41 @@ namespace VACARM.Infrastructure.Repositories
     );
 
     /// <summary>
-    /// Get the default communications <typeparamref name="TMMDevice"/> item.
+    /// Get the default communications <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
     TMMDevice? GetDefaultCommunications(DataFlow dataFlow);
 
     /// <summary>
-    /// Get the default console <typeparamref name="TMMDevice"/> item.
+    /// Get the default console <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
     TMMDevice? GetDefaultConsole(DataFlow dataFlow);
 
     /// <summary>
-    /// Get the default multimedia <typeparamref name="TMMDevice"/> item.
+    /// Get the default multimedia <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
     TMMDevice? GetDefaultMultimedia(DataFlow dataFlow);
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="TMMDevice"/> item(s).
+    /// Get an enumerable of some <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable);
 
     /// <summary>
-    /// Update the enumerable of all <typeparamref name="TMMDevice"/> item(s).
+    /// Update the enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     void UpdateAll();
 
     /// <summary>
     /// Update the enumerable of all default 
-    /// <typeparamref name="TMMDevice"/> item(s).
+    /// <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     void UpdateAllDefaults();
 

@@ -17,14 +17,14 @@
     #region Logic
 
     /// <summary>
-    /// Is enumerable of <typeparamref name="TItem"/> item(s) null or empty.
+    /// Is enumerable of <typeparamref name="TItem"/>(s) null or empty.
     /// </summary>
     /// <param name="enumerable">The enumerable</param>
     /// <returns>True/false</returns>
     bool IsNullOrEmpty(IEnumerable<TItem> enumerable);
 
     /// <summary>
-    /// Add a <typeparamref name="TItem"/> item.
+    /// Add a <typeparamref name="TItem"/>.
     /// </summary>
     /// <param name="item">The item</param>
     void Add(TItem item);
@@ -42,7 +42,7 @@
     void Remove(Func<TItem, bool> func);
 
     /// <summary>
-    /// Remove a <typeparamref name="TItem"/> item.
+    /// Remove a <typeparamref name="TItem"/>.
     /// </summary>
     /// <param name="item">The item</param>
     void Remove(TItem item);

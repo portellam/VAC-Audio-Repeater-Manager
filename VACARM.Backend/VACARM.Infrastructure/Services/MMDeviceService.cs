@@ -34,7 +34,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Reset a <typeparamref name="TMMDevice"/> item.
+    /// Reset a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="item">The item</param>
     private Task<bool> Reset(TMMDevice? item)
@@ -43,7 +43,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Start a <typeparamref name="TMMDevice"/> item.
+    /// Start a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="item">The item</param>
     private Task<bool> Start(TMMDevice? item)
@@ -52,7 +52,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Stop a <typeparamref name="TMMDevice"/> item.
+    /// Stop a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="item">The item</param>
     private Task<bool> Stop(TMMDevice? item)

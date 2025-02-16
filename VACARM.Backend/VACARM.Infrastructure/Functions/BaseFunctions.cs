@@ -8,7 +8,7 @@ namespace VACARM.Infrastructure.Functions
     #region Logic
 
     /// <summary>
-    /// Match a <typeparamref name="TBaseModel"/> item ID.
+    /// Match a <typeparamref name="TBaseModel"/> ID.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The function.</returns>
@@ -18,7 +18,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match a range of <typeparamref name="TBaseModel"/> item ID(s).
+    /// Match a range of <typeparamref name="TBaseModel"/> ID(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -35,7 +35,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match an enumerable of <typeparamref name="TBaseModel"/> item ID(s).
+    /// Match an enumerable of <typeparamref name="TBaseModel"/> ID(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>

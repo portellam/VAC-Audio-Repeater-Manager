@@ -18,7 +18,7 @@ namespace VACARM.Infrastructure.Functions
     #region Logic
 
     /// <summary>
-    /// Match a <typeparamref name="TRepeaterModel"/> item device ID.
+    /// Match a <typeparamref name="TRepeaterModel"/> device ID.
     /// </summary>
     /// <param name="deviceId">The device ID</param>
     /// <returns>The function</returns>
@@ -30,7 +30,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match a <typeparamref name="TRepeaterModel"/> item device name.
+    /// Match a <typeparamref name="TRepeaterModel"/> device name.
     /// </summary>
     /// <param name="deviceName">The device name</param>
     /// <returns>The function</returns>
@@ -42,7 +42,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match a <typeparamref name="TRepeaterModel"/> item window name.
+    /// Match a <typeparamref name="TRepeaterModel"/> window name.
     /// </summary>
     /// <param name="windowName">The window name</param>
     /// <returns>The function</returns>

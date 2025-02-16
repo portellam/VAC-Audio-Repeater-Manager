@@ -8,14 +8,14 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Get a <typeparamref name="TBaseModel"/> item.
+    /// Get a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
     TBaseModel? Get(uint id);
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="TBaseModel"/> item(s).
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -27,32 +27,32 @@ namespace VACARM.Infrastructure.Repositories
     );
 
     /// <summary>
-    /// Get an enumerable of some <typeparamref name="TBaseModel"/> item(s).
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
-    /// Add a <typeparamref name="TBaseModel"/> item.
+    /// Add a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="model"></param>
     void Add(TBaseModel model);
 
     /// <summary>
-    /// Remove a <typeparamref name="TBaseModel"/> item.
+    /// Remove a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Remove(uint id);
 
     /// <summary>
-    /// Remove an enumerable of <typeparamref name="TBaseModel"/> item(s).
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="id">The ID</param>
     void RemoveRange(uint id);
 
     /// <summary>
-    /// Remove an enumerable of <typeparamref name="TBaseModel"/> item(s).
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -63,19 +63,19 @@ namespace VACARM.Infrastructure.Repositories
     );
 
     /// <summary>
-    /// Remove an enumerable of <typeparamref name="TBaseModel"/> item(s).
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     void RemoveRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
-    /// Update a <typeparamref name="TBaseModel"/> item.
+    /// Update a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="model">The item</param>
     void Update(TBaseModel model);
 
     /// <summary>
-    /// Update an enumerable of some <typeparamref name="TBaseModel"/> item(s).
+    /// Update an enumerable of some <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     void UpdateRange(IEnumerable<TBaseModel> enumerable);

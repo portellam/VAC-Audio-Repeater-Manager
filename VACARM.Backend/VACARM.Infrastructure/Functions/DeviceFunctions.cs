@@ -34,7 +34,7 @@ namespace VACARM.Infrastructure.Functions
 
 
     /// <summary>
-    /// Match a <typeparamref name="TDeviceModel"/> item actual ID.
+    /// Match a <typeparamref name="TDeviceModel"/> actual ID.
     /// </summary>
     /// <param name="actualId">The actual ID</param>
     /// <returns>The function</returns>
@@ -44,7 +44,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match a <typeparamref name="TDeviceModel"/> item name.
+    /// Match a <typeparamref name="TDeviceModel"/> name.
     /// </summary>
     /// <param name="name">The name</param>
     /// <returns>The function</returns>
@@ -56,7 +56,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match a <typeparamref name="TDeviceModel"/> item role.
+    /// Match a <typeparamref name="TDeviceModel"/> role.
     /// </summary>
     /// <param name="role">The role</param>
     /// <returns>The function</returns>

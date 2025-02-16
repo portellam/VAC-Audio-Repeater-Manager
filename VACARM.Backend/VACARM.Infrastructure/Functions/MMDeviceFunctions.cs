@@ -38,7 +38,7 @@ namespace VACARM.Infrastructure.Functions
     #region Logic
 
     /// <summary>
-    /// Match a <typeparamref name="TMMDevice"/> item ID.
+    /// Match a <typeparamref name="TMMDevice"/> ID.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The function</returns>
@@ -48,7 +48,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match an enumerable of <typeparamref name="TMMDevice"/> item ID(s).
+    /// Match an enumerable of <typeparamref name="TMMDevice"/> ID(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>

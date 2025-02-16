@@ -10,76 +10,76 @@ namespace VACARM.Application.Services
     #region Logic
 
     /// <summary>
-    /// Get a <typeparamref name="TMMDevice"/> item.
+    /// Get a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The <typeparamref name="TMMDevice"/> item.</returns>
+    /// <returns>The <typeparamref name="TMMDevice"/>.</returns>
     TMMDevice? Get(string id);
 
     /// <summary>
-    /// Reset a <typeparamref name="TMMDevice"/> item.
+    /// Reset a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     Task<bool> Reset(string? id);
 
     /// <summary>
-    /// Reset an enumerable of all <typeparamref name="TMMDevice"/> item(s).
+    /// Reset an enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     IAsyncEnumerable<Task<bool>> ResetAll();
 
     /// <summary>
-    /// Reset an enumerable of some <typeparamref name="TMMDevice"/> item(s).
+    /// Reset an enumerable of some <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
     IAsyncEnumerable<Task<bool>> ResetRange(IEnumerable<string> id);
 
     /// <summary>
-    /// Start a <typeparamref name="TMMDevice"/> item.
+    /// Start a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     Task<bool> StartAsync(string? id);
 
     /// <summary>
-    /// Start an enumerable of all <typeparamref name="TMMDevice"/> item(s).
+    /// Start an enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     IAsyncEnumerable<Task<bool>> StartAll();
 
     /// <summary>
-    /// Reset an enumerable of some <typeparamref name="TMMDevice"/> item(s).
+    /// Reset an enumerable of some <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
     IAsyncEnumerable<Task<bool>> StartRange(IEnumerable<string> id);
 
     /// <summary>
-    /// Stop a <typeparamref name="TMMDevice"/> item.
+    /// Stop a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     Task<bool> StopAsync(string? id);
 
     /// <summary>
-    /// Stop an enumerable of all <typeparamref name="TMMDevice"/> item(s).
+    /// Stop an enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     IAsyncEnumerable<Task<bool>> StopAll();
 
     /// <summary>
-    /// Stop an enumerable of some <typeparamref name="TMMDevice"/> item(s).
+    /// Stop an enumerable of some <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
     IAsyncEnumerable<Task<bool>> StopRange(IEnumerable<string> id);
 
     /// <summary>
-    /// Update a <typeparamref name="TMMDevice"/> item.
+    /// Update a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Update(string? id);
 
     /// <summary>
-    /// Update an enumerable of all <typeparamref name="TMMDevice"/> item(s).
+    /// Update an enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     void UpdateAll();
 
     /// <summary>
-    /// Update an enumerable of some <typeparamref name="TMMDevice"/> item(s).
+    /// Update an enumerable of some <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     /// <param name="id">The enumerable of ID(s)</param>
     void UpdateRange(IEnumerable<string> id);

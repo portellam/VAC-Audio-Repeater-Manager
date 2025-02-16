@@ -9,7 +9,7 @@ namespace VACARM.Application.Services
     #region Logic
 
     /// <summary>
-    /// Do an action for a <typeparamref name="TItem"/> item.
+    /// Do an action for a <typeparamref name="TItem"/>.
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="matchFunc">The match function</param>
@@ -20,7 +20,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Do an action for a <typeparamref name="TItem"/> item.
+    /// Do an action for a <typeparamref name="TItem"/>.
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="item">The item</param>
@@ -31,13 +31,13 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Do an action for an enumerable of all <typeparamref name="TItem"/> item(s).
+    /// Do an action for an enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     IAsyncEnumerable<bool> DoWorkAllAsync(Func<TItem, Task<bool>> actionFunc);
 
     /// <summary>
-    /// Do an action for an enumerable of some <typeparamref name="TItem"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="enumerable">The enumerable of item(s)</param>
@@ -48,7 +48,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Do an action for an enumerable of some <typeparamref name="TItem"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="matchFunc">The match function</param>

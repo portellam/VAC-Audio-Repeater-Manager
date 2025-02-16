@@ -54,13 +54,13 @@ namespace VACARM.Application.Services
     Task<bool> Mute(uint id);
 
     /// <summary>
-    /// Mute all <typeparamref name="DeviceModel"/> item(s).
+    /// Mute all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <returns>The true/false result.</returns>
     Task<bool> MuteAll();
 
     /// <summary>
-    /// Mute some <typeparamref name="DeviceModel"/> item(s).
+    /// Mute some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -79,13 +79,13 @@ namespace VACARM.Application.Services
     Task<bool> Restart(uint id);
 
     /// <summary>
-    /// Restart all <typeparamref name="DeviceModel"/> item(s).
+    /// Restart all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <returns>The true/false result.</returns>
     Task<bool> RestartAll();
 
     /// <summary>
-    /// Restart some <typeparamref name="DeviceModel"/> item(s).
+    /// Restart some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -97,7 +97,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Restart some <typeparamref name="DeviceModel"/> item(s).
+    /// Restart some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     /// <returns>The true/false result.</returns>
@@ -138,13 +138,13 @@ namespace VACARM.Application.Services
     Task<bool> Start(uint id);
 
     /// <summary>
-    /// Start all <typeparamref name="DeviceModel"/> item(s).
+    /// Start all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <returns>The true/false result.</returns>
     Task<bool> StartAll();
 
     /// <summary>
-    /// Start some <typeparamref name="DeviceModel"/> item(s).
+    /// Start some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -156,7 +156,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Start some <typeparamref name="DeviceModel"/> item(s).
+    /// Start some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     Task<bool> StartRange(List<uint> idList);
@@ -169,13 +169,13 @@ namespace VACARM.Application.Services
     Task<bool> StopAsync(uint id);
 
     /// <summary>
-    /// Stop all <typeparamref name="DeviceModel"/> item(s).
+    /// Stop all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <returns>The true/false result.</returns>
     Task<bool> StopAll();
 
     /// <summary>
-    /// Stop some <typeparamref name="DeviceModel"/> item(s).
+    /// Stop some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -187,7 +187,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Stop some <typeparamref name="DeviceModel"/> item(s).
+    /// Stop some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     /// <returns>The true/false result.</returns>
@@ -201,13 +201,13 @@ namespace VACARM.Application.Services
     Task<bool> UnmuteAsync(uint id);
 
     /// <summary>
-    /// Unmute all <typeparamref name="DeviceModel"/> item(s).
+    /// Unmute all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <returns>The true/false result.</returns>
     Task<bool> UnmuteAll();
 
     /// <summary>
-    /// Unmute some <typeparamref name="DeviceModel"/> item(s).
+    /// Unmute some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -226,13 +226,13 @@ namespace VACARM.Application.Services
     Task<bool> Update(uint id);
 
     /// <summary>
-    /// Update all <typeparamref name="DeviceModel"/> item(s).
+    /// Update all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <returns>The true/false result.</returns>
     Task<bool> UpdateAll();
 
     /// <summary>
-    /// Update some <typeparamref name="DeviceModel"/> item(s).
+    /// Update some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -244,7 +244,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Update some <typeparamref name="DeviceModel"/> item(s).
+    /// Update some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idList">The enumerable of ID(s)</param>
     /// <returns>The true/false result.</returns>

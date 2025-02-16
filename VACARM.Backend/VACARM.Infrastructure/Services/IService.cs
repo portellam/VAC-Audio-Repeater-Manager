@@ -16,7 +16,7 @@ namespace VACARM.Application.Services
     #region Logic
 
     /// <summary>
-    /// Do an action for a <typeparamref name="TItem"/> item.
+    /// Do an action for a <typeparamref name="TItem"/>.
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>
@@ -27,7 +27,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Do an action for a <typeparamref name="TItem"/> item.
+    /// Do an action for a <typeparamref name="TItem"/>.
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="item">The item</param>
@@ -38,13 +38,13 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Do an action for an enumerable of all <typeparamref name="TItem"/> item(s).
+    /// Do an action for an enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="action">The action</param>
     void DoWorkAll(Action<TItem> action);
 
     /// <summary>
-    /// Do an action for an enumerable of some <typeparamref name="TItem"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="enumerable">The enumerable of item(s)</param>
@@ -55,7 +55,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Do an action for an enumerable of some <typeparamref name="TItem"/> item(s).
+    /// Do an action for an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>

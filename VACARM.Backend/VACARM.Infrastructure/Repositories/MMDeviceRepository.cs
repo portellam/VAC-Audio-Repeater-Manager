@@ -54,7 +54,7 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Get the default <typeparamref name="TMMDevice"/> item.
+    /// Get the default <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <param name="role">The role</param>
@@ -78,7 +78,7 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default communications <typeparamref name="MMDevice"/> item.
+    /// Get the default communications <typeparamref name="MMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
@@ -92,7 +92,7 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default console <typeparamref name="MMDevice"/> item.
+    /// Get the default console <typeparamref name="MMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
@@ -106,7 +106,7 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     /// <summary>
-    /// Get the default multimedia <typeparamref name="MMDevice"/> item.
+    /// Get the default multimedia <typeparamref name="MMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>

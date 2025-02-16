@@ -13,7 +13,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match a <typeparamref name="TDevice"/> item ID.
+    /// Match a <typeparamref name="TDevice"/> ID.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The function</returns>
@@ -23,7 +23,7 @@ namespace VACARM.Infrastructure.Functions
     }
 
     /// <summary>
-    /// Match an enumerable of <typeparamref name="TDevice"/> item ID(s).
+    /// Match an enumerable of <typeparamref name="TDevice"/> ID(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>

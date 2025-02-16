@@ -115,7 +115,7 @@ namespace VACARM.Application.Services
 
 
     /// <summary>
-    /// Start an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Start an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     public void StartAll()
     {
@@ -125,7 +125,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Stop an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Stop an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     public void StopAll()
     {
@@ -135,7 +135,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Update a <typeparamref name="TDeviceModel"/> item.
+    /// Update a <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     public void Update(uint id)
@@ -150,7 +150,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Update an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Update an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     public void UpdateAll()
     {
@@ -160,7 +160,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Update an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -187,7 +187,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Update an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     public void UpdateRange(IEnumerable<uint> idEnumerable)
