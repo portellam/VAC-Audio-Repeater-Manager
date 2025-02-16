@@ -8,17 +8,11 @@ namespace VACARM.Infrastructure.Repositories
     #region Parameters
 
     event PropertyChangedEventHandler PropertyChanged;
+    Func<int, bool> ContainsIndex { get; }
 
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// True/false does the index exist.
-    /// </summary>
-    /// <param name="index">The index</param>
-    /// <returns>True/false</returns>
-    bool ContainsIndex(int index);
 
     /// <summary>
     /// Is enumerable of <typeparamref name="TItem"/>(s) null or empty.

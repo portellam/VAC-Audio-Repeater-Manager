@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
-
-namespace VACARM.Infrastructure.Repositories
+﻿namespace VACARM.Infrastructure.Repositories
 {
   public interface IRepository<TItem> where TItem :
     class
   {
     #region Parameters
+
+    Func<int, bool> IsValidIndex { get; }
 
     /// <summary>
     /// The maximum count of <typeparamref name="TItem"/>(s).
@@ -24,33 +24,6 @@ namespace VACARM.Infrastructure.Repositories
     bool IsNullOrEmpty(IEnumerable<TItem> enumerable);
 
     /// <summary>
-    /// True/false is the index valid.
-    /// </summary>
-    /// <param name="index">The index</param>
-    /// <returns>True/false</returns>
-    bool IsValidIndex(int index);
-
-    /// <summary>
-    /// Get a <typeparamref name="TItem"/> item.
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <returns>The item.</returns>
-    TItem? Get(Func<TItem, bool> func);
-
-    /// <summary>
-    /// Get an enumerable of all <typeparamref name="TItem"/>(s).
-    /// </summary>
-    /// <returns>The enumerable of(s).</returns>
-    IEnumerable<TItem> GetAll();
-
-    /// <summary>
-    /// Get an enumerable of some <typeparamref name="TItem"/>(s).
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <returns>The enumerable of(s).</returns>
-    IEnumerable<TItem> GetRange(Func<TItem, bool> func);
-
-    /// <summary>
     /// Add a <typeparamref name="TItem"/> item.
     /// </summary>
     /// <param name="item">The item</param>
@@ -61,6 +34,12 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="item">The enumerable of item(s)</param>
     void AddRange(IEnumerable<TItem> enumerable);
+
+    /// <summary>
+    /// Remove a <typeparamref name="TItem"/>.
+    /// </summary>
+    /// <param name="func">The function</param>
+    void Remove(Func<TItem, bool> func);
 
     /// <summary>
     /// Remove a <typeparamref name="TItem"/> item.

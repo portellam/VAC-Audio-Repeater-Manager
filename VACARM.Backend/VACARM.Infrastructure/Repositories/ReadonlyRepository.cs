@@ -32,6 +32,22 @@ namespace VACARM.Infrastructure.Repositories
 
     private IEnumerable<TItem> enumerable { get; set; }
 
+    public Func<int, bool> ContainsIndex
+    {
+      get
+      {
+        return new Func<int, bool>
+          (
+            x =>
+            {
+              return x >= 0
+              && x <= this.Enumerable
+                .Count();
+            }
+          );
+      }
+    }
+
     public virtual event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
@@ -77,12 +93,6 @@ namespace VACARM.Infrastructure.Repositories
     public ReadonlyRepository(IEnumerable<TItem> enumerable)
     {
       this.Enumerable = enumerable;
-    }
-
-    public bool ContainsIndex(int index)
-    {
-      return index >= 0
-        && index <= this.Enumerable.Count();
     }
 
     public bool IsNullOrEmpty(IEnumerable<TItem> enumerable)

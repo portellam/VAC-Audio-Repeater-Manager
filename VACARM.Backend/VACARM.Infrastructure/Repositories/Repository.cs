@@ -13,6 +13,21 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
+    public Func<int, bool> IsValidIndex
+    {
+      get
+      {
+        return new Func<int, bool>
+          (
+            x =>
+            {
+              return x >= 0
+              && x <= this.MaxCount;
+            }
+          );
+      }
+    }
+
     private int maxCount { get; set; } = int.MaxValue;
 
     private Type Type
@@ -67,12 +82,6 @@ namespace VACARM.Infrastructure.Repositories
       this.MaxCount = maxCount;
     }
 
-    public bool IsValidIndex(int index)
-    {
-      return index >= 0
-        && index <= this.MaxCount;
-    }
-
     public virtual void Add(TItem item)
     {
       if (item == null)
@@ -99,7 +108,7 @@ namespace VACARM.Infrastructure.Repositories
         .Append(item);
     }
 
-    public void AddRange(IEnumerable<TItem> enumerable)
+    public virtual void AddRange(IEnumerable<TItem> enumerable)
     {
       if (this.IsNullOrEmpty(enumerable))
       {
@@ -125,6 +134,52 @@ namespace VACARM.Infrastructure.Repositories
       foreach (var t in enumerable)
       {
         this.Add(t);
+      }
+    }
+
+    public void Remove(Func<TItem, bool> func)
+    {
+      if (this.IsNullOrEmpty(this.Enumerable))
+      {
+        return;
+      }
+
+      if (func == null)
+      {
+        return;
+      }
+
+      var item = this.Enumerable.FirstOrDefault(func);
+
+      if (this.Type == typeof(Collection<TItem>))
+      {
+        (this.Enumerable as Collection<TItem>).Remove(item);
+      }
+
+      else if (this.Type == typeof(ObservableCollection<TItem>))
+      {
+        (this.Enumerable as ObservableCollection<TItem>).Remove(item);
+      }
+
+      else if (this.Type == typeof(HashSet<TItem>))
+      {
+        (this.Enumerable as HashSet<TItem>).Remove(item);
+      }
+
+      else if (this.Type == typeof(List<TItem>))
+      {
+        (this.Enumerable as List<TItem>).Remove(item);
+      }
+
+      else if (this.Type != typeof(LinkedList<TItem>))
+      {
+        (this.Enumerable as LinkedList<TItem>).Remove(item);
+      }
+
+      else
+      {
+        this.Enumerable = this.Enumerable
+          .Where(x => x != item);
       }
     }
 
