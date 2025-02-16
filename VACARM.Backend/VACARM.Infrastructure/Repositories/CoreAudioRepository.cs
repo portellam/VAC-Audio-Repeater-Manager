@@ -19,7 +19,8 @@ namespace VACARM.Infrastructure.Repositories
     /// Constructor
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
-    public CoreAudioRepository(ObservableCollection<TDevice> enumerable)
+    public CoreAudioRepository(ObservableCollection<TDevice> enumerable) :
+      base(enumerable)
     {
       this.Enumerable = enumerable;
     }
@@ -38,54 +39,6 @@ namespace VACARM.Infrastructure.Repositories
       }
 
       return new Guid(id);
-    }
-
-    public bool IsDefault(string id)
-    {
-      Device? device = this.Get(id);
-
-      if (device == null)
-      {
-        return false;
-      }
-
-      return device.IsDefaultDevice;
-    }
-
-    public bool IsDefaultCommunications(string id)
-    {
-      Device? device = this.Get(id);
-
-      if (device == null)
-      {
-        return false;
-      }
-
-      return device.IsDefaultCommunicationsDevice;
-    }
-
-    public bool IsMuted(string id)
-    {
-      Device? device = this.Get(id);
-
-      if (device == null)
-      {
-        return false;
-      }
-
-      return device.IsMuted;
-    }
-
-    public double GetVolume(string id)
-    {
-      Device? device = this.Get(id);
-
-      if (device == null)
-      {
-        return double.NaN;
-      }
-
-      return device.Volume;
     }
 
     public TDevice? Get(string id)
@@ -108,30 +61,6 @@ namespace VACARM.Infrastructure.Repositories
 
       Func<Device, bool> func = (Device x) => x.Id == guid;
       return this.Get(func);
-    }
-
-    public TDevice? GetDefaultCommunications()
-    {
-      Func<Device, bool> func = (Device x) => x.IsDefaultCommunicationsDevice;
-      return this.Get(func);
-    }
-
-    public TDevice? GetDefault()
-    {
-      Func<Device, bool> func = (Device x) => x.IsDefaultDevice;
-      return this.Get(func);
-    }
-
-    public IEnumerable<TDevice> GetAllMuted()
-    {
-      Func<Device, bool> func = (Device x) => !x.IsMuted;
-      return this.GetRange(func);
-    }
-
-    public IEnumerable<TDevice> GetAllNotMuted()
-    {
-      Func<Device, bool> func = (Device x) => !x.IsMuted;
-      return this.GetRange(func);
     }
 
     public IEnumerable<TDevice> GetRange(IEnumerable<string> idEnumerable)
