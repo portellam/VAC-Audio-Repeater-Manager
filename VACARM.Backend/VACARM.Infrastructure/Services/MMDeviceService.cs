@@ -90,8 +90,6 @@ namespace VACARM.Application.Services
       MMDeviceCommands.Stop(item);
     }
 
-
-
     public void StopRange(IEnumerable<string> idEnumerable)
     {
       var enumerable = this.Repository
