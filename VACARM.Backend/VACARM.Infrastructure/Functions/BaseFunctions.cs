@@ -25,8 +25,8 @@ namespace VACARM.Infrastructure.Functions
     /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsIdRange
     (
-      uint startId,
-      uint endId
+      uint? startId,
+      uint? endId
     )
     {
       return (TBaseModel item) =>
