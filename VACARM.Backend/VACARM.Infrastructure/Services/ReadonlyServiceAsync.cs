@@ -10,63 +10,73 @@ namespace VACARM.Application.Services
   {
     #region Logic
 
-    public async Task<bool> DoWorkAsync
+    public async Task<int?> DoWorkAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       Func<TItem, bool> matchFunc
     )
     {
+      int? result = 1;
+
       if (actionFunc == null)
       {
-        return false;
+        return result;
       }
 
       if (matchFunc == null)
       {
-        return false;
+        return result;
       }
 
-      var item = this.ReadonlyRepository
+      var item = this.Repository
         .Get(matchFunc);
 
       if (item == null)
       {
-        return false;
+        return result;
       }
 
-      return await actionFunc(item)
+      result = await actionFunc(item)
         .ConfigureAwait(false);
+
+      return result;
     }
 
-    public async Task<bool> DoWorkAsync
+    public async Task<int?> DoWorkAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       TItem item
     )
     {
+      int? result = 1;
+
       if (actionFunc == null)
       {
-        return false;
+        return result;
       }
 
       if (item == null)
       {
-        return false;
+        return result;
       }
 
-      return await actionFunc(item)
+      result = await actionFunc(item)
         .ConfigureAwait(false);
+
+      return result;
     }
 
-    public async IAsyncEnumerable<bool> DoWorkAllAsync
-    (Func<TItem, Task<bool>> actionFunc)
+    public async IAsyncEnumerable<int?> DoWorkAllAsync
+    (Func<TItem, Task<int?>> actionFunc)
     {
+      int? result = 1;
+
       if (actionFunc == null)
       {
-        yield return false;
+        yield return result;
       }
 
-      var enumerable = this.ReadonlyRepository
+      var enumerable = this.Repository
         .GetAll();
 
       foreach (var item in enumerable)
@@ -76,26 +86,29 @@ namespace VACARM.Application.Services
           continue;
         }
 
-        Task<bool> task = Task.Run(() => actionFunc(item));
+        Task<int?> task = Task.Run(() => actionFunc(item));
         await task.ConfigureAwait(false);
+        result = task.Result;
         yield return task.Result;
       }
     }
 
-    public async IAsyncEnumerable<bool> DoWorkRangeAsync
+    public async IAsyncEnumerable<int?> DoWorkRangeAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       IEnumerable<TItem> enumerable
     )
     {
+      int? result = 1;
+
       if (actionFunc == null)
       {
-        yield return false;
+        yield return result;
       }
 
       if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))
       {
-        yield return false;
+        yield return result;
       }
 
       foreach (var item in enumerable)
@@ -105,34 +118,37 @@ namespace VACARM.Application.Services
           continue;
         }
 
-        Task<bool> task = Task.Run(() => actionFunc(item));
+        Task<int?> task = Task.Run(() => actionFunc(item));
         await task.ConfigureAwait(false);
+        result = task.Result;
         yield return task.Result;
       }
     }
 
-    public async IAsyncEnumerable<bool> DoWorkRangeAsync
+    public async IAsyncEnumerable<int?> DoWorkRangeAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       Func<TItem, bool> matchFunc
     )
     {
+      int? result = 1;
+
       if (actionFunc == null)
       {
-        yield return false;
+        yield return result;
       }
 
       if (matchFunc == null)
       {
-        yield return false;
+        yield return result;
       }
 
-      var enumerable = this.ReadonlyRepository
+      var enumerable = this.Repository
         .GetRange(matchFunc);
 
       if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))
       {
-        yield return false;
+        yield return result;
       }
 
       foreach (var item in enumerable)
@@ -142,8 +158,9 @@ namespace VACARM.Application.Services
           continue;
         }
 
-        Task<bool> task = Task.Run(() => actionFunc(item));
+        Task<int?> task = Task.Run(() => actionFunc(item));
         await task.ConfigureAwait(false);
+        result = task.Result;
         yield return task.Result;
       }
     }
