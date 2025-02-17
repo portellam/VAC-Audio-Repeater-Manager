@@ -17,7 +17,7 @@ namespace VACARM.Application.Services
     #region Parameters
 
     private ReadonlyRepository<TItem> readonlyRepository { get; set; } =
-      new Repository<TItem>();
+      new ReadonlyRepository<TItem>();
 
     protected virtual ReadonlyRepository<TItem> Repository
     {
