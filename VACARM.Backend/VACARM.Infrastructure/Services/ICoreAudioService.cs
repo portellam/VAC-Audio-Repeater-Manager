@@ -5,7 +5,7 @@ namespace VACARM.Application.Services
 {
   public partial interface ICoreAudioService<TRepository, TDevice> where
     TRepository :
-    CoreAudioRepository<TDevice> where TDevice :
+    ReadonlyRepository<TDevice> where TDevice :
     Device
   {
     #region Logic
@@ -39,6 +39,13 @@ namespace VACARM.Application.Services
     double GetVolume(string id);
 
     /// <summary>
+    /// Get a <typeparamref name="TDevice"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The item.</returns>
+    TDevice? Get(string id);
+
+    /// <summary>
     /// Get a default <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
@@ -65,6 +72,13 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllUnmuted();
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="TDevice"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TDevice> GetRange(IEnumerable<string> idEnumerable);
 
     #endregion
   }
