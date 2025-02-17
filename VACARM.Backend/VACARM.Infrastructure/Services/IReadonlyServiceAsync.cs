@@ -13,9 +13,10 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="matchFunc">The match function</param>
-    Task<bool> DoWorkAsync
+    /// <returns>The result code</returns>
+    Task<int?> DoWorkAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       Func<TItem, bool> matchFunc
     );
 
@@ -24,9 +25,10 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="item">The item</param>
-    Task<bool> DoWorkAsync
+    /// <returns>The result code</returns>
+    Task<int?> DoWorkAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       TItem item
     );
 
@@ -34,16 +36,18 @@ namespace VACARM.Application.Services
     /// Do an action for an enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
-    IAsyncEnumerable<bool> DoWorkAllAsync(Func<TItem, Task<bool>> actionFunc);
+    /// <returns>The result code</returns>
+    IAsyncEnumerable<int?> DoWorkAllAsync(Func<TItem, Task<int?>> actionFunc);
 
     /// <summary>
     /// Do an action for an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="enumerable">The enumerable of item(s)</param>
-    IAsyncEnumerable<bool> DoWorkRangeAsync
+    /// <returns>The result code</returns>
+    IAsyncEnumerable<int?> DoWorkRangeAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       IEnumerable<TItem> enumerable
     );
 
@@ -52,9 +56,10 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="actionFunc">The action function</param>
     /// <param name="matchFunc">The match function</param>
-    IAsyncEnumerable<bool> DoWorkRangeAsync
+    /// <returns>The result code</returns>
+    IAsyncEnumerable<int?> DoWorkRangeAsync
     (
-      Func<TItem, Task<bool>> actionFunc,
+      Func<TItem, Task<int?>> actionFunc,
       Func<TItem, bool> matchFunc
     );
 
