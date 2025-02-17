@@ -5,9 +5,6 @@ using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  /// <summary>
-  /// The readonly repository for <typeparamref name="TItem"/>.
-  /// </summary>
   public class ReadonlyRepository<TItem> :
     IDisposable,
     IReadonlyRepository<TItem> where TItem :
