@@ -1,28 +1,24 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using VACARM.Application.Commands;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  /// <summary>
-  /// The service of the <typeparamref name="RepeaterRepository"/>.
-  /// </summary>
   public partial class RepeaterService<TRepository, TRepeaterModel> :
-    BaseService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>,
-    IRepeaterService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>
+    BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>,
+    IRepeaterService<BaseRepository<TRepeaterModel>, TRepeaterModel>
     where TRepository :
-    RepeaterRepository<TRepeaterModel> where TRepeaterModel :
+    BaseRepository<TRepeaterModel> where TRepeaterModel :
     RepeaterModel
   {
     #region Parameters
 
     private bool preferLegacyExecutable { get; set; } = false;
 
-    private DeviceService<DeviceRepository<DeviceModel>, DeviceModel>
+    private DeviceService<BaseRepository<DeviceModel>, DeviceModel>
       deviceService
-    { get; set; } = new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
+    { get; set; } = new DeviceService<BaseRepository<DeviceModel>, DeviceModel>();
 
     private string customExecutablePathName { get; set; } =
       Common.Info.ExpectedExecutablePathName;
@@ -53,7 +49,7 @@ namespace VACARM.Application.Services
       }
     }
 
-    public DeviceService<DeviceRepository<DeviceModel>, DeviceModel> DeviceService
+    public DeviceService<BaseRepository<DeviceModel>, DeviceModel> DeviceService
     {
       get
       {
@@ -107,10 +103,10 @@ namespace VACARM.Application.Services
     public RepeaterService() :
       base()
     {
-      base.Repository = new RepeaterRepository<TRepeaterModel>();
+      this.Repository = new BaseRepository<TRepeaterModel>();
 
       this.DeviceService =
-        new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
+        new DeviceService<BaseRepository<DeviceModel>, DeviceModel>();
     }
 
     /// <summary>
@@ -123,13 +119,13 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public RepeaterService
     (
-      RepeaterRepository<TRepeaterModel> repository,
-      DeviceService<DeviceRepository<DeviceModel>, DeviceModel> deviceService,
+      BaseRepository<TRepeaterModel> repository,
+      DeviceService<BaseRepository<DeviceModel>, DeviceModel> deviceService,
       string customExecutablePathName
     ) :
       base(repository)
     {
-      base.Repository = repository;
+      this.Repository = repository;
       this.DeviceService = deviceService;
       this.CustomExecutablePathName = customExecutablePathName;
     }
