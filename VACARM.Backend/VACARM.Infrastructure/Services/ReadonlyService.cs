@@ -19,7 +19,7 @@ namespace VACARM.Application.Services
     private ReadonlyRepository<TItem> readonlyRepository { get; set; } =
       new Repository<TItem>();
 
-    protected virtual ReadonlyRepository<TItem> ReadonlyRepository
+    protected virtual ReadonlyRepository<TItem> Repository
     {
       get
       {
@@ -28,7 +28,7 @@ namespace VACARM.Application.Services
       set
       {
         this.readonlyRepository = value;
-        OnPropertyChanged(nameof(ReadonlyRepository));
+        OnPropertyChanged(nameof(Repository));
       }
     }
 
@@ -68,7 +68,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public ReadonlyService()
     {
-      this.ReadonlyRepository = new ReadonlyRepository<TItem>();
+      this.Repository = new ReadonlyRepository<TItem>();
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ namespace VACARM.Application.Services
     /// <param name="repository">The repository</param>
     public ReadonlyService(ReadonlyRepository<TItem> repository)
     {
-      this.ReadonlyRepository = repository;
+      this.Repository = repository;
     }
 
     public void DoWork
@@ -91,7 +91,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var item = this.ReadonlyRepository
+      var item = this.Repository
         .Get(func);
 
       this.DoWork
@@ -122,7 +122,7 @@ namespace VACARM.Application.Services
 
     public void DoWorkAll(Action<TItem> action)
     {
-      var enumerable = this.ReadonlyRepository
+      var enumerable = this.Repository
         .GetAll();
 
       this.DoWorkRange
@@ -165,7 +165,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var enumerable = this.ReadonlyRepository
+      var enumerable = this.Repository
         .GetRange(func);
 
       this.DoWorkRange
