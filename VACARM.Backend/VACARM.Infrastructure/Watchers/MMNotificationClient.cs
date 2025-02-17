@@ -1,80 +1,27 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
 
-/*
- * TODO:
- * - determine location.
- *  - Repository v. Service
- *    - should a Repository only deal with CRUD?
- *    - moved complex/extraneous CRUD logic outside of Repository to Service.
- *    - business logic is in Service. This includes async logic.
- *    - minimum CRUD logic is in Repository.
- *  
- *    - Q: Why Service? B/c this logic is async, and we should keep any complex
- *    logic outside of the Repository.
- *  
- *  - MMDevice Service v. DeviceModel Service
- *    - MMDevice business logic will reside in MMDeviceService.
- *    - DeviceService may reference MMDeviceService. 
- *    
- *  - UI Controllers v. Services
- *    - A Controller may call the business logic of one or more Service(s).
- *    - A Service will care for the Repository/ies it handles.
- *    - A Controller likely only needs Readonly access to the Repository, no complete CRUD.
- *  
- * - determine use case
- *   - 1. update entire enumerable(s)
- *      - if done individually (foreach item in an enumerable), this is slow.
- *      - if done wholesale (entire enumerable), this is fast?
- *   
- *   - 2. update entire repository/ies
- *      -  if done this way, the Repository should be 
- *        - kept readonly, no complete CRUD.
- *        - the enumerable changed wholesale on events.
- *            
- *  - conclusion:
- *    - 1. Place this Watcher in MMDeviceService.
- *    
- *    - 2. Create an object of MMDeviceRepository. For the enumerable, use the 
- *    collection from the property MMDeviceEnumerator.
- *    
- *    - 3. Determine what to do for changes: 
- *      - a. Update the MMDeviceRepository wholesale.
- *        - NOTE: For one Repository, this is fastest.
- *        - WARNING: For two or more Services watching, this may cause slowdown.
- *        - IDEA: 
- *          - i. Prioritize MMDeviceService for UI presentation and logic. 
- *          - ii. Forcedly have other Services/Repositories update slower.
- *          - iii. For DeviceService, do its logic when it's appropriate. 
- *          When updating, do so at file save or less periodically 
- *          (every minute instead of every second).
- *          - iv. For RepeaterService, when trying to start a repeater
- *            - 1. Validate by MMDeviceService. If device ID is valid, and 
- *            device is input or output.
- *            - 2. Start a repeater. Do not enable or disable an audio device.
- *      
- *      - b. Optionally: run business logic in MMDeviceService.
- *    
- *    - 4. Determine how to watch for property changes to the 
- *    MMDeviceService/MMDeviceRepository from other classes.
- */
-
 namespace VACARM.Infrastructure.Watchers
 {
   /// <summary>
   /// A watcher for the system audio devices.
   /// </summary>
-  internal class NAudioMMNotificationClient :
+  internal class MMNotificationClient :
+    IDisposable,
     IMMNotificationClient
   {
     #region Parameters
 
+    /// <summary>
+    /// The default action.
+    /// </summary>
     internal Action? AnyChanged { get; private set; } = null;
 
     internal Action<string, DataFlow, Role>? OnDefaultDeviceChanged
     { get; private set; } = null;
 
     internal Action<string>? OnDeviceAdded { get; private set; } = null;
+
     internal Action<string>? OnDeviceRemoved { get; private set; } = null;
 
     internal Action<string, DeviceState>? OnDeviceStateChanged
@@ -83,6 +30,11 @@ namespace VACARM.Infrastructure.Watchers
     internal Action<string, PropertyKey>? OnPropertyValueChanged
     { get; private set; } = null;
 
+    private bool HasDisposed;
+
+    /// <summary>
+    /// True/false use the default action.
+    /// </summary>
     private bool UseDefaultBehavior
     {
       get
@@ -91,7 +43,23 @@ namespace VACARM.Infrastructure.Watchers
       }
     }
 
-    internal MMDeviceEnumerator MMDeviceEnumerator { get; private set; }
+    /// <summary>
+    /// The collection of <typeparamref name="MMDevice"/>.
+    /// </summary>
+    internal MMDeviceCollection MMDeviceCollection
+    {
+      get
+      {
+        return this.MMDeviceEnumerator
+          .EnumerateAudioEndPoints
+          (
+            DataFlow.All,
+            DeviceState.All
+          );
+      }
+    }
+
+    private MMDeviceEnumerator MMDeviceEnumerator { get; set; }
 
     #endregion
 
@@ -101,10 +69,10 @@ namespace VACARM.Infrastructure.Watchers
     /// Constructor
     /// </summary>
     /// <param name="anyChanged">The action</param>
-    internal NAudioMMNotificationClient(Action anyChanged)
+    internal MMNotificationClient(Action anyChanged)
     {
       this.MMDeviceEnumerator = new MMDeviceEnumerator();
-      this.MMDeviceEnumerator.RegisterEndpointNotificationCallback(this);
+      this.Register();
       this.AnyChanged = anyChanged;
     }
 
@@ -116,7 +84,7 @@ namespace VACARM.Infrastructure.Watchers
     /// <param name="onDeviceRemoved">The action</param>
     /// <param name="onDeviceStateChanged">The action</param>
     /// <param name="onPropertyValueChanged">The action</param>
-    internal NAudioMMNotificationClient
+    internal MMNotificationClient
     (
       Action<string, DataFlow, Role> onDefaultDeviceChanged,
       Action<string> onDeviceAdded,
@@ -126,11 +94,84 @@ namespace VACARM.Infrastructure.Watchers
     )
     {
       this.MMDeviceEnumerator = new MMDeviceEnumerator();
-      this.MMDeviceEnumerator.RegisterEndpointNotificationCallback(this);
+      this.Register();
       this.OnDefaultDeviceChanged = onDefaultDeviceChanged;
       this.OnDeviceAdded = onDeviceAdded;
       this.OnDeviceRemoved = onDeviceRemoved;
       this.OnPropertyValueChanged = onPropertyValueChanged;
+    }
+
+    /// <summary>
+    /// Get an enumerable of default <typeparamref name="MMDevice"/>(s).
+    /// </summary>
+    /// <param name="role">The role</param>
+    /// <returns>The enumerable of item(s).</returns>
+    internal IEnumerable<MMDevice> GetDefaultRange(Role role)
+    {
+      Array DataFlowEnumArray = Enum.GetValues(typeof(DataFlow));
+
+      foreach (DataFlow dataFlow in DataFlowEnumArray)
+      {
+        var item = this.MMDeviceEnumerator
+          .GetDefaultAudioEndpoint
+          (
+            dataFlow,
+            role
+          );
+
+        yield return item;
+      }
+    }
+
+    /// <summary>
+    /// Register subscription to event watcher.
+    /// </summary>
+    internal void Register()
+    {
+      this.MMDeviceEnumerator
+        .RegisterEndpointNotificationCallback(this);
+    }
+
+    /// <summary>
+    /// Unregister subscription from event watcher.
+    /// </summary>
+    internal void UnRegister()
+    {
+      this.MMDeviceEnumerator
+        .UnregisterEndpointNotificationCallback(this);
+    }
+
+    /// <summary>
+    /// Dispose of unmanaged objects and true/false dispose of managed objects.
+    /// </summary>
+    /// <param name="isDisposed">True/false</param>
+    protected virtual void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        this.MMDeviceEnumerator
+          .Dispose();
+
+        this.MMDeviceEnumerator = null;
+      }
+
+      this.HasDisposed = true;
+    }
+
+    /// <summary>
+    /// Do not change this code. 
+    /// Put cleanup code in Dispose(<paramref name="bool"/>
+    ///  <typeparamref name="isDisposed"/>) method.
+    /// </summary>
+    public void Dispose()
+    {
+      this.Dispose(true);
+      GC.SuppressFinalize(this);
     }
 
     void IMMNotificationClient.OnDeviceStateChanged
