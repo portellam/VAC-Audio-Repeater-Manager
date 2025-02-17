@@ -6,9 +6,10 @@ using VACARM.Infrastructure.Extensions;
 namespace VACARM.Infrastructure.Repositories
 {
   /// <summary>
-  /// The readonly repository.
+  /// The readonly repository for <typeparamref name="TItem"/>.
   /// </summary>
   public class ReadonlyRepository<TItem> :
+    IDisposable,
     IReadonlyRepository<TItem> where TItem :
     class
   {
@@ -29,6 +30,8 @@ namespace VACARM.Infrastructure.Repositories
         this.OnPropertyChanged(nameof(Enumerable));
       }
     }
+
+    private bool HasDisposed;
 
     private IEnumerable<TItem> enumerable { get; set; }
 
@@ -93,6 +96,36 @@ namespace VACARM.Infrastructure.Repositories
     public ReadonlyRepository(IEnumerable<TItem> enumerable)
     {
       this.Enumerable = enumerable;
+    }
+
+    /// <summary>
+    /// Dispose of unmanaged objects and true/false dispose of managed objects.
+    /// </summary>
+    /// <param name="isDisposed">True/false</param>
+    protected virtual void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        this.Enumerable = Array.Empty<TItem>();
+      }
+
+      this.HasDisposed = true;
+    }
+
+    /// <summary>
+    /// Do not change this code. 
+    /// Put cleanup code in Dispose(<paramref name="bool"/>
+    ///  <typeparamref name="isDisposed"/>) method.
+    /// </summary>
+    public void Dispose()
+    {
+      this.Dispose(true);
+      GC.SuppressFinalize(this);
     }
 
     public bool IsNullOrEmpty(IEnumerable<TItem> enumerable)
