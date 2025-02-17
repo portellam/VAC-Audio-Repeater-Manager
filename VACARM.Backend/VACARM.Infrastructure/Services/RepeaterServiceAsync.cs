@@ -5,14 +5,11 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  /// <summary>
-  /// The service of the <typeparamref name="RepeaterRepository"/>.
-  /// </summary>
   public partial class RepeaterService<TRepository, TRepeaterModel> :
-    BaseService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>,
-    IRepeaterService<RepeaterRepository<TRepeaterModel>, TRepeaterModel>
+    BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>,
+    IRepeaterService<BaseRepository<TRepeaterModel>, TRepeaterModel>
     where TRepository :
-    RepeaterRepository<TRepeaterModel> where TRepeaterModel :
+    BaseRepository<TRepeaterModel> where TRepeaterModel :
     RepeaterModel
   {
     #region Logic
@@ -50,7 +47,7 @@ namespace VACARM.Application.Services
     /// Stop a <typeparamref name="TRepeaterModel"/>.
     /// </summary>
     /// <param name="model">The item</param>
-    private async Task<int> StopAsync(TRepeaterModel model)
+    private async Task<int?> StopAsync(TRepeaterModel model)
     {
       return await ExecutableCommands.StopAsync
         (
@@ -64,7 +61,7 @@ namespace VACARM.Application.Services
       if (this.DeviceService == null)
       {
         this.DeviceService =
-          new DeviceService<DeviceRepository<DeviceModel>, DeviceModel>();
+          new DeviceService<BaseRepository<DeviceModel>, DeviceModel>();
 
         return false;
       }
@@ -77,25 +74,20 @@ namespace VACARM.Application.Services
     public async Task<int?> RestartAsync(uint? id)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
-      var item = this.Repository.Get(func);
 
-      return await this.RestartAsync(item)
-        .ConfigureAwait(false);
+      return await this.DoWorkAsync
+        (
+          this.RestartAsync,
+          func
+        ).ConfigureAwait(false);
     }
 
-    public async IAsyncEnumerable<int?> RestartAllAsync()
+    public IAsyncEnumerable<int?> RestartAllAsync()
     {
-      var enumerable = this.Repository
-        .GetAll();
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.RestartAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkAllAsync(this.RestartAsync);
     }
 
-    public async IAsyncEnumerable<int?> RestartRangeAsync
+    public IAsyncEnumerable<int?> RestartRangeAsync
     (
       uint startId,
       uint endId
@@ -107,53 +99,41 @@ namespace VACARM.Application.Services
           endId
         );
 
-      var enumerable = this.Repository
-        .GetRange(func);
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.RestartAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkRangeAsync
+        (
+          this.RestartAsync,
+          func
+        );
     }
 
-    public async IAsyncEnumerable<int?> RestartRangeAsync
-    (IEnumerable<uint> idEnumerable)
+    public IAsyncEnumerable<int?> RestartRangeAsync(IEnumerable<uint> idEnumerable)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      var enumerable = this.Repository
-        .GetRange(func);
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.RestartAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkRangeAsync
+        (
+          this.RestartAsync,
+          func
+        );
     }
 
     public async Task<int?> StartAsync(uint? id)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
-      var item = this.Repository.Get(func);
 
-      return await this.StartAsync(item)
-        .ConfigureAwait(false);
+      return await this.DoWorkAsync
+        (
+          this.StartAsync,
+          func
+        ).ConfigureAwait(false);
     }
 
-    public async IAsyncEnumerable<int?> StartAllAsync()
+    public IAsyncEnumerable<int?> StartAllAsync()
     {
-      var enumerable = this.Repository
-        .GetAll();
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.StartAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkAllAsync(this.StartAsync);
     }
 
-    public async IAsyncEnumerable<int?> StartRangeAsync
+    public IAsyncEnumerable<int?> StartRangeAsync
     (
       uint startId,
       uint endId
@@ -165,53 +145,41 @@ namespace VACARM.Application.Services
           endId
         );
 
-      var enumerable = this.Repository
-        .GetRange(func);
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.StartAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkRangeAsync
+        (
+          this.StartAsync,
+          func
+        );
     }
 
-    public async IAsyncEnumerable<int?> StartRangeAsync
-    (IEnumerable<uint> idEnumerable)
+    public IAsyncEnumerable<int?> StartRangeAsync(IEnumerable<uint> idEnumerable)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      var enumerable = this.Repository
-        .GetRange(func);
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.StartAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkRangeAsync
+        (
+          this.StartAsync,
+          func
+        );
     }
 
-    public async Task<int> StopAsync(uint? id)
+    public async Task<int?> StopAsync(uint? id)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
-      var item = this.Repository.Get(func);
 
-      return await this.StopAsync(item)
-        .ConfigureAwait(false);
+      return await this.DoWorkAsync
+        (
+          this.StopAsync,
+          func
+        ).ConfigureAwait(false);
     }
 
-    public async IAsyncEnumerable<int> StopAllAsync()
+    public IAsyncEnumerable<int?> StopAllAsync()
     {
-      var enumerable = this.Repository
-        .GetAll();
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.StopAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkAllAsync(this.StopAsync);
     }
 
-    public async IAsyncEnumerable<int> StopRangeAsync
+    public IAsyncEnumerable<int?> StopRangeAsync
     (
       uint startId,
       uint endId
@@ -223,29 +191,22 @@ namespace VACARM.Application.Services
           endId
         );
 
-      var enumerable = this.Repository
-        .GetRange(func);
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.StopAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkRangeAsync
+        (
+          this.StopAsync,
+          func
+        );
     }
 
-    public async IAsyncEnumerable<int> StopRangeAsync
-    (IEnumerable<uint> idEnumerable)
+    public IAsyncEnumerable<int?> StopRangeAsync(IEnumerable<uint> idEnumerable)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      var enumerable = this.Repository
-        .GetRange(func);
-
-      foreach (var item in enumerable)
-      {
-        yield return await this.StopAsync(item)
-          .ConfigureAwait(false);
-      }
+      return this.DoWorkRangeAsync
+        (
+          this.StopAsync,
+          func
+        );
     }
 
     #endregion

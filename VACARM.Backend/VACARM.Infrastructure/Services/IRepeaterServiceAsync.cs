@@ -5,7 +5,7 @@ namespace VACARM.Application.Services
 {
   public partial interface IRepeaterService<TRepository, TRepeaterModel> where
     TRepository :
-    RepeaterRepository<TRepeaterModel> where TRepeaterModel :
+    BaseRepository<TRepeaterModel> where TRepeaterModel :
     RepeaterModel
   {
     #region Logic
@@ -77,19 +77,19 @@ namespace VACARM.Application.Services
     /// Stop a <typeparamref name="TRepeaterModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    Task<int> StopAsync(uint? id);
+    Task<int?> StopAsync(uint? id);
 
     /// <summary>
     /// Stop all <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
-    IAsyncEnumerable<int> StopAllAsync();
+    IAsyncEnumerable<int?> StopAllAsync();
 
     /// <summary>
     /// Stop some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    IAsyncEnumerable<int> StopRangeAsync
+    IAsyncEnumerable<int?> StopRangeAsync
     (
       uint startId,
       uint endId
@@ -99,7 +99,7 @@ namespace VACARM.Application.Services
     /// Stop some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    IAsyncEnumerable<int> StopRangeAsync(IEnumerable<uint> idEnumerable);
+    IAsyncEnumerable<int?> StopRangeAsync(IEnumerable<uint> idEnumerable);
 
     #endregion
   }
