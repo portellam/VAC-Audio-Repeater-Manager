@@ -12,9 +12,9 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   public partial class DeviceService<TRepository, TDeviceModel> :
-    BaseService<DeviceRepository<TDeviceModel>, TDeviceModel>,
-    IDeviceService<DeviceRepository<TDeviceModel>, TDeviceModel> where TRepository :
-    DeviceRepository<TDeviceModel> where TDeviceModel :
+    BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
+    IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where TRepository :
+    BaseRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
   {
     #region Logic
@@ -53,7 +53,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Get the default communications <typeparamref name="TDeviceModel"/> item.
+    /// Get the default communications <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
@@ -87,7 +87,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Get the default console <typeparamref name="TDeviceModel"/> item.
+    /// Get the default console <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
@@ -121,7 +121,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Get the default multimedia <typeparamref name="TDeviceModel"/> item.
+    /// Get the default multimedia <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
@@ -155,7 +155,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Mute a <typeparamref name="TDeviceModel"/> item.
+    /// Mute a <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>True/false result.</returns>
@@ -172,7 +172,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Mute an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Mute an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     public async IAsyncEnumerable<bool> MuteAllAsync()
@@ -191,7 +191,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Mute an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Mute an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>True/false result.</returns>
@@ -212,7 +212,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Mute an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Mute an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -241,7 +241,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Set the <typeparamref name="TDeviceModel"/> item as default.
+    /// Set the <typeparamref name="TDeviceModel"/> as default.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
@@ -258,7 +258,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Set the <typeparamref name="TDeviceModel"/> item as default for
+    /// Set the <typeparamref name="TDeviceModel"/> as default for
     /// communications.
     /// </summary>
     /// <param name="id">The ID</param>
@@ -276,7 +276,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Set the <typeparamref name="TDeviceModel"/> item volume.
+    /// Set the <typeparamref name="TDeviceModel"/> volume.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="volume">The audio volume</param>
@@ -300,25 +300,9 @@ namespace VACARM.Application.Services
         ).ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Start a <typeparamref name="TDeviceModel"/> item.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <returns>True/false result.</returns>
-    public async Task<bool> Start(uint id)
-    {
-      TDeviceModel? model = this
-        ._Repository
-        .Get(id);
-
-      return await this
-        .MMDeviceService
-        .StartAsync(model.ActualId)
-        .ConfigureAwait(false);
-    }
 
     /// <summary>
-    /// Start an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Start an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     public async IAsyncEnumerable<bool> StartAllAsync()
@@ -337,7 +321,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Start an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -366,7 +350,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Start an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>True/false result.</returns>
@@ -387,27 +371,23 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Stop a <typeparamref name="TDeviceModel"/> item.
+    /// Stop a <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>True/false result.</returns>
-    public async Task<bool> StopAsync(uint id)
+    public void Stop(uint id)
     {
       TDeviceModel? model = this
         ._Repository
         .Get(id);
 
-      return await this
-        .MMDeviceService
-        .StopAsync(model.ActualId)
-        .ConfigureAwait(false);
+      this.MMDeviceService
+        .Stop(model.ActualId);
     }
 
     /// <summary>
-    /// Stop an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Stop an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
-    /// <returns>True/false result.</returns>
-    public async IAsyncEnumerable<bool> StopAllAsync()
+    public void StopAll()
     {
       IEnumerable<TDeviceModel> enumerable = this
          ._Repository
@@ -415,65 +395,15 @@ namespace VACARM.Application.Services
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .MMDeviceService
-          .StopAsync(item.ActualId)
-          .ConfigureAwait(false);
+        this.MMDeviceService
+          .Stop(item.ActualId);
       }
     }
 
-    /// <summary>
-    /// Stop an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    /// <returns>True/false result.</returns>
-    public async IAsyncEnumerable<bool> StopRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
-        .GetRange
-        (
-          startId,
-          endId
-        );
 
-      foreach (var item in enumerable)
-      {
-        yield return await this
-          .MMDeviceService
-          .StopAsync(item.ActualId)
-          .ConfigureAwait(false);
-      }
-    }
 
     /// <summary>
-    /// Stop an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
-    /// </summary>
-    /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    /// <returns>True/false result.</returns>
-    public async IAsyncEnumerable<bool> StopRangeAsync
-    (IEnumerable<uint> idEnumerable)
-    {
-      IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
-        .GetRange(idEnumerable);
-
-      foreach (var item in enumerable)
-      {
-        yield return await this
-          .MMDeviceService
-          .StopAsync(item.ActualId)
-          .ConfigureAwait(false);
-      }
-    }
-
-    /// <summary>
-    /// Unmute a <typeparamref name="TDeviceModel"/> item.
+    /// Unmute a <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>True/false result.</returns>
@@ -490,7 +420,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Unmute an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Unmute an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     public async IAsyncEnumerable<bool> UnmuteAllAsync()
@@ -509,7 +439,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Unmute an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Unmute an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>True/false result.</returns>
@@ -530,7 +460,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Unmute an enumerable of some <typeparamref name="TDeviceModel"/> item(s).
+    /// Unmute an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -559,7 +489,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Update an enumerable of all <typeparamref name="TDeviceModel"/> item(s).
+    /// Update an enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     public async Task<bool> UpdateAllAsync()
