@@ -4,15 +4,27 @@ using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  /// <summary>
-  /// The <typeparamref name="TBaseModel"/> repository.
-  /// </summary>
   public class BaseRepository<TBaseModel> :
-    Repository<TBaseModel>,
+    ReadonlyRepository<TBaseModel>,
     IBaseRepository<TBaseModel> where TBaseModel :
     BaseModel
   {
     #region Parameters
+
+    public Func<int, bool> IsValidIndex
+    {
+      get
+      {
+        return new Func<int, bool>
+          (
+            x =>
+            {
+              return x >= 0
+              && x <= this.MaxCount;
+            }
+          );
+      }
+    }
 
     /// <summary>
     /// The enumerable of ID(s).
@@ -26,6 +38,17 @@ namespace VACARM.Infrastructure.Repositories
 
         idEnumerable.Order();
         return idEnumerable;
+      }
+    }
+
+    private int maxCount { get; set; } = int.MaxValue;
+
+    private Type Type
+    {
+      get
+      {
+        return this.Enumerable
+          .GetType();
       }
     }
 
@@ -55,6 +78,19 @@ namespace VACARM.Infrastructure.Repositories
       {
         this.Enumerable = value;
         this.OnPropertyChanged(nameof(List));
+      }
+    }
+
+    public virtual int MaxCount
+    {
+      get
+      {
+        return this.maxCount;
+      }
+      set
+      {
+        this.maxCount = value;
+        this.OnPropertyChanged(nameof(MaxCount));
       }
     }
 

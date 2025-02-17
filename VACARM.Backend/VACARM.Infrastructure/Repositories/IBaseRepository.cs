@@ -40,10 +40,45 @@ namespace VACARM.Infrastructure.Repositories
     void Add(TBaseModel model);
 
     /// <summary>
+    /// Add an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="item">The enumerable of item(s)</param>
+    void AddRange(IEnumerable<TBaseModel> enumerable);
+
+    /// <summary>
     /// Remove a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Remove(uint id);
+
+    /// <summary>
+    /// Remove a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="func">The function</param>
+    void Remove(Func<TBaseModel, bool> func);
+
+    /// <summary>
+    /// Remove a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="item">The item</param>
+    void Remove(TBaseModel item);
+
+    /// <summary>
+    /// Remove an enumerable of all <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    void RemoveAll();
+
+    /// <summary>
+    /// Remove an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    void RemoveRange(Func<TBaseModel, bool> func);
+
+    /// <summary>
+    /// Remove an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="item">The enumerable of item(s)</param>
+    void RemoveRange(IEnumerable<TBaseModel> enumerable);
 
     /// <summary>
     /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
