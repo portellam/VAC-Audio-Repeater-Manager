@@ -120,7 +120,7 @@ namespace VACARM.Application.Services
     public RepeaterService() :
       base()
     {
-      this.Repository = new BaseRepository<TRepeaterModel>();
+      this.ReadonlyRepository = new BaseRepository<TRepeaterModel>();
 
       this.DeviceService =
         new DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel>();
@@ -142,7 +142,7 @@ namespace VACARM.Application.Services
     ) :
       base(repository)
     {
-      this.Repository = repository;
+      this.ReadonlyRepository = repository;
       this.DeviceService = deviceService;
       this.CustomExecutablePathName = customExecutablePathName;
     }
@@ -156,7 +156,7 @@ namespace VACARM.Application.Services
 
       if (isDisposed)
       {
-        this.Repository
+        this.ReadonlyRepository
           .Dispose();
 
         this.DeviceService
@@ -168,7 +168,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TRepeaterModel> GetAllAlphabetical()
     {
-      return this.Repository
+      return this.ReadonlyRepository
         .GetAll()
         .OrderBy(x => x.WindowName);
     }
@@ -177,7 +177,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceId(deviceId);
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -185,7 +185,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceName(deviceName);
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -193,7 +193,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStarted;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -201,7 +201,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStopped;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
