@@ -7,17 +7,32 @@ namespace VACARM.Infrastructure.Functions
   {
     #region Parameters
 
+    internal readonly static Func<TDeviceModel, bool> IsAbsent =
+      (TDeviceModel x) => !x.IsPresent;
+
     internal readonly static Func<TDeviceModel, bool> IsCapture =
       (TDeviceModel x) => x.IsCapture;
 
+    internal readonly static Func<TDeviceModel, bool> IsCommunications =
+      (TDeviceModel x) => x.Role == "Communications";
+
+    internal readonly static Func<TDeviceModel, bool> IsConsole =
+      (TDeviceModel x) => x.Role == "Console";
+
     internal readonly static Func<TDeviceModel, bool> IsDefault =
       (TDeviceModel x) => x.IsDefault;
+
+    internal readonly static Func<TDeviceModel, bool> IsDisabled =
+      (TDeviceModel x) => !x.IsEnabled;
 
     internal readonly static Func<TDeviceModel, bool> IsDuplex =
       (TDeviceModel x) => x.IsDuplex;
 
     internal readonly static Func<TDeviceModel, bool> IsEnabled =
       (TDeviceModel x) => x.IsEnabled;
+
+    internal readonly static Func<TDeviceModel, bool> IsMultimedia =
+      (TDeviceModel x) => x.Role == "Multimedia";
 
     internal readonly static Func<TDeviceModel, bool> IsMuted =
       (TDeviceModel x) => x.IsMuted;
@@ -27,6 +42,9 @@ namespace VACARM.Infrastructure.Functions
 
     internal readonly static Func<TDeviceModel, bool> IsRender =
       (TDeviceModel x) => x.IsRender;
+
+    internal readonly static Func<TDeviceModel, bool> IsUnmuted =
+      (TDeviceModel x) => !x.IsMuted;
 
     #endregion
 

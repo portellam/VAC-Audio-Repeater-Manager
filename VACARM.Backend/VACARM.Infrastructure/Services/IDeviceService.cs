@@ -117,7 +117,7 @@ namespace VACARM.Application.Services
     /// <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TDeviceModel> GetAllNotMuted();
+    IEnumerable<TDeviceModel> GetAllUnmuted();
 
     /// <summary>
     /// Get an enumerable of all present <typeparamref name="TDeviceModel"/>(s).
@@ -130,6 +130,35 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDeviceModel> GetAllRender();
+
+    /// <summary>
+    /// Update an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
+    public void UpdateAll();
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    void UpdateRange(Func<TDeviceModel, bool> func);
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    void UpdateRange(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    void UpdateRange
+    (
+      uint startId,
+      uint endId
+    );
+
 
     #endregion
   }
