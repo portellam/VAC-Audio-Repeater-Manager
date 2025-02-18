@@ -10,16 +10,24 @@ using VACARM.Infrastructure.Functions;
 namespace VACARM.Application.Services
 {
   /// <summary>
-  /// The service to manage multiple configurations of system audio device(s). 
-  /// Configurations may be from a foreign system or a previous state of the 
-  /// current system.
-  /// Manages <typeparamref name="CoreAudioService"/>
-  /// and <typeparamref name="MMDeviceService"/>.
+  /// The service to one (1) configuration of system audio device(s). 
   /// </summary>
-  public partial class DeviceRepositoryService<TRepository, TDeviceModel> :
-    BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
+  public partial class DeviceService
+    <
+      TRepository,
+      TDeviceModel
+    > :
+    BaseService
+    <
+      BaseRepository<DeviceModel>,
+      DeviceModel
+    >,
     IDisposable,
-    IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where
+    IDeviceService
+    <
+      BaseRepository<DeviceModel>, 
+      DeviceModel
+    > where
     TRepository :
     BaseRepository<DeviceModel> where TDeviceModel :
     DeviceModel

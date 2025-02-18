@@ -4,7 +4,12 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class DeviceRepositoryService<TRepository, TDeviceModel>
+  public partial class DeviceRepositoryService
+    <
+      TService,
+      TRepository,
+      TDeviceModel
+    >
   {
     #region Logic
 
@@ -215,7 +220,7 @@ namespace VACARM.Application.Services
     /// Set the <typeparamref name="TDeviceModel"/> as default.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     public async Task<bool> SetAsDefaultAsync(uint id)
     {
       var model = this.Repository
@@ -231,7 +236,7 @@ namespace VACARM.Application.Services
     /// communications.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     public async Task<bool> SetAsDefaultCommunicationsAsync(uint id)
     {
       var model = this.Repository
@@ -247,7 +252,7 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="volume">The audio volume</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     public async Task<bool> SetVolumeAsync
     (
       uint id,
