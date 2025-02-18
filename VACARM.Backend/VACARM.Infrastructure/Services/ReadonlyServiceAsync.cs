@@ -4,6 +4,7 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   public partial class ReadonlyService<TRepository, TItem> :
+    IDisposable,
     IReadonlyService<TRepository, TItem> where TRepository :
     ReadonlyRepository<TItem> where TItem :
     class

@@ -10,6 +10,7 @@ namespace VACARM.Application.Services
   /// The readonly service for <typeparamref name="TRepository"/>.
   /// </summary>
   public partial class ReadonlyService<TRepository, TItem> :
+    IDisposable,
     IReadonlyService<TRepository, TItem> where TRepository :
     ReadonlyRepository<TItem> where TItem :
     class
@@ -18,6 +19,8 @@ namespace VACARM.Application.Services
 
     private ReadonlyRepository<TItem> readonlyRepository { get; set; } =
       new ReadonlyRepository<TItem>();
+
+    protected virtual bool HasDisposed { get; set; }
 
     protected virtual ReadonlyRepository<TItem> Repository
     {
@@ -47,10 +50,10 @@ namespace VACARM.Application.Services
       this
         .PropertyChanged?
         .Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
+        (
+          this,
+          new PropertyChangedEventArgs(propertyName)
+        );
 
       Debug.WriteLine
       (
@@ -78,6 +81,37 @@ namespace VACARM.Application.Services
     public ReadonlyService(ReadonlyRepository<TItem> repository)
     {
       this.Repository = repository;
+    }
+
+    /// <summary>
+    /// Dispose of unmanaged objects and true/false dispose of managed objects.
+    /// </summary>
+    /// <param name="isDisposed">True/false</param>
+    protected virtual void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        this.Repository
+          .Dispose();
+      }
+
+      this.HasDisposed = true;
+    }
+
+    /// <summary>
+    /// Do not change this code. 
+    /// Put cleanup code in Dispose(<paramref name="bool"/>
+    ///  <typeparamref name="isDisposed"/>) method.
+    /// </summary>
+    public void Dispose()
+    {
+      this.Dispose(true);
+      GC.SuppressFinalize(this);
     }
 
     public void DoWork
