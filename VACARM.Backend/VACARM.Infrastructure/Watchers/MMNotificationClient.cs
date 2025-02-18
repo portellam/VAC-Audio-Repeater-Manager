@@ -150,8 +150,6 @@ namespace VACARM.Infrastructure.Watchers
       {
         this.MMDeviceEnumerator
           .Dispose();
-
-        this.MMDeviceEnumerator = null;
       }
 
       this.HasDisposed = true;
