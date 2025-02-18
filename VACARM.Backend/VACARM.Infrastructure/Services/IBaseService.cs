@@ -1,11 +1,43 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public interface IBaseService<TRepository, TBaseModel> where TBaseModel :
+  public interface IBaseService<TRepository, TBaseModel> where TRepository :
+    BaseRepository<TBaseModel> where TBaseModel :
     BaseModel
   {
     #region Logic
+
+    /// <summary>
+    /// Remove a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    bool Remove(uint id);
+
+    /// <summary>
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    IEnumerable<bool> RemoveRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Get a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The item.</returns>
+    TBaseModel? Get(uint id);
 
     /// <summary>
     /// Get enumerable of <typeparamref name="TBaseModel"/>(s) by an enumerable
@@ -14,6 +46,25 @@ namespace VACARM.Application.Services
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TBaseModel> GetAllById(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TBaseModel> GetRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
     #endregion
   }
