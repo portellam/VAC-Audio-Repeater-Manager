@@ -56,7 +56,7 @@ namespace VACARM.Application.Services
       if (this.DeviceService == null)
       {
         this.DeviceService =
-          new DeviceService<BaseRepository<DeviceModel>, DeviceModel>();
+          new DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel>();
 
         return false;
       }

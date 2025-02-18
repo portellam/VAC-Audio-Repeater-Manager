@@ -22,8 +22,8 @@ namespace VACARM.Application.Services
 
     private bool preferLegacyExecutable { get; set; } = false;
 
-    private DeviceService<BaseRepository<DeviceModel>, DeviceModel> deviceService
-    { get; set; } = new DeviceService<BaseRepository<DeviceModel>, DeviceModel>();
+    private DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel> deviceService
+    { get; set; } = new DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel>();
 
     private string customExecutablePathName { get; set; } =
       Common.Info.ExpectedExecutablePathName;
@@ -54,7 +54,7 @@ namespace VACARM.Application.Services
       }
     }
 
-    public DeviceService<BaseRepository<DeviceModel>, DeviceModel> DeviceService
+    public DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel> DeviceService
     {
       get
       {
@@ -111,7 +111,7 @@ namespace VACARM.Application.Services
       this.Repository = new BaseRepository<TRepeaterModel>();
 
       this.DeviceService =
-        new DeviceService<BaseRepository<DeviceModel>, DeviceModel>();
+        new DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel>();
     }
 
     /// <summary>
@@ -125,7 +125,7 @@ namespace VACARM.Application.Services
     public RepeaterService
     (
       BaseRepository<TRepeaterModel> repository,
-      DeviceService<BaseRepository<DeviceModel>, DeviceModel> deviceService,
+      DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel> deviceService,
       string customExecutablePathName
     ) :
       base(repository)

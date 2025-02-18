@@ -11,7 +11,7 @@ namespace VACARM.Application.Services
     #region Parameters
 
     bool PreferLegacyExecutable { get; set; }
-    DeviceService<BaseRepository<DeviceModel>, DeviceModel> DeviceService { get; }
+    DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel> DeviceService { get; }
     string CustomExecutablePathName { get; set; }
     string ExecutableFullPathName { get; }
 
