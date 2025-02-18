@@ -13,6 +13,7 @@ namespace VACARM.Application.Services
     /// Remove a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <returns>True/false result</returns>
     bool Remove(uint id);
 
     /// <summary>
@@ -20,6 +21,7 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
+    /// <returns>True/false result enumerable</returns>
     IEnumerable<bool> RemoveRange
     (
       uint startId,
@@ -30,6 +32,7 @@ namespace VACARM.Application.Services
     /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <returns>True/false result enumerable</returns>
     IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
@@ -40,7 +43,7 @@ namespace VACARM.Application.Services
     TBaseModel? Get(uint id);
 
     /// <summary>
-    /// Get enumerable of <typeparamref name="TBaseModel"/>(s) by an enumerable
+    /// Get an enumerable of <typeparamref name="TBaseModel"/>(s) by an enumerable
     /// of ID(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
