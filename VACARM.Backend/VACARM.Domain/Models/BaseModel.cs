@@ -39,11 +39,12 @@ namespace VACARM.Domain.Models
     /// <param name="propertyName">The property name</param>
     internal void OnPropertyChanged(string propertyName)
     {
-      PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
+      PropertyChanged?
+        .Invoke
+        (
+          this,
+          new PropertyChangedEventArgs(propertyName)
+        );
 
       Debug.WriteLine
       (
