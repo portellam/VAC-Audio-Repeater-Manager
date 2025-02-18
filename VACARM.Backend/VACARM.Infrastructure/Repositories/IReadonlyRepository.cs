@@ -18,7 +18,7 @@ namespace VACARM.Infrastructure.Repositories
     /// Is enumerable of <typeparamref name="TItem"/>(s) null or empty.
     /// </summary>
     /// <param name="enumerable">The enumerable</param>
-    /// <returns>True/false</returns>
+    /// <returns>True/false.</returns>
     bool IsNullOrEmpty(IEnumerable<TItem> enumerable);
 
     /// <summary>

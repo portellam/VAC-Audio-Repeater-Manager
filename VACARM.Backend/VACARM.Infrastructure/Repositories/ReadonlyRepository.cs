@@ -12,8 +12,6 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    private bool HasDisposed { get; set; }
-
     private IEnumerable<TItem> enumerable { get; set; }
 
     /// <summary>
@@ -31,6 +29,8 @@ namespace VACARM.Infrastructure.Repositories
         this.OnPropertyChanged(nameof(Enumerable));
       }
     }
+
+    protected virtual bool HasDisposed { get; set; }
 
     public Func<int, bool> ContainsIndex
     {
@@ -138,8 +138,8 @@ namespace VACARM.Infrastructure.Repositories
         return null;
       }
 
-      return this.Enumerable.
-        FirstOrDefault(func);
+      return this.Enumerable
+        .FirstOrDefault(func);
     }
 
     public IEnumerable<TItem> GetAll()
@@ -149,8 +149,7 @@ namespace VACARM.Infrastructure.Repositories
         return Array.Empty<TItem>();
       }
 
-      return this.Enumerable
-        .AsEnumerable();
+      return this.Enumerable;
     }
 
     public IEnumerable<TItem> GetRange(Func<TItem, bool> func)
@@ -161,8 +160,7 @@ namespace VACARM.Infrastructure.Repositories
       }
 
       return this.Enumerable
-        .Where(x => func(x))
-        .AsEnumerable();
+        .Where(x => func(x));
     }
 
     #endregion
