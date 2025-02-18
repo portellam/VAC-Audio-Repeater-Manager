@@ -6,7 +6,8 @@ namespace VACARM.Infrastructure.Repositories
 {
   public class BaseRepository<TBaseModel> :
     ReadonlyRepository<TBaseModel>,
-    IBaseRepository<TBaseModel> where TBaseModel :
+    IBaseRepository<TBaseModel>
+    where TBaseModel :
     BaseModel
   {
     #region Parameters
