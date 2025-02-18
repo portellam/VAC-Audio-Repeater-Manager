@@ -17,13 +17,6 @@ namespace VACARM.Application.Services
     TMMDevice? Get(string id);
 
     /// <summary>
-    /// Get an enumerable of all <typeparamref name="TMMDevice"/>(s).
-    /// </summary>
-    /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TMMDevice> GetAll();
-
-    /// <summary>
     /// Get the default communications <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>

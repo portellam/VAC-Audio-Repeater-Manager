@@ -1,7 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Application.Commands;
-using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Watchers;
@@ -59,8 +58,6 @@ namespace VACARM.Application.Services
       }
     }
 
-    private bool HasDisposed;
-
     private MMNotificationClient MMNotificationClient { get; set; }
 
     private ReadonlyRepository<TMMDevice> defaultCommunicationsReadonlyRepository
@@ -98,11 +95,7 @@ namespace VACARM.Application.Services
       this.UpdateService();
     }
 
-    /// <summary>
-    /// Dispose of unmanaged objects and true/false dispose of managed objects.
-    /// </summary>
-    /// <param name="isDisposed">True/false</param>
-    protected virtual void Dispose(bool isDisposed)
+    protected override void Dispose(bool isDisposed)
     {
       if (this.HasDisposed)
       {
@@ -130,37 +123,12 @@ namespace VACARM.Application.Services
       this.HasDisposed = true;
     }
 
-    /// <summary>
-    /// Do not change this code. 
-    /// Put cleanup code in Dispose(<paramref name="bool"/>
-    ///  <typeparamref name="isDisposed"/>) method.
-    /// </summary>
-    public void Dispose()
-    {
-      this.Dispose(true);
-      GC.SuppressFinalize(this);
-    }
-
     public TMMDevice? Get(string id)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
       return this.Repository
         .Get(func);
-    }
-
-    public IEnumerable<TMMDevice> GetAll()
-    {
-      var enumerable = this.Repository
-        .GetAll();
-
-      if (IEnumerableExtension<TMMDevice>.IsNullOrEmpty(enumerable))
-      {
-        return Array.Empty<TMMDevice>();
-      }
-
-      return enumerable
-        .AsEnumerable();
     }
 
     public TMMDevice? GetDefaultCommunications(DataFlow dataFlow)
