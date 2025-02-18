@@ -10,7 +10,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="model">The model</param>
     /// <returns>The function.</returns>
-    internal static Func<TBaseModel, bool> ContainsId(this TBaseModel model)
+    internal static Func<TBaseModel, bool> ContainsId(TBaseModel model)
       => (TBaseModel item) => item.Id == model.Id;
 
     #region Logic

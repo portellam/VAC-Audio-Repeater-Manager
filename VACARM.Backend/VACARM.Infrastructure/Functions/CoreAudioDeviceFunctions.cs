@@ -75,7 +75,9 @@ namespace VACARM.Infrastructure.Functions
     {
       return (TDevice item) =>
       {
-        string id = item.Id.ToString();
+        string id = item.Id
+          .ToString();
+
         return idEnumerable.Contains(id);
       };
     }
