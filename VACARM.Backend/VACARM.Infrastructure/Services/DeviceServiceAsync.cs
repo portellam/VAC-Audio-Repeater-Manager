@@ -22,8 +22,7 @@ namespace VACARM.Application.Services
 
       else
       {
-        this
-          .MMDeviceService
+        this.MMDeviceService
           .UpdateAll();
       }
 
@@ -35,8 +34,7 @@ namespace VACARM.Application.Services
         return true;
       }
 
-      return await this
-        .CoreAudioService
+      return await this.CoreAudioService
         .UpdateServiceAsync()
         .ConfigureAwait(false);
     }
@@ -66,12 +64,10 @@ namespace VACARM.Application.Services
         return null;
       }
 
-      string actualId = device
-        .Id
+      var actualId = device.Id
         .ToString();
 
-      return this
-        .Repository
+      return this.Repository
         .GetByActualId(actualId);
     }
 
@@ -87,8 +83,7 @@ namespace VACARM.Application.Services
       bool isOutput
     )
     {
-      Device? device = await this
-        .CoreAudioService
+      var device = await this.CoreAudioService
         .GetDefaultConsoleAsync
         (
           isInput,
@@ -100,12 +95,10 @@ namespace VACARM.Application.Services
         return null;
       }
 
-      string actualId = device
-        .Id
+      var actualId = device.Id
         .ToString();
 
-      return this
-        .Repository
+      return this.Repository
         .GetByActualId(actualId);
     }
 
@@ -121,8 +114,7 @@ namespace VACARM.Application.Services
       bool isOutput
     )
     {
-      Device? device = await this
-        .CoreAudioService
+      var device = await this.CoreAudioService
         .GetDefaultMultimediaAsync
         (
           isInput,
@@ -134,12 +126,10 @@ namespace VACARM.Application.Services
         return null;
       }
 
-      string actualId = device
-        .Id
+      var actualId = device.Id
         .ToString();
 
-      return this
-        .Repository
+      return this.Repository
         .GetByActualId(actualId);
     }
 
@@ -150,12 +140,10 @@ namespace VACARM.Application.Services
     /// <returns>True/false result.</returns>
     public async Task<bool> MuteAsync(uint id)
     {
-      TDeviceModel? model = this
-        .Repository
+      TDeviceModel? model = this.Repository
         .Get(id);
 
-      return await this
-        .CoreAudioService
+      return await this.CoreAudioService
         .MuteAsync(model.ActualId)
         .ConfigureAwait(false);
     }
@@ -166,14 +154,12 @@ namespace VACARM.Application.Services
     /// <returns>True/false result.</returns>
     public async IAsyncEnumerable<bool> MuteAllAsync()
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetAll();
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .CoreAudioService
+        yield return await this.CoreAudioService
           .MuteAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -187,14 +173,12 @@ namespace VACARM.Application.Services
     public async IAsyncEnumerable<bool> MuteRangeAsync
     (IEnumerable<uint> idEnumerable)
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetRange(idEnumerable);
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .CoreAudioService
+        yield return await this.CoreAudioService
           .MuteAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -212,8 +196,7 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetRange
         (
           startId,
@@ -222,8 +205,7 @@ namespace VACARM.Application.Services
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .CoreAudioService
+        yield return await this.CoreAudioService
           .MuteAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -236,12 +218,10 @@ namespace VACARM.Application.Services
     /// <returns>The true/false result.</returns>
     public async Task<bool> SetAsDefaultAsync(uint id)
     {
-      TDeviceModel? model = this
-        .Repository
+      var model = this.Repository
         .Get(id);
 
-      return await this
-        .CoreAudioService
+      return await this.CoreAudioService
         .SetAsDefaultAsync(model.ActualId)
         .ConfigureAwait(false);
     }
@@ -254,12 +234,10 @@ namespace VACARM.Application.Services
     /// <returns>The true/false result.</returns>
     public async Task<bool> SetAsDefaultCommunicationsAsync(uint id)
     {
-      TDeviceModel? model = this
-        .Repository
+      var model = this.Repository
         .Get(id);
 
-      return await this
-        .CoreAudioService
+      return await this.CoreAudioService
         .SetAsDefaultCommunicationsAsync(model.ActualId)
         .ConfigureAwait(false);
     }
@@ -276,12 +254,10 @@ namespace VACARM.Application.Services
       double? volume
     )
     {
-      TDeviceModel? model = this
-        .Repository
+      var model = this.Repository
         .Get(id);
 
-      return await this
-        .CoreAudioService
+      return await this.CoreAudioService
         .SetVolumeAsync
         (
           model.ActualId,
@@ -296,14 +272,12 @@ namespace VACARM.Application.Services
     /// <returns>True/false result.</returns>
     public async IAsyncEnumerable<bool> StartAllAsync()
     {
-      IEnumerable<TDeviceModel> enumerable = this
-         .Repository
-         .GetAll();
+      var enumerable = this.Repository
+        .GetAll();
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .MMDeviceService
+        yield return await this.MMDeviceService
           .StartAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -321,8 +295,7 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetRange
         (
           startId,
@@ -331,8 +304,7 @@ namespace VACARM.Application.Services
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .MMDeviceService
+        yield return await this.MMDeviceService
           .StartAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -346,14 +318,12 @@ namespace VACARM.Application.Services
     public async IAsyncEnumerable<bool> StartRangeAsync
     (IEnumerable<uint> idEnumerable)
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetRange(idEnumerable);
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .MMDeviceService
+        yield return await this.MMDeviceService
           .StartAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -365,8 +335,7 @@ namespace VACARM.Application.Services
     /// <param name="id">The ID</param>
     public void Stop(uint id)
     {
-      TDeviceModel? model = this
-        .Repository
+      var model = this.Repository
         .Get(id);
 
       this.MMDeviceService
@@ -378,9 +347,8 @@ namespace VACARM.Application.Services
     /// </summary>
     public void StopAll()
     {
-      IEnumerable<TDeviceModel> enumerable = this
-         .Repository
-         .GetAll();
+      var enumerable = this.Repository
+        .GetAll();
 
       foreach (var item in enumerable)
       {
@@ -389,8 +357,6 @@ namespace VACARM.Application.Services
       }
     }
 
-
-
     /// <summary>
     /// Unmute a <typeparamref name="TDeviceModel"/>.
     /// </summary>
@@ -398,12 +364,10 @@ namespace VACARM.Application.Services
     /// <returns>True/false result.</returns>
     public async Task<bool> UnmuteAsync(uint id)
     {
-      TDeviceModel? model = this
-        .Repository
+      var model = this.Repository
         .Get(id);
 
-      return await this
-        .CoreAudioService
+      return await this.CoreAudioService
         .UnmuteAsync(model.ActualId)
         .ConfigureAwait(false);
     }
@@ -414,14 +378,12 @@ namespace VACARM.Application.Services
     /// <returns>True/false result.</returns>
     public async IAsyncEnumerable<bool> UnmuteAllAsync()
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetAll();
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .CoreAudioService
+        yield return await this.CoreAudioService
           .UnmuteAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -435,14 +397,12 @@ namespace VACARM.Application.Services
     public async IAsyncEnumerable<bool> UnmuteRangeAsync
     (IEnumerable<uint> idEnumerable)
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetRange(idEnumerable);
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .CoreAudioService
+        yield return await this.CoreAudioService
           .UnmuteAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -460,8 +420,7 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      IEnumerable<TDeviceModel> enumerable = this
-        .Repository
+      var enumerable = this.Repository
         .GetRange
         (
           startId,
@@ -470,8 +429,7 @@ namespace VACARM.Application.Services
 
       foreach (var item in enumerable)
       {
-        yield return await this
-          .CoreAudioService
+        yield return await this.CoreAudioService
           .UnmuteAsync(item.ActualId)
           .ConfigureAwait(false);
       }
@@ -483,8 +441,7 @@ namespace VACARM.Application.Services
     /// <returns>True/false result.</returns>
     public async Task<bool> UpdateAllAsync()
     {
-      return await this
-        .CoreAudioService
+      return await this.CoreAudioService
         .UpdateServiceAsync()
         .ConfigureAwait(false);
     }

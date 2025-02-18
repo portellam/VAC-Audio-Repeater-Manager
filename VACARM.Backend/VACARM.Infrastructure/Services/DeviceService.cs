@@ -17,7 +17,7 @@ namespace VACARM.Application.Services
   public partial class DeviceService<TRepository, TDeviceModel> :
     BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
     IDisposable,
-    IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where 
+    IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where
     TRepository :
     BaseRepository<DeviceModel> where TDeviceModel :
     DeviceModel
@@ -427,10 +427,9 @@ namespace VACARM.Application.Services
     /// Stop an enumerable of some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    public void StopRange
-        (IEnumerable<uint> idEnumerable)
+    public void StopRange(IEnumerable<uint> idEnumerable)
     {
-      IEnumerable<DeviceModel> enumerable = this
+      var enumerable = this
         .Repository
         .GetRange(idEnumerable);
 
@@ -495,7 +494,6 @@ namespace VACARM.Application.Services
 
       this.UpdateRange(func);
     }
-
 
     #endregion
   }
