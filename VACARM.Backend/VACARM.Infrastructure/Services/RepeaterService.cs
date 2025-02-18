@@ -5,6 +5,11 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
+  /// <summary>
+  /// The service to load and save different and/or previous configurations of 
+  /// audio repeater(s).
+  /// Manages <typeparamref name="DeviceService"/>.
+  /// </summary>
   public partial class RepeaterService<TRepository, TRepeaterModel> :
     BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>,
     IDisposable,
@@ -17,8 +22,7 @@ namespace VACARM.Application.Services
 
     private bool preferLegacyExecutable { get; set; } = false;
 
-    private DeviceService<BaseRepository<DeviceModel>, DeviceModel>
-      deviceService
+    private DeviceService<BaseRepository<DeviceModel>, DeviceModel> deviceService
     { get; set; } = new DeviceService<BaseRepository<DeviceModel>, DeviceModel>();
 
     private string customExecutablePathName { get; set; } =

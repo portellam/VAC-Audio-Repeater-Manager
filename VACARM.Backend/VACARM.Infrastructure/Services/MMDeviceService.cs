@@ -8,7 +8,7 @@ using VACARM.Infrastructure.Watchers;
 namespace VACARM.Application.Services
 {
   /// <summary>
-  /// The service to retrieve current and updated system audio devices.
+  /// The service to retrieve current and/or updated system audio device(s).
   /// </summary>
   public class MMDeviceService<TRepository, TMMDevice> :
     ReadonlyService<ReadonlyRepository<TMMDevice>, TMMDevice>,

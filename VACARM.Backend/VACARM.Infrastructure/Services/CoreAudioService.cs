@@ -8,7 +8,8 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   /// <summary>
-  /// The service to update system audio devices.
+  /// The service to update system audio device(s).
+  /// Extended functionality over <typeparamref name="MMDeviceService"/>.
   /// </summary>
   public partial class CoreAudioService<TRepository, TDevice> :
     ReadonlyService<ReadonlyRepository<TDevice>, TDevice>,
