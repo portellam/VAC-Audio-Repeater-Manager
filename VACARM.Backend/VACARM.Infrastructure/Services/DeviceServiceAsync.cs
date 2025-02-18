@@ -48,7 +48,7 @@ namespace VACARM.Application.Services
 
       return await this
         .CoreAudioService
-        .UpdateAllAsync()
+        .UpdateServiceAsync()
         .ConfigureAwait(false);
     }
 
@@ -496,7 +496,7 @@ namespace VACARM.Application.Services
     {
       return await this
         .CoreAudioService
-        .UpdateAllAsync()
+        .UpdateServiceAsync()
         .ConfigureAwait(false);
     }
 
