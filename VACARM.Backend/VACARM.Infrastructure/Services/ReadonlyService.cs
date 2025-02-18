@@ -32,16 +32,16 @@ namespace VACARM.Application.Services
 
     protected virtual bool HasDisposed { get; set; }
 
-    protected virtual ReadonlyRepository<TItem> Repository
+    public ReadonlyRepository<TItem> ReadonlyRepository
     {
       get
       {
         return this.readonlyRepository;
       }
-      set
+      protected set
       {
         this.readonlyRepository = value;
-        OnPropertyChanged(nameof(Repository));
+        OnPropertyChanged(nameof(ReadonlyRepository));
       }
     }
 
@@ -81,7 +81,7 @@ namespace VACARM.Application.Services
     [ExcludeFromCodeCoverage]
     public ReadonlyService()
     {
-      this.Repository = new ReadonlyRepository<TItem>();
+      this.ReadonlyRepository = new ReadonlyRepository<TItem>();
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ namespace VACARM.Application.Services
     /// <param name="repository">The repository</param>
     public ReadonlyService(ReadonlyRepository<TItem> repository)
     {
-      this.Repository = repository;
+      this.ReadonlyRepository = repository;
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ namespace VACARM.Application.Services
 
       if (isDisposed)
       {
-        this.Repository
+        this.ReadonlyRepository
           .Dispose();
       }
 
@@ -135,7 +135,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var item = this.Repository
+      var item = this.ReadonlyRepository
         .Get(func);
 
       this.DoWork
@@ -166,7 +166,7 @@ namespace VACARM.Application.Services
 
     public void DoWorkAll(Action<TItem> action)
     {
-      var enumerable = this.Repository
+      var enumerable = this.ReadonlyRepository
         .GetAll();
 
       this.DoWorkRange
@@ -209,7 +209,7 @@ namespace VACARM.Application.Services
         return;
       }
 
-      var enumerable = this.Repository
+      var enumerable = this.ReadonlyRepository
         .GetRange(func);
 
       this.DoWorkRange

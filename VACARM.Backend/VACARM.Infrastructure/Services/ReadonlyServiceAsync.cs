@@ -28,7 +28,7 @@ namespace VACARM.Application.Services
         return result;
       }
 
-      var item = this.Repository
+      var item = this.ReadonlyRepository
         .Get(matchFunc);
 
       if (item == null)
@@ -76,7 +76,7 @@ namespace VACARM.Application.Services
         yield return result;
       }
 
-      var enumerable = this.Repository
+      var enumerable = this.ReadonlyRepository
         .GetAll();
 
       foreach (var item in enumerable)
@@ -143,7 +143,7 @@ namespace VACARM.Application.Services
         yield return result;
       }
 
-      var enumerable = this.Repository
+      var enumerable = this.ReadonlyRepository
         .GetRange(matchFunc);
 
       if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))

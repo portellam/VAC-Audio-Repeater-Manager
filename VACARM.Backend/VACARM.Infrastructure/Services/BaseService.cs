@@ -31,11 +31,11 @@ namespace VACARM.Application.Services
     {
       get
       {
-        return (BaseRepository<TBaseModel>)this.Repository;
+        return (BaseRepository<TBaseModel>)this.ReadonlyRepository;
       }
-      set
+      protected set
       {
-        this.Repository = value;
+        this.ReadonlyRepository = value;
         this.OnPropertyChanged(nameof(BaseRepository));
       }
     }
@@ -51,7 +51,7 @@ namespace VACARM.Application.Services
     public BaseService() :
       base()
     {
-      this.Repository = new BaseRepository<TBaseModel>();
+      this.BaseRepository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace VACARM.Application.Services
     public BaseService(BaseRepository<TBaseModel> repository) :
       base(repository)
     {
-      this.Repository = repository;
+      this.BaseRepository = repository;
     }
 
     public bool Remove(uint id)
@@ -77,7 +77,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.Repository
+      return this.BaseRepository
         .GetRange(func);
     }
 
