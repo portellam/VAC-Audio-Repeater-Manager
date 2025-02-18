@@ -4,7 +4,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class DeviceService<TRepository, TDeviceModel>
+  public partial class DeviceRepositoryService<TRepository, TDeviceModel>
   {
     #region Logic
 

@@ -10,11 +10,13 @@ using VACARM.Infrastructure.Functions;
 namespace VACARM.Application.Services
 {
   /// <summary>
-  /// The service to load and save different and/or previous configurations of 
-  /// system audio device(s). Manages <typeparamref name="CoreAudioService"/>
+  /// The service to manage multiple configurations of system audio device(s). 
+  /// Configurations may be from a foreign system or a previous state of the 
+  /// current system.
+  /// Manages <typeparamref name="CoreAudioService"/>
   /// and <typeparamref name="MMDeviceService"/>.
   /// </summary>
-  public partial class DeviceService<TRepository, TDeviceModel> :
+  public partial class DeviceRepositoryService<TRepository, TDeviceModel> :
     BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
     IDisposable,
     IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where
@@ -110,7 +112,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public DeviceService() :
+    public DeviceRepositoryService() :
       base()
     {
       Dictionary<int, BaseRepository<DeviceModel>> Dictionary =
@@ -136,7 +138,7 @@ namespace VACARM.Application.Services
     /// <param name="repositoryRepository">The repository of repositories</param>
     /// <param name="mMDeviceService">The MMDevice service</param>
     /// <param name="coreAudioService">The Core Audio service</param>
-    public DeviceService
+    public DeviceRepositoryService
     (
       BaseRepository<TDeviceModel> repositoryRepository,
       MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> mMDeviceService,
