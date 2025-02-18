@@ -6,6 +6,13 @@ namespace VACARM.Infrastructure.Repositories
     where TBaseModel :
     BaseModel
   {
+    #region Parameters
+
+    Func<int, bool> IsValidIndex { get; }
+    int MaxCount { get; }
+
+    #endregion
+
     #region Logic
 
     /// <summary>

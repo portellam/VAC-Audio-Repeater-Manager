@@ -12,21 +12,6 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    public Func<int, bool> IsValidIndex
-    {
-      get
-      {
-        return new Func<int, bool>
-          (
-            x =>
-            {
-              return x >= 0
-              && x <= this.MaxCount;
-            }
-          );
-      }
-    }
-
     /// <summary>
     /// The enumerable of ID(s).
     /// </summary>
@@ -73,13 +58,28 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public Func<int, bool> IsValidIndex
+    {
+      get
+      {
+        return new Func<int, bool>
+          (
+            x =>
+            {
+              return x >= 0
+              && x <= this.MaxCount;
+            }
+          );
+      }
+    }
+
     public virtual int MaxCount
     {
       get
       {
         return this.maxCount;
       }
-      set
+      internal set
       {
         this.maxCount = value;
         this.OnPropertyChanged(nameof(MaxCount));
