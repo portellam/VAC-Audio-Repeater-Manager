@@ -41,6 +41,20 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    private List<TBaseModel> List
+    {
+      get
+      {
+        return this.Enumerable
+          .ToList();
+      }
+      set
+      {
+        this.Enumerable = value;
+        this.OnPropertyChanged(nameof(List));
+      }
+    }
+
     private int maxCount { get; set; } = int.MaxValue;
 
     /// <summary>
@@ -55,20 +69,6 @@ namespace VACARM.Infrastructure.Repositories
 
         id++;
         return id;
-      }
-    }
-
-    protected List<TBaseModel> List
-    {
-      get
-      {
-        return this.Enumerable
-          .ToList();
-      }
-      set
-      {
-        this.Enumerable = value;
-        this.OnPropertyChanged(nameof(List));
       }
     }
 
@@ -135,7 +135,8 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      return List.Remove(item);
+      return this.List
+        .Remove(item);
     }
 
     public bool Remove(TBaseModel model)
@@ -150,7 +151,8 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      return List.Remove(model);
+      return this.List
+        .Remove(model);
     }
 
     public IEnumerable<bool> RemoveRange(Func<TBaseModel, bool> func)
@@ -169,7 +171,8 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var item in enumerable)
       {
-        yield return List.Remove(item);
+        yield return this.List
+          .Remove(item);
       }
     }
 
@@ -187,7 +190,8 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var item in enumerable)
       {
-        yield return List.Remove(item);
+        yield return this.List
+          .Remove(item);
       }
     }
 
@@ -203,7 +207,8 @@ namespace VACARM.Infrastructure.Repositories
         model.Id = NextId;
       }
 
-      this.Enumerable.Append(model);
+      this.Enumerable
+        .Append(model);
     }
 
     public void AddRange(IEnumerable<TBaseModel> enumerable)

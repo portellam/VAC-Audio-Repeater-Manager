@@ -12,6 +12,10 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
+    private bool HasDisposed { get; set; }
+
+    private IEnumerable<TItem> enumerable { get; set; }
+
     /// <summary>
     /// The enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
@@ -28,10 +32,6 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    private bool HasDisposed;
-
-    private IEnumerable<TItem> enumerable { get; set; }
-
     public Func<int, bool> ContainsIndex
     {
       get
@@ -41,8 +41,8 @@ namespace VACARM.Infrastructure.Repositories
             x =>
             {
               return x >= 0
-              && x <= this.Enumerable
-                .Count();
+                && x <= this.Enumerable
+                  .Count();
             }
           );
       }
@@ -60,11 +60,12 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="propertyName">The property name</param>
     internal void OnPropertyChanged(string propertyName)
     {
-      this.PropertyChanged?.Invoke
-      (
-        this,
-        new PropertyChangedEventArgs(propertyName)
-      );
+      this.PropertyChanged?
+        .Invoke
+        (
+          this,
+          new PropertyChangedEventArgs(propertyName)
+        );
 
       Debug.WriteLine
       (
