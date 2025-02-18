@@ -104,7 +104,7 @@ namespace VACARM.Application.Services
     {
       Controller = new CoreAudioController();
 
-      this.Repository = new ReadonlyRepository<TDevice>
+      this.ReadonlyRepository = new ReadonlyRepository<TDevice>
         (new ObservableCollection<TDevice>()) as ReadonlyRepository<TDevice>;
 
       var result = this.UpdateServiceAsync();
@@ -122,7 +122,7 @@ namespace VACARM.Application.Services
         this.Controller
           .Dispose();
 
-        this.Repository
+        this.ReadonlyRepository
           .Dispose();
       }
 
@@ -211,7 +211,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.ContainsId(id);
 
-      return this.Repository
+      return this.ReadonlyRepository
         .Get(func);
     }
 
@@ -219,7 +219,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsDefault;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .Get(func);
     }
 
@@ -227,7 +227,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsDefaultCommunications;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .Get(func);
     }
 
@@ -235,7 +235,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsAbsent;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -243,7 +243,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsCapture;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -251,7 +251,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsDisabled;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -259,7 +259,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsEnabled;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -267,7 +267,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsMuted;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -275,7 +275,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsPlayback;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -283,7 +283,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsPresent;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -291,7 +291,7 @@ namespace VACARM.Application.Services
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsUnmuted;
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
@@ -300,7 +300,7 @@ namespace VACARM.Application.Services
       var func = CoreAudioDeviceFunctions<TDevice>
         .ContainsIdEnumerable(idEnumerable);
 
-      return this.Repository
+      return this.ReadonlyRepository
         .GetRange(func);
     }
 
