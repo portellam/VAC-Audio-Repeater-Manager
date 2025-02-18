@@ -12,34 +12,28 @@ namespace VACARM.Infrastructure.Watchers
   {
     #region Parameters
 
-    /// <summary>
-    /// The default action.
-    /// </summary>
-    internal Action? AnyChanged { get; private set; } = null;
+    internal Action? DefaultAction { get; private set; } = null;
 
-    internal Action<string, DataFlow, Role>? OnDefaultDeviceChanged
+    internal Action<string, DataFlow, Role>? OnDefaultDeviceChangedAction
     { get; private set; } = null;
 
-    internal Action<string>? OnDeviceAdded { get; private set; } = null;
+    internal Action<string>? OnDeviceAddedAction { get; private set; } = null;
 
-    internal Action<string>? OnDeviceRemoved { get; private set; } = null;
+    internal Action<string>? OnDeviceRemovedAction { get; private set; } = null;
 
-    internal Action<string, DeviceState>? OnDeviceStateChanged
+    internal Action<string, DeviceState>? OnDeviceStateChangedAction
     { get; private set; } = null;
 
-    internal Action<string, PropertyKey>? OnPropertyValueChanged
+    internal Action<string, PropertyKey>? OnPropertyValueChangedAction
     { get; private set; } = null;
 
-    private bool HasDisposed;
+    private bool HasDisposed { get; set; }
 
-    /// <summary>
-    /// True/false use the default action.
-    /// </summary>
-    private bool UseDefaultBehavior
+    private bool UseDefaultAction
     {
       get
       {
-        return this.AnyChanged != null;
+        return this.DefaultAction != null;
       }
     }
 
@@ -73,7 +67,7 @@ namespace VACARM.Infrastructure.Watchers
     {
       this.MMDeviceEnumerator = new MMDeviceEnumerator();
       this.Register();
-      this.AnyChanged = anyChanged;
+      this.DefaultAction = anyChanged;
     }
 
     /// <summary>
@@ -95,10 +89,10 @@ namespace VACARM.Infrastructure.Watchers
     {
       this.MMDeviceEnumerator = new MMDeviceEnumerator();
       this.Register();
-      this.OnDefaultDeviceChanged = onDefaultDeviceChanged;
-      this.OnDeviceAdded = onDeviceAdded;
-      this.OnDeviceRemoved = onDeviceRemoved;
-      this.OnPropertyValueChanged = onPropertyValueChanged;
+      this.OnDefaultDeviceChangedAction = onDefaultDeviceChanged;
+      this.OnDeviceAddedAction = onDeviceAdded;
+      this.OnDeviceRemovedAction = onDeviceRemoved;
+      this.OnPropertyValueChangedAction = onPropertyValueChanged;
     }
 
     /// <summary>
@@ -180,15 +174,15 @@ namespace VACARM.Infrastructure.Watchers
       DeviceState deviceState
     )
     {
-      if (this.UseDefaultBehavior)
+      if (this.UseDefaultAction)
       {
-        this.AnyChanged
+        this.DefaultAction
           .Invoke();
 
         return;
       }
 
-      this.OnDeviceStateChanged
+      this.OnDeviceStateChangedAction
         .Invoke
         (
           id,
@@ -198,29 +192,29 @@ namespace VACARM.Infrastructure.Watchers
 
     void IMMNotificationClient.OnDeviceAdded(string id)
     {
-      if (this.UseDefaultBehavior)
+      if (this.UseDefaultAction)
       {
-        this.AnyChanged
+        this.DefaultAction
           .Invoke();
 
         return;
       }
 
-      this.OnDeviceAdded
+      this.OnDeviceAddedAction
         .Invoke(id);
     }
 
     void IMMNotificationClient.OnDeviceRemoved(string id)
     {
-      if (this.UseDefaultBehavior)
+      if (this.UseDefaultAction)
       {
-        this.AnyChanged
+        this.DefaultAction
           .Invoke();
 
         return;
       }
 
-      this.OnDeviceRemoved
+      this.OnDeviceRemovedAction
         .Invoke(id);
     }
 
@@ -231,15 +225,15 @@ namespace VACARM.Infrastructure.Watchers
       string id
     )
     {
-      if (this.UseDefaultBehavior)
+      if (this.UseDefaultAction)
       {
-        this.AnyChanged
+        this.DefaultAction
           .Invoke();
 
         return;
       }
 
-      this.OnDefaultDeviceChanged
+      this.OnDefaultDeviceChangedAction
         .Invoke
         (
           id,
@@ -254,15 +248,15 @@ namespace VACARM.Infrastructure.Watchers
       PropertyKey propertyKey
     )
     {
-      if (this.UseDefaultBehavior)
+      if (this.UseDefaultAction)
       {
-        this.AnyChanged
+        this.DefaultAction
           .Invoke();
 
         return;
       }
 
-      this.OnPropertyValueChanged
+      this.OnPropertyValueChangedAction
         .Invoke
         (
           id,
