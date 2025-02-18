@@ -10,22 +10,61 @@ using VACARM.Infrastructure.Functions;
 namespace VACARM.Application.Services
 {
   /// <summary>
-  /// The service of the <typeparamref name="DeviceRepository"/>.
+  /// The service to load and save different and/or previous configurations of 
+  /// system audio device(s). Manages <typeparamref name="CoreAudioService"/>
+  /// and <typeparamref name="MMDeviceService"/>.
   /// </summary>
   public partial class DeviceService<TRepository, TDeviceModel> :
     BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
     IDisposable,
-    IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where TRepository :
-    BaseRepository<TDeviceModel> where TDeviceModel :
+    IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where 
+    TRepository :
+    BaseRepository<DeviceModel> where TDeviceModel :
     DeviceModel
   {
     #region Parameters
+
+    internal readonly int SafeMaxRepositoryCount = 3;                                   // TODO: test, and change me!
+    internal uint SelectedId { get; set; } = uint.MinValue;
+
+    private ReadonlyRepository<TDeviceModel> repositoryRepository
+    { get; set; }
 
     private CoreAudioService<ReadonlyRepository<Device>, Device> coreAudioService
     { get; set; }
 
     private MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> mMDeviceService
     { get; set; }
+
+    private Func<BaseRepository<DeviceModel>, bool> IsSelectedId
+    {
+      get
+      {
+        return (BaseRepository<DeviceModel> x) => x. == this.SelectedId;
+      }
+    }
+
+    protected ReadonlyRepository<TDeviceModel> RepositoryRepository
+    {
+      get
+      {
+        return base.Repository;
+      }
+      private set
+      {
+        base.Repository = value;
+        this.OnPropertyChanged(nameof(RepositoryRepository));
+      }
+    }
+
+    protected new BaseRepository<DeviceModel> SelectedRepository
+    {
+      get
+      {
+        return this.RepositoryRepository
+          .Get(IsSelectedId);
+      }
+    }
 
     /// <summary>
     /// <typeparamref name="AudioSwitcher.AudioApi"/> must declare after
@@ -74,7 +113,15 @@ namespace VACARM.Application.Services
     public DeviceService() :
       base()
     {
-      this.Repository = new BaseRepository<TDeviceModel>();
+      Dictionary<int, BaseRepository<DeviceModel>> Dictionary =
+        new Dictionary<int, BaseRepository<DeviceModel>>();
+
+      Dictionary.Add(0, new BaseRepository<DeviceModel>());
+
+      this.RepositoryRepository = new ReadonlyRepository<TDeviceModel>
+        (
+          Dictionary
+        );
 
       this.MMDeviceService =
         new MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice>();
@@ -86,18 +133,18 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="repository">The repository</param>
+    /// <param name="repositoryRepository">The repository of repositories</param>
     /// <param name="mMDeviceService">The MMDevice service</param>
     /// <param name="coreAudioService">The Core Audio service</param>
     public DeviceService
     (
-      BaseRepository<TDeviceModel> repository,
+      BaseRepository<TDeviceModel> repositoryRepository,
       MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> mMDeviceService,
       CoreAudioService<ReadonlyRepository<Device>, Device> coreAudioService
     ) :
-      base(repository)
+      base(repositoryRepository)
     {
-      this.Repository = new BaseRepository<TDeviceModel>();
+      this.Repository = repositoryRepository;
       this.MMDeviceService = mMDeviceService;
       this.CoreAudioService = coreAudioService;
     }
@@ -124,155 +171,155 @@ namespace VACARM.Application.Services
       this.HasDisposed = true;
     }
 
-    public TDeviceModel? GetByActualId(string actualId)
+    public DeviceModel? GetByActualId(string actualId)
     {
-      var func = DeviceFunctions<TDeviceModel>.ContainsActualId(actualId);
+      var func = DeviceFunctions<DeviceModel>.ContainsActualId(actualId);
 
       return this.Repository
         .Get(func);
     }
 
-    public TDeviceModel? GetDefaultCommunications()
+    public DeviceModel? GetDefaultCommunications()
     {
       return this
         .GetAllCommunications()
         .FirstOrDefault(x => x.IsDefault);
     }
 
-    public TDeviceModel? GetDefaultConsole()
+    public DeviceModel? GetDefaultConsole()
     {
       return this
         .GetAllConsole()
         .FirstOrDefault(x => x.IsDefault);
     }
 
-    public TDeviceModel? GetDefaultMultimedia()
+    public DeviceModel? GetDefaultMultimedia()
     {
       return this
         .GetAllMultimedia()
         .FirstOrDefault(x => x.IsDefault);
     }
 
-    public IEnumerable<TDeviceModel> GetAllAbsent()
+    public IEnumerable<DeviceModel> GetAllAbsent()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsAbsent;
+      var func = DeviceFunctions<DeviceModel>.IsAbsent;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllAlphabetical()
+    public IEnumerable<DeviceModel> GetAllAlphabetical()
     {
       return this.Repository
         .GetAll()
         .OrderBy(x => x.Name);
     }
 
-    public IEnumerable<TDeviceModel> GetAllAlphabeticalDescending()
+    public IEnumerable<DeviceModel> GetAllAlphabeticalDescending()
     {
       return this.Repository
         .GetAll()
         .OrderByDescending(x => x.Name);
     }
 
-    public IEnumerable<TDeviceModel> GetAllCapture()
+    public IEnumerable<DeviceModel> GetAllCapture()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsCapture;
+      var func = DeviceFunctions<DeviceModel>.IsCapture;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllCommunications()
+    public IEnumerable<DeviceModel> GetAllCommunications()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsCommunications;
+      var func = DeviceFunctions<DeviceModel>.IsCommunications;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllConsole()
+    public IEnumerable<DeviceModel> GetAllConsole()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsConsole;
+      var func = DeviceFunctions<DeviceModel>.IsConsole;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllDefault()
+    public IEnumerable<DeviceModel> GetAllDefault()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsDefault;
+      var func = DeviceFunctions<DeviceModel>.IsDefault;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllDisabled()
+    public IEnumerable<DeviceModel> GetAllDisabled()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsDisabled;
+      var func = DeviceFunctions<DeviceModel>.IsDisabled;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllDuplex()
+    public IEnumerable<DeviceModel> GetAllDuplex()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsDuplex;
+      var func = DeviceFunctions<DeviceModel>.IsDuplex;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllEnabled()
+    public IEnumerable<DeviceModel> GetAllEnabled()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsEnabled;
+      var func = DeviceFunctions<DeviceModel>.IsEnabled;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllMultimedia()
+    public IEnumerable<DeviceModel> GetAllMultimedia()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsMultimedia;
+      var func = DeviceFunctions<DeviceModel>.IsMultimedia;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllMuted()
+    public IEnumerable<DeviceModel> GetAllMuted()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsMuted;
+      var func = DeviceFunctions<DeviceModel>.IsMuted;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllPresent()
+    public IEnumerable<DeviceModel> GetAllPresent()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsPresent;
+      var func = DeviceFunctions<DeviceModel>.IsPresent;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllRender()
+    public IEnumerable<DeviceModel> GetAllRender()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsRender;
+      var func = DeviceFunctions<DeviceModel>.IsRender;
 
       return this.Repository
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllUnmuted()
+    public IEnumerable<DeviceModel> GetAllUnmuted()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsUnmuted;
+      var func = DeviceFunctions<DeviceModel>.IsUnmuted;
 
       return this.Repository
         .GetRange(func);
     }
 
     /// <summary>
-    /// Start an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Start an enumerable of all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     public void Start(uint id)
     {
@@ -288,7 +335,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Start an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Start an enumerable of all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     public void StartAll()
     {
@@ -299,7 +346,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// Start an enumerable of some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -309,7 +356,7 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      var func = BaseFunctions<TDeviceModel>.ContainsIdRange
+      var func = BaseFunctions<DeviceModel>.ContainsIdRange
         (
           startId,
           endId
@@ -325,12 +372,12 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// Start an enumerable of some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     public void StartRange(IEnumerable<uint> idEnumerable)
     {
-      var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
+      var func = BaseFunctions<DeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       var enumerable = this.Repository
         .GetRange(func);
@@ -342,7 +389,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Stop an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Stop an enumerable of all <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     public void StopAll()
     {
@@ -351,7 +398,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Stop an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// Stop an enumerable of some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
@@ -361,7 +408,7 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      IEnumerable<TDeviceModel> enumerable = this
+      IEnumerable<DeviceModel> enumerable = this
         .Repository
         .GetRange
         (
@@ -377,13 +424,13 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Stop an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// Stop an enumerable of some <typeparamref name="DeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     public void StopRange
         (IEnumerable<uint> idEnumerable)
     {
-      IEnumerable<TDeviceModel> enumerable = this
+      IEnumerable<DeviceModel> enumerable = this
         .Repository
         .GetRange(idEnumerable);
 
@@ -395,7 +442,7 @@ namespace VACARM.Application.Services
     }
 
     /// <summary>
-    /// Update a <typeparamref name="TDeviceModel"/>.
+    /// Update a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     public void Update(uint id)
@@ -413,7 +460,7 @@ namespace VACARM.Application.Services
         .UpdateAll();
     }
 
-    public void UpdateRange(Func<TDeviceModel, bool> func)
+    public void UpdateRange(Func<DeviceModel, bool> func)
     {
       if (func == null)
       {
@@ -430,7 +477,7 @@ namespace VACARM.Application.Services
 
     public void UpdateRange(IEnumerable<uint> idEnumerable)
     {
-      var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
+      var func = BaseFunctions<DeviceModel>.ContainsIdEnumerable(idEnumerable);
       this.UpdateRange(func);
     }
 
@@ -440,7 +487,7 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      var func = BaseFunctions<TDeviceModel>.ContainsIdRange
+      var func = BaseFunctions<DeviceModel>.ContainsIdRange
         (
           startId,
           endId
