@@ -25,11 +25,11 @@ namespace VACARM.Application.Services
     IDisposable,
     IDeviceService
     <
-      BaseRepository<DeviceModel>, 
+      BaseRepository<DeviceModel>,
       DeviceModel
-    > where
-    TRepository :
-    BaseRepository<DeviceModel> where TDeviceModel :
+    > where TRepository :
+    BaseRepository<DeviceModel>
+    where TDeviceModel :
     DeviceModel
   {
     #region Parameters

@@ -7,7 +7,8 @@ namespace VACARM.Infrastructure.Repositories
 {
   public class ReadonlyRepository<TItem> :
     IDisposable,
-    IReadonlyRepository<TItem> where TItem :
+    IReadonlyRepository<TItem>
+    where TItem :
     class
   {
     #region Parameters

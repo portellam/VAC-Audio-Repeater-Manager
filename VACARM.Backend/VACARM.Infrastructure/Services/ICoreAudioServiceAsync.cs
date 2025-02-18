@@ -2,7 +2,11 @@
 
 namespace VACARM.Application.Services
 {
-  public partial interface ICoreAudioService<TRepository, TDevice>
+  public partial interface ICoreAudioService
+    <
+      TRepository,
+      TDevice
+    >
   {
     #region Logic
 

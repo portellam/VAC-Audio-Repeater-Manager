@@ -2,7 +2,8 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class DeviceFunctions<TDeviceModel> where TDeviceModel :
+  internal static class DeviceFunctions<TDeviceModel> 
+    where TDeviceModel :
     DeviceModel
   {
     #region Parameters

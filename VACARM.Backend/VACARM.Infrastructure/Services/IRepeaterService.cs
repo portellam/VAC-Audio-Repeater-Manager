@@ -3,9 +3,14 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial interface IRepeaterService<TRepository, TRepeaterModel> where
-    TRepository :
-    BaseRepository<TRepeaterModel> where TRepeaterModel :
+  public partial interface IRepeaterService
+    <
+      TRepository,
+      TRepeaterModel
+    >
+    where TRepository :
+    BaseRepository<TRepeaterModel>
+    where TRepeaterModel :
     RepeaterModel
   {
     #region Parameters

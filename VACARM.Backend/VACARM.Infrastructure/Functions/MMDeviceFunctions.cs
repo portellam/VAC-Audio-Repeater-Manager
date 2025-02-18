@@ -2,7 +2,8 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class MMDeviceFunctions<TMMDevice> where TMMDevice : 
+  internal static class MMDeviceFunctions<TMMDevice>
+    where TMMDevice : 
     MMDevice
   {
     #region Parameters

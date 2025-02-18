@@ -4,9 +4,14 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial interface ICoreAudioService<TRepository, TDevice> where
-    TRepository :
-    ReadonlyRepository<TDevice> where TDevice :
+  public partial interface ICoreAudioService
+    <
+      TRepository,
+      TDevice
+    >
+    where TRepository :
+    ReadonlyRepository<TDevice>
+    where TDevice :
     Device
   {
     #region Logic

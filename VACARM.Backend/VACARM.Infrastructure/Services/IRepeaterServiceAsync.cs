@@ -1,6 +1,10 @@
 ﻿namespace VACARM.Application.Services
 {
-  public partial interface IRepeaterService<TRepository, TRepeaterModel>
+  public partial interface IRepeaterService
+    <
+      TRepository, 
+      TRepeaterModel
+    >
   {
     #region Logic
 

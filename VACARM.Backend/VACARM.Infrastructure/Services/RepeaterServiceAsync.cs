@@ -5,7 +5,11 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class RepeaterService<TRepository, TRepeaterModel>
+  public partial class RepeaterService
+    <
+      TRepository, 
+      TRepeaterModel
+    >
   {
     #region Logic
 

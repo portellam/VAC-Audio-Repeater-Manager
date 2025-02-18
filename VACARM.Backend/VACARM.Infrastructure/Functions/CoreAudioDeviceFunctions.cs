@@ -2,7 +2,8 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class CoreAudioDeviceFunctions<TDevice> where TDevice :
+  internal static class CoreAudioDeviceFunctions<TDevice>
+    where TDevice :
     Device
   {
     #region Parameters

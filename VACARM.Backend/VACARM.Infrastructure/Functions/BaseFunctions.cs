@@ -2,7 +2,8 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class BaseFunctions<TBaseModel> where TBaseModel :
+  internal static class BaseFunctions<TBaseModel> 
+    where TBaseModel :
     BaseModel
   {
     /// <summary>

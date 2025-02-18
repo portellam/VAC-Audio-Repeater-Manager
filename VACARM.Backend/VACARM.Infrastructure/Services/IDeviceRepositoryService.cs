@@ -8,13 +8,16 @@ namespace VACARM.Application.Services
       TService,
       TRepository,
       TDeviceModel
-    > where TService :
+    >
+    where TService :
     DeviceService
     <
       BaseRepository<DeviceModel>,
       DeviceModel
-    > where TRepository :
-    BaseRepository<TDeviceModel> where TDeviceModel :
+    >
+    where TRepository :
+    BaseRepository<TDeviceModel>
+    where TDeviceModel :
     DeviceModel
   {
   }

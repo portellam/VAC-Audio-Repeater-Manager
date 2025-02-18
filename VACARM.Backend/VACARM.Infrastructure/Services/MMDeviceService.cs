@@ -10,11 +10,25 @@ namespace VACARM.Application.Services
   /// <summary>
   /// The service to retrieve current and/or updated system audio device(s).
   /// </summary>
-  public class MMDeviceService<TRepository, TMMDevice> :
-    ReadonlyService<ReadonlyRepository<TMMDevice>, TMMDevice>,
+  public class MMDeviceService
+    <
+      TRepository,
+      TMMDevice
+    > :
+    ReadonlyService
+    <
+      ReadonlyRepository<TMMDevice>,
+      TMMDevice
+    >,
     IDisposable,
-    IMMDeviceService<TRepository, TMMDevice> where TRepository :
-    ReadonlyRepository<MMDevice> where TMMDevice :
+    IMMDeviceService
+    <
+      TRepository,
+      TMMDevice
+    >
+    where TRepository :
+    ReadonlyRepository<MMDevice>
+    where TMMDevice :
     MMDevice
   {
     #region Parameters

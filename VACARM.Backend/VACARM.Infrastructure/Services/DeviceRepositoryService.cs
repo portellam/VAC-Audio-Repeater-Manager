@@ -21,7 +21,8 @@ namespace VACARM.Application.Services
       TService,
       TRepository,
       TDeviceModel
-    > where TService :
+    >
+    where TService :
     DeviceService
     <
       BaseRepository<DeviceModel>,
@@ -37,9 +38,10 @@ namespace VACARM.Application.Services
       >,
       BaseRepository<DeviceModel>,
       DeviceModel
-    > where
-    TRepository :
-    BaseRepository<DeviceModel> where TDeviceModel :
+    >
+    where TRepository :
+    BaseRepository<DeviceModel>
+    where TDeviceModel :
     DeviceModel
   {
     #region Parameters

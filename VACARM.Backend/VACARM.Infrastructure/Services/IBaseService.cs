@@ -3,8 +3,14 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public interface IBaseService<TRepository, TBaseModel> where TRepository :
-    BaseRepository<TBaseModel> where TBaseModel :
+  public interface IBaseService
+    <
+      TRepository, 
+      TBaseModel
+    > 
+    where TRepository :
+    BaseRepository<TBaseModel> 
+    where TBaseModel :
     BaseModel
   {
     #region Logic

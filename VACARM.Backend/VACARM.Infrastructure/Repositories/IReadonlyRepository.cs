@@ -2,7 +2,8 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public interface IReadonlyRepository<TItem> where TItem :
+  public interface IReadonlyRepository<TItem>
+    where TItem :
     class
   {
     #region Parameters

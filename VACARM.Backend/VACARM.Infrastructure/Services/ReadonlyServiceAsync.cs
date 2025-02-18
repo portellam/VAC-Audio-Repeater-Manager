@@ -2,7 +2,11 @@
 
 namespace VACARM.Application.Services
 {
-  public partial class ReadonlyService<TRepository, TItem>
+  public partial class ReadonlyService
+    <
+      TRepository, 
+      TItem
+    >
   {
     #region Logic
 

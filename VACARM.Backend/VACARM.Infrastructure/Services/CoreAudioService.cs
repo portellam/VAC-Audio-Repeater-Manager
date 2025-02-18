@@ -11,11 +11,25 @@ namespace VACARM.Application.Services
   /// The service to update system audio device(s).
   /// Extended functionality over <typeparamref name="MMDeviceService"/>.
   /// </summary>
-  public partial class CoreAudioService<TRepository, TDevice> :
-    ReadonlyService<ReadonlyRepository<TDevice>, TDevice>,
+  public partial class CoreAudioService
+    <
+      TRepository,
+      TDevice
+    > :
+    ReadonlyService
+    <
+      ReadonlyRepository<TDevice>,
+      TDevice
+    >,
     IDisposable,
-    ICoreAudioService<ReadonlyRepository<TDevice>, TDevice> where TRepository :
-    ReadonlyRepository<TDevice> where TDevice :
+    ICoreAudioService
+    <
+      ReadonlyRepository<TDevice>,
+      TDevice
+    >
+    where TRepository :
+    ReadonlyRepository<TDevice>
+    where TDevice :
     Device
   {
     #region Parameters

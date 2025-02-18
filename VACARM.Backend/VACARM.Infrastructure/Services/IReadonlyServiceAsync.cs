@@ -1,6 +1,10 @@
 ﻿namespace VACARM.Application.Services
 {
-  public partial interface IReadonlyService<TRepository, TItem>
+  public partial interface IReadonlyService
+    <
+      TRepository, 
+      TItem
+    >
   {
     #region Logic
 

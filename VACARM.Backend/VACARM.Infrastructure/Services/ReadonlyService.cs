@@ -9,10 +9,20 @@ namespace VACARM.Application.Services
   /// <summary>
   /// The readonly service for <typeparamref name="TRepository"/>.
   /// </summary>
-  public partial class ReadonlyService<TRepository, TItem> :
+  public partial class ReadonlyService
+    <
+      TRepository,
+      TItem
+    > :
     IDisposable,
-    IReadonlyService<TRepository, TItem> where TRepository :
-    ReadonlyRepository<TItem> where TItem :
+    IReadonlyService
+    <
+      TRepository,
+      TItem
+    >
+    where TRepository :
+    ReadonlyRepository<TItem>
+    where TItem :
     class
   {
     #region Parameters

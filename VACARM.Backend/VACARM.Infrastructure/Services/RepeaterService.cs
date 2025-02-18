@@ -8,14 +8,26 @@ namespace VACARM.Application.Services
   /// <summary>
   /// The service to load and save different and/or previous configurations of 
   /// audio repeater(s).
-  /// Manages <typeparamref name="DeviceService"/>.
   /// </summary>
-  public partial class RepeaterService<TRepository, TRepeaterModel> :
-    BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>,
+  public partial class RepeaterService
+    <
+      TRepository,
+      TRepeaterModel
+    > :
+    BaseService
+    <
+      BaseRepository<TRepeaterModel>,
+      TRepeaterModel
+    >,
     IDisposable,
-    IRepeaterService<BaseRepository<TRepeaterModel>, TRepeaterModel>
+    IRepeaterService
+    <
+      BaseRepository<TRepeaterModel>,
+      TRepeaterModel
+    >
     where TRepository :
-    BaseRepository<TRepeaterModel> where TRepeaterModel :
+    BaseRepository<TRepeaterModel>
+    where TRepeaterModel :
     RepeaterModel
   {
     #region Parameters

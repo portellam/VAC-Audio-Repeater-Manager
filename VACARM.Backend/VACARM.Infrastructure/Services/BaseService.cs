@@ -5,16 +5,30 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public class BaseService<TRepository, TBaseModel> :
-    ReadonlyService<BaseRepository<TBaseModel>, TBaseModel>,
-    IBaseService<BaseRepository<TBaseModel>, TBaseModel> where TRepository :
-    BaseRepository<TBaseModel> where TBaseModel :
+  public class BaseService
+    <
+      TRepository,
+      TBaseModel
+    > :
+    ReadonlyService
+    <
+      BaseRepository<TBaseModel>,
+      TBaseModel
+    >,
+    IBaseService
+    <
+      BaseRepository<TBaseModel>,
+      TBaseModel
+    >
+    where TRepository :
+    BaseRepository<TBaseModel>
+    where TBaseModel :
     BaseModel
   {
     #region Parameters
 
     public BaseRepository<TBaseModel> BaseRepository
-    { 
+    {
       get
       {
         return (BaseRepository<TBaseModel>)this.Repository;
@@ -54,7 +68,7 @@ namespace VACARM.Application.Services
     public bool Remove(uint id)
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
-      
+
       return this.BaseRepository
         .Remove(func);
     }
@@ -70,7 +84,7 @@ namespace VACARM.Application.Services
     public IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable)
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-      
+
       return this.BaseRepository
         .RemoveRange(func);
     }

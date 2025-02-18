@@ -3,8 +3,13 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial interface IReadonlyService<TRepository, TItem> where TRepository :
-    ReadonlyRepository<TItem> where TItem :
+  public partial interface IReadonlyService
+    <
+      TRepository, 
+      TItem
+    > where TRepository :
+    ReadonlyRepository<TItem> 
+    where TItem :
     class
   {
     #region Parameters

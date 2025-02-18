@@ -3,8 +3,14 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public interface IMMDeviceService<TRepository, TMMDevice> where TRepository :
-    ReadonlyRepository<MMDevice> where TMMDevice :
+  public interface IMMDeviceService
+    <
+      TRepository,
+      TMMDevice
+    >
+    where TRepository :
+    ReadonlyRepository<MMDevice>
+    where TMMDevice :
     MMDevice
   {
     #region Logic
