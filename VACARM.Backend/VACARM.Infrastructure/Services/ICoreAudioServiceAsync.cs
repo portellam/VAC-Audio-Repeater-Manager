@@ -10,42 +10,42 @@ namespace VACARM.Application.Services
     /// Is the <typeparamref name="TDevice"/> the default.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> IsDefaultAsync(string id);
 
     /// <summary>
     /// Is the <typeparamref name="TDevice"/> the default for communications.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> IsDefaultCommunicationsAsync(string id);
 
     /// <summary>
     /// Is the <typeparamref name="TDevice"/> muted.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> IsMutedAsync(string id);
 
     /// <summary>
     /// Mute the <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> MuteAsync(string id);
 
     /// <summary>
     /// Set the <typeparamref name="TDevice"/> as default.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> SetAsDefaultAsync(string id);
 
     /// <summary>
     /// Set the <typeparamref name="TDevice"/> as default for communications.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> SetAsDefaultCommunicationsAsync(string id);
 
     /// <summary>
@@ -53,7 +53,7 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="volume">The audio volume</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> SetVolumeAsync
     (
       string id,
@@ -64,14 +64,14 @@ namespace VACARM.Application.Services
     /// Unmute the <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> UnmuteAsync(string id);
 
     /// <summary>
     /// Update the enumerable of all <typeparamref name="TDevice"/>
     /// items.
     /// </summary>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     Task<bool> UpdateServiceAsync();
 
     /// <summary>

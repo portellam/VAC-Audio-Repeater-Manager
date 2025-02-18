@@ -16,14 +16,14 @@ namespace VACARM.Application.Services
     /// Is an absent <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsAbsent(string id);
 
     /// <summary>
     /// Is a capture <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
 
     bool IsCapture(string id);
 
@@ -31,63 +31,63 @@ namespace VACARM.Application.Services
     /// Is a default <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsDefault(string id);
 
     /// <summary>
     /// Is a default communications<typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsDefaultCommunications(string id);
 
     /// <summary>
     /// Is a disabled <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsDisabled(string id);
 
     /// <summary>
     /// Is a duplex <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsDuplex(string id);
 
     /// <summary>
     /// Is a enabled <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsEnabled(string id);
 
     /// <summary>
     /// Is a muted <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsMuted(string id);
 
     /// <summary>
     /// Is a playback <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsPlayback(string id);
 
     /// <summary>
     /// Is a present <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsPresent(string id);
 
     /// <summary>
     /// Is an unmuted <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>The true/false result.</returns>
+    /// <returns>True/false result.</returns>
     bool IsUnmuted(string id);
 
     /// <summary>
