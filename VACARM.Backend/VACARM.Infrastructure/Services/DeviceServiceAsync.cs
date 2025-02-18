@@ -3,20 +3,9 @@ using NAudio.CoreAudioApi;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
-/*
- * TODO:
- * - use DoWork and DoWorkAsync methods (this, range, all) to avoid repetitive code?
- * 
- */
-
 namespace VACARM.Application.Services
 {
-  public partial class DeviceService<TRepository, TDeviceModel> :
-    BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
-    IDisposable,
-    IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where TRepository :
-    BaseRepository<TDeviceModel> where TDeviceModel :
-    DeviceModel
+  public partial class DeviceService<TRepository, TDeviceModel>
   {
     #region Logic
 
@@ -29,7 +18,7 @@ namespace VACARM.Application.Services
       if (this.MMDeviceService == null)
       {
         this.MMDeviceService =
-          new MMDeviceService<MMDeviceRepository<MMDevice>, MMDevice>();
+          new MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice>();
       }
 
       else
@@ -42,7 +31,7 @@ namespace VACARM.Application.Services
       if (this.CoreAudioService == null)
       {
         this.CoreAudioService =
-          new CoreAudioService<CoreAudioRepository<Device>, Device>();
+          new CoreAudioService<ReadonlyRepository<Device>, Device>();
 
         return true;
       }
@@ -83,7 +72,7 @@ namespace VACARM.Application.Services
         .ToString();
 
       return this
-        ._Repository
+        .Repository
         .GetByActualId(actualId);
     }
 
@@ -117,7 +106,7 @@ namespace VACARM.Application.Services
         .ToString();
 
       return this
-        ._Repository
+        .Repository
         .GetByActualId(actualId);
     }
 
@@ -151,7 +140,7 @@ namespace VACARM.Application.Services
         .ToString();
 
       return this
-        ._Repository
+        .Repository
         .GetByActualId(actualId);
     }
 
@@ -163,7 +152,7 @@ namespace VACARM.Application.Services
     public async Task<bool> MuteAsync(uint id)
     {
       TDeviceModel? model = this
-        ._Repository
+        .Repository
         .Get(id);
 
       return await this
@@ -179,7 +168,7 @@ namespace VACARM.Application.Services
     public async IAsyncEnumerable<bool> MuteAllAsync()
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetAll();
 
       foreach (var item in enumerable)
@@ -200,7 +189,7 @@ namespace VACARM.Application.Services
     (IEnumerable<uint> idEnumerable)
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetRange(idEnumerable);
 
       foreach (var item in enumerable)
@@ -225,7 +214,7 @@ namespace VACARM.Application.Services
     )
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetRange
         (
           startId,
@@ -249,7 +238,7 @@ namespace VACARM.Application.Services
     public async Task<bool> SetAsDefaultAsync(uint id)
     {
       TDeviceModel? model = this
-        ._Repository
+        .Repository
         .Get(id);
 
       return await this
@@ -267,7 +256,7 @@ namespace VACARM.Application.Services
     public async Task<bool> SetAsDefaultCommunicationsAsync(uint id)
     {
       TDeviceModel? model = this
-        ._Repository
+        .Repository
         .Get(id);
 
       return await this
@@ -289,7 +278,7 @@ namespace VACARM.Application.Services
     )
     {
       TDeviceModel? model = this
-        ._Repository
+        .Repository
         .Get(id);
 
       return await this
@@ -309,7 +298,7 @@ namespace VACARM.Application.Services
     public async IAsyncEnumerable<bool> StartAllAsync()
     {
       IEnumerable<TDeviceModel> enumerable = this
-         ._Repository
+         .Repository
          .GetAll();
 
       foreach (var item in enumerable)
@@ -334,7 +323,7 @@ namespace VACARM.Application.Services
     )
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetRange
         (
           startId,
@@ -359,7 +348,7 @@ namespace VACARM.Application.Services
     (IEnumerable<uint> idEnumerable)
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetRange(idEnumerable);
 
       foreach (var item in enumerable)
@@ -378,7 +367,7 @@ namespace VACARM.Application.Services
     public void Stop(uint id)
     {
       TDeviceModel? model = this
-        ._Repository
+        .Repository
         .Get(id);
 
       this.MMDeviceService
@@ -391,7 +380,7 @@ namespace VACARM.Application.Services
     public void StopAll()
     {
       IEnumerable<TDeviceModel> enumerable = this
-         ._Repository
+         .Repository
          .GetAll();
 
       foreach (var item in enumerable)
@@ -411,7 +400,7 @@ namespace VACARM.Application.Services
     public async Task<bool> UnmuteAsync(uint id)
     {
       TDeviceModel? model = this
-        ._Repository
+        .Repository
         .Get(id);
 
       return await this
@@ -427,7 +416,7 @@ namespace VACARM.Application.Services
     public async IAsyncEnumerable<bool> UnmuteAllAsync()
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetAll();
 
       foreach (var item in enumerable)
@@ -448,7 +437,7 @@ namespace VACARM.Application.Services
     (IEnumerable<uint> idEnumerable)
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetRange(idEnumerable);
 
       foreach (var item in enumerable)
@@ -473,7 +462,7 @@ namespace VACARM.Application.Services
     )
     {
       IEnumerable<TDeviceModel> enumerable = this
-        ._Repository
+        .Repository
         .GetRange
         (
           startId,
