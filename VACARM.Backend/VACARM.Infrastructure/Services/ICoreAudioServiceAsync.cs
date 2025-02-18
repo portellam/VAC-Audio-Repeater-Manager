@@ -1,13 +1,8 @@
-﻿using AudioSwitcher.AudioApi;
-using AudioSwitcher.AudioApi.CoreAudio;
-using VACARM.Infrastructure.Repositories;
+﻿using AudioSwitcher.AudioApi.CoreAudio;
 
 namespace VACARM.Application.Services
 {
-  public partial interface ICoreAudioService<TRepository, TDevice> where
-    TRepository :
-    ReadonlyRepository<TDevice> where TDevice :
-    Device
+  public partial interface ICoreAudioService<TRepository, TDevice>
   {
     #region Logic
 

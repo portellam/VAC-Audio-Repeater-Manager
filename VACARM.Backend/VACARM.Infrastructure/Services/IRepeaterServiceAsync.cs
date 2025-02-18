@@ -1,12 +1,6 @@
-﻿using VACARM.Domain.Models;
-using VACARM.Infrastructure.Repositories;
-
-namespace VACARM.Application.Services
+﻿namespace VACARM.Application.Services
 {
-  public partial interface IRepeaterService<TRepository, TRepeaterModel> where
-    TRepository :
-    BaseRepository<TRepeaterModel> where TRepeaterModel :
-    RepeaterModel
+  public partial interface IRepeaterService<TRepository, TRepeaterModel>
   {
     #region Logic
 

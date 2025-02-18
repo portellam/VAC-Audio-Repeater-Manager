@@ -1,10 +1,6 @@
-﻿using VACARM.Infrastructure.Repositories;
-
-namespace VACARM.Application.Services
+﻿namespace VACARM.Application.Services
 {
-  public partial interface IReadonlyService<TRepository, TItem> where TRepository :
-    ReadonlyRepository<TItem> where TItem :
-    class
+  public partial interface IReadonlyService<TRepository, TItem>
   {
     #region Logic
 

@@ -6,12 +6,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class CoreAudioService<TRepository, TDevice> :
-    ReadonlyService<ReadonlyRepository<TDevice>, TDevice>,
-    IDisposable,
-    ICoreAudioService<ReadonlyRepository<TDevice>, TDevice> where TRepository :
-    ReadonlyRepository<TDevice> where TDevice :
-    Device
+  public partial class CoreAudioService<TRepository, TDevice>
   {
     #region Logic
 
