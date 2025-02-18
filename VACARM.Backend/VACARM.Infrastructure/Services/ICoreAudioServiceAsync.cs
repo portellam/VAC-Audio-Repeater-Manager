@@ -77,7 +77,7 @@ namespace VACARM.Application.Services
     /// items.
     /// </summary>
     /// <returns>The true/false result.</returns>
-    Task<bool> UpdateAllAsync();
+    Task<bool> UpdateServiceAsync();
 
     /// <summary>
     /// Get the <typeparamref name="TDevice"/>.

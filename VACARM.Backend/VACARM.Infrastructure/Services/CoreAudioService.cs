@@ -11,10 +11,10 @@ namespace VACARM.Application.Services
   /// A service for the <typeparamref name="CoreAudioRepository"/>.
   /// </summary>
   public partial class CoreAudioService<TRepository, TDevice> :
-    Service<CoreAudioRepository<TDevice>, TDevice>,
-    ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
-    CoreAudioRepository<TDevice> where TDevice :
-    Device 
+    ReadonlyService<ReadonlyRepository<TDevice>, TDevice>,
+    ICoreAudioService<ReadonlyRepository<TDevice>, TDevice> where TRepository :
+    ReadonlyRepository<TDevice> where TDevice :
+    Device
   {
     #region Parameters
 
@@ -83,91 +83,190 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public CoreAudioService() : 
+    public CoreAudioService() :
       base()
     {
       Controller = new CoreAudioController();
 
-      this.Repository = new CoreAudioRepository<TDevice>
-        (new ObservableCollection<TDevice>()) as Repository<TDevice>;
+      this.Repository = new ReadonlyRepository<TDevice>
+        (new ObservableCollection<TDevice>()) as ReadonlyRepository<TDevice>;
 
-      var result = this.UpdateAllAsync();
+      var result = this.UpdateServiceAsync();
+    }
+
+    public bool IsAbsent(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsAbsent(item);
+    }
+
+    public bool IsCapture(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsCapture(item);
     }
 
     public bool IsDefault(string id)
     {
-      Device? device = this.Repository
-        .Get(id);
-
-      if (device == null)
-      {
-        return false;
-      }
-
-      return device.IsDefaultDevice;
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsDefault(item);
     }
 
     public bool IsDefaultCommunications(string id)
     {
-      Device? device = this.Repository
-        .Get(id);
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsDefaultCommunications(item);
+    }
 
-      if (device == null)
-      {
-        return false;
-      }
+    public bool IsDisabled(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsDisabled(item);
+    }
 
-      return device.IsDefaultCommunicationsDevice;
+    public bool IsDuplex(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsDuplex(item);
+    }
+
+    public bool IsEnabled(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsEnabled(item);
     }
 
     public bool IsMuted(string id)
     {
-      Device? device = this.Repository
-        .Get(id);
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsMuted(item);
+    }
 
-      if (device == null)
-      {
-        return false;
-      }
+    public bool IsPlayback(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsPlayback(item);
+    }
 
-      return device.IsMuted;
+    public bool IsPresent(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsPresent(item);
+    }
+
+    public bool IsUnmuted(string id)
+    {
+      var item = this.Get(id);
+      return CoreAudioDeviceFunctions<TDevice>.IsUnmuted(item);
     }
 
     public double GetVolume(string id)
     {
-      TDevice? device = this.Repository
-        .Get(id);
+      var item = this.Get(id);
 
-      if (device == null)
+      if (item == null)
       {
         return double.NaN;
       }
 
-      return device.Volume;
+      return item.Volume;
+    }
+
+    public TDevice? Get(string id)
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.ContainsId(id);
+
+      return this.Repository
+        .Get(func);
     }
 
     public TDevice? GetDefault()
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsDefault;
-      return this.Repository.Get(func);
+
+      return this.Repository
+        .Get(func);
     }
 
     public TDevice? GetDefaultCommunications()
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsDefaultCommunications;
-      return this.Repository.Get(func);
+
+      return this.Repository
+        .Get(func);
+    }
+
+    public IEnumerable<TDevice> GetAllAbsent()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsAbsent;
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TDevice> GetAllCapture()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsCapture;
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TDevice> GetAllDisabled()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsDisabled;
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TDevice> GetAllEnabled()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsEnabled;
+
+      return this.Repository
+        .GetRange(func);
     }
 
     public IEnumerable<TDevice> GetAllMuted()
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsMuted;
-      return this.Repository.GetRange(func);
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TDevice> GetAllPlayback()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsPlayback;
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TDevice> GetAllPresent()
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>.IsPresent;
+
+      return this.Repository
+        .GetRange(func);
     }
 
     public IEnumerable<TDevice> GetAllUnmuted()
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsUnmuted;
-      return this.Repository.GetRange(func);
+
+      return this.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TDevice> GetRange(IEnumerable<string> idEnumerable)
+    {
+      var func = CoreAudioDeviceFunctions<TDevice>
+        .ContainsIdEnumerable(idEnumerable);
+
+      return this.Repository
+        .GetRange(func);
     }
 
     #endregion

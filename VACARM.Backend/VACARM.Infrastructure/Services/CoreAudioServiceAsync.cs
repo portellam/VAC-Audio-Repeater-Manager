@@ -7,9 +7,9 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   public partial class CoreAudioService<TRepository, TDevice> :
-    Service<CoreAudioRepository<TDevice>, TDevice>,
-    ICoreAudioService<CoreAudioRepository<TDevice>, TDevice> where TRepository :
-    CoreAudioRepository<TDevice> where TDevice :
+    ReadonlyService<ReadonlyRepository<TDevice>, TDevice>,
+    ICoreAudioService<ReadonlyRepository<TDevice>, TDevice> where TRepository :
+    ReadonlyRepository<TDevice> where TDevice :
     Device
   {
     #region Logic
@@ -38,7 +38,8 @@ namespace VACARM.Application.Services
 
     public async Task<bool> IsDefaultAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
 
       if (item == null)
       {
@@ -50,7 +51,8 @@ namespace VACARM.Application.Services
 
     public async Task<bool> IsDefaultCommunicationsAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
 
       if (item == null)
       {
@@ -62,7 +64,8 @@ namespace VACARM.Application.Services
 
     public async Task<bool> IsMutedAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
 
       if (item == null)
       {
@@ -74,20 +77,29 @@ namespace VACARM.Application.Services
 
     public async Task<bool> MuteAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
-      return await CoreAudioCommands.DoMuteAsync(item);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
+
+      return await CoreAudioCommands.DoMuteAsync(item)
+        .ConfigureAwait(false);
     }
 
     public async Task<bool> SetAsDefaultAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
-      return await CoreAudioCommands.SetAsDefaultAsync(item);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
+
+      return await CoreAudioCommands.SetAsDefaultAsync(item)
+        .ConfigureAwait(false);
     }
 
     public async Task<bool> SetAsDefaultCommunicationsAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
-      return await CoreAudioCommands.SetAsDefaultCommunicationsAsync(item);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
+
+      return await CoreAudioCommands.SetAsDefaultCommunicationsAsync(item)
+        .ConfigureAwait(false);
     }
 
     public async Task<bool> SetVolumeAsync
@@ -96,7 +108,8 @@ namespace VACARM.Application.Services
       double? volume
     )
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
 
       return CoreAudioCommands.SetVolume
         (
@@ -107,11 +120,14 @@ namespace VACARM.Application.Services
 
     public async Task<bool> UnmuteAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
-      return await CoreAudioCommands.DoUnmuteAsync(item);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
+
+      return await CoreAudioCommands.DoUnmuteAsync(item)
+        .ConfigureAwait(false);
     }
 
-    public async Task<bool> UpdateAllAsync()
+    public async Task<bool> UpdateServiceAsync()
     {
       var coreAudioDeviceEnumerable = await this
         .Controller
@@ -131,8 +147,7 @@ namespace VACARM.Application.Services
         collection.Append(item as TDevice);
       }
 
-      this.Repository = new CoreAudioRepository<TDevice>(collection)
-        as Repository<TDevice>;
+      this.Repository = new ReadonlyRepository<TDevice>(collection);
 
       return false;
     }
@@ -144,7 +159,7 @@ namespace VACARM.Application.Services
         return null;
       }
 
-      Guid guid = ToGuid(id);
+      var guid = ToGuid(id);
 
       return await this
         .Controller
@@ -158,7 +173,7 @@ namespace VACARM.Application.Services
       bool isOutput
     )
     {
-      DeviceType deviceType = GetDeviceType
+      var deviceType = GetDeviceType
         (
           isInput,
           isOutput
@@ -168,7 +183,7 @@ namespace VACARM.Application.Services
         (
           Role.Communications,
           deviceType
-        );
+        ).ConfigureAwait(false);
     }
 
     public async Task<CoreAudioDevice?> GetDefaultConsoleAsync
@@ -177,7 +192,7 @@ namespace VACARM.Application.Services
       bool isOutput
     )
     {
-      DeviceType deviceType = GetDeviceType
+      var deviceType = GetDeviceType
         (
           isInput,
           isOutput
@@ -187,7 +202,7 @@ namespace VACARM.Application.Services
         (
           Role.Console,
           deviceType
-        );
+        ).ConfigureAwait(false);
     }
 
     public async Task<CoreAudioDevice?> GetDefaultMultimediaAsync
@@ -196,7 +211,7 @@ namespace VACARM.Application.Services
       bool isOutput
     )
     {
-      DeviceType deviceType = GetDeviceType
+      var deviceType = GetDeviceType
         (
           isInput,
           isOutput
@@ -206,13 +221,14 @@ namespace VACARM.Application.Services
         (
           Role.Multimedia,
           deviceType
-        );
+        ).ConfigureAwait(false);
     }
 
 
     public async Task<double> GetVolumeAsync(string id)
     {
-      CoreAudioDevice? item = await this.GetAsync(id);
+      var item = await this.GetAsync(id)
+        .ConfigureAwait(false);
 
       if (item == null)
       {
