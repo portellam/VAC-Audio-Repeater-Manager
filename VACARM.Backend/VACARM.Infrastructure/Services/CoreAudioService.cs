@@ -8,10 +8,11 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Application.Services
 {
   /// <summary>
-  /// A service for the <typeparamref name="CoreAudioRepository"/>.
+  /// The service to update system audio devices.
   /// </summary>
   public partial class CoreAudioService<TRepository, TDevice> :
     ReadonlyService<ReadonlyRepository<TDevice>, TDevice>,
+    IDisposable,
     ICoreAudioService<ReadonlyRepository<TDevice>, TDevice> where TRepository :
     ReadonlyRepository<TDevice> where TDevice :
     Device
@@ -30,7 +31,7 @@ namespace VACARM.Application.Services
       set
       {
         this.controller = value;
-        base.OnPropertyChanged(nameof(Controller));
+        this.OnPropertyChanged(nameof(Controller));
       }
     }
 
@@ -92,6 +93,25 @@ namespace VACARM.Application.Services
         (new ObservableCollection<TDevice>()) as ReadonlyRepository<TDevice>;
 
       var result = this.UpdateServiceAsync();
+    }
+
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        this.Controller
+          .Dispose();
+
+        this.Repository
+          .Dispose();
+      }
+
+      this.HasDisposed = true;
     }
 
     public bool IsAbsent(string id)

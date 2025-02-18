@@ -13,6 +13,7 @@ namespace VACARM.Application.Services
 {
   public partial class DeviceService<TRepository, TDeviceModel> :
     BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
+    IDisposable,
     IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where TRepository :
     BaseRepository<TDeviceModel> where TDeviceModel :
     DeviceModel

@@ -7,6 +7,7 @@ namespace VACARM.Application.Services
 {
   public partial class RepeaterService<TRepository, TRepeaterModel> :
     BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>,
+    IDisposable,
     IRepeaterService<BaseRepository<TRepeaterModel>, TRepeaterModel>
     where TRepository :
     BaseRepository<TRepeaterModel> where TRepeaterModel :
@@ -58,7 +59,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.deviceService = value;
-        base.OnPropertyChanged(nameof(DeviceService));
+        this.OnPropertyChanged(nameof(DeviceService));
       }
     }
 
@@ -128,6 +129,25 @@ namespace VACARM.Application.Services
       this.Repository = repository;
       this.DeviceService = deviceService;
       this.CustomExecutablePathName = customExecutablePathName;
+    }
+
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        this.Repository
+          .Dispose();
+
+        this.DeviceService
+          .Dispose();
+      }
+
+      this.HasDisposed = true;
     }
 
     public IEnumerable<TRepeaterModel> GetAllAlphabetical()

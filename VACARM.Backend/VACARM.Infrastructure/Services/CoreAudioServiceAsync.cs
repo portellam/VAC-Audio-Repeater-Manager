@@ -8,6 +8,7 @@ namespace VACARM.Application.Services
 {
   public partial class CoreAudioService<TRepository, TDevice> :
     ReadonlyService<ReadonlyRepository<TDevice>, TDevice>,
+    IDisposable,
     ICoreAudioService<ReadonlyRepository<TDevice>, TDevice> where TRepository :
     ReadonlyRepository<TDevice> where TDevice :
     Device

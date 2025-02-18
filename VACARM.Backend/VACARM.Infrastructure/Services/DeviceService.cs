@@ -14,6 +14,7 @@ namespace VACARM.Application.Services
   /// </summary>
   public partial class DeviceService<TRepository, TDeviceModel> :
     BaseService<BaseRepository<TDeviceModel>, TDeviceModel>,
+    IDisposable,
     IDeviceService<BaseRepository<TDeviceModel>, TDeviceModel> where TRepository :
     BaseRepository<TDeviceModel> where TDeviceModel :
     DeviceModel
@@ -99,6 +100,28 @@ namespace VACARM.Application.Services
       this.Repository = new BaseRepository<TDeviceModel>();
       this.MMDeviceService = mMDeviceService;
       this.CoreAudioService = coreAudioService;
+    }
+
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        this.Repository
+          .Dispose();
+
+        this.CoreAudioService
+          .Dispose();
+
+        this.MMDeviceService
+          .Dispose();
+      }
+
+      this.HasDisposed = true;
     }
 
     public TDeviceModel? GetByActualId(string actualId)
