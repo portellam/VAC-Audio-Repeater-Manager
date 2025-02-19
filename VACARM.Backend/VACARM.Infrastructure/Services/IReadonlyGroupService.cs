@@ -3,10 +3,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  /// <summary>
-  /// The <typeparamref name="TRepository"/> service.
-  /// </summary>
-  public interface IGroupService
+  public interface IReadonlyGroupService
     <
       TServiceRepository,
       TService,

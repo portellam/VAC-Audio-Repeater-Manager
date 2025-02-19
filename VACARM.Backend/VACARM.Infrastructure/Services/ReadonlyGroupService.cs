@@ -4,9 +4,9 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Infrastructure.Services
 {
   /// <summary>
-  /// The service repository of <typeparamref name="TService"/>(s).
+  /// The readonly repository of <typeparamref name="TService"/>(s).
   /// </summary>
-  public class GroupService
+  public class ReadonlyGroupService
     <
       TServiceRepository,
       TService,
@@ -21,7 +21,7 @@ namespace VACARM.Infrastructure.Services
         TItem
       >
     >,
-    IGroupService
+    IReadonlyGroupService
     <
       ReadonlyRepository
       <
@@ -61,7 +61,7 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// The list of all <typeparamref name="TService"/>(s).
     /// </summary>
-    protected List<ReadonlyService<TRepository, TItem>> ServiceList
+    protected List<ReadonlyService<TRepository, TItem>> ReadonlyServiceList
     {
       get
       {
@@ -71,7 +71,7 @@ namespace VACARM.Infrastructure.Services
       set
       {
         this.Enumerable = value;
-        this.OnPropertyChanged(nameof(ServiceList));
+        this.OnPropertyChanged(nameof(ReadonlyServiceList));
       }
     }
 
@@ -93,13 +93,13 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public ReadonlyService<TRepository, TItem>? SelectedService
+    public ReadonlyService<TRepository, TItem>? SelectedReadonlyService
     {
       get
       {
         try
         {
-          return this.ServiceList
+          return this.ReadonlyServiceList
             .ElementAt(this.SelectedIndex);
         }
         catch
@@ -136,10 +136,10 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    GroupService() :
+    ReadonlyGroupService() :
       base()
     {
-      this.ServiceList = new List<ReadonlyService<TRepository, TItem>>();
+      this.ReadonlyServiceList = new List<ReadonlyService<TRepository, TItem>>();
     }
 
     /// <summary>
@@ -147,13 +147,13 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="serviceList">The service list</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
-    public GroupService
+    public ReadonlyGroupService
     (
       List<ReadonlyService<TRepository, TItem>> serviceList,
       int maxCount
     )
     {
-      this.ServiceList = serviceList;
+      this.ReadonlyServiceList = serviceList;
       this.MaxCount = maxCount;
     }
 
@@ -164,7 +164,7 @@ namespace VACARM.Infrastructure.Services
         return false;
       }
 
-      this.ServiceList
+      this.ReadonlyServiceList
         .Add(service);
 
       return true;
@@ -177,7 +177,7 @@ namespace VACARM.Infrastructure.Services
         return false;
       }
 
-      this.ServiceList
+      this.ReadonlyServiceList
         .RemoveAt(index);
 
       return true;
@@ -185,14 +185,14 @@ namespace VACARM.Infrastructure.Services
 
     public ReadonlyService<TRepository, TItem>? Get(int index)
     {
-      if (this.IsNullOrEmpty(this.ServiceList))
+      if (this.IsNullOrEmpty(this.ReadonlyServiceList))
       {
         return null;
       }
 
       try
       {
-        return this.ServiceList
+        return this.ReadonlyServiceList
           .ElementAt(index);
       }
       catch
