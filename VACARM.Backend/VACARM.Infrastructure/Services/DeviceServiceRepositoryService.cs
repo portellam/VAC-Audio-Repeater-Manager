@@ -16,7 +16,7 @@ namespace VACARM.Application.Services
   ///  <typeparamref name="CoreAudioService"/>,
   ///  and <typeparamref name="MMDeviceService"/>.
   /// </summary>
-  public partial class DeviceRepositoryService
+  public partial class DeviceServiceRepositoryService
     <
       TService,
       TRepository,
@@ -29,7 +29,7 @@ namespace VACARM.Application.Services
       DeviceModel
     >,
     IDisposable,
-    IDeviceRepositoryService
+    IDeviceServiceRepositoryService
     <
       DeviceService
       <
@@ -132,7 +132,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public DeviceRepositoryService() :
+    public DeviceServiceRepositoryService() :
       base()
     {
       Dictionary<int, BaseRepository<DeviceModel>> Dictionary =
@@ -158,7 +158,7 @@ namespace VACARM.Application.Services
     /// <param name="repositoryRepository">The repository of repositories</param>
     /// <param name="mMDeviceService">The MMDevice service</param>
     /// <param name="coreAudioService">The Core Audio service</param>
-    public DeviceRepositoryService
+    public DeviceServiceRepositoryService
     (
       BaseRepository<TDeviceModel> repositoryRepository,
       MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> mMDeviceService,

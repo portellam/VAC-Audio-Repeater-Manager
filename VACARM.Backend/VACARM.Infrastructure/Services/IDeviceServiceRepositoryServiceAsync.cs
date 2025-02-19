@@ -1,6 +1,6 @@
 ﻿namespace VACARM.Application.Services
 {
-  public partial interface IDeviceRepositoryService
+  public partial interface IDeviceServiceRepositoryService
     <
       TService,
       TRepository,

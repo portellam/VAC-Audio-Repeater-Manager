@@ -4,7 +4,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class DeviceServiceRepository
+  public partial class DeviceServiceRepositoryService
     <
       TService,
       TRepository,
