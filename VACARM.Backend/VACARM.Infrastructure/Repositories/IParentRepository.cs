@@ -1,6 +1,6 @@
 ﻿namespace VACARM.Infrastructure.Repositories
 {
-  public interface IRecursiveRepository
+  public interface IParentRepository
     <
       TRecursiveRepository,
       TRepository,

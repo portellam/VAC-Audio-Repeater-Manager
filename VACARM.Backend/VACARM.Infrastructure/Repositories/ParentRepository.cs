@@ -3,20 +3,20 @@
   /// <summary>
   /// The <typeparamref name="TRepository"/> repository.
   /// </summary>
-  public class RecursiveRepository
+  public class ParentRepository
     <
-      TRecursiveRepository,
+      TParentRepository,
       TRepository,
       TItem
     > :
     ReadonlyRepository<TRepository>,
-    IRecursiveRepository
+    IParentRepository
     <
-      TRecursiveRepository,
+      TParentRepository,
       TRepository,
       TItem
     >
-    where TRecursiveRepository :
+    where TParentRepository :
     ReadonlyRepository<TRepository>
     where TRepository :
     ReadonlyRepository<TItem>
@@ -107,7 +107,7 @@
     /// <summary>
     /// Constructor
     /// </summary>
-    public RecursiveRepository() :
+    public ParentRepository() :
       base()
     {
       this.RepositoryEnumerable = new List<TRepository>();
