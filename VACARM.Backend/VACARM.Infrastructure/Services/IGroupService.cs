@@ -3,7 +3,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public interface IReadonlyGroupService
+  public interface IGroupService
     <
       TServiceRepository,
       TService,
@@ -34,7 +34,9 @@ namespace VACARM.Infrastructure.Services
 
     int MaxCount { get; }
     int SelectedIndex { get; set; }
-    ReadonlyService<TRepository, TItem>? SelectedReadonlyService { get; }
+
+    ReadonlyService<ReadonlyRepository<TItem>, TItem>? SelectedReadonlyService 
+    { get; }
 
     #endregion
 
@@ -43,9 +45,9 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Add a <typeparamref name="TService"/>.
     /// </summary>
-    /// <param name="readonlyService">The service</param>
+    /// <param name="readonlyService">The readonly service</param>
     /// <returns>True/false result.</returns>
-    bool Add(ReadonlyService<TRepository, TItem> readonlyService);
+    bool Add(ReadonlyService<ReadonlyRepository<TItem>, TItem> readonlyService);
 
     /// <summary>
     /// Remove a <typeparamref name="TService"/>.
@@ -59,7 +61,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="index">The index</param>
     /// <returns>The repository.</returns>
-    ReadonlyService<TRepository, TItem>? Get(int index);
+    ReadonlyService<ReadonlyRepository<TItem>, TItem>? Get(int index);
 
     #endregion
   }
