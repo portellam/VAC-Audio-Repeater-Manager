@@ -37,7 +37,7 @@ namespace VACARM.Infrastructure.Services
 
     int MaxCount { get; }
     int SelectedIndex { get; set; }
-    ReadonlyService<TRepository, TItem>? SelectedService { get; }
+    ReadonlyService<TRepository, TItem>? SelectedReadonlyService { get; }
 
     #endregion
 
@@ -46,9 +46,9 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Add a <typeparamref name="TService"/>.
     /// </summary>
-    /// <param name="service">The service</param>
+    /// <param name="readonlyService">The service</param>
     /// <returns>True/false result.</returns>
-    bool Add(ReadonlyService<TRepository, TItem> service);
+    bool Add(ReadonlyService<TRepository, TItem> readonlyService);
 
     /// <summary>
     /// Remove a <typeparamref name="TService"/>.
