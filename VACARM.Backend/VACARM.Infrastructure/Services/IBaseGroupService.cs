@@ -4,14 +4,21 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  /// <summary>
-  /// The <typeparamref name="TBaseRepository"/> service.
-  /// </summary>
   public interface IBaseGroupService
     <
+      TServiceRepository,
       TBaseService,
       TBaseRepository,
       TBaseModel
+    >
+    where TServiceRepository :
+    ReadonlyRepository
+    <
+      BaseService
+      <
+        BaseRepository<TBaseModel>,
+        TBaseModel
+      >
     >
     where TBaseService :
     BaseService
@@ -37,18 +44,26 @@ namespace VACARM.Infrastructure.Services
     #region Logic
 
     /// <summary>
-    /// Add a <typeparamref name="TService"/>.
+    /// Add a <typeparamref name="TBaseService"/>.
     /// </summary>
     /// <param name="baseService">The service</param>
     /// <returns>True/false result.</returns>
     bool Add(BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService);
 
     /// <summary>
-    /// Get a <typeparamref name="TService"/>.
+    /// Remove a <typeparamref name="TBaseService"/>.
     /// </summary>
     /// <param name="index">The index</param>
-    /// <returns>The service.</returns>
+    /// <returns>True/false result.</returns>
+    bool Remove(int index);
+
+    /// <summary>
+    /// Get a <typeparamref name="TBaseService"/>.
+    /// </summary>
+    /// <param name="index">The index</param>
+    /// <returns>The repository.</returns>
     BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index);
+
 
     #endregion
   }

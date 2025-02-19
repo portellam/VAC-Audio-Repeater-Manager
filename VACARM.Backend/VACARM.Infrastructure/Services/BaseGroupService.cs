@@ -9,30 +9,29 @@ namespace VACARM.Infrastructure.Services
   /// </summary>
   public class BaseGroupService
     <
+      TServiceRepository,
       TBaseService,
       TBaseRepository,
       TBaseModel
     > :
-    ReadonlyGroupService
+    ReadonlyRepository
+    <
+      BaseService
+      <
+        BaseRepository<TBaseModel>,
+        TBaseModel
+      >
+    >,
+    IBaseGroupService
     <
       ReadonlyRepository
       <
         BaseService
         <
-          TBaseRepository,
+          BaseRepository<TBaseModel>,
           TBaseModel
         >
       >,
-      BaseService
-      <
-        TBaseRepository,
-        TBaseModel
-      >,
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >,
-    IBaseGroupService
-    <
       BaseService
       <
         BaseRepository<TBaseModel>,
@@ -40,6 +39,15 @@ namespace VACARM.Infrastructure.Services
       >,
       BaseRepository<TBaseModel>,
       TBaseModel
+    >
+    where TServiceRepository :
+    ReadonlyRepository
+    <
+      BaseService
+      <
+        BaseRepository<TBaseModel>,
+        TBaseModel
+      >
     >
     where TBaseService :
     BaseService
@@ -54,23 +62,48 @@ namespace VACARM.Infrastructure.Services
   {
     #region Parameters
 
+    private int maxCount { get; set; } = SafeMaxCount;
+    private int selectedIndex { get; set; } = MinCount;
+    private readonly static int MinCount = 0;
+
     /// <summary>
-    /// The list of all <typeparamref name="TService"/>(s).
+    /// The list of all <typeparamref name="TBaseService"/>(s).
     /// </summary>
-    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>> BaseServiceList
+    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>
+      BaseServiceList
     {
       get
       {
-        return this.ReadonlyServiceList;
+        return this.Enumerable
+          .ToList();
       }
       set
       {
-        this.ReadonlyServiceList = value;
+        this.Enumerable = value;
         this.OnPropertyChanged(nameof(BaseServiceList));
       }
     }
 
-    public BaseService<BaseRepository<TBaseModel>, TBaseModel>? SelectedBaseService
+    public int SelectedIndex
+    {
+      get
+      {
+        return this.selectedIndex;
+      }
+      set
+      {
+        if (value < MinCount)
+        {
+          value = MinCount;
+        }
+
+        this.selectedIndex = value;
+        this.OnPropertyChanged(nameof(SelectedIndex));
+      }
+    }
+
+    public BaseService<BaseRepository<TBaseModel>, TBaseModel>?
+    SelectedBaseService
     {
       get
       {
@@ -86,6 +119,26 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
+    public readonly static int SafeMaxCount = byte.MaxValue;
+
+    public virtual int MaxCount
+    {
+      get
+      {
+        return this.maxCount;
+      }
+      internal set
+      {
+        if (value < MinCount)
+        {
+          value = MinCount;
+        }
+
+        this.maxCount = value;
+        this.OnPropertyChanged(nameof(MaxCount));
+      }
+    }
+
     #endregion
 
     #region Logic
@@ -96,14 +149,14 @@ namespace VACARM.Infrastructure.Services
     public BaseGroupService() :
       base()
     {
-      this.BaseServiceList = 
+      this.BaseServiceList =
         new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="baseServiceList">The service list</param>
+    /// <param name="baseServiceList">The list of services(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
     public BaseGroupService
     (
@@ -115,7 +168,8 @@ namespace VACARM.Infrastructure.Services
       this.MaxCount = maxCount;
     }
 
-    public bool Add(BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService)
+    public bool Add
+    (BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService)
     {
       if (this.Enumerable.Count() >= this.MaxCount)
       {
