@@ -16,31 +16,44 @@ namespace VACARM.Application.Services
   ///  <typeparamref name="CoreAudioService"/>,
   ///  and <typeparamref name="MMDeviceService"/>.
   /// </summary>
-  public partial class DeviceServiceRepositoryService
+  public partial class DeviceGroupService
     <
-      TService,
+      TParentRepository,
       TRepository,
       TDeviceModel
-    >
-    where TService :
-    DeviceService
+    > :
+    IDeviceGroupService
     <
-      BaseRepository<DeviceModel>,
-      DeviceModel
-    >,
-    IDisposable,
-    IDeviceServiceRepositoryService
+      GroupService
+      <
+        DeviceService
+        <
+          BaseRepository<TDeviceModel>,
+          TDeviceModel
+        >,
+        BaseRepository<TDeviceModel>,
+        TDeviceModel
+      >,
+      BaseRepository<TDeviceModel>,
+      TDeviceModel
+    >
+    where TParentRepository :
+    GroupService
     <
       DeviceService
       <
-        BaseRepository<DeviceModel>,
-        DeviceModel
+        BaseRepository<TDeviceModel>,
+        TDeviceModel
       >,
-      BaseRepository<DeviceModel>,
-      DeviceModel
+      BaseRepository<TDeviceModel>,
+      TDeviceModel
     >
     where TRepository :
-    BaseRepository<DeviceModel>
+    DeviceService
+    <
+      BaseRepository<TDeviceModel>,
+      TDeviceModel
+    >
     where TDeviceModel :
     DeviceModel
   {
@@ -132,9 +145,11 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public DeviceServiceRepositoryService() :
+    public DeviceGroupService() :
       base()
     {
+      this.
+
       Dictionary<int, BaseRepository<DeviceModel>> Dictionary =
         new Dictionary<int, BaseRepository<DeviceModel>>();
 
@@ -158,7 +173,7 @@ namespace VACARM.Application.Services
     /// <param name="repositoryRepository">The repository of repositories</param>
     /// <param name="mMDeviceService">The MMDevice service</param>
     /// <param name="coreAudioService">The Core Audio service</param>
-    public DeviceServiceRepositoryService
+    public DeviceGroupService
     (
       BaseRepository<TDeviceModel> repositoryRepository,
       MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> mMDeviceService,
