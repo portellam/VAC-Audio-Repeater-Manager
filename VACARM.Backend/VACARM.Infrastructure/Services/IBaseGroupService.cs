@@ -6,12 +6,12 @@ namespace VACARM.Infrastructure.Services
 {
   public interface IBaseGroupService
     <
-      TServiceRepository,
+      TGroupReadonlyRepository,
       TBaseService,
       TBaseRepository,
       TBaseModel
     >
-    where TServiceRepository :
+    where TGroupReadonlyRepository :
     ReadonlyRepository
     <
       BaseService
