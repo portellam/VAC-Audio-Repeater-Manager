@@ -27,16 +27,16 @@ namespace VACARM.Application.Services
   {
     #region Parameters
 
-    public BaseRepository<TBaseModel> BaseRepository
+    internal new virtual BaseRepository<TBaseModel> Repository
     {
       get
       {
-        return (BaseRepository<TBaseModel>)this.ReadonlyRepository;
+        return (BaseRepository<TBaseModel>)base.Repository;
       }
-      protected set
+      set
       {
-        this.ReadonlyRepository = value;
-        this.OnPropertyChanged(nameof(BaseRepository));
+        this.Repository = value;
+        this.OnPropertyChanged(nameof(Repository));
       }
     }
 
@@ -51,7 +51,7 @@ namespace VACARM.Application.Services
     public BaseService() :
       base()
     {
-      this.BaseRepository = new BaseRepository<TBaseModel>();
+      this.Repository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
@@ -62,14 +62,14 @@ namespace VACARM.Application.Services
     public BaseService(BaseRepository<TBaseModel> repository) :
       base(repository)
     {
-      this.BaseRepository = repository;
+      this.Repository = repository;
     }
 
     public bool Remove(uint id)
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      return this.BaseRepository
+      return this.Repository
         .Remove(func);
     }
 
@@ -77,7 +77,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.BaseRepository
+      return this.Repository
         .GetRange(func);
     }
 
@@ -85,7 +85,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.BaseRepository
+      return this.Repository
         .RemoveRange(func);
     }
 
@@ -101,7 +101,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      return this.BaseRepository
+      return this.Repository
         .RemoveRange(func);
     }
 
@@ -109,7 +109,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      return this.BaseRepository
+      return this.Repository
         .Get(func);
     }
 
@@ -125,7 +125,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      return this.BaseRepository
+      return this.Repository
         .GetRange(func);
     }
 
@@ -133,7 +133,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.BaseRepository
+      return this.Repository
         .GetRange(func);
     }
 
