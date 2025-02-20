@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
+using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Repositories
@@ -124,7 +125,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      if (this.IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty)
       {
         return false;
       }
@@ -147,7 +148,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      if (this.IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty)
       {
         return false;
       }
@@ -163,7 +164,7 @@ namespace VACARM.Infrastructure.Repositories
         yield return false;
       }
 
-      if (this.IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty)
       {
         yield return false;
       }
@@ -179,12 +180,12 @@ namespace VACARM.Infrastructure.Repositories
 
     public IEnumerable<bool> RemoveRange(IEnumerable<TBaseModel> enumerable)
     {
-      if (this.IsNullOrEmpty(enumerable))
+      if (IEnumerableExtension<TBaseModel>.IsNullOrEmpty(enumerable))
       {
         yield return false;
       }
 
-      if (this.IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty)
       {
         yield return false;
       }
@@ -254,7 +255,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public void UpdateRange(IEnumerable<TBaseModel> enumerable)
     {
-      if (this.IsNullOrEmpty(enumerable))
+      if (IEnumerableExtension<TBaseModel>.IsNullOrEmpty(enumerable))
       {
         return;
       }

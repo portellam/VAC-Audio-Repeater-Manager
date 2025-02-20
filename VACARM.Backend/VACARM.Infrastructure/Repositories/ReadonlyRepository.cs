@@ -33,6 +33,14 @@ namespace VACARM.Infrastructure.Repositories
 
     protected virtual bool HasDisposed { get; set; }
 
+    public bool IsNullOrEmpty
+    {
+      get
+      {
+        return IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable);
+      }
+    }
+
     public Func<int, bool> ContainsIndex
     {
       get
@@ -127,14 +135,9 @@ namespace VACARM.Infrastructure.Repositories
       GC.SuppressFinalize(this);
     }
 
-    public bool IsNullOrEmpty(IEnumerable<TItem> enumerable)
-    {
-      return IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable);
-    }
-
     public TItem? Get(Func<TItem, bool> func)
     {
-      if (this.IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty)
       {
         return null;
       }
@@ -145,7 +148,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public IEnumerable<TItem> GetAll()
     {
-      if (IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty)
       {
         return Array.Empty<TItem>();
       }
@@ -155,7 +158,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public IEnumerable<TItem> GetRange(Func<TItem, bool> func)
     {
-      if (IsNullOrEmpty(this.Enumerable))
+      if (this.IsNullOrEmpty)
       {
         return Array.Empty<TItem>();
       }

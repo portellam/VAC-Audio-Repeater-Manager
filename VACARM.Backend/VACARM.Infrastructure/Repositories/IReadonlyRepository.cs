@@ -8,19 +8,18 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
+    /// <summary>
+    /// Is the enumerable of all <typeparamref name="TItem"/>(s) null or empty.
+    /// </summary>
+    /// <returns>True/false.</returns>
+    bool IsNullOrEmpty { get; }
+
     event PropertyChangedEventHandler PropertyChanged;
     Func<int, bool> ContainsIndex { get; }
 
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Is enumerable of <typeparamref name="TItem"/>(s) null or empty.
-    /// </summary>
-    /// <param name="enumerable">The enumerable</param>
-    /// <returns>True/false.</returns>
-    bool IsNullOrEmpty(IEnumerable<TItem> enumerable);
 
     /// <summary>
     /// Get a <typeparamref name="TItem"/>.
