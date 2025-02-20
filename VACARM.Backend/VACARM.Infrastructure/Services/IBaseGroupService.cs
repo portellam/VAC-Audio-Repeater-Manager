@@ -35,35 +35,31 @@ namespace VACARM.Infrastructure.Services
 
     int MaxCount { get; }
     int SelectedIndex { get; set; }
-    
-    BaseService<BaseRepository<TBaseModel>, TBaseModel>? SelectedBaseService
-    { get; }
 
     #endregion
 
     #region Logic
 
     /// <summary>
-    /// Add a <typeparamref name="TBaseService"/>.
+    /// Add a <typeparam><typeparamref name="TBaseService"/></typeparam>.
     /// </summary>
     /// <param name="baseService">The service</param>
     /// <returns>True/false result.</returns>
     bool Add(BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService);
 
     /// <summary>
-    /// Remove a <typeparamref name="TBaseService"/>.
+    /// Remove a <typeparam><typeparamref name="TBaseService"/></typeparam>.
     /// </summary>
     /// <param name="index">The index</param>
     /// <returns>True/false result.</returns>
     bool Remove(int index);
 
     /// <summary>
-    /// Get a <typeparamref name="TBaseService"/>.
+    /// Get a <typeparam><typeparamref name="TBaseService"/></typeparam>.
     /// </summary>
     /// <param name="index">The index</param>
     /// <returns>The repository.</returns>
     BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index);
-
 
     #endregion
   }
