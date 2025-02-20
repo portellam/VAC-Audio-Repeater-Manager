@@ -1,8 +1,10 @@
 ﻿namespace VACARM.Application.Services
 {
-  public partial interface IRepeaterService
+  public partial interface IRepeaterGroupService
     <
-      TRepository, 
+      TGroupReadonlyRepository,
+      TBaseService,
+      TBaseRepository,
       TRepeaterModel
     >
   {
