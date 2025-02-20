@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AudioRepeaterManager.NET8_0.Domain\AudioRepeaterManager.NET8_0.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NAudio">
+      <HintPath>..\..\AudioRepeaterManager\AudioRepeaterManager.NET4_6.Backend\bin\Debug\NAudio.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
