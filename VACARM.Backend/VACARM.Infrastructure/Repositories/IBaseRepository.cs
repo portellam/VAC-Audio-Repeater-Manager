@@ -44,6 +44,13 @@ namespace VACARM.Infrastructure.Repositories
     IEnumerable<bool> RemoveRange(IEnumerable<TBaseModel> enumerable);
 
     /// <summary>
+    /// Get a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The item.</returns>
+    TBaseModel? Get(uint id);
+
+    /// <summary>
     /// Add a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="model"></param>

@@ -197,6 +197,17 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public TBaseModel? Get(uint id)
+    {
+      if (IsNullOrEmpty)
+      {
+        return null;
+      }
+
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+      return this.Get(func);
+    }
+
     public void Add(TBaseModel? model)
     {
       if (model == null)
