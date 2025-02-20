@@ -22,12 +22,11 @@ with Microsoft Windows 2000 to Windows 11.
 - [5. Usage](#5-usage)
   - [5.1. Install](#51-install)
   - [5.2. Graphics User Interface (GUI)](#52-graphics-user-interface-gui)
-  - [5.3. Terminal User Interface (TUI)](#53-terminal-user-interface-tui)
 - [6. Contact](#6-contact)
 - [7. References](#7-references)
   - [7.1. Multiplexing](#71-multiplexing)
   - [7.2. .NET Framework version history](#72-net-framework-version-history)
-- [8. Credits](#8-credits)
+ [8. Credits](#8-credits)
 - [9. Licenses](#9-licenses)
 
 ## 1. Why?
@@ -125,9 +124,6 @@ WIP
 ### 5.2. Graphics User Interface (GUI)
 WIP
 
-### 5.3. Terminal User Interface (TUI)
-WIP
-
 ## 6. Contact
 Did you encounter a bug? Do you need help? Please visit the
 **Issues page** ([Codeberg][61], [GitHub][62]).
@@ -159,4 +155,4 @@ Line-Out(s).
 ## 9. Licenses
 Virtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.
 
-VAC Audio Repeater Manager, or VACARM GPL-3.0, Copyleft © 2024 Alexander Portell.
+VAC Audio Repeater Manager, VACARM GPL-3.0, Copyleft © 2024 Alexander Portell.
