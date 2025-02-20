@@ -1,6 +1,7 @@
-﻿using VACARM.Domain.Models;
+﻿using AudioSwitcher.AudioApi;
+using NAudio.CoreAudioApi;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
-using VACARM.Infrastructure.Services;
 
 namespace VACARM.Application.Services
 {
@@ -31,6 +32,13 @@ namespace VACARM.Application.Services
     where TDeviceModel :
     DeviceModel
   {
+    #region Parameters
+
+    CoreAudioService<ReadonlyRepository<Device>, Device> CoreAudioService { get; }
+    MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> MMDeviceService { get; }
+
+    #endregion
+
     #region Logic
 
     /// <summary>
@@ -62,7 +70,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Restart a <typeparamref name="TDeviceModel"/>.
+    /// Start a <typeparamref name="TDeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     void Start(uint id);
