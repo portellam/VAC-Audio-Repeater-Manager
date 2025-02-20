@@ -7,8 +7,10 @@ using VACARM.Infrastructure.Services;
 namespace VACARM.Application.Services
 {
   /// <summary>
-  /// The service to load and save different and/or previous configurations of 
-  /// audio repeater(s).
+  /// The service to manage multiple configurations of audio repeaters. 
+  /// Configurations are user-defined, 
+  /// and may be from a foreign system or a previous state of the current system.
+  /// Manages <typeparamref name="DeviceGroupService"/>.
   /// </summary>
   public partial class RepeaterGroupService
     <
