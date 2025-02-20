@@ -11,25 +11,6 @@
     #region Logic
 
     /// <summary>
-    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
-    /// </summary>
-    /// <param name="startId">The first ID</param>
-    /// <param name="endId">The last ID</param>
-    /// <returns>True/false result.</returns>
-    IAsyncEnumerable<bool> UpdateRangeAsync
-    (
-      uint startId,
-      uint endId
-    );
-
-    /// <summary>
-    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
-    /// </summary>
-    /// <param name="idList">The enumerable of ID(s)</param>
-    /// <returns>True/false result.</returns>
-    IAsyncEnumerable<bool> UpdateRangeAsync(List<uint> idList);
-
-    /// <summary>
     /// Mute the enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
@@ -89,19 +70,6 @@
     Task<bool> MuteAsync(uint id);
 
     /// <summary>
-    /// Set the audio device volume.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <param name="volume">The audio volume</param>
-    /// <returns>True/false result.</returns>
-    /// <returns>True/false result.</returns>
-    Task<bool> SetVolumeAsync
-    (
-      string id,
-      double? volume
-    );
-
-    /// <summary>
     /// Set the <typeparamref name="TDeviceModel"/> as default.
     /// </summary>
     /// <param name="id">The ID</param>
@@ -134,12 +102,6 @@
     /// <param name="id">The ID</param>
     /// <returns>True/false result.</returns>
     Task<bool> UnmuteAsync(uint id);
-
-    /// <summary>
-    /// Update the enumerable of all <typeparamref name="TDeviceModel"/>(s).
-    /// </summary>
-    /// <returns>True/false result.</returns>
-    Task<bool> UpdateAllAsync();
 
     /// <summary>
     /// Update the service.

@@ -75,6 +75,12 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    void StartRange(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     void StartRange
@@ -82,12 +88,6 @@ namespace VACARM.Application.Services
       uint startId,
       uint endId
     );
-
-    /// <summary>
-    /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
-    /// </summary>
-    /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    void StartRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
     /// Stop a <typeparamref name="TDeviceModel"/>.
@@ -103,6 +103,12 @@ namespace VACARM.Application.Services
     /// <summary>
     /// Stop an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    void StopRange(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Stop an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     void StopRange
@@ -112,10 +118,33 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Stop an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// Update a <typeparamref name="TDeviceModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    void Update(uint id);
+
+    /// <summary>
+    /// Update the enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
+    void UpdateAll();
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    void StopRange(IEnumerable<uint> idEnumerable);
+    void UpdateRange(IEnumerable<uint> idEnumerable);
+
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    void UpdateRange
+    (
+      uint startId,
+      uint endId
+    );
 
     #endregion
   }
