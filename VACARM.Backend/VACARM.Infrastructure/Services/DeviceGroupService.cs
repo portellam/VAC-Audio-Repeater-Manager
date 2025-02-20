@@ -171,6 +171,90 @@ namespace VACARM.Application.Services
       this.CoreAudioService = coreAudioService;
     }
 
+
+    /// <summary>
+    /// Restart a <typeparamref name="TDeviceModel"/>.
+    /// </summary>
+    /// <param name="model">The model</param>
+    private void Restart(TDeviceModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      if (this.MMDeviceService == null)
+      {
+        return;
+      }
+
+      this.MMDeviceService
+        .Reset(model.ActualId);
+    }
+
+
+    /// <summary>
+    /// Start a <typeparamref name="TDeviceModel"/>.
+    /// </summary>
+    /// <param name="model">The model</param>
+    private void Start(TDeviceModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      if (this.MMDeviceService == null)
+      {
+        return;
+      }
+
+      this.MMDeviceService
+        .Start(model.ActualId);
+    }
+
+
+    /// <summary>
+    /// Stop a <typeparamref name="TDeviceModel"/>.
+    /// </summary>
+    /// <param name="model">The model</param>
+    private void Stop(TDeviceModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      if (this.MMDeviceService == null)
+      {
+        return;
+      }
+
+      this.MMDeviceService
+        .Start(model.ActualId);
+    }
+
+
+    /// <summary>
+    /// Update a <typeparamref name="TDeviceModel"/>.
+    /// </summary>
+    /// <param name="model">The model</param>
+    private void Update(TDeviceModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      if (this.MMDeviceService == null)
+      {
+        return;
+      }
+
+      this.MMDeviceService
+        .Update(model.ActualId);
+    }
+
     protected override void Dispose(bool isDisposed)
     {
       if (this.HasDisposed)
@@ -341,11 +425,14 @@ namespace VACARM.Application.Services
 
     public void Restart(uint id)
     {
-      var model = this.SelectedService
-        .Get(id);
+      var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.MMDeviceService
-        .Reset(model.ActualId);
+      this.SelectedService
+        .DoWork
+        (
+          this.Restart,
+          func
+        );
     }
 
     public void RestartAll()
@@ -356,12 +443,14 @@ namespace VACARM.Application.Services
 
     public void RestartRange(IEnumerable<uint> idEnumerable)
     {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange(idEnumerable)
-        .Select(x => x.ActualId);      
+      var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.MMDeviceService
-        .ResetRange(actualIdEnumerable);
+      this.SelectedService
+      .DoWorkRange
+      (
+        this.Restart,
+        func
+      );
     }
 
     public void RestartRange
@@ -370,25 +459,30 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange
+      var func = BaseFunctions<TDeviceModel>.ContainsIdRange
         (
           startId,
           endId
-        )
-        .Select(x => x.ActualId);
+        );
 
-      this.MMDeviceService
-        .ResetRange(actualIdEnumerable);
+      this.SelectedService
+        .DoWorkRange
+        (
+          this.Restart,
+          func
+        );
     }
 
     public void Start(uint id)
     {
-      var model = this.SelectedRepository
-        .Get(id);
+      var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.MMDeviceService
-        .Start(model.ActualId);
+      this.SelectedService
+        .DoWork
+        (
+          this.Start,
+          func
+        );
     }
 
     public void StartAll()
@@ -399,12 +493,14 @@ namespace VACARM.Application.Services
 
     public void StartRange(IEnumerable<uint> idEnumerable)
     {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange(idEnumerable)
-        .Select(x => x.ActualId);
+      var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.MMDeviceService
-        .StartRange(actualIdEnumerable);
+      this.SelectedService
+        .DoWorkRange
+        (
+          this.Start,
+          func
+        );
     }
 
     public void StartRange
@@ -413,25 +509,30 @@ namespace VACARM.Application.Services
       uint endId
     )
     {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange
+      var func = BaseFunctions<TDeviceModel>.ContainsIdRange
         (
           startId,
           endId
-        )
-        .Select(x => x.ActualId);
+        );
 
-      this.MMDeviceService
-        .StartRange(actualIdEnumerable);
+      this.SelectedService
+        .DoWorkRange
+        (
+          this.Start,
+          func
+        );
     }
 
     public void Stop(uint id)
     {
-      var model = this.SelectedService
-        .Get(id);
+      var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.MMDeviceService
-        .Stop(model.ActualId);
+      this.SelectedService
+        .DoWork
+        (
+          this.Stop,
+          func
+        );
     }
 
     public void StopAll()
@@ -440,41 +541,48 @@ namespace VACARM.Application.Services
         .StopAll();
     }
 
+    public void StopRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
+
+      this.SelectedService
+        .DoWorkRange
+        (
+          this.Stop,
+          func
+        );
+    }
+
     public void StopRange
     (
       uint startId,
       uint endId
     )
     {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange
+      var func = BaseFunctions<TDeviceModel>.ContainsIdRange
         (
           startId,
           endId
-        )
-        .Select(x => x.ActualId);
+        );
 
-      this.MMDeviceService
-        .StopRange(actualIdEnumerable);
-    }
-
-    public void StopRange(IEnumerable<uint> idEnumerable)
-    {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange(idEnumerable)
-        .Select(x => x.ActualId);
-
-      this.MMDeviceService
-        .StopRange(actualIdEnumerable);
+      this.SelectedService
+        .DoWorkRange
+        (
+          this.Stop,
+          func
+        );
     }
 
     public void Update(uint id)
     {
-      var model = this.SelectedService
-        .Get(id);
+      var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.MMDeviceService
-        .Update(model.ActualId);
+      this.SelectedService
+        .DoWork
+        (
+          this.Update,
+          func
+        );
     }
 
     public void UpdateAll()
@@ -483,32 +591,36 @@ namespace VACARM.Application.Services
         .UpdateAll();
     }
 
+    public void UpdateRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
+
+      this.SelectedService
+        .DoWorkRange
+        (
+          this.Update,
+          func
+        );
+    }
+
     public void UpdateRange
     (
       uint startId,
       uint endId
     )
     {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange
+      var func = BaseFunctions<TDeviceModel>.ContainsIdRange
         (
           startId,
           endId
-        )
-        .Select(x => x.ActualId);
+        );
 
-      this.MMDeviceService
-        .UpdateRange(actualIdEnumerable);
-    }
-
-    public void UpdateRange(IEnumerable<uint> idEnumerable)
-    {
-      var actualIdEnumerable = this.SelectedService
-        .GetRange(idEnumerable)
-        .Select(x => x.ActualId);
-
-      this.MMDeviceService
-        .UpdateRange(actualIdEnumerable);
+      this.SelectedService
+        .DoWorkRange
+        (
+          this.Update,
+          func
+        );
     }
 
     #endregion
