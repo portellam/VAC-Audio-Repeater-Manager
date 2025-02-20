@@ -28,7 +28,7 @@ namespace VACARM.Application.Services
     where TBaseRepository :
     BaseRepository<TRepeaterModel>
     where TRepeaterModel :
-    DeviceModel
+    RepeaterModel
   {
     #region Parameters
 
