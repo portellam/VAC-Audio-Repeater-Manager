@@ -147,7 +147,7 @@ namespace VACARM.Application.Services
         collection.Append(item as TDevice);
       }
 
-      this.ReadonlyRepository = new ReadonlyRepository<TDevice>(collection);
+      this.Repository = new ReadonlyRepository<TDevice>(collection);
 
       return false;
     }

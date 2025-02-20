@@ -94,7 +94,7 @@ namespace VACARM.Application.Services
     public MMDeviceService() :
       base()
     {
-      this.ReadonlyRepository = new ReadonlyRepository<TMMDevice>();
+      this.Repository = new ReadonlyRepository<TMMDevice>();
 
       this.DefaultCommunicationsReadonlyRepository =
         new ReadonlyRepository<TMMDevice>();
@@ -121,7 +121,7 @@ namespace VACARM.Application.Services
         this.MMNotificationClient
           .Dispose();
 
-        this.ReadonlyRepository
+        this.Repository
           .Dispose();
 
         this.DefaultCommunicationsReadonlyRepository
@@ -141,7 +141,7 @@ namespace VACARM.Application.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      return this.ReadonlyRepository
+      return this.Repository
         .Get(func);
     }
 
@@ -173,7 +173,7 @@ namespace VACARM.Application.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      return this.ReadonlyRepository
+      return this.Repository
         .GetRange(func);
     }
 
@@ -291,7 +291,7 @@ namespace VACARM.Application.Services
         .MMDeviceCollection
         .Cast<TMMDevice>();
 
-      this.ReadonlyRepository = new ReadonlyRepository<TMMDevice>(enumerable);
+      this.Repository = new ReadonlyRepository<TMMDevice>(enumerable);
 
       enumerable = this.MMNotificationClient
         .GetDefaultRange(Role.Communications)
