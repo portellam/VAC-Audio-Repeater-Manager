@@ -124,49 +124,49 @@ namespace VACARM.Application.Services
     TDevice? GetDefaultCommunications();
 
     /// <summary>
-    /// Get an enumerable of all absent <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all absent <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllAbsent();
 
     /// <summary>
-    /// Get an enumerable of all capture <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all capture <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllCapture();
 
     /// <summary>
-    /// Get an enumerable of all disabled <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all disabled <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllDisabled();
 
     /// <summary>
-    /// Get an enumerable of all enabled <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all enabled <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllEnabled();
 
     /// <summary>
-    /// Get an enumerable of all muted <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all muted <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllMuted();
 
     /// <summary>
-    /// Get an enumerable of all playback <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all playback <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllPlayback();
 
     /// <summary>
-    /// Get an enumerable of all present <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all present <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllPresent();
 
     /// <summary>
-    /// Get an enumerable of all unmuted <typeparamref name="TDevice"/>(s).
+    /// Get the enumerable of all unmuted <typeparamref name="TDevice"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TDevice> GetAllUnmuted();

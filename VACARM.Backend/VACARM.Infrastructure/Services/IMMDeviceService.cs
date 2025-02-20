@@ -57,7 +57,7 @@ namespace VACARM.Application.Services
     void Reset(string? id);
 
     /// <summary>
-    /// Reset an enumerable of all <typeparamref name="TMMDevice"/>(s).
+    /// Reset the enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     void ResetAll();
 
@@ -74,7 +74,7 @@ namespace VACARM.Application.Services
     void Start(string? id);
 
     /// <summary>
-    /// Start an enumerable of all <typeparamref name="TMMDevice"/>(s).
+    /// Start the enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     void StartAll();
 
@@ -91,7 +91,7 @@ namespace VACARM.Application.Services
     void Stop(string? id);
 
     /// <summary>
-    /// Stop an enumerable of all <typeparamref name="TMMDevice"/>(s).
+    /// Stop the enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     void StopAll();
 
@@ -108,7 +108,7 @@ namespace VACARM.Application.Services
     void Update(string? id);
 
     /// <summary>
-    /// Update an enumerable of all <typeparamref name="TMMDevice"/>(s).
+    /// Update the enumerable of all <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     void UpdateAll();
 

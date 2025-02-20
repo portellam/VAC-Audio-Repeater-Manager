@@ -43,7 +43,7 @@ namespace VACARM.Application.Services
     );
 
     /// <summary>
-    /// Do an action for an enumerable of all <typeparamref name="TItem"/>(s).
+    /// Do an action for the enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="action">The action</param>
     void DoWorkAll(Action<TItem> action);

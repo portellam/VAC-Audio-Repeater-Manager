@@ -29,7 +29,7 @@ namespace VACARM.Infrastructure.Repositories
     TItem? Get(Func<TItem, bool> func);
 
     /// <summary>
-    /// Get an enumerable of all <typeparamref name="TItem"/>(s).
+    /// Get the enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TItem> GetAll();

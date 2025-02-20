@@ -56,7 +56,7 @@ namespace VACARM.Infrastructure.Repositories
     void AddRange(IEnumerable<TBaseModel> enumerable);
 
     /// <summary>
-    /// Remove an enumerable of all <typeparamref name="TBaseModel"/>(s).
+    /// Remove the enumerable of all <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     void RemoveAll();
 
