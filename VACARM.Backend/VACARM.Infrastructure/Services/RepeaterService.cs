@@ -2,6 +2,7 @@
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services;
 
 namespace VACARM.Application.Services
 {
@@ -11,21 +12,63 @@ namespace VACARM.Application.Services
   /// </summary>
   public partial class RepeaterService
     <
-      TRepository,
+      TGroupReadonlyRepository,
+      TBaseService,
+      TBaseRepository,
       TRepeaterModel
     > :
+    BaseGroupService
+    <
+      ReadonlyRepository
+      <
+        BaseService
+        <
+          BaseRepository<TRepeaterModel>,
+          TRepeaterModel
+        >
+      >,
+      BaseService
+      <
+        BaseRepository<TRepeaterModel>,
+        TRepeaterModel
+      >,
+      BaseRepository<TRepeaterModel>,
+      TRepeaterModel
+    >,
+    IDeviceGroupService
+    <
+      ReadonlyRepository
+      <
+        BaseService
+        <
+          BaseRepository<TRepeaterModel>,
+          TRepeaterModel
+        >
+      >,
+      BaseService
+      <
+        BaseRepository<TRepeaterModel>,
+        TRepeaterModel
+      >,
+      BaseRepository<TRepeaterModel>,
+      TRepeaterModel
+    >
+    where TGroupReadonlyRepository :
+    ReadonlyRepository
+    <
+      BaseService
+      <
+        BaseRepository<TRepeaterModel>,
+        TRepeaterModel
+      >
+    >
+    where TBaseService :
     BaseService
     <
       BaseRepository<TRepeaterModel>,
       TRepeaterModel
-    >,
-    IDisposable,
-    IRepeaterService
-    <
-      BaseRepository<TRepeaterModel>,
-      TRepeaterModel
     >
-    where TRepository :
+    where TBaseRepository :
     BaseRepository<TRepeaterModel>
     where TRepeaterModel :
     RepeaterModel
@@ -34,8 +77,8 @@ namespace VACARM.Application.Services
 
     private bool preferLegacyExecutable { get; set; } = false;
 
-    private DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel> deviceService
-    { get; set; } = new DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel>();
+    private DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel> deviceService
+    { get; set; } = new DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel>();
 
     private string customExecutablePathName { get; set; } =
       Common.Info.ExpectedExecutablePathName;
@@ -66,7 +109,7 @@ namespace VACARM.Application.Services
       }
     }
 
-    public DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel> DeviceService
+    public DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel> DeviceService
     {
       get
       {
@@ -120,10 +163,10 @@ namespace VACARM.Application.Services
     public RepeaterService() :
       base()
     {
-      this.ReadonlyRepository = new BaseRepository<TRepeaterModel>();
+      this.Repository = new BaseRepository<TRepeaterModel>();
 
       this.DeviceService =
-        new DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel>();
+        new DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel>();
     }
 
     /// <summary>
@@ -137,12 +180,12 @@ namespace VACARM.Application.Services
     public RepeaterService
     (
       BaseRepository<TRepeaterModel> repository,
-      DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel> deviceService,
+      DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel> deviceService,
       string customExecutablePathName
     ) :
       base(repository)
     {
-      this.ReadonlyRepository = repository;
+      this.Repository = repository;
       this.DeviceService = deviceService;
       this.CustomExecutablePathName = customExecutablePathName;
     }
@@ -156,7 +199,7 @@ namespace VACARM.Application.Services
 
       if (isDisposed)
       {
-        this.ReadonlyRepository
+        this.Repository
           .Dispose();
 
         this.DeviceService
@@ -168,7 +211,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TRepeaterModel> GetAllAlphabetical()
     {
-      return this.ReadonlyRepository
+      return this.Repository
         .GetAll()
         .OrderBy(x => x.WindowName);
     }
@@ -177,7 +220,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceId(deviceId);
 
-      return this.ReadonlyRepository
+      return this.Repository
         .GetRange(func);
     }
 
@@ -185,7 +228,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceName(deviceName);
 
-      return this.ReadonlyRepository
+      return this.Repository
         .GetRange(func);
     }
 
@@ -193,7 +236,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStarted;
 
-      return this.ReadonlyRepository
+      return this.Repository
         .GetRange(func);
     }
 
@@ -201,7 +244,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStopped;
 
-      return this.ReadonlyRepository
+      return this.Repository
         .GetRange(func);
     }
 

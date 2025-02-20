@@ -7,7 +7,9 @@ namespace VACARM.Application.Services
 {
   public partial class RepeaterService
     <
-      TRepository, 
+      TGroupReadonlyRepository,
+      TBaseService,
+      TBaseRepository,
       TRepeaterModel
     >
   {
@@ -60,7 +62,7 @@ namespace VACARM.Application.Services
       if (this.DeviceService == null)
       {
         this.DeviceService =
-          new DeviceRepositoryService<BaseRepository<DeviceModel>, DeviceModel>();
+          new DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel>();
 
         return false;
       }
