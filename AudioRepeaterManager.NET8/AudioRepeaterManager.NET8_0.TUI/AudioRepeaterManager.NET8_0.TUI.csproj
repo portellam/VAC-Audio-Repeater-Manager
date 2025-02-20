@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>NET8.0-windows10.0.17763.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <Title>VAC Audio Repeater Manager</Title>
+    <Copyright>VAC Audio Repeater Manager Copyleft © 2024 Alexander Portell.\nVirtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.</Copyright>
+    <PackageProjectUrl>https://github.com/portellam/VAC-Audio-Repeater-Manager</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Terminal user interface (TUI) to create, manage, and automate instances of Virtual Audio Cable (VAC) audio repeaters. This application version supports Microsoft Windows 10 version 1809 and newer.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

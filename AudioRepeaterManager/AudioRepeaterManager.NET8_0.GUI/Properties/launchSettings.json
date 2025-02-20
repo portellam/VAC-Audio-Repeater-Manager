@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AudioRepeaterManager.NET8_0.GUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AudioRepeaterManager.NET8_0.GUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
