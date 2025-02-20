@@ -5,7 +5,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Application.Services
 {
-  public partial class RepeaterService
+  public partial class RepeaterGroupService
     <
       TGroupReadonlyRepository,
       TBaseService,

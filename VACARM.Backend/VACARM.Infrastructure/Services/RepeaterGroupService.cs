@@ -10,7 +10,7 @@ namespace VACARM.Application.Services
   /// The service to load and save different and/or previous configurations of 
   /// audio repeater(s).
   /// </summary>
-  public partial class RepeaterService
+  public partial class RepeaterGroupService
     <
       TGroupReadonlyRepository,
       TBaseService,
@@ -35,7 +35,7 @@ namespace VACARM.Application.Services
       BaseRepository<TRepeaterModel>,
       TRepeaterModel
     >,
-    IDeviceGroupService
+    IRepeaterGroupService
     <
       ReadonlyRepository
       <
@@ -160,7 +160,7 @@ namespace VACARM.Application.Services
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public RepeaterService() :
+    public RepeaterGroupService() :
       base()
     {
       this.Repository = new BaseRepository<TRepeaterModel>();
@@ -177,7 +177,7 @@ namespace VACARM.Application.Services
     /// <param name="customExecutablePathName">The custom executable path name
     /// </param>
     [ExcludeFromCodeCoverage]
-    public RepeaterService
+    public RepeaterGroupService
     (
       BaseRepository<TRepeaterModel> repository,
       DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel> deviceService,
