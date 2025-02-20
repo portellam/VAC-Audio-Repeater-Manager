@@ -27,7 +27,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    private List<TBaseModel> List
+    protected virtual List<TBaseModel> List
     {
       get
       {
