@@ -2,8 +2,9 @@
 {
   public partial interface IDeviceGroupService
     <
-      TParentRepository,
-      TRepository,
+      TGroupReadonlyRepository,
+      TBaseService,
+      TBaseRepository,
       TDeviceModel
     >
   {
@@ -53,7 +54,7 @@
     Task<bool> Mute(uint id);
 
     /// <summary>
-    /// Mute an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Mute the enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     IAsyncEnumerable<bool> MuteAll();
@@ -78,7 +79,7 @@
     Task<bool> Restart(uint id);
 
     /// <summary>
-    /// Restart an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Restart the enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     IAsyncEnumerable<bool> RestartAll();
@@ -137,7 +138,7 @@
     Task<bool> Start(uint id);
 
     /// <summary>
-    /// Start an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Start the enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     IAsyncEnumerable<bool> StartAll();
@@ -168,7 +169,7 @@
     Task<bool> StopAsync(uint id);
 
     /// <summary>
-    /// Stop an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Stop the enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     Task<bool> StopAll();
@@ -200,7 +201,7 @@
     Task<bool> UnmuteAsync(uint id);
 
     /// <summary>
-    /// Unmute an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Unmute the enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     Task<bool> UnmuteAll();
@@ -225,7 +226,7 @@
     Task<bool> Update(uint id);
 
     /// <summary>
-    /// Update an enumerable of all <typeparamref name="TDeviceModel"/>(s).
+    /// Update the enumerable of all <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <returns>True/false result.</returns>
     Task<bool> UpdateAll();
