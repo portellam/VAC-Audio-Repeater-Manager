@@ -77,8 +77,25 @@ namespace VACARM.Application.Services
 
     private bool preferLegacyExecutable { get; set; } = false;
 
-    private DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel> deviceService
-    { get; set; } = new DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel>();
+    private DeviceGroupService
+    <
+      ReadonlyRepository
+      <
+        BaseService
+        <
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >
+      >,
+      BaseService
+      <
+        BaseRepository<DeviceModel>,
+        DeviceModel
+      >,
+      BaseRepository<DeviceModel>,
+      DeviceModel
+    > deviceGroupService
+    { get; set; }
 
     private string customExecutablePathName { get; set; } =
       Common.Info.ExpectedExecutablePathName;
@@ -109,16 +126,33 @@ namespace VACARM.Application.Services
       }
     }
 
-    public DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel> DeviceService
+    public DeviceGroupService
+    <
+      ReadonlyRepository
+      <
+        BaseService
+        <
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >
+      >,
+      BaseService
+      <
+        BaseRepository<DeviceModel>,
+        DeviceModel
+      >,
+      BaseRepository<DeviceModel>,
+      DeviceModel
+    > DeviceGroupService
     {
       get
       {
-        return this.deviceService;
+        return this.deviceGroupService;
       }
       private set
       {
-        this.deviceService = value;
-        this.OnPropertyChanged(nameof(DeviceService));
+        this.deviceGroupService = value;
+        this.OnPropertyChanged(nameof(DeviceGroupService));
       }
     }
 
@@ -163,31 +197,68 @@ namespace VACARM.Application.Services
     public RepeaterGroupService() :
       base()
     {
-      this.Repository = new BaseRepository<TRepeaterModel>();
+      this.List =
+        new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
 
-      this.DeviceService =
-        new DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel>();
+      this.DeviceGroupService =
+        new DeviceGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="repository">The repository</param>
-    /// <param name="deviceService">The device service</param>
-    /// <param name="customExecutablePathName">The custom executable path name
-    /// </param>
-    [ExcludeFromCodeCoverage]
+    /// <param name="list">The list of service(s)</param>
+    /// <param name="maxCount">The maximum count of service(s)</param>
+    /// <param name="deviceGroupService">The device group service</param>
     public RepeaterGroupService
     (
-      BaseRepository<TRepeaterModel> repository,
-      DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel> deviceService,
-      string customExecutablePathName
+      List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>> list,
+      int maxCount,
+      DeviceGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        > deviceGroupService
     ) :
-      base(repository)
+      base
+      (
+        list,
+        maxCount
+      )
     {
-      this.Repository = repository;
-      this.DeviceService = deviceService;
-      this.CustomExecutablePathName = customExecutablePathName;
+      this.List = list;
+      this.MaxCount = maxCount;
+      this.DeviceGroupService = deviceGroupService;
     }
 
     protected override void Dispose(bool isDisposed)
@@ -199,10 +270,9 @@ namespace VACARM.Application.Services
 
       if (isDisposed)
       {
-        this.Repository
-          .Dispose();
+        this.Dispose();
 
-        this.DeviceService
+        this.DeviceGroupService
           .Dispose();
       }
 
@@ -211,7 +281,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TRepeaterModel> GetAllAlphabetical()
     {
-      return this.Repository
+      return this.SelectedRepository
         .GetAll()
         .OrderBy(x => x.WindowName);
     }
@@ -220,7 +290,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceId(deviceId);
 
-      return this.Repository
+      return this.SelectedRepository
         .GetRange(func);
     }
 
@@ -228,7 +298,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceName(deviceName);
 
-      return this.Repository
+      return this.SelectedRepository
         .GetRange(func);
     }
 
@@ -236,7 +306,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStarted;
 
-      return this.Repository
+      return this.SelectedRepository
         .GetRange(func);
     }
 
@@ -244,7 +314,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStopped;
 
-      return this.Repository
+      return this.SelectedRepository
         .GetRange(func);
     }
 

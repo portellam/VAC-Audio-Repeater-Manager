@@ -59,15 +59,32 @@ namespace VACARM.Application.Services
 
     public async Task<bool> UpdateServiceAsync()
     {
-      if (this.DeviceService == null)
+      if (this.DeviceGroupService == null)
       {
-        this.DeviceService =
-          new DeviceGroupService<BaseRepository<DeviceModel>, DeviceModel>();
+        this.DeviceGroupService =
+          new DeviceGroupService
+          <
+            ReadonlyRepository
+            <
+              BaseService
+              <
+                BaseRepository<DeviceModel>,
+                DeviceModel
+              >
+            >,
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >,
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >();
 
-        return false;
+        return true;
       }
 
-      return await this.DeviceService
+      return await this.DeviceGroupService
         .UpdateServiceAsync()
         .ConfigureAwait(false);
     }
@@ -76,7 +93,8 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
 
-      return await this.DoWorkAsync
+      return await this.SelectedService
+        .DoWorkAsync
         (
           this.RestartAsync,
           func
@@ -85,7 +103,8 @@ namespace VACARM.Application.Services
 
     public IAsyncEnumerable<int?> RestartAllAsync()
     {
-      return this.DoWorkAllAsync(this.RestartAsync);
+      return this.SelectedService
+        .DoWorkAllAsync(this.RestartAsync);
     }
 
     public IAsyncEnumerable<int?> RestartRangeAsync
@@ -100,7 +119,8 @@ namespace VACARM.Application.Services
           endId
         );
 
-      return this.DoWorkRangeAsync
+      return this.SelectedService
+        .DoWorkRangeAsync
         (
           this.RestartAsync,
           func
@@ -111,7 +131,8 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.DoWorkRangeAsync
+      return this.SelectedService
+        .DoWorkRangeAsync
         (
           this.RestartAsync,
           func
@@ -122,7 +143,8 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
 
-      return await this.DoWorkAsync
+      return await this.SelectedService
+        .DoWorkAsync
         (
           this.StartAsync,
           func
@@ -131,7 +153,8 @@ namespace VACARM.Application.Services
 
     public IAsyncEnumerable<int?> StartAllAsync()
     {
-      return this.DoWorkAllAsync(this.StartAsync);
+      return this.SelectedService
+        .DoWorkAllAsync(this.StartAsync);
     }
 
     public IAsyncEnumerable<int?> StartRangeAsync
@@ -146,7 +169,8 @@ namespace VACARM.Application.Services
           endId
         );
 
-      return this.DoWorkRangeAsync
+      return this.SelectedService
+        .DoWorkRangeAsync
         (
           this.StartAsync,
           func
@@ -157,7 +181,8 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.DoWorkRangeAsync
+      return this.SelectedService
+        .DoWorkRangeAsync
         (
           this.StartAsync,
           func
@@ -168,7 +193,8 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
 
-      return await this.DoWorkAsync
+      return await this.SelectedService
+        .DoWorkAsync
         (
           this.StopAsync,
           func
@@ -177,7 +203,8 @@ namespace VACARM.Application.Services
 
     public IAsyncEnumerable<int?> StopAllAsync()
     {
-      return this.DoWorkAllAsync(this.StopAsync);
+      return this.SelectedService
+        .DoWorkAllAsync(this.StopAsync);
     }
 
     public IAsyncEnumerable<int?> StopRangeAsync
@@ -192,7 +219,8 @@ namespace VACARM.Application.Services
           endId
         );
 
-      return this.DoWorkRangeAsync
+      return this.SelectedService
+        .DoWorkRangeAsync
         (
           this.StopAsync,
           func
@@ -203,7 +231,8 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.DoWorkRangeAsync
+      return this.SelectedService
+        .DoWorkRangeAsync
         (
           this.StopAsync,
           func
