@@ -9,7 +9,7 @@ namespace VACARM.Infrastructure.Services
   /// </summary>
   public class BaseGroupService
     <
-      TServiceRepository,
+      TGroupReadonlyRepository,
       TBaseService,
       TBaseRepository,
       TBaseModel
@@ -40,7 +40,7 @@ namespace VACARM.Infrastructure.Services
       BaseRepository<TBaseModel>,
       TBaseModel
     >
-    where TServiceRepository :
+    where TGroupReadonlyRepository :
     ReadonlyRepository
     <
       BaseService
@@ -66,11 +66,34 @@ namespace VACARM.Infrastructure.Services
     private int selectedIndex { get; set; } = MinCount;
     private readonly static int MinCount = 0;
 
-    /// <summary>
-    /// The list of all <typeparamref name="TBaseService"/>(s).
-    /// </summary>
-    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>
-      BaseServiceList
+    protected BaseRepository<TBaseModel>? SelectedRepository
+    {
+      get
+      {
+        return this.SelectedService
+          .Repository;
+      }
+    }
+
+    protected BaseService<BaseRepository<TBaseModel>, TBaseModel>?
+    SelectedService
+    {
+      get
+      {
+        try
+        {
+          return this.List
+            .ElementAt(this.SelectedIndex);
+        }
+        catch
+        {
+          return null;
+        }
+      }
+    }
+
+    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>?
+    List
     {
       get
       {
@@ -80,7 +103,7 @@ namespace VACARM.Infrastructure.Services
       set
       {
         this.Enumerable = value;
-        this.OnPropertyChanged(nameof(BaseServiceList));
+        this.OnPropertyChanged(nameof(List));
       }
     }
 
@@ -99,23 +122,6 @@ namespace VACARM.Infrastructure.Services
 
         this.selectedIndex = value;
         this.OnPropertyChanged(nameof(SelectedIndex));
-      }
-    }
-
-    public BaseService<BaseRepository<TBaseModel>, TBaseModel>?
-    SelectedBaseService
-    {
-      get
-      {
-        try
-        {
-          return this.BaseServiceList
-            .ElementAt(this.SelectedIndex);
-        }
-        catch
-        {
-          return null;
-        }
       }
     }
 
@@ -149,34 +155,42 @@ namespace VACARM.Infrastructure.Services
     public BaseGroupService() :
       base()
     {
-      this.BaseServiceList =
-        new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
+      this.List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="baseServiceList">The list of services(s)</param>
+    /// <param name="list">The list of services(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
     public BaseGroupService
     (
-      List<BaseService<BaseRepository<TBaseModel>, TBaseModel>> baseServiceList,
+      List<BaseService<BaseRepository<TBaseModel>, TBaseModel>> list,
       int maxCount
     )
     {
-      this.BaseServiceList = baseServiceList;
+      this.List = list;
       this.MaxCount = maxCount;
     }
 
     public bool Add
     (BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService)
     {
-      if (this.Enumerable.Count() >= this.MaxCount)
+      if (this.IsNullOrEmpty)
       {
         return false;
       }
 
-      this.BaseServiceList
+      if
+      (
+        this.Enumerable
+          .Count() >= this.MaxCount
+      )
+      {
+        return false;
+      }
+
+      this.List
         .Add(baseService);
 
       return true;
@@ -184,12 +198,17 @@ namespace VACARM.Infrastructure.Services
 
     public bool Remove(int index)
     {
+      if (this.IsNullOrEmpty)
+      {
+        return false;
+      }
+
       if (!this.ContainsIndex(index))
       {
         return false;
       }
 
-      this.BaseServiceList
+      this.List
         .RemoveAt(index);
 
       return true;
@@ -197,14 +216,9 @@ namespace VACARM.Infrastructure.Services
 
     public BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index)
     {
-      if (this.IsNullOrEmpty(this.BaseServiceList))
-      {
-        return null;
-      }
-
       try
       {
-        return this.BaseServiceList
+        return this.List
           .ElementAt(index);
       }
       catch
