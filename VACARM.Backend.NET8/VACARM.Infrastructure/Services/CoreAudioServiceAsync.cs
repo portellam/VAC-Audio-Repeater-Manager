@@ -129,8 +129,7 @@ namespace VACARM.Application.Services
 
     public async Task<bool> UpdateServiceAsync()
     {
-      var coreAudioDeviceEnumerable = await this
-        .Controller
+      var coreAudioDeviceEnumerable = await this.Controller
         .GetDevicesAsync()
         .ConfigureAwait(false);
 
@@ -149,7 +148,7 @@ namespace VACARM.Application.Services
 
       this.Repository = new ReadonlyRepository<TDevice>(collection);
 
-      return false;
+      return true;
     }
 
     public async Task<CoreAudioDevice?> GetAsync(string id)
@@ -161,8 +160,7 @@ namespace VACARM.Application.Services
 
       var guid = ToGuid(id);
 
-      return await this
-        .Controller
+      return await this.Controller
         .GetDeviceAsync(guid)
         .ConfigureAwait(false);
     }
