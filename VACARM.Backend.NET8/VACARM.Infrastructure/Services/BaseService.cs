@@ -31,7 +31,7 @@ namespace VACARM.Application.Services
     {
       get
       {
-        return (BaseRepository<TBaseModel>)base.Repository;
+        return (BaseRepository<TBaseModel>)base.Repository;                             //WARN: Throws System.InvalidCastException 24,092 times. Throws System.StackOverflowException.
       }
       set
       {
