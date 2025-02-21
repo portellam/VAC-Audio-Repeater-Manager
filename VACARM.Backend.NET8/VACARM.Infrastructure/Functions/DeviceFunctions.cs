@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class CoreAudioDeviceFunctions<TDevice>
+  internal static class DeviceFunctions<TDevice>
     where TDevice :
     Device
   {
