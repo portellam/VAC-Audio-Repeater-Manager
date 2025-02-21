@@ -5,7 +5,7 @@ using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class DeviceFunctions<TDeviceModel> 
+  internal static class DeviceModelFunctions<TDeviceModel> 
     where TDeviceModel :
     DeviceModel
   {
@@ -66,7 +66,7 @@ namespace VACARM.Infrastructure.Functions
     (
       uint id,
       MMDevice mMDevice,
-      Device device,
+      Device? device,
       string? role
     )
     {
@@ -76,9 +76,9 @@ namespace VACARM.Infrastructure.Functions
           mMDevice.ID,
           mMDevice.DeviceFriendlyName,
           MMDeviceFunctions<MMDevice>.IsCapture(mMDevice),
-          CoreAudioDeviceFunctions<CoreAudioDevice>.IsDefault(device),
+          DeviceFunctions<Device>.IsDefault(device),
           MMDeviceFunctions<MMDevice>.IsDisabled(mMDevice),
-          CoreAudioDeviceFunctions<CoreAudioDevice>.IsMuted(device),
+          DeviceFunctions<Device>.IsMuted(device),
           MMDeviceFunctions<MMDevice>.IsPresent(mMDevice),
           MMDeviceFunctions<MMDevice>.IsRender(mMDevice),
           role
