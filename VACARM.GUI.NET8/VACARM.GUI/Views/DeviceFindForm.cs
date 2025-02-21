@@ -1,7 +1,7 @@
-﻿using VACARM.Domain.Models;
+﻿using VACARM.Application.Services;
+using VACARM.Domain.Models;
 using VACARM.GUI.Extensions;
 using VACARM.Infrastructure.Repositories;
-using System.Text;
 
 namespace VACARM.GUI.Forms
 {
@@ -94,7 +94,26 @@ namespace VACARM.GUI.Forms
       }
     }
 
-    private DeviceRepository deviceRepository;
+    private DeviceGroupService
+    <
+      ReadonlyRepository
+      <
+        BaseService
+        <
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >
+      >,
+      BaseService
+      <
+        BaseRepository<DeviceModel>,
+        DeviceModel
+      >,
+      BaseRepository<DeviceModel>,
+      DeviceModel
+    > DeviceGroupService
+    { get; set; }
+
     private List<uint> selectedDeviceIdList;
 
     /// <summary>
@@ -112,9 +131,28 @@ namespace VACARM.GUI.Forms
     /// <summary>
     /// The constructor.
     /// </summary>
-    public DeviceFindForm(DeviceRepository deviceRepository)
+    public DeviceFindForm()
     {
-      this.deviceRepository = deviceRepository;
+      this.DeviceGroupService =
+        new DeviceGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >();
+
       this.deviceTupleList = new List<Tuple<uint, bool, bool, bool, bool, bool>>();
       this.selectedDeviceIdList = new List<uint>();
       PreInitializeComponent();
@@ -169,8 +207,9 @@ namespace VACARM.GUI.Forms
     {
       SetFormMaxSize();
 
-      deviceRepository
+      DeviceGroupService
         .GetAllEnabled()
+        .ToList()
         .ForEach
         (
           x =>
@@ -182,8 +221,8 @@ namespace VACARM.GUI.Forms
                   x.Id,
                   x.IsDuplex,
                   true,
-                  x.IsInput,
-                  x.IsOutput,
+                  x.IsCapture,
+                  x.IsRender,
                   x.IsPresent
                 );
 
@@ -192,8 +231,9 @@ namespace VACARM.GUI.Forms
           }
         );
 
-      deviceRepository
+      DeviceGroupService
         .GetAllDisabled()
+        .ToList()
         .ForEach
         (
           x =>
@@ -205,8 +245,8 @@ namespace VACARM.GUI.Forms
                   x.Id,
                   x.IsDuplex,
                   false,
-                  x.IsInput,
-                  x.IsOutput,
+                  x.IsCapture,
+                  x.IsRender,
                   x.IsPresent
                 );
 
@@ -285,9 +325,11 @@ namespace VACARM.GUI.Forms
       bool isPresent
     )
     {
-      DeviceModel deviceModel = deviceRepository.Get(deviceId);
+      var model = this.DeviceGroupService
+        .SelectedService
+        .Get(deviceId);
 
-      if (deviceModel is null)
+      if (model is null)
       {
         return;
       }
@@ -318,7 +360,7 @@ namespace VACARM.GUI.Forms
         idWhiteSpace,
         deviceId,
         nameWhiteSpace,
-        deviceModel.Name
+        model.Name
       );
 
       bool isVisible = IsThisDeviceComboBoxItemVisible

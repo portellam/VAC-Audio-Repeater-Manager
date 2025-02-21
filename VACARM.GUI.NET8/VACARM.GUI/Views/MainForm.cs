@@ -1,9 +1,9 @@
 using VACARM.GUI.Helpers;
-using VACARM.Domain;
-using VACARM.Domain.Models;
 using VACARM.GUI.Forms;
-using AudioSwitcher.AudioApi;
 using VACARM.Infrastructure.Repositories;
+using VACARM.Common;
+using VACARM.Application.Services;
+using VACARM.Domain.Models;
 
 namespace VACARM.GUI
 {
@@ -99,23 +99,44 @@ namespace VACARM.GUI
       }
     }
 
-    private DeviceRepository selectedDeviceRepository
-    {
-      get
-      {
-        return deviceRepositoryHashSet
-          .ElementAtOrDefault(selectedDeviceRepositoryindex);
-      }
-    }
+    //NOTE: this also appears in DeviceFindForm. TODO: find one space to put this!
+    private DeviceGroupService
+    <
+      ReadonlyRepository
+      <
+        BaseService
+        <
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >
+      >,
+      BaseService
+      <
+        BaseRepository<DeviceModel>,
+        DeviceModel
+      >,
+      BaseRepository<DeviceModel>,
+      DeviceModel
+    > DeviceGroupService
+    { get; set; }
 
-    private HashSet<DeviceRepository> deviceRepositoryHashSet;
+    //private DeviceRepository selectedDeviceRepository
+    //{
+    //  get
+    //  {
+    //    return deviceRepositoryHashSet
+    //      .ElementAtOrDefault(selectedDeviceRepositoryindex);
+    //  }
+    //}
+
+    //private HashSet<DeviceRepository> deviceRepositoryHashSet;
 
     #endregion
 
     #region Presentation logic
 
     /// <summary>
-    /// The constructor.
+    /// Constructor.
     /// </summary>
     public MainForm()
     {
@@ -159,25 +180,25 @@ namespace VACARM.GUI
 
     private void SetComponentsTextProperties()
     {
-      Text = Global.ApplicationPartialAbbreviatedName;
+      Text = Info.ApplicationPartialAbbreviatedName;
 
       helpAboutToolStripMenuItem.Text = string.Format
         (
           "About {0}",
-          Global.ApplicationPartialAbbreviatedName
+          Info.ApplicationPartialAbbreviatedName
         );
 
       helpApplicationWebsiteToolStripMenuItem.Text = string.Format
         (
           "{0} Website",
-          Global.ReferencedApplicationName
+          Info.ReferencedApplicationName
         );
 
 
       helpWebsiteToolStripMenuItem.Text = string.Format
         (
           "{0} Website",
-          Global.ApplicationPartialAbbreviatedName
+          Info.ApplicationPartialAbbreviatedName
         );
 
       string featureNotAvailableMessage = "N/A: ";
@@ -201,19 +222,21 @@ namespace VACARM.GUI
     /// The selected device repository index.
     /// Import device repository by system or text file.
     /// </summary>
-    private int selectedDeviceRepositoryindex = 0;
+    private int selectedDeviceRepositoryindex = 0; //NOTE: 2025-02-21, I totally forgot I had this idea until I just made DeviceGroupService.
 
     private void SetComponentsItemLists()
     {
       SetDeviceRepositories();
 
-      deviceRepositoryHashSet.Add
-        (
-          new DeviceRepository()
-        );
+      //deviceRepositoryHashSet.Add
+      //  (
+      //    new DeviceRepository()
+      //  );
 
-      selectedDeviceRepository
+      this.DeviceGroupService
+        .SelectedRepository
         .GetAll()
+        .ToList()
         .ForEach
         (
           x =>
@@ -249,14 +272,14 @@ namespace VACARM.GUI
               ToolTipText = x.Id.ToString(),
             };
 
-            if (x.IsInput)
+            if (x.IsCapture)
             {
               deviceSelectInputToolStripMenuItem
                 .DropDownItems
                 .Add(toolStripMenuItem);
             }
 
-            else if (x.IsOutput)
+            else if (x.IsRender)
             {
               deviceSelectOutputToolStripMenuItem
                 .DropDownItems
@@ -277,32 +300,58 @@ namespace VACARM.GUI
     {
       deviceToolStripMenuItemsAbility = false;
 
+      //if
+      //(
+      //  deviceRepositoryHashSet is null
+      //  || deviceRepositoryHashSet.Count == 0
+      //  || selectedDeviceRepository is null
+      //  || selectedDeviceRepository.GetAll().Count == 0
+      //)
+      //{
+      //  return;
+      //}
+
       if
       (
-        deviceRepositoryHashSet is null
-        || deviceRepositoryHashSet.Count == 0
-        || selectedDeviceRepository is null
-        || selectedDeviceRepository.GetAll().Count == 0
+        this.DeviceGroupService
+          .GetAll()
+          .Count() == 0
       )
       {
         return;
       }
 
+
       deviceToolStripMenuItemsAbility = true;
 
-      if (selectedDeviceRepository.GetAllDuplex().Count == 0)
+      if
+      (
+        this.DeviceGroupService
+          .GetAllDuplex()
+          .Count() == 0
+      )
       {
         deviceSelectAllDuplexToolStripMenuItem.Enabled = false;
         deviceSelectDuplexToolStripMenuItem.Enabled = false;
       }
 
-      if (selectedDeviceRepository.GetAllInput().Count == 0)
+      if
+      (
+        this.DeviceGroupService
+          .GetAllCapture()
+          .Count() == 0
+      )
       {
         deviceSelectAllInputsToolStripMenuItem.Enabled = false;
         deviceSelectInputToolStripMenuItem.Enabled = false;
       }
 
-      if (selectedDeviceRepository.GetAllOutput().Count == 0)
+      if
+      (
+        this.DeviceGroupService
+          .GetAllRender()
+          .Count() == 0
+      )
       {
         deviceSelectAllOutputsToolStripMenuItem.Enabled = false;
         deviceSelectOutputToolStripMenuItem.Enabled = false;
@@ -311,14 +360,34 @@ namespace VACARM.GUI
 
     private void SetDeviceRepositories()
     {
-      if
-      (
-        deviceRepositoryHashSet is null
-        || deviceRepositoryHashSet.Count == 0
-      )
-      {
-        deviceRepositoryHashSet = new HashSet<DeviceRepository>();
-      }
+      //if
+      //(
+      //  deviceRepositoryHashSet is null
+      //  || deviceRepositoryHashSet.Count == 0
+      //)
+      //{
+      //  //deviceRepositoryHashSet = new HashSet<DeviceRepository>();                    //TODO: update.
+      //}
+
+      this.DeviceGroupService =
+        new DeviceGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >();
     }
 
     #endregion
@@ -1062,7 +1131,10 @@ namespace VACARM.GUI
       EventArgs eventArgs
     )
     {
-      new DeviceFindForm(selectedDeviceRepository)
+      //new DeviceFindForm(selectedDeviceRepository)
+      //  .ShowDialog();
+
+      new DeviceFindForm()
         .ShowDialog();
     }
 
