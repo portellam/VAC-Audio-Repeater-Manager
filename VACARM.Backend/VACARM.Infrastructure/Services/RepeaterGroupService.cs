@@ -8,7 +8,7 @@ namespace VACARM.Application.Services
 {
   /// <summary>
   /// The service to manage multiple configurations of audio repeaters. 
-  /// Configurations are user-defined, 
+  /// Configurations are user-defined,
   /// and may be from a foreign system or a previous state of the current system.
   /// Manages <typeparamref name="DeviceGroupService"/>.
   /// </summary>

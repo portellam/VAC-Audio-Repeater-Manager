@@ -14,8 +14,7 @@ namespace VACARM.Application.Services
   /// The service to manage multiple configurations of system audio device(s). 
   /// Configurations may be from a foreign system or a previous state of the 
   /// current system.
-  /// Manages <typeparamref name="DeviceService"/>,
-  ///  <typeparamref name="CoreAudioService"/>,
+  /// Manages <typeparamref name="CoreAudioService"/>
   ///  and <typeparamref name="MMDeviceService"/>.
   /// </summary>
   public partial class DeviceGroupService
