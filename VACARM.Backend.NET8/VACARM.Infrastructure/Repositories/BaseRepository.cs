@@ -28,6 +28,21 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    /// <summary>
+    /// The next valid ID.
+    /// </summary>
+    internal uint NextId
+    {
+      get
+      {
+        uint id = this.IdEnumerable
+          .Max();
+
+        id++;
+        return id;
+      }
+    }
+
     protected virtual List<TBaseModel> List
     {
       get
@@ -43,21 +58,6 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     private int maxCount { get; set; } = int.MaxValue;
-
-    /// <summary>
-    /// The next valid ID.
-    /// </summary>
-    private uint NextId
-    {
-      get
-      {
-        uint id = this.IdEnumerable
-          .Max();
-
-        id++;
-        return id;
-      }
-    }
 
     public Func<int, bool> IsValidIndex
     {
