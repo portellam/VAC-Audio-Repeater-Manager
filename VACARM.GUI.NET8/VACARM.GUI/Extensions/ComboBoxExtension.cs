@@ -2,9 +2,13 @@
 {
   public class ComboBoxExtension
   {
+    #region Logic
+
     /// <summary>
     /// Auto adjust ComboBox drop down width.
     /// </summary>
+    /// <param name="comboBox">The combo box</param>
+    /// <returns>The drop down width</returns>
     public static int DropDownWidth(ComboBox comboBox)
     {
       int maxWidth = 0;
@@ -31,6 +35,7 @@
     /// </summary>
     /// <param name="sender">The sender</param>
     /// <param name="eventArgs">The event args</param>
+    /// <returns>The combo box</returns>
     public static ComboBox AdjustWidthComboBox_DropDown
     (
       object sender,
@@ -69,4 +74,6 @@
       return senderComboBox;
     }
   }
+
+  #endregion
 }

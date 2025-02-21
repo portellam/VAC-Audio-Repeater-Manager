@@ -3,7 +3,8 @@ using VACARM.GUI.Extensions.ColorTable;
 
 namespace VACARM.Domain.ViewModels.Renderer
 {
-  public class ToolStripDarkRenderer : ToolStripProfessionalRenderer
+  public class ToolStripDarkRenderer : 
+    ToolStripProfessionalRenderer
   {
     #region Parameters
 

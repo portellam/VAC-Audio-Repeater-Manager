@@ -8,7 +8,8 @@ using VACARM.GUI.Extensions.RegistrySubKeyChanged;
 
 namespace VACARM.GUI.Extensions
 {
-  public class WMIRegistryEventListener : IDisposable
+  public class WMIRegistryEventListener : 
+    IDisposable
   {
     #region Parameters
 

@@ -3,7 +3,8 @@ using System.Windows.Forms;
 
 namespace VACARM.GUI.Extensions.ColorTable
 {
-  public class DarkColorTable : ProfessionalColorTable
+  public class DarkColorTable : 
+    ProfessionalColorTable
   {
     #region Parameters
 

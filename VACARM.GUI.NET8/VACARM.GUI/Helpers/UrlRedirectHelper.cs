@@ -5,6 +5,8 @@ namespace VACARM.GUI.Helpers
 {
   public class UrlRedirectHelper
   {
+    #region Logic
+
     /// <summary>
     /// Opens a URL in the default browser of the system.
     /// </summary>
@@ -112,4 +114,6 @@ namespace VACARM.GUI.Helpers
       }
     }
   }
+
+  #endregion
 }

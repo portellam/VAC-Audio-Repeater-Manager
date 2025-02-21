@@ -5,7 +5,8 @@ using System.Windows.Forms;
 
 namespace VACARM.GUI.Extensions
 {
-  public sealed class DialogCenteringService : IDisposable
+  public sealed class DialogCenteringService :
+    IDisposable
   {
     #region Parameters
 
