@@ -1,9 +1,9 @@
 ﻿using AudioRepeaterManager.NET8_0.Domain.Models;
-using AudioRepeaterManager.NET8_0.GUI.Extensions;
+using VACARM.GUI.Extensions;
 using AudioRepeaterManager.NET8_0.Infrastructure.Repositories;
 using System.Text;
 
-namespace AudioRepeaterManager.NET8_0.GUI.Forms
+namespace VACARM.GUI.Forms
 {
   public partial class DeviceFindForm : Form
   {

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace AudioRepeaterManager.NET8_0.GUI.Extensions.ColorTable
+namespace VACARM.GUI.Extensions.ColorTable
 {
   public class DarkColorTable : ProfessionalColorTable
   {

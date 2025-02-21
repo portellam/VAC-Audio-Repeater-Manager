@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace AudioRepeaterManager.NET8_0.GUI.Helpers
+namespace VACARM.GUI.Helpers
 {
   public class UrlRedirectHelper
   {

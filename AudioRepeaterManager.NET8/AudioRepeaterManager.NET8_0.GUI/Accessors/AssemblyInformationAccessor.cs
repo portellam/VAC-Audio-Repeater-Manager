@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace AudioRepeaterManager.NET8_0.GUI.Accessors
+namespace VACARM.GUI.Accessors
 {
   public class AssemblyInformationAccessor
   {

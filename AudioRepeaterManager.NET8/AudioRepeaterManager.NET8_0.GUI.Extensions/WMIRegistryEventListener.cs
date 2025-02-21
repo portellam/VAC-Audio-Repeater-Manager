@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using System.Security.Principal;
-using AudioRepeaterManager.NET8_0.GUI.Extensions.RegistrySubKeyChanged;
+using VACARM.GUI.Extensions.RegistrySubKeyChanged;
 
-namespace AudioRepeaterManager.NET8_0.GUI.Extensions
+namespace VACARM.GUI.Extensions
 {
   public class WMIRegistryEventListener : IDisposable
   {

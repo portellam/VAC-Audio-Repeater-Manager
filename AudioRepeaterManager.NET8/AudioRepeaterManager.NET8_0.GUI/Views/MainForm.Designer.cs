@@ -1,4 +1,4 @@
-﻿namespace AudioRepeaterManager.NET8_0.GUI
+﻿namespace VACARM.GUI
 {
   partial class MainForm
   {

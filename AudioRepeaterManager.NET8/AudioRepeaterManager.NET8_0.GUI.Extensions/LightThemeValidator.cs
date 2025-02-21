@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
-using AudioRepeaterManager.NET8_0.GUI.Extensions.PropertyValueChanged;
+using VACARM.GUI.Extensions.PropertyValueChanged;
 
-namespace AudioRepeaterManager.NET8_0.GUI.Extensions
+namespace VACARM.GUI.Extensions
 {
   public class LightThemeValidator
   {

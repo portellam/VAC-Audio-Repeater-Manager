@@ -1,4 +1,4 @@
-﻿namespace AudioRepeaterManager.NET8_0.GUI.Extensions
+﻿namespace VACARM.GUI.Extensions
 {
   public class ComboBoxExtension
   {

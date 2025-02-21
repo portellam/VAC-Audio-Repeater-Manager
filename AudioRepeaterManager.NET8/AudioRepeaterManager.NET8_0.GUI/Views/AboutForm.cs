@@ -1,7 +1,7 @@
-﻿using AudioRepeaterManager.NET8_0.GUI.Accessors;
+﻿using VACARM.GUI.Accessors;
 using AudioRepeaterManager.NET8_0.Domain.Shared;
 
-namespace AudioRepeaterManager.NET8_0.GUI
+namespace VACARM.GUI
 {
   partial class AboutForm : Form
   {

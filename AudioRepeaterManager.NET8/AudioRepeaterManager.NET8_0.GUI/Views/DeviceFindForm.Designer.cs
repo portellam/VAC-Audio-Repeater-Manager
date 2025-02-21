@@ -1,4 +1,4 @@
-﻿namespace AudioRepeaterManager.NET8_0.GUI.Forms
+﻿namespace VACARM.GUI.Forms
 {
   partial class DeviceFindForm
   {

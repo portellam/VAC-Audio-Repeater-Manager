@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using AudioRepeaterManager.NET8_0.GUI.Extensions.ColorTable;
+using VACARM.GUI.Extensions.ColorTable;
 
 namespace AudioRepeaterManager.NET8_0.Domain.ViewModels.Renderer
 {

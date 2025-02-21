@@ -1,11 +1,11 @@
-using AudioRepeaterManager.NET8_0.GUI.Helpers;
+using VACARM.GUI.Helpers;
 using AudioRepeaterManager.NET8_0.Domain;
 using AudioRepeaterManager.NET8_0.Domain.Models;
-using AudioRepeaterManager.NET8_0.GUI.Forms;
+using VACARM.GUI.Forms;
 using AudioSwitcher.AudioApi;
 using AudioRepeaterManager.NET8_0.Infrastructure.Repositories;
 
-namespace AudioRepeaterManager.NET8_0.GUI
+namespace VACARM.GUI
 {
   public partial class MainForm : Form
   {

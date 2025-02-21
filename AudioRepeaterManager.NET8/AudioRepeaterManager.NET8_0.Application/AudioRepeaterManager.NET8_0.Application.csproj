@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AudioRepeaterManager.NET8_0.Domain\AudioRepeaterManager.NET8_0.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="NAudio">
       <HintPath>..\..\AudioRepeaterManager\AudioRepeaterManager.NET4_6.Backend\bin\Debug\NAudio.dll</HintPath>
     </Reference>
