@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
-    <Title>AudioRepeaterManager.NET8_0.GUI.Extensions</Title>
+    <Title>VACARM.GUI.Extensions</Title>
     <Description></Description>
     <Copyright>VAC Audio Repeater Manager Copyleft © 2024 Alexander Portell.\nVirtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.</Copyright>
     <PackageProjectUrl>https://www.github.com/portellam/vac-manager</PackageProjectUrl>

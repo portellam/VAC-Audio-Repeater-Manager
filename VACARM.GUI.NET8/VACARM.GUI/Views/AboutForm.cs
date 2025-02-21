@@ -1,5 +1,5 @@
 ﻿using VACARM.GUI.Accessors;
-using AudioRepeaterManager.NET8_0.Domain.Shared;
+using VACARM.Domain.Shared;
 
 namespace VACARM.GUI
 {

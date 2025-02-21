@@ -1,6 +1,6 @@
-﻿using AudioRepeaterManager.NET8_0.Domain.Models;
+﻿using VACARM.Domain.Models;
 using VACARM.GUI.Extensions;
-using AudioRepeaterManager.NET8_0.Infrastructure.Repositories;
+using VACARM.Infrastructure.Repositories;
 using System.Text;
 
 namespace VACARM.GUI.Forms
