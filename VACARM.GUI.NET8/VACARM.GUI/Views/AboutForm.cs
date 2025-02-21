@@ -1,5 +1,5 @@
 ﻿using VACARM.GUI.Accessors;
-using VACARM.Domain.Shared;
+using VACARM.Common;
 
 namespace VACARM.GUI
 {
@@ -29,10 +29,11 @@ namespace VACARM.GUI
         .Format
         (
           "About {0}",
-          Global.ApplicationPartialAbbreviatedName
+          Info.ApplicationPartialAbbreviatedName
         );
 
-      this.textBoxDescription.Text = AssemblyInformationAccessor.AssemblyDescription;
+      this.textBoxDescription.Text = 
+        AssemblyInformationAccessor.AssemblyDescription;
     }
 
     #endregion
