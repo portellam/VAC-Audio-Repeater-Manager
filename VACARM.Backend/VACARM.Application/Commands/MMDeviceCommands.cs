@@ -3,6 +3,9 @@ using NAudio.CoreAudioApi;
 
 namespace VACARM.Application.Commands
 {
+  /// <summary>
+  /// Start, stop, and reset a <typeparamref name="MMDevice"/>
+  /// </summary>
   public static class MMDeviceCommands
   {
     #region Logic

@@ -3,7 +3,9 @@
 namespace VACARM.Application.Commands
 {
   /// <summary>
-  /// Extended functionality over <typeparamref name="MMDevice"/>.
+  /// Set as default, set volume, mute and unmute a
+  /// <typeparamref name="CoreAudioDevice"/>.
+  /// Extended functionality over <typeparamref name="MMDeviceCommands"/>.
   /// </summary>
   public static class CoreAudioCommands
   {

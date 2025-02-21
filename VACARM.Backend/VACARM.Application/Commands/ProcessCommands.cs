@@ -2,6 +2,9 @@
 
 namespace VACARM.Application.Commands
 {
+  /// <summary>
+  /// Run or kill a <typeparamref name="Process"/>.
+  /// </summary>
   public static class ProcessCommands
   {
     #region Logic
