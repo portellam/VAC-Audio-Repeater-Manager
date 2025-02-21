@@ -2,6 +2,7 @@
 
 using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
@@ -139,10 +140,37 @@ namespace VACARM.Application.Services
         new List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>>();
 
       this.MMDeviceService =
-        new MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice>();
+          new MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice>();
 
       this.CoreAudioService =
-        new CoreAudioService<ReadonlyRepository<Device>, Device>();
+          new CoreAudioService<ReadonlyRepository<Device>, Device>();
+
+      this.UpdateSelectedService();
+    }
+
+    public void UpdateSelectedService()
+    {
+      var enumerable = this.MMDeviceService
+        .GetAll();
+
+      foreach (MMDevice mMDevice in enumerable)
+      {
+        var coreAudioDevice = this.CoreAudioService
+          .Get(mMDevice.ID);
+
+        uint id = this.SelectedRepository
+          .NextId;
+
+        var deviceModel = DeviceFunctions<TDeviceModel>.GetDeviceModel
+          (
+            id,
+            mMDevice,
+            coreAudioDevice,
+            null
+          );
+      }
+
+      //NOTE: role is determined when you want to get the default device of a given role, and nowhere else (AFAIK).
     }
 
     /// <summary>
