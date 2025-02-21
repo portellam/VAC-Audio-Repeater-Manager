@@ -39,6 +39,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AudioSwitcher.AudioApi" Version="3.0.0" />
+    <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="3.0.3" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="VACARM.Application">
       <HintPath>..\..\VACARM.Backend.NET8\VACARM.Application\bin\Debug\net8.0\VACARM.Application.dll</HintPath>
     </Reference>
