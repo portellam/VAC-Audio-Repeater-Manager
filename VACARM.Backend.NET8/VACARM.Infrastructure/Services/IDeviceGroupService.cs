@@ -154,6 +154,11 @@ namespace VACARM.Application.Services
       uint endId
     );
 
+    /// <summary>
+    /// Update the selected <typeparamref name="TBaseService"/>.
+    /// </summary>
+    void UpdateSelectedService();
+
     #endregion
   }
 }
