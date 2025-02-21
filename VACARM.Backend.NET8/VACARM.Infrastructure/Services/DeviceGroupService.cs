@@ -148,31 +148,6 @@ namespace VACARM.Application.Services
       this.UpdateSelectedService();
     }
 
-    public void UpdateSelectedService()
-    {
-      var enumerable = this.MMDeviceService
-        .GetAll();
-
-      foreach (MMDevice mMDevice in enumerable)
-      {
-        var device = this.CoreAudioService
-          .Get(mMDevice.ID);
-
-        uint id = this.SelectedRepository
-          .NextId;
-
-        var deviceModel = DeviceModelFunctions<TDeviceModel>.GetDeviceModel
-          (
-            id,
-            mMDevice,
-            device,
-            null
-          );
-      }
-
-      //NOTE: role is determined when you want to get the default device of a given role, and nowhere else (AFAIK).
-    }
-
     /// <summary>
     /// Constructor
     /// </summary>
@@ -196,8 +171,12 @@ namespace VACARM.Application.Services
       this.List = list;
       this.MMDeviceService = mMDeviceService;
       this.CoreAudioService = coreAudioService;
-    }
 
+      if (this.SelectedService == null)
+      {
+        this.UpdateSelectedService();
+      }
+    }
 
     /// <summary>
     /// Restart a <typeparamref name="TDeviceModel"/>.
@@ -648,6 +627,29 @@ namespace VACARM.Application.Services
           this.Update,
           func
         );
+    }
+
+    public void UpdateSelectedService()
+    {
+      var enumerable = this.MMDeviceService
+        .GetAll();
+
+      foreach (MMDevice mMDevice in enumerable)
+      {
+        var device = this.CoreAudioService
+          .Get(mMDevice.ID);
+
+        uint id = this.SelectedRepository
+          .NextId;
+
+        var deviceModel = DeviceModelFunctions<TDeviceModel>.GetDeviceModel
+          (
+            id,
+            mMDevice,
+            device,
+            null
+          );
+      }
     }
 
     #endregion
