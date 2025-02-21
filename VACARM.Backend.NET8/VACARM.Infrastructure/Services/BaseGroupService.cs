@@ -66,7 +66,22 @@ namespace VACARM.Infrastructure.Services
     private int selectedIndex { get; set; } = MinCount;
     private readonly static int MinCount = 0;
 
-    protected BaseRepository<TBaseModel>? SelectedRepository
+    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>?
+    List
+    {
+      get
+      {
+        return this.Enumerable
+          .ToList();
+      }
+      set
+      {
+        this.Enumerable = value;
+        this.OnPropertyChanged(nameof(List));
+      }
+    }
+
+    public BaseRepository<TBaseModel>? SelectedRepository
     {
       get
       {
@@ -75,7 +90,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    protected BaseService<BaseRepository<TBaseModel>, TBaseModel>?
+    public BaseService<BaseRepository<TBaseModel>, TBaseModel>?
     SelectedService
     {
       get
@@ -89,21 +104,6 @@ namespace VACARM.Infrastructure.Services
         {
           return null;
         }
-      }
-    }
-
-    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>?
-    List
-    {
-      get
-      {
-        return this.Enumerable
-          .ToList();
-      }
-      set
-      {
-        this.Enumerable = value;
-        this.OnPropertyChanged(nameof(List));
       }
     }
 
