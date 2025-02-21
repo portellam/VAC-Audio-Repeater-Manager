@@ -169,6 +169,12 @@ namespace VACARM.Application.Services
         .Get(func);
     }
 
+    public IEnumerable<TMMDevice> GetAll()
+    {
+      return this.Repository
+        .GetAll();
+    }
+
     public IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);

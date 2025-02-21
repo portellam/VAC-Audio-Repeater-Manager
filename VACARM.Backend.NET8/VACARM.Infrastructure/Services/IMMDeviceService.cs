@@ -44,6 +44,12 @@ namespace VACARM.Application.Services
     TMMDevice? GetDefaultMultimedia(DataFlow dataFlow);
 
     /// <summary>
+    /// Get an enumerable of all <typeparamref name="TMMDevice"/>(s).
+    /// </summary>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TMMDevice> GetAll();
+
+    /// <summary>
     /// Get an enumerable of some <typeparamref name="TMMDevice"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
