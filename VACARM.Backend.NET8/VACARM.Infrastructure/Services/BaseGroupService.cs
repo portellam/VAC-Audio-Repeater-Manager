@@ -88,6 +88,13 @@ namespace VACARM.Infrastructure.Services
         return this.SelectedService
           .Repository;
       }
+      protected set
+      {
+        this.SelectedService
+          .Repository = value;
+
+        this.OnPropertyChanged(nameof(SelectedRepository));
+      }
     }
 
     public BaseService<BaseRepository<TBaseModel>, TBaseModel>?
@@ -104,6 +111,11 @@ namespace VACARM.Infrastructure.Services
         {
           return null;
         }
+      }
+      protected set
+      {
+        this.List[this.SelectedIndex] = value;
+        this.OnPropertyChanged(nameof(SelectedService));
       }
     }
 
@@ -156,6 +168,11 @@ namespace VACARM.Infrastructure.Services
       base()
     {
       this.List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
+
+      this.SelectedService =
+        new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
+
+      this.SelectedRepository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
@@ -171,6 +188,17 @@ namespace VACARM.Infrastructure.Services
     {
       this.List = list;
       this.MaxCount = maxCount;
+
+      if (this.SelectedService == null)
+      {
+        this.SelectedService =
+          new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
+      }
+
+      if (this.SelectedRepository == null)
+      {
+        this.SelectedRepository = new BaseRepository<TBaseModel>();
+      }
     }
 
     public bool Add
