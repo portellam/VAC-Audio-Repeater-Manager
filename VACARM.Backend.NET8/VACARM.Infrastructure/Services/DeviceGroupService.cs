@@ -155,17 +155,17 @@ namespace VACARM.Application.Services
 
       foreach (MMDevice mMDevice in enumerable)
       {
-        var coreAudioDevice = this.CoreAudioService
+        var device = this.CoreAudioService
           .Get(mMDevice.ID);
 
         uint id = this.SelectedRepository
           .NextId;
 
-        var deviceModel = DeviceFunctions<TDeviceModel>.GetDeviceModel
+        var deviceModel = DeviceModelFunctions<TDeviceModel>.GetDeviceModel
           (
             id,
             mMDevice,
-            coreAudioDevice,
+            device,
             null
           );
       }
@@ -305,7 +305,7 @@ namespace VACARM.Application.Services
 
     public TDeviceModel? GetByActualId(string actualId)
     {
-      var func = DeviceFunctions<TDeviceModel>.ContainsActualId(actualId);
+      var func = DeviceModelFunctions<TDeviceModel>.ContainsActualId(actualId);
 
       return this.SelectedRepository
         .Get(func);
@@ -334,7 +334,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllAbsent()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsAbsent;
+      var func = DeviceModelFunctions<TDeviceModel>.IsAbsent;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -356,7 +356,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllCapture()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsCapture;
+      var func = DeviceModelFunctions<TDeviceModel>.IsCapture;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -364,7 +364,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllCommunications()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsCommunications;
+      var func = DeviceModelFunctions<TDeviceModel>.IsCommunications;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -372,7 +372,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllConsole()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsConsole;
+      var func = DeviceModelFunctions<TDeviceModel>.IsConsole;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -380,7 +380,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllDefault()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsDefault;
+      var func = DeviceModelFunctions<TDeviceModel>.IsDefault;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -388,7 +388,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllDisabled()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsDisabled;
+      var func = DeviceModelFunctions<TDeviceModel>.IsDisabled;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -396,7 +396,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllDuplex()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsDuplex;
+      var func = DeviceModelFunctions<TDeviceModel>.IsDuplex;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -404,7 +404,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllEnabled()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsEnabled;
+      var func = DeviceModelFunctions<TDeviceModel>.IsEnabled;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -412,7 +412,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllMultimedia()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsMultimedia;
+      var func = DeviceModelFunctions<TDeviceModel>.IsMultimedia;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -420,7 +420,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllMuted()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsMuted;
+      var func = DeviceModelFunctions<TDeviceModel>.IsMuted;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -428,7 +428,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllPresent()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsPresent;
+      var func = DeviceModelFunctions<TDeviceModel>.IsPresent;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -436,7 +436,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllRender()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsRender;
+      var func = DeviceModelFunctions<TDeviceModel>.IsRender;
 
       return this.SelectedRepository
         .GetRange(func);
@@ -444,7 +444,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDeviceModel> GetAllUnmuted()
     {
-      var func = DeviceFunctions<TDeviceModel>.IsUnmuted;
+      var func = DeviceModelFunctions<TDeviceModel>.IsUnmuted;
 
       return this.SelectedRepository
         .GetRange(func);
