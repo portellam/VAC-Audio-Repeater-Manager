@@ -11,27 +11,27 @@ namespace VACARM.Common
     public readonly static string ReferencedApplicationName = 
       "Virtual Audio Cable";
 
-    public string ApplicationAbbreviatedName { get; } = string.Format
+    public static string ApplicationAbbreviatedName { get; } = string.Format
       (
         "{0}ARM",
         ReferencedApplicationAbbreviatedName
       );
 
-    public string ApplicationName { get; } = string.Format
+    public static string ApplicationName { get; } = string.Format
       (
         "{0} Audio Repeater Manager",
         ReferencedApplicationName
       );
 
-    public string ApplicationPartialAbbreviatedName { get; } = string.Format
+    public static string ApplicationPartialAbbreviatedName { get; } = string.Format
       (
         "{0} Audio Repeater Manager",
         ReferencedApplicationAbbreviatedName
       );
 
-    public string ReferencedFileExtension { get; } = ".vac";
+    public static string ReferencedFileExtension { get; } = ".vac";
 
-    public string ScriptFileExtension
+    public static string ScriptFileExtension
     {
       get
       {
@@ -64,8 +64,6 @@ namespace VACARM.Common
         }
       }
     }
-
-    public string XMLFileExtension { get; } = ".xml";
 
     #endregion
   }
