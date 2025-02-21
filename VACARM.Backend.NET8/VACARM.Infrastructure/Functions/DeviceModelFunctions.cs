@@ -1,4 +1,7 @@
-﻿using VACARM.Domain.Models;
+﻿using AudioSwitcher.AudioApi;
+using AudioSwitcher.AudioApi.CoreAudio;
+using NAudio.CoreAudioApi;
+using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Functions
 {
@@ -50,6 +53,37 @@ namespace VACARM.Infrastructure.Functions
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Get a <typeparamref name="DeviceModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <param name="mMDevice">The device</param>
+    /// <param name="device">The device</param>
+    /// <param name="role">The role</param>
+    /// <returns>The device model.</returns>
+    internal static DeviceModel GetDeviceModel
+    (
+      uint id,
+      MMDevice mMDevice,
+      Device device,
+      string? role
+    )
+    {
+      return new DeviceModel
+        (
+          id,
+          mMDevice.ID,
+          mMDevice.DeviceFriendlyName,
+          MMDeviceFunctions<MMDevice>.IsCapture(mMDevice),
+          CoreAudioDeviceFunctions<CoreAudioDevice>.IsDefault(device),
+          MMDeviceFunctions<MMDevice>.IsDisabled(mMDevice),
+          CoreAudioDeviceFunctions<CoreAudioDevice>.IsMuted(device),
+          MMDeviceFunctions<MMDevice>.IsPresent(mMDevice),
+          MMDeviceFunctions<MMDevice>.IsRender(mMDevice),
+          role
+        );
+    }
 
     /// <summary>
     /// Match a <typeparamref name="TDeviceModel"/> actual ID.
