@@ -39,6 +39,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="VACARM.Application">
+      <HintPath>..\..\VACARM.Backend.NET8\VACARM.Application\bin\Debug\net8.0\VACARM.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="VACARM.Common">
+      <HintPath>..\..\VACARM.Backend.NET8\VACARM.Common\bin\Debug\net8.0\VACARM.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="VACARM.Domain">
+      <HintPath>..\..\VACARM.Backend.NET8\VACARM.Domain\bin\Debug\net8.0\VACARM.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="VACARM.Infrastructure">
+      <HintPath>..\..\VACARM.Backend.NET8\VACARM.Infrastructure\bin\Debug\net8.0\VACARM.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="MainForm - Copy.cs">
       <SubType>Form</SubType>
     </Compile>
