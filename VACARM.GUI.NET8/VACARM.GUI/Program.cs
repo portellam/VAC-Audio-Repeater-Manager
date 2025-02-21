@@ -2,6 +2,8 @@ namespace VACARM.GUI
 {
   internal static class Program
   {
+    #region Logic
+
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
@@ -11,7 +13,9 @@ namespace VACARM.GUI
       // To customize application configuration such as set high DPI settings or default font,
       // see https://aka.ms/applicationconfiguration.
       ApplicationConfiguration.Initialize();
-      Application.Run(new MainForm());
+      System.Windows.Forms.Application.Run(new MainForm());
     }
+
+    #endregion
   }
 }
