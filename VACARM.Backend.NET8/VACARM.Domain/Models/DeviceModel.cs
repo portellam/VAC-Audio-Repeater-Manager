@@ -192,6 +192,11 @@ namespace VACARM.Domain.Models
       }
       set
       {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+          value = string.Empty;
+        }
+
         role = value;
         base.OnPropertyChanged(nameof(Role));
       }
@@ -224,8 +229,8 @@ namespace VACARM.Domain.Models
       bool? isMuted,
       bool? isRender,
       bool? isPresent,
-      string role
-    ) : 
+      string? role
+    ) :
       base(id)
     {
       Id = id;
