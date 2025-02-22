@@ -33,11 +33,11 @@ namespace VACARM.Infrastructure.Repositories
 
     protected virtual bool HasDisposed { get; set; }
 
-    public bool IsNullOrEmpty
+    public virtual bool IsNullOrEmpty
     {
       get
       {
-        return IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable);
+        return IEnumerableExtension<TItem>.IsNullOrEmpty(this.Enumerable);
       }
     }
 
