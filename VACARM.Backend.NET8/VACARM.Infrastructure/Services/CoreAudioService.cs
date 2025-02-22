@@ -132,67 +132,67 @@ namespace VACARM.Application.Services
     public bool IsAbsent(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsAbsent(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsAbsent(item);
     }
 
     public bool IsCapture(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsCapture(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsCapture(item);
     }
 
     public bool IsDefault(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsDefault(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsDefault(item);
     }
 
     public bool IsDefaultCommunications(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsDefaultCommunications(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsDefaultCommunications(item);
     }
 
     public bool IsDisabled(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsDisabled(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsDisabled(item);
     }
 
     public bool IsDuplex(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsDuplex(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsDuplex(item);
     }
 
     public bool IsEnabled(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsEnabled(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsEnabled(item);
     }
 
     public bool IsMuted(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsMuted(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsMuted(item);
     }
 
     public bool IsPlayback(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsPlayback(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsPlayback(item);
     }
 
     public bool IsPresent(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsPresent(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsPresent(item);
     }
 
     public bool IsUnmuted(string id)
     {
       var item = this.Get(id);
-      return DeviceFunctions<TDevice>.IsUnmuted(item);
+      return CoreAudioDeviceFunctions<TDevice>.IsUnmuted(item);
     }
 
     public double GetVolume(string id)
@@ -209,7 +209,7 @@ namespace VACARM.Application.Services
 
     public TDevice? Get(string id)
     {
-      var func = DeviceFunctions<TDevice>.ContainsId(id);
+      var func = CoreAudioDeviceFunctions<TDevice>.ContainsId(id);
 
       return this.Repository
         .Get(func);
@@ -217,7 +217,7 @@ namespace VACARM.Application.Services
 
     public TDevice? GetDefault()
     {
-      var func = DeviceFunctions<TDevice>.IsDefault;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsDefault;
 
       return this.Repository
         .Get(func);
@@ -225,7 +225,7 @@ namespace VACARM.Application.Services
 
     public TDevice? GetDefaultCommunications()
     {
-      var func = DeviceFunctions<TDevice>.IsDefaultCommunications;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsDefaultCommunications;
 
       return this.Repository
         .Get(func);
@@ -233,7 +233,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllAbsent()
     {
-      var func = DeviceFunctions<TDevice>.IsAbsent;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsAbsent;
 
       return this.Repository
         .GetRange(func);
@@ -241,7 +241,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllCapture()
     {
-      var func = DeviceFunctions<TDevice>.IsCapture;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsCapture;
 
       return this.Repository
         .GetRange(func);
@@ -249,7 +249,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllDisabled()
     {
-      var func = DeviceFunctions<TDevice>.IsDisabled;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsDisabled;
 
       return this.Repository
         .GetRange(func);
@@ -257,7 +257,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllEnabled()
     {
-      var func = DeviceFunctions<TDevice>.IsEnabled;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsEnabled;
 
       return this.Repository
         .GetRange(func);
@@ -265,7 +265,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllMuted()
     {
-      var func = DeviceFunctions<TDevice>.IsMuted;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsMuted;
 
       return this.Repository
         .GetRange(func);
@@ -273,7 +273,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllPlayback()
     {
-      var func = DeviceFunctions<TDevice>.IsPlayback;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsPlayback;
 
       return this.Repository
         .GetRange(func);
@@ -281,7 +281,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllPresent()
     {
-      var func = DeviceFunctions<TDevice>.IsPresent;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsPresent;
 
       return this.Repository
         .GetRange(func);
@@ -289,7 +289,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetAllUnmuted()
     {
-      var func = DeviceFunctions<TDevice>.IsUnmuted;
+      var func = CoreAudioDeviceFunctions<TDevice>.IsUnmuted;
 
       return this.Repository
         .GetRange(func);
@@ -297,7 +297,7 @@ namespace VACARM.Application.Services
 
     public IEnumerable<TDevice> GetRange(IEnumerable<string> idEnumerable)
     {
-      var func = DeviceFunctions<TDevice>
+      var func = CoreAudioDeviceFunctions<TDevice>
         .ContainsIdEnumerable(idEnumerable);
 
       return this.Repository
