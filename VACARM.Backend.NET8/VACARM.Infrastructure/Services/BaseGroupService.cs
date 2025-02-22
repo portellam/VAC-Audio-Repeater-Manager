@@ -169,10 +169,13 @@ namespace VACARM.Infrastructure.Services
     {
       this.List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
 
-      this.SelectedService =
-        new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
+      var service = new BaseService<BaseRepository<TBaseModel>, TBaseModel>()
+      {
+        Repository = new BaseRepository<TBaseModel>()
+      };
 
-      this.SelectedRepository = new BaseRepository<TBaseModel>();
+      this.List
+        .Add(service);
     }
 
     /// <summary>
