@@ -294,7 +294,7 @@ namespace VACARM.Application.Services
     public void UpdateService()
     {
       var enumerable = this.MMNotificationClient
-        .MMDeviceCollection
+        .Enumerable
         .Cast<TMMDevice>();
 
       this.Repository = new ReadonlyRepository<TMMDevice>(enumerable);

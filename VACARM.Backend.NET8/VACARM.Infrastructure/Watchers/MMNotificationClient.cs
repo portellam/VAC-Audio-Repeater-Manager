@@ -27,6 +27,25 @@ namespace VACARM.Infrastructure.Watchers
     internal Action<string, PropertyKey>? OnPropertyValueChangedAction
     { get; private set; } = null;
 
+    /// <summary>
+    /// The enumerable of <typeparamref name="MMDevice"/>(s).
+    /// </summary>
+    internal IEnumerable<MMDevice> Enumerable
+    {
+      get
+      {
+        if (this.MMDeviceCollection == null)
+        {
+          yield break;
+        }
+
+        foreach (var item in this.MMDeviceCollection)
+        {
+          yield return item;
+        }
+      }
+    }
+
     private bool HasDisposed { get; set; }
 
     private bool UseDefaultAction
@@ -38,9 +57,9 @@ namespace VACARM.Infrastructure.Watchers
     }
 
     /// <summary>
-    /// The collection of <typeparamref name="MMDevice"/>.
+    /// The collection of <typeparamref name="MMDevice"/>(s).
     /// </summary>
-    internal MMDeviceCollection MMDeviceCollection
+    private MMDeviceCollection MMDeviceCollection
     {
       get
       {
