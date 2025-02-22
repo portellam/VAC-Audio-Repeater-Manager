@@ -143,7 +143,7 @@ namespace VACARM.Application.Services
 
       foreach (var item in coreAudioDeviceEnumerable)
       {
-        collection.Append(item as TDevice);
+        collection.Add(item as TDevice);
       }
 
       this.Repository = new ReadonlyRepository<TDevice>(collection);
