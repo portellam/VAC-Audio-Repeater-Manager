@@ -85,8 +85,18 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.SelectedService
-          .Repository;
+        try
+        {
+          return this.SelectedService
+            .Repository;
+        }
+        catch
+        {
+          this.SelectedRepository = new BaseRepository<TBaseModel>();
+
+          return this.SelectedService
+            .Repository;
+        }
       }
       protected set
       {
@@ -109,12 +119,29 @@ namespace VACARM.Infrastructure.Services
         }
         catch
         {
-          return null;
+          this.SelectedService =
+            new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
+
+          return this.List
+            .ElementAt(this.SelectedIndex);
         }
       }
       protected set
       {
-        this.List[this.SelectedIndex] = value;
+        if (this.List[this.SelectedIndex] == null)
+        {
+          this.SelectedIndex = this.List
+            .Count();
+
+          this.List
+            .Add(value);
+        }
+
+        else
+        {
+          this.List[this.SelectedIndex] = value;
+        }
+
         this.OnPropertyChanged(nameof(SelectedService));
       }
     }
@@ -164,18 +191,10 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    public BaseGroupService() :
-      base()
+    public BaseGroupService()
+      //: base()
     {
       this.List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
-
-      var service = new BaseService<BaseRepository<TBaseModel>, TBaseModel>()
-      {
-        Repository = new BaseRepository<TBaseModel>()
-      };
-
-      this.List
-        .Add(service);
     }
 
     /// <summary>
@@ -191,17 +210,6 @@ namespace VACARM.Infrastructure.Services
     {
       this.List = list;
       this.MaxCount = maxCount;
-
-      if (this.SelectedService == null)
-      {
-        this.SelectedService =
-          new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
-      }
-
-      if (this.SelectedRepository == null)
-      {
-        this.SelectedRepository = new BaseRepository<TBaseModel>();
-      }
     }
 
     public bool Add

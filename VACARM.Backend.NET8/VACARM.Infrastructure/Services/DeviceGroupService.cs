@@ -647,14 +647,8 @@ namespace VACARM.Application.Services
 
     public void UpdateSelectedService()
     {
-      if (IsNullOrEmpty)
-      {
-        var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
+      var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
           (new BaseRepository<TDeviceModel>());
-
-        this.List
-          .Add(service);
-      }
 
       var enumerable = this.MMDeviceService
         .GetAll();
@@ -672,7 +666,7 @@ namespace VACARM.Application.Services
             .NextId;
         }
         catch
-        { 
+        {
         }
 
         var deviceModel = DeviceFunctions<TDeviceModel>.GetDeviceModel
@@ -683,8 +677,19 @@ namespace VACARM.Application.Services
             null
           );
 
-        this.SelectedRepository
+        service.Repository
           .Add(deviceModel);
+      }
+
+      if (IsNullOrEmpty)
+      {
+        this.List
+          .Add(service);
+      }
+
+      else
+      {
+        this.SelectedService = service;
       }
     }
 
