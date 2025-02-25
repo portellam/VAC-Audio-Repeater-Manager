@@ -73,7 +73,7 @@ namespace VACARM.Infrastructure.Functions
         (
           id,
           mMDevice.ID,
-          mMDevice.DeviceFriendlyName,
+          mMDevice.FriendlyName,
           MMDeviceFunctions<MMDevice>.IsCapture(mMDevice),
           (bool?)CoreAudioDeviceFunctions<Device>.IsDefault(device),
           MMDeviceFunctions<MMDevice>.IsDisabled(mMDevice),
