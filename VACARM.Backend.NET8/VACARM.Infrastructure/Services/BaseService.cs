@@ -36,7 +36,7 @@ namespace VACARM.Application.Services
       set
       {
         base.Repository = value;
-        this.OnPropertyChanged(nameof(Repository));
+        base.OnPropertyChanged(nameof(Repository));
       }
     }
 
@@ -51,7 +51,7 @@ namespace VACARM.Application.Services
     public BaseService() :
       base()
     {
-      this.Repository = new BaseRepository<TBaseModel>();
+      base.Repository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
@@ -62,7 +62,25 @@ namespace VACARM.Application.Services
     public BaseService(BaseRepository<TBaseModel> repository) :
       base(repository)
     {
-      this.Repository = repository;
+      base.Repository = repository;
+    }
+
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Repository
+          .Dispose();
+
+        this.Repository = null;
+      }
+
+      this.HasDisposed = true;
     }
 
     public bool Remove(uint id)
@@ -77,7 +95,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.Repository
+      return base.Repository
         .GetRange(func);
     }
 
@@ -109,7 +127,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      return this.Repository
+      return base.Repository
         .Get(func);
     }
 
@@ -125,7 +143,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      return this.Repository
+      return base.Repository
         .GetRange(func);
     }
 
@@ -133,7 +151,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.Repository
+      return base.Repository
         .GetRange(func);
     }
 
