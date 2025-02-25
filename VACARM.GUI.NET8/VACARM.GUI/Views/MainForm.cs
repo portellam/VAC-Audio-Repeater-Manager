@@ -154,6 +154,43 @@ namespace VACARM.GUI
         );
     }
 
+    private ToolStripMenuItem GetDeviceComponentItem(DeviceModel deviceModel)
+    {
+      int maxIdLength = 7;
+
+      string idWhiteSpace = new string
+        (
+          ' ',
+          maxIdLength - deviceModel.Id
+            .ToString()
+            .Length
+        );
+
+      string nameWhiteSpace = new string
+      (
+        ' ',
+        maxIdLength
+      );
+
+      string text = string.Format
+      (
+        "ID:{0}{1},{2}Name: {3}",
+        idWhiteSpace,
+        deviceModel.Id,
+        nameWhiteSpace,
+        deviceModel.Name
+      );
+
+      return new ToolStripMenuItem(text)
+      {
+        CheckOnClick = true,
+
+        ToolTipText = deviceModel.Id
+          .ToString(),
+      };
+    }
+
+
     private void PostInitializeComponent()
     {
       SetComponentsItemLists();
@@ -224,74 +261,53 @@ namespace VACARM.GUI
     /// </summary>
     private int selectedDeviceRepositoryindex = 0; //NOTE: 2025-02-21, I totally forgot I had this idea until I just made DeviceGroupService.
 
+
     private void SetComponentsItemLists()
     {
       SetDeviceRepositories();
 
-      //deviceRepositoryHashSet.Add
-      //  (
-      //    new DeviceRepository()
-      //  );
-
       this.DeviceGroupService
-        .SelectedRepository
-        .GetAll()
+        .GetAllCapture()
         .ToList()
         .ForEach
         (
           x =>
           {
-            int maxIdLength = 7;
+            ToolStripMenuItem toolStripMenuItem = GetDeviceComponentItem(x);
 
-            string idWhiteSpace = new string
-              (
-                ' ',
-                maxIdLength - x.Id
-                  .ToString()
-                  .Length
-              );
+            deviceSelectInputToolStripMenuItem
+              .DropDownItems
+              .Add(toolStripMenuItem);
+          }
+        );
 
-            string nameWhiteSpace = new string
-            (
-              ' ',
-              maxIdLength
-            );
+      this.DeviceGroupService
+        .GetAllRender()
+        .ToList()
+        .ForEach
+        (
+          x =>
+          {
+            ToolStripMenuItem toolStripMenuItem = GetDeviceComponentItem(x);
 
-            string text = string.Format
-            (
-              "ID:{0}{1},{2}Name: {3}",
-              idWhiteSpace,
-              x.Id,
-              nameWhiteSpace,
-              x.Name
-            );
+            deviceSelectOutputToolStripMenuItem
+              .DropDownItems
+              .Add(toolStripMenuItem);
+          }
+        );
 
-            ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(text)
-            {
-              CheckOnClick = true,
-              ToolTipText = x.Id.ToString(),
-            };
+      this.DeviceGroupService
+        .GetAllDuplex()
+        .ToList()
+        .ForEach
+        (
+          x =>
+          {
+            ToolStripMenuItem toolStripMenuItem = GetDeviceComponentItem(x);
 
-            if (x.IsCapture)
-            {
-              deviceSelectInputToolStripMenuItem
-                .DropDownItems
-                .Add(toolStripMenuItem);
-            }
-
-            else if (x.IsRender)
-            {
-              deviceSelectOutputToolStripMenuItem
-                .DropDownItems
-                .Add(toolStripMenuItem);
-            }
-
-            else
-            {
-              deviceSelectDuplexToolStripMenuItem
-                .DropDownItems
-                .Add(toolStripMenuItem);
-            }
+            deviceSelectDuplexToolStripMenuItem
+              .DropDownItems
+              .Add(toolStripMenuItem);
           }
         );
     }
