@@ -124,7 +124,7 @@ namespace VACARM.Application.Services
       set
       {
         this.preferLegacyExecutable = value;
-        this.OnPropertyChanged(nameof(PreferLegacyExecutable));
+        base.OnPropertyChanged(nameof(PreferLegacyExecutable));
       }
     }
 
@@ -154,7 +154,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.deviceGroupService = value;
-        this.OnPropertyChanged(nameof(DeviceGroupService));
+        base.OnPropertyChanged(nameof(DeviceGroupService));
       }
     }
 
@@ -176,7 +176,7 @@ namespace VACARM.Application.Services
         }
 
         this.customExecutablePathName = value;
-        this.OnPropertyChanged(nameof(CustomExecutablePathName));
+        base.OnPropertyChanged(nameof(CustomExecutablePathName));
       }
     }
 
@@ -199,7 +199,7 @@ namespace VACARM.Application.Services
     public RepeaterGroupService() :
       base()
     {
-      this.List =
+      base.List =
         new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
 
       this.DeviceGroupService =
@@ -258,32 +258,32 @@ namespace VACARM.Application.Services
         maxCount
       )
     {
-      this.List = list;
-      this.MaxCount = maxCount;
+      base.List = list;
+      base.MaxCount = maxCount;
       this.DeviceGroupService = deviceGroupService;
     }
 
     protected override void Dispose(bool isDisposed)
     {
-      if (this.HasDisposed)
+      if (base.HasDisposed)
       {
         return;
       }
 
       if (isDisposed)
       {
-        this.Dispose();
+        base.Dispose();
 
         this.DeviceGroupService
           .Dispose();
       }
 
-      this.HasDisposed = true;
+      base.HasDisposed = true;
     }
 
     public IEnumerable<TRepeaterModel> GetAllAlphabetical()
     {
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetAll()
         .OrderBy(x => x.WindowName);
     }
@@ -292,7 +292,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceId(deviceId);
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -300,7 +300,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.ContainsDeviceName(deviceName);
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -308,7 +308,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStarted;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -316,7 +316,7 @@ namespace VACARM.Application.Services
     {
       var func = RepeaterFunctions<TRepeaterModel>.IsStopped;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
