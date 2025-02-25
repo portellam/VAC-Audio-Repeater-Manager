@@ -103,7 +103,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.coreAudioService = value;
-        this.OnPropertyChanged(nameof(CoreAudioService));
+        base.OnPropertyChanged(nameof(CoreAudioService));
       }
     }
 
@@ -121,7 +121,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.mMDeviceService = value;
-        this.OnPropertyChanged(nameof(MMDeviceService));
+        base.OnPropertyChanged(nameof(MMDeviceService));
       }
     }
 
@@ -139,11 +139,7 @@ namespace VACARM.Application.Services
       var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
         (new BaseRepository<TDeviceModel>());
 
-      this.List =
-        new List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>>();
-
-      this.List
-        .Add(service);
+      base.Add(service);
 
       this.MMDeviceService =
           new MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice>();
@@ -174,21 +170,21 @@ namespace VACARM.Application.Services
         maxCount
       )
     {
-      this.List = list;
+      base.List = list;
 
       if (IsNullOrEmpty)
       {
         var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
         (new BaseRepository<TDeviceModel>());
 
-        this.List
+        base.List
           .Add(service);
       }
 
       this.MMDeviceService = mMDeviceService;
       this.CoreAudioService = coreAudioService;
 
-      if (this.SelectedService == null)
+      if (base.SelectedService == null)
       {
         this.UpdateSelectedService();
       }
@@ -279,14 +275,14 @@ namespace VACARM.Application.Services
 
     protected override void Dispose(bool isDisposed)
     {
-      if (this.HasDisposed)
+      if (base.HasDisposed)
       {
         return;
       }
 
       if (isDisposed)
       {
-        this.Dispose();
+        base.Dispose();
 
         this.CoreAudioService
           .Dispose();
@@ -295,14 +291,14 @@ namespace VACARM.Application.Services
           .Dispose();
       }
 
-      this.HasDisposed = true;
+      base.HasDisposed = true;
     }
 
     public TDeviceModel? GetByActualId(string actualId)
     {
       var func = DeviceFunctions<TDeviceModel>.ContainsActualId(actualId);
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .Get(func);
     }
 
@@ -331,20 +327,20 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsAbsent;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
     public IEnumerable<TDeviceModel> GetAllAlphabetical()
     {
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetAll()
         .OrderBy(x => x.Name);
     }
 
     public IEnumerable<TDeviceModel> GetAllAlphabeticalDescending()
     {
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetAll()
         .OrderByDescending(x => x.Name);
     }
@@ -353,7 +349,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsCapture;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -361,7 +357,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsCommunications;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -369,7 +365,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsConsole;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -377,7 +373,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsDefault;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -385,7 +381,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsDisabled;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -393,7 +389,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsDuplex;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -401,7 +397,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsEnabled;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -409,7 +405,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsMultimedia;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -417,7 +413,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsMuted;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -425,7 +421,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsPresent;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -433,7 +429,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsRender;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -441,7 +437,7 @@ namespace VACARM.Application.Services
     {
       var func = DeviceFunctions<TDeviceModel>.IsUnmuted;
 
-      return this.SelectedRepository
+      return base.SelectedRepository
         .GetRange(func);
     }
 
@@ -449,7 +445,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.SelectedService
+      base.SelectedService
         .DoWork
         (
           this.Restart,
@@ -467,7 +463,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.SelectedService
+      base.SelectedService
       .DoWorkRange
       (
         this.Restart,
@@ -487,7 +483,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      this.SelectedService
+      base.SelectedService
         .DoWorkRange
         (
           this.Restart,
@@ -499,7 +495,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.SelectedService
+      base.SelectedService
         .DoWork
         (
           this.Start,
@@ -517,7 +513,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.SelectedService
+      base.SelectedService
         .DoWorkRange
         (
           this.Start,
@@ -537,7 +533,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      this.SelectedService
+      base.SelectedService
         .DoWorkRange
         (
           this.Start,
@@ -549,7 +545,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.SelectedService
+      base.SelectedService
         .DoWork
         (
           this.Stop,
@@ -567,7 +563,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.SelectedService
+      base.SelectedService
         .DoWorkRange
         (
           this.Stop,
@@ -587,7 +583,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      this.SelectedService
+      base.SelectedService
         .DoWorkRange
         (
           this.Stop,
@@ -599,7 +595,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
-      this.SelectedService
+      base.SelectedService
         .DoWork
         (
           this.Update,
@@ -617,7 +613,7 @@ namespace VACARM.Application.Services
     {
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.SelectedService
+      base.SelectedService
         .DoWorkRange
         (
           this.Update,
@@ -637,7 +633,7 @@ namespace VACARM.Application.Services
           endId
         );
 
-      this.SelectedService
+      base.SelectedService
         .DoWorkRange
         (
           this.Update,
@@ -662,9 +658,10 @@ namespace VACARM.Application.Services
 
         try
         {
-          id = this.SelectedRepository
+          id = base.SelectedRepository
             .NextId;
         }
+
         catch
         {
         }
@@ -683,13 +680,13 @@ namespace VACARM.Application.Services
 
       if (IsNullOrEmpty)
       {
-        this.List
+        base.List
           .Add(service);
       }
 
       else
       {
-        this.SelectedService = service;
+        base.SelectedService = service;
       }
     }
 
