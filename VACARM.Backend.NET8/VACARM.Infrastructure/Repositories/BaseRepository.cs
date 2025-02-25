@@ -14,21 +14,6 @@ namespace VACARM.Infrastructure.Repositories
     #region Parameters
 
     /// <summary>
-    /// The enumerable of ID(s).
-    /// </summary>
-    private IEnumerable<uint> IdEnumerable
-    {
-      get
-      {
-        IEnumerable<uint> idEnumerable = this.Enumerable
-          .Select(x => x.Id);
-
-        idEnumerable.Order();
-        return idEnumerable;
-      }
-    }
-
-    /// <summary>
     /// The next valid ID.
     /// </summary>
     internal uint NextId
@@ -43,17 +28,34 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    /// <summary>
+    /// The enumerable of ID(s).
+    /// </summary>
+    private IEnumerable<uint> IdEnumerable
+    {
+      get
+      {
+        IEnumerable<uint> idEnumerable = base.Enumerable
+          .Select(x => x.Id);
+
+        idEnumerable.Order();
+        return idEnumerable;
+      }
+    }
+
+    private List<TBaseModel> list { get; set; }
+
     protected virtual List<TBaseModel> List
     {
       get
       {
-        return this.Enumerable
-          .ToList();
+        return this.list;
       }
       set
       {
-        this.Enumerable = value;
-        this.OnPropertyChanged(nameof(List));
+        this.list = value;
+        base.Enumerable = value;
+        base.OnPropertyChanged(nameof(List));
       }
     }
 
@@ -83,7 +85,7 @@ namespace VACARM.Infrastructure.Repositories
       internal set
       {
         this.maxCount = value;
-        this.OnPropertyChanged(nameof(MaxCount));
+        base.OnPropertyChanged(nameof(MaxCount));
       }
     }
 
@@ -114,8 +116,24 @@ namespace VACARM.Infrastructure.Repositories
     ) :
       base(list)
     {
-      this.Enumerable = list;
+      base.Enumerable = list;
       this.MaxCount = maxCount;
+    }
+
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Dispose();
+        this.List = null;
+      }
+
+      this.HasDisposed = true;
     }
 
     public bool Remove(Func<TBaseModel, bool> func)
@@ -125,12 +143,12 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      if (this.IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
         return false;
       }
 
-      var item = this.Get(func);
+      var item = base.Get(func);
 
       if (item == null)
       {
@@ -148,7 +166,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      if (this.IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
         return false;
       }
@@ -164,12 +182,12 @@ namespace VACARM.Infrastructure.Repositories
         yield return false;
       }
 
-      if (this.IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
         yield return false;
       }
 
-      var enumerable = this.GetRange(func);
+      var enumerable = base.GetRange(func);
 
       foreach (var item in enumerable)
       {
@@ -185,7 +203,7 @@ namespace VACARM.Infrastructure.Repositories
         yield return false;
       }
 
-      if (this.IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
         yield return false;
       }
@@ -205,7 +223,7 @@ namespace VACARM.Infrastructure.Repositories
       }
 
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
-      return this.Get(func);
+      return base.Get(func);
     }
 
     public void Add(TBaseModel? model)
@@ -220,8 +238,8 @@ namespace VACARM.Infrastructure.Repositories
         model.Id = NextId;
       }
 
-      this.Enumerable
-        .Append(model);
+      this.List
+        .Add(model);
     }
 
     public void AddRange(IEnumerable<TBaseModel> enumerable)
@@ -239,7 +257,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public void RemoveAll()
     {
-      this.Enumerable = new List<TBaseModel>();
+      base.Enumerable = new List<TBaseModel>();
     }
 
     public void Update(TBaseModel model)
