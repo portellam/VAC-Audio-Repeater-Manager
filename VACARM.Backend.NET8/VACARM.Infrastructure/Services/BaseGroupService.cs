@@ -89,36 +89,13 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        try
-        {
-          return this.SelectedService
-            .Repository;
-        }
-
-        catch (ArgumentOutOfRangeException exception)
-        {
-          this.SelectedRepository = new BaseRepository<TBaseModel>();
-
-          return this.SelectedService
-            .Repository;
-        }
+        return this.SelectedService
+          .Repository;
       }
       protected set
       {
-        try
-        {
-          this.SelectedService
-            .Repository = value;
-        }
-
-        catch (ArgumentOutOfRangeException exception)
-        {
-          this.SelectedService =
-            new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
-
-          this.SelectedService
-            .Repository = value;
-        }
+        this.SelectedService
+          .Repository = value;
 
         base.OnPropertyChanged(nameof(SelectedRepository));
       }
@@ -129,37 +106,12 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        try
-        {
-          return this.List
-            .ElementAt(this.SelectedIndex);
-        }
-
-        catch (ArgumentOutOfRangeException exception)
-        {
-          this.SelectedService =
-            new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
-
-          return this.List
-            .ElementAt(this.SelectedIndex);
-        }
+        return this.List
+          .ElementAt(this.SelectedIndex);
       }
       protected set
       {
-        try
-        {
-          this.List[this.SelectedIndex] = value;
-        }
-
-        catch (ArgumentOutOfRangeException exception)
-        {
-          this.List
-            .Add(value);
-
-          this.SelectedIndex = this.List
-            .Count();
-        }
-
+        this.List[this.SelectedIndex] = value;
         base.OnPropertyChanged(nameof(SelectedService));
       }
     }
