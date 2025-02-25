@@ -66,18 +66,22 @@ namespace VACARM.Infrastructure.Services
     private int selectedIndex { get; set; } = MinCount;
     private readonly static int MinCount = 0;
 
+    private List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>?
+    list
+    { get; set; }
+
     protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>?
     List
     {
       get
       {
-        return this.Enumerable
-          .ToList();
+        return this.list;
       }
       set
       {
-        this.Enumerable = value;
-        this.OnPropertyChanged(nameof(List));
+        this.list = value;
+        base.Enumerable = value;
+        base.OnPropertyChanged(nameof(List));
       }
     }
 
@@ -90,7 +94,8 @@ namespace VACARM.Infrastructure.Services
           return this.SelectedService
             .Repository;
         }
-        catch
+
+        catch (ArgumentOutOfRangeException exception)
         {
           this.SelectedRepository = new BaseRepository<TBaseModel>();
 
@@ -100,10 +105,22 @@ namespace VACARM.Infrastructure.Services
       }
       protected set
       {
-        this.SelectedService
-          .Repository = value;
+        try
+        {
+          this.SelectedService
+            .Repository = value;
+        }
 
-        this.OnPropertyChanged(nameof(SelectedRepository));
+        catch (ArgumentOutOfRangeException exception)
+        {
+          this.SelectedService =
+            new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
+
+          this.SelectedService
+            .Repository = value;
+        }
+
+        base.OnPropertyChanged(nameof(SelectedRepository));
       }
     }
 
@@ -117,7 +134,8 @@ namespace VACARM.Infrastructure.Services
           return this.List
             .ElementAt(this.SelectedIndex);
         }
-        catch
+
+        catch (ArgumentOutOfRangeException exception)
         {
           this.SelectedService =
             new BaseService<BaseRepository<TBaseModel>, TBaseModel>();
@@ -128,21 +146,21 @@ namespace VACARM.Infrastructure.Services
       }
       protected set
       {
-        if (this.List[this.SelectedIndex] == null)
-        {
-          this.SelectedIndex = this.List
-            .Count();
-
-          this.List
-            .Add(value);
-        }
-
-        else
+        try
         {
           this.List[this.SelectedIndex] = value;
         }
 
-        this.OnPropertyChanged(nameof(SelectedService));
+        catch (ArgumentOutOfRangeException exception)
+        {
+          this.List
+            .Add(value);
+
+          this.SelectedIndex = this.List
+            .Count();
+        }
+
+        base.OnPropertyChanged(nameof(SelectedService));
       }
     }
 
@@ -160,7 +178,7 @@ namespace VACARM.Infrastructure.Services
         }
 
         this.selectedIndex = value;
-        this.OnPropertyChanged(nameof(SelectedIndex));
+        base.OnPropertyChanged(nameof(SelectedIndex));
       }
     }
 
@@ -180,7 +198,7 @@ namespace VACARM.Infrastructure.Services
         }
 
         this.maxCount = value;
-        this.OnPropertyChanged(nameof(MaxCount));
+        base.OnPropertyChanged(nameof(MaxCount));
       }
     }
 
@@ -191,8 +209,8 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    public BaseGroupService()
-      //: base()
+    public BaseGroupService() :
+      base()
     {
       this.List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
     }
@@ -212,17 +230,34 @@ namespace VACARM.Infrastructure.Services
       this.MaxCount = maxCount;
     }
 
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Dispose();
+        this.List = null;
+      }
+
+      this.HasDisposed = true;
+    }
+
     public bool Add
     (BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService)
     {
-      if (this.IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
-        return false;
+        this.List =
+          new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
       }
 
       if
       (
-        this.Enumerable
+        this.List
           .Count() >= this.MaxCount
       )
       {
@@ -237,12 +272,12 @@ namespace VACARM.Infrastructure.Services
 
     public bool Remove(int index)
     {
-      if (this.IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
         return false;
       }
 
-      if (!this.ContainsIndex(index))
+      if (!base.ContainsIndex(index))
       {
         return false;
       }
@@ -260,6 +295,7 @@ namespace VACARM.Infrastructure.Services
         return this.List
           .ElementAt(index);
       }
+
       catch
       {
         return null;
