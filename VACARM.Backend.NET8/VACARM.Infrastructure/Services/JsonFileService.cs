@@ -69,6 +69,7 @@ namespace VACARM.Infrastructure.Services
           JsonSerializer.DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
           .ConfigureAwait(false);
       }
+
       catch
       {
         yield break;
