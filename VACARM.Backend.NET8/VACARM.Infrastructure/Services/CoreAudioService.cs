@@ -105,7 +105,7 @@ namespace VACARM.Application.Services
       Controller = new CoreAudioController();
 
       base.Repository = new ReadonlyRepository<TDevice>
-        (new ObservableCollection<TDevice>()) as ReadonlyRepository<TDevice>;
+        (new ObservableCollection<TDevice>());
 
       var result = this.UpdateServiceAsync();
     }
