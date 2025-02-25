@@ -174,7 +174,7 @@ namespace VACARM.Domain.Models
         if
         (
           isPresent is null
-          || isPresent.Value
+          || !isPresent.Value
         )
         {
           return "Absent";
@@ -212,11 +212,32 @@ namespace VACARM.Domain.Models
     /// <param name="id">The ID</param>
     /// <param name="actualId">The actual ID</param>
     /// <param name="name">The name</param>
+    [ExcludeFromCodeCoverage]
+    public DeviceModel
+    (
+      uint id,
+      string actualId,
+      string name
+    ) :
+      base(id)
+    {
+      Id = id;
+      ActualId = actualId;
+      Name = name;
+    }
+
+    /// <summary>
+    /// Abstract of the actual audio device.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <param name="actualId">The actual ID</param>
+    /// <param name="name">The name</param>
     /// <param name="isCapture">True/false is a capture device</param>
     /// <param name="isEnabled">True/false is the device enabled</param>
     /// <param name="isMuted">True/false is the device muted</param>
     /// <param name="isPresent">True/false is the device present</param>
     /// <param name="isRender">True/false is a render device</param>
+    /// <param name="role">The role</param>
     [ExcludeFromCodeCoverage]
     public DeviceModel
     (
@@ -227,8 +248,8 @@ namespace VACARM.Domain.Models
       bool? isDefault,
       bool? isEnabled,
       bool? isMuted,
-      bool? isRender,
       bool? isPresent,
+      bool? isRender,
       string? role
     ) :
       base(id)
