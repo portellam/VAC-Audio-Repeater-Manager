@@ -59,6 +59,7 @@ namespace VACARM.Application.Commands
         item.AudioClient
           .Reset();
       }
+
       catch
       {
         Debug.WriteLine
@@ -121,6 +122,7 @@ namespace VACARM.Application.Commands
         item.AudioClient
           .Start();
       }
+
       catch
       {
         Debug.WriteLine
@@ -185,6 +187,7 @@ namespace VACARM.Application.Commands
         item.AudioClient
           .Stop();
       }
+
       catch
       {
         Debug.WriteLine
@@ -233,6 +236,7 @@ namespace VACARM.Application.Commands
         item.AudioSessionManager
           .RefreshSessions();
       }
+
       catch
       {
         Debug.WriteLine
