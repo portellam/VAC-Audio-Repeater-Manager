@@ -1,4 +1,5 @@
 ﻿using AudioSwitcher.AudioApi;
+using System.Text.RegularExpressions;
 
 namespace VACARM.Infrastructure.Functions
 {
@@ -138,21 +139,32 @@ namespace VACARM.Infrastructure.Functions
 
     #region Logic
 
+    /// <summary>
+    /// Prepares string <typeparamref name="guid"/> by removing prefix.
+    /// The prefix determines the <typeparamref name="DataFlow"/> of the device.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The ID</returns>
     private static string PrepareStringGuid(string id)
     {
-      string startPattern = "{0.0.0.00000000}.";
-      string containPattern = "}.{";
+      string pattern = @"^\{\d+\.\d+\.\d+\.\d{8}\}\.";
 
-      if (id.StartsWith(startPattern))
-      {
-        id = id.Substring(startPattern.Length);
-      }
-
-      id = id.Replace
+      var isMatch = Regex.IsMatch
         (
-          containPattern,
-          string.Empty
+          id,
+          pattern
         );
+
+
+      if (isMatch)
+      {
+        id = Regex.Replace
+          (
+            id, 
+            pattern, 
+            string.Empty
+          );
+      }
 
       return id;
     }
