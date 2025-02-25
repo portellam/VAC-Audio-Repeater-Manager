@@ -108,6 +108,8 @@ namespace VACARM.Application.Services
       {
         this.Repository
           .Dispose();
+
+        this.Repository = null;
       }
 
       this.HasDisposed = true;

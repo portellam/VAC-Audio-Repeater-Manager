@@ -118,7 +118,7 @@ namespace VACARM.Infrastructure.Repositories
 
       if (isDisposed)
       {
-        this.Enumerable = Array.Empty<TItem>();
+        this.Enumerable = null;
       }
 
       this.HasDisposed = true;
