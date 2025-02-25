@@ -69,19 +69,23 @@ namespace VACARM.Infrastructure.Functions
       string? role
     )
     {
-      return new DeviceModel
+      DeviceModel model = new DeviceModel
         (
           id,
           mMDevice.ID,
-          mMDevice.FriendlyName,
-          MMDeviceFunctions<MMDevice>.IsCapture(mMDevice),
-          (bool?)CoreAudioDeviceFunctions<Device>.IsDefault(device),
-          MMDeviceFunctions<MMDevice>.IsDisabled(mMDevice),
-          (bool?)CoreAudioDeviceFunctions<Device>.IsMuted(device),
-          MMDeviceFunctions<MMDevice>.IsPresent(mMDevice),
-          MMDeviceFunctions<MMDevice>.IsRender(mMDevice),
-          role
-        ) as TDeviceModel;
+          mMDevice.FriendlyName
+        )
+      {
+        IsCapture = MMDeviceFunctions<MMDevice>.IsCapture(mMDevice),
+        IsDefault = CoreAudioDeviceFunctions<Device>.IsDefault(device),
+        IsEnabled = MMDeviceFunctions<MMDevice>.IsEnabled(mMDevice),
+        IsMuted = CoreAudioDeviceFunctions<Device>.IsMuted(device),
+        IsPresent = MMDeviceFunctions<MMDevice>.IsPresent(mMDevice),
+        IsRender = MMDeviceFunctions<MMDevice>.IsRender(mMDevice),
+        Role = role,
+      };
+
+      return (TDeviceModel)model;
     }
 
     /// <summary>
