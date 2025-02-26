@@ -4,7 +4,31 @@
   {
     #region Parameters
 
+    private bool preferModernApplication
+    {
+      get
+      {
+        return settingsPreferModernApplicationToolStripMenuItem.Checked;
+      }
+      set
+      {
+        settingsPreferModernApplicationToolStripMenuItem.Checked = value;
+        settingsPreferLegacyApplicationToolStripMenuItem.Checked = !value;
+      }
+    }
 
+    private bool preferLegacyApplication
+    {
+      get
+      {
+        return settingsPreferLegacyApplicationToolStripMenuItem.Checked;
+      }
+      set
+      {
+        settingsPreferLegacyApplicationToolStripMenuItem.Checked = value;
+        settingsPreferModernApplicationToolStripMenuItem.Checked = !value;
+      }
+    }
 
     #endregion
 

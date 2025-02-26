@@ -12,59 +12,6 @@ namespace VACARM.GUI.Views
   {
     #region Parameters
 
-    private bool preferModernApplication
-    {
-      get
-      {
-        return settingsPreferModernApplicationToolStripMenuItem.Checked;
-      }
-      set
-      {
-        settingsPreferModernApplicationToolStripMenuItem.Checked = value;
-        settingsPreferLegacyApplicationToolStripMenuItem.Checked = !value;
-      }
-    }
-
-    private bool preferLegacyApplication
-    {
-      get
-      {
-        return settingsPreferLegacyApplicationToolStripMenuItem.Checked;
-      }
-      set
-      {
-        settingsPreferLegacyApplicationToolStripMenuItem.Checked = value;
-        settingsPreferModernApplicationToolStripMenuItem.Checked = !value;
-      }
-    }
-
-    private bool preferDarkTheme
-    {
-      get
-      {
-        return viewPreferDarkThemeToolStripMenuItem.Checked;
-      }
-      set
-      {
-        viewPreferDarkThemeToolStripMenuItem.Checked = value;
-        viewPreferSystemThemeToolStripMenuItem.Checked = !value;
-      }
-    }
-
-    private bool preferSystemTheme
-    {
-      get
-      {
-        return viewPreferSystemThemeToolStripMenuItem.Checked;
-      }
-      set
-      {
-
-        viewPreferSystemThemeToolStripMenuItem.Checked = value;
-        viewPreferDarkThemeToolStripMenuItem.Checked = !value;
-      }
-    }
-
     //NOTE: this also appears in DeviceFindForm. TODO: find one space to put this!
     private DeviceGroupService
     <

@@ -4,7 +4,32 @@
   {
     #region Parameters
 
+    private bool preferDarkTheme
+    {
+      get
+      {
+        return viewPreferDarkThemeToolStripMenuItem.Checked;
+      }
+      set
+      {
+        viewPreferDarkThemeToolStripMenuItem.Checked = value;
+        viewPreferSystemThemeToolStripMenuItem.Checked = !value;
+      }
+    }
 
+    private bool preferSystemTheme
+    {
+      get
+      {
+        return viewPreferSystemThemeToolStripMenuItem.Checked;
+      }
+      set
+      {
+
+        viewPreferSystemThemeToolStripMenuItem.Checked = value;
+        viewPreferDarkThemeToolStripMenuItem.Checked = !value;
+      }
+    }
 
     #endregion
 
