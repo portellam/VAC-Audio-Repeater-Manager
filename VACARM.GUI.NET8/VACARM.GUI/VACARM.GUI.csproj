@@ -1,32 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <StartupObject>VACARM.GUI.Program</StartupObject>
-    <Description>Graphical user interface (GUI) to create, manage, and automate instances of Virtual Audio Cable (VAC) audio repeaters. This application version supports Microsoft Windows 10 version 1809 and newer. "Virtual Audio Cable" and "VAC" Copyright © 1998-2024 Eugene V. Muzychenko.</Description>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Authors>Alexander Portell &lt;github.com/portellam&gt;</Authors>
     <Copyright>"Audio Repeater Manager" Copyleft © 2024.</Copyright>
+    <Description>Graphical user interface (GUI) to create, manage, and automate instances of Virtual Audio Cable (VAC) audio repeaters. This application version supports Microsoft Windows 10 version 1809 and newer. "Virtual Audio Cable" and "VAC" Copyright © 1998-2024 Eugene V. Muzychenko.</Description>
+    <FileVersion>1.0.0</FileVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>WinExe</OutputType>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/portellam/VAC-Audio-Repeater-Manager</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <PackageIcon>icon.png</PackageIcon>
-    <Title>VACARM.GUI</Title>
     <Product>Virtual Audio Cable Audio Repeater Manager</Product>
-    <Authors>Alexander Portell &lt;github.com/portellam&gt;</Authors>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
-    <Version>1.0.0</Version>
     <RepositoryUrl>https://github.com/portellam/VAC-Audio-Repeater-Manager</RepositoryUrl>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <StartupObject>VACARM.GUI.Program</StartupObject>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Title>VACARM.GUI</Title>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Version>1.0.0</Version>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="icon.ico" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\..\icon.png">
       <Pack>True</Pack>
@@ -41,13 +38,11 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="AudioSwitcher.AudioApi" Version="3.0.0" />
     <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="3.0.3" />
     <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="VACARM.Application">
       <HintPath>..\..\VACARM.Backend.NET8\VACARM.Application\bin\Debug\net8.0\VACARM.Application.dll</HintPath>
@@ -62,7 +57,6 @@
       <HintPath>..\..\VACARM.Backend.NET8\VACARM.Infrastructure\bin\Debug\net8.0\VACARM.Infrastructure.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -70,12 +64,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>
