@@ -3,6 +3,7 @@ using VACARM.Infrastructure.Repositories;
 using VACARM.Common;
 using VACARM.Application.Services;
 using VACARM.Domain.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.GUI.Views
 {
@@ -103,6 +104,7 @@ namespace VACARM.GUI.Views
     /// <summary>
     /// Constructor.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public MainForm()
     {
       InitializeComponent();

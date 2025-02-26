@@ -1,5 +1,6 @@
 ﻿using VACARM.GUI.Accessors;
 using VACARM.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.GUI.Views
 {
@@ -8,6 +9,10 @@ namespace VACARM.GUI.Views
   {
     #region Logic
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    [ExcludeFromCodeCoverage]
     public AboutForm()
     {
       InitializeComponent();

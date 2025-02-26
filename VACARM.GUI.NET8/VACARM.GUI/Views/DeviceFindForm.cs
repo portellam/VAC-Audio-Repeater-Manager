@@ -1,4 +1,5 @@
-﻿using VACARM.Application.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+using VACARM.Application.Services;
 using VACARM.Domain.Models;
 using VACARM.GUI.Extensions;
 using VACARM.Infrastructure.Repositories;
@@ -130,8 +131,9 @@ namespace VACARM.GUI.Views
     #region Presentation Logic
 
     /// <summary>
-    /// The constructor.
+    /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public DeviceFindForm()
     {
       this.DeviceGroupService =
