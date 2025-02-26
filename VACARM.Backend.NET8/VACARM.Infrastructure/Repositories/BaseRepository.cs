@@ -43,19 +43,17 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    private List<TBaseModel> list { get; set; }
-
-    protected virtual List<TBaseModel> List
+    protected new virtual List<TBaseModel> Enumerable
     {
       get
       {
-        return this.list;
+        return base.Enumerable
+          .ToList();
       }
       set
       {
-        this.list = value;
         base.Enumerable = value;
-        base.OnPropertyChanged(nameof(List));
+        base.OnPropertyChanged(nameof(Enumerable));
       }
     }
 
@@ -100,7 +98,7 @@ namespace VACARM.Infrastructure.Repositories
     public BaseRepository() :
       base()
     {
-      this.List = new List<TBaseModel>();
+      this.Enumerable = new List<TBaseModel>();
     }
 
     /// <summary>
@@ -130,7 +128,7 @@ namespace VACARM.Infrastructure.Repositories
       if (isDisposed)
       {
         base.Dispose();
-        this.List = null;
+        this.Enumerable = null;
       }
 
       this.HasDisposed = true;
@@ -155,7 +153,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      return this.List
+      return this.Enumerable
         .Remove(item);
     }
 
@@ -171,7 +169,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      return this.List
+      return this.Enumerable
         .Remove(model);
     }
 
@@ -191,7 +189,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var item in enumerable)
       {
-        yield return this.List
+        yield return this.Enumerable
           .Remove(item);
       }
     }
@@ -210,7 +208,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var item in enumerable)
       {
-        yield return this.List
+        yield return this.Enumerable
           .Remove(item);
       }
     }
@@ -238,7 +236,7 @@ namespace VACARM.Infrastructure.Repositories
         model.Id = NextId;
       }
 
-      this.List
+      this.Enumerable
         .Add(model);
     }
 
