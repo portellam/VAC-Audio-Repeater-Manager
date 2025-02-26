@@ -4,24 +4,7 @@
   {
     #region Parameters
 
-    private bool preferModernApplication
-    {
-      get
-      {
-        return this.settingsPreferModernApplicationToolStripMenuItem
-          .Checked;
-      }
-      set
-      {
-        this.settingsPreferModernApplicationToolStripMenuItem
-          .Checked = value;
-
-        this.settingsPreferLegacyApplicationToolStripMenuItem
-          .Checked = !value;
-      }
-    }
-
-    private bool preferLegacyApplication
+    private bool settingsPreferLegacyApplication
     {
       get
       {
@@ -38,6 +21,23 @@
       }
     }
 
+    private bool settingsPreferModernApplication
+    {
+      get
+      {
+        return this.settingsPreferModernApplicationToolStripMenuItem
+          .Checked;
+      }
+      set
+      {
+        this.settingsPreferModernApplicationToolStripMenuItem
+          .Checked = value;
+
+        this.settingsPreferLegacyApplicationToolStripMenuItem
+          .Checked = !value;
+      }
+    }
+
     #endregion
 
     #region Presentation Logic
@@ -47,24 +47,6 @@
     #endregion
 
     #region Interaction Logic
-
-    private void settingsPreferModernApplicationToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if
-      (
-        !Environment.Is64BitOperatingSystem
-        || sender is null
-      )
-      {
-        return;
-      }
-
-      this.preferModernApplication = true;
-    }
 
     private void settingsPreferLegacyApplicationToolStripMenuItem_Click
     (
@@ -81,7 +63,25 @@
         return;
       }
 
-      this.preferLegacyApplication = true;
+      this.settingsPreferLegacyApplication = true;
+    }
+
+    private void settingsPreferModernApplicationToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if
+      (
+        !Environment.Is64BitOperatingSystem
+        || sender is null
+      )
+      {
+        return;
+      }
+
+      this.settingsPreferModernApplication = true;
     }
 
     private void settingsSetApplicationPathToolStripMenuItem_Click

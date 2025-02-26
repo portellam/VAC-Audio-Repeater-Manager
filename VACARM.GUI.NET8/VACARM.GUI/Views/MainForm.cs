@@ -88,7 +88,7 @@ namespace VACARM.GUI.Views
       {
         settingsPreferModernApplicationToolStripMenuItem.Enabled = false;
         settingsPreferLegacyApplicationToolStripMenuItem.Enabled = false;
-        preferLegacyApplication = true;
+        settingsPreferLegacyApplication = true;
       }
     }
 
