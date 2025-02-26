@@ -23,7 +23,7 @@ namespace VACARM.Domain.Models
       set
       {
         id = value;
-        OnPropertyChanged(nameof(Id));
+        OnPropertyChanged(nameof(this.Id));
       }
     }
 

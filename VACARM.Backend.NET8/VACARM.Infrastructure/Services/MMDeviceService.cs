@@ -42,7 +42,7 @@ namespace VACARM.Application.Services
       set
       {
         this.defaultCommunicationsReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(DefaultCommunicationsReadonlyRepository));
+        base.OnPropertyChanged(nameof(this.DefaultCommunicationsReadonlyRepository));
       }
     }
 
@@ -55,7 +55,7 @@ namespace VACARM.Application.Services
       set
       {
         this.defaultConsoleReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(DefaultConsoleReadonlyRepository));
+        base.OnPropertyChanged(nameof(this.DefaultConsoleReadonlyRepository));
       }
     }
 
@@ -68,7 +68,7 @@ namespace VACARM.Application.Services
       set
       {
         this.defaultMultimediaReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(DefaultMultimediaReadonlyRepository));
+        base.OnPropertyChanged(nameof(this.DefaultMultimediaReadonlyRepository));
       }
     }
 

@@ -81,7 +81,7 @@ namespace VACARM.Infrastructure.Services
       {
         this.list = value;
         base.Enumerable = value;
-        base.OnPropertyChanged(nameof(List));
+        base.OnPropertyChanged(nameof(this.List));
       }
     }
 
@@ -97,7 +97,7 @@ namespace VACARM.Infrastructure.Services
         this.SelectedService
           .Repository = value;
 
-        base.OnPropertyChanged(nameof(SelectedRepository));
+        base.OnPropertyChanged(nameof(this.SelectedRepository));
       }
     }
 
@@ -112,7 +112,7 @@ namespace VACARM.Infrastructure.Services
       protected set
       {
         this.List[this.SelectedIndex] = value;
-        base.OnPropertyChanged(nameof(SelectedService));
+        base.OnPropertyChanged(nameof(this.SelectedService));
       }
     }
 
@@ -130,7 +130,7 @@ namespace VACARM.Infrastructure.Services
         }
 
         this.selectedIndex = value;
-        base.OnPropertyChanged(nameof(SelectedIndex));
+        base.OnPropertyChanged(nameof(this.SelectedIndex));
       }
     }
 
@@ -150,7 +150,7 @@ namespace VACARM.Infrastructure.Services
         }
 
         this.maxCount = value;
-        base.OnPropertyChanged(nameof(MaxCount));
+        base.OnPropertyChanged(nameof(this.MaxCount));
       }
     }
 

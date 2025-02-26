@@ -41,7 +41,7 @@ namespace VACARM.Application.Services
       set
       {
         this.readonlyRepository = value;
-        OnPropertyChanged(nameof(Repository));
+        OnPropertyChanged(nameof(this.Repository));
       }
     }
 

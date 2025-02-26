@@ -34,7 +34,7 @@ namespace VACARM.Domain.Models
       set
       {
         actualId = value;
-        base.OnPropertyChanged(nameof(actualId));
+        base.OnPropertyChanged(nameof(this.actualId));
       }
     }
 
@@ -52,7 +52,7 @@ namespace VACARM.Domain.Models
       set
       {
         isCapture = value;
-        base.OnPropertyChanged(nameof(IsCapture));
+        base.OnPropertyChanged(nameof(this.IsCapture));
       }
     }
 
@@ -70,7 +70,7 @@ namespace VACARM.Domain.Models
       set
       {
         isDefault = value;
-        base.OnPropertyChanged(nameof(IsDefault));
+        base.OnPropertyChanged(nameof(this.IsDefault));
       }
     }
 
@@ -96,7 +96,7 @@ namespace VACARM.Domain.Models
       set
       {
         isEnabled = value;
-        base.OnPropertyChanged(nameof(IsEnabled));
+        base.OnPropertyChanged(nameof(this.IsEnabled));
       }
     }
 
@@ -114,7 +114,7 @@ namespace VACARM.Domain.Models
       set
       {
         isMuted = value;
-        base.OnPropertyChanged(nameof(IsMuted));
+        base.OnPropertyChanged(nameof(this.IsMuted));
       }
     }
 
@@ -132,7 +132,7 @@ namespace VACARM.Domain.Models
       set
       {
         isPresent = value;
-        base.OnPropertyChanged(nameof(IsPresent));
+        base.OnPropertyChanged(nameof(this.IsPresent));
       }
     }
 
@@ -150,7 +150,7 @@ namespace VACARM.Domain.Models
       set
       {
         isRender = value;
-        base.OnPropertyChanged(nameof(IsRender));
+        base.OnPropertyChanged(nameof(this.IsRender));
       }
     }
 
@@ -163,7 +163,7 @@ namespace VACARM.Domain.Models
       set
       {
         name = value;
-        base.OnPropertyChanged(nameof(Name));
+        base.OnPropertyChanged(nameof(this.Name));
       }
     }
 
@@ -198,7 +198,7 @@ namespace VACARM.Domain.Models
         }
 
         role = value;
-        base.OnPropertyChanged(nameof(Role));
+        base.OnPropertyChanged(nameof(this.Role));
       }
     }
 

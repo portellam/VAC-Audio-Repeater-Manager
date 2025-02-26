@@ -103,7 +103,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.coreAudioService = value;
-        base.OnPropertyChanged(nameof(CoreAudioService));
+        base.OnPropertyChanged(nameof(this.CoreAudioService));
       }
     }
 
@@ -121,7 +121,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.mMDeviceService = value;
-        base.OnPropertyChanged(nameof(MMDeviceService));
+        base.OnPropertyChanged(nameof(this.MMDeviceService));
       }
     }
 

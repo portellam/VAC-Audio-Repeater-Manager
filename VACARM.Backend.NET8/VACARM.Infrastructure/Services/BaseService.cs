@@ -36,7 +36,7 @@ namespace VACARM.Application.Services
       set
       {
         base.Repository = value;
-        base.OnPropertyChanged(nameof(Repository));
+        base.OnPropertyChanged(nameof(this.Repository));
       }
     }
 

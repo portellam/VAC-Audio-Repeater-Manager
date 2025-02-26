@@ -226,7 +226,7 @@ namespace VACARM.Domain.Models
       set
       {
         inputDeviceId = value;
-        base.OnPropertyChanged(nameof(InputDeviceId));
+        base.OnPropertyChanged(nameof(this.InputDeviceId));
       }
     }
 
@@ -239,7 +239,7 @@ namespace VACARM.Domain.Models
       set
       {
         outputDeviceId = value;
-        base.OnPropertyChanged(nameof(OutputDeviceId));
+        base.OnPropertyChanged(nameof(this.OutputDeviceId));
       }
     }
 
@@ -252,7 +252,7 @@ namespace VACARM.Domain.Models
       set
       {
         processId = value;
-        base.OnPropertyChanged(nameof(ProcessId));
+        base.OnPropertyChanged(nameof(this.ProcessId));
       }
     }
 
@@ -265,7 +265,7 @@ namespace VACARM.Domain.Models
       set
       {
         isStarted = value;
-        base.OnPropertyChanged(nameof(IsStarted));
+        base.OnPropertyChanged(nameof(this.IsStarted));
       }
     }
 
@@ -283,7 +283,7 @@ namespace VACARM.Domain.Models
         }
 
         channelConfig = value;
-        base.OnPropertyChanged(nameof(ChannelConfig));
+        base.OnPropertyChanged(nameof(this.ChannelConfig));
       }
     }
 
@@ -311,7 +311,7 @@ namespace VACARM.Domain.Models
           bitsPerSample = 16;
         }
 
-        base.OnPropertyChanged(nameof(BitsPerSample));
+        base.OnPropertyChanged(nameof(this.BitsPerSample));
       }
     }
 
@@ -339,7 +339,7 @@ namespace VACARM.Domain.Models
           bufferAmount = 8;
         }
 
-        base.OnPropertyChanged(nameof(BufferAmount));
+        base.OnPropertyChanged(nameof(this.BufferAmount));
       }
     }
 
@@ -384,7 +384,7 @@ namespace VACARM.Domain.Models
           prefillPercentage = 50;
         }
 
-        base.OnPropertyChanged(nameof(PrefillPercentage));
+        base.OnPropertyChanged(nameof(this.PrefillPercentage));
       }
     }
 
@@ -414,7 +414,7 @@ namespace VACARM.Domain.Models
             .Round((double)(prefillPercentage / 2));
         }
 
-        base.OnPropertyChanged(nameof(ResyncAtPercentage));
+        base.OnPropertyChanged(nameof(this.ResyncAtPercentage));
       }
     }
 
@@ -435,7 +435,7 @@ namespace VACARM.Domain.Models
         }
 
         channelList = value;
-        base.OnPropertyChanged(nameof(ChannelList));
+        base.OnPropertyChanged(nameof(this.ChannelList));
       }
     }
 
@@ -460,7 +460,7 @@ namespace VACARM.Domain.Models
         }
 
         inputDeviceName = value;
-        base.OnPropertyChanged(nameof(InputDeviceName));
+        base.OnPropertyChanged(nameof(this.InputDeviceName));
       }
     }
 
@@ -485,7 +485,7 @@ namespace VACARM.Domain.Models
         }
 
         outputDeviceName = value;
-        base.OnPropertyChanged(nameof(OutputDeviceName));
+        base.OnPropertyChanged(nameof(this.OutputDeviceName));
       }
     }
 
@@ -510,7 +510,7 @@ namespace VACARM.Domain.Models
         }
 
         pathName = value;
-        base.OnPropertyChanged(nameof(PathName));
+        base.OnPropertyChanged(nameof(this.PathName));
       }
     }
 
@@ -615,7 +615,7 @@ namespace VACARM.Domain.Models
         if (channelConfig != ChannelConfig.Custom)
         {
           channelConfig = ChannelConfig.Custom;
-          base.OnPropertyChanged(nameof(ChannelConfig));
+          base.OnPropertyChanged(nameof(this.ChannelConfig));
         }
 
         uint bit = 1;
@@ -636,7 +636,7 @@ namespace VACARM.Domain.Models
         }
 
         ChannelList = newChannelList;
-        base.OnPropertyChanged(nameof(ChannelMask));
+        base.OnPropertyChanged(nameof(this.ChannelMask));
       }
     }
 
@@ -664,7 +664,7 @@ namespace VACARM.Domain.Models
           sampleRateKHz = 48000;
         }
 
-        base.OnPropertyChanged(nameof(SampleRateKHz));
+        base.OnPropertyChanged(nameof(this.SampleRateKHz));
       }
     }
 
@@ -692,7 +692,7 @@ namespace VACARM.Domain.Models
           bufferDurationMs = 500;
         }
 
-        base.OnPropertyChanged(nameof(BufferDurationMs));
+        base.OnPropertyChanged(nameof(this.BufferDurationMs));
       }
     }
 

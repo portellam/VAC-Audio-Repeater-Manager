@@ -124,7 +124,7 @@ namespace VACARM.Application.Services
       set
       {
         this.preferLegacyExecutable = value;
-        base.OnPropertyChanged(nameof(PreferLegacyExecutable));
+        base.OnPropertyChanged(nameof(this.PreferLegacyExecutable));
       }
     }
 
@@ -154,7 +154,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.deviceGroupService = value;
-        base.OnPropertyChanged(nameof(DeviceGroupService));
+        base.OnPropertyChanged(nameof(this.DeviceGroupService));
       }
     }
 
@@ -176,7 +176,7 @@ namespace VACARM.Application.Services
         }
 
         this.customExecutablePathName = value;
-        base.OnPropertyChanged(nameof(CustomExecutablePathName));
+        base.OnPropertyChanged(nameof(this.CustomExecutablePathName));
       }
     }
 

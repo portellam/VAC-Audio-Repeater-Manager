@@ -55,7 +55,7 @@ namespace VACARM.Infrastructure.Repositories
       {
         this.list = value;
         base.Enumerable = value;
-        base.OnPropertyChanged(nameof(List));
+        base.OnPropertyChanged(nameof(this.List));
       }
     }
 
@@ -85,7 +85,7 @@ namespace VACARM.Infrastructure.Repositories
       internal set
       {
         this.maxCount = value;
-        base.OnPropertyChanged(nameof(MaxCount));
+        base.OnPropertyChanged(nameof(this.MaxCount));
       }
     }
 

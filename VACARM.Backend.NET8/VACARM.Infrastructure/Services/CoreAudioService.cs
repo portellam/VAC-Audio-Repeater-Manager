@@ -46,7 +46,7 @@ namespace VACARM.Application.Services
       set
       {
         this.controller = value;
-        base.OnPropertyChanged(nameof(Controller));
+        base.OnPropertyChanged(nameof(this.Controller));
       }
     }
 
