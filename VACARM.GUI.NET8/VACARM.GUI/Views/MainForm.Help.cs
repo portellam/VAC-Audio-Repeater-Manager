@@ -31,19 +31,6 @@ namespace VACARM.GUI.Views
 
       new AboutForm().ShowDialog();
     }
-    private void helpCommandLineArgumentsToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-
-    }
 
     private void helpApplicationWebsiteToolStripMenuItem_Click
     (
@@ -64,6 +51,20 @@ namespace VACARM.GUI.Views
       catch
       {
       }
+    }
+
+    private void helpCommandLineArgumentsToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+
     }
 
     private void helpWebsiteToolStripMenuItem_Click
