@@ -631,6 +631,19 @@ namespace VACARM.GUI
 
     }
 
+    private void deviceFindToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      //new DeviceFindForm(selectedDeviceRepository)
+      //  .ShowDialog();
+
+      new DeviceFindForm()
+        .ShowDialog();
+    }
+
     private void deviceRefreshToolStripMenuItem_Click
     (
       object sender,
@@ -1141,19 +1154,6 @@ namespace VACARM.GUI
     }
 
     #endregion
-
-    private void deviceFindToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      //new DeviceFindForm(selectedDeviceRepository)
-      //  .ShowDialog();
-
-      new DeviceFindForm()
-        .ShowDialog();
-    }
 
     public static DialogResult InputBox
     (
