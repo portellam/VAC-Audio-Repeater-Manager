@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Company>Alexander Portell &lt;github.com/portellam&gt;</Company>
     <Description></Description>
     <FileVersion>1.0.0</FileVersion>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <OutputType>Library</OutputType>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -15,13 +16,6 @@
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\..\VACARM.Assembly\Assembly.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Assembly.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.md">
       <Pack>True</Pack>
