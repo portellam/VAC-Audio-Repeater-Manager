@@ -1,0 +1,10 @@
+﻿<#@ template language="C#" #>
+using System;
+using System.Reflection;
+
+[assembly: AssemblyAuthors("Alexander Portell &lt;github.com/portellam&gt;")]
+[assembly: AssemblyCopyright("\"Audio Repeater Manager\" Copyleft 2024.")]
+[assembly: AssemblyPackageLicenseFile("LICENSE.md")]
+[assembly: AssemblyPackageProjectUrl("https://github.com/portellam/VAC-Audio-Repeater-Manager")]
+[assembly: AssemblyRepositoryUrl("https://github.com/portellam/VAC-Audio-Repeater-Manager")]
+[assembly: TargetFramework("net8.0-windows")]
