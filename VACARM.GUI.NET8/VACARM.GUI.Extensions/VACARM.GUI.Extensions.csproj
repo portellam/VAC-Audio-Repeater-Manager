@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Authors>Alexander Portell &lt;github.com/portellam&gt;</Authors>
-    <Copyright>VAC Audio Repeater Manager Copyleft © 2024 Alexander Portell.\nVirtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.</Copyright>
+    <Copyright>VAC Audio Repeater Manager Copyleft 2024 Alexander Portell.\nVirtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.</Copyright>
     <Description></Description>
     <FileVersion>1.0.0</FileVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

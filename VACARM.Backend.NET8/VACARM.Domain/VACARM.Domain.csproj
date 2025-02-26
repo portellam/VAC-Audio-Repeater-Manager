@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Authors>Alexander Portell &lt;github.com/portellam&gt;</Authors>
-    <Copyright>"Audio Repeater Manager" Copyleft © 2024.</Copyright>
+    <Copyright>"Audio Repeater Manager" Copyleft 2024.</Copyright>
     <FileVersion>1.0.0</FileVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>

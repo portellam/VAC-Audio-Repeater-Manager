@@ -3,7 +3,7 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Authors>Alexander Portell &lt;github.com/portellam&gt;</Authors>
-    <Copyright>"Audio Repeater Manager" Copyleft © 2024.</Copyright>
+    <Copyright>"Audio Repeater Manager" Copyleft 2024.</Copyright>
     <Description>Graphical user interface (GUI) to create, manage, and automate instances of Virtual Audio Cable (VAC) audio repeaters. This application version supports Microsoft Windows 10 version 1809 and newer. "Virtual Audio Cable" and "VAC" Copyright © 1998-2024 Eugene V. Muzychenko.</Description>
     <FileVersion>1.0.0</FileVersion>
     <ImplicitUsings>enable</ImplicitUsings>
