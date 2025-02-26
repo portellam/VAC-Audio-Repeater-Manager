@@ -1,4 +1,4 @@
-﻿namespace VACARM.GUI.Forms
+﻿namespace VACARM.GUI.Views
 {
   partial class DeviceFindForm
   {

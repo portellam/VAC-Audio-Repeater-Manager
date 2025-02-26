@@ -3,7 +3,7 @@ using VACARM.Domain.Models;
 using VACARM.GUI.Extensions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.GUI.Forms
+namespace VACARM.GUI.Views
 {
   public partial class DeviceFindForm :
     Form

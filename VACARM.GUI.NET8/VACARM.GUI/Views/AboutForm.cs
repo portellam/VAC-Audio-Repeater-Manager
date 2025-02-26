@@ -1,7 +1,7 @@
 ﻿using VACARM.GUI.Accessors;
 using VACARM.Common;
 
-namespace VACARM.GUI
+namespace VACARM.GUI.Views
 {
   partial class AboutForm :
     Form

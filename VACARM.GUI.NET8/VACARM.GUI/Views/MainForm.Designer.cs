@@ -1,4 +1,4 @@
-﻿namespace VACARM.GUI
+﻿namespace VACARM.GUI.Views
 {
   partial class MainForm
   {

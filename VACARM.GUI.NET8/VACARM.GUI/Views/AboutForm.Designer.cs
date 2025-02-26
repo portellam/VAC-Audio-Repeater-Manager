@@ -1,4 +1,4 @@
-﻿namespace VACARM.GUI
+﻿namespace VACARM.GUI.Views
 {
   partial class AboutForm
   {
@@ -42,7 +42,6 @@
     /// </summary>
     private void InitializeComponent()
     {
-      components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
       labelCompanyName = new Label();
       labelCopyright = new Label();

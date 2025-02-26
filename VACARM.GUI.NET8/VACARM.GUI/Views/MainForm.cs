@@ -5,7 +5,7 @@ using VACARM.Common;
 using VACARM.Application.Services;
 using VACARM.Domain.Models;
 
-namespace VACARM.GUI
+namespace VACARM.GUI.Views
 {
   public partial class MainForm :
     Form
