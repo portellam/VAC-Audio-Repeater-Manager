@@ -177,6 +177,34 @@ namespace VACARM.GUI.Views
 
     #region Interaction Logic
 
+    private void deviceDisableToolStripMenuItem_Click
+   (
+     object sender,
+     EventArgs eventArgs
+   )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+
+    }
+
+    private void deviceEnableToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+
+    }
+
     private void deviceExportToClipboardToolStripMenuItem_Click
     (
       object sender,
@@ -203,6 +231,23 @@ namespace VACARM.GUI.Views
       }
 
 
+    }
+
+    private void deviceFindToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      //new DeviceFindForm(selectedDeviceRepository)
+      //  .ShowDialog();
+
+      new DeviceFindForm().ShowDialog();
     }
 
     private void deviceImportFromClipboardToolStripMenuItem_Click
@@ -272,51 +317,6 @@ namespace VACARM.GUI.Views
       }
 
 
-    }
-
-    private void deviceDisableToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-
-    }
-
-    private void deviceEnableToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-
-    }
-
-    private void deviceFindToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-      //new DeviceFindForm(selectedDeviceRepository)
-      //  .ShowDialog();
-
-      new DeviceFindForm().ShowDialog();
     }
 
     private void deviceRefreshToolStripMenuItem_Click
@@ -445,7 +445,7 @@ namespace VACARM.GUI.Views
 
     }
 
-    private void undoToolStripMenuItem_Click
+    private void deviceUndoToolStripMenuItem_Click
     (
       object sender,
       EventArgs eventArgs

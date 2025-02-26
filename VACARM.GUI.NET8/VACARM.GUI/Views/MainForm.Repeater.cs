@@ -142,20 +142,6 @@
 
     }
 
-    private void repeaterUndoToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-
-    }
-
     private void repeaterRestartToolStripMenuItem_Click
     (
       object sender,
@@ -184,7 +170,7 @@
 
     }
 
-    private void selectAllWithDisabledDevicesToolStripMenuItem_Click
+    private void repeaterSelectAllWithDisabledDevicesToolStripMenuItem_Click
     (
       object sender,
       EventArgs eventArgs
@@ -198,7 +184,7 @@
 
     }
 
-    private void selectAllWithEnabledDevicesToolStripMenuItem_Click
+    private void repeaterSelectAllWithEnabledDevicesToolStripMenuItem_Click
     (
       object sender,
       EventArgs eventArgs
@@ -283,6 +269,20 @@
     }
 
     private void repeaterStopToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+
+    }
+
+    private void repeaterUndoToolStripMenuItem_Click
     (
       object sender,
       EventArgs eventArgs

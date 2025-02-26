@@ -274,7 +274,7 @@
       deviceUndoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
       deviceUndoToolStripMenuItem.Size = new Size(192, 22);
       deviceUndoToolStripMenuItem.Text = "Undo";
-      deviceUndoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
+      deviceUndoToolStripMenuItem.Click += deviceUndoToolStripMenuItem_Click;
       // 
       // deviceRedoToolStripMenuItem
       // 
@@ -547,7 +547,7 @@
       repeaterSelectAllWithEnabledDevicesToolStripMenuItem.Name = "repeaterSelectAllWithEnabledDevicesToolStripMenuItem";
       repeaterSelectAllWithEnabledDevicesToolStripMenuItem.Size = new Size(239, 22);
       repeaterSelectAllWithEnabledDevicesToolStripMenuItem.Text = "Select All with Enabled Devices";
-      repeaterSelectAllWithEnabledDevicesToolStripMenuItem.Click += selectAllWithEnabledDevicesToolStripMenuItem_Click;
+      repeaterSelectAllWithEnabledDevicesToolStripMenuItem.Click += repeaterSelectAllWithEnabledDevicesToolStripMenuItem_Click;
       // 
       // repeaterSelectAllWithDisabledDevicesToolStripMenuItem
       // 
@@ -555,7 +555,7 @@
       repeaterSelectAllWithDisabledDevicesToolStripMenuItem.Name = "repeaterSelectAllWithDisabledDevicesToolStripMenuItem";
       repeaterSelectAllWithDisabledDevicesToolStripMenuItem.Size = new Size(239, 22);
       repeaterSelectAllWithDisabledDevicesToolStripMenuItem.Text = "Select All with Disabled Devices";
-      repeaterSelectAllWithDisabledDevicesToolStripMenuItem.Click += selectAllWithDisabledDevicesToolStripMenuItem_Click;
+      repeaterSelectAllWithDisabledDevicesToolStripMenuItem.Click += repeaterSelectAllWithDisabledDevicesToolStripMenuItem_Click;
       // 
       // repeaterSelectAllWithPresentDevicesToolStripMenuItem
       // 
