@@ -16,7 +16,77 @@
 
     #region Interaction Logic
 
+    private void settingsPreferModernApplicationToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if
+      (
+        !Environment.Is64BitOperatingSystem
+        || sender is null
+      )
+      {
+        return;
+      }
 
+      preferX64 = true;
+    }
+
+    private void settingsPreferLegacyApplicationToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if
+      (
+        !Environment.Is64BitOperatingSystem
+        || sender is null
+      )
+      {
+        return;
+      }
+
+      preferX86 = true;
+    }
+
+    private void settingsSetApplicationPathToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+
+    }
+
+    private void settingsStartAllRepeatersOnLoadToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+
+    }
+
+    private void settingsToggleBogusModeToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+
+    }
+
+    private void settingsToggleSafeModeToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+
+    }
 
     #endregion
   }
