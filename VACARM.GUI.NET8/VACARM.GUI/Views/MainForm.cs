@@ -12,7 +12,7 @@ namespace VACARM.GUI.Views
   {
     #region Parameters
 
-    private bool preferX64
+    private bool preferModernApplication
     {
       get
       {
@@ -25,7 +25,7 @@ namespace VACARM.GUI.Views
       }
     }
 
-    private bool preferX86
+    private bool preferLegacyApplication
     {
       get
       {
@@ -141,7 +141,7 @@ namespace VACARM.GUI.Views
       {
         settingsPreferModernApplicationToolStripMenuItem.Enabled = false;
         settingsPreferLegacyApplicationToolStripMenuItem.Enabled = false;
-        preferX86 = true;
+        preferLegacyApplication = true;
       }
     }
 

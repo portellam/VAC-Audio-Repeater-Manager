@@ -31,7 +31,7 @@
         return;
       }
 
-      this.preferX64 = true;
+      this.preferModernApplication = true;
     }
 
     private void settingsPreferLegacyApplicationToolStripMenuItem_Click
@@ -49,7 +49,7 @@
         return;
       }
 
-      this.preferX86 = true;
+      this.preferLegacyApplication = true;
     }
 
     private void settingsSetApplicationPathToolStripMenuItem_Click

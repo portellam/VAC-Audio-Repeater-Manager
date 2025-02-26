@@ -17,27 +17,58 @@ namespace VACARM.GUI.Views
 
         bool result = value.Value;
 
-        deviceDisableToolStripMenuItem.Enabled = result;
-        deviceEnableToolStripMenuItem.Enabled = result;
-        deviceSetAsDefaultToolStripMenuItem.Enabled = result;
+        this.deviceDisableToolStripMenuItem
+          .Enabled = result;
 
-        deviceExportToClipboardToolStripMenuItem.Enabled = result;
-        deviceExportToXMLToolStripMenuItem.Enabled = result;
+        this.deviceEnableToolStripMenuItem
+          .Enabled = result;
 
-        deviceRedoToolStripMenuItem.Enabled = result;
-        deviceUndoToolStripMenuItem.Enabled = result;
+        this.deviceSetAsDefaultToolStripMenuItem
+          .Enabled = result;
 
-        deviceFindToolStripMenuItem.Enabled = result;
-        deviceSelectAllToolStripMenuItem.Enabled = result;
-        deviceSelectAllDisabledToolStripMenuItem.Enabled = result;
-        deviceSelectAllDuplexToolStripMenuItem.Enabled = result;
-        deviceSelectAllEnabledToolStripMenuItem.Enabled = result;
-        deviceSelectAllOutputsToolStripMenuItem.Enabled = result;
-        deviceSelectAllInputsToolStripMenuItem.Enabled = result;
-        deviceSelectDefaultInputToolStripMenuItem.Enabled = result;
-        deviceSelectDefaultOutputToolStripMenuItem.Enabled = result;
-        deviceSelectToolStripMenuItem.Enabled = result;
-        deviceSelectToolStripMenuItemDropDown.Enabled = result;
+        this.deviceExportToClipboardToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceExportToXMLToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceRedoToolStripMenuItem
+          .Enabled = result;
+        this.deviceUndoToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceFindToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectAllToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectAllDisabledToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectAllDuplexToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectAllEnabledToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectAllOutputsToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectAllInputsToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectDefaultInputToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectDefaultOutputToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectToolStripMenuItem
+          .Enabled = result;
+
+        this.deviceSelectToolStripMenuItemDropDown
+          .Enabled = result;
       }
     }
 
@@ -83,7 +114,7 @@ namespace VACARM.GUI.Views
 
     private void SetDeviceComponentsAbilityProperties()
     {
-      deviceToolStripMenuItemsAbility = false;
+      this.deviceToolStripMenuItemsAbility = false;
 
       //if
       //(
@@ -106,8 +137,7 @@ namespace VACARM.GUI.Views
         return;
       }
 
-
-      deviceToolStripMenuItemsAbility = true;
+      this.deviceToolStripMenuItemsAbility = true;
 
       if
       (
@@ -116,8 +146,8 @@ namespace VACARM.GUI.Views
           .Count() == 0
       )
       {
-        deviceSelectAllDuplexToolStripMenuItem.Enabled = false;
-        deviceSelectDuplexToolStripMenuItem.Enabled = false;
+        this.deviceSelectAllDuplexToolStripMenuItem.Enabled = false;
+        this.deviceSelectDuplexToolStripMenuItem.Enabled = false;
       }
 
       if
@@ -127,8 +157,8 @@ namespace VACARM.GUI.Views
           .Count() == 0
       )
       {
-        deviceSelectAllInputsToolStripMenuItem.Enabled = false;
-        deviceSelectInputToolStripMenuItem.Enabled = false;
+        this.deviceSelectAllInputsToolStripMenuItem.Enabled = false;
+        this.deviceSelectInputToolStripMenuItem.Enabled = false;
       }
 
       if
@@ -138,8 +168,8 @@ namespace VACARM.GUI.Views
           .Count() == 0
       )
       {
-        deviceSelectAllOutputsToolStripMenuItem.Enabled = false;
-        deviceSelectOutputToolStripMenuItem.Enabled = false;
+        this.deviceSelectAllOutputsToolStripMenuItem.Enabled = false;
+        this.deviceSelectOutputToolStripMenuItem.Enabled = false;
       }
     }
 
@@ -286,8 +316,7 @@ namespace VACARM.GUI.Views
       //new DeviceFindForm(selectedDeviceRepository)
       //  .ShowDialog();
 
-      new DeviceFindForm()
-        .ShowDialog();
+      new DeviceFindForm().ShowDialog();
     }
 
     private void deviceRefreshToolStripMenuItem_Click

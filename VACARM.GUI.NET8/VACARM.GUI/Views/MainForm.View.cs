@@ -22,8 +22,14 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
+
     private void viewPreferSystemThemeToolStripMenuItem_Click
     (
       object sender,
@@ -37,10 +43,11 @@
 
       if (Environment.OSVersion.Version.Major < 6)
       {
-        viewPreferSystemThemeToolStripMenuItem.Enabled = false;
+        this.viewPreferSystemThemeToolStripMenuItem
+          .Enabled = false;
       }
 
-      preferSystemTheme = true;
+      this.preferSystemTheme = true;
     }
 
     private void viewPreferDarkThemeToolStripMenuItem_Click
@@ -49,6 +56,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -58,6 +70,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 

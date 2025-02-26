@@ -22,6 +22,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -31,6 +36,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -40,6 +50,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -49,7 +64,12 @@
       EventArgs eventArgs
     )
     {
-      // check if it is safe to exit.
+      if (sender == null)
+      {
+        return;
+      }
+
+      //TODO: check if it is safe to exit.
 
       Environment.Exit(0);
     }
@@ -60,6 +80,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -69,6 +94,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
       OpenFileDialog openFileDialog = new OpenFileDialog()
       {
         AddExtension = true,
@@ -85,8 +115,8 @@
       openFileDialog.ShowDialog();
 
       string fileName = openFileDialog.FileName;
-      //send to FileController?
-      //file controller populates an instance of the repositories?
+      //TODO: send to a FileController?
+      //TODO: file controller populates an instance of the repositories?
 
       openFileDialog.AddToRecent = true;
       openFileDialog.ShowPreview = true;
@@ -98,6 +128,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -107,6 +142,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -116,6 +156,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -125,6 +170,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -134,6 +184,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 

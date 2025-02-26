@@ -22,6 +22,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -31,6 +36,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -40,6 +50,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -49,6 +64,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -58,6 +78,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -67,6 +92,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -76,6 +106,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -85,6 +120,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -94,6 +134,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -103,6 +148,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -112,6 +162,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -121,6 +176,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -130,6 +190,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -139,6 +204,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -148,6 +218,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -157,6 +232,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -166,6 +246,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -175,6 +260,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -184,6 +274,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -193,6 +288,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
