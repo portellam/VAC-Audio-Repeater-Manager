@@ -8,7 +8,13 @@
 
     #endregion
 
-    #region Logic
+    #region Presentation Logic
+
+
+
+    #endregion
+
+    #region Interaction Logic
 
 
 
