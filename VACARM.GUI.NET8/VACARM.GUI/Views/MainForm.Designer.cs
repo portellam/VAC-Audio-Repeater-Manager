@@ -138,8 +138,6 @@
       helpApplicationWebsiteToolStripMenuItem = new ToolStripMenuItem();
       helpToolStripSeparator2 = new ToolStripSeparator();
       helpAboutToolStripMenuItem = new ToolStripMenuItem();
-      importFromClipboardToolStripMenuItem = new ToolStripMenuItem();
-      selectAllToolStripMenuItem = new ToolStripMenuItem();
       toolStrip1.SuspendLayout();
       SuspendLayout();
       // 
@@ -482,7 +480,7 @@
       // 
       repeaterToolStripDropDownButton.AutoToolTip = false;
       repeaterToolStripDropDownButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      repeaterToolStripDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { repeaterUndoToolStripMenuItem, repeaterRedoToolStripMenuItem, repeaterToolStripSeparator1, repeaterFindToolStripMenuItemDropDown, repeaterSelectToolStripMenuItem, repeaterSelectToolStripMenuItemDropDown, repeaterSelectAllToolStripMenuItem, repeaterSelectAllWithEnabledDevicesToolStripMenuItem, repeaterSelectAllWithDisabledDevicesToolStripMenuItem, repeaterSelectAllWithPresentDevicesToolStripMenuItem, repeaterSelectAllWithAbsentDevicesToolStripMenuItem, repeaterToolStripSeparator2, repeaterStartToolStripMenuItem, repeaterStopToolStripMenuItem, repeaterRestartToolStripMenuItem, repeaterToolStripSeparator3, repeaterSelectDevicesToolStripMenuItem, repeaterSelectInputDeviceToolStripMenuItem, repeaterSelectOutputDeviceToolStripMenuItem, repeaterToolStripSeparator4, repeaterImportFromClipboardToolStripMenuItem, repeaterImportFromScriptToolStripMenuItem, repeaterImportFromXMLToolStripMenuItem, repeaterExportToClipboardToolStripMenuItem, repeaterExportToScriptToolStripMenuItem, repeaterExportToXMLToolStripMenuItem, importFromClipboardToolStripMenuItem, selectAllToolStripMenuItem });
+      repeaterToolStripDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { repeaterUndoToolStripMenuItem, repeaterRedoToolStripMenuItem, repeaterToolStripSeparator1, repeaterFindToolStripMenuItemDropDown, repeaterSelectToolStripMenuItem, repeaterSelectToolStripMenuItemDropDown, repeaterSelectAllToolStripMenuItem, repeaterSelectAllWithEnabledDevicesToolStripMenuItem, repeaterSelectAllWithDisabledDevicesToolStripMenuItem, repeaterSelectAllWithPresentDevicesToolStripMenuItem, repeaterSelectAllWithAbsentDevicesToolStripMenuItem, repeaterToolStripSeparator2, repeaterStartToolStripMenuItem, repeaterStopToolStripMenuItem, repeaterRestartToolStripMenuItem, repeaterToolStripSeparator3, repeaterSelectDevicesToolStripMenuItem, repeaterSelectInputDeviceToolStripMenuItem, repeaterSelectOutputDeviceToolStripMenuItem, repeaterToolStripSeparator4, repeaterImportFromClipboardToolStripMenuItem, repeaterImportFromScriptToolStripMenuItem, repeaterImportFromXMLToolStripMenuItem, repeaterExportToClipboardToolStripMenuItem, repeaterExportToScriptToolStripMenuItem, repeaterExportToXMLToolStripMenuItem });
       repeaterToolStripDropDownButton.Name = "repeaterToolStripDropDownButton";
       repeaterToolStripDropDownButton.Size = new Size(66, 22);
       repeaterToolStripDropDownButton.Text = "Repeater";
@@ -654,7 +652,7 @@
       repeaterImportFromScriptToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       repeaterImportFromScriptToolStripMenuItem.Name = "repeaterImportFromScriptToolStripMenuItem";
       repeaterImportFromScriptToolStripMenuItem.Size = new Size(239, 22);
-      repeaterImportFromScriptToolStripMenuItem.Text = "Import from XML";
+      repeaterImportFromScriptToolStripMenuItem.Text = "Import from script";
       repeaterImportFromScriptToolStripMenuItem.Click += repeaterImportFromScriptToolStripMenuItem_Click;
       // 
       // repeaterImportFromXMLToolStripMenuItem
@@ -901,18 +899,6 @@
       helpAboutToolStripMenuItem.Text = "About Application";
       helpAboutToolStripMenuItem.Click += helpAboutToolStripMenuItem_Click;
       // 
-      // importFromClipboardToolStripMenuItem
-      // 
-      importFromClipboardToolStripMenuItem.Name = "importFromClipboardToolStripMenuItem";
-      importFromClipboardToolStripMenuItem.Size = new Size(239, 22);
-      importFromClipboardToolStripMenuItem.Text = "Import from clipboard";
-      // 
-      // selectAllToolStripMenuItem
-      // 
-      selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-      selectAllToolStripMenuItem.Size = new Size(239, 22);
-      selectAllToolStripMenuItem.Text = "Select All";
-      // 
       // MainForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
@@ -979,7 +965,6 @@
     private ToolStripMenuItem helpApplicationWebsiteToolStripMenuItem;
     private ToolStripMenuItem helpCommandLineArgumentsToolStripMenuItem;
     private ToolStripMenuItem helpWebsiteToolStripMenuItem;
-    private ToolStripMenuItem importFromClipboardToolStripMenuItem;
     private ToolStripMenuItem repeaterExportToClipboardToolStripMenuItem;
     private ToolStripMenuItem repeaterExportToScriptToolStripMenuItem;
     private ToolStripMenuItem repeaterExportToXMLToolStripMenuItem;
@@ -1002,7 +987,6 @@
     private ToolStripMenuItem repeaterStartToolStripMenuItem;
     private ToolStripMenuItem repeaterStopToolStripMenuItem;
     private ToolStripMenuItem repeaterUndoToolStripMenuItem;
-    private ToolStripMenuItem selectAllToolStripMenuItem;
     private ToolStripMenuItem settingsPreferLegacyApplicationToolStripMenuItem;
     private ToolStripMenuItem settingsPreferModernApplicationToolStripMenuItem;
     private ToolStripMenuItem settingsSetApplicationPathToolStripMenuItem;
