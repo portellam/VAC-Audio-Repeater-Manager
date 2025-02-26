@@ -121,8 +121,8 @@
       settingsToolStripButton = new ToolStripDropDownButton();
       settingsStartAllRepeatersOnLoadToolStripMenuItem = new ToolStripMenuItem();
       settingsToolStripSeparator1 = new ToolStripSeparator();
-      settingsPreferLegacyApplicationToolStripMenuItem = new ToolStripMenuItem();
       settingsPreferModernApplicationToolStripMenuItem = new ToolStripMenuItem();
+      settingsPreferLegacyApplicationToolStripMenuItem = new ToolStripMenuItem();
       settingsSetApplicationPathToolStripMenuItem = new ToolStripMenuItem();
       settingsToolStripSeparator2 = new ToolStripSeparator();
       settingsToggleBogusModeToolStripMenuItem = new ToolStripMenuItem();
@@ -762,16 +762,6 @@
       settingsToolStripSeparator1.Name = "settingsToolStripSeparator1";
       settingsToolStripSeparator1.Size = new Size(259, 6);
       // 
-      // settingsPreferLegacyApplicationToolStripMenuItem
-      // 
-      settingsPreferLegacyApplicationToolStripMenuItem.CheckOnClick = true;
-      settingsPreferLegacyApplicationToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      settingsPreferLegacyApplicationToolStripMenuItem.Name = "settingsPreferLegacyApplicationToolStripMenuItem";
-      settingsPreferLegacyApplicationToolStripMenuItem.Size = new Size(262, 22);
-      settingsPreferLegacyApplicationToolStripMenuItem.Text = "Prefer Legacy Audio Repeater";
-      settingsPreferLegacyApplicationToolStripMenuItem.ToolTipText = "Uses Multimedia Extensions (MME)";
-      settingsPreferLegacyApplicationToolStripMenuItem.Click += settingsPreferLegacyApplicationToolStripMenuItem_Click;
-      // 
       // settingsPreferModernApplicationToolStripMenuItem
       // 
       settingsPreferModernApplicationToolStripMenuItem.CheckOnClick = true;
@@ -782,12 +772,22 @@
       settingsPreferModernApplicationToolStripMenuItem.ToolTipText = "Uses Kernel Streaming (KS)";
       settingsPreferModernApplicationToolStripMenuItem.Click += settingsPreferModernApplicationToolStripMenuItem_Click;
       // 
+      // settingsPreferLegacyApplicationToolStripMenuItem
+      // 
+      settingsPreferLegacyApplicationToolStripMenuItem.CheckOnClick = true;
+      settingsPreferLegacyApplicationToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+      settingsPreferLegacyApplicationToolStripMenuItem.Name = "settingsPreferLegacyApplicationToolStripMenuItem";
+      settingsPreferLegacyApplicationToolStripMenuItem.Size = new Size(262, 22);
+      settingsPreferLegacyApplicationToolStripMenuItem.Text = "Prefer Legacy Audio Repeater";
+      settingsPreferLegacyApplicationToolStripMenuItem.ToolTipText = "Uses Multimedia Extensions (MME)";
+      settingsPreferLegacyApplicationToolStripMenuItem.Click += settingsPreferLegacyApplicationToolStripMenuItem_Click;
+      // 
       // settingsSetApplicationPathToolStripMenuItem
       // 
       settingsSetApplicationPathToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       settingsSetApplicationPathToolStripMenuItem.Name = "settingsSetApplicationPathToolStripMenuItem";
       settingsSetApplicationPathToolStripMenuItem.Size = new Size(262, 22);
-      settingsSetApplicationPathToolStripMenuItem.Text = "Set Application Path";
+      settingsSetApplicationPathToolStripMenuItem.Text = "Set Audio Repeater Executable Path";
       settingsSetApplicationPathToolStripMenuItem.Click += settingsSetApplicationPathToolStripMenuItem_Click;
       // 
       // settingsToolStripSeparator2
@@ -829,7 +829,7 @@
       // 
       windowSortByToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       windowSortByToolStripMenuItem.Name = "windowSortByToolStripMenuItem";
-      windowSortByToolStripMenuItem.Size = new Size(180, 22);
+      windowSortByToolStripMenuItem.Size = new Size(132, 22);
       windowSortByToolStripMenuItem.Text = "Sort By";
       windowSortByToolStripMenuItem.Click += windowSortByToolStripMenuItem_Click;
       // 
@@ -837,14 +837,14 @@
       // 
       windowWindowsToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       windowWindowsToolStripMenuItem.Name = "windowWindowsToolStripMenuItem";
-      windowWindowsToolStripMenuItem.Size = new Size(180, 22);
+      windowWindowsToolStripMenuItem.Size = new Size(132, 22);
       windowWindowsToolStripMenuItem.Text = "Windows...";
       windowWindowsToolStripMenuItem.Click += windowWindowsToolStripMenuItem_Click;
       // 
       // windowToolStripSeparator1
       // 
       windowToolStripSeparator1.Name = "windowToolStripSeparator1";
-      windowToolStripSeparator1.Size = new Size(177, 6);
+      windowToolStripSeparator1.Size = new Size(129, 6);
       // 
       // helpToolStripDropDownButton
       // 
