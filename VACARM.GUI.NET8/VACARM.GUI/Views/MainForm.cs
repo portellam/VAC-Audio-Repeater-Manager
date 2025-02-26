@@ -7,7 +7,8 @@ using VACARM.Domain.Models;
 
 namespace VACARM.GUI
 {
-  public partial class MainForm : Form
+  public partial class MainForm :
+    Form
   {
     #region Parameters
 

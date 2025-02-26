@@ -5,7 +5,8 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.GUI.Forms
 {
-  public partial class DeviceFindForm : Form
+  public partial class DeviceFindForm :
+    Form
   {
     #region Parameters
 

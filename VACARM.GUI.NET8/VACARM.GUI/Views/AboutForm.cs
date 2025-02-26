@@ -3,7 +3,8 @@ using VACARM.Common;
 
 namespace VACARM.GUI
 {
-  partial class AboutForm : Form
+  partial class AboutForm :
+    Form
   {
     #region Logic
 
@@ -32,7 +33,7 @@ namespace VACARM.GUI
           Info.ApplicationPartialAbbreviatedName
         );
 
-      this.textBoxDescription.Text = 
+      this.textBoxDescription.Text =
         AssemblyInformationAccessor.AssemblyDescription;
     }
 
