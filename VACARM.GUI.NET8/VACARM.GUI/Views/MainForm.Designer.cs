@@ -753,22 +753,22 @@
       settingsStartAllRepeatersOnLoadToolStripMenuItem.CheckOnClick = true;
       settingsStartAllRepeatersOnLoadToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       settingsStartAllRepeatersOnLoadToolStripMenuItem.Name = "settingsStartAllRepeatersOnLoadToolStripMenuItem";
-      settingsStartAllRepeatersOnLoadToolStripMenuItem.Size = new Size(252, 22);
+      settingsStartAllRepeatersOnLoadToolStripMenuItem.Size = new Size(321, 22);
       settingsStartAllRepeatersOnLoadToolStripMenuItem.Text = "Start All Repeaters on Load";
       settingsStartAllRepeatersOnLoadToolStripMenuItem.Click += settingsStartAllRepeatersOnLoadToolStripMenuItem_Click;
       // 
       // settingsToolStripSeparator1
       // 
       settingsToolStripSeparator1.Name = "settingsToolStripSeparator1";
-      settingsToolStripSeparator1.Size = new Size(249, 6);
+      settingsToolStripSeparator1.Size = new Size(318, 6);
       // 
       // settingsPreferX86Application32bitToolStripMenuItem
       // 
       settingsPreferX86Application32bitToolStripMenuItem.CheckOnClick = true;
       settingsPreferX86Application32bitToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       settingsPreferX86Application32bitToolStripMenuItem.Name = "settingsPreferX86Application32bitToolStripMenuItem";
-      settingsPreferX86Application32bitToolStripMenuItem.Size = new Size(252, 22);
-      settingsPreferX86Application32bitToolStripMenuItem.Text = "Prefer 32-bit (x86) Audio Repeater";
+      settingsPreferX86Application32bitToolStripMenuItem.Size = new Size(321, 22);
+      settingsPreferX86Application32bitToolStripMenuItem.Text = "Prefer Multimedia Extensions (MME) or Legacy";
       settingsPreferX86Application32bitToolStripMenuItem.Click += settingsPreferX86Application32bitToolStripMenuItem_Click;
       // 
       // settingsPreferX64Application64bitToolStripMenuItem
@@ -776,29 +776,29 @@
       settingsPreferX64Application64bitToolStripMenuItem.CheckOnClick = true;
       settingsPreferX64Application64bitToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       settingsPreferX64Application64bitToolStripMenuItem.Name = "settingsPreferX64Application64bitToolStripMenuItem";
-      settingsPreferX64Application64bitToolStripMenuItem.Size = new Size(252, 22);
-      settingsPreferX64Application64bitToolStripMenuItem.Text = "Prefer 64-bit (x64) Audio Repeater";
+      settingsPreferX64Application64bitToolStripMenuItem.Size = new Size(321, 22);
+      settingsPreferX64Application64bitToolStripMenuItem.Text = "Prefer Kernel Streaming (KS)";
       settingsPreferX64Application64bitToolStripMenuItem.Click += settingsPreferX64Application64bitToolStripMenuItem_Click;
       // 
       // settingsSetApplicationPathToolStripMenuItem
       // 
       settingsSetApplicationPathToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       settingsSetApplicationPathToolStripMenuItem.Name = "settingsSetApplicationPathToolStripMenuItem";
-      settingsSetApplicationPathToolStripMenuItem.Size = new Size(252, 22);
+      settingsSetApplicationPathToolStripMenuItem.Size = new Size(321, 22);
       settingsSetApplicationPathToolStripMenuItem.Text = "Set Application Path";
       settingsSetApplicationPathToolStripMenuItem.Click += settingsSetApplicationPathToolStripMenuItem_Click;
       // 
       // settingsToolStripSeparator2
       // 
       settingsToolStripSeparator2.Name = "settingsToolStripSeparator2";
-      settingsToolStripSeparator2.Size = new Size(249, 6);
+      settingsToolStripSeparator2.Size = new Size(318, 6);
       // 
       // settingsToggleBogusModeToolStripMenuItem
       // 
       settingsToggleBogusModeToolStripMenuItem.CheckOnClick = true;
       settingsToggleBogusModeToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       settingsToggleBogusModeToolStripMenuItem.Name = "settingsToggleBogusModeToolStripMenuItem";
-      settingsToggleBogusModeToolStripMenuItem.Size = new Size(252, 22);
+      settingsToggleBogusModeToolStripMenuItem.Size = new Size(321, 22);
       settingsToggleBogusModeToolStripMenuItem.Text = "Toggle Bogus Mode";
       settingsToggleBogusModeToolStripMenuItem.Click += settingsToggleBogusModeToolStripMenuItem_Click;
       // 
@@ -809,7 +809,7 @@
       settingsToggleSafeModeToolStripMenuItem.CheckState = CheckState.Checked;
       settingsToggleSafeModeToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       settingsToggleSafeModeToolStripMenuItem.Name = "settingsToggleSafeModeToolStripMenuItem";
-      settingsToggleSafeModeToolStripMenuItem.Size = new Size(252, 22);
+      settingsToggleSafeModeToolStripMenuItem.Size = new Size(321, 22);
       settingsToggleSafeModeToolStripMenuItem.Text = "Toggle Safe Mode";
       settingsToggleSafeModeToolStripMenuItem.Click += settingsToggleSafeModeToolStripMenuItem_Click;
       // 
@@ -827,7 +827,7 @@
       // 
       windowSortByToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
       windowSortByToolStripMenuItem.Name = "windowSortByToolStripMenuItem";
-      windowSortByToolStripMenuItem.Size = new Size(132, 22);
+      windowSortByToolStripMenuItem.Size = new Size(180, 22);
       windowSortByToolStripMenuItem.Text = "Sort By";
       windowSortByToolStripMenuItem.Click += windowSortByToolStripMenuItem_Click;
       // 
