@@ -119,7 +119,6 @@ namespace VACARM.GUI.Views
         );
     }
 
-
     private void PostInitializeComponent()
     {
       SetComponentsItemLists();
@@ -239,7 +238,6 @@ namespace VACARM.GUI.Views
           }
         );
     }
-
 
     private void SetDeviceRepositories()
     {
@@ -416,189 +414,7 @@ namespace VACARM.GUI.Views
 
     #region Device logic
 
-    private void deviceExportToClipboardToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceExportToXMLToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceImportFromClipboardToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceImportFromXMLToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceRedoToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectAllToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceDisableToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceEnableToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceFindToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      //new DeviceFindForm(selectedDeviceRepository)
-      //  .ShowDialog();
-
-      new DeviceFindForm()
-        .ShowDialog();
-    }
-
-    private void deviceRefreshToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSetAsDefaultToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectAllDisabledToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectAllDuplexToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectAllEnabledToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectAllInputsToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectAllOutputsToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectDefaultInputToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void deviceSelectDefaultOutputToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
-
-    private void undoToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-
-    }
+    
 
     #endregion
 
