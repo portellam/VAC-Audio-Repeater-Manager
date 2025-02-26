@@ -11,7 +11,20 @@ namespace VACARM.GUI
     public AboutForm()
     {
       InitializeComponent();
+      SetComponentsNameProperties();
       SetComponentsTextProperties();
+    }
+
+    private void SetComponentsNameProperties()
+    {
+      labelCompanyName.Name = nameof(this.labelCompanyName);
+      labelCopyright.Name = nameof(this.labelCopyright);
+      labelProductName.Name = nameof(this.labelProductName);
+      labelVersion.Name = nameof(this.labelVersion);
+      tableLayoutPanel.Name = nameof(this.tableLayoutPanel);
+      logoPictureBox.Name = nameof(this.logoPictureBox);
+      textBoxDescription.Name = nameof(this.textBoxDescription);
+      okButton.Name = nameof(this.okButton);
     }
 
     private void SetComponentsTextProperties()
