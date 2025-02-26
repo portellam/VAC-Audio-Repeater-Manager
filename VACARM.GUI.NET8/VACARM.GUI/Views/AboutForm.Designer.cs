@@ -52,7 +52,6 @@
       logoPictureBox = new PictureBox();
       textBoxDescription = new TextBox();
       okButton = new Button();
-      imageList1 = new ImageList(components);
       tableLayoutPanel.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
       SuspendLayout();
@@ -170,12 +169,6 @@
       okButton.TabIndex = 24;
       okButton.Text = "&OK";
       // 
-      // imageList1
-      // 
-      imageList1.ColorDepth = ColorDepth.Depth32Bit;
-      imageList1.ImageSize = new Size(16, 16);
-      imageList1.TransparentColor = Color.Transparent;
-      // 
       // AboutForm
       // 
       AcceptButton = okButton;
@@ -210,6 +203,5 @@
     private TextBox textBoxDescription;
     private Button okButton;
     private PictureBox logoPictureBox;
-    private ImageList imageList1;
   }
 }
