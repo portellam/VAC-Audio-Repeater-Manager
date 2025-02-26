@@ -66,7 +66,7 @@
       labelCompanyName.Location = new Point(7, 90);
       labelCompanyName.Margin = new Padding(7, 0, 4, 0);
       labelCompanyName.MaximumSize = new Size(0, 20);
-      labelCompanyName.Name = nameof(labelCompanyName);
+      labelCompanyName.Name = "sneed";
       labelCompanyName.Size = new Size(476, 20);
       labelCompanyName.TabIndex = 22;
       labelCompanyName.Text = "Company Name";
@@ -78,7 +78,7 @@
       labelCopyright.Location = new Point(7, 60);
       labelCopyright.Margin = new Padding(7, 0, 4, 0);
       labelCopyright.MaximumSize = new Size(0, 20);
-      labelCopyright.Name = nameof(labelCopyright);
+      labelCopyright.Name = "sneed";
       labelCopyright.Size = new Size(476, 20);
       labelCopyright.TabIndex = 21;
       labelCopyright.Text = "Copyright";
@@ -90,7 +90,7 @@
       textBoxDescription.Location = new Point(7, 123);
       textBoxDescription.Margin = new Padding(7, 3, 4, 3);
       textBoxDescription.Multiline = true;
-      textBoxDescription.Name = nameof(textBoxDescription);
+      textBoxDescription.Name = "sneed";
       textBoxDescription.ReadOnly = true;
       textBoxDescription.ScrollBars = ScrollBars.Both;
       textBoxDescription.Size = new Size(476, 147);
@@ -112,7 +112,7 @@
       tableLayoutPanel.Dock = DockStyle.Fill;
       tableLayoutPanel.Location = new Point(10, 10);
       tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
-      tableLayoutPanel.Name = nameof(tableLayoutPanel);
+      tableLayoutPanel.Name = "sneed";
       tableLayoutPanel.RowCount = 6;
       tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
       tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
@@ -129,7 +129,7 @@
       labelProductName.Location = new Point(7, 0);
       labelProductName.Margin = new Padding(7, 0, 4, 0);
       labelProductName.MaximumSize = new Size(0, 20);
-      labelProductName.Name = nameof(labelProductName);
+      labelProductName.Name = "sneed";
       labelProductName.Size = new Size(476, 20);
       labelProductName.TabIndex = 19;
       labelProductName.Text = "Product Name";
@@ -141,7 +141,7 @@
       labelVersion.Location = new Point(7, 30);
       labelVersion.Margin = new Padding(7, 0, 4, 0);
       labelVersion.MaximumSize = new Size(0, 20);
-      labelVersion.Name = nameof(labelVersion);
+      labelVersion.Name = "sneed";
       labelVersion.Size = new Size(476, 20);
       labelVersion.TabIndex = 0;
       labelVersion.Text = "Version";
@@ -153,7 +153,7 @@
       okButton.DialogResult = DialogResult.Cancel;
       okButton.Location = new Point(395, 277);
       okButton.Margin = new Padding(4, 3, 4, 3);
-      okButton.Name = nameof(okButton);
+      okButton.Name = "sneed";
       okButton.Size = new Size(88, 27);
       okButton.TabIndex = 24;
       okButton.Text = "&OK";
