@@ -4,7 +4,7 @@
   {
     #region Parameters
 
-    private bool preferDarkTheme
+    private bool viewPreferDarkTheme
     {
       get
       {
@@ -21,7 +21,7 @@
       }
     }
 
-    private bool preferSystemTheme
+    private bool viewPreferSystemTheme
     {
       get
       {
@@ -63,6 +63,20 @@
 
     }
 
+    private void viewPreferDarkThemeToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+
+    }
+
     private void viewPreferSystemThemeToolStripMenuItem_Click
     (
       object sender,
@@ -80,21 +94,7 @@
           .Enabled = false;
       }
 
-      this.preferSystemTheme = true;
-    }
-
-    private void viewPreferDarkThemeToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-
+      this.viewPreferSystemTheme = true;
     }
 
     private void viewToggleFullScreenModeToolStripMenuItem_Click
