@@ -2,10 +2,9 @@
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <AssemblyVersion>1.0.0</AssemblyVersion>
-    <Authors>Alexander Portell &lt;github.com/portellam&gt;</Authors>
-    <Copyright>"Audio Repeater Manager" Copyleft 2024.</Copyright>
     <Description>Graphical user interface (GUI) to create, manage, and automate instances of Virtual Audio Cable (VAC) audio repeaters. This application version supports Microsoft Windows 10 version 1809 and newer. "Virtual Audio Cable" and "VAC" Copyright © 1998-2024 Eugene V. Muzychenko.</Description>
     <FileVersion>1.0.0</FileVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>WinExe</OutputType>
@@ -13,14 +12,21 @@
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/portellam/VAC-Audio-Repeater-Manager</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Product>Virtual Audio Cable Audio Repeater Manager</Product>
-    <RepositoryUrl>https://github.com/portellam/VAC-Audio-Repeater-Manager</RepositoryUrl>
     <StartupObject>VACARM.GUI.Program</StartupObject>
     <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Title>VACARM.GUI</Title>
     <UseWindowsForms>true</UseWindowsForms>
     <Version>1.0.0</Version>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\VACARM.Assembly\Assembly.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
   </ItemGroup>
@@ -36,6 +42,10 @@
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\VACARM.Assembly\Assembly.tt" Link="Assembly.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Assembly.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -69,5 +79,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 </Project>
