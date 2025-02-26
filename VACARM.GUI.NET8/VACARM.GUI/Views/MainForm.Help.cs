@@ -24,8 +24,12 @@ namespace VACARM.GUI.Views
       EventArgs eventArgs
     )
     {
-      new AboutForm()
-        .ShowDialog();
+      if (sender == null)
+      {
+        return;
+      }
+
+      new AboutForm().ShowDialog();
     }
     private void helpCommandLineArgumentsToolStripMenuItem_Click
     (
@@ -33,6 +37,11 @@ namespace VACARM.GUI.Views
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -42,6 +51,11 @@ namespace VACARM.GUI.Views
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
       try
       {
         UrlRedirectHelper.GoToSite("https://vac.muzychenko.net");
@@ -58,6 +72,11 @@ namespace VACARM.GUI.Views
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
       string projectName = "vac-audio-repeater-manager";
 
       try
@@ -74,7 +93,7 @@ namespace VACARM.GUI.Views
 
         return;
       }
-      
+
       catch
       {
       }
@@ -93,7 +112,7 @@ namespace VACARM.GUI.Views
 
         return;
       }
-      
+
       catch
       {
       }

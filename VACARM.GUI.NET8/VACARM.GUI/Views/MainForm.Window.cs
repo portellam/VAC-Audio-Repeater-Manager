@@ -22,15 +22,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
 
-    }
-
-    private void windowWindowsToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
 
     }
 
@@ -40,6 +36,25 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
+
+    }
+
+    private void windowWindowsToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 

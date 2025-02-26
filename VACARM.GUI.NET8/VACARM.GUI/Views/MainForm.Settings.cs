@@ -31,7 +31,7 @@
         return;
       }
 
-      preferX64 = true;
+      this.preferX64 = true;
     }
 
     private void settingsPreferLegacyApplicationToolStripMenuItem_Click
@@ -49,7 +49,7 @@
         return;
       }
 
-      preferX86 = true;
+      this.preferX86 = true;
     }
 
     private void settingsSetApplicationPathToolStripMenuItem_Click
@@ -58,6 +58,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -67,6 +72,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -76,6 +86,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
@@ -85,6 +100,11 @@
       EventArgs eventArgs
     )
     {
+      if (sender == null)
+      {
+        return;
+      }
+
 
     }
 
