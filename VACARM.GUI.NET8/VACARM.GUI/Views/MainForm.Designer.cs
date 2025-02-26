@@ -121,8 +121,8 @@
       settingsToolStripButton = new ToolStripDropDownButton();
       settingsStartAllRepeatersOnLoadToolStripMenuItem = new ToolStripMenuItem();
       settingsToolStripSeparator1 = new ToolStripSeparator();
-      settingsPreferX86Application32bitToolStripMenuItem = new ToolStripMenuItem();
-      settingsPreferX64Application64bitToolStripMenuItem = new ToolStripMenuItem();
+      settingsPreferLegacyApplicationToolStripMenuItem = new ToolStripMenuItem();
+      settingsPreferModernApplicationToolStripMenuItem = new ToolStripMenuItem();
       settingsSetApplicationPathToolStripMenuItem = new ToolStripMenuItem();
       settingsToolStripSeparator2 = new ToolStripSeparator();
       settingsToggleBogusModeToolStripMenuItem = new ToolStripMenuItem();
@@ -742,7 +742,7 @@
       // 
       settingsToolStripButton.AutoToolTip = false;
       settingsToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      settingsToolStripButton.DropDownItems.AddRange(new ToolStripItem[] { settingsStartAllRepeatersOnLoadToolStripMenuItem, settingsToolStripSeparator1, settingsPreferX64Application64bitToolStripMenuItem, settingsPreferX86Application32bitToolStripMenuItem, settingsSetApplicationPathToolStripMenuItem, settingsToolStripSeparator2, settingsToggleBogusModeToolStripMenuItem, settingsToggleSafeModeToolStripMenuItem });
+      settingsToolStripButton.DropDownItems.AddRange(new ToolStripItem[] { settingsStartAllRepeatersOnLoadToolStripMenuItem, settingsToolStripSeparator1, settingsPreferModernApplicationToolStripMenuItem, settingsPreferLegacyApplicationToolStripMenuItem, settingsSetApplicationPathToolStripMenuItem, settingsToolStripSeparator2, settingsToggleBogusModeToolStripMenuItem, settingsToggleSafeModeToolStripMenuItem });
       settingsToolStripButton.ImageTransparentColor = Color.Magenta;
       settingsToolStripButton.Name = "settingsToolStripButton";
       settingsToolStripButton.Size = new Size(62, 22);
@@ -762,25 +762,25 @@
       settingsToolStripSeparator1.Name = "settingsToolStripSeparator1";
       settingsToolStripSeparator1.Size = new Size(259, 6);
       // 
-      // settingsPreferX86Application32bitToolStripMenuItem
+      // settingsPreferLegacyApplicationToolStripMenuItem
       // 
-      settingsPreferX86Application32bitToolStripMenuItem.CheckOnClick = true;
-      settingsPreferX86Application32bitToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      settingsPreferX86Application32bitToolStripMenuItem.Name = "settingsPreferX86Application32bitToolStripMenuItem";
-      settingsPreferX86Application32bitToolStripMenuItem.Size = new Size(262, 22);
-      settingsPreferX86Application32bitToolStripMenuItem.Text = "Prefer Legacy Audio Repeater";
-      settingsPreferX86Application32bitToolStripMenuItem.ToolTipText = "Uses Multimedia Extensions (MME)";
-      settingsPreferX86Application32bitToolStripMenuItem.Click += settingsPreferX86Application32bitToolStripMenuItem_Click;
+      settingsPreferLegacyApplicationToolStripMenuItem.CheckOnClick = true;
+      settingsPreferLegacyApplicationToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+      settingsPreferLegacyApplicationToolStripMenuItem.Name = "settingsPreferLegacyApplicationToolStripMenuItem";
+      settingsPreferLegacyApplicationToolStripMenuItem.Size = new Size(262, 22);
+      settingsPreferLegacyApplicationToolStripMenuItem.Text = "Prefer Legacy Audio Repeater";
+      settingsPreferLegacyApplicationToolStripMenuItem.ToolTipText = "Uses Multimedia Extensions (MME)";
+      settingsPreferLegacyApplicationToolStripMenuItem.Click += settingsPreferLegacyApplicationToolStripMenuItem_Click;
       // 
-      // settingsPreferX64Application64bitToolStripMenuItem
+      // settingsPreferModernApplicationToolStripMenuItem
       // 
-      settingsPreferX64Application64bitToolStripMenuItem.CheckOnClick = true;
-      settingsPreferX64Application64bitToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      settingsPreferX64Application64bitToolStripMenuItem.Name = "settingsPreferX64Application64bitToolStripMenuItem";
-      settingsPreferX64Application64bitToolStripMenuItem.Size = new Size(262, 22);
-      settingsPreferX64Application64bitToolStripMenuItem.Text = "Prefer Modern Audio Repeater";
-      settingsPreferX64Application64bitToolStripMenuItem.ToolTipText = "Uses Kernel Streaming (KS)";
-      settingsPreferX64Application64bitToolStripMenuItem.Click += settingsPreferX64Application64bitToolStripMenuItem_Click;
+      settingsPreferModernApplicationToolStripMenuItem.CheckOnClick = true;
+      settingsPreferModernApplicationToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+      settingsPreferModernApplicationToolStripMenuItem.Name = "settingsPreferModernApplicationToolStripMenuItem";
+      settingsPreferModernApplicationToolStripMenuItem.Size = new Size(262, 22);
+      settingsPreferModernApplicationToolStripMenuItem.Text = "Prefer Modern Audio Repeater";
+      settingsPreferModernApplicationToolStripMenuItem.ToolTipText = "Uses Kernel Streaming (KS)";
+      settingsPreferModernApplicationToolStripMenuItem.Click += settingsPreferModernApplicationToolStripMenuItem_Click;
       // 
       // settingsSetApplicationPathToolStripMenuItem
       // 
@@ -946,8 +946,8 @@
     private ToolStripMenuItem fileOpenToolStripMenuItem;
     private ToolStripMenuItem viewPreferDarkThemeToolStripMenuItem;
     private ToolStripMenuItem viewPreferSystemThemeToolStripMenuItem;
-    private ToolStripMenuItem settingsPreferX64Application64bitToolStripMenuItem;
-    private ToolStripMenuItem settingsPreferX86Application32bitToolStripMenuItem;
+    private ToolStripMenuItem settingsPreferModernApplicationToolStripMenuItem;
+    private ToolStripMenuItem settingsPreferLegacyApplicationToolStripMenuItem;
     private ToolStripMenuItem deviceRedoToolStripMenuItem;
     private ToolStripMenuItem deviceRefreshToolStripMenuItem;
     private ToolStripMenuItem repeaterExportToClipboardToolStripMenuItem;

@@ -51,12 +51,12 @@ namespace VACARM.GUI
     {
       get
       {
-        return settingsPreferX64Application64bitToolStripMenuItem.Checked;
+        return settingsPreferModernApplicationToolStripMenuItem.Checked;
       }
       set
       {
-        settingsPreferX64Application64bitToolStripMenuItem.Checked = value;
-        settingsPreferX86Application32bitToolStripMenuItem.Checked = !value;
+        settingsPreferModernApplicationToolStripMenuItem.Checked = value;
+        settingsPreferLegacyApplicationToolStripMenuItem.Checked = !value;
       }
     }
 
@@ -64,12 +64,12 @@ namespace VACARM.GUI
     {
       get
       {
-        return settingsPreferX86Application32bitToolStripMenuItem.Checked;
+        return settingsPreferLegacyApplicationToolStripMenuItem.Checked;
       }
       set
       {
-        settingsPreferX86Application32bitToolStripMenuItem.Checked = value;
-        settingsPreferX64Application64bitToolStripMenuItem.Checked = !value;
+        settingsPreferLegacyApplicationToolStripMenuItem.Checked = value;
+        settingsPreferModernApplicationToolStripMenuItem.Checked = !value;
       }
     }
 
@@ -210,8 +210,8 @@ namespace VACARM.GUI
 
       if (!Environment.Is64BitOperatingSystem)
       {
-        settingsPreferX64Application64bitToolStripMenuItem.Enabled = false;
-        settingsPreferX86Application32bitToolStripMenuItem.Enabled = false;
+        settingsPreferModernApplicationToolStripMenuItem.Enabled = false;
+        settingsPreferLegacyApplicationToolStripMenuItem.Enabled = false;
         preferX86 = true;
       }
     }
@@ -241,11 +241,11 @@ namespace VACARM.GUI
 
       string featureNotAvailableMessage = "N/A: ";
 
-      if (!settingsPreferX64Application64bitToolStripMenuItem.Enabled)
+      if (!settingsPreferModernApplicationToolStripMenuItem.Enabled)
       {
-        settingsPreferX64Application64bitToolStripMenuItem.Text =
+        settingsPreferModernApplicationToolStripMenuItem.Text =
           featureNotAvailableMessage
-          + settingsPreferX64Application64bitToolStripMenuItem;
+          + settingsPreferModernApplicationToolStripMenuItem;
       }
 
       if (!viewPreferSystemThemeToolStripMenuItem.Enabled)
@@ -958,7 +958,7 @@ namespace VACARM.GUI
 
     #region Settings logic
 
-    private void settingsPreferX64Application64bitToolStripMenuItem_Click
+    private void settingsPreferModernApplicationToolStripMenuItem_Click
     (
       object sender,
       EventArgs eventArgs
@@ -976,7 +976,7 @@ namespace VACARM.GUI
       preferX64 = true;
     }
 
-    private void settingsPreferX86Application32bitToolStripMenuItem_Click
+    private void settingsPreferLegacyApplicationToolStripMenuItem_Click
     (
       object sender,
       EventArgs eventArgs
