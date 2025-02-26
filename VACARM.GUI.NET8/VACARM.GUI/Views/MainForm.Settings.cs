@@ -8,12 +8,16 @@
     {
       get
       {
-        return settingsPreferModernApplicationToolStripMenuItem.Checked;
+        return this.settingsPreferModernApplicationToolStripMenuItem
+          .Checked;
       }
       set
       {
-        settingsPreferModernApplicationToolStripMenuItem.Checked = value;
-        settingsPreferLegacyApplicationToolStripMenuItem.Checked = !value;
+        this.settingsPreferModernApplicationToolStripMenuItem
+          .Checked = value;
+
+        this.settingsPreferLegacyApplicationToolStripMenuItem
+          .Checked = !value;
       }
     }
 
@@ -21,12 +25,16 @@
     {
       get
       {
-        return settingsPreferLegacyApplicationToolStripMenuItem.Checked;
+        return this.settingsPreferLegacyApplicationToolStripMenuItem
+          .Checked;
       }
       set
       {
-        settingsPreferLegacyApplicationToolStripMenuItem.Checked = value;
-        settingsPreferModernApplicationToolStripMenuItem.Checked = !value;
+        this.settingsPreferLegacyApplicationToolStripMenuItem
+          .Checked = value;
+
+        this.settingsPreferModernApplicationToolStripMenuItem
+          .Checked = !value;
       }
     }
 

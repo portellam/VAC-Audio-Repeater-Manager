@@ -8,12 +8,16 @@
     {
       get
       {
-        return viewPreferDarkThemeToolStripMenuItem.Checked;
+        return this.viewPreferDarkThemeToolStripMenuItem
+          .Checked;
       }
       set
       {
-        viewPreferDarkThemeToolStripMenuItem.Checked = value;
-        viewPreferSystemThemeToolStripMenuItem.Checked = !value;
+        this.viewPreferDarkThemeToolStripMenuItem
+          .Checked = value;
+
+        this.viewPreferSystemThemeToolStripMenuItem
+          .Checked = !value;
       }
     }
 
@@ -21,13 +25,17 @@
     {
       get
       {
-        return viewPreferSystemThemeToolStripMenuItem.Checked;
+        return this.viewPreferSystemThemeToolStripMenuItem
+          .Checked;
       }
       set
       {
 
-        viewPreferSystemThemeToolStripMenuItem.Checked = value;
-        viewPreferDarkThemeToolStripMenuItem.Checked = !value;
+        this.viewPreferSystemThemeToolStripMenuItem
+          .Checked = value;
+
+        this.viewPreferDarkThemeToolStripMenuItem
+          .Checked = !value;
       }
     }
 
