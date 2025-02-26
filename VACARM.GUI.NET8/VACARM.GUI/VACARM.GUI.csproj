@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>NET8.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -12,8 +12,8 @@
     <PackageProjectUrl>https://github.com/portellam/VAC-Audio-Repeater-Manager</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <PackageIcon></PackageIcon>
-    <Title>Virtual Audio Cable Audio Repeater Manager GUI</Title>
+    <PackageIcon>icon.png</PackageIcon>
+    <Title>VACARM.GUI</Title>
     <Product>Virtual Audio Cable Audio Repeater Manager</Product>
     <Authors>Alexander Portell &lt;github.com/portellam&gt;</Authors>
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -60,9 +64,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="MainForm - Copy.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
