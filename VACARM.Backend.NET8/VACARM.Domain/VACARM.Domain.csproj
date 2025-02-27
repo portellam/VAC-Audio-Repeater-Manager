@@ -25,7 +25,7 @@ instances of Virtual Audio Cable (VAC) audio repeaters.</Description>
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\VACARM.Assembly\Assembly.tt" Link="Assembly.tt">
+    <None Include="..\..\VACARM.Assembly\AssemblyInfo.tt" Link="AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Assembly.cs</LastGenOutput>
     </None>
