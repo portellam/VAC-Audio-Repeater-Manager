@@ -75,6 +75,12 @@ namespace VACARM.Application.Services
     /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable);
 
+    /// <summary>
+    /// Get an enumerable of all ID(s).
+    /// </summary>
+    /// <returns>The enumerable of ID(s).</returns>
+    IEnumerable<uint> GetAllId();
+
     #endregion
   }
 }
