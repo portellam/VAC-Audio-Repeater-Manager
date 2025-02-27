@@ -6,7 +6,21 @@ namespace VACARM.GUI.Views
   {
     #region Parameters
 
-    private bool? deviceToolStripMenuItemsAbility
+    internal HashSet<uint> SelectedDeviceIdHashSet
+    {
+      get
+      {
+        return this.selectedDeviceIdHashSet;
+      }
+      set
+      {
+        this.selectedDeviceIdHashSet = value;
+        this.SetDeviceConfirmSelectAbility();
+        this.OnPropertyChanged(nameof(this.SelectedDeviceIdHashSet));
+      }
+    }
+
+    private bool? deviceAbility
     {
       set
       {
@@ -16,6 +30,9 @@ namespace VACARM.GUI.Views
         }
 
         bool result = value.Value;
+
+        this.deviceConfirmSelectToolStripMenuItem
+          .Enabled = result;
 
         this.deviceDisableToolStripMenuItem
           .Enabled = result;
@@ -34,6 +51,7 @@ namespace VACARM.GUI.Views
 
         this.deviceRedoToolStripMenuItem
           .Enabled = result;
+
         this.deviceUndoToolStripMenuItem
           .Enabled = result;
 
@@ -64,19 +82,19 @@ namespace VACARM.GUI.Views
         this.deviceSelectDefaultOutputToolStripMenuItem
           .Enabled = result;
 
-        this.deviceSelectToolStripMenuItem
-          .Enabled = result;
-
         this.deviceSelectToolStripMenuItemDropDown
           .Enabled = result;
       }
     }
 
+    private HashSet<uint> selectedDeviceIdHashSet { get; set; } =
+      new HashSet<uint>();
+
     #endregion
 
     #region Presentation logic
 
-    private ToolStripMenuItem GetDeviceComponentItem(DeviceModel deviceModel)
+    private ToolStripMenuItem GetDeviceComponent(DeviceModel deviceModel)
     {
       int maxIdLength = 7;
 
@@ -112,20 +130,75 @@ namespace VACARM.GUI.Views
       };
     }
 
-    private void SetDeviceComponentsAbilityProperties()
+    private void SetDeviceComponents()
     {
-      this.deviceToolStripMenuItemsAbility = false;
+      this.DeviceGroupService
+        .GetAllCapture()
+        .ToList()
+        .ForEach
+        (
+          x =>
+          {
+            var toolStripMenuItem = GetDeviceComponent(x);
 
-      //if
-      //(
-      //  deviceRepositoryHashSet is null
-      //  || deviceRepositoryHashSet.Count == 0
-      //  || selectedDeviceRepository is null
-      //  || selectedDeviceRepository.GetAll().Count == 0
-      //)
-      //{
-      //  return;
-      //}
+            toolStripMenuItem.CheckedChanged +=
+              deviceConfirmSelectToolStripMenuItem_CheckedChanged;
+
+            toolStripMenuItem.CheckState =
+              deviceSelectInputToolStripMenuItem.CheckState;
+
+            deviceSelectInputToolStripMenuItem
+              .DropDownItems
+              .Add(toolStripMenuItem);
+          }
+        );
+
+      this.DeviceGroupService
+        .GetAllRender()
+        .ToList()
+        .ForEach
+        (
+          x =>
+          {
+            var toolStripMenuItem = GetDeviceComponent(x);
+
+            toolStripMenuItem.CheckedChanged +=
+              deviceConfirmSelectToolStripMenuItem_CheckedChanged;
+
+            toolStripMenuItem.CheckState =
+              deviceSelectOutputToolStripMenuItem.CheckState;
+
+            deviceSelectOutputToolStripMenuItem
+              .DropDownItems
+              .Add(toolStripMenuItem);
+          }
+        );
+
+      this.DeviceGroupService
+        .GetAllDuplex()
+        .ToList()
+        .ForEach
+        (
+          x =>
+          {
+            var toolStripMenuItem = GetDeviceComponent(x);
+
+            toolStripMenuItem.CheckedChanged +=
+              deviceConfirmSelectToolStripMenuItem_CheckedChanged;
+
+            toolStripMenuItem.CheckState =
+              deviceSelectDuplexToolStripMenuItem.CheckState;
+
+            deviceSelectDuplexToolStripMenuItem
+              .DropDownItems
+              .Add(toolStripMenuItem);
+          }
+        );
+    }
+
+    private void SetDeviceAbility()
+    {
+      this.deviceAbility = false;
 
       if
       (
@@ -137,7 +210,7 @@ namespace VACARM.GUI.Views
         return;
       }
 
-      this.deviceToolStripMenuItemsAbility = true;
+      this.deviceAbility = true;
 
       if
       (
@@ -173,15 +246,144 @@ namespace VACARM.GUI.Views
       }
     }
 
+    private void SetDeviceConfirmSelectAbility()
+    {
+      var result = this.selectedDeviceIdHashSet
+          .Count() > 0;
+
+      this.deviceConfirmSelectToolStripMenuItem
+        .Enabled = result;
+    }
+
     #endregion
 
     #region Interaction Logic
 
+
+    private void deviceConfirmSelectToolStripMenuItem_CheckedChanged
+    (
+      object? sender,
+      EventArgs e
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      if (sender.GetType() != typeof(ToolStripMenuItem))
+      {
+        return;
+      }
+
+      var toolTipText = (sender as ToolStripMenuItem).ToolTipText;
+
+      if (toolTipText.GetType() != typeof(uint))
+      {
+        return;
+      }
+
+      uint id;
+
+      var result = uint.TryParse
+        (
+          toolTipText,
+          out id
+        );
+
+      if (!result)
+      {
+        return;
+      }
+
+      this.SelectedDeviceIdHashSet
+        .Add(id);
+    }
+
+    private void deviceSelectInputToolStripMenuItem_CheckState
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+    }
+
+    private void deviceSelectOutputToolStripMenuItem_CheckState
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+    }
+
+    private void deviceSelectDuplexToolStripMenuItem_CheckState
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      var enumerable = this.deviceSelectDuplexToolStripMenuItem
+        .DropDownItems;
+
+      this.deviceSelectDuplexToolStripMenuItem
+        .DropDownItems.Clear();
+
+      foreach (var item in enumerable)
+      {
+        if (item == null)
+        {
+          continue;
+        }
+
+        if (item.GetType() != typeof(ToolStripMenuItem))
+        {
+          return;
+        }
+
+        ToolStripMenuItem newItem = item as ToolStripMenuItem;
+        newItem.Checked = true;
+
+        this.deviceSelectDuplexToolStripMenuItem
+          .DropDownItems
+          .Add(newItem);
+      }
+
+    }
+
+    private void deviceConfirmSelectToolStripMenuItem_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      var result = deviceSelectInputToolStripMenuItem.DropDownItems;
+    }
+
     private void deviceDisableToolStripMenuItem_Click
-   (
-     object sender,
-     EventArgs eventArgs
-   )
+    (
+      object sender,
+      EventArgs eventArgs
+    )
     {
       if (sender == null)
       {
@@ -291,20 +493,6 @@ namespace VACARM.GUI.Views
 
     }
 
-    private void deviceSelectToolStripMenuItem_Click
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-
-    }
-
     private void deviceSelectAllToolStripMenuItem_Click
     (
       object sender,
@@ -316,7 +504,15 @@ namespace VACARM.GUI.Views
         return;
       }
 
+      var enumerable = this.DeviceGroupService
+        .SelectedService
+        .GetAllId();
 
+      foreach (var item in enumerable)
+      {
+        this.SelectedDeviceIdHashSet
+          .Add(item);
+      }
     }
 
     private void deviceRefreshToolStripMenuItem_Click
@@ -358,7 +554,17 @@ namespace VACARM.GUI.Views
         return;
       }
 
+      var enumerable = this.DeviceGroupService
+        .GetAllDisabled()
+        .Select(x => x.Id);
 
+      foreach (var item in enumerable)
+      {
+        //TODO: check disabled devices.
+
+        this.SelectedDeviceIdHashSet
+          .Add(item);
+      }
     }
 
     private void deviceSelectAllDuplexToolStripMenuItem_Click
@@ -372,7 +578,15 @@ namespace VACARM.GUI.Views
         return;
       }
 
+      var enumerable = this.DeviceGroupService
+        .GetAllDuplex()
+        .Select(x => x.Id);
 
+      foreach (var item in enumerable)
+      {
+        this.SelectedDeviceIdHashSet
+          .Add(item);
+      }
     }
 
     private void deviceSelectAllEnabledToolStripMenuItem_Click
@@ -386,7 +600,17 @@ namespace VACARM.GUI.Views
         return;
       }
 
+      var enumerable = this.DeviceGroupService
+        .GetAllEnabled()
+        .Select(x => x.Id);
 
+      foreach (var item in enumerable)
+      {
+        //TODO: check enabled devices.
+
+        this.SelectedDeviceIdHashSet
+          .Add(item);
+      }
     }
 
     private void deviceSelectAllInputsToolStripMenuItem_Click
@@ -400,7 +624,15 @@ namespace VACARM.GUI.Views
         return;
       }
 
+      var enumerable = this.DeviceGroupService
+        .GetAllCapture()
+        .Select(x => x.Id);
 
+      foreach (var item in enumerable)
+      {
+        this.SelectedDeviceIdHashSet
+          .Add(item);
+      }
     }
 
     private void deviceSelectAllOutputsToolStripMenuItem_Click
@@ -414,7 +646,15 @@ namespace VACARM.GUI.Views
         return;
       }
 
+      var enumerable = this.DeviceGroupService
+        .GetAllRender()
+        .Select(x => x.Id);
 
+      foreach (var item in enumerable)
+      {
+        this.SelectedDeviceIdHashSet
+          .Add(item);
+      }
     }
 
     private void deviceSelectDefaultInputToolStripMenuItem_Click
