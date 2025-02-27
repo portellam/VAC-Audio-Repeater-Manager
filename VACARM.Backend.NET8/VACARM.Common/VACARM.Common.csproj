@@ -2,6 +2,9 @@
   <PropertyGroup>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Company>Alexander Portell &lt;github.com/portellam&gt;</Company>
+    <Description>A library package for "Virtual Audio Cable Audio Repeater Manager".
+Easily multiplex multiple audio sources. Create, manage, and automate
+instances of Virtual Audio Cable (VAC) audio repeaters.</Description>
     <FileVersion>1.0.0</FileVersion>
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -25,6 +28,10 @@
     <None Include="..\..\VACARM.Assembly\Assembly.tt" Link="Assembly.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Assembly.cs</LastGenOutput>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
   <ItemGroup>
