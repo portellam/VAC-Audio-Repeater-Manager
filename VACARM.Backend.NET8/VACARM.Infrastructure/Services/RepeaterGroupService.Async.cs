@@ -3,7 +3,7 @@ using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   public partial class RepeaterGroupService
     <

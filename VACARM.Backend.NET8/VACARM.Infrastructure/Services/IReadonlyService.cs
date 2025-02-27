@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   public partial interface IReadonlyService
     <

@@ -1,6 +1,6 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   public partial interface ICoreAudioService
     <

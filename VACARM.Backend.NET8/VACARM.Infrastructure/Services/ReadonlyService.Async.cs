@@ -1,6 +1,6 @@
 ﻿using VACARM.Infrastructure.Extensions;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   public partial class ReadonlyService
     <

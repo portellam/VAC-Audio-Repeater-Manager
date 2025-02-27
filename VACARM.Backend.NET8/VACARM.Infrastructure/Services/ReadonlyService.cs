@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The readonly service for <typeparamref name="TRepository"/>.

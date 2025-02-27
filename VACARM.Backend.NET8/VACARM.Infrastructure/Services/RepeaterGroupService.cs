@@ -2,9 +2,8 @@
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
-using VACARM.Infrastructure.Services;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The service to manage multiple configurations of audio repeaters. 

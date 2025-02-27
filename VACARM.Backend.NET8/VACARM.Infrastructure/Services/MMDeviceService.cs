@@ -5,7 +5,7 @@ using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Watchers;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The service to retrieve current and/or updated system audio device(s).
