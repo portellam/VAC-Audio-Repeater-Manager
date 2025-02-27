@@ -170,9 +170,7 @@ namespace VACARM.Application.Services
         maxCount
       )
     {
-      base.List = list;
-
-      if (IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
         var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
         (new BaseRepository<TDeviceModel>());

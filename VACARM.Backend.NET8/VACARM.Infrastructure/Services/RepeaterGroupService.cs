@@ -199,9 +199,6 @@ namespace VACARM.Application.Services
     public RepeaterGroupService() :
       base()
     {
-      base.List =
-        new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
-
       this.DeviceGroupService =
         new DeviceGroupService
         <
@@ -258,8 +255,16 @@ namespace VACARM.Application.Services
         maxCount
       )
     {
-      base.List = list;
-      base.MaxCount = maxCount;
+      if (base.IsNullOrEmpty)
+      {
+        var service = 
+          new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
+          (new BaseRepository<TRepeaterModel>());
+
+        base.List
+          .Add(service);
+      }
+
       this.DeviceGroupService = deviceGroupService;
     }
 

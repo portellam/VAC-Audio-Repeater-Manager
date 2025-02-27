@@ -51,7 +51,6 @@ namespace VACARM.Application.Services
     public BaseService() :
       base()
     {
-      base.Repository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
@@ -62,7 +61,6 @@ namespace VACARM.Application.Services
     public BaseService(BaseRepository<TBaseModel> repository) :
       base(repository)
     {
-      base.Repository = repository;
     }
 
     protected override void Dispose(bool isDisposed)
