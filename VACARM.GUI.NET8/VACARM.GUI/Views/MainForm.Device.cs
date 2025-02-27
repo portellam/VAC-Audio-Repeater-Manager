@@ -112,7 +112,7 @@ namespace VACARM.GUI.Views
 
     private void SetDeviceComponents()
     {
-      var modelEnumerable = this.DeviceGroupService
+      var modelEnumerable = this.DeviceGroupService                                     //FIXME: selectedService is not getting anything here.
         .GetAllCapture();
 
       var enumerable = this.GetDeviceModelEnumerableAsToolStripMenuItemEnumerable
