@@ -100,7 +100,7 @@ namespace VACARM.Infrastructure.Repositories
     public BaseRepository() :
       base()
     {
-      base.Enumerable = new List<TBaseModel>();
+      this.Enumerable = new List<TBaseModel>();
     }
 
     /// <summary>
@@ -116,6 +116,8 @@ namespace VACARM.Infrastructure.Repositories
     ) :
       base(list)
     {
+      this.Enumerable = list;
+      this.MaxCount = maxCount;
     }
 
     protected override void Dispose(bool isDisposed)

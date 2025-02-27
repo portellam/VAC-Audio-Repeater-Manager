@@ -135,6 +135,9 @@ namespace VACARM.Infrastructure.Services
     public DeviceGroupService() :
       base()
     {
+      this.List = 
+        new List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>>();
+
       var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
         (new BaseRepository<TDeviceModel>());
 

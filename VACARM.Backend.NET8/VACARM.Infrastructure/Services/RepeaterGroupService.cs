@@ -198,6 +198,9 @@ namespace VACARM.Infrastructure.Services
     public RepeaterGroupService() :
       base()
     {
+      this.List =
+        new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
+
       this.DeviceGroupService =
         new DeviceGroupService
         <
