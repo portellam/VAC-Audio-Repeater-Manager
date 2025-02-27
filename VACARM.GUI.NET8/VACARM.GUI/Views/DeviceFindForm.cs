@@ -96,28 +96,6 @@ namespace VACARM.GUI.Views
       }
     }
 
-    private DeviceGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<DeviceModel>,
-        DeviceModel
-      >,
-      BaseRepository<DeviceModel>,
-      DeviceModel
-    > DeviceGroupService
-    { get; set; }
-
-    private List<uint> selectedDeviceIdList;
-
     /// <summary>
     /// List of tuple (device ID, is Duplex, is Enabled, is Input, is Output,
     /// and is Present).
@@ -136,28 +114,7 @@ namespace VACARM.GUI.Views
     [ExcludeFromCodeCoverage]
     public DeviceFindForm()
     {
-      this.DeviceGroupService =
-        new DeviceGroupService
-        <
-          ReadonlyRepository
-          <
-            BaseService
-            <
-              BaseRepository<DeviceModel>,
-              DeviceModel
-            >
-          >,
-          BaseService
-          <
-            BaseRepository<DeviceModel>,
-            DeviceModel
-          >,
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >();
-
       this.deviceTupleList = new List<Tuple<uint, bool, bool, bool, bool, bool>>();
-      this.selectedDeviceIdList = new List<uint>();
       PreInitializeComponent();
       InitializeComponent();
       PostInitializeComponent();
@@ -210,53 +167,53 @@ namespace VACARM.GUI.Views
     {
       SetFormMaxSize();
 
-      DeviceGroupService
-        .GetAllEnabled()
-        .ToList()
-        .ForEach
-        (
-          x =>
-          {
-            {
-              Tuple<uint, bool, bool, bool, bool, bool> deviceTuple =
-                new Tuple<uint, bool, bool, bool, bool, bool>
-                (
-                  x.Id,
-                  x.IsDuplex,
-                  true,
-                  x.IsCapture,
-                  x.IsRender,
-                  x.IsPresent
-                );
+      //DeviceGroupService
+      //  .GetAllEnabled()
+      //  .ToList()
+      //  .ForEach
+      //  (
+      //    x =>
+      //    {
+      //      {
+      //        Tuple<uint, bool, bool, bool, bool, bool> deviceTuple =
+      //          new Tuple<uint, bool, bool, bool, bool, bool>
+      //          (
+      //            x.Id,
+      //            x.IsDuplex,
+      //            true,
+      //            x.IsCapture,
+      //            x.IsRender,
+      //            x.IsPresent
+      //          );
 
-              deviceTupleList.Add(deviceTuple);
-            }
-          }
-        );
+      //        deviceTupleList.Add(deviceTuple);
+      //      }
+      //    }
+      //  );
 
-      DeviceGroupService
-        .GetAllDisabled()
-        .ToList()
-        .ForEach
-        (
-          x =>
-          {
-            {
-              Tuple<uint, bool, bool, bool, bool, bool> deviceTuple =
-                new Tuple<uint, bool, bool, bool, bool, bool>
-                (
-                  x.Id,
-                  x.IsDuplex,
-                  false,
-                  x.IsCapture,
-                  x.IsRender,
-                  x.IsPresent
-                );
+      //DeviceGroupService
+      //  .GetAllDisabled()
+      //  .ToList()
+      //  .ForEach
+      //  (
+      //    x =>
+      //    {
+      //      {
+      //        Tuple<uint, bool, bool, bool, bool, bool> deviceTuple =
+      //          new Tuple<uint, bool, bool, bool, bool, bool>
+      //          (
+      //            x.Id,
+      //            x.IsDuplex,
+      //            false,
+      //            x.IsCapture,
+      //            x.IsRender,
+      //            x.IsPresent
+      //          );
 
-              deviceTupleList.Add(deviceTuple);
-            }
-          }
-        );
+      //        deviceTupleList.Add(deviceTuple);
+      //      }
+      //    }
+      //  );
     }
 
     private void SetComponentsAbilityProperties()
@@ -278,22 +235,22 @@ namespace VACARM.GUI.Views
           .Clear();
       }
 
-      deviceTupleList
-        .ForEach
-        (
-          x =>
-          {
-            AppendDeviceFindComboBoxItem
-              (
-                x.Item1,
-                x.Item2,
-                x.Item3,
-                x.Item4,
-                x.Item5,
-                x.Item6
-              );
-          }
-        );
+      //deviceTupleList
+      //  .ForEach
+      //  (
+      //    x =>
+      //    {
+      //      AppendDeviceFindComboBoxItem
+      //        (
+      //          x.Item1,
+      //          x.Item2,
+      //          x.Item3,
+      //          x.Item4,
+      //          x.Item5,
+      //          x.Item6
+      //        );
+      //    }
+      //  );
 
       if (deviceFindComboBox.DropDownWidth == 0)
       {
@@ -309,98 +266,98 @@ namespace VACARM.GUI.Views
       this.MaximumSize = new Size(Int32.MaxValue, maxHeight);
     }
 
-    /// <summary>
-    /// Add or remove deviceFindComboBox Items if device matches.
-    /// </summary>
-    /// <param name="deviceId">The device ID</param>
-    /// <param name="isDuplex">True/false is device duplex</param>
-    /// <param name="isEnabled">True/false is device enabled</param>
-    /// <param name="isInput">True/false is device input</param>
-    /// <param name="isOutput">True/false is device output</param>
-    /// <param name="isPresent">True/false is device present</param>
-    private void AppendDeviceFindComboBoxItem
-    (
-      uint deviceId,
-      bool isDuplex,
-      bool isEnabled,
-      bool isInput,
-      bool isOutput,
-      bool isPresent
-    )
-    {
-      var model = this.DeviceGroupService
-        .SelectedService
-        .Get(deviceId);
+    ///// <summary>
+    ///// Add or remove deviceFindComboBox Items if device matches.
+    ///// </summary>
+    ///// <param name="deviceId">The device ID</param>
+    ///// <param name="isDuplex">True/false is device duplex</param>
+    ///// <param name="isEnabled">True/false is device enabled</param>
+    ///// <param name="isInput">True/false is device input</param>
+    ///// <param name="isOutput">True/false is device output</param>
+    ///// <param name="isPresent">True/false is device present</param>
+    //private void AppendDeviceFindComboBoxItem
+    //(
+    //  uint deviceId,
+    //  bool isDuplex,
+    //  bool isEnabled,
+    //  bool isInput,
+    //  bool isOutput,
+    //  bool isPresent
+    //)
+    //{
+    //  var model = this.DeviceGroupService
+    //    .SelectedService
+    //    .Get(deviceId);
 
-      if (model is null)
-      {
-        return;
-      }
+    //  if (model is null)
+    //  {
+    //    return;
+    //  }
 
-      int id = deviceFindComboBox
-        .Items
-        .Count;
+    //  int id = deviceFindComboBox
+    //    .Items
+    //    .Count;
 
-      int maxIdLength = 7;
+    //  int maxIdLength = 7;
 
-      string idWhiteSpace = new string
-        (
-          ' ',
-          maxIdLength - deviceId
-            .ToString()
-            .Length
-        );
+    //  string idWhiteSpace = new string
+    //    (
+    //      ' ',
+    //      maxIdLength - deviceId
+    //        .ToString()
+    //        .Length
+    //    );
 
-      string nameWhiteSpace = new string
-      (
-        ' ',
-        maxIdLength
-      );
+    //  string nameWhiteSpace = new string
+    //  (
+    //    ' ',
+    //    maxIdLength
+    //  );
 
-      string text = string.Format
-      (
-        "ID:{0}{1},{2}Name: {3}",
-        idWhiteSpace,
-        deviceId,
-        nameWhiteSpace,
-        model.Name
-      );
+    //  string text = string.Format
+    //  (
+    //    "ID:{0}{1},{2}Name: {3}",
+    //    idWhiteSpace,
+    //    deviceId,
+    //    nameWhiteSpace,
+    //    model.Name
+    //  );
 
-      bool isVisible = IsThisDeviceComboBoxItemVisible
-        (
-          isDuplex,
-          isEnabled,
-          isInput,
-          isOutput,
-          isPresent
-        );
+    //  bool isVisible = IsThisDeviceComboBoxItemVisible
+    //    (
+    //      isDuplex,
+    //      isEnabled,
+    //      isInput,
+    //      isOutput,
+    //      isPresent
+    //    );
 
-      if (!isVisible)
-      {
-        return;
-      }
+    //  if (!isVisible)
+    //  {
+    //    return;
+    //  }
 
-      bool isSelectable =
-        isDuplex != doSelectAnyDuplex
-        && isEnabled != doSelectAnyEnabled
-        && isInput != doSelectAnyInput
-        && isOutput != doSelectAnyOutput
-        && isPresent != doSelectAnyPresent;
+    //  bool isSelectable =
+    //    isDuplex != doSelectAnyDuplex
+    //    && isEnabled != doSelectAnyEnabled
+    //    && isInput != doSelectAnyInput
+    //    && isOutput != doSelectAnyOutput
+    //    && isPresent != doSelectAnyPresent;
 
-      if
-      (
-        deviceFindComboBox
-          .Items
-          .Contains(text)
-      )
-      {
-        return;
-      }
+    //  if
+    //  (
+    //    deviceFindComboBox
+    //      .Items
+    //      .Contains(text)
+    //  )
+    //  {
+    //    return;
+    //  }
 
-      deviceFindComboBox
-        .Items
-        .Add(text);
-    }
+    //  deviceFindComboBox
+    //    .Items
+    //    .Add(text);
+    //}
 
     #endregion
 
