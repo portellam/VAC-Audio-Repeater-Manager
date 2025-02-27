@@ -4,6 +4,7 @@
     <Company>Alexander Portell &lt;github.com/portellam&gt;</Company>
     <FileVersion>1.0.0</FileVersion>
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
