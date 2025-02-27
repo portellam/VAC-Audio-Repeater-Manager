@@ -46,10 +46,12 @@
     <PackageReference Include="AudioSwitcher.AudioApi" Version="3.0.0" />
     <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="3.0.3" />
     <PackageReference Include="NAudio" Version="2.2.1" />
-    <PackageReference Include="VACARM.Application" Version="1.0.0" />
-    <PackageReference Include="VACARM.Common" Version="1.0.0" />
-    <PackageReference Include="VACARM.Domain" Version="1.0.0" />
-    <PackageReference Include="VACARM.Infrastructure" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\VACARM.Backend.NET8\VACARM.Application\VACARM.Application.csproj" />
+    <ProjectReference Include="..\..\VACARM.Backend.NET8\VACARM.Common\VACARM.Common.csproj" />
+    <ProjectReference Include="..\..\VACARM.Backend.NET8\VACARM.Domain\VACARM.Domain.csproj" />
+    <ProjectReference Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\VACARM.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="VACARM.Application">
