@@ -1,4 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel;
+using System.Diagnostics;
 using VACARM.Common;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
@@ -7,11 +9,12 @@ using VACARM.Infrastructure.Services;
 namespace VACARM.GUI.Views
 {
   public partial class MainForm :
-    Form
+    Form,
+    INotifyPropertyChanged
   {
     #region Parameters
 
-    //NOTE: this also appears in DeviceFindForm. TODO: find one space to put this!
+    //NOTE: this also appears in DeviceFindForm. TODO: place in a Controller?
     private DeviceGroupService
     <
       ReadonlyRepository
@@ -31,6 +34,8 @@ namespace VACARM.GUI.Views
       DeviceModel
     > DeviceGroupService
     { get; set; }
+
+    public virtual event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
@@ -170,6 +175,29 @@ namespace VACARM.GUI.Views
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Logs event when property has changed.
+    /// </summary>
+    /// <param name="propertyName">The property name</param>
+    internal void OnPropertyChanged(string propertyName)
+    {
+      this.PropertyChanged?
+        .Invoke
+        (
+          this,
+          new PropertyChangedEventArgs(propertyName)
+        );
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "PropertyChanged: {0}",
+          propertyName
+        )
+      );
+    }
 
     public static DialogResult InputBox
     (
