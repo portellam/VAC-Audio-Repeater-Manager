@@ -31,7 +31,7 @@ namespace VACARM.Application.Services
     {
       get
       {
-        return (BaseRepository<TBaseModel>)base.Repository;                             //WARN: Throws System.InvalidCastException 24,092 times. Throws System.StackOverflowException.
+        return (BaseRepository<TBaseModel>)base.Repository;
       }
       set
       {
@@ -91,14 +91,6 @@ namespace VACARM.Application.Services
         .Remove(func);
     }
 
-    public IEnumerable<TBaseModel> GetAllById(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return base.Repository
-        .GetRange(func);
-    }
-
     public IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable)
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
@@ -131,6 +123,14 @@ namespace VACARM.Application.Services
         .Get(func);
     }
 
+    public IEnumerable<TBaseModel> GetAllById(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      return base.Repository
+        .GetRange(func);
+    }
+
     public IEnumerable<TBaseModel> GetRange
     (
       uint startId,
@@ -153,6 +153,13 @@ namespace VACARM.Application.Services
 
       return base.Repository
         .GetRange(func);
+    }
+
+    public IEnumerable<uint> GetAllId()
+    {
+      return base.Repository
+        .GetAll()
+        .Select(x => x.Id);
     }
 
     #endregion
