@@ -1,8 +1,8 @@
-using VACARM.Infrastructure.Repositories;
-using VACARM.Common;
-using VACARM.Application.Services;
-using VACARM.Domain.Models;
 using System.Diagnostics.CodeAnalysis;
+using VACARM.Common;
+using VACARM.Domain.Models;
+using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services;
 
 namespace VACARM.GUI.Views
 {
@@ -32,17 +32,6 @@ namespace VACARM.GUI.Views
     > DeviceGroupService
     { get; set; }
 
-    //private DeviceRepository selectedDeviceRepository
-    //{
-    //  get
-    //  {
-    //    return deviceRepositoryHashSet
-    //      .ElementAtOrDefault(selectedDeviceRepositoryindex);
-    //  }
-    //}
-
-    //private HashSet<DeviceRepository> deviceRepositoryHashSet;
-
     #endregion
 
     #region Presentation logic
@@ -53,150 +42,7 @@ namespace VACARM.GUI.Views
     [ExcludeFromCodeCoverage]
     public MainForm()
     {
-      InitializeComponent();
-      SetDeviceRepositories();
-      PostInitializeComponent();
-
-      windowWindowToolStripDropDownButton.DropDownItems //note: this is a test.
-        .Add
-        (
-          new ToolStripMenuItem()
-          {
-            Text = "1: Test Window"
-          }
-        );
-    }
-
-    private void PostInitializeComponent()
-    {
-      SetComponentsItemLists();
-      SetComponentsAbilityProperties();
-      SetComponentsTextProperties();
-    }
-
-    private void SetComponentsAbilityProperties()
-    {
-      SetDeviceComponentsAbilityProperties();
-
-      if (Environment.OSVersion.Version.Major < 6)
-      {
-        viewPreferSystemThemeToolStripMenuItem.Enabled = false;
-      }
-
-      if (!Environment.Is64BitOperatingSystem)
-      {
-        settingsPreferModernApplicationToolStripMenuItem.Enabled = false;
-        settingsPreferLegacyApplicationToolStripMenuItem.Enabled = false;
-        settingsPreferLegacyApplication = true;
-      }
-    }
-
-    private void SetComponentsTextProperties()
-    {
-      Text = Info.ApplicationPartialAbbreviatedName;
-
-      helpAboutToolStripMenuItem.Text = string.Format
-        (
-          "About {0}",
-          Info.ApplicationPartialAbbreviatedName
-        );
-
-      helpApplicationWebsiteToolStripMenuItem.Text = string.Format
-        (
-          "{0} Website",
-          Info.ReferencedApplicationName
-        );
-
-
-      helpWebsiteToolStripMenuItem.Text = string.Format
-        (
-          "{0} Website",
-          Info.ApplicationPartialAbbreviatedName
-        );
-
-      string featureNotAvailableMessage = "N/A: ";
-
-      if (!settingsPreferModernApplicationToolStripMenuItem.Enabled)
-      {
-        settingsPreferModernApplicationToolStripMenuItem.Text =
-          featureNotAvailableMessage
-          + settingsPreferModernApplicationToolStripMenuItem;
-      }
-
-      if (!viewPreferSystemThemeToolStripMenuItem.Enabled)
-      {
-        viewPreferSystemThemeToolStripMenuItem.Text =
-          featureNotAvailableMessage
-          + viewPreferSystemThemeToolStripMenuItem;
-      }
-    }
-
-    /// <summary>
-    /// The selected device repository index.
-    /// Import device repository by system or text file.
-    /// </summary>
-    private int selectedDeviceRepositoryindex = 0; //NOTE: 2025-02-21, I totally forgot I had this idea until I just made DeviceGroupService.
-
-    private void SetComponentsItemLists()
-    {
-      SetDeviceRepositories();
-
-      this.DeviceGroupService
-        .GetAllCapture()
-        .ToList()
-        .ForEach
-        (
-          x =>
-          {
-            ToolStripMenuItem toolStripMenuItem = GetDeviceComponentItem(x);
-
-            deviceSelectInputToolStripMenuItem
-              .DropDownItems
-              .Add(toolStripMenuItem);
-          }
-        );
-
-      this.DeviceGroupService
-        .GetAllRender()
-        .ToList()
-        .ForEach
-        (
-          x =>
-          {
-            ToolStripMenuItem toolStripMenuItem = GetDeviceComponentItem(x);
-
-            deviceSelectOutputToolStripMenuItem
-              .DropDownItems
-              .Add(toolStripMenuItem);
-          }
-        );
-
-      this.DeviceGroupService
-        .GetAllDuplex()
-        .ToList()
-        .ForEach
-        (
-          x =>
-          {
-            ToolStripMenuItem toolStripMenuItem = GetDeviceComponentItem(x);
-
-            deviceSelectDuplexToolStripMenuItem
-              .DropDownItems
-              .Add(toolStripMenuItem);
-          }
-        );
-    }
-
-    private void SetDeviceRepositories()
-    {
-      //if
-      //(
-      //  deviceRepositoryHashSet is null
-      //  || deviceRepositoryHashSet.Count == 0
-      //)
-      //{
-      //  //deviceRepositoryHashSet = new HashSet<DeviceRepository>();                    //TODO: update.
-      //}
+      this.InitializeComponent();
 
       this.DeviceGroupService =
         new DeviceGroupService
@@ -217,6 +63,95 @@ namespace VACARM.GUI.Views
           BaseRepository<DeviceModel>,
           DeviceModel
         >();
+
+      this.PostInitializeComponent();
+
+      this.windowWindowToolStripDropDownButton  //NOTE: this is a test.
+        .DropDownItems
+        .Add
+        (
+          new ToolStripMenuItem()
+          {
+            Text = "1: Test Window"
+          }
+        );
+    }
+
+    private void PostInitializeComponent()
+    {
+      this.SetDeviceComponents();
+      this.SetComponentsAbility();
+      this.SetComponentsText();
+    }
+
+    private void SetComponentsAbility()
+    {
+      this.SetDeviceAbility();
+      this.SetDeviceConfirmSelectAbility();
+
+      if (Environment.OSVersion.Version.Major < 6)
+      {
+        this.viewPreferSystemThemeToolStripMenuItem
+          .Enabled = false;
+      }
+
+      if (!Environment.Is64BitOperatingSystem)
+      {
+        this.settingsPreferModernApplicationToolStripMenuItem
+          .Enabled = false;
+
+        this.settingsPreferLegacyApplicationToolStripMenuItem
+          .Enabled = false;
+
+        this.settingsPreferLegacyApplication = true;
+      }
+    }
+
+    private void SetComponentsText()
+    {
+      this.Text = Info.ApplicationPartialAbbreviatedName;
+
+      this.helpAboutToolStripMenuItem.Text = string.Format
+        (
+          "About {0}",
+          Info.ApplicationPartialAbbreviatedName
+        );
+
+      this.helpApplicationWebsiteToolStripMenuItem.Text = string.Format
+        (
+          "{0} Website",
+          Info.ReferencedApplicationName
+        );
+
+      this.helpWebsiteToolStripMenuItem.Text = string.Format
+        (
+          "{0} Website",
+          Info.ApplicationPartialAbbreviatedName
+        );
+
+      string featureNotAvailableMessage = "N/A: ";
+
+      if
+      (
+        !this.settingsPreferModernApplicationToolStripMenuItem
+          .Enabled
+      )
+      {
+        this.settingsPreferModernApplicationToolStripMenuItem
+          .Text = featureNotAvailableMessage
+            + this.settingsPreferModernApplicationToolStripMenuItem;
+      }
+
+      if
+      (
+        !this.viewPreferSystemThemeToolStripMenuItem
+          .Enabled
+      )
+      {
+        this.viewPreferSystemThemeToolStripMenuItem
+          .Text = featureNotAvailableMessage
+            + this.viewPreferSystemThemeToolStripMenuItem;
+      }
     }
 
     #endregion
@@ -233,6 +168,8 @@ namespace VACARM.GUI.Views
     }
 
     #endregion
+
+    #region Logic
 
     public static DialogResult InputBox
     (
@@ -297,5 +234,7 @@ namespace VACARM.GUI.Views
       value = textBox.Text;
       return dialogResult;
     }
+
+    #endregion
   }
 }
