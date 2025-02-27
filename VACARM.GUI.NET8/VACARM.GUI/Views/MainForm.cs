@@ -91,7 +91,6 @@ namespace VACARM.GUI.Views
 
     private void SetComponentsAbility()
     {
-      this.SetDeviceAbility();
       this.SetDeviceConfirmSelectAbility();
 
       if (Environment.OSVersion.Version.Major < 6)

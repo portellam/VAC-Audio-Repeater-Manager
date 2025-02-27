@@ -111,6 +111,23 @@ namespace VACARM.GUI.Views
 
     #region Presentation logic
 
+    private IEnumerable<ToolStripMenuItem>
+    GetDeviceModelEnumerableAsToolStripMenuItemEnumerable
+    (
+      IEnumerable<DeviceModel> modelEnumerable
+    )
+    {
+      if (modelEnumerable == null)
+      {
+        yield break;
+      }
+
+      foreach (var item in modelEnumerable)
+      {
+        yield return this.GetDeviceModelAsToolStripMenuItem(item);
+      }
+    }
+
     private ToolStripMenuItem GetDeviceModelAsToolStripMenuItem
     (DeviceModel deviceModel)
     {
@@ -150,86 +167,96 @@ namespace VACARM.GUI.Views
 
     private void SetDeviceComponents()
     {
-      deviceSelectInputToolStripMenuItem
-        .DropDownItems
-        .Clear();
+      this.SetDeviceToolStripMenuItemEnumerable();
 
-      this.DeviceGroupService
-        .GetAllCapture()
-        .ToList()
-        .ForEach
+      var modelEnumerable = this.DeviceGroupService
+        .GetAllCapture();
+
+      var enumerable = this.GetDeviceModelEnumerableAsToolStripMenuItemEnumerable
+        (modelEnumerable);
+
+      this.SetDeviceSelectToolStripItemCollection
         (
-          x =>
-          {
-            var toolStripMenuItem = GetDeviceModelAsToolStripMenuItem(x);
-
-            toolStripMenuItem.Checked =
-              deviceSelectAllInputsToolStripMenuItem.Checked;
-
-            toolStripMenuItem.CheckedChanged +=
-              deviceConfirmSelectToolStripMenuItem_CheckedChanged;
-
-            deviceSelectInputToolStripMenuItem
-              .DropDownItems
-              .Add(toolStripMenuItem);
-          }
+          ref deviceSelectInputToolStripMenuItem,
+          enumerable
         );
 
-      deviceSelectOutputToolStripMenuItem
-        .DropDownItems
-        .Clear();
+      modelEnumerable = this.DeviceGroupService
+        .GetAllRender();
 
-      this.DeviceGroupService
-        .GetAllRender()
-        .ToList()
-        .ForEach
+      enumerable = this.GetDeviceModelEnumerableAsToolStripMenuItemEnumerable
+        (modelEnumerable);
+
+      this.SetDeviceSelectToolStripItemCollection
         (
-          x =>
-          {
-            var toolStripMenuItem = GetDeviceModelAsToolStripMenuItem(x);
-
-            toolStripMenuItem.Checked =
-              deviceSelectAllOutputsToolStripMenuItem.Checked;
-
-            toolStripMenuItem.CheckedChanged +=
-              deviceConfirmSelectToolStripMenuItem_CheckedChanged;
-
-            //toolStripMenuItem.CheckState =
-            //  deviceSelectOutputToolStripMenuItem.CheckState;
-
-            deviceSelectOutputToolStripMenuItem
-              .DropDownItems
-              .Add(toolStripMenuItem);
-          }
+          ref deviceSelectOutputToolStripMenuItem,
+          enumerable
         );
 
-      deviceSelectDuplexToolStripMenuItem
-        .DropDownItems
+      //this.OnCheckOfSelectAllDisabledCheckAllDisabled();
+      //this.OnCheckOfSelectAllEnabledCheckAllEnabled();
+      this.OnCheckOfSelectAllInputCheckAllInput();
+      this.OnCheckOfSelectAllOutputCheckAllOutput();
+      this.OnUncheckOfSelectInputUncheckAll();
+      this.OnUncheckOfSelectOutputUncheckAll();
+    }
+
+    private void SetDeviceSelectToolStripItemCollection
+    (
+      ref ToolStripMenuItem deviceSelectDirectionToolStripMenuItem,
+      IEnumerable<ToolStripMenuItem> enumerable
+    )
+    {
+      if (deviceSelectDirectionToolStripMenuItem == null)
+      {
+        return;
+      }
+
+      deviceSelectDirectionToolStripMenuItem.DropDownItems
         .Clear();
 
-      this.DeviceGroupService
-        .GetAllDuplex()
-        .ToList()
-        .ForEach
+      deviceSelectDirectionToolStripMenuItem.DropDownItemClicked +=
+        deviceConfirmSelectToolStripMenuItem_CheckedChanged;
+
+      if (deviceSelectDirectionToolStripMenuItem.Owner != null)
+      {
+        ToolStripItemCollection toolStripItemCollection =
+          new ToolStripItemCollection
+          (
+            deviceSelectDirectionToolStripMenuItem.Owner,
+            enumerable.ToArray()
+          );
+      }
+
+      deviceSelectDirectionToolStripMenuItem.Enabled =
+        deviceSelectDirectionToolStripMenuItem.HasDropDownItems;
+    }
+
+    private void SetDeviceToolStripMenuItemEnumerable()
+    {
+      this.DeviceToolStripMenuItemEnumerable = Array.Empty<ToolStripMenuItem>();
+
+      var enumerable = this.GetDeviceModelEnumerableAsToolStripMenuItemEnumerable
         (
-          x =>
-          {
-            var toolStripMenuItem = GetDeviceModelAsToolStripMenuItem(x);
-
-            toolStripMenuItem.Checked =
-              deviceSelectAllDuplexToolStripMenuItem.Checked;
-
-            toolStripMenuItem.CheckedChanged +=
-              deviceConfirmSelectToolStripMenuItem_CheckedChanged;
-
-            //toolStripMenuItem.CheckState =
-            //  deviceSelectDuplexToolStripMenuItem.CheckState;
-
-            deviceSelectDuplexToolStripMenuItem
-              .DropDownItems
-              .Add(toolStripMenuItem);
-          }
+          this.DeviceGroupService
+            .SelectedRepository
+            .GetAll()
         );
+
+      foreach (var item in enumerable)
+      {
+        this.DeviceToolStripMenuItemEnumerable
+          .Append(item);
+      }
+    }
+
+    private void SetDeviceConfirmSelectAbility()
+    {
+      var result = this.selectedDeviceIdHashSet
+          .Count() > 0;
+
+      this.deviceConfirmSelectToolStripMenuItem
+        .Enabled = result;
     }
 
     private void SetSelectedDeviceComponents
@@ -253,75 +280,10 @@ namespace VACARM.GUI.Views
       this.SetDeviceConfirmSelectAbility();
     }
 
-    //NOTE: this is designed to run once. TODO: refactor into an event handler?
-    private void SetDeviceAbility()
-    {
-      this.deviceAbility = false;
+    #endregion
 
-      if
-      (
-        this.DeviceGroupService
-          .GetAll()
-          .Count() == 0
-      )
-      {
-        return;
-      }
+    #region Delegate logic
 
-      this.deviceAbility = true;
-
-      if
-      (
-        this.DeviceGroupService
-          .GetAllDuplex()
-          .Count() == 0
-      )
-      {
-        this.deviceSelectAllDuplexToolStripMenuItem
-          .Enabled = false;
-
-        this.deviceSelectDuplexToolStripMenuItem
-          .Enabled = false;
-      }
-
-      if
-      (
-        this.DeviceGroupService
-          .GetAllCapture()
-          .Count() == 0
-      )
-      {
-        this.deviceSelectAllInputsToolStripMenuItem
-          .Enabled = false;
-
-        this.deviceSelectInputToolStripMenuItem
-          .Enabled = false;
-      }
-
-      if
-      (
-        this.DeviceGroupService
-          .GetAllRender()
-          .Count() == 0
-      )
-      {
-        this.deviceSelectAllOutputsToolStripMenuItem
-          .Enabled = false;
-
-        this.deviceSelectOutputToolStripMenuItem
-          .Enabled = false;
-      }
-    }
-
-    private void SetDeviceConfirmSelectAbility()
-    {
-      var result = this.selectedDeviceIdHashSet
-          .Count() > 0;
-
-      this.deviceConfirmSelectToolStripMenuItem
-        .Enabled = result;
-    }
-       
     private void OnUncheckOfSelectInputUncheckAll()
     {
       if (this.deviceSelectInputToolStripMenuItem == null)
@@ -472,54 +434,6 @@ namespace VACARM.GUI.Views
               .DropDownItems.Add(item);
           }
         };
-    }
-
-    private void SetDeviceSelectToolStripItemCollection
-    (
-      ref ToolStripMenuItem deviceSelectDirectionToolStripMenuItem,
-      IEnumerable<ToolStripMenuItem> enumerable
-    )
-    {
-      if (deviceSelectDirectionToolStripMenuItem == null)
-      {
-        return;
-      }
-
-      deviceSelectDirectionToolStripMenuItem.DropDownItems
-        .Clear();
-
-      deviceSelectDirectionToolStripMenuItem.DropDownItemClicked +=
-        deviceConfirmSelectToolStripMenuItem_CheckedChanged;
-
-      if (deviceSelectDirectionToolStripMenuItem.Owner != null)
-      {
-        ToolStripItemCollection toolStripItemCollection =
-          new ToolStripItemCollection
-          (
-            deviceSelectDirectionToolStripMenuItem.Owner,
-            enumerable.ToArray()
-          );
-      }
-
-      deviceSelectDirectionToolStripMenuItem.Enabled = deviceSelectDirectionToolStripMenuItem
-        .HasDropDownItems;
-    }
-
-    private void SetDeviceToolStripMenuItemEnumerable()
-    {
-      this.DeviceToolStripMenuItemEnumerable = Array.Empty<ToolStripMenuItem>();
-
-      var enumerable = this.DeviceGroupService
-        .SelectedRepository
-        .GetAll();
-
-      foreach (var item in enumerable)
-      {
-        var toolStripMenuItem = this.GetDeviceModelAsToolStripMenuItem(item);
-
-        this.DeviceToolStripMenuItemEnumerable
-          .Append(toolStripMenuItem);
-      }
     }
 
     #endregion
