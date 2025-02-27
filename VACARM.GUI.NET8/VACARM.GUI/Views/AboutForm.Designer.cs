@@ -132,13 +132,13 @@
       // 
       // logoPictureBox
       // 
-      logoPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+      logoPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
       logoPictureBox.Image = (Image)resources.GetObject("logoPictureBox.Image");
       logoPictureBox.Location = new Point(4, 3);
       logoPictureBox.Margin = new Padding(4, 3, 4, 3);
       logoPictureBox.Name = "logoPictureBox";
       tableLayoutPanel.SetRowSpan(logoPictureBox, 6);
-      logoPictureBox.Size = new Size(96, 301);
+      logoPictureBox.Size = new Size(97, 118);
       logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
       logoPictureBox.TabIndex = 25;
       logoPictureBox.TabStop = false;
