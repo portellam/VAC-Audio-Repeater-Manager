@@ -97,6 +97,9 @@ namespace VACARM.GUI.Controllers
       }
     }
 
+    internal ToolStripItemCollection ParentToolStripItemCollection
+    { get; set; }
+
     internal ToolStripItemCollection RenderToolStripItemCollection
     {
       get
@@ -158,9 +161,6 @@ namespace VACARM.GUI.Controllers
           .Select(x => x.Id);
       }
     }
-
-    private ToolStripItemCollection ParentToolStripItemCollection
-    { get; set; }
 
     protected virtual bool HasDisposed { get; set; }
     public virtual event PropertyChangedEventHandler PropertyChanged;
