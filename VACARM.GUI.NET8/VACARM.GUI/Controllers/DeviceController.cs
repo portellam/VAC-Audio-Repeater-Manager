@@ -31,7 +31,7 @@ namespace VACARM.GUI.Controllers
   /// <summary>
   /// Controller for <typeparamref name="DeviceGroupService"/>.
   /// </summary>
-  internal class DeviceController :
+  internal partial class DeviceController :
     IDisposable,
     INotifyPropertyChanged
   {
@@ -224,32 +224,37 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    internal ToolStripItemCollection CaptureToolStripItemCollection
+    internal ToolStripItemCollection SelectCaptureToolStripItemCollection
     {
       get
       {
-        var array = this.GetModifiedParentToolStripItemEnumerable
+        return this.GetPropertyToolStripItemCollection
           (
             this.CaptureIdEnumerable,
-            this.CaptureCheckedEventHandler
-          )
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.SelectCaptureToolStripMenuItem
-              .Owner,
-            array
+            this.CaptureCheckedEventHandler,
+            this.ParentToolStrip
           );
       }
       set
       {
         this.PartialSetParentToolStripItemCollection(value);
-        this.OnPropertyChanged(nameof(this.CaptureToolStripItemCollection));
+        this.OnPropertyChanged(nameof(this.SelectCaptureToolStripItemCollection));
       }
     }
 
-    internal IEnumerable<ToolStripItem> DisabledToolStripItemEnumerable
+    private ToolStripItem[] SelectPropertyToolStripItemDropDownItems
+    {
+      get
+      {
+        return new ToolStripItem[]
+        {
+          this.SelectCaptureToolStripMenuItem,
+          this.SelectAllRenderToolStripMenuItem
+        };
+      }
+    }
+
+    internal IEnumerable<ToolStripItem> SelectAllDisabledToolStripItemEnumerable
     {
       get
       {
@@ -258,7 +263,7 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    internal IEnumerable<ToolStripItem> EnabledToolStripItemEnumerable
+    internal IEnumerable<ToolStripItem> SelectAllEnabledToolStripItemEnumerable
     {
       get
       {
@@ -269,34 +274,44 @@ namespace VACARM.GUI.Controllers
 
     internal ToolStripItemCollection ParentToolStripItemCollection;
 
-    internal ToolStripItemCollection RenderToolStripItemCollection
+    internal ToolStripItemCollection SelectAllRenderToolStripItemCollection
     {
       get
       {
-        var array = this.GetModifiedParentToolStripItemEnumerable
+        return this.GetPropertyToolStripItemCollection
           (
             this.RenderIdEnumerable,
-            this.RenderCheckedEventHandler
-          )
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.SelectRenderToolStripMenuItem
-              .Owner,
-            array
+            this.RenderCheckedEventHandler,
+            this.ParentToolStrip
           );
       }
       set
       {
         this.PartialSetParentToolStripItemCollection(value);
-        this.OnPropertyChanged(nameof(this.RenderToolStripItemCollection));
+        this.OnPropertyChanged(nameof(this.SelectAllRenderToolStripItemCollection));
       }
     }
     internal ToolStrip ParentToolStrip { get; set; }
     internal ToolStripMenuItem SelectAllPropertyToolStripMenuItem { get; set; }
     internal ToolStripMenuItem SelectPropertyToolStripMenuItem { get; set; }
-    internal ToolStripMenuItem SelectPropertyToolStripMenuItemDropDown { get; set; }
+
+    internal ToolStripMenuItem SelectPropertyToolStripMenuItemDropDown
+    {
+      get;
+      set
+      {
+        this.SelectPropertyToolStripMenuItemDropDown
+          .DropDownItems
+          .Clear();
+
+        this.SelectPropertyToolStripMenuItemDropDown
+          .DropDownItems
+          .AddRange(this.SelectPropertyToolStripItemDropDownItems);
+
+        this.OnPropertyChanged
+          (nameof(this.SelectPropertyToolStripMenuItemDropDown));
+      }
+    }
 
     private IEnumerable<uint> CaptureIdEnumerable
     {
