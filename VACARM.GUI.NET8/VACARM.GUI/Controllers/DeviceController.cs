@@ -40,10 +40,37 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    private IEnumerable<uint> SelectedIdEnumerable { get; set; }
+    private IEnumerable<uint> DisabledIdEnumerable
+    {
+      get
+      {
+        return this.DeviceGroupService
+          .GetAllDisabled()
+          .Select(x => x.Id);
+      }
+    }
 
-    private ToolStripItemCollection ToolStripItemCollection
-    { get; set; }
+    private IEnumerable<uint> EnabledIdEnumerable
+    {
+      get
+      {
+        return this.DeviceGroupService
+          .GetAllEnabled()
+          .Select(x => x.Id);
+      }
+    }
+
+    private IEnumerable<uint> RenderIdEnumerable
+    {
+      get
+      {
+        return this.DeviceGroupService
+          .GetAllRender()
+          .Select(x => x.Id);
+      }
+    }
+
+    private IEnumerable<uint> SelectedIdEnumerable { get; set; }
 
     private ToolStripItemCollection CaptureToolStripItemCollection
     {
@@ -63,6 +90,67 @@ namespace VACARM.GUI.Controllers
         this.PartialSetToolStripItemCollection(value);
       }
     }
+
+    private ToolStripItemCollection DisabledToolStripItemCollection
+    {
+      get
+      {
+        var array = this.GetToolStripItemEnumerable(this.DisabledIdEnumerable)
+          .ToArray();
+
+        return new ToolStripItemCollection
+          (
+            this.ToolStrip,
+            array
+          );
+      }
+      set
+      {
+        this.PartialSetToolStripItemCollection(value);
+      }
+    }
+
+    private ToolStripItemCollection EnabledToolStripItemCollection
+    {
+      get
+      {
+        var array = this.GetToolStripItemEnumerable(this.EnabledIdEnumerable)
+          .ToArray();
+
+        return new ToolStripItemCollection
+          (
+            this.ToolStrip,
+            array
+          );
+      }
+      set
+      {
+        this.PartialSetToolStripItemCollection(value);
+      }
+    }
+
+    private ToolStripItemCollection RenderToolStripItemCollection
+    {
+      get
+      {
+        var array = this.GetToolStripItemEnumerable(this.RenderIdEnumerable)
+          .ToArray();
+
+        return new ToolStripItemCollection
+          (
+            this.ToolStrip,
+            array
+          );
+      }
+      set
+      {
+        this.PartialSetToolStripItemCollection(value);
+      }
+    }
+
+    private ToolStripItemCollection ToolStripItemCollection
+    { get; set; }
+
 
     #endregion
 
