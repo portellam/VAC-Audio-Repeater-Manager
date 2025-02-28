@@ -30,42 +30,19 @@ namespace VACARM.GUI.Controllers
 
     internal ToolStrip ToolStrip { get; set; }
 
-    private HashSet<uint> selectedDeviceIdHashSet { get; set; } =
-      new HashSet<uint>();
-
-    private IEnumerable<string> GetAllDisabledId
+    private IEnumerable<uint> CaptureIdEnumerable
     {
       get
       {
-        var idEnumerable = this.DeviceGroupService
-          .GetAllDisabled()
+        return this.DeviceGroupService
+          .GetAllCapture()
           .Select(x => x.Id);
-
-        foreach (var item in idEnumerable)
-        {
-          yield return item.ToString();
-        }
       }
     }
 
-    private IEnumerable<string> GetAllEnabledId
-    {
-      get
-      {
-        var idEnumerable = this.DeviceGroupService
-          .GetAllEnabled()
-          .Select(x => x.Id);
+    private IEnumerable<uint> SelectedIdEnumerable { get; set; }
 
-        foreach (var item in idEnumerable)
-        {
-          yield return item.ToString();
-        }
-      }
-    }
-
-    private ToolStripItemCollection InputToolStripItemCollection { get; set; }
-
-    private ToolStripItemCollection? ToolStripItemCollection
+    private ToolStripItemCollection ToolStripItemCollection
     { get; set; }
 
     private ToolStripItemCollection CaptureToolStripItemCollection
@@ -83,66 +60,9 @@ namespace VACARM.GUI.Controllers
       }
       set
       {
-        this.SetToolStripItemCollection(value);
+        this.PartialSetToolStripItemCollection(value);
       }
     }
-
-    IEnumerable<uint> CaptureIdEnumerable
-    {
-      get
-      {
-        return this.DeviceGroupService
-          .GetAllCapture()
-          .Select(x => x.Id);
-      }
-    }
-
-    IEnumerable<string> DisabledIdEnumerable
-    {
-      get
-      {
-        return this.DeviceGroupService
-          .GetAllDisabled()
-          .Select
-          (
-            x =>
-            x.Id
-              .ToString()
-          );
-      }
-    }
-
-    IEnumerable<string> EnabledIdEnumerable
-    {
-      get
-      {
-        return this.DeviceGroupService
-          .GetAllEnabled()
-          .Select
-          (
-            x =>
-            x.Id
-              .ToString()
-          );
-      }
-    }
-    
-    IEnumerable<string> RenderIdEnumerable
-    {
-      get
-      {
-        return this.DeviceGroupService
-          .GetAllRender()
-          .Select
-          (
-            x =>
-            x.Id
-              .ToString()
-          );
-      }
-    }
-
-    IEnumerable<string> SelectedIdEnumerable { get; set; }
 
     #endregion
 
@@ -175,6 +95,7 @@ namespace VACARM.GUI.Controllers
         >();
 
       this.ToolStrip = toolStrip;
+      this.SetToolStripItemCollection();
     }
 
     private IEnumerable<ToolStripItem> GetToolStripItemEnumerable
@@ -216,27 +137,6 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    private ToolStripItemCollection? GetToolStripItemCollection()
-    {
-      if (this.ToolStrip == null)
-      {
-        return null;
-      }
-
-      var modelEnumerable = this.DeviceGroupService
-        .SelectedRepository
-        .GetAll();
-
-      var array = this.GetToolStripMenuItemEnumerable(modelEnumerable)
-        .ToArray();
-
-      return new ToolStripItemCollection
-        (
-          this.ToolStrip,
-          array
-        );
-    }
-
     private ToolStripMenuItem GetToolStripMenuItem(DeviceModel deviceModel)
     {
       int maxIdLength = 7;
@@ -272,7 +172,7 @@ namespace VACARM.GUI.Controllers
           .ToString(),
       };
     }
-    
+
     private uint? GetToolStripItemCollectionId(ToolStripItem toolStripItem)
     {
       if (toolStripItem == null)
@@ -296,12 +196,22 @@ namespace VACARM.GUI.Controllers
       return id;
     }
 
-    private void SetToolStripItemCollection
+    private void PartialSetToolStripItemCollection
     (ToolStripItemCollection toolStripItemCollection)
     {
       if (toolStripItemCollection == null)
       {
         return;
+      }
+
+      if
+      (
+        this.ToolStripItemCollection == null
+        || this.ToolStripItemCollection
+          .Count == 0
+      )
+      {
+
       }
 
       foreach (var item in toolStripItemCollection)
@@ -335,17 +245,39 @@ namespace VACARM.GUI.Controllers
           continue;
         }
 
-        this.ToolStripItemCollection.Insert
+        int tempIndex = index++;
+
+        this.ToolStripItemCollection
+          .Insert
           (
-            index,
+            tempIndex,
             toolStripItem
           );
 
-        int oldIndex = index + 1;
-
         this.ToolStripItemCollection
-          .RemoveAt(oldIndex);
+          .RemoveAt(index);
       }
+    }
+
+    private void SetToolStripItemCollection()
+    {
+      if (this.ToolStrip == null)
+      {
+        this.ToolStripItemCollection = null;
+      }
+
+      var modelEnumerable = this.DeviceGroupService
+        .SelectedRepository
+        .GetAll();
+
+      var array = this.GetToolStripMenuItemEnumerable(modelEnumerable)
+        .ToArray();
+
+      this.ToolStripItemCollection = new ToolStripItemCollection
+        (
+          this.ToolStrip,
+          array
+        );
     }
 
     #endregion
