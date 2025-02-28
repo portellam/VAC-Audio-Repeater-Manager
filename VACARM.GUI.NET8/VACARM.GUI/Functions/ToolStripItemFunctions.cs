@@ -1,6 +1,6 @@
 ﻿namespace VACARM.GUI.Functions
 {
-  internal static class ToolStripFunctions
+  internal static class ToolStripItemFunctions
   {
     /// <summary>
     /// Match a <typeparamref name="ToolStripItem"/>.
