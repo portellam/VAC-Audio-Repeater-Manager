@@ -1,10 +1,17 @@
-﻿using VACARM.Domain.Models;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
 namespace VACARM.GUI.Controllers
 {
-  internal class DeviceController
+  /// <summary>
+  /// Controller for <typeparamref name="DeviceGroupService"/>.
+  /// </summary>
+  internal class DeviceController :
+    IDisposable,
+    INotifyPropertyChanged
   {
     #region Parameters
 
@@ -27,6 +34,88 @@ namespace VACARM.GUI.Controllers
       DeviceModel
     > DeviceGroupService
     { get; set; }
+
+    internal IEnumerable<uint> SelectedIdEnumerable { get; set; }
+
+    internal ToolStripItemCollection CaptureToolStripItemCollection
+    {
+      get
+      {
+        var array = this.GetToolStripItemEnumerable(this.CaptureIdEnumerable)
+          .ToArray();
+
+        return new ToolStripItemCollection
+          (
+            this.ToolStrip,
+            array
+          );
+      }
+      set
+      {
+        this.PartialSetParentToolStripItemCollection(value);
+        this.OnPropertyChanged(nameof(this.CaptureToolStripItemCollection));
+      }
+    }
+
+    internal ToolStripItemCollection DisabledToolStripItemCollection
+    {
+      get
+      {
+        var array = this.GetToolStripItemEnumerable(this.DisabledIdEnumerable)
+          .ToArray();
+
+        return new ToolStripItemCollection
+          (
+            this.ToolStrip,
+            array
+          );
+      }
+      set
+      {
+        this.PartialSetParentToolStripItemCollection(value);
+        this.OnPropertyChanged(nameof(this.DisabledToolStripItemCollection));
+      }
+    }
+
+    internal ToolStripItemCollection EnabledToolStripItemCollection
+    {
+      get
+      {
+        var array = this.GetToolStripItemEnumerable(this.EnabledIdEnumerable)
+          .ToArray();
+
+        return new ToolStripItemCollection
+          (
+            this.ToolStrip,
+            array
+          );
+      }
+      set
+      {
+        this.PartialSetParentToolStripItemCollection(value);
+        this.OnPropertyChanged(nameof(this.EnabledToolStripItemCollection));
+      }
+    }
+
+    internal ToolStripItemCollection RenderToolStripItemCollection
+    {
+      get
+      {
+        var array = this.GetToolStripItemEnumerable(this.RenderIdEnumerable)
+          .ToArray();
+
+        return new ToolStripItemCollection
+          (
+            this.ToolStrip,
+            array
+          );
+      }
+      set
+      {
+        this.PartialSetParentToolStripItemCollection(value);
+        this.OnPropertyChanged(nameof(this.RenderToolStripItemCollection));
+      }
+    }
 
     internal ToolStrip ToolStrip { get; set; }
 
@@ -70,91 +159,38 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    private IEnumerable<uint> SelectedIdEnumerable { get; set; }
-
-    private ToolStripItemCollection CaptureToolStripItemCollection
-    {
-      get
-      {
-        var array = this.GetToolStripItemEnumerable(this.CaptureIdEnumerable)
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.ToolStrip,
-            array
-          );
-      }
-      set
-      {
-        this.PartialSetToolStripItemCollection(value);
-      }
-    }
-
-    private ToolStripItemCollection DisabledToolStripItemCollection
-    {
-      get
-      {
-        var array = this.GetToolStripItemEnumerable(this.DisabledIdEnumerable)
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.ToolStrip,
-            array
-          );
-      }
-      set
-      {
-        this.PartialSetToolStripItemCollection(value);
-      }
-    }
-
-    private ToolStripItemCollection EnabledToolStripItemCollection
-    {
-      get
-      {
-        var array = this.GetToolStripItemEnumerable(this.EnabledIdEnumerable)
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.ToolStrip,
-            array
-          );
-      }
-      set
-      {
-        this.PartialSetToolStripItemCollection(value);
-      }
-    }
-
-    private ToolStripItemCollection RenderToolStripItemCollection
-    {
-      get
-      {
-        var array = this.GetToolStripItemEnumerable(this.RenderIdEnumerable)
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.ToolStrip,
-            array
-          );
-      }
-      set
-      {
-        this.PartialSetToolStripItemCollection(value);
-      }
-    }
-
-    private ToolStripItemCollection ToolStripItemCollection
+    private ToolStripItemCollection ParentToolStripItemCollection
     { get; set; }
 
+    protected virtual bool HasDisposed { get; set; }
+    public virtual event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Logs event when property has changed.
+    /// </summary>
+    /// <param name="propertyName">The property name</param>
+    internal void OnPropertyChanged(string propertyName)
+    {
+      this.PropertyChanged?
+        .Invoke
+        (
+          this,
+          new PropertyChangedEventArgs(propertyName)
+        );
+
+      Debug.WriteLine
+      (
+        string.Format
+        (
+          "PropertyChanged: {0}",
+          propertyName
+        )
+      );
+    }
 
     /// <summary>
     /// Constructor
@@ -183,7 +219,7 @@ namespace VACARM.GUI.Controllers
         >();
 
       this.ToolStrip = toolStrip;
-      this.SetToolStripItemCollection();
+      this.SetParentToolStripItemCollection();
     }
 
     private IEnumerable<ToolStripItem> GetToolStripItemEnumerable
@@ -207,7 +243,7 @@ namespace VACARM.GUI.Controllers
           continue;
         }
 
-        yield return this.ToolStripItemCollection[index];
+        yield return this.ParentToolStripItemCollection[index];
       }
     }
 
@@ -284,7 +320,7 @@ namespace VACARM.GUI.Controllers
       return id;
     }
 
-    private void PartialSetToolStripItemCollection
+    private void PartialSetParentToolStripItemCollection
     (ToolStripItemCollection toolStripItemCollection)
     {
       if (toolStripItemCollection == null)
@@ -294,8 +330,8 @@ namespace VACARM.GUI.Controllers
 
       if
       (
-        this.ToolStripItemCollection == null
-        || this.ToolStripItemCollection
+        this.ParentToolStripItemCollection == null
+        || this.ParentToolStripItemCollection
           .Count == 0
       )
       {
@@ -335,23 +371,23 @@ namespace VACARM.GUI.Controllers
 
         int tempIndex = index++;
 
-        this.ToolStripItemCollection
+        this.ParentToolStripItemCollection
           .Insert
           (
             tempIndex,
             toolStripItem
           );
 
-        this.ToolStripItemCollection
+        this.ParentToolStripItemCollection
           .RemoveAt(index);
       }
     }
 
-    private void SetToolStripItemCollection()
+    private void SetParentToolStripItemCollection()
     {
       if (this.ToolStrip == null)
       {
-        this.ToolStripItemCollection = null;
+        this.ParentToolStripItemCollection = null;
       }
 
       var modelEnumerable = this.DeviceGroupService
@@ -361,11 +397,47 @@ namespace VACARM.GUI.Controllers
       var array = this.GetToolStripMenuItemEnumerable(modelEnumerable)
         .ToArray();
 
-      this.ToolStripItemCollection = new ToolStripItemCollection
+      this.ParentToolStripItemCollection = new ToolStripItemCollection
         (
           this.ToolStrip,
           array
         );
+    }
+
+    /// <summary>
+    /// Dispose of unmanaged objects and true/false dispose of managed objects.
+    /// </summary>
+    /// <param name="isDisposed">True/false</param>
+    protected virtual void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        this.DeviceGroupService
+          .Dispose();
+
+        this.ParentToolStripItemCollection = null;
+
+        this.ToolStrip
+          .Dispose();
+      }
+
+      this.HasDisposed = true;
+    }
+
+    /// <summary>
+    /// Do not change this code. 
+    /// Put cleanup code in Dispose(<paramref name="bool"/>
+    ///  <typeparamref name="isDisposed"/>) method.
+    /// </summary>
+    public void Dispose()
+    {
+      this.Dispose(true);
+      GC.SuppressFinalize(this);
     }
 
     #endregion
