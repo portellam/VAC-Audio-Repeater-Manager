@@ -129,6 +129,30 @@ namespace VACARM.Infrastructure.Services
         .GetRange(func);
     }
 
+    public IEnumerable<TBaseModel> GetAntiRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TBaseModel>.NotContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      return base.Repository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetAntiRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.NotContainsIdEnumerable(idEnumerable);
+
+      return base.Repository
+        .GetRange(func);
+    }
+
     public IEnumerable<TBaseModel> GetRange
     (
       uint startId,

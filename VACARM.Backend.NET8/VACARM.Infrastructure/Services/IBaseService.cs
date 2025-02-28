@@ -62,6 +62,25 @@ namespace VACARM.Infrastructure.Services
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TBaseModel> GetAntiRange
+    (
+      uint startId,
+      uint endId
+    );
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <returns>The enumerable of item(s).</returns>
+    IEnumerable<TBaseModel> GetAntiRange(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    /// <returns>The enumerable of item(s).</returns>
     IEnumerable<TBaseModel> GetRange
     (
       uint startId,

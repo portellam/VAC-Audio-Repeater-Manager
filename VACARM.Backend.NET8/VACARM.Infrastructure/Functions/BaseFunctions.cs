@@ -54,6 +54,36 @@ namespace VACARM.Infrastructure.Functions
       return (TBaseModel item) => idEnumerable.Contains(item.Id);
     }
 
+    /// <summary>
+    /// Reverse match a range of <typeparamref name="TBaseModel"/> ID(s).
+    /// </summary>
+    /// <param name="startId">The first ID</param>
+    /// <param name="endId">The last ID</param>
+    /// <returns>The function.</returns>
+    internal static Func<TBaseModel, bool> NotContainsIdRange
+    (
+      uint? startId,
+      uint? endId
+    )
+    {
+      return (TBaseModel item) =>
+        !(
+          item.Id >= startId
+          && item.Id <= endId
+        );
+    }
+
+    /// <summary>
+    /// Reverse match an enumerable of <typeparamref name="TBaseModel"/> ID(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <returns>The function.</returns>
+    internal static Func<TBaseModel, bool> NotContainsIdEnumerable
+    (IEnumerable<uint> idEnumerable)
+    {
+      return (TBaseModel item) => !idEnumerable.Contains(item.Id);
+    }
+
     #endregion
   }
 }
