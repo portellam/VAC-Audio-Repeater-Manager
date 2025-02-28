@@ -8,19 +8,6 @@ namespace VACARM.GUI.Controllers
   {
     #region Parameters
 
-    internal HashSet<uint> SelectedDeviceIdHashSet
-    {
-      get
-      {
-        return this.selectedDeviceIdHashSet;
-      }
-      set
-      {
-        this.selectedDeviceIdHashSet = value;
-        this.OnPropertyChanged(nameof(this.SelectedDeviceIdHashSet));
-      }
-    }
-
     internal DeviceGroupService
     <
       ReadonlyRepository
