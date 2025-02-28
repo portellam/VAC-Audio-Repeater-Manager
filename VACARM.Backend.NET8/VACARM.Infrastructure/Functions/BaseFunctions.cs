@@ -16,6 +16,11 @@ namespace VACARM.Infrastructure.Functions
 
     #region Logic
 
+    /// <summary>
+    /// Match a <typeparamref name="TBaseModel"/> ID.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsId(uint? id)
     {
       return (TBaseModel item) => item.Id == id;
