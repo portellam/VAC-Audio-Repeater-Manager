@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using VACARM.Domain.Models;
+using VACARM.GUI.Functions;
+using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
@@ -35,18 +37,107 @@ namespace VACARM.GUI.Controllers
     > DeviceGroupService
     { get; set; }
 
-    internal IEnumerable<uint> SelectedIdEnumerable { get; set; }
+    internal EventHandler? AllCheckedEventHandler
+    {
+      get
+      {
+        return
+          (
+            sender,
+            eventArgs
+          ) =>
+          {
+            this.SetParentToolStripItemCollection
+              (
+                this.AllToolStripMenuItem
+                  .Checked
+              );
+          };
+      }
+    }
+
+    internal EventHandler? CaptureCheckedEventHandler { get; set; }
+
+    internal EventHandler? DisabledCheckedEventHandler
+    {
+      get
+      {
+        return
+          (
+            sender,
+            eventArgs
+          ) =>
+          {
+            var enumerable = this.GetModifiedParentToolStripItemEnumerable
+              (
+                this.DisabledIdEnumerable,
+                this.DisabledToolStripMenuItem.Checked
+              );
+
+            this.PartialSetParentToolStripItemCollection
+              (
+                enumerable,
+                this.DisabledIdEnumerable
+              );
+          };
+      }
+    }
+
+    internal EventHandler? EnabledCheckedEventHandler
+    {
+      get
+      {
+        return
+          (
+            sender,
+            eventArgs
+          ) =>
+          {
+            var enumerable = this.GetModifiedParentToolStripItemEnumerable
+              (
+                this.EnabledIdEnumerable,
+                this.EnabledToolStripMenuItem.Checked
+              );
+
+            this.PartialSetParentToolStripItemCollection
+              (
+                enumerable,
+                this.EnabledIdEnumerable
+              );
+          };
+      }
+    }
+
+    internal EventHandler? RenderCheckedEventHandler { get; set; }
+
+    internal IEnumerable<uint> SelectedIdEnumerable
+    {
+      get
+      {
+        var idStringEnumerable = this.ParentToolStripItemCollection
+          .Cast<ToolStripMenuItem>()
+          .Where(x => x.Checked)
+          .Select(x => x.ToolTipText);
+
+        return uintExtension.TryParse(idStringEnumerable);
+      }
+    }
 
     internal ToolStripItemCollection CaptureToolStripItemCollection
     {
       get
       {
-        var array = this.GetPartialParentToolStripItemEnumerable(this.CaptureIdEnumerable)
+        var array = this.GetModifiedParentToolStripItemEnumerable
+          (
+            this.CaptureIdEnumerable,
+            this.CaptureCheckedEventHandler
+          )
           .ToArray();
 
         return new ToolStripItemCollection
           (
-            this.CaptureToolStrip,
+            this.CaptureToolStripMenuItem
+              .Owner,
             array
           );
       }
@@ -75,20 +166,23 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    internal ToolStripItemCollection ParentToolStripItemCollection
-    { get; set; }
+    internal ToolStripItemCollection ParentToolStripItemCollection;
 
     internal ToolStripItemCollection RenderToolStripItemCollection
     {
       get
       {
-        var array = this.GetPartialParentToolStripItemEnumerable
-          (this.RenderIdEnumerable)
+        var array = this.GetModifiedParentToolStripItemEnumerable
+          (
+            this.RenderIdEnumerable,
+            this.RenderCheckedEventHandler
+          )
           .ToArray();
 
         return new ToolStripItemCollection
           (
-            this.RenderToolStrip,
+            this.RenderToolStripMenuItem
+              .Owner,
             array
           );
       }
@@ -98,10 +192,12 @@ namespace VACARM.GUI.Controllers
         this.OnPropertyChanged(nameof(this.RenderToolStripItemCollection));
       }
     }
-
-    internal ToolStrip CaptureToolStrip { get; set; }
     internal ToolStrip ParentToolStrip { get; set; }
-    internal ToolStrip RenderToolStrip { get; set; }
+    internal ToolStripMenuItem AllToolStripMenuItem { get; set; }
+    internal ToolStripMenuItem CaptureToolStripMenuItem { get; set; }
+    internal ToolStripMenuItem DisabledToolStripMenuItem { get; set; }
+    internal ToolStripMenuItem EnabledToolStripMenuItem { get; set; }
+    internal ToolStripMenuItem RenderToolStripMenuItem { get; set; }
 
     private IEnumerable<uint> CaptureIdEnumerable
     {
@@ -173,77 +269,27 @@ namespace VACARM.GUI.Controllers
       );
     }
 
-    internal void SetToolStripItemCollection
-    (
-      ref ToolStripItemCollection toolStripItemCollection,
-      Action action,
-      Func<ToolStripItem, bool> func
-    )
-    {
-      if (toolStripItemCollection == null)
-      {
-        return;
-      }
-
-
-      if (action == null)
-      {
-        return;
-      }
-
-      if (func == null)
-      {
-        return;
-      }
-
-      var array = this.GetPartialParentToolStripItemEnumerable(func)
-        .ToArray();
-
-      toolStripItemCollection.Clear();
-      toolStripItemCollection.AddRange(array);
-    }
-
-    internal void SetToolStripItemCollection
-    (
-      ref ToolStripItemCollection toolStripItemCollection,
-      Action action,
-      IEnumerable<uint> idEnumerable
-    )
-    {
-      if (toolStripItemCollection == null)
-      {
-        return;
-      }
-
-
-      if (action == null)
-      {
-        return;
-      }
-
-      if (idEnumerable == null)
-      {
-        return;
-      }
-
-      var array = this.GetPartialParentToolStripItemEnumerable(idEnumerable)
-        .ToArray();
-
-      toolStripItemCollection.Clear();
-      toolStripItemCollection.AddRange(array);
-    }
-
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="parentToolStrip">The parent tool strip</param>
-    /// <param name="captureToolStrip">The capture tool strip</param>
-    /// <param name="renderToolStrip">The render tool strip</param>
+    /// <param name="parentToolStrip">The tool strip</param>
+    /// <param name="allToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="captureToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="disabledToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="enabledToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="renderToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="captureCheckedEventHandler">The event handler</param>
+    /// <param name="renderCheckedEventHandler">The event handler</param>
     public DeviceController
     (
       ToolStrip parentToolStrip,
-      ToolStrip captureToolStrip,
-      ToolStrip renderToolStrip
+      ToolStripMenuItem allToolStripMenuItem,
+      ToolStripMenuItem captureToolStripMenuItem,
+      ToolStripMenuItem disabledToolStripMenuItem,
+      ToolStripMenuItem enabledToolStripMenuItem,
+      ToolStripMenuItem renderToolStripMenuItem,
+      EventHandler? captureCheckedEventHandler,
+      EventHandler? renderCheckedEventHandler
     )
     {
       this.DeviceGroupService =
@@ -267,27 +313,99 @@ namespace VACARM.GUI.Controllers
         >();
 
       this.ParentToolStrip = parentToolStrip;
+      this.AllToolStripMenuItem = allToolStripMenuItem;
+      this.CaptureToolStripMenuItem = captureToolStripMenuItem;
+      this.DisabledToolStripMenuItem = disabledToolStripMenuItem;
+      this.EnabledToolStripMenuItem = enabledToolStripMenuItem;
+      this.RenderToolStripMenuItem = renderToolStripMenuItem;
+      this.CaptureCheckedEventHandler = captureCheckedEventHandler;
+      this.RenderCheckedEventHandler = renderCheckedEventHandler;
       this.SetParentToolStripItemCollection();
-
-      this.SetToolStripItemCollection
-        (
-          this.CaptureToolStripItemCollection,
-          null,
-
-
     }
 
-    private IEnumerable<ToolStripItem> GetPartialParentToolStripItemEnumerable
-    (Func<ToolStripItem, bool> func)
+    private IEnumerable<uint> GetIdEnumerable
+    (ToolStripItemCollection toolStripItemCollection)
     {
-      if (func == null)
+      if (toolStripItemCollection == null)
       {
-        return Array.Empty<ToolStripItem>();
+        return Array.Empty<uint>();
       }
 
-      return this.ParentToolStripItemCollection
-        .OfType<ToolStripItem>()
-        .Where(func);
+      var idStringEnumerable = toolStripItemCollection.Cast<ToolStripItem>()
+        .ToArray()
+        .Select(x => x.ToolTipText);
+
+      return uintExtension.TryParse(idStringEnumerable);
+    }
+
+    private IEnumerable<ToolStripItem> GetModifiedParentToolStripItemEnumerable
+(
+  IEnumerable<uint> idEnumerable,
+  bool isChecked
+)
+    {
+      if (idEnumerable == null)
+      {
+        yield break;
+      }
+
+      foreach (var item in idEnumerable)
+      {
+        int index;
+
+        try
+        {
+          index = (int)item;
+        }
+        catch
+        {
+          continue;
+        }
+
+        var toolStripItem = this.ParentToolStripItemCollection[index];
+
+        if (toolStripItem.GetType() == typeof(ToolStripMenuItem))
+        {
+          (toolStripItem as ToolStripMenuItem).Checked = isChecked;
+        }
+
+        yield return toolStripItem;
+      }
+    }
+
+    private IEnumerable<ToolStripItem> GetModifiedParentToolStripItemEnumerable
+    (
+      IEnumerable<uint> idEnumerable,
+      EventHandler? checkedChanged
+    )
+    {
+      if (idEnumerable == null)
+      {
+        yield break;
+      }
+
+      foreach (var item in idEnumerable)
+      {
+        int index;
+
+        try
+        {
+          index = (int)item;
+        }
+        catch
+        {
+          continue;
+        }
+
+        var toolStripItem = this.ParentToolStripItemCollection[index];
+
+        if (toolStripItem.GetType() == typeof(ToolStripMenuItem))
+        {
+          (toolStripItem as ToolStripMenuItem).CheckedChanged += checkedChanged;
+        }
+
+        yield return toolStripItem;
+      }
     }
 
     private IEnumerable<ToolStripItem> GetPartialParentToolStripItemEnumerable
@@ -364,34 +482,32 @@ namespace VACARM.GUI.Controllers
           .ToString(),
       };
     }
-
-    private uint? GetToolStripItemCollectionId(ToolStripItem toolStripItem)
-    {
-      if (toolStripItem == null)
-      {
-        return null;
-      }
-
-      var idString = toolStripItem.ToolTipText;
-
-      var result = uint.TryParse
-        (
-          idString,
-          out uint id
-        );
-
-      if (!result)
-      {
-        return null;
-      }
-
-      return id;
-    }
-
+    
     private void PartialSetParentToolStripItemCollection
     (ToolStripItemCollection toolStripItemCollection)
     {
-      if (toolStripItemCollection == null)
+      var idEnumerable = this.GetIdEnumerable(toolStripItemCollection);
+
+      this.PartialSetParentToolStripItemCollection
+        (
+          toolStripItemCollection.Cast<ToolStripItem>()
+            .ToArray(),
+          idEnumerable
+        );
+    }
+
+    private void PartialSetParentToolStripItemCollection
+    (
+      IEnumerable<ToolStripItem> enumerable,
+      IEnumerable<uint> idEnumerable
+    )
+    {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      if (idEnumerable == null)
       {
         return;
       }
@@ -406,31 +522,13 @@ namespace VACARM.GUI.Controllers
         this.SetParentToolStripItemCollection();
       }
 
-      foreach (var item in toolStripItemCollection)
+      foreach (var item in idEnumerable)
       {
-        if (item == null)
-        {
-          continue;
-        }
-
-        if (item.GetType() != typeof(ToolStripItem))
-        {
-          continue;
-        }
-
-        var toolStripItem = item as ToolStripItem;
-        uint? id = this.GetToolStripItemCollectionId(toolStripItem);
-
-        if (id == null)
-        {
-          continue;
-        }
-
         int index;
 
         try
         {
-          index = (int)id;
+          index = (int)item;
         }
         catch
         {
@@ -438,6 +536,7 @@ namespace VACARM.GUI.Controllers
         }
 
         int tempIndex = index++;
+        var toolStripItem = enumerable.ElementAt(index);
 
         this.ParentToolStripItemCollection
           .Insert
@@ -464,6 +563,35 @@ namespace VACARM.GUI.Controllers
 
       var array = this.GetToolStripMenuItemEnumerable(modelEnumerable)
         .ToArray();
+
+      this.ParentToolStripItemCollection = new ToolStripItemCollection
+        (
+          this.ParentToolStrip,
+          array
+        );
+    }
+
+    private void SetParentToolStripItemCollection
+    (
+      bool isChecked
+    )
+    {
+      if (this.ParentToolStrip == null)
+      {
+        this.ParentToolStripItemCollection = null;
+      }
+
+      var modelEnumerable = this.DeviceGroupService
+        .SelectedRepository
+        .GetAll();
+
+      var array = this.GetToolStripMenuItemEnumerable(modelEnumerable)
+        .ToArray();
+
+      for (int index = 0; index < array.Length; index++)
+      {
+        array[index].Checked = isChecked;
+      }
 
       this.ParentToolStripItemCollection = new ToolStripItemCollection
         (
