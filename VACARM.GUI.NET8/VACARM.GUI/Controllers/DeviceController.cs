@@ -69,7 +69,7 @@ namespace VACARM.GUI.Controllers
           {
             this.SetParentToolStripItemCollection
               (
-                this.AllToolStripMenuItem
+                this.SelectAllPropertyToolStripMenuItem
                   .Checked
               );
           };
@@ -172,7 +172,7 @@ namespace VACARM.GUI.Controllers
             var enumerable = this.GetModifiedParentToolStripItemEnumerable
               (
                 this.DisabledIdEnumerable,
-                this.DisabledToolStripMenuItem.Checked
+                this.SelectAllDisabledToolStripMenuItem.Checked
               );
 
             this.PartialSetParentToolStripItemCollection
@@ -197,7 +197,7 @@ namespace VACARM.GUI.Controllers
             var enumerable = this.GetModifiedParentToolStripItemEnumerable
               (
                 this.EnabledIdEnumerable,
-                this.EnabledToolStripMenuItem.Checked
+                this.SelectAllEnabledToolStripMenuItem.Checked
               );
 
             this.PartialSetParentToolStripItemCollection
@@ -237,7 +237,7 @@ namespace VACARM.GUI.Controllers
 
         return new ToolStripItemCollection
           (
-            this.CaptureToolStripMenuItem
+            this.SelectCaptureToolStripMenuItem
               .Owner,
             array
           );
@@ -282,7 +282,7 @@ namespace VACARM.GUI.Controllers
 
         return new ToolStripItemCollection
           (
-            this.RenderToolStripMenuItem
+            this.SelectRenderToolStripMenuItem
               .Owner,
             array
           );
@@ -294,11 +294,9 @@ namespace VACARM.GUI.Controllers
       }
     }
     internal ToolStrip ParentToolStrip { get; set; }
-    internal ToolStripMenuItem AllToolStripMenuItem { get; set; }
-    internal ToolStripMenuItem CaptureToolStripMenuItem { get; set; }
-    internal ToolStripMenuItem DisabledToolStripMenuItem { get; set; }
-    internal ToolStripMenuItem EnabledToolStripMenuItem { get; set; }
-    internal ToolStripMenuItem RenderToolStripMenuItem { get; set; }
+    internal ToolStripMenuItem SelectAllPropertyToolStripMenuItem { get; set; }
+    internal ToolStripMenuItem SelectPropertyToolStripMenuItem { get; set; }
+    internal ToolStripMenuItem SelectPropertyToolStripMenuItemDropDown { get; set; }
 
     private IEnumerable<uint> CaptureIdEnumerable
     {
@@ -347,28 +345,33 @@ namespace VACARM.GUI.Controllers
 
     #region Logic
 
-    private bool ContainsId(string idString)
-    {
-      uint id;
+    //private void DoSelect
+    //(
+    //  uint id
+    //)
+    //{
+    //  this.SetParentToolStripItemCollection
+    //}
 
-      bool result = uint.TryParse
-        (
-          idString,
-          out id
-        );
-
-      return result && this.DeviceGroupService
-        .SelectedService
-        .GetAllId()
-        .Contains(id);
-    }
-
-    private void DoSelect
+    internal ToolStripItemCollection GetPropertyToolStripItemCollection
     (
-      uint id
+      IEnumerable<uint> idEnumerable,
+      EventHandler? checkedChangedEventHandler,
+      ToolStrip toolStripOwner
     )
     {
-      this.SetParentToolStripItemCollection
+      var array = this.GetModifiedParentToolStripItemEnumerable
+        (
+          idEnumerable,
+          checkedChangedEventHandler
+        )
+        .ToArray();
+
+      return new ToolStripItemCollection
+        (
+          toolStripOwner,
+          array
+        );
     }
 
     internal void SelectAll_Click
@@ -506,23 +509,18 @@ namespace VACARM.GUI.Controllers
     /// Constructor
     /// </summary>
     /// <param name="parentToolStrip">The tool strip</param>
-    /// <param name="allToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="captureToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="disabledToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="enabledToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="renderToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="captureCheckedEventHandler">The event handler</param>
-    /// <param name="renderCheckedEventHandler">The event handler</param>
+    /// <param name="selectAllPropertyToolStripMenuItem">
+    /// The tool strip menu item</param>
+    /// <param name="selectPropertyToolStripMenuItem">
+    /// The tool strip menu item</param>
+    /// <param name="selectPropertyToolStripMenuItemDropDown">
+    /// The tool strip menu item</param>
     public DeviceController
     (
       ToolStrip parentToolStrip,
-      ToolStripMenuItem allToolStripMenuItem,
-      ToolStripMenuItem captureToolStripMenuItem,
-      ToolStripMenuItem disabledToolStripMenuItem,
-      ToolStripMenuItem enabledToolStripMenuItem,
-      ToolStripMenuItem renderToolStripMenuItem,
-      EventHandler? captureCheckedEventHandler,
-      EventHandler? renderCheckedEventHandler
+      ToolStripMenuItem selectAllPropertyToolStripMenuItem,
+      ToolStripMenuItem selectPropertyToolStripMenuItem,
+      ToolStripMenuItem selectPropertyToolStripMenuItemDropDown
     )
     {
       this.DeviceGroupService =
@@ -546,13 +544,13 @@ namespace VACARM.GUI.Controllers
         >();
 
       this.ParentToolStrip = parentToolStrip;
-      this.AllToolStripMenuItem = allToolStripMenuItem;
-      this.CaptureToolStripMenuItem = captureToolStripMenuItem;
-      this.DisabledToolStripMenuItem = disabledToolStripMenuItem;
-      this.EnabledToolStripMenuItem = enabledToolStripMenuItem;
-      this.RenderToolStripMenuItem = renderToolStripMenuItem;
-      this.CaptureCheckedEventHandler = captureCheckedEventHandler;
-      this.RenderCheckedEventHandler = renderCheckedEventHandler;
+      this.SelectAllPropertyToolStripMenuItem = selectAllPropertyToolStripMenuItem;
+
+      this.SelectPropertyToolStripMenuItemDropDown =
+        selectPropertyToolStripMenuItemDropDown;
+
+      this.SelectPropertyToolStripMenuItem = selectPropertyToolStripMenuItem;
+
       this.SetParentToolStripItemCollection();
     }
 
