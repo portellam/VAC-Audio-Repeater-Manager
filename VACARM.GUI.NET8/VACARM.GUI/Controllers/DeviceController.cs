@@ -41,12 +41,12 @@ namespace VACARM.GUI.Controllers
     {
       get
       {
-        var array = this.GetToolStripItemEnumerable(this.CaptureIdEnumerable)
+        var array = this.GetPartialParentToolStripItemEnumerable(this.CaptureIdEnumerable)
           .ToArray();
 
         return new ToolStripItemCollection
           (
-            this.ToolStrip,
+            this.CaptureToolStrip,
             array
           );
       }
@@ -57,43 +57,21 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    internal ToolStripItemCollection DisabledToolStripItemCollection
+    internal IEnumerable<ToolStripItem> DisabledToolStripItemEnumerable
     {
       get
       {
-        var array = this.GetToolStripItemEnumerable(this.DisabledIdEnumerable)
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.ToolStrip,
-            array
-          );
-      }
-      set
-      {
-        this.PartialSetParentToolStripItemCollection(value);
-        this.OnPropertyChanged(nameof(this.DisabledToolStripItemCollection));
+        return this.GetPartialParentToolStripItemEnumerable
+          (this.DisabledIdEnumerable);
       }
     }
 
-    internal ToolStripItemCollection EnabledToolStripItemCollection
+    internal IEnumerable<ToolStripItem> EnabledToolStripItemEnumerable
     {
       get
       {
-        var array = this.GetToolStripItemEnumerable(this.EnabledIdEnumerable)
-          .ToArray();
-
-        return new ToolStripItemCollection
-          (
-            this.ToolStrip,
-            array
-          );
-      }
-      set
-      {
-        this.PartialSetParentToolStripItemCollection(value);
-        this.OnPropertyChanged(nameof(this.EnabledToolStripItemCollection));
+        return this.GetPartialParentToolStripItemEnumerable
+          (this.EnabledIdEnumerable);
       }
     }
 
@@ -104,12 +82,13 @@ namespace VACARM.GUI.Controllers
     {
       get
       {
-        var array = this.GetToolStripItemEnumerable(this.RenderIdEnumerable)
+        var array = this.GetPartialParentToolStripItemEnumerable
+          (this.RenderIdEnumerable)
           .ToArray();
 
         return new ToolStripItemCollection
           (
-            this.ToolStrip,
+            this.RenderToolStrip,
             array
           );
       }
@@ -120,7 +99,9 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    internal ToolStrip ToolStrip { get; set; }
+    internal ToolStrip CaptureToolStrip { get; set; }
+    internal ToolStrip ParentToolStrip { get; set; }
+    internal ToolStrip RenderToolStrip { get; set; }
 
     private IEnumerable<uint> CaptureIdEnumerable
     {
@@ -192,11 +173,78 @@ namespace VACARM.GUI.Controllers
       );
     }
 
+    internal void SetToolStripItemCollection
+    (
+      ref ToolStripItemCollection toolStripItemCollection,
+      Action action,
+      Func<ToolStripItem, bool> func
+    )
+    {
+      if (toolStripItemCollection == null)
+      {
+        return;
+      }
+
+
+      if (action == null)
+      {
+        return;
+      }
+
+      if (func == null)
+      {
+        return;
+      }
+
+      var array = this.GetPartialParentToolStripItemEnumerable(func)
+        .ToArray();
+
+      toolStripItemCollection.Clear();
+      toolStripItemCollection.AddRange(array);
+    }
+
+    internal void SetToolStripItemCollection
+    (
+      ref ToolStripItemCollection toolStripItemCollection,
+      Action action,
+      IEnumerable<uint> idEnumerable
+    )
+    {
+      if (toolStripItemCollection == null)
+      {
+        return;
+      }
+
+
+      if (action == null)
+      {
+        return;
+      }
+
+      if (idEnumerable == null)
+      {
+        return;
+      }
+
+      var array = this.GetPartialParentToolStripItemEnumerable(idEnumerable)
+        .ToArray();
+
+      toolStripItemCollection.Clear();
+      toolStripItemCollection.AddRange(array);
+    }
+
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="toolStripItem">The tool strip</param>
-    public DeviceController(ToolStrip toolStrip)
+    /// <param name="parentToolStrip">The parent tool strip</param>
+    /// <param name="captureToolStrip">The capture tool strip</param>
+    /// <param name="renderToolStrip">The render tool strip</param>
+    public DeviceController
+    (
+      ToolStrip parentToolStrip,
+      ToolStrip captureToolStrip,
+      ToolStrip renderToolStrip
+    )
     {
       this.DeviceGroupService =
         new DeviceGroupService
@@ -218,11 +266,31 @@ namespace VACARM.GUI.Controllers
           DeviceModel
         >();
 
-      this.ToolStrip = toolStrip;
+      this.ParentToolStrip = parentToolStrip;
       this.SetParentToolStripItemCollection();
+
+      this.SetToolStripItemCollection
+        (
+          this.CaptureToolStripItemCollection,
+          null,
+
+
     }
 
-    private IEnumerable<ToolStripItem> GetToolStripItemEnumerable
+    private IEnumerable<ToolStripItem> GetPartialParentToolStripItemEnumerable
+    (Func<ToolStripItem, bool> func)
+    {
+      if (func == null)
+      {
+        return Array.Empty<ToolStripItem>();
+      }
+
+      return this.ParentToolStripItemCollection
+        .OfType<ToolStripItem>()
+        .Where(func);
+    }
+
+    private IEnumerable<ToolStripItem> GetPartialParentToolStripItemEnumerable
     (IEnumerable<uint> idEnumerable)
     {
       if (idEnumerable == null)
@@ -335,7 +403,7 @@ namespace VACARM.GUI.Controllers
           .Count == 0
       )
       {
-
+        this.SetParentToolStripItemCollection();
       }
 
       foreach (var item in toolStripItemCollection)
@@ -385,7 +453,7 @@ namespace VACARM.GUI.Controllers
 
     private void SetParentToolStripItemCollection()
     {
-      if (this.ToolStrip == null)
+      if (this.ParentToolStrip == null)
       {
         this.ParentToolStripItemCollection = null;
       }
@@ -399,7 +467,7 @@ namespace VACARM.GUI.Controllers
 
       this.ParentToolStripItemCollection = new ToolStripItemCollection
         (
-          this.ToolStrip,
+          this.ParentToolStrip,
           array
         );
     }
@@ -422,7 +490,7 @@ namespace VACARM.GUI.Controllers
 
         this.ParentToolStripItemCollection = null;
 
-        this.ToolStrip
+        this.ParentToolStrip
           .Dispose();
       }
 
