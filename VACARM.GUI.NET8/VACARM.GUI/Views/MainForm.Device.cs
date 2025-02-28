@@ -1,10 +1,14 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Linq;
+using VACARM.Domain.Models;
+using VACARM.GUI.Controllers;
 
 namespace VACARM.GUI.Views
 {
   public partial class MainForm
   {
     #region Parameters
+
+    internal DeviceController DeviceController { get; set; }
 
     internal HashSet<uint> SelectedDeviceIdHashSet
     {
@@ -147,6 +151,40 @@ namespace VACARM.GUI.Views
     private void SetDeviceSelectToolStripItemCollection
     (
       ref ToolStripMenuItem deviceSelectDirectionToolStripMenuItem,
+      ToolStripItemCollection toolStripItemCollection
+    )
+    {
+      if (deviceSelectDirectionToolStripMenuItem == null)
+      {
+        return;
+      }
+
+      deviceSelectDirectionToolStripMenuItem.DropDownItems
+        .Clear();
+
+      deviceSelectDirectionToolStripMenuItem.DropDownItemClicked +=
+        deviceConfirmSelectToolStripMenuItem_CheckedChanged;
+
+      if (deviceSelectDirectionToolStripMenuItem.Owner != null)
+      {
+        ToolStripItemCollection toolStripItemCollection =
+          new ToolStripItemCollection
+          (
+            deviceSelectDirectionToolStripMenuItem.Owner,
+            enumerable.ToArray()
+          );
+      }
+
+      deviceSelectDirectionToolStripMenuItem.Enabled =
+        deviceSelectDirectionToolStripMenuItem.HasDropDownItems;
+    }
+
+
+
+
+    private void SetDeviceSelectToolStripItemCollection
+    (
+      ref ToolStripMenuItem deviceSelectDirectionToolStripMenuItem,
       IEnumerable<ToolStripMenuItem> enumerable
     )
     {
@@ -215,7 +253,7 @@ namespace VACARM.GUI.Views
       {
         return;
       }
-
+      
       deviceSelectInputToolStripMenuItem
         .DropDownItemClicked +=
         (
@@ -374,7 +412,7 @@ namespace VACARM.GUI.Views
               .Cast<ToolStripMenuItem>()
               .Where
               (
-                x => 
+                x =>
                 this.GetAllEnabledId
                   .Contains(x.ToolTipText)
               );
