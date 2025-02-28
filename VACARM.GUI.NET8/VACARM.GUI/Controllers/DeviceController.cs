@@ -1,13 +1,33 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using VACARM.Domain.Models;
-using VACARM.GUI.Functions;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
 namespace VACARM.GUI.Controllers
 {
+  /* 
+   * GOAL:
+   * - consistent UI.
+   * - responsive UI.
+   * - dynamic tool strip menu items given repository.
+   * - selections are reflected between tool strip menu items and elsewhere.
+   * 
+   * TODO:
+   * 1. Click method validates ToolTipText
+   * 2. Add/Delete from Selected HashSet
+   * 3. On update of Selected HashSet, update Parent ToolStripItemCollection.
+   * 4. Every item in Parent ToolStripItemCollection uses an CheckedChanged
+   *    EventHandler which points to the aforementioned Click method (#1).
+   * 
+   * TODO: determine if we can have a Select-All or Select-Many check all the
+   * related nested ToolStripMenuItems.
+   * TODO: determine if we can have Select nested ToolStripMenuItems check
+   * the Select-All or Select-Many if the selected groups match.
+   */
+
+
   /// <summary>
   /// Controller for <typeparamref name="DeviceGroupService"/>.
   /// </summary>
@@ -56,8 +76,89 @@ namespace VACARM.GUI.Controllers
       }
     }
 
+    internal EventHandler? AllCaptureCheckedEventHandler
+    {
+      get
+      {
+        return
+          (
+            sender,
+            eventArgs
+          ) =>
+          {
+            this.SetParentToolStripItemCollection
+              (
+                this.AllCaptureToolStripMenuItem
+                  .Checked,
+                this.CaptureIdEnumerable
+              );
+          };
+      }
+    }
+
+    internal EventHandler? AllDisabledCheckedEventHandler
+    {
+      get
+      {
+        return
+          (
+            sender,
+            eventArgs
+          ) =>
+          {
+            this.SetParentToolStripItemCollection
+              (
+                this.AllCaptureToolStripMenuItem
+                  .Checked,
+                this.DisabledIdEnumerable
+              );
+          };
+      }
+    }
+
+    internal EventHandler? AllEnabledCheckedEventHandler
+    {
+      get
+      {
+        return
+          (
+            sender,
+            eventArgs
+          ) =>
+          {
+            this.SetParentToolStripItemCollection
+              (
+                this.AllCaptureToolStripMenuItem
+                  .Checked,
+                this.EnabledIdEnumerable
+              );
+          };
+      }
+    }
+
+    internal EventHandler? AllRenderCheckedEventHandler
+    {
+      get
+      {
+        return
+          (
+            sender,
+            eventArgs
+          ) =>
+          {
+            this.SetParentToolStripItemCollection
+              (
+                this.AllCaptureToolStripMenuItem
+                  .Checked,
+                this.RenderIdEnumerable
+              );
+          };
+      }
+    }
+
     internal EventHandler? CaptureCheckedEventHandler { get; set; }
 
+    // NOTE: does the new logic *and* intent behind AllSomethingChecked... make this redundant?
     internal EventHandler? DisabledCheckedEventHandler
     {
       get
@@ -246,6 +347,138 @@ namespace VACARM.GUI.Controllers
 
     #region Logic
 
+    private bool ContainsId(string idString)
+    {
+      uint id;
+
+      bool result = uint.TryParse
+        (
+          idString,
+          out id
+        );
+
+      return result && this.DeviceGroupService
+        .SelectedService
+        .GetAllId()
+        .Contains(id);
+    }
+
+    private void DoSelect
+    (
+      uint id
+    )
+    {
+      this.SetParentToolStripItemCollection
+    }
+
+    internal void SelectAll_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      if (sender.GetType() != typeof(ToolStripMenuItem))
+      {
+        return;
+      }
+
+      var toolStripMenuItem = sender as ToolStripMenuItem;
+
+      //TODO: write code here.
+
+    }
+
+    internal void SelectAllCapture_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      if (sender.GetType() != typeof(ToolStripMenuItem))
+      {
+        return;
+      }
+
+      var toolStripMenuItem = sender as ToolStripMenuItem;
+
+      //TODO: write code here.
+    }
+
+    internal void SelectAllDisabled_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      if (sender.GetType() != typeof(ToolStripMenuItem))
+      {
+        return;
+      }
+
+      var toolStripMenuItem = sender as ToolStripMenuItem;
+
+      //TODO: write code here.
+    }
+
+    internal void SelectAllEnabled_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      if (sender.GetType() != typeof(ToolStripMenuItem))
+      {
+        return;
+      }
+
+      var toolStripMenuItem = sender as ToolStripMenuItem;
+
+      //TODO: write code here.
+
+    }
+
+    internal void SelectAllRender_Click
+    (
+      object sender,
+      EventArgs eventArgs
+    )
+    {
+      if (sender == null)
+      {
+        return;
+      }
+
+      if (sender.GetType() != typeof(ToolStripMenuItem))
+      {
+        return;
+      }
+
+      var toolStripMenuItem = sender as ToolStripMenuItem;
+
+      //TODO: write code here.
+
+    }
+
     /// <summary>
     /// Logs event when property has changed.
     /// </summary>
@@ -339,10 +572,10 @@ namespace VACARM.GUI.Controllers
     }
 
     private IEnumerable<ToolStripItem> GetModifiedParentToolStripItemEnumerable
-(
-  IEnumerable<uint> idEnumerable,
-  bool isChecked
-)
+    (
+      IEnumerable<uint> idEnumerable,
+      bool isChecked
+    )
     {
       if (idEnumerable == null)
       {
@@ -482,7 +715,7 @@ namespace VACARM.GUI.Controllers
           .ToString(),
       };
     }
-    
+
     private void PartialSetParentToolStripItemCollection
     (ToolStripItemCollection toolStripItemCollection)
     {
@@ -598,6 +831,61 @@ namespace VACARM.GUI.Controllers
           this.ParentToolStrip,
           array
         );
+    }
+
+    private void SortParentToolStripItemCollection()
+    {
+      if (this.ParentToolStripItemCollection == null)
+      {
+        return;
+      }
+
+      var array = this.ParentToolStripItemCollection
+        .Cast<ToolStripMenuItem>()
+        .OrderBy(x => x.ToolTipText)
+        .ToArray();
+
+      this.ParentToolStripItemCollection.Clear();
+      this.ParentToolStripItemCollection.AddRange(array);
+    }
+
+    private void SetParentToolStripItemCollection
+    (
+      bool isChecked,
+      IEnumerable<uint> idEnumerable
+    )
+    {
+      if (this.ParentToolStrip == null)
+      {
+        this.ParentToolStripItemCollection = null;
+      }
+
+      var modelEnumerable = this.DeviceGroupService
+        .SelectedService
+        .GetRange(idEnumerable);
+
+      var array = this.GetToolStripMenuItemEnumerable(modelEnumerable)
+        .ToArray();
+
+      for (int index = 0; index < array.Length; index++)
+      {
+        array[index].Checked = isChecked;
+      }
+
+      this.ParentToolStripItemCollection = new ToolStripItemCollection
+        (
+          this.ParentToolStrip,
+          array
+        );
+
+      modelEnumerable = this.DeviceGroupService
+        .SelectedService
+        .GetAntiRange(idEnumerable);
+
+      array = this.GetToolStripMenuItemEnumerable(modelEnumerable)
+        .ToArray();
+
+      this.ParentToolStripItemCollection.AddRange(array);
     }
 
     /// <summary>
