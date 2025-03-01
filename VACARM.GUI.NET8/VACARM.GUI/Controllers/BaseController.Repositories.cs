@@ -10,6 +10,9 @@ namespace VACARM.GUI.Controllers
   {
     #region Parameters
 
+    /// <summary>
+    /// The analog of <typeparamref name="TBaseGroupService"/>.
+    /// </summary>
     internal ReadonlyRepository<ToolStripMenuItem> ToolStripMenuItemRepository
     { get; set; } = new ReadonlyRepository<ToolStripMenuItem>();
 
@@ -59,6 +62,43 @@ namespace VACARM.GUI.Controllers
         return null;
       }
 
+      return toolStripMenuItem;
+    }
+
+    internal ToolStripMenuItem GetToolStripMenuItemWithDropDownItems
+    (
+      IEnumerable<TBaseModel> modelEnumerable,
+      Func<TBaseModel, bool> modelFunc,
+      string name
+    )
+    {
+      var toolStripMenuItem = DefaultSelectRangeToolStripMenuItem;
+      toolStripMenuItem.Name += " " + name;
+
+      var idEnumerable = modelEnumerable
+        .Where(modelFunc)
+        .Select(x => x.Id);
+
+      var array = this.GetRange(idEnumerable)
+        .ToArray();
+
+      toolStripMenuItem.DropDownItems.AddRange(array);
+      return toolStripMenuItem;
+    }
+
+    internal ToolStripMenuItem GetToolStripMenuItemWithDropDownItems
+    (
+      IEnumerable<uint> idEnumerable,
+      string name
+    )
+    {
+      var toolStripMenuItem = DefaultSelectRangeToolStripMenuItem;
+      toolStripMenuItem.Name += " " + name;
+
+      var array = this.GetRange(idEnumerable)
+        .ToArray();
+
+      toolStripMenuItem.DropDownItems.AddRange(array);
       return toolStripMenuItem;
     }
 
