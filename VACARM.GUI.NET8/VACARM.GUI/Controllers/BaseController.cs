@@ -83,7 +83,7 @@ namespace VACARM.GUI.Controllers
             }
 
             var toolStripMenuItem = sender as ToolStripMenuItem;
-            string idString = this.IdFunc(toolStripMenuItem);
+            string idString = IdFunc(toolStripMenuItem);
 
             uint id;
 
@@ -98,7 +98,7 @@ namespace VACARM.GUI.Controllers
               return;
             }
 
-            var isChecked = this.SelectedFunc(toolStripMenuItem);
+            var isChecked = SelectedFunc(toolStripMenuItem);
 
             this.SelectOnCheck
               (
@@ -106,30 +106,6 @@ namespace VACARM.GUI.Controllers
                 isChecked
               );
           };
-      }
-    }
-
-    internal Func<ToolStripMenuItem, string> IdFunc
-    {
-      get
-      {
-        return (ToolStripMenuItem x) => x.ToolTipText;
-      }
-    }
-
-    internal Func<ToolStripMenuItem, string> NameFunc
-    {
-      get
-      {
-        return (ToolStripMenuItem x) => x.Name;
-      }
-    }
-
-    internal Func<ToolStripMenuItem, bool> SelectedFunc
-    {
-      get
-      {
-        return (ToolStripMenuItem x) => x.Checked;
       }
     }
 
@@ -155,6 +131,15 @@ namespace VACARM.GUI.Controllers
       DisplayStyle = ToolStripItemDisplayStyle.Text,
       Name = SelectRangeString
     };
+
+    private readonly static Func<ToolStripMenuItem, string> IdFunc =
+      (ToolStripMenuItem x) => x.ToolTipText;
+
+    private readonly static Func<ToolStripMenuItem, string> NameFunc =
+      (ToolStripMenuItem x) => x.Name;
+
+    private readonly static Func<ToolStripMenuItem, bool> SelectedFunc =
+      (ToolStripMenuItem x) => x.Checked;
 
     private readonly static string SelectString = "Select";
 
