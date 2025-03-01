@@ -121,14 +121,6 @@ namespace VACARM.Infrastructure.Services
         .Get(func);
     }
 
-    public IEnumerable<TBaseModel> GetAllById(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return base.Repository
-        .GetRange(func);
-    }
-
     public IEnumerable<TBaseModel> GetAntiRange
     (
       uint startId,

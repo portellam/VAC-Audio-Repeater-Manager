@@ -9,6 +9,8 @@ namespace VACARM.Infrastructure.Repositories
     #region Parameters
 
     Func<int, bool> IsValidIndex { get; }
+    IEnumerable<uint> DeselectedIdEnumerable { get; }
+    HashSet<uint> SelectedIdHashSet { get; set; }
     int MaxCount { get; }
 
     #endregion

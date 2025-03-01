@@ -48,13 +48,6 @@ namespace VACARM.Infrastructure.Services
     /// <returns>The item.</returns>
     TBaseModel? Get(uint id);
 
-    /// <summary>
-    /// Get an enumerable of <typeparamref name="TBaseModel"/>(s) by an enumerable
-    /// of ID(s).
-    /// </summary>
-    /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    /// <returns>The enumerable of item(s).</returns>
-    IEnumerable<TBaseModel> GetAllById(IEnumerable<uint> idEnumerable);
 
     /// <summary>
     /// Get an enumerable of some <typeparamref name="TBaseModel"/>(s).

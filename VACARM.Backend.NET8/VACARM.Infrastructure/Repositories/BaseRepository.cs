@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Functions;
@@ -77,6 +76,21 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public IEnumerable<uint> DeselectedIdEnumerable
+    {
+      get
+      {
+        return this.Enumerable
+          .Where
+          (
+            BaseFunctions<TBaseModel>.NotContainsIdEnumerable
+              (this.SelectedIdHashSet)
+          ).Select(x => x.Id);
+      }
+    }
+
+    public HashSet<uint> SelectedIdHashSet { get; set; }
+
     public virtual int MaxCount
     {
       get
@@ -89,8 +103,6 @@ namespace VACARM.Infrastructure.Repositories
         base.OnPropertyChanged(nameof(this.MaxCount));
       }
     }
-
-    public HashSet<uint> SelectedIdEnumerable { get; set; }
 
     #endregion
 
@@ -272,7 +284,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      this.SelectedIdEnumerable
+      this.SelectedIdHashSet
         .Remove(model.Id);
     }
 
@@ -300,6 +312,19 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public void DeselectAll()
+    {
+      if (base.Enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in base.Enumerable)
+      {
+        this.Deselect(item);
+      }
+    }
+
     public void RemoveAll()
     {
       base.Enumerable = new List<TBaseModel>();
@@ -319,7 +344,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      this.SelectedIdEnumerable
+      this.SelectedIdHashSet
         .Add(model.Id);
     }
 
@@ -342,6 +367,19 @@ namespace VACARM.Infrastructure.Repositories
       }
 
       foreach (var item in enumerable)
+      {
+        this.Select(item);
+      }
+    }
+
+    public void SelectAll()
+    {
+      if (base.Enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in base.Enumerable)
       {
         this.Select(item);
       }
