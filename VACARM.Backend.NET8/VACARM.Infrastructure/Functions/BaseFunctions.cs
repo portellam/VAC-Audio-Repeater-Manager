@@ -6,15 +6,31 @@ namespace VACARM.Infrastructure.Functions
     where TBaseModel :
     BaseModel
   {
+    #region Parameters
+
+    /// <summary>
+    /// Get a <typeparamref name="TBaseModel"/> ID.
+    /// </summary>
+    /// <returns>The function.</returns>
+    internal static Func<TBaseModel, uint> GetId
+    {
+      get
+      {
+        return (TBaseModel model) => model.Id;
+      }
+    }
+
+    #endregion
+
+    #region Logic
+
     /// <summary>
     /// Match a <typeparamref name="TBaseModel"/> ID.
     /// </summary>
     /// <param name="model">The model</param>
     /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsId(TBaseModel model)
-      => (TBaseModel item) => item.Id == model.Id;
-
-    #region Logic
+      => (TBaseModel model) => model.Id == model.Id;
 
     /// <summary>
     /// Match a <typeparamref name="TBaseModel"/> ID.
@@ -23,7 +39,7 @@ namespace VACARM.Infrastructure.Functions
     /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsId(uint? id)
     {
-      return (TBaseModel item) => item.Id == id;
+      return (TBaseModel model) => model.Id == id;
     }
 
     /// <summary>
@@ -38,9 +54,9 @@ namespace VACARM.Infrastructure.Functions
       uint? endId
     )
     {
-      return (TBaseModel item) =>
-        item.Id >= startId
-        && item.Id <= endId;
+      return (TBaseModel model) =>
+        model.Id >= startId
+        && model.Id <= endId;
     }
 
     /// <summary>
@@ -51,7 +67,7 @@ namespace VACARM.Infrastructure.Functions
     internal static Func<TBaseModel, bool> ContainsIdEnumerable
     (IEnumerable<uint> idEnumerable)
     {
-      return (TBaseModel item) => idEnumerable.Contains(item.Id);
+      return (TBaseModel model) => idEnumerable.Contains(model.Id);
     }
 
     /// <summary>
@@ -66,10 +82,10 @@ namespace VACARM.Infrastructure.Functions
       uint? endId
     )
     {
-      return (TBaseModel item) =>
+      return (TBaseModel model) =>
         !(
-          item.Id >= startId
-          && item.Id <= endId
+          model.Id >= startId
+          && model.Id <= endId
         );
     }
 
@@ -81,7 +97,7 @@ namespace VACARM.Infrastructure.Functions
     internal static Func<TBaseModel, bool> NotContainsIdEnumerable
     (IEnumerable<uint> idEnumerable)
     {
-      return (TBaseModel item) => !idEnumerable.Contains(item.Id);
+      return (TBaseModel model) => !idEnumerable.Contains(model.Id);
     }
 
     #endregion
