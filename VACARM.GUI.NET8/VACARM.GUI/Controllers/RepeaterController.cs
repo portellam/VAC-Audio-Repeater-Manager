@@ -39,6 +39,41 @@ namespace VACARM.GUI.Controllers
 
     internal ToolStrip OwnerToolStrip { get; set; }
 
+    internal ToolStripItemCollection StartedToolStripItemCollection
+    {
+      get
+      {
+        var idEnumerable = this.GroupService
+          .SelectedRepository
+          .GetAll()
+          .Where(x => x.IsStarted)
+          .Select(x => x.Id);
+
+        IEnumerable<ToolStripMenuItem> enumerable = Array.Empty<ToolStripMenuItem>();
+
+        foreach(var item in idEnumerable)
+        {
+          var func = ContainsId(item);
+
+          var toolStripMenuItem = base.ToolStripMenuItemRepository
+            .Get(func);
+
+          if (toolStripMenuItem == null)
+          {
+            continue;
+          }
+
+          enumerable.Append(toolStripMenuItem);
+        }
+
+        return new ToolStripItemCollection
+          (
+            this.OwnerToolStrip,
+            enumerable.ToArray()
+          );
+      }
+    }
+
     internal override Func<RepeaterModel, string> NameFunc
     {
       get
