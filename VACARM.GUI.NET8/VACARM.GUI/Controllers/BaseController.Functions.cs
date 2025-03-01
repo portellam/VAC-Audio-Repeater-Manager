@@ -11,12 +11,16 @@
     internal readonly static Func<ToolStripMenuItem, string> IdFunc =
       (ToolStripMenuItem x) => x.ToolTipText;
 
-    internal readonly static Func<ToolStripMenuItem, string> NameFunc =
-      (ToolStripMenuItem x) => x.Name;
-
     internal readonly static Func<ToolStripMenuItem, bool> SelectedFunc =
       (ToolStripMenuItem x) => x.Checked;
 
+    internal virtual Func<TBaseModel, string> NameFunc
+    {
+      get
+      {
+        return (TBaseModel x) => DefaultName;
+      }
+    }
 
     #endregion
 

@@ -147,7 +147,7 @@ namespace VACARM.GUI.Controllers
         var toolStripMenuItem = GetNew
           (
             item.Id,
-            DefaultName
+            this.NameFunc(item)
           );
 
         enumerable.Append(toolStripMenuItem);

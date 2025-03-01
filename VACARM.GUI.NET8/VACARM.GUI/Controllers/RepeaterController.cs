@@ -35,10 +35,27 @@ namespace VACARM.GUI.Controllers
     #region Parameters
 
     internal ToolStrip OwnerToolStrip { get; set; }
+
+    internal override Func<RepeaterModel, string> NameFunc
+    { 
+      get
+      {
+        return (RepeaterModel x) => x.WindowName;
+      }
+    }
+
     #endregion
 
     #region Logic
 
+    private void SetToolStripMenuItems()
+    {
+
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public RepeaterController() :
       base()
     {
@@ -60,32 +77,8 @@ namespace VACARM.GUI.Controllers
         BaseRepository<RepeaterModel>,
         RepeaterModel
       >();
-    }
 
-
-    internal void SetToolStripItemCollectionProperties()
-    {
-      if (this.AllToolStripItemCollection == null)
-      {
-        this.AllToolStripItemCollection = new ToolStripItemCollection
-          (
-            this.
-          );
-      }
-    }
-
-
-    internal void SetToolStripItemCollectionProperties
-    (
-      ref ToolStripItemCollection toolStripItemCollection
-    )
-    {
-      if (toolStripItemCollection == null)
-      {
-        yield break;
-      }
-
-      var enumerable = this.Get
+      this.SetToolStripMenuItems();
     }
 
     #endregion

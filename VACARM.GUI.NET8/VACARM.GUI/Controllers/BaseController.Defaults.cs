@@ -32,7 +32,6 @@
     };
 
     private readonly static bool DefaultIsChecked = false;
-    private readonly static string DefaultName = string.Empty;
     private readonly static string SelectString = "Select";
     private readonly static string SelectRangeString = string.Format
       (
@@ -41,6 +40,13 @@
         "All"
       );
 
+    internal virtual string DefaultName
+    {
+      get
+      {
+        return string.Empty;
+      }
+    }
 
     #endregion
 
