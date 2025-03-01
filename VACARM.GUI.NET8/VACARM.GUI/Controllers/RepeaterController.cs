@@ -4,9 +4,12 @@ using VACARM.Infrastructure.Services;
 
 namespace VACARM.GUI.Controllers
 {
+  /// <summary>
+  /// The controller of <typeparamref name="RepeaterGroupService"/>.
+  /// </summary>
   internal partial class RepeaterController
     <
-      TBaseGroupService,
+      RepeaterGroupService,
       TRepeaterModel
     > :
     BaseController
@@ -17,27 +20,27 @@ namespace VACARM.GUI.Controllers
         <
           BaseService
           <
-            BaseRepository<RepeaterModel>,
-            RepeaterModel
+            BaseRepository<TRepeaterModel>,
+            TRepeaterModel
           >
         >,
         BaseService
         <
-          BaseRepository<RepeaterModel>,
-          RepeaterModel
+          BaseRepository<TRepeaterModel>,
+          TRepeaterModel
         >,
-        BaseRepository<RepeaterModel>,
-        RepeaterModel
+        BaseRepository<TRepeaterModel>,
+        TRepeaterModel
       >,
-      RepeaterModel
-    >
+      TRepeaterModel
+    > where TRepeaterModel : RepeaterModel
   {
     #region Parameters
 
     internal ToolStrip OwnerToolStrip { get; set; }
 
     internal override Func<RepeaterModel, string> NameFunc
-    { 
+    {
       get
       {
         return (RepeaterModel x) => x.WindowName;
@@ -56,7 +59,7 @@ namespace VACARM.GUI.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public RepeaterController() :
+    internal RepeaterController() :
       base()
     {
       this.GroupService = new RepeaterGroupService
@@ -65,17 +68,17 @@ namespace VACARM.GUI.Controllers
         <
           BaseService
           <
-            BaseRepository<RepeaterModel>,
-            RepeaterModel
+            BaseRepository<TRepeaterModel>,
+            TRepeaterModel
           >
         >,
         BaseService
         <
-          BaseRepository<RepeaterModel>,
-          RepeaterModel
+          BaseRepository<TRepeaterModel>,
+          TRepeaterModel
         >,
-        BaseRepository<RepeaterModel>,
-        RepeaterModel
+        BaseRepository<TRepeaterModel>,
+        TRepeaterModel
       >();
 
       this.SetToolStripMenuItems();
