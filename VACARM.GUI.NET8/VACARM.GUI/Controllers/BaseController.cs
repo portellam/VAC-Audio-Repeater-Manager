@@ -132,6 +132,8 @@ namespace VACARM.GUI.Controllers
       Name = SelectRangeString
     };
 
+    private readonly static bool DefaultIsChecked = false;
+
     private readonly static Func<ToolStripMenuItem, string> IdFunc =
       (ToolStripMenuItem x) => x.ToolTipText;
 
@@ -227,7 +229,7 @@ namespace VACARM.GUI.Controllers
     /// Select/Deselect given <see langword="isChecked"/> is true/false.
     /// </summary>
     /// <param name="isChecked">True/false</param>
-    internal void SelectAllOnCheck(bool isChecked)
+    private void SelectAllOnCheck(bool isChecked)
     {
       if (isChecked)
       {
@@ -249,7 +251,7 @@ namespace VACARM.GUI.Controllers
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="isChecked">True/false</param>
-    internal void SelectOnCheck
+    private void SelectOnCheck
     (
       uint id,
       bool isChecked
@@ -275,7 +277,7 @@ namespace VACARM.GUI.Controllers
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="isChecked">True/false</param>
-    internal void SelectRangeOnCheck
+    private void SelectRangeOnCheck
     (
       IEnumerable<uint> idEnumerable,
       bool isChecked
@@ -296,9 +298,19 @@ namespace VACARM.GUI.Controllers
       }
     }
 
-    private void SetDefaultToolStripMenuItem()
+    private void SetDefaultToolStripMenuItems()
     {
-      DefaultToolStripMenuItem.CheckedChanged += CheckedChangedEventHandler;
+      DefaultToolStripMenuItem.CheckedChanged += this.CheckedChangedEventHandler;
+      DefaultSelectToolStripMenuItem.CheckedChanged += this.CheckedChangedEventHandler;
+
+      DefaultSelectRangeToolStripMenuItem.CheckedChanged +=
+        this.RangeCheckedChangedEventHandler
+        (
+          this.GroupService
+            .SelectedService
+            .GetAllId(),
+          DefaultIsChecked
+        );
     }
 
     protected override void Dispose(bool isDisposed)
@@ -342,6 +354,8 @@ namespace VACARM.GUI.Controllers
           BaseRepository<TBaseModel>,
           TBaseModel
         >();
+
+      this.SetDefaultToolStripMenuItems();
     }
 
     /// <summary>
