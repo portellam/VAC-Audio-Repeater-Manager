@@ -8,13 +8,13 @@
   {
     #region Parameters
 
-    private readonly static Func<ToolStripMenuItem, string> IdFunc =
+    internal readonly static Func<ToolStripMenuItem, string> IdFunc =
       (ToolStripMenuItem x) => x.ToolTipText;
 
-    private readonly static Func<ToolStripMenuItem, string> NameFunc =
+    internal readonly static Func<ToolStripMenuItem, string> NameFunc =
       (ToolStripMenuItem x) => x.Name;
 
-    private readonly static Func<ToolStripMenuItem, bool> SelectedFunc =
+    internal readonly static Func<ToolStripMenuItem, bool> SelectedFunc =
       (ToolStripMenuItem x) => x.Checked;
 
 
@@ -22,7 +22,7 @@
 
     #region Logic
 
-    private static Func<ToolStripMenuItem, bool> ContainsId(uint id)
+    internal static Func<ToolStripMenuItem, bool> ContainsId(uint id)
     {
       return (ToolStripMenuItem x) => IdFunc(x) == id.ToString();
     }
