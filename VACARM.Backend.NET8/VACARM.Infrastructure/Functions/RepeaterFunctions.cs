@@ -2,16 +2,16 @@
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class RepeaterFunctions<TRepeaterModel>
+  public static class RepeaterFunctions<TRepeaterModel>
     where TRepeaterModel :
     RepeaterModel
   {
     #region Parameters
 
-    internal static Func<TRepeaterModel, bool> IsStarted =
+    public static Func<TRepeaterModel, bool> IsStarted =
       (TRepeaterModel x) => x.IsStarted;
 
-    internal static Func<TRepeaterModel, bool> IsStopped =
+    public static Func<TRepeaterModel, bool> IsStopped =
       (TRepeaterModel x) => !x.IsStarted;
 
     #endregion
@@ -23,7 +23,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="deviceId">The device ID</param>
     /// <returns>The function</returns>
-    internal static Func<TRepeaterModel, bool> ContainsDeviceId(uint deviceId)
+    public static Func<TRepeaterModel, bool> ContainsDeviceId(uint deviceId)
     {
       return (TRepeaterModel x) => 
         x.InputDeviceId == deviceId
@@ -35,7 +35,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="deviceName">The device name</param>
     /// <returns>The function</returns>
-    internal static Func<TRepeaterModel, bool> ContainsDeviceName(string deviceName)
+    public static Func<TRepeaterModel, bool> ContainsDeviceName(string deviceName)
     {
       return (TRepeaterModel x) =>
         x.InputDeviceName == deviceName
@@ -47,7 +47,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="windowName">The window name</param>
     /// <returns>The function</returns>
-    internal static Func<TRepeaterModel, bool> ContainsWindowName(string windowName)
+    public static Func<TRepeaterModel, bool> ContainsWindowName(string windowName)
     {
       return (TRepeaterModel x) =>
         x.WindowName
