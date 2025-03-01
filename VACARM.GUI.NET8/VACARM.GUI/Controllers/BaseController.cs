@@ -195,7 +195,29 @@ namespace VACARM.GUI.Controllers
       );
     }
 
-    //TODO: select/deselect, and check/uncheck
+    /// <summary>
+    /// Select/Deselect the corresponding enumerable of all
+    /// <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="isChecked">True/false</param>
+    internal EventHandler? AllCheckedChangedEventHandler(bool isChecked)
+    {
+      return
+        (
+          sender,
+          eventArgs
+        ) =>
+        {
+          this.SelectAllOnCheck(isChecked);
+        };
+    }
+
+    /// <summary>
+    /// Select/Deselect the corresponding enumerable of some
+    /// <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <param name="isChecked">True/false</param>
     internal EventHandler? RangeCheckedChangedEventHandler
     (
       IEnumerable<uint> idEnumerable,
@@ -208,24 +230,16 @@ namespace VACARM.GUI.Controllers
           eventArgs
         ) =>
         {
-          if (isChecked)
-          {
-            this.GroupService
-              .SelectedService
-              .SelectRange(idEnumerable);
-          }
-
-          else
-          {
-            this.GroupService
-              .SelectedService
-              .DeselectRange(idEnumerable);
-          }
+          this.SelectRangeOnCheck
+          (
+            idEnumerable,
+            isChecked
+          );
         };
     }
 
     /// <summary>
-    /// Select/deselect given <see langword="isChecked"/> is true/false.
+    /// Select/Deselect given <see langword="isChecked"/> is true/false.
     /// </summary>
     /// <param name="isChecked">True/false</param>
     internal void SelectAllOnCheck(bool isChecked)
@@ -246,7 +260,7 @@ namespace VACARM.GUI.Controllers
     }
 
     /// <summary>
-    /// Select/deselect given <see langword="isChecked"/> is true/false.
+    /// Select/Deselect given <see langword="isChecked"/> is true/false.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="isChecked">True/false</param>
@@ -272,7 +286,7 @@ namespace VACARM.GUI.Controllers
     }
 
     /// <summary>
-    /// Select/deselect given <see langword="isChecked"/> is true/false.
+    /// Select/Deselect given <see langword="isChecked"/> is true/false.
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="isChecked">True/false</param>
