@@ -60,8 +60,7 @@ namespace VACARM.GUI.Controllers
     { get; set; }
 
     /// <summary>
-    /// Select/Deselect the corresponding <typeparamref name="TBaseModel"/> for
-    /// this <typeparamref name="ToolStripMenuItem"/>.
+    /// Select/Deselect the corresponding <typeparamref name="TBaseModel"/>.
     /// </summary>
     internal EventHandler? CheckedChangedEventHandler
     {
@@ -228,6 +227,27 @@ namespace VACARM.GUI.Controllers
     /// <summary>
     /// Select/deselect given <see langword="isChecked"/> is true/false.
     /// </summary>
+    /// <param name="isChecked">True/false</param>
+    internal void SelectAllOnCheck(bool isChecked)
+    {
+      if (isChecked)
+      {
+        this.GroupService
+          .SelectedRepository
+          .SelectAll();
+      }
+
+      else
+      {
+        this.GroupService
+          .SelectedRepository
+          .DeselectAll();
+      }
+    }
+
+    /// <summary>
+    /// Select/deselect given <see langword="isChecked"/> is true/false.
+    /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="isChecked">True/false</param>
     internal void SelectOnCheck
@@ -248,6 +268,32 @@ namespace VACARM.GUI.Controllers
         this.GroupService
           .SelectedService
           .Deselect(id);
+      }
+    }
+
+    /// <summary>
+    /// Select/deselect given <see langword="isChecked"/> is true/false.
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <param name="isChecked">True/false</param>
+    internal void SelectRangeOnCheck
+    (
+      IEnumerable<uint> idEnumerable,
+      bool isChecked
+    )
+    {
+      if (isChecked)
+      {
+        this.GroupService
+          .SelectedService
+          .SelectRange(idEnumerable);
+      }
+
+      else
+      {
+        this.GroupService
+          .SelectedService
+          .DeselectRange(idEnumerable);
       }
     }
 
