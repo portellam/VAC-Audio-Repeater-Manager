@@ -5,72 +5,73 @@ using VACARM.Infrastructure.Services;
 namespace VACARM.GUI.Controllers
 {
   internal partial class RepeaterController
-  {
-    #region Parameters
-
-    internal RepeaterGroupService
     <
-      ReadonlyRepository
+      TBaseGroupService,
+      TRepeaterModel
+    > :
+    BaseController
+    <
+      RepeaterGroupService
       <
+        ReadonlyRepository
+        <
+          BaseService
+          <
+            BaseRepository<RepeaterModel>,
+            RepeaterModel
+          >
+        >,
         BaseService
         <
           BaseRepository<RepeaterModel>,
           RepeaterModel
-        >
-      >,
-      BaseService
-      <
+        >,
         BaseRepository<RepeaterModel>,
         RepeaterModel
       >,
-      BaseRepository<RepeaterModel>,
       RepeaterModel
-    > GroupService
-    { get; set; }
+    >
+  {
+    #region Parameters
 
+    internal ToolStrip OwnerToolStrip { get; set; }
     #endregion
 
     #region Logic
 
-    internal EventHandler? SelectAllPropertyCheckedChangedEventHandler
-    (
-      ref IEnumerable<uint> propertyIdEnumerable,
-      bool isChecked
-    )
+    public RepeaterController() :
+      base()
     {
-      if (propertyIdEnumerable == null)
-      {
-        return null;
-      }
-
-      var enumerable = this.GetToolStripMenuItemEnumerable
-        (
-          this.ToolStrip,
-          propertyIdEnumerable
-        );
-
-      return
-        (
-          sender,
-          eventArgs
-        ) =>
-        {
-          foreach (var item in enumerable)
-          {
-            item.Checked = isChecked;
-          }
-        };
+      this.GroupService = new RepeaterGroupService
+      <
+        ReadonlyRepository
+        <
+          BaseService
+          <
+            BaseRepository<RepeaterModel>,
+            RepeaterModel
+          >
+        >,
+        BaseService
+        <
+          BaseRepository<RepeaterModel>,
+          RepeaterModel
+        >,
+        BaseRepository<RepeaterModel>,
+        RepeaterModel
+      >();
     }
 
-    
 
-    internal ToolStripItemCollection GetToolStripItemCollection
-    (
-      ref ToolStripMenuItem propertyToolStripMenuItem,
-      IEnumerable<uint> propertyIdEnumerable
-    )
+    internal void SetToolStripItemCollectionProperties()
     {
-
+      if (this.AllToolStripItemCollection == null)
+      {
+        this.AllToolStripItemCollection = new ToolStripItemCollection
+          (
+            this.
+          );
+      }
     }
 
 
