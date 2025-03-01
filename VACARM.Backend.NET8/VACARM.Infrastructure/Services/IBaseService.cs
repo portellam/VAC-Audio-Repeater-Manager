@@ -100,6 +100,30 @@ namespace VACARM.Infrastructure.Services
     /// <returns>The enumerable of ID(s).</returns>
     IEnumerable<uint> GetAllId();
 
+    /// <summary>
+    /// Deselect a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    void Deselect(uint id);
+
+    /// <summary>
+    /// Deselect an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    void DeselectRange(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Select a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    void Select(uint id);
+
+    /// <summary>
+    /// Select an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    void SelectRange(IEnumerable<uint> idEnumerable);
+
     #endregion
   }
 }

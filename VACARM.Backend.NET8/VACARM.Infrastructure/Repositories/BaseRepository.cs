@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Functions;
@@ -88,6 +89,8 @@ namespace VACARM.Infrastructure.Repositories
         base.OnPropertyChanged(nameof(this.MaxCount));
       }
     }
+
+    public HashSet<uint> SelectedIdEnumerable { get; set; }
 
     #endregion
 
@@ -217,7 +220,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public TBaseModel? Get(uint id)
     {
-      if (IsNullOrEmpty)
+      if (this.IsNullOrEmpty)
       {
         return null;
       }
@@ -255,9 +258,93 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public void Deselect(Func<TBaseModel, bool> func)
+    {
+      var model = this.Get(func);
+      this.Deselect(model);
+    }
+
+
+    public void Deselect(TBaseModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      this.SelectedIdEnumerable
+        .Remove(model.Id);
+    }
+
+    public void DeselectRange(Func<TBaseModel, bool> func)
+    {
+      if (func == null)
+      {
+        return;
+      }
+
+      var enumerable = this.GetRange(func);
+      this.DeselectRange(enumerable);
+    }
+
+    public void DeselectRange(IEnumerable<TBaseModel> enumerable)
+    {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in enumerable)
+      {
+        this.Deselect(item);
+      }
+    }
+
     public void RemoveAll()
     {
       base.Enumerable = new List<TBaseModel>();
+    }
+
+    public void Select(Func<TBaseModel, bool> func)
+    {
+      var model = this.Get(func);
+      this.Select(model);
+    }
+
+
+    public void Select(TBaseModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      this.SelectedIdEnumerable
+        .Add(model.Id);
+    }
+
+    public void SelectRange(Func<TBaseModel, bool> func)
+    {
+      if (func == null)
+      {
+        return;
+      }
+
+      var enumerable = this.GetRange(func);
+      this.SelectRange(enumerable);
+    }
+
+    public void SelectRange(IEnumerable<TBaseModel> enumerable)
+    {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in enumerable)
+      {
+        this.Select(item);
+      }
     }
 
     public void Update(TBaseModel model)

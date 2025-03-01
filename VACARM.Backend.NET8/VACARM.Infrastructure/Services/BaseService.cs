@@ -184,6 +184,38 @@ namespace VACARM.Infrastructure.Services
         .Select(x => x.Id);
     }
 
+    public void Deselect(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+
+      this.Repository
+        .Deselect(func);
+    }
+
+    public void DeselectRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      this.Repository
+        .DeselectRange(func);
+    }
+
+    public void Select(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+
+      this.Repository
+        .Select(func);
+    }
+
+    public void SelectRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      this.Repository
+        .SelectRange(func);
+    }
+
     #endregion
   }
 }
