@@ -201,6 +201,11 @@ namespace VACARM.Infrastructure.Services
       this.List =
         new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
 
+      var service = new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
+        (new BaseRepository<TRepeaterModel>());
+
+      base.Add(service);
+
       this.DeviceGroupService =
         new DeviceGroupService
         <
