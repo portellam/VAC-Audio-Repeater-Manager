@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using VACARM.Domain.Models;
+﻿using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
@@ -31,8 +30,7 @@ namespace VACARM.GUI.Controllers
       BaseRepository<TBaseModel>,
       TBaseModel
     >,
-    IDisposable,
-    INotifyPropertyChanged
+    IDisposable
     where TBaseModel :
     BaseModel
   {
