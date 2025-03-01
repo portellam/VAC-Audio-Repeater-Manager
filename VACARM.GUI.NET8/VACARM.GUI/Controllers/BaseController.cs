@@ -109,6 +109,9 @@ namespace VACARM.GUI.Controllers
       }
     }
 
+    internal ReadonlyRepository<ToolStripMenuItem> ToolStripMenuItemRepository
+    { get; set; } = new ReadonlyRepository<ToolStripMenuItem>();
+
     internal static ToolStripMenuItem DefaultToolStripMenuItem { get; set; } =
     new ToolStripMenuItem()
     {
@@ -133,6 +136,7 @@ namespace VACARM.GUI.Controllers
     };
 
     private readonly static bool DefaultIsChecked = false;
+    private readonly static string DefaultName = string.Empty;
 
     private readonly static Func<ToolStripMenuItem, string> IdFunc =
       (ToolStripMenuItem x) => x.ToolTipText;
@@ -223,6 +227,51 @@ namespace VACARM.GUI.Controllers
             isChecked
           );
         };
+    }
+
+    /// <summary>
+    /// Get a <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The tool strip menu item.</returns>
+    internal ToolStripMenuItem GetToolStripMenuItem
+    (
+      uint id,
+      string name
+    )
+    {
+      ToolStripMenuItem toolStripMenuItem = DefaultToolStripMenuItem;
+      int maxIdLength = 7;
+
+      string idWhiteSpace = new string
+        (
+          ' ',
+          maxIdLength - id
+            .ToString()
+            .Length
+        );
+
+      string nameWhiteSpace = new string
+      (
+        ' ',
+        maxIdLength
+      );
+
+      string text = string.Format
+      (
+        "ID:{0}{1},{2}Name: {3}",
+        idWhiteSpace,
+        id,
+        nameWhiteSpace,
+        name
+      );
+
+      toolStripMenuItem.Text = text;
+
+      toolStripMenuItem.ToolTipText = id
+        .ToString();
+
+      return toolStripMenuItem;
     }
 
     /// <summary>
@@ -325,7 +374,10 @@ namespace VACARM.GUI.Controllers
         base.Dispose();
         this.GroupService = null;
 
-        //TODO: add more here.
+        this.ToolStripMenuItemRepository
+          .Dispose();
+
+        this.ToolStripMenuItemRepository = null;
       }
 
       this.HasDisposed = true;
@@ -356,6 +408,7 @@ namespace VACARM.GUI.Controllers
         >();
 
       this.SetDefaultToolStripMenuItems();
+      this.Update();
     }
 
     /// <summary>
@@ -367,6 +420,29 @@ namespace VACARM.GUI.Controllers
     {
       this.Dispose(true);
       GC.SuppressFinalize(this);
+    }
+
+    public void Update()
+    {
+      var modelEnumerable = this.GroupService
+        .SelectedRepository
+        .GetAll();
+
+      IEnumerable<ToolStripMenuItem> enumerable = Array.Empty<ToolStripMenuItem>();
+
+      foreach (var item in modelEnumerable)
+      {
+        var toolStripMenuItem = this.GetToolStripMenuItem
+          (
+            item.Id,
+            DefaultName
+          );
+
+        enumerable.Append(toolStripMenuItem);
+      }
+
+      this.ToolStripMenuItemRepository =
+        new ReadonlyRepository<ToolStripMenuItem>(enumerable);
     }
 
     #endregion
