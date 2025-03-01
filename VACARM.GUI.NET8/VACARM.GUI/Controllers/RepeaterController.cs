@@ -1,4 +1,5 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
@@ -37,39 +38,53 @@ namespace VACARM.GUI.Controllers
   {
     #region Parameters
 
-    internal ToolStrip OwnerToolStrip { get; set; }
+    internal RepeaterGroupService
+      <
+        ReadonlyRepository
+        <
+          BaseService
+          <
+            BaseRepository<TRepeaterModel>,
+            TRepeaterModel
+          >
+        >,
+        BaseService
+        <
+          BaseRepository<TRepeaterModel>,
+          TRepeaterModel
+        >,
+        BaseRepository<TRepeaterModel>,
+        TRepeaterModel
+      >
+    GroupService
+    { get; set; }
 
-    internal ToolStripItemCollection StartedToolStripItemCollection
+    internal ToolStripMenuItem StartedToolStripMenuItem
     {
       get
       {
-        var idEnumerable = this.GroupService
-          .SelectedRepository
-          .GetAll()
-          .Where(x => x.IsStarted)
-          .Select(x => x.Id);
-
-        IEnumerable<ToolStripMenuItem> enumerable = Array.Empty<ToolStripMenuItem>();
-
-        foreach(var item in idEnumerable)
-        {
-          var func = ContainsId(item);
-
-          var toolStripMenuItem = base.ToolStripMenuItemRepository
-            .Get(func);
-
-          if (toolStripMenuItem == null)
-          {
-            continue;
-          }
-
-          enumerable.Append(toolStripMenuItem);
-        }
-
-        return new ToolStripItemCollection
+        return this.GetToolStripMenuItemWithDropDownItems
           (
-            this.OwnerToolStrip,
-            enumerable.ToArray()
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            RepeaterFunctions<TRepeaterModel>.IsStarted,
+            "Started"
+          );
+      }
+    }
+
+    internal ToolStripMenuItem StoppedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetToolStripMenuItemWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            RepeaterFunctions<TRepeaterModel>.IsStopped,
+            "Stopped"
           );
       }
     }
@@ -85,11 +100,6 @@ namespace VACARM.GUI.Controllers
     #endregion
 
     #region Logic
-
-    private void SetToolStripMenuItems()
-    {
-
-    }
 
     /// <summary>
     /// Constructor
@@ -115,8 +125,22 @@ namespace VACARM.GUI.Controllers
         BaseRepository<TRepeaterModel>,
         TRepeaterModel
       >();
+    }
 
-      this.SetToolStripMenuItems();
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Dispose();
+        this.GroupService = null;
+      }
+
+      this.HasDisposed = true;
     }
 
     #endregion
