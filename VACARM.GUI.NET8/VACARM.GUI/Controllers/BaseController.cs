@@ -7,7 +7,7 @@ namespace VACARM.GUI.Controllers
   /// <summary>
   /// The controller of <typeparamref name="TBaseGroupService"/>.
   /// </summary>
-  public partial class BaseController
+  internal partial class BaseController
     <
       TBaseGroupService,
       TBaseModel
@@ -109,7 +109,7 @@ namespace VACARM.GUI.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    public BaseController()
+    internal BaseController()
     {
       this.GroupService = new BaseGroupService
         <
@@ -134,7 +134,7 @@ namespace VACARM.GUI.Controllers
       this.Update();
     }
 
-    public void Update()
+    internal void Update()
     {
       var modelEnumerable = this.GroupService
         .SelectedRepository

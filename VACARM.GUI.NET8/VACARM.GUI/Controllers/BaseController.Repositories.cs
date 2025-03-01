@@ -2,7 +2,7 @@
 
 namespace VACARM.GUI.Controllers
 {
-  public partial class BaseController
+  internal partial class BaseController
     <
       TBaseGroupService,
       TBaseModel
