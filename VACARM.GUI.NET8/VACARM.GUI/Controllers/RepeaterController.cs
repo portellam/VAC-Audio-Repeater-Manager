@@ -34,7 +34,8 @@ namespace VACARM.GUI.Controllers
         TRepeaterModel
       >,
       TRepeaterModel
-    > where TRepeaterModel : RepeaterModel
+    > where TRepeaterModel : 
+    RepeaterModel
   {
     #region Parameters
 
