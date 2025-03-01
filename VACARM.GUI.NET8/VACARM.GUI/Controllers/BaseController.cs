@@ -230,11 +230,30 @@ namespace VACARM.GUI.Controllers
     }
 
     /// <summary>
-    /// Get a <typeparamref name="ToolStripMenuItem"/>.
+    /// Get a <typeparamref name="ToolStripMenuItem"/>(s).
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The tool strip menu item.</returns>
-    internal ToolStripMenuItem GetToolStripMenuItem
+    internal ToolStripMenuItem? Get(uint id)
+    {
+      var toolStripMenuItem = this.ToolStripMenuItemRepository
+        .Get(ContainsId(id));
+
+      if (toolStripMenuItem == null)
+      {
+        return null;
+      }
+
+      return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get a new <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    internal static ToolStripMenuItem GetNew
     (
       uint id,
       string name
@@ -272,6 +291,38 @@ namespace VACARM.GUI.Controllers
         .ToString();
 
       return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get an enumerable of some <typeparamref name="ToolStripMenuItem"/>(s).
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <returns>The enumerable of item(s).</returns>
+    internal IEnumerable<ToolStripMenuItem> GetRange
+    (IEnumerable<uint> idEnumerable)
+    {
+      if (idEnumerable == null)
+      {
+        yield break;
+      }
+
+      foreach (var item in idEnumerable)
+      {
+        var toolStripMenuItem = this.ToolStripMenuItemRepository
+          .Get(ContainsId(item));
+
+        if (toolStripMenuItem == null)
+        {
+          continue;
+        }
+
+        yield return toolStripMenuItem;
+      }
+    }
+
+    private static Func<ToolStripMenuItem, bool> ContainsId(uint id)
+    {
+      return (ToolStripMenuItem x) => IdFunc(x) == id.ToString();
     }
 
     /// <summary>
@@ -432,7 +483,7 @@ namespace VACARM.GUI.Controllers
 
       foreach (var item in modelEnumerable)
       {
-        var toolStripMenuItem = this.GetToolStripMenuItem
+        var toolStripMenuItem = GetNew
           (
             item.Id,
             DefaultName
