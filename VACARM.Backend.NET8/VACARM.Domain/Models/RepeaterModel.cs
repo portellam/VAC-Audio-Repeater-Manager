@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Common;
-using VACARM.Domain.Structs;
+using VACARM.Domain.Enums;
 
 namespace VACARM.Domain.Models
 {

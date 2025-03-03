@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VACARM.Domain.Structs;
+using VACARM.Domain.Enums;
 
 namespace VACARM.Domain.Models
 {
