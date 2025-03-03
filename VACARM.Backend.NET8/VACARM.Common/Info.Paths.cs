@@ -23,6 +23,19 @@
     /// </summary>
     public readonly static string KSExecutableName = "audiorepeater_ks.exe";
 
+    public static string ExecutableName
+    {
+      get
+      {
+        if (UseMultimediaExtensions)
+        {
+          return MMEExecutableName;
+        }
+
+        return KSExecutableName;
+      }
+    }
+
     /// <summary>
     /// The expected executable path name.
     /// </summary>
