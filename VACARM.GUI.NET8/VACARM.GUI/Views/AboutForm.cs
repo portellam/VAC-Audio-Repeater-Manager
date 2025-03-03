@@ -48,7 +48,7 @@ namespace VACARM.GUI.Views
         .Format
         (
           "About {0}",
-          Info.ApplicationPartialAbbreviatedName
+          Common.Info.ApplicationPartialAbbreviatedName
         );
 
       this.textBoxDescription.Text =

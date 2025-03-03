@@ -84,15 +84,12 @@ namespace VACARM.GUI.Views
 
     private void PostInitializeComponent()
     {
-      this.SetDeviceComponents();
       this.SetComponentsAbility();
       this.SetComponentsText();
     }
 
     private void SetComponentsAbility()
     {
-      this.SetDeviceConfirmSelectAbility();
-
       if (Environment.OSVersion.Version.Major < 6)
       {
         this.viewPreferSystemThemeToolStripMenuItem
@@ -113,24 +110,24 @@ namespace VACARM.GUI.Views
 
     private void SetComponentsText()
     {
-      this.Text = Info.ApplicationPartialAbbreviatedName;
+      this.Text = Common.Info.ApplicationPartialAbbreviatedName;
 
       this.helpAboutToolStripMenuItem.Text = string.Format
         (
           "About {0}",
-          Info.ApplicationPartialAbbreviatedName
+          Common.Info.ApplicationPartialAbbreviatedName
         );
 
       this.helpApplicationWebsiteToolStripMenuItem.Text = string.Format
         (
           "{0} Website",
-          Info.ReferencedApplicationName
+          Common.Info.ReferencedApplicationName
         );
 
       this.helpWebsiteToolStripMenuItem.Text = string.Format
         (
           "{0} Website",
-          Info.ApplicationPartialAbbreviatedName
+          Common.Info.ApplicationPartialAbbreviatedName
         );
 
       string featureNotAvailableMessage = "N/A: ";
