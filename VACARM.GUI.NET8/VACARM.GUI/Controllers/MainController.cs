@@ -62,8 +62,6 @@ namespace VACARM.GUI.Controllers
     RepeaterController
     { get; set; }
 
-    internal AboutForm AboutForm { get; set; }
-    internal DeviceFindForm DeviceFindForm { get; set; }
     internal MainForm MainForm { get; set; }
 
     #endregion
@@ -77,6 +75,54 @@ namespace VACARM.GUI.Controllers
     internal MainController(IEnumerable<string> argumentEnumerable)
     {
       this.ArgumentController = new ArgumentController(argumentEnumerable);
+
+      this.DeviceController = new DeviceController
+      <
+        DeviceGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >,
+        DeviceModel
+      >();
+
+      this.RepeaterController = new RepeaterController
+      <
+        RepeaterGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<RepeaterModel>,
+              RepeaterModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<RepeaterModel>,
+            RepeaterModel
+          >,
+          BaseRepository<RepeaterModel>,
+          RepeaterModel
+        >,
+        RepeaterModel
+      >();
+
+      this.MainForm = new MainForm();
     }
 
     #endregion
