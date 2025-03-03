@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using VACARM.Domain.Models;
+﻿using VACARM.Domain.Models;
 using VACARM.GUI.Controllers;
+using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services;
 
 namespace VACARM.GUI.Views
 {
@@ -8,53 +9,29 @@ namespace VACARM.GUI.Views
   {
     #region Parameters
 
-    internal DeviceController DeviceController { get; set; }
-
-    internal HashSet<uint> SelectedDeviceIdHashSet
-    {
-      get
-      {
-        return this.selectedDeviceIdHashSet;
-      }
-      set
-      {
-        this.selectedDeviceIdHashSet = value;
-        this.OnPropertyChanged(nameof(this.SelectedDeviceIdHashSet));
-      }
-    }
-
-    private HashSet<uint> selectedDeviceIdHashSet { get; set; } =
-      new HashSet<uint>();
-
-    private IEnumerable<string> GetAllDisabledId
-    {
-      get
-      {
-        var idEnumerable = this.DeviceGroupService
-          .GetAllDisabled()
-          .Select(x => x.Id);
-
-        foreach (var item in idEnumerable)
-        {
-          yield return item.ToString();
-        }
-      }
-    }
-
-    private IEnumerable<string> GetAllEnabledId
-    {
-      get
-      {
-        var idEnumerable = this.DeviceGroupService
-          .GetAllEnabled()
-          .Select(x => x.Id);
-
-        foreach (var item in idEnumerable)
-        {
-          yield return item.ToString();
-        }
-      }
-    }
+    internal DeviceController
+      <
+        DeviceGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >,
+        DeviceModel
+      > DeviceController
+    { get; set; }
 
     #endregion
 
@@ -151,40 +128,6 @@ namespace VACARM.GUI.Views
     private void SetDeviceSelectToolStripItemCollection
     (
       ref ToolStripMenuItem deviceSelectDirectionToolStripMenuItem,
-      ToolStripItemCollection toolStripItemCollection
-    )
-    {
-      if (deviceSelectDirectionToolStripMenuItem == null)
-      {
-        return;
-      }
-
-      deviceSelectDirectionToolStripMenuItem.DropDownItems
-        .Clear();
-
-      deviceSelectDirectionToolStripMenuItem.DropDownItemClicked +=
-        deviceConfirmSelectToolStripMenuItem_CheckedChanged;
-
-      if (deviceSelectDirectionToolStripMenuItem.Owner != null)
-      {
-        ToolStripItemCollection toolStripItemCollection =
-          new ToolStripItemCollection
-          (
-            deviceSelectDirectionToolStripMenuItem.Owner,
-            enumerable.ToArray()
-          );
-      }
-
-      deviceSelectDirectionToolStripMenuItem.Enabled =
-        deviceSelectDirectionToolStripMenuItem.HasDropDownItems;
-    }
-
-
-
-
-    private void SetDeviceSelectToolStripItemCollection
-    (
-      ref ToolStripMenuItem deviceSelectDirectionToolStripMenuItem,
       IEnumerable<ToolStripMenuItem> enumerable
     )
     {
@@ -253,7 +196,7 @@ namespace VACARM.GUI.Views
       {
         return;
       }
-      
+
       deviceSelectInputToolStripMenuItem
         .DropDownItemClicked +=
         (
