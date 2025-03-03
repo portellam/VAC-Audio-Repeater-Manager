@@ -21,9 +21,6 @@ instances of Virtual Audio Cable (VAC) audio repeaters.</Description>
     <Version>1.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Info.Files.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\VACARM.Assembly\AssemblyInfo.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
