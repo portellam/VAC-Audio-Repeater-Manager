@@ -19,6 +19,7 @@
     /// </summary>
     public readonly static uint WindowsNT5MaxEndpointCount = 32;
 
+    public static bool AutoStartRepeaters { get; set; } = false;
     public static bool IgnoreMaxLegacyEndpointCount { get; set; } = false;
     public static bool IgnoreSafeMaxRepeaterCount { get; set; } = false;
     public static bool UseMultimediaExtensions { get; set; } = false;
