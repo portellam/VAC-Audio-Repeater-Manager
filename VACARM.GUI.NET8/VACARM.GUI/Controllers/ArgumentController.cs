@@ -7,7 +7,7 @@ namespace VACARM.GUI.Controllers
   {
     #region Parameters
 
-    public Arguments Arguments { get; set; }
+    private Arguments Arguments { get; set; }
 
     #endregion
 
