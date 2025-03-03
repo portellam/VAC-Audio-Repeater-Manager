@@ -23,9 +23,6 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Controllers\ArgumentController.Disposable.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\VACARM.Assembly\AssemblyInfo.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
