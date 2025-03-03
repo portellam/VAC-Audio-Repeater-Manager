@@ -34,26 +34,6 @@ namespace VACARM.Infrastructure.Services
 
     bool PreferLegacyExecutable { get; set; }
 
-    DeviceGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<DeviceModel>,
-        DeviceModel
-      >,
-      BaseRepository<DeviceModel>,
-      DeviceModel
-    > DeviceGroupService
-    { get; }
-
     string CustomExecutablePathName { get; set; }
     string ExecutableFullPathName { get; }
 

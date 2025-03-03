@@ -11,12 +11,6 @@
     #region Logic
 
     /// <summary>
-    /// Update the service.
-    /// </summary>
-    /// <returns>True/false result.</returns>
-    Task<bool> UpdateServiceAsync();
-
-    /// <summary>
     /// Restart a <typeparamref name="TRepeaterModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
