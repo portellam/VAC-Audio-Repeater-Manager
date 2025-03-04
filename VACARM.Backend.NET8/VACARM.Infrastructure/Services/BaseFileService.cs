@@ -5,10 +5,9 @@ using VACARM.Infrastructure.Extensions;
 namespace VACARM.Infrastructure.Services
 {
   /// <summary>
-  /// Backup/restore <typeparamref name="TBaseModel"/>(s) to/from a 
-  /// JSON file.
+  /// Read/write <typeparamref name="TBaseModel"/>(s) to/from a file.
   /// </summary>
-  public class JsonFileService<TBaseModel>
+  public class BaseFileService<TBaseModel>
     where TBaseModel :
     BaseModel
   {
