@@ -216,7 +216,7 @@ namespace VACARM.Application.Commands
       );
 
       process = DefaultProcess;
-      process.StartInfo.FilePathName = filePathName;
+      process.StartInfo.FileName = filePathName;
 
       bool startAnArgument =
         !(
