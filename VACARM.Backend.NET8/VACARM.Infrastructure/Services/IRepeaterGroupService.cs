@@ -33,7 +33,6 @@ namespace VACARM.Infrastructure.Services
     #region Parameters
 
     bool PreferLegacyExecutable { get; set; }
-
     string CustomExecutablePathName { get; set; }
     string ExecutableFullPathName { get; }
 

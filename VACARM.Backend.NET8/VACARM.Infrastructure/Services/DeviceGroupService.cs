@@ -393,14 +393,6 @@ namespace VACARM.Infrastructure.Services
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllDuplex()
-    {
-      var func = DeviceFunctions<TDeviceModel>.IsDuplex;
-
-      return base.SelectedRepository
-        .GetRange(func);
-    }
-
     public IEnumerable<TDeviceModel> GetAllEnabled()
     {
       var func = DeviceFunctions<TDeviceModel>.IsEnabled;
