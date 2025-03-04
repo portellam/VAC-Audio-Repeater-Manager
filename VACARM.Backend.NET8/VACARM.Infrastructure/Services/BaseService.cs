@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
-using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
@@ -11,11 +10,6 @@ namespace VACARM.Infrastructure.Services
       TBaseModel
     > :
     ReadonlyService
-    <
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >,
-    IBaseService
     <
       BaseRepository<TBaseModel>,
       TBaseModel
@@ -79,133 +73,6 @@ namespace VACARM.Infrastructure.Services
       }
 
       this.HasDisposed = true;
-    }
-
-    public bool Remove(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      return this.Repository
-        .Remove(func);
-    }
-
-    public IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return this.Repository
-        .RemoveRange(func);
-    }
-
-    public IEnumerable<bool> RemoveRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.Repository
-        .RemoveRange(func);
-    }
-
-    public TBaseModel? Get(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      return base.Repository
-        .Get(func);
-    }
-
-    public IEnumerable<TBaseModel> GetAntiRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.NotContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return base.Repository
-        .GetRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetAntiRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.NotContainsIdEnumerable(idEnumerable);
-
-      return base.Repository
-        .GetRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return base.Repository
-        .GetRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return base.Repository
-        .GetRange(func);
-    }
-
-    public IEnumerable<uint> GetAllId()
-    {
-      return base.Repository
-        .GetAll()
-        .Select(x => x.Id);
-    }
-
-    public void Deselect(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      this.Repository
-        .Deselect(func);
-    }
-
-    public void DeselectRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      this.Repository
-        .DeselectRange(func);
-    }
-
-    public void Select(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      this.Repository
-        .Select(func);
-    }
-
-    public void SelectRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      this.Repository
-        .SelectRange(func);
     }
 
     #endregion

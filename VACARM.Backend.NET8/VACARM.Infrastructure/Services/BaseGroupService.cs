@@ -1,4 +1,5 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
@@ -135,6 +136,8 @@ namespace VACARM.Infrastructure.Services
 
     public readonly static int SafeMaxCount = byte.MaxValue;
 
+    public string FileName { get; set; }
+
     public virtual int MaxCount
     {
       get
@@ -156,6 +159,22 @@ namespace VACARM.Infrastructure.Services
     #endregion
 
     #region Logic
+
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Dispose();
+        this.List = null;
+      }
+
+      this.HasDisposed = true;
+    }
 
     /// <summary>
     /// Constructor
@@ -181,20 +200,18 @@ namespace VACARM.Infrastructure.Services
       this.MaxCount = maxCount;
     }
 
-    protected override void Dispose(bool isDisposed)
+    public BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index)
     {
-      if (this.HasDisposed)
+      try
       {
-        return;
+        return this.List
+          .ElementAt(index);
       }
 
-      if (isDisposed)
+      catch
       {
-        base.Dispose();
-        this.List = null;
+        return null;
       }
-
-      this.HasDisposed = true;
     }
 
     public bool Add
@@ -239,18 +256,131 @@ namespace VACARM.Infrastructure.Services
       return true;
     }
 
-    public BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index)
+    public bool Remove(uint id)
     {
-      try
-      {
-        return this.List
-          .ElementAt(index);
-      }
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      catch
-      {
-        return null;
-      }
+      return this.SelectedRepository
+        .Remove(func);
+    }
+
+    public IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      return this.SelectedRepository
+        .RemoveRange(func);
+    }
+
+    public IEnumerable<bool> RemoveRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      return this.SelectedRepository
+        .RemoveRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetAntiRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TBaseModel>.NotContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      return this.SelectedRepository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetAntiRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.NotContainsIdEnumerable(idEnumerable);
+
+      return this.SelectedRepository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      return this.SelectedRepository
+        .GetRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      return this.SelectedRepository
+        .GetRange(func);
+    }
+
+    public IEnumerable<uint> GetAllId()
+    {
+      return this.SelectedRepository
+        .GetAll()
+        .Select(x => x.Id);
+    }
+
+    public TBaseModel? Get(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+
+      return this.SelectedRepository
+        .Get(func);
+    }
+
+    public void Deselect(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+
+      this.SelectedRepository
+        .Deselect(func);
+    }
+
+    public void DeselectRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      this.SelectedRepository
+        .DeselectRange(func);
+    }
+
+    public void Select(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+
+      this.SelectedRepository
+        .Select(func);
+    }
+
+    public void SelectRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+
+      this.SelectedRepository
+        .SelectRange(func);
     }
 
     #endregion
