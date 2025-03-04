@@ -6,7 +6,7 @@ namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// Backup/restore <typeparamref name="TBaseModel"/>(s) to/from a 
-  /// <typeparamref name="JSON"/> file.
+  /// JSON file.
   /// </summary>
   public class JsonFileService<TBaseModel>
     where TBaseModel :
@@ -15,8 +15,7 @@ namespace VACARM.Infrastructure.Services
     #region Logic
 
     /// <summary>
-    /// Write enumerable of <typeparamref name="TBaseModel"/>(s) to a
-    /// <typeparamref name="JSON"/> file.
+    /// Write enumerable of <typeparamref name="TBaseModel"/>(s) to a JSON file.
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     /// <param name="filePathName">The file path name</param>
@@ -37,7 +36,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      await using FileStream fileStream = File.Create(filePathName);
+      await using var fileStream = File.Create(filePathName);
 
       await JsonSerializer.SerializeAsync
         (
@@ -47,8 +46,7 @@ namespace VACARM.Infrastructure.Services
     }
 
     /// <summary>
-    /// Get an enumerable of <typeparamref name="TBaseModel"/>(s) from a
-    /// <typeparamref name="JSON"/> file.
+    /// Get an enumerable of <typeparamref name="TBaseModel"/>(s) from a JSON file.
     /// </summary>
     /// <param name="filePathName">The file path name</param>
     /// <returns>The enumerable of item(s)</returns>
@@ -60,7 +58,7 @@ namespace VACARM.Infrastructure.Services
         yield break;
       }
 
-      using FileStream fileStream = File.OpenRead(filePathName);
+      using var fileStream = File.OpenRead(filePathName);
       IEnumerable<TBaseModel>? enumerable;
 
       try
