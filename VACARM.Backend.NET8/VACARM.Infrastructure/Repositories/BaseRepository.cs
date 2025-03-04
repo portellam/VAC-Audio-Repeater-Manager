@@ -43,6 +43,8 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    private int maxCount { get; set; } = int.MaxValue;
+
     private List<TBaseModel> enumerable { get; set; }
 
     protected new virtual List<TBaseModel> Enumerable
@@ -58,8 +60,6 @@ namespace VACARM.Infrastructure.Repositories
         base.OnPropertyChanged(nameof(this.Enumerable));
       }
     }
-
-    private int maxCount { get; set; } = int.MaxValue;
 
     public Func<int, bool> IsValidIndex
     {
@@ -108,6 +108,22 @@ namespace VACARM.Infrastructure.Repositories
 
     #region Logic
 
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Dispose();
+        this.Enumerable = null;
+      }
+
+      this.HasDisposed = true;
+    }
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -133,22 +149,6 @@ namespace VACARM.Infrastructure.Repositories
     {
       this.Enumerable = list;
       this.MaxCount = maxCount;
-    }
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-        this.Enumerable = null;
-      }
-
-      this.HasDisposed = true;
     }
 
     public bool Remove(Func<TBaseModel, bool> func)
@@ -276,7 +276,6 @@ namespace VACARM.Infrastructure.Repositories
       this.Deselect(model);
     }
 
-
     public void Deselect(TBaseModel model)
     {
       if (model == null)
@@ -335,7 +334,6 @@ namespace VACARM.Infrastructure.Repositories
       var model = this.Get(func);
       this.Select(model);
     }
-
 
     public void Select(TBaseModel model)
     {
