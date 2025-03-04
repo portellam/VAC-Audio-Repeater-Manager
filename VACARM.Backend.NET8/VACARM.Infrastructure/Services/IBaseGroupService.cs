@@ -35,7 +35,6 @@ namespace VACARM.Infrastructure.Services
     BaseService<BaseRepository<TBaseModel>, TBaseModel>? SelectedService { get; }
     int MaxCount { get; }
     int SelectedIndex { get; set; }
-    string FileName { get; set; }
 
     #endregion
 

@@ -13,6 +13,11 @@ namespace VACARM.Infrastructure.Services
     <
       BaseRepository<TBaseModel>,
       TBaseModel
+    >,
+    IBaseService
+    <
+      BaseRepository<TBaseModel>,
+      TBaseModel
     >
     where TRepository :
     BaseRepository<TBaseModel>
@@ -34,6 +39,9 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
+    // TODO: define a default value.
+    public string FilePathName { get; set; } = string.Empty;
+
     #endregion
 
     #region Logic
@@ -51,10 +59,16 @@ namespace VACARM.Infrastructure.Services
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
+    /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
-    public BaseService(BaseRepository<TBaseModel> repository) :
+    public BaseService
+    (
+      BaseRepository<TBaseModel> repository,
+      string filePathName
+    ) :
       base(repository)
     {
+      this.FilePathName = filePathName;
     }
 
     protected override void Dispose(bool isDisposed)

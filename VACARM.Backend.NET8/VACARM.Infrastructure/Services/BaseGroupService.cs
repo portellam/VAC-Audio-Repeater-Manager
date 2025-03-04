@@ -135,9 +135,7 @@ namespace VACARM.Infrastructure.Services
     }
 
     public readonly static int SafeMaxCount = byte.MaxValue;
-
-    public string FileName { get; set; }
-
+        
     public virtual int MaxCount
     {
       get
