@@ -146,6 +146,8 @@ namespace VACARM.Infrastructure.Services
 
     #region Logic
 
+    // TODO: specify a default file name value? Or generate one given index?
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -157,7 +159,10 @@ namespace VACARM.Infrastructure.Services
         new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
 
       var service = new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
-        (new BaseRepository<TRepeaterModel>());
+        (
+          new BaseRepository<TRepeaterModel>(),
+          string.Empty
+        );
 
       base.Add(service);
     }
@@ -182,7 +187,10 @@ namespace VACARM.Infrastructure.Services
       {
         var service = 
           new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
-          (new BaseRepository<TRepeaterModel>());
+          (
+            new BaseRepository<TRepeaterModel>(),
+            string.Empty
+          );
 
         base.List
           .Add(service);

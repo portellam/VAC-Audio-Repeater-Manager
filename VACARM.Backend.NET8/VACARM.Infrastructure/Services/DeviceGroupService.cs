@@ -128,6 +128,8 @@ namespace VACARM.Infrastructure.Services
 
     #region Logic
 
+    // TODO: specify a default file name value? Or generate one given index?
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -139,7 +141,10 @@ namespace VACARM.Infrastructure.Services
         new List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>>();
 
       var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-        (new BaseRepository<TDeviceModel>());
+        (
+          new BaseRepository<TDeviceModel>(),
+          string.Empty
+        );
 
       base.Add(service);
 
@@ -175,7 +180,10 @@ namespace VACARM.Infrastructure.Services
       if (base.IsNullOrEmpty)
       {
         var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-        (new BaseRepository<TDeviceModel>());
+          (
+            new BaseRepository<TDeviceModel>(),
+            string.Empty
+          );
 
         base.List
           .Add(service);
@@ -644,7 +652,10 @@ namespace VACARM.Infrastructure.Services
     public void UpdateSelectedService()
     {
       var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-          (new BaseRepository<TDeviceModel>());
+        (
+          new BaseRepository<TDeviceModel>(),
+          string.Empty
+        );
 
       var enumerable = this.MMDeviceService
         .GetAll();
