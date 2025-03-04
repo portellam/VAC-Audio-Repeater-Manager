@@ -1,4 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using VACARM.Infrastructure.Extensions;
+using VACARM.Infrastructure.Services;
 
 namespace VACARM.GUI.Controllers
 {
@@ -9,37 +14,19 @@ namespace VACARM.GUI.Controllers
 
     private Arguments Arguments { get; set; }
 
+    private IEnumerable<string> ArgumentsNameEnumerable
+    { 
+      get
+      {
+        return typeof(Enums.Arguments).GetEnumNames();
+      }
+    }
+
+    internal INIService INIService { get; set; }
+
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="enumerable">The enumerable of argument(s).</param>
-    public ArgumentController(IEnumerable<string> enumerable)
-    {
-      this.ParseArgumentRange(enumerable);
-    }
-
-    public void ParseArgumentRange(IEnumerable<string> enumerable)
-    {
-      if (enumerable == null)
-      {
-        return;
-      }
-
-      if (enumerable.Count() == 0)
-      {
-        return;
-      }
-
-      foreach (var item in enumerable)
-      {
-        var keyValuePair = this.GetArgument(item);
-        this.ParseArgument(keyValuePair);
-      }
-    }
 
     private KeyValuePair<string, string> GetArgument(string argument)
     {
@@ -66,77 +53,78 @@ namespace VACARM.GUI.Controllers
         );
     }
 
-    /// <remarks>
-    /// On exception or change of behavior, see <see cref="VACARM.GUI.Arguments"/>.
-    /// </remarks>
-    private void ParseArgument(KeyValuePair<string, string> keyValuePair)
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="enumerable">The enumerable of argument(s).</param>
+    public ArgumentController(IEnumerable<string> enumerable)
     {
-      string key = keyValuePair.Key;
+      this.INIService = new INIService();
+      this.ParseRange();
+      this.ParseRange(enumerable);
+    }
 
-      var propertyInfo = Arguments.GetType()
-        .GetProperty(key);
-
-      if (propertyInfo == null)
+    public void ParseRange()
+    {
+      foreach (var item in this.ArgumentsNameEnumerable)
       {
-        return;
-      }
+        var value = this.INIService
+          .Read(item);
 
-      if (!propertyInfo.CanWrite)
-      {
-        return;
-      }
+        if (StringExtension.IsNullOrEmptyOrWhitespace(value))
+        {
+          continue;
+        }
 
-      var value = keyValuePair.Value;
-      var type = propertyInfo.GetType();
-
-      if (type == typeof(bool))
-      {
-        var hasValue = string.IsNullOrEmpty(value);
-
-        propertyInfo.SetValue
-        (
-          this.Arguments,
-          hasValue
-        );
-
-        return;
-      }
-
-      else if (type == typeof(string))
-      {
-        propertyInfo.SetValue
-        (
-          this.Arguments,
-          value
-        );
-      }
-
-      else if (type == typeof(string[]))
-      {
-        var array = value.Split('n');
-
-        propertyInfo.SetValue
-        (
-          this.Arguments,
-          array
-        );
-
-        return;
-      }
-
-      else
-      {
-        string message = string.Format
+        var keyValuePair = new KeyValuePair<string, string>
           (
-            "The type '{0}' is not explicitly expected for {1}.",
-            nameof(type),
-            nameof(this.Arguments)
+            item,
+            value
           );
 
-        throw new NotImplementedException(message);
+        this.Arguments
+          .Set(keyValuePair);
       }
     }
 
+    public void ParseRange(IEnumerable<string> enumerable)
+    {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      if (enumerable.Count() == 0)
+      {
+        return;
+      }
+
+      foreach (var item in enumerable)
+      {
+        var keyValuePair = this.GetArgument(item);
+
+        this.Arguments
+          .Set(keyValuePair);
+      }
+    }
+
+    public void WriteRange()
+    {
+      foreach (var item in this.ArgumentsNameEnumerable)
+      {
+        var value = this.Arguments
+          .GetType()
+          .GetProperty(item)
+          .GetValue(this.Arguments)
+          .ToString();
+
+        this.INIService.Write
+          (
+            item,
+            value
+          );
+      }
+    }
     #endregion
   }
 }

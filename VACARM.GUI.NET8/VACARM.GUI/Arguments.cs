@@ -1,11 +1,15 @@
-﻿namespace VACARM.GUI
+﻿using System.Reflection;
+
+namespace VACARM.GUI
 {
   /// <summary>
-  /// Command line arguments.
+  /// Command line arguments. See also <seealso cref="Enums.Arguments"/>.
   /// </summary>
   public class Arguments
   {
-    private bool AlwaysOnTop
+    #region Parameters
+
+    public bool AlwaysOnTop
     {
       set
       {
@@ -13,7 +17,7 @@
       }
     }
 
-    private bool AutoStartRepeaters
+    public bool AutoStartRepeaters
     {
       set
       {
@@ -22,7 +26,7 @@
       }
     }
 
-    private bool DarkTheme
+    public bool DarkTheme
     {
       set
       {
@@ -30,7 +34,7 @@
       }
     }
 
-    private bool ForceMMX
+    public bool ForceMMX
     {
       set
       {
@@ -39,7 +43,7 @@
       }
     }
 
-    private bool FullScreen
+    public bool FullScreen
     {
       set
       {
@@ -47,7 +51,7 @@
       }
     }
 
-    private bool SafeMode
+    public bool SafeMode
     {
       set
       {
@@ -59,7 +63,7 @@
       }
     }
 
-    private string ExecName
+    public string ExecName
     {
       set
       {
@@ -68,10 +72,10 @@
       }
     }
 
-    private string ExecPath = Common.Info
+    public string ExecPath = Common.Info
       .ExpectedExecutablePathName;
 
-    private string FilePath
+    public string FilePath
     {
       set
       {
@@ -85,7 +89,7 @@
       }
     }
 
-    private string[] Files
+    public string[] Files
     {
       set
       {
@@ -93,5 +97,63 @@
           .FileNames = value;
       }
     }
+
+    #endregion
+
+    #region Logic
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public Arguments()
+    {
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="argumentPairEnumerable">The enumerable of argument(s)</param>
+    public Arguments
+    (IEnumerable<KeyValuePair<string, string>> argumentPairEnumerable)
+    {
+      this.SetRange(argumentPairEnumerable);
+    }
+
+    public void SetRange
+    (IEnumerable<KeyValuePair<string, string>> argumentPairEnumerable)
+    {
+      foreach (var item in argumentPairEnumerable)
+      {
+        this.Set(item);
+      }
+    }
+
+    public void Set(KeyValuePair<string, string> argumentPair)
+    {
+      var key = argumentPair.Key;
+
+      var isValid = Enum.TryParse
+        (
+          typeof(Enums.Arguments),
+          key,
+          false,
+          out var result
+      );
+
+      if (!isValid)
+      {
+        return;
+      }
+
+      this.GetType()
+        .GetProperty(key)
+        .SetValue
+        (
+          this,
+          argumentPair.Value
+        );
+    }
+
+    #endregion
   }
 }
