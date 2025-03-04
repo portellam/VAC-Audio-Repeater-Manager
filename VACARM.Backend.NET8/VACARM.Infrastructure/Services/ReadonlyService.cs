@@ -126,7 +126,7 @@ namespace VACARM.Infrastructure.Services
       GC.SuppressFinalize(this);
     }
 
-    public void DoWork
+    public void DoAction
     (
       Action<TItem> action,
       Func<TItem, bool> func
@@ -140,14 +140,14 @@ namespace VACARM.Infrastructure.Services
       var item = this.Repository
         .Get(func);
 
-      this.DoWork
+      this.DoAction
         (
           action,
           item
         );
     }
 
-    public void DoWork
+    public void DoAction
     (
       Action<TItem> action,
       TItem item
@@ -166,19 +166,19 @@ namespace VACARM.Infrastructure.Services
       action(item);
     }
 
-    public void DoWorkAll(Action<TItem> action)
+    public void DoActionAll(Action<TItem> action)
     {
       var enumerable = this.Repository
         .GetAll();
 
-      this.DoWorkRange
+      this.DoActionRange
         (
           action,
           enumerable
         );
     }
 
-    public void DoWorkRange
+    public void DoActionRange
     (
       Action<TItem> action,
       IEnumerable<TItem> enumerable
@@ -200,7 +200,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public void DoWorkRange
+    public void DoActionRange
     (
       Action<TItem> action,
       Func<TItem, bool> func
@@ -214,7 +214,7 @@ namespace VACARM.Infrastructure.Services
       var enumerable = this.Repository
         .GetRange(func);
 
-      this.DoWorkRange
+      this.DoActionRange
       (
         action,
         enumerable

@@ -187,7 +187,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoWork
+      base.DoAction
         (
           MMDeviceCommands.Reset,
           func
@@ -196,14 +196,14 @@ namespace VACARM.Infrastructure.Services
 
     public void ResetAll()
     {
-      base.DoWorkAll(MMDeviceCommands.Reset);
+      base.DoActionAll(MMDeviceCommands.Reset);
     }
 
     public void ResetRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoWorkRange
+      base.DoActionRange
         (
           MMDeviceCommands.Reset,
           func
@@ -214,7 +214,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoWork
+      base.DoAction
         (
           MMDeviceCommands.Start,
           func
@@ -223,14 +223,14 @@ namespace VACARM.Infrastructure.Services
 
     public void StartAll()
     {
-      base.DoWorkAll(MMDeviceCommands.Start);
+      base.DoActionAll(MMDeviceCommands.Start);
     }
 
     public void StartRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoWorkRange
+      base.DoActionRange
         (
           MMDeviceCommands.Start,
           func
@@ -241,7 +241,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoWork
+      base.DoAction
         (
           MMDeviceCommands.Stop,
           func
@@ -252,7 +252,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoWorkRange
+      base.DoActionRange
         (
           MMDeviceCommands.Stop,
           func
@@ -261,14 +261,14 @@ namespace VACARM.Infrastructure.Services
 
     public void StopAll()
     {
-      base.DoWorkAll(MMDeviceCommands.Stop);
+      base.DoActionAll(MMDeviceCommands.Stop);
     }
 
     public void Update(string id)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoWork
+      base.DoAction
         (
           MMDeviceCommands.Update,
           func
@@ -277,14 +277,14 @@ namespace VACARM.Infrastructure.Services
 
     public void UpdateAll()
     {
-      base.DoWorkAll(MMDeviceCommands.Update);
+      base.DoActionAll(MMDeviceCommands.Update);
     }
 
     public void UpdateRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoWorkRange
+      base.DoActionRange
         (
           MMDeviceCommands.Update,
           func

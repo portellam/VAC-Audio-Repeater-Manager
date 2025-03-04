@@ -446,7 +446,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Restart,
           func
@@ -464,7 +464,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-      .DoWorkRange
+      .DoActionRange
       (
         this.Restart,
         func
@@ -484,7 +484,7 @@ namespace VACARM.Infrastructure.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Restart,
           func
@@ -496,7 +496,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Start,
           func
@@ -514,7 +514,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Start,
           func
@@ -534,7 +534,7 @@ namespace VACARM.Infrastructure.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Start,
           func
@@ -546,7 +546,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Stop,
           func
@@ -564,7 +564,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Stop,
           func
@@ -584,7 +584,7 @@ namespace VACARM.Infrastructure.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Stop,
           func
@@ -596,7 +596,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Update,
           func
@@ -614,7 +614,7 @@ namespace VACARM.Infrastructure.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Update,
           func
@@ -634,7 +634,7 @@ namespace VACARM.Infrastructure.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Update,
           func

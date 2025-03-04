@@ -10,7 +10,7 @@ namespace VACARM.Infrastructure.Services
   {
     #region Logic
 
-    public async Task<int?> DoWorkAsync
+    public async Task<int?> DoActionAsync
     (
       Func<TItem, Task<int?>> actionFunc,
       Func<TItem, bool> matchFunc
@@ -42,7 +42,7 @@ namespace VACARM.Infrastructure.Services
       return result;
     }
 
-    public async Task<int?> DoWorkAsync
+    public async Task<int?> DoActionAsync
     (
       Func<TItem, Task<int?>> actionFunc,
       TItem item
@@ -66,7 +66,7 @@ namespace VACARM.Infrastructure.Services
       return result;
     }
 
-    public async IAsyncEnumerable<int?> DoWorkAllAsync
+    public async IAsyncEnumerable<int?> DoActionAllAsync
     (Func<TItem, Task<int?>> actionFunc)
     {
       int? result = 1;
@@ -93,7 +93,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public async IAsyncEnumerable<int?> DoWorkRangeAsync
+    public async IAsyncEnumerable<int?> DoActionRangeAsync
     (
       Func<TItem, Task<int?>> actionFunc,
       IEnumerable<TItem> enumerable
@@ -125,7 +125,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public async IAsyncEnumerable<int?> DoWorkRangeAsync
+    public async IAsyncEnumerable<int?> DoActionRangeAsync
     (
       Func<TItem, Task<int?>> actionFunc,
       Func<TItem, bool> matchFunc

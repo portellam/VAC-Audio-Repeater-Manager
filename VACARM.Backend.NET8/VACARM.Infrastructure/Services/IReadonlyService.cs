@@ -25,7 +25,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>
-    void DoWork
+    void DoAction
     (
       Action<TItem> action,
       Func<TItem, bool> func
@@ -36,7 +36,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="item">The item</param>
-    void DoWork
+    void DoAction
     (
       Action<TItem> action,
       TItem item
@@ -46,14 +46,14 @@ namespace VACARM.Infrastructure.Services
     /// Do an action for the enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="action">The action</param>
-    void DoWorkAll(Action<TItem> action);
+    void DoActionAll(Action<TItem> action);
 
     /// <summary>
     /// Do an action for an enumerable of some <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="enumerable">The enumerable of item(s)</param>
-    void DoWorkRange
+    void DoActionRange
     (
       Action<TItem> action,
       IEnumerable<TItem> enumerable
@@ -64,7 +64,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="action">The action</param>
     /// <param name="func">The function</param>
-    void DoWorkRange
+    void DoActionRange
     (
       Action<TItem> action,
       Func<TItem, bool> func
