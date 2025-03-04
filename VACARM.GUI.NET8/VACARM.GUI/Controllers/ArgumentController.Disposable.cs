@@ -20,6 +20,7 @@
       if (isDisposed)
       {
         this.Arguments = null;
+        this.INIService = null;
       }
 
       this.HasDisposed = true;
