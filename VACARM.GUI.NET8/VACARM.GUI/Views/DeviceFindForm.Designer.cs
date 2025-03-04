@@ -1,4 +1,4 @@
-﻿namespace VACARM.GUI.Forms
+﻿namespace VACARM.GUI.Views
 {
   partial class DeviceFindForm
   {
@@ -14,19 +14,19 @@
     #region Logic
 
     /// <summary>
-    ///  Clean up any resources being used.
+    /// Dispose of unmanaged objects and true/false dispose of managed objects.
     /// </summary>
-    /// <param name="isDisposed">true if managed resources should be disposed;
-    /// otherwise, false.</param>
+    /// <param name="isDisposed">True/false</param>
     protected override void Dispose(bool isDisposed)
     {
       if
       (
         isDisposed
-        && (components != null)
+        && this.components != null
       )
       {
-        components.Dispose();
+        this.components
+          .Dispose();
       }
 
       base.Dispose(isDisposed);
@@ -256,8 +256,6 @@
 
     #endregion
 
-    #region Windows Form Designer generated parameters
-
     private Button deviceFindCloseButton;
     private Button deviceFindCountButton;
     private Button deviceFindNextArrowButton;
@@ -272,9 +270,6 @@
     private ComboBox deviceFindComboBox;
     private GroupBox deviceFindInSelectionGroupBox;
     private Label deviceFindLabel;
-
-    #endregion
-
     private CheckBox checkBox1;
     private CheckBox deviceFindDuplexCheckBox;
   }

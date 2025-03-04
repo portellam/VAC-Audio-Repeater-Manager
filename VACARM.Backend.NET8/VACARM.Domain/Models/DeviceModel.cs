@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.Domain.Models
 {
@@ -8,51 +7,30 @@ namespace VACARM.Domain.Models
   /// </summary>
   public class DeviceModel :
     BaseModel,
-    IDeviceModel,
-    INotifyPropertyChanged
+    IDeviceModel
   {
     #region Parameters
 
+    private bool isCapture { get; set; }
+    private bool? isDefault { get; set; } = false;
+    private bool? isEnabled { get; set; } = false;
+    private bool? isMuted { get; set; } = false;
+    private bool? isPresent { get; set; } = false;
     private string actualId { get; set; } = string.Empty;
-    private bool? isCapture { get; set; }
-    private bool? isDefault { get; set; }
-    private bool? isEnabled { get; set; }
-    private bool? isMuted { get; set; }
-    private bool? isPresent { get; set; }
-    private bool? isRender { get; set; }
     private string name { get; set; } = string.Empty;
     private string role { get; set; } = string.Empty;
-
     public override uint Id { get; set; }
-
-    public string ActualId
-    {
-      get
-      {
-        return actualId;
-      }
-      set
-      {
-        actualId = value;
-        base.OnPropertyChanged(nameof(actualId));
-      }
-    }
 
     public bool IsCapture
     {
       get
       {
-        if (isCapture == null)
-        {
-          return false;
-        }
-
-        return (bool)isCapture;
+        return this.isCapture;
       }
       set
       {
-        isCapture = value;
-        base.OnPropertyChanged(nameof(IsCapture));
+        this.isCapture = value;
+        base.OnPropertyChanged(nameof(this.IsCapture));
       }
     }
 
@@ -65,20 +43,13 @@ namespace VACARM.Domain.Models
           return false;
         }
 
-        return (bool)isDefault;
+        return this.isDefault
+          .Value;
       }
       set
       {
         isDefault = value;
-        base.OnPropertyChanged(nameof(IsDefault));
-      }
-    }
-
-    public bool IsDuplex
-    {
-      get
-      {
-        return IsCapture == IsRender;
+        base.OnPropertyChanged(nameof(this.IsDefault));
       }
     }
 
@@ -91,12 +62,13 @@ namespace VACARM.Domain.Models
           return false;
         }
 
-        return (bool)isEnabled;
+        return this.isEnabled
+          .Value;
       }
       set
       {
         isEnabled = value;
-        base.OnPropertyChanged(nameof(IsEnabled));
+        base.OnPropertyChanged(nameof(this.IsEnabled));
       }
     }
 
@@ -109,12 +81,13 @@ namespace VACARM.Domain.Models
           return false;
         }
 
-        return (bool)isMuted;
+        return this.isMuted
+          .Value;
       }
       set
       {
-        isMuted = value;
-        base.OnPropertyChanged(nameof(IsMuted));
+        this.isMuted = value;
+        base.OnPropertyChanged(nameof(this.IsMuted));
       }
     }
 
@@ -122,17 +95,18 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (isPresent == null)
+        if (this.isPresent == null)
         {
           return false;
         }
 
-        return (bool)isPresent;
+        return this.isPresent
+          .Value;
       }
       set
       {
-        isPresent = value;
-        base.OnPropertyChanged(nameof(IsPresent));
+        this.isPresent = value;
+        base.OnPropertyChanged(nameof(this.IsPresent));
       }
     }
 
@@ -140,17 +114,20 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (isRender == null)
-        {
-          return false;
-        }
+        return !this.IsCapture;
+      }
+    }
 
-        return (bool)isRender;
+    public string ActualId
+    {
+      get
+      {
+        return this.actualId;
       }
       set
       {
-        isRender = value;
-        base.OnPropertyChanged(nameof(IsRender));
+        this.actualId = value;
+        base.OnPropertyChanged(nameof(this.actualId));
       }
     }
 
@@ -158,12 +135,12 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return name;
+        return this.name;
       }
       set
       {
-        name = value;
-        base.OnPropertyChanged(nameof(Name));
+        this.name = value;
+        base.OnPropertyChanged(nameof(this.Name));
       }
     }
 
@@ -173,8 +150,8 @@ namespace VACARM.Domain.Models
       {
         if
         (
-          isPresent is null
-          || !isPresent.Value
+          this.isPresent is null
+          || !this.isPresent.Value
         )
         {
           return "Absent";
@@ -188,7 +165,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return role;
+        return this.role;
       }
       set
       {
@@ -197,8 +174,8 @@ namespace VACARM.Domain.Models
           value = string.Empty;
         }
 
-        role = value;
-        base.OnPropertyChanged(nameof(Role));
+        this.role = value;
+        base.OnPropertyChanged(nameof(this.Role));
       }
     }
 
@@ -217,13 +194,15 @@ namespace VACARM.Domain.Models
     (
       uint id,
       string actualId,
-      string name
+      string name,
+      bool isCapture
     ) :
       base(id)
     {
-      Id = id;
-      ActualId = actualId;
-      Name = name;
+      this.Id = id;
+      this.ActualId = actualId;
+      this.Name = name;
+      this.IsCapture = isCapture;
     }
 
     /// <summary>
@@ -236,7 +215,6 @@ namespace VACARM.Domain.Models
     /// <param name="isEnabled">True/false is the device enabled</param>
     /// <param name="isMuted">True/false is the device muted</param>
     /// <param name="isPresent">True/false is the device present</param>
-    /// <param name="isRender">True/false is a render device</param>
     /// <param name="role">The role</param>
     [ExcludeFromCodeCoverage]
     public DeviceModel
@@ -244,7 +222,7 @@ namespace VACARM.Domain.Models
       uint id,
       string actualId,
       string name,
-      bool? isCapture,
+      bool isCapture,
       bool? isDefault,
       bool? isEnabled,
       bool? isMuted,
@@ -254,16 +232,15 @@ namespace VACARM.Domain.Models
     ) :
       base(id)
     {
-      Id = id;
-      ActualId = actualId;
-      Name = name;
-      IsCapture = (bool)isCapture;
-      IsDefault = (bool)isDefault;
-      IsEnabled = (bool)isEnabled;
-      IsMuted = (bool)isMuted;
-      IsPresent = (bool)isPresent;
-      IsRender = (bool)isRender;
-      Role = role;
+      this.Id = id;
+      this.ActualId = actualId;
+      this.Name = name;
+      this.IsCapture = isCapture;
+      this.IsDefault = (bool)isDefault;
+      this.IsEnabled = (bool)isEnabled;
+      this.IsMuted = (bool)isMuted;
+      this.IsPresent = (bool)isPresent;
+      this.Role = role;
     }
 
     [ExcludeFromCodeCoverage]
@@ -272,25 +249,23 @@ namespace VACARM.Domain.Models
       out uint id,
       out string actualId,
       out string name,
-      out bool? isCapture,
+      out bool isCapture,
       out bool? isDefault,
       out bool? isEnabled,
       out bool? isMuted,
       out bool? isPresent,
-      out bool? isRender,
       out string role
     )
     {
-      id = Id;
-      actualId = ActualId;
-      name = Name;
-      isCapture = IsCapture;
-      isDefault = IsDefault;
-      isEnabled = IsEnabled;
-      isMuted = IsMuted;
-      isRender = IsRender;
-      isPresent = IsPresent;
-      role = Role;
+      id = this.Id;
+      actualId = this.ActualId;
+      name = this.Name;
+      isCapture = this.IsCapture;
+      isDefault = this.IsDefault;
+      isEnabled = this.IsEnabled;
+      isMuted = this.IsMuted;
+      isPresent = this.IsPresent;
+      role = this.Role;
     }
 
     #endregion

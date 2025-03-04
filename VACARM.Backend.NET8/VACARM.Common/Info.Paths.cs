@@ -23,21 +23,24 @@
     /// </summary>
     public readonly static string KSExecutableName = "audiorepeater_ks.exe";
 
+    public static string ExecutableName
+    {
+      get;
+      set;
+    } = UseMultimediaExtensions ? 
+      MMEExecutableName : 
+      KSExecutableName;
+
     /// <summary>
     /// The expected executable path name.
     /// </summary>
     public static string ExpectedExecutablePathName
     {
-      get
-      {
-        if (DoesProcessAndSystemBitMatch)
-        {
-          return ParentPathNameForBitMatchedProcessAndSystem;
-        }
-
-        return ParentPathNameForBitUnmatchedProcessAndSystem;
-      }
-    }
+      get;
+      set;
+    } = DoesProcessAndSystemBitMatch ?
+      ParentPathNameForBitMatchedProcessAndSystem :
+      ParentPathNameForBitUnmatchedProcessAndSystem;
 
     /// <summary>
     /// Typically `C:\Program Files\Virtual Audio Cable\`.

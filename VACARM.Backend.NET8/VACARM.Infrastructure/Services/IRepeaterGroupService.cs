@@ -1,7 +1,7 @@
 ﻿using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   public partial interface IRepeaterGroupService
     <
@@ -33,27 +33,6 @@ namespace VACARM.Application.Services
     #region Parameters
 
     bool PreferLegacyExecutable { get; set; }
-
-    DeviceGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<DeviceModel>,
-        DeviceModel
-      >,
-      BaseRepository<DeviceModel>,
-      DeviceModel
-    > DeviceGroupService
-    { get; }
-
     string CustomExecutablePathName { get; set; }
     string ExecutableFullPathName { get; }
 

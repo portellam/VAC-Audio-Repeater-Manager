@@ -4,49 +4,46 @@ using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Functions
 {
-  internal static class DeviceFunctions<TDeviceModel> 
+  public static class DeviceFunctions<TDeviceModel> 
     where TDeviceModel :
     DeviceModel
   {
     #region Parameters
 
-    internal readonly static Func<TDeviceModel, bool> IsAbsent =
+    public readonly static Func<TDeviceModel, bool> IsAbsent =
       (TDeviceModel x) => !x.IsPresent;
 
-    internal readonly static Func<TDeviceModel, bool> IsCapture =
+    public readonly static Func<TDeviceModel, bool> IsCapture =
       (TDeviceModel x) => x.IsCapture;
 
-    internal readonly static Func<TDeviceModel, bool> IsCommunications =
+    public readonly static Func<TDeviceModel, bool> IsCommunications =
       (TDeviceModel x) => x.Role == "Communications";
 
-    internal readonly static Func<TDeviceModel, bool> IsConsole =
+    public readonly static Func<TDeviceModel, bool> IsConsole =
       (TDeviceModel x) => x.Role == "Console";
 
-    internal readonly static Func<TDeviceModel, bool> IsDefault =
+    public readonly static Func<TDeviceModel, bool> IsDefault =
       (TDeviceModel x) => x.IsDefault;
 
-    internal readonly static Func<TDeviceModel, bool> IsDisabled =
+    public readonly static Func<TDeviceModel, bool> IsDisabled =
       (TDeviceModel x) => !x.IsEnabled;
 
-    internal readonly static Func<TDeviceModel, bool> IsDuplex =
-      (TDeviceModel x) => x.IsDuplex;
-
-    internal readonly static Func<TDeviceModel, bool> IsEnabled =
+    public readonly static Func<TDeviceModel, bool> IsEnabled =
       (TDeviceModel x) => x.IsEnabled;
 
-    internal readonly static Func<TDeviceModel, bool> IsMultimedia =
+    public readonly static Func<TDeviceModel, bool> IsMultimedia =
       (TDeviceModel x) => x.Role == "Multimedia";
 
-    internal readonly static Func<TDeviceModel, bool> IsMuted =
+    public readonly static Func<TDeviceModel, bool> IsMuted =
       (TDeviceModel x) => x.IsMuted;
 
-    internal readonly static Func<TDeviceModel, bool> IsPresent =
+    public readonly static Func<TDeviceModel, bool> IsPresent =
       (TDeviceModel x) => x.IsPresent;
 
-    internal readonly static Func<TDeviceModel, bool> IsRender =
+    public readonly static Func<TDeviceModel, bool> IsRender =
       (TDeviceModel x) => x.IsRender;
 
-    internal readonly static Func<TDeviceModel, bool> IsUnmuted =
+    public readonly static Func<TDeviceModel, bool> IsUnmuted =
       (TDeviceModel x) => !x.IsMuted;
 
     #endregion
@@ -57,11 +54,40 @@ namespace VACARM.Infrastructure.Functions
     /// Get a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <param name="role">The role</param>
+    /// <returns>The device model.</returns>
+    public static TDeviceModel GetDeviceModel
+    (
+      uint id,
+      string actualId,
+      bool isCapture,
+      string? name,
+      string? role
+    )
+    {
+      DeviceModel model = new DeviceModel
+        (
+          id,
+          actualId,
+          name,
+          isCapture
+        )
+      {
+        IsCapture = isCapture
+      };
+
+      return (TDeviceModel)model;
+    }
+
+    /// <summary>
+    /// Get a <typeparamref name="DeviceModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
     /// <param name="mMDevice">The device</param>
     /// <param name="device">The device</param>
     /// <param name="role">The role</param>
     /// <returns>The device model.</returns>
-    internal static TDeviceModel GetDeviceModel
+    public static TDeviceModel GetDeviceModel
     (
       uint id,
       MMDevice mMDevice,
@@ -73,15 +99,14 @@ namespace VACARM.Infrastructure.Functions
         (
           id,
           mMDevice.ID,
-          mMDevice.FriendlyName
+          mMDevice.FriendlyName,
+          MMDeviceFunctions<MMDevice>.IsCapture(mMDevice)
         )
       {
-        IsCapture = MMDeviceFunctions<MMDevice>.IsCapture(mMDevice),
         IsDefault = CoreAudioDeviceFunctions<Device>.IsDefault(device),
         IsEnabled = MMDeviceFunctions<MMDevice>.IsEnabled(mMDevice),
         IsMuted = CoreAudioDeviceFunctions<Device>.IsMuted(device),
         IsPresent = MMDeviceFunctions<MMDevice>.IsPresent(mMDevice),
-        IsRender = MMDeviceFunctions<MMDevice>.IsRender(mMDevice),
         Role = role,
       };
 
@@ -93,7 +118,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="actualId">The actual ID</param>
     /// <returns>The function</returns>
-    internal static Func<TDeviceModel, bool> ContainsActualId(string actualId)
+    public static Func<TDeviceModel, bool> ContainsActualId(string actualId)
     {
       return (TDeviceModel x) => x.ActualId == actualId;
     }
@@ -103,7 +128,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="name">The name</param>
     /// <returns>The function</returns>
-    internal static Func<TDeviceModel, bool> ContainsName(string name)
+    public static Func<TDeviceModel, bool> ContainsName(string name)
     {
       return (TDeviceModel x) => x.Name
         .ToLower()
@@ -115,7 +140,7 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="role">The role</param>
     /// <returns>The function</returns>
-    internal static Func<TDeviceModel, bool> ContainsRole(string role)
+    public static Func<TDeviceModel, bool> ContainsRole(string role)
     {
       return (TDeviceModel x) => x.Role
         .ToLower() == role.ToLower();

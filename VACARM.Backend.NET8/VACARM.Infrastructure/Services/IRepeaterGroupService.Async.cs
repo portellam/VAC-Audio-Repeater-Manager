@@ -1,4 +1,4 @@
-﻿namespace VACARM.Application.Services
+﻿namespace VACARM.Infrastructure.Services
 {
   public partial interface IRepeaterGroupService
     <
@@ -9,12 +9,6 @@
     >
   {
     #region Logic
-
-    /// <summary>
-    /// Update the service.
-    /// </summary>
-    /// <returns>True/false result.</returns>
-    Task<bool> UpdateServiceAsync();
 
     /// <summary>
     /// Restart a <typeparamref name="TRepeaterModel"/>.

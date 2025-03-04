@@ -43,23 +43,23 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    private List<TBaseModel> list { get; set; }
+    private int maxCount { get; set; } = int.MaxValue;
 
-    protected virtual List<TBaseModel> List
+    private List<TBaseModel> enumerable { get; set; }
+
+    protected new virtual List<TBaseModel> Enumerable
     {
       get
       {
-        return this.list;
+        return this.enumerable;
       }
       set
       {
-        this.list = value;
+        this.enumerable = value;
         base.Enumerable = value;
-        base.OnPropertyChanged(nameof(List));
+        base.OnPropertyChanged(nameof(this.Enumerable));
       }
     }
-
-    private int maxCount { get; set; } = int.MaxValue;
 
     public Func<int, bool> IsValidIndex
     {
@@ -76,6 +76,21 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public IEnumerable<uint> DeselectedIdEnumerable
+    {
+      get
+      {
+        return this.Enumerable
+          .Where
+          (
+            BaseFunctions<TBaseModel>.NotContainsIdEnumerable
+              (this.SelectedIdHashSet)
+          ).Select(x => x.Id);
+      }
+    }
+
+    public HashSet<uint> SelectedIdHashSet { get; set; }
+
     public virtual int MaxCount
     {
       get
@@ -85,13 +100,29 @@ namespace VACARM.Infrastructure.Repositories
       internal set
       {
         this.maxCount = value;
-        base.OnPropertyChanged(nameof(MaxCount));
+        base.OnPropertyChanged(nameof(this.MaxCount));
       }
     }
 
     #endregion
 
     #region Logic
+
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Dispose();
+        this.Enumerable = null;
+      }
+
+      this.HasDisposed = true;
+    }
 
     /// <summary>
     /// Constructor
@@ -100,7 +131,7 @@ namespace VACARM.Infrastructure.Repositories
     public BaseRepository() :
       base()
     {
-      this.List = new List<TBaseModel>();
+      this.Enumerable = new List<TBaseModel>();
     }
 
     /// <summary>
@@ -116,24 +147,8 @@ namespace VACARM.Infrastructure.Repositories
     ) :
       base(list)
     {
-      base.Enumerable = list;
+      this.Enumerable = list;
       this.MaxCount = maxCount;
-    }
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-        this.List = null;
-      }
-
-      this.HasDisposed = true;
     }
 
     public bool Remove(Func<TBaseModel, bool> func)
@@ -155,7 +170,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      return this.List
+      return this.Enumerable
         .Remove(item);
     }
 
@@ -171,7 +186,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      return this.List
+      return this.Enumerable
         .Remove(model);
     }
 
@@ -191,7 +206,7 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var item in enumerable)
       {
-        yield return this.List
+        yield return this.Enumerable
           .Remove(item);
       }
     }
@@ -210,14 +225,14 @@ namespace VACARM.Infrastructure.Repositories
 
       foreach (var item in enumerable)
       {
-        yield return this.List
+        yield return this.Enumerable
           .Remove(item);
       }
     }
 
     public TBaseModel? Get(uint id)
     {
-      if (IsNullOrEmpty)
+      if (this.IsNullOrEmpty)
       {
         return null;
       }
@@ -238,7 +253,7 @@ namespace VACARM.Infrastructure.Repositories
         model.Id = NextId;
       }
 
-      this.List
+      this.Enumerable
         .Add(model);
     }
 
@@ -255,9 +270,117 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public void Deselect(Func<TBaseModel, bool> func)
+    {
+      var model = this.Get(func);
+      this.Deselect(model);
+    }
+
+    public void Deselect(TBaseModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      this.SelectedIdHashSet
+        .Remove(model.Id);
+    }
+
+    public void DeselectRange(Func<TBaseModel, bool> func)
+    {
+      if (func == null)
+      {
+        return;
+      }
+
+      var enumerable = this.GetRange(func);
+      this.DeselectRange(enumerable);
+    }
+
+    public void DeselectRange(IEnumerable<TBaseModel> enumerable)
+    {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in enumerable)
+      {
+        this.Deselect(item);
+      }
+    }
+
+    public void DeselectAll()
+    {
+      if (base.Enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in base.Enumerable)
+      {
+        this.Deselect(item);
+      }
+    }
+
     public void RemoveAll()
     {
       base.Enumerable = new List<TBaseModel>();
+    }
+
+    public void Select(Func<TBaseModel, bool> func)
+    {
+      var model = this.Get(func);
+      this.Select(model);
+    }
+
+    public void Select(TBaseModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      this.SelectedIdHashSet
+        .Add(model.Id);
+    }
+
+    public void SelectRange(Func<TBaseModel, bool> func)
+    {
+      if (func == null)
+      {
+        return;
+      }
+
+      var enumerable = this.GetRange(func);
+      this.SelectRange(enumerable);
+    }
+
+    public void SelectRange(IEnumerable<TBaseModel> enumerable)
+    {
+      if (enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in enumerable)
+      {
+        this.Select(item);
+      }
+    }
+
+    public void SelectAll()
+    {
+      if (base.Enumerable == null)
+      {
+        return;
+      }
+
+      foreach (var item in base.Enumerable)
+      {
+        this.Select(item);
+      }
     }
 
     public void Update(TBaseModel model)

@@ -2,9 +2,10 @@
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
-using VACARM.Infrastructure.Services;
 
-namespace VACARM.Application.Services
+//TODO: HashSet of deviceIDs, and names. Allow to be updated?
+
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The service to manage multiple configurations of audio repeaters. 
@@ -77,31 +78,13 @@ namespace VACARM.Application.Services
   {
     #region Parameters
 
+    //TODO: remove or replace?
     private bool preferLegacyExecutable { get; set; } = false;
-
-    private DeviceGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<DeviceModel>,
-        DeviceModel
-      >,
-      BaseRepository<DeviceModel>,
-      DeviceModel
-    > deviceGroupService
-    { get; set; }
 
     private string customExecutablePathName { get; set; } =
       Common.Info.ExpectedExecutablePathName;
 
+    //TODO: remove or replace?
     private string ExecutableName
     {
       get
@@ -115,6 +98,7 @@ namespace VACARM.Application.Services
       }
     }
 
+    //TODO: remove or replace?
     public bool PreferLegacyExecutable
     {
       get
@@ -124,37 +108,7 @@ namespace VACARM.Application.Services
       set
       {
         this.preferLegacyExecutable = value;
-        base.OnPropertyChanged(nameof(PreferLegacyExecutable));
-      }
-    }
-
-    public DeviceGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<DeviceModel>,
-        DeviceModel
-      >,
-      BaseRepository<DeviceModel>,
-      DeviceModel
-    > DeviceGroupService
-    {
-      get
-      {
-        return this.deviceGroupService;
-      }
-      private set
-      {
-        this.deviceGroupService = value;
-        base.OnPropertyChanged(nameof(DeviceGroupService));
+        base.OnPropertyChanged(nameof(this.PreferLegacyExecutable));
       }
     }
 
@@ -176,7 +130,7 @@ namespace VACARM.Application.Services
         }
 
         this.customExecutablePathName = value;
-        base.OnPropertyChanged(nameof(CustomExecutablePathName));
+        base.OnPropertyChanged(nameof(this.CustomExecutablePathName));
       }
     }
 
@@ -192,6 +146,8 @@ namespace VACARM.Application.Services
 
     #region Logic
 
+    // TODO: specify a default file name value? Or generate one given index?
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -199,28 +155,16 @@ namespace VACARM.Application.Services
     public RepeaterGroupService() :
       base()
     {
-      base.List =
+      this.List =
         new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
 
-      this.DeviceGroupService =
-        new DeviceGroupService
-        <
-          ReadonlyRepository
-          <
-            BaseService
-            <
-              BaseRepository<DeviceModel>,
-              DeviceModel
-            >
-          >,
-          BaseService
-          <
-            BaseRepository<DeviceModel>,
-            DeviceModel
-          >,
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >();
+      var service = new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
+        (
+          new BaseRepository<TRepeaterModel>(),
+          string.Empty
+        );
+
+      base.Add(service);
     }
 
     /// <summary>
@@ -228,29 +172,10 @@ namespace VACARM.Application.Services
     /// </summary>
     /// <param name="list">The list of service(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
-    /// <param name="deviceGroupService">The device group service</param>
     public RepeaterGroupService
     (
       List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>> list,
-      int maxCount,
-      DeviceGroupService
-        <
-          ReadonlyRepository
-          <
-            BaseService
-            <
-              BaseRepository<DeviceModel>,
-              DeviceModel
-            >
-          >,
-          BaseService
-          <
-            BaseRepository<DeviceModel>,
-            DeviceModel
-          >,
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        > deviceGroupService
+      int maxCount
     ) :
       base
       (
@@ -258,9 +183,18 @@ namespace VACARM.Application.Services
         maxCount
       )
     {
-      base.List = list;
-      base.MaxCount = maxCount;
-      this.DeviceGroupService = deviceGroupService;
+      if (base.IsNullOrEmpty)
+      {
+        var service = 
+          new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
+          (
+            new BaseRepository<TRepeaterModel>(),
+            string.Empty
+          );
+
+        base.List
+          .Add(service);
+      }
     }
 
     protected override void Dispose(bool isDisposed)
@@ -273,9 +207,6 @@ namespace VACARM.Application.Services
       if (isDisposed)
       {
         base.Dispose();
-
-        this.DeviceGroupService
-          .Dispose();
       }
 
       base.HasDisposed = true;

@@ -9,7 +9,8 @@ namespace VACARM.Infrastructure.Repositories
     #region Parameters
 
     Func<int, bool> IsValidIndex { get; }
-    int MaxCount { get; }
+    IEnumerable<uint> DeselectedIdEnumerable { get; }
+    HashSet<uint> SelectedIdHashSet { get; set; }
 
     #endregion
 
@@ -39,7 +40,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Remove an enumerable of some <typeparamref name="TBaseModel"/>(s).
     /// </summary>
-    /// <param name="item">The enumerable of item(s)</param>
+    /// <param name="enumerable">The enumerable of item(s)</param>
     /// <returns>True/false result enumerable</returns>
     IEnumerable<bool> RemoveRange(IEnumerable<TBaseModel> enumerable);
 
@@ -59,13 +60,65 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Add an enumerable of some <typeparamref name="TBaseModel"/>(s).
     /// </summary>
-    /// <param name="item">The enumerable of item(s)</param>
+    /// <param name="enumerable">The enumerable of item(s)</param>
     void AddRange(IEnumerable<TBaseModel> enumerable);
+
+    /// <summary>
+    /// Deselect a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="item">The item</param>
+    void Deselect(TBaseModel item);
+
+    /// <summary>
+    /// Deselect an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    void DeselectRange(Func<TBaseModel, bool> func);
+
+    /// <summary>
+    /// Deselect an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    void DeselectRange(IEnumerable<TBaseModel> enumerable);
+
+    /// <summary>
+    /// Deselect the enumerable of all <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    void DeselectAll();
 
     /// <summary>
     /// Remove the enumerable of all <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     void RemoveAll();
+
+    /// <summary>
+    /// Select a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="func">The function</param>
+    void Select(Func<TBaseModel, bool> func);
+
+    /// <summary>
+    /// Select a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="item">The item</param>
+    void Select(TBaseModel item);
+
+    /// <summary>
+    /// Select an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="func">The function</param>
+    void SelectRange(Func<TBaseModel, bool> func);
+
+    /// <summary>
+    /// Select an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    void SelectRange(IEnumerable<TBaseModel> enumerable);
+
+    /// <summary>
+    /// Select the enumerable of all <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    void SelectAll();
 
     /// <summary>
     /// Update a <typeparamref name="TBaseModel"/>.

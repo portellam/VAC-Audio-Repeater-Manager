@@ -1,16 +1,35 @@
 ﻿using VACARM.GUI.Accessors;
 using VACARM.Common;
+using System.Diagnostics.CodeAnalysis;
 
-namespace VACARM.GUI
+namespace VACARM.GUI.Views
 {
-  partial class AboutForm : Form
+  partial class AboutForm :
+    Form
   {
     #region Logic
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    [ExcludeFromCodeCoverage]
     public AboutForm()
     {
       InitializeComponent();
+      SetComponentsNameProperties();
       SetComponentsTextProperties();
+    }
+
+    private void SetComponentsNameProperties()
+    {
+      labelCompanyName.Name = nameof(this.labelCompanyName);
+      labelCopyright.Name = nameof(this.labelCopyright);
+      labelProductName.Name = nameof(this.labelProductName);
+      labelVersion.Name = nameof(this.labelVersion);
+      tableLayoutPanel.Name = nameof(this.tableLayoutPanel);
+      logoPictureBox.Name = nameof(this.logoPictureBox);
+      textBoxDescription.Name = nameof(this.textBoxDescription);
+      okButton.Name = nameof(this.okButton);
     }
 
     private void SetComponentsTextProperties()
@@ -29,10 +48,10 @@ namespace VACARM.GUI
         .Format
         (
           "About {0}",
-          Info.ApplicationPartialAbbreviatedName
+          Common.Info.ApplicationPartialAbbreviatedName
         );
 
-      this.textBoxDescription.Text = 
+      this.textBoxDescription.Text =
         AssemblyInformationAccessor.AssemblyDescription;
     }
 

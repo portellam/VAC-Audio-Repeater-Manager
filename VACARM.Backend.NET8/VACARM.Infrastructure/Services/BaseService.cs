@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
-using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   public class BaseService
     <
@@ -31,14 +30,17 @@ namespace VACARM.Application.Services
     {
       get
       {
-        return (BaseRepository<TBaseModel>)base.Repository;                             //WARN: Throws System.InvalidCastException 24,092 times. Throws System.StackOverflowException.
+        return (BaseRepository<TBaseModel>)base.Repository;
       }
       set
       {
         base.Repository = value;
-        base.OnPropertyChanged(nameof(Repository));
+        base.OnPropertyChanged(nameof(this.Repository));
       }
     }
+
+    // TODO: define a default value.
+    public string FilePathName { get; set; } = string.Empty;
 
     #endregion
 
@@ -51,18 +53,22 @@ namespace VACARM.Application.Services
     public BaseService() :
       base()
     {
-      base.Repository = new BaseRepository<TBaseModel>();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
+    /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
-    public BaseService(BaseRepository<TBaseModel> repository) :
+    public BaseService
+    (
+      BaseRepository<TBaseModel> repository,
+      string filePathName
+    ) :
       base(repository)
     {
-      base.Repository = repository;
+      this.FilePathName = filePathName;
     }
 
     protected override void Dispose(bool isDisposed)
@@ -81,78 +87,6 @@ namespace VACARM.Application.Services
       }
 
       this.HasDisposed = true;
-    }
-
-    public bool Remove(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      return this.Repository
-        .Remove(func);
-    }
-
-    public IEnumerable<TBaseModel> GetAllById(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return base.Repository
-        .GetRange(func);
-    }
-
-    public IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return this.Repository
-        .RemoveRange(func);
-    }
-
-    public IEnumerable<bool> RemoveRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.Repository
-        .RemoveRange(func);
-    }
-
-    public TBaseModel? Get(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      return base.Repository
-        .Get(func);
-    }
-
-    public IEnumerable<TBaseModel> GetRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return base.Repository
-        .GetRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return base.Repository
-        .GetRange(func);
     }
 
     #endregion

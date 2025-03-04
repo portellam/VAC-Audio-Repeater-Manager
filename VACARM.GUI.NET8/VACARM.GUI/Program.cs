@@ -1,3 +1,5 @@
+using VACARM.GUI.Views;
+
 namespace VACARM.GUI
 {
   internal static class Program

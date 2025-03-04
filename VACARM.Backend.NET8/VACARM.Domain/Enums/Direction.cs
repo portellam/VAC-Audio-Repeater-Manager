@@ -1,4 +1,4 @@
-﻿namespace VACARM.Domain.Structs
+﻿namespace VACARM.Domain.Enums
 {
   public enum Direction
   {

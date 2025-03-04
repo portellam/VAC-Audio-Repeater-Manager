@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The readonly service for <typeparamref name="TRepository"/>.
@@ -41,7 +41,7 @@ namespace VACARM.Application.Services
       set
       {
         this.readonlyRepository = value;
-        OnPropertyChanged(nameof(Repository));
+        OnPropertyChanged(nameof(this.Repository));
       }
     }
 
@@ -126,7 +126,7 @@ namespace VACARM.Application.Services
       GC.SuppressFinalize(this);
     }
 
-    public void DoWork
+    public void DoAction
     (
       Action<TItem> action,
       Func<TItem, bool> func
@@ -140,14 +140,14 @@ namespace VACARM.Application.Services
       var item = this.Repository
         .Get(func);
 
-      this.DoWork
+      this.DoAction
         (
           action,
           item
         );
     }
 
-    public void DoWork
+    public void DoAction
     (
       Action<TItem> action,
       TItem item
@@ -166,19 +166,19 @@ namespace VACARM.Application.Services
       action(item);
     }
 
-    public void DoWorkAll(Action<TItem> action)
+    public void DoActionAll(Action<TItem> action)
     {
       var enumerable = this.Repository
         .GetAll();
 
-      this.DoWorkRange
+      this.DoActionRange
         (
           action,
           enumerable
         );
     }
 
-    public void DoWorkRange
+    public void DoActionRange
     (
       Action<TItem> action,
       IEnumerable<TItem> enumerable
@@ -200,7 +200,7 @@ namespace VACARM.Application.Services
       }
     }
 
-    public void DoWorkRange
+    public void DoActionRange
     (
       Action<TItem> action,
       Func<TItem, bool> func
@@ -214,7 +214,7 @@ namespace VACARM.Application.Services
       var enumerable = this.Repository
         .GetRange(func);
 
-      this.DoWorkRange
+      this.DoActionRange
       (
         action,
         enumerable

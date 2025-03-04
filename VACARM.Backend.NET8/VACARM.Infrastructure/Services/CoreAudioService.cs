@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The service to update system audio device(s).
@@ -46,7 +46,7 @@ namespace VACARM.Application.Services
       set
       {
         this.controller = value;
-        base.OnPropertyChanged(nameof(Controller));
+        base.OnPropertyChanged(nameof(this.Controller));
       }
     }
 

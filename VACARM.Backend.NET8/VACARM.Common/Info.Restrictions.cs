@@ -19,8 +19,10 @@
     /// </summary>
     public readonly static uint WindowsNT5MaxEndpointCount = 32;
 
-    public static bool DoIgnoreSafeMaxRepeaterCount { get; set; } = false;
-    public static bool DoIgnoreMaxLegacyEndpointCount { get; set; } = false;
+    public static bool AutoStartRepeaters { get; set; } = false;
+    public static bool IgnoreMaxLegacyEndpointCount { get; set; } = false;
+    public static bool IgnoreSafeMaxRepeaterCount { get; set; } = false;
+    public static bool UseMultimediaExtensions { get; set; } = false;
 
     /// <summary>
     /// Limit the maximum amount of virtual endpoints (virtual audio cables).
@@ -34,7 +36,7 @@
         if
         (
           Environment.OSVersion.Version.Major < 6
-          ! && DoIgnoreMaxLegacyEndpointCount
+          ! && IgnoreMaxLegacyEndpointCount
         )
         {
           return WindowsNT5MaxEndpointCount;
@@ -51,7 +53,7 @@
     {
       get
       {
-        if (DoIgnoreSafeMaxRepeaterCount)
+        if (IgnoreSafeMaxRepeaterCount)
         {
           return uint.MaxValue;
         }

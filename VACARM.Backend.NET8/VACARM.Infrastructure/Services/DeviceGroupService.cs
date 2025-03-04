@@ -7,9 +7,8 @@ using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
-using VACARM.Infrastructure.Services;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The service to manage multiple configurations of system audio device(s). 
@@ -103,7 +102,7 @@ namespace VACARM.Application.Services
       private set
       {
         this.coreAudioService = value;
-        base.OnPropertyChanged(nameof(CoreAudioService));
+        base.OnPropertyChanged(nameof(this.CoreAudioService));
       }
     }
 
@@ -121,13 +120,15 @@ namespace VACARM.Application.Services
       private set
       {
         this.mMDeviceService = value;
-        base.OnPropertyChanged(nameof(MMDeviceService));
+        base.OnPropertyChanged(nameof(this.MMDeviceService));
       }
     }
 
     #endregion
 
     #region Logic
+
+    // TODO: specify a default file name value? Or generate one given index?
 
     /// <summary>
     /// Constructor
@@ -136,8 +137,14 @@ namespace VACARM.Application.Services
     public DeviceGroupService() :
       base()
     {
+      this.List = 
+        new List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>>();
+
       var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-        (new BaseRepository<TDeviceModel>());
+        (
+          new BaseRepository<TDeviceModel>(),
+          string.Empty
+        );
 
       base.Add(service);
 
@@ -170,12 +177,13 @@ namespace VACARM.Application.Services
         maxCount
       )
     {
-      base.List = list;
-
-      if (IsNullOrEmpty)
+      if (base.IsNullOrEmpty)
       {
         var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-        (new BaseRepository<TDeviceModel>());
+          (
+            new BaseRepository<TDeviceModel>(),
+            string.Empty
+          );
 
         base.List
           .Add(service);
@@ -385,14 +393,6 @@ namespace VACARM.Application.Services
         .GetRange(func);
     }
 
-    public IEnumerable<TDeviceModel> GetAllDuplex()
-    {
-      var func = DeviceFunctions<TDeviceModel>.IsDuplex;
-
-      return base.SelectedRepository
-        .GetRange(func);
-    }
-
     public IEnumerable<TDeviceModel> GetAllEnabled()
     {
       var func = DeviceFunctions<TDeviceModel>.IsEnabled;
@@ -446,7 +446,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Restart,
           func
@@ -464,7 +464,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-      .DoWorkRange
+      .DoActionRange
       (
         this.Restart,
         func
@@ -484,7 +484,7 @@ namespace VACARM.Application.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Restart,
           func
@@ -496,7 +496,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Start,
           func
@@ -514,7 +514,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Start,
           func
@@ -534,7 +534,7 @@ namespace VACARM.Application.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Start,
           func
@@ -546,7 +546,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Stop,
           func
@@ -564,7 +564,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Stop,
           func
@@ -584,7 +584,7 @@ namespace VACARM.Application.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Stop,
           func
@@ -596,7 +596,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsId(id);
 
       base.SelectedService
-        .DoWork
+        .DoAction
         (
           this.Update,
           func
@@ -614,7 +614,7 @@ namespace VACARM.Application.Services
       var func = BaseFunctions<TDeviceModel>.ContainsIdEnumerable(idEnumerable);
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Update,
           func
@@ -634,7 +634,7 @@ namespace VACARM.Application.Services
         );
 
       base.SelectedService
-        .DoWorkRange
+        .DoActionRange
         (
           this.Update,
           func
@@ -644,7 +644,10 @@ namespace VACARM.Application.Services
     public void UpdateSelectedService()
     {
       var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-          (new BaseRepository<TDeviceModel>());
+        (
+          new BaseRepository<TDeviceModel>(),
+          string.Empty
+        );
 
       var enumerable = this.MMDeviceService
         .GetAll();

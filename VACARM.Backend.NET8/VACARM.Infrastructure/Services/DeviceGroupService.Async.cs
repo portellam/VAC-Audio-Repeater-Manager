@@ -2,7 +2,7 @@
 using NAudio.CoreAudioApi;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Application.Services
+namespace VACARM.Infrastructure.Services
 {
   public partial class DeviceGroupService
     <
@@ -63,8 +63,7 @@ namespace VACARM.Application.Services
         yield return false;
       }
 
-      var enumerable = this.SelectedService
-        .GetRange(idEnumerable);
+      var enumerable = this.GetRange(idEnumerable);
 
       foreach (var item in enumerable)
       {
@@ -84,8 +83,7 @@ namespace VACARM.Application.Services
         yield return false;
       }
 
-      var enumerable = this.SelectedService
-        .GetRange
+      var enumerable = this.GetRange
         (
           startId,
           endId
@@ -123,8 +121,7 @@ namespace VACARM.Application.Services
         yield return false;
       }
 
-      var enumerable = this.SelectedService
-        .GetRange(idEnumerable);
+      var enumerable = this.GetRange(idEnumerable);
 
       foreach (var item in enumerable)
       {
@@ -144,8 +141,7 @@ namespace VACARM.Application.Services
         yield return false;
       }
 
-      var enumerable = this.SelectedService
-        .GetRange
+      var enumerable = this.GetRange
         (
           startId,
           endId
@@ -165,8 +161,7 @@ namespace VACARM.Application.Services
         return false;
       }
 
-      var model = this.SelectedService
-        .Get(id);
+      var model = this.Get(id);
 
       return await this.MuteAsync(model)
         .ConfigureAwait(false);
@@ -179,8 +174,7 @@ namespace VACARM.Application.Services
         return false;
       }
 
-      var model = this.SelectedService
-        .Get(id);
+      var model = this.Get(id);
 
       return await this.CoreAudioService
         .SetAsDefaultAsync(model.ActualId)
@@ -194,8 +188,7 @@ namespace VACARM.Application.Services
         return false;
       }
 
-      var model = this.SelectedService
-        .Get(id);
+      var model = this.Get(id);
 
       return await this.CoreAudioService
         .SetAsDefaultCommunicationsAsync(model.ActualId)
@@ -213,8 +206,7 @@ namespace VACARM.Application.Services
         return false;
       }
 
-      var model = this.SelectedService
-        .Get(id);
+      var model = this.Get(id);
 
       return await this.CoreAudioService
         .SetVolumeAsync
@@ -231,8 +223,7 @@ namespace VACARM.Application.Services
         return false;
       }
 
-      var model = this.SelectedService
-        .Get(id);
+      var model = this.Get(id);
 
       return await this.UnmuteAsync(model)
         .ConfigureAwait(false);

@@ -1,4 +1,4 @@
-﻿namespace VACARM.Domain.Structs
+﻿namespace VACARM.Domain.Enums
 {
   /// <summary>
   /// The masks of individual speakers/channels.
