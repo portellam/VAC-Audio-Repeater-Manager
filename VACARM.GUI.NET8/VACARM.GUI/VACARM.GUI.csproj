@@ -49,8 +49,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
     </None>
-    <None Include="Controllers\ArgumentController.Disposable.cs" />
-    <None Include="Controllers\BaseController.Disposable.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AudioSwitcher.AudioApi" Version="3.0.0" />

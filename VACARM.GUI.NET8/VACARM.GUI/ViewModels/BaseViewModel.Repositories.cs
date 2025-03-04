@@ -1,6 +1,6 @@
 ﻿using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.GUI.Controllers
+namespace VACARM.GUI.ViewModels
 {
   internal partial class BaseViewModel
     <

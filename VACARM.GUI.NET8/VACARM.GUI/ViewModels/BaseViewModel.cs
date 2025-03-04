@@ -2,7 +2,7 @@
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
-namespace VACARM.GUI.Controllers
+namespace VACARM.GUI.ViewModels
 {
   /// <summary>
   /// The controller of <typeparamref name="TBaseGroupService"/>.
