@@ -41,6 +41,25 @@ namespace VACARM.Infrastructure.Services
 
     #region Logic
 
+    TDeviceModel? GetByActualId(string actualId);
+    TDeviceModel? GetDefaultCommunications();
+    TDeviceModel? GetDefaultConsole();
+    TDeviceModel? GetDefaultMultimedia();
+    IEnumerable <TDeviceModel> GetAllAbsent();
+    IEnumerable <TDeviceModel> GetAllAlphabetical();
+    IEnumerable <TDeviceModel> GetAllAlphabeticalDescending();
+    IEnumerable <TDeviceModel> GetAllCapture();
+    IEnumerable <TDeviceModel> GetAllCommunications();
+    IEnumerable <TDeviceModel> GetAllConsole();
+    IEnumerable <TDeviceModel> GetAllDefault();
+    IEnumerable <TDeviceModel> GetAllDisabled();
+    IEnumerable <TDeviceModel> GetAllEnabled();
+    IEnumerable <TDeviceModel> GetAllMultimedia();
+    IEnumerable <TDeviceModel> GetAllMuted();
+    IEnumerable <TDeviceModel> GetAllPresent();
+    IEnumerable <TDeviceModel> GetAllRender();
+    IEnumerable <TDeviceModel> GetAllUnmuted();
+
     /// <summary>
     /// Restart a <typeparamref name="TDeviceModel"/>.
     /// </summary>
@@ -56,7 +75,7 @@ namespace VACARM.Infrastructure.Services
     /// Restart some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    void RestartRange(IEnumerable<uint> idEnumerable);
+    void RestartRange(IEnumerable <uint> idEnumerable);
 
     /// <summary>
     /// Restart an enumerable of some <typeparamref name="TDeviceModel"/>(s).
@@ -84,7 +103,7 @@ namespace VACARM.Infrastructure.Services
     /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    void StartRange(IEnumerable<uint> idEnumerable);
+    void StartRange(IEnumerable <uint> idEnumerable);
 
     /// <summary>
     /// Start an enumerable of some <typeparamref name="TDeviceModel"/>(s).
@@ -112,7 +131,7 @@ namespace VACARM.Infrastructure.Services
     /// Stop an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    void StopRange(IEnumerable<uint> idEnumerable);
+    void StopRange(IEnumerable <uint> idEnumerable);
 
     /// <summary>
     /// Stop an enumerable of some <typeparamref name="TDeviceModel"/>(s).
@@ -140,7 +159,7 @@ namespace VACARM.Infrastructure.Services
     /// Update an enumerable of some <typeparamref name="TDeviceModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    void UpdateRange(IEnumerable<uint> idEnumerable);
+    void UpdateRange(IEnumerable <uint> idEnumerable);
 
 
     /// <summary>
