@@ -381,7 +381,6 @@
       deviceSelectAllToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
       deviceSelectAllToolStripMenuItem.Size = new Size(192, 22);
       deviceSelectAllToolStripMenuItem.Text = "Select All";
-      deviceSelectAllToolStripMenuItem.Click += deviceSelectAllToolStripMenuItem_Click;
       // 
       // deviceSelectAllEnabledToolStripMenuItem
       // 
@@ -389,7 +388,6 @@
       deviceSelectAllEnabledToolStripMenuItem.Name = "deviceSelectAllEnabledToolStripMenuItem";
       deviceSelectAllEnabledToolStripMenuItem.Size = new Size(192, 22);
       deviceSelectAllEnabledToolStripMenuItem.Text = "Select All Enabled";
-      deviceSelectAllEnabledToolStripMenuItem.Click += deviceSelectAllEnabledToolStripMenuItem_Click;
       // 
       // deviceSelectAllDisabledToolStripMenuItem
       // 
@@ -397,7 +395,6 @@
       deviceSelectAllDisabledToolStripMenuItem.Name = "deviceSelectAllDisabledToolStripMenuItem";
       deviceSelectAllDisabledToolStripMenuItem.Size = new Size(192, 22);
       deviceSelectAllDisabledToolStripMenuItem.Text = "Select All Disabled";
-      deviceSelectAllDisabledToolStripMenuItem.Click += deviceSelectAllDisabledToolStripMenuItem_Click;
       // 
       // deviceSelectAllInputsToolStripMenuItem
       // 
@@ -405,7 +402,6 @@
       deviceSelectAllInputsToolStripMenuItem.Name = "deviceSelectAllInputsToolStripMenuItem";
       deviceSelectAllInputsToolStripMenuItem.Size = new Size(192, 22);
       deviceSelectAllInputsToolStripMenuItem.Text = "Select All Inputs";
-      deviceSelectAllInputsToolStripMenuItem.Click += deviceSelectAllInputsToolStripMenuItem_Click;
       // 
       // deviceSelectAllOutputsToolStripMenuItem
       // 
@@ -413,7 +409,6 @@
       deviceSelectAllOutputsToolStripMenuItem.Name = "deviceSelectAllOutputsToolStripMenuItem";
       deviceSelectAllOutputsToolStripMenuItem.Size = new Size(192, 22);
       deviceSelectAllOutputsToolStripMenuItem.Text = "Select All Outputs";
-      deviceSelectAllOutputsToolStripMenuItem.Click += deviceSelectAllOutputsToolStripMenuItem_Click;
       // 
       // deviceSelectAllDuplexToolStripMenuItem
       // 
@@ -421,7 +416,6 @@
       deviceSelectAllDuplexToolStripMenuItem.Name = "deviceSelectAllDuplexToolStripMenuItem";
       deviceSelectAllDuplexToolStripMenuItem.Size = new Size(192, 22);
       deviceSelectAllDuplexToolStripMenuItem.Text = "Select All Duplex";
-      deviceSelectAllDuplexToolStripMenuItem.Click += deviceSelectAllDuplexToolStripMenuItem_Click;
       // 
       // deviceSelectDefaultInputToolStripMenuItem
       // 

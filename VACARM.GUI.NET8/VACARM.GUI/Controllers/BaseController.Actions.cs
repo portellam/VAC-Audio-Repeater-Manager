@@ -43,14 +43,12 @@
       if (isChecked)
       {
         this.GroupService
-          .SelectedService
           .Select(id);
       }
 
       else
       {
         this.GroupService
-          .SelectedService
           .Deselect(id);
       }
     }
@@ -69,14 +67,12 @@
       if (isChecked)
       {
         this.GroupService
-          .SelectedService
           .SelectRange(idEnumerable);
       }
 
       else
       {
         this.GroupService
-          .SelectedService
           .DeselectRange(idEnumerable);
       }
     }

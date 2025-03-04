@@ -114,7 +114,7 @@
 
       openFileDialog.ShowDialog();
 
-      string filePathName = openFileDialog.FilePathName;
+      string filePathName = openFileDialog.FileName;
       //TODO: send to a FileController?
       //TODO: file controller populates an instance of the repositories?
 
