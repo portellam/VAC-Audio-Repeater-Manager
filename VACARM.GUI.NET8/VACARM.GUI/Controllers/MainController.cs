@@ -10,8 +10,6 @@ namespace VACARM.GUI.Controllers
   {
     #region Parameters
 
-    internal ArgumentController ArgumentController { get; set; }
-
     internal DeviceController
       <
         DeviceGroupService
@@ -74,7 +72,8 @@ namespace VACARM.GUI.Controllers
     /// <param name="argumentEnumerable">The enumerable of argument(s)</param>
     internal MainController(IEnumerable<string> argumentEnumerable)
     {
-      this.ArgumentController = new ArgumentController(argumentEnumerable);
+      var argumentController = new ArgumentController(argumentEnumerable);
+      argumentController.Dispose();
 
       this.DeviceController = new DeviceController
       <
