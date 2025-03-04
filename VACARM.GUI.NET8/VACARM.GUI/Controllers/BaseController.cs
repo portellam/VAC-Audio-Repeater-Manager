@@ -7,7 +7,7 @@ namespace VACARM.GUI.Controllers
   /// <summary>
   /// The controller of <typeparamref name="TBaseGroupService"/>.
   /// </summary>
-  internal partial class BaseController
+  internal partial class BaseViewModel
     <
       TBaseGroupService,
       TBaseModel
@@ -109,7 +109,7 @@ namespace VACARM.GUI.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    internal BaseController()
+    internal BaseViewModel()
     {
       this.GroupService = new BaseGroupService
         <

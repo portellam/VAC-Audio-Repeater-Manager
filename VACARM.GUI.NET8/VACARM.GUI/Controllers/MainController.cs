@@ -122,7 +122,7 @@ namespace VACARM.GUI.Controllers
         RepeaterModel
       >();
 
-      //NOTE: how to take in from BaseControllers, and be updated when they update?
+      //NOTE: how to take in from BaseViewModels, and be updated when they update?
       this.MainForm = new MainForm();
     }
 

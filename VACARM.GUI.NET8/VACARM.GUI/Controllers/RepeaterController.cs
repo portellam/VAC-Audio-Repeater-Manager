@@ -13,7 +13,7 @@ namespace VACARM.GUI.Controllers
       RepeaterGroupService,
       TRepeaterModel
     > :
-    BaseController
+    BaseViewModel
     <
       RepeaterGroupService
       <

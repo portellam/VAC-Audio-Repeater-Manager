@@ -13,7 +13,7 @@ namespace VACARM.GUI.Controllers
       DeviceGroupService,
       TDeviceModel
     > :
-    BaseController
+    BaseViewModel
     <
       DeviceGroupService
       <

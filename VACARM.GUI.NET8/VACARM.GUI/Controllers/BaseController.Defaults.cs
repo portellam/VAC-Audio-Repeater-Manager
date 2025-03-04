@@ -1,6 +1,6 @@
 ﻿namespace VACARM.GUI.Controllers
 {
-  internal partial class BaseController
+  internal partial class BaseViewModel
     <
       TBaseGroupService,
       TBaseModel
