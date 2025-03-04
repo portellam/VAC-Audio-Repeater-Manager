@@ -28,9 +28,6 @@ namespace VACARM.Infrastructure.Functions
     public readonly static Func<TDeviceModel, bool> IsDisabled =
       (TDeviceModel x) => !x.IsEnabled;
 
-    public readonly static Func<TDeviceModel, bool> IsDuplex =
-      (TDeviceModel x) => x.IsDuplex;
-
     public readonly static Func<TDeviceModel, bool> IsEnabled =
       (TDeviceModel x) => x.IsEnabled;
 
