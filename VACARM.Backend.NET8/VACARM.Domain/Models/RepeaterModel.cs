@@ -1,9 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Common;
 using VACARM.Domain.Enums;
+using VACARM.Domain.Structs;
 
 namespace VACARM.Domain.Models
 {
@@ -13,219 +12,49 @@ namespace VACARM.Domain.Models
   /// </summary>
   public class RepeaterModel :
     BaseModel,
-    IRepeaterModel,
-    INotifyPropertyChanged
+    IRepeaterModel
   {
-    #region Default Parameters
-
-    /// <summary>
-    /// Enumerable of the Channel Config.
-    /// </summary>
-    public IEnumerable<ChannelConfig> ChannelConfigEnum
-    {
-      get
-      {
-        return Enum
-          .GetValues(typeof(ChannelConfig))
-          .Cast<ChannelConfig>();
-      }
-    }
-
-    public static byte defaultBitsPerSample
-    {
-      get
-      {
-        return BitsPerSampleOptions[2];
-      }
-    }
-
-    public static byte defaultBufferAmount
-    {
-      get
-      {
-        return BufferAmountOptions[2];
-      }
-    }
-
-    public static byte defaultPrefillPercentage
-    {
-      get
-      {
-        return PrefillPercentageOptions[2];
-      }
-    }
-
-    public static byte defaultResyncAtPercentage
-    {
-      get
-      {
-        return ResyncAtPercentageOptions[2];
-      }
-    }
-
-    public static uint defaultSampleRateKHz
-    {
-      get
-      {
-        return SampleRateKHzOptions[2];
-      }
-    }
-
-    public static ushort defaultBufferDurationMs
-    {
-      get
-      {
-        return BufferDurationMsOptions[2];
-      }
-    }
-
-    public static ChannelConfig defaultChannelConfig
-    {
-      get
-      {
-        return ChannelConfig.Stereo;
-      }
-    }
-
-    /// <summary>
-    /// Available choices for BitsPerSample.
-    /// </summary>
-    public static ReadOnlyCollection<byte> BitsPerSampleOptions =
-      new ReadOnlyCollection<byte>
-      (
-        new byte[]
-        {
-          8,
-          16,
-          18,
-          20,
-          22,
-          24,
-          32
-        }
-      );
-
-    /// <summary>
-    /// Available choices for Buffer.
-    /// </summary>
-    public static ReadOnlyCollection<byte> BufferAmountOptions =
-      new ReadOnlyCollection<byte>
-      (
-        new byte[]
-        {
-          2,
-          4,
-          8,
-          12,
-          16,
-          20,
-          24,
-          32
-        }
-      );
-
-    /// <summary>
-    /// Available choices for Prefill percentage.
-    /// </summary>
-    public static ReadOnlyCollection<byte> PrefillPercentageOptions =
-      new ReadOnlyCollection<byte>
-      (
-        new byte[]
-        {
-          0,
-          20,
-          50,
-          70,
-          100
-        }
-      );
-
-    /// <summary>
-    /// Available choices for ResyncAt percentage.
-    /// </summary>
-    public static ReadOnlyCollection<byte> ResyncAtPercentageOptions =
-      new ReadOnlyCollection<byte>(
-        new byte[]
-        {
-          0,
-          10,
-          15,
-          20,
-          25,
-          30,
-          40,
-          50
-        }
-      );
-
-    /// <summary>
-    /// Available choices for sample rate in KiloHertz.
-    /// </summary>
-    public static ReadOnlyCollection<uint> SampleRateKHzOptions =
-      new ReadOnlyCollection<uint>(
-        new uint[]
-        {
-          5000,
-          8000,
-          11025,
-          22050,
-          44100,
-          48000,
-          96000,
-          192000
-        }
-      );
-
-    /// <summary>
-    /// Available choices for Buffer time in milliseconds.
-    /// </summary>
-    public static ReadOnlyCollection<ushort> BufferDurationMsOptions =
-      new ReadOnlyCollection<ushort>
-      (
-        new ushort[]
-        {
-          20,
-          50,
-          100,
-          200,
-          400,
-          800,
-          1000,
-          2000,
-          4000,
-          8000
-        }
-      );
-
-    #endregion
-
     #region Parameters
 
     private uint inputDeviceId { get; set; }
     private uint outputDeviceId { get; set; }
     private int? processId { get; set; } = null;
     private bool isStarted { get; set; } = false;
-    private byte bitsPerSample { get; set; } = defaultBitsPerSample;
-    private byte bufferAmount { get; set; } = defaultBufferAmount;
-    private byte prefillPercentage { get; set; } = defaultPrefillPercentage;
-    private byte resyncAtPercentage { get; set; } = defaultResyncAtPercentage;
-    private ChannelConfig channelConfig { get; set; } = defaultChannelConfig;
+    private byte bitsPerSample { get; set; } =
+      DefaultRepeaterModel.BitsPerSample;
+
+    private byte bufferAmount { get; set; } =
+      DefaultRepeaterModel.BufferAmount;
+
+    private byte prefillPercentage { get; set; } =
+      DefaultRepeaterModel.PrefillPercentage;
+
+    private byte resyncAtPercentage { get; set; } =
+      DefaultRepeaterModel.ResyncAtPercentage;
+
+    private ChannelConfig channelConfig { get; set; } =
+      DefaultRepeaterModel.ChannelConfig;
+
     private List<Channel> channelList { get; set; } = new List<Channel>();
     private string inputDeviceName { get; set; } = string.Empty;
     private string outputDeviceName { get; set; } = string.Empty;
     private string pathName { get; set; } = string.Empty;
-    private uint sampleRateKHz { get; set; } = defaultSampleRateKHz;
-    private ushort bufferDurationMs { get; set; } = defaultBufferDurationMs;
+
+    private uint sampleRateKHz { get; set; } =
+      DefaultRepeaterModel.SampleRateKHz;
+
+    private ushort bufferDurationMs { get; set; } =
+      DefaultRepeaterModel.BufferDurationMs;
 
     public uint InputDeviceId
     {
       get
       {
-        return inputDeviceId;
+        return this.inputDeviceId;
       }
       set
       {
-        inputDeviceId = value;
+        this.inputDeviceId = value;
         base.OnPropertyChanged(nameof(this.InputDeviceId));
       }
     }
@@ -234,11 +63,11 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return outputDeviceId;
+        return this.outputDeviceId;
       }
       set
       {
-        outputDeviceId = value;
+        this.outputDeviceId = value;
         base.OnPropertyChanged(nameof(this.OutputDeviceId));
       }
     }
@@ -247,11 +76,11 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return processId;
+        return this.processId;
       }
       set
       {
-        processId = value;
+        this.processId = value;
         base.OnPropertyChanged(nameof(this.ProcessId));
       }
     }
@@ -260,11 +89,11 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return isStarted;
+        return this.isStarted;
       }
       set
       {
-        isStarted = value;
+        this.isStarted = value;
         base.OnPropertyChanged(nameof(this.IsStarted));
       }
     }
@@ -273,16 +102,16 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return channelConfig;
+        return this.channelConfig;
       }
       set
       {
         if (value != ChannelConfig.Custom)
         {
-          ChannelMask = (uint)value;
+          this.ChannelMask = (uint)value;
         }
 
-        channelConfig = value;
+        this.channelConfig = value;
         base.OnPropertyChanged(nameof(this.ChannelConfig));
       }
     }
@@ -294,7 +123,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return bitsPerSample;
+        return this.bitsPerSample;
       }
       set
       {
@@ -304,11 +133,11 @@ namespace VACARM.Domain.Models
           && value <= 32
         )
         {
-          bitsPerSample = value;
+          this.bitsPerSample = value;
         }
         else
         {
-          bitsPerSample = 16;
+          this.bitsPerSample = 16;
         }
 
         base.OnPropertyChanged(nameof(this.BitsPerSample));
@@ -322,7 +151,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return bufferAmount;
+        return this.bufferAmount;
       }
       set
       {
@@ -332,11 +161,11 @@ namespace VACARM.Domain.Models
           && value <= byte.MaxValue
         )
         {
-          bufferAmount = value;
+          this.bufferAmount = value;
         }
         else
         {
-          bufferAmount = 8;
+          this.bufferAmount = 8;
         }
 
         base.OnPropertyChanged(nameof(this.BufferAmount));
@@ -350,12 +179,13 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (ChannelList == null)
+        if (this.ChannelList == null)
         {
           return 0;
         }
 
-        return (byte)ChannelList.Count;
+        return (byte)this.ChannelList
+          .Count;
       }
     }
 
@@ -367,21 +197,23 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return prefillPercentage;
+        return this.prefillPercentage;
       }
       set
       {
         if
         (
-          value >= PrefillPercentageOptions.FirstOrDefault()
-          && value <= PrefillPercentageOptions.Last()
+          value >= DefaultRepeaterModel.PrefillPercentageOptions
+            .FirstOrDefault()
+          && value <= DefaultRepeaterModel.PrefillPercentageOptions
+            .Last()
         )
         {
-          prefillPercentage = value;
+          this.prefillPercentage = value;
         }
         else
         {
-          prefillPercentage = 50;
+          this.prefillPercentage = 50;
         }
 
         base.OnPropertyChanged(nameof(this.PrefillPercentage));
@@ -396,22 +228,22 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return resyncAtPercentage;
+        return this.resyncAtPercentage;
       }
       set
       {
         if
         (
           value >= 0
-          && value < prefillPercentage
+          && value < this.prefillPercentage
         )
         {
-          resyncAtPercentage = value;
+          this.resyncAtPercentage = value;
         }
         else
         {
-          resyncAtPercentage = (byte)Math
-            .Round((double)(prefillPercentage / 2));
+          this.resyncAtPercentage = (byte)Math
+            .Round((double)(this.prefillPercentage / 2));
         }
 
         base.OnPropertyChanged(nameof(this.ResyncAtPercentage));
@@ -425,7 +257,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return channelList;
+        return this.channelList;
       }
       set
       {
@@ -434,7 +266,7 @@ namespace VACARM.Domain.Models
           value = new List<Channel>();
         }
 
-        channelList = value;
+        this.channelList = value;
         base.OnPropertyChanged(nameof(this.ChannelList));
       }
     }
@@ -446,7 +278,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return inputDeviceName;
+        return this.inputDeviceName;
       }
       set
       {
@@ -459,7 +291,7 @@ namespace VACARM.Domain.Models
             );
         }
 
-        inputDeviceName = value;
+        this.inputDeviceName = value;
         base.OnPropertyChanged(nameof(this.InputDeviceName));
       }
     }
@@ -471,7 +303,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return outputDeviceName;
+        return this.outputDeviceName;
       }
       set
       {
@@ -484,7 +316,7 @@ namespace VACARM.Domain.Models
             );
         }
 
-        outputDeviceName = value;
+        this.outputDeviceName = value;
         base.OnPropertyChanged(nameof(this.OutputDeviceName));
       }
     }
@@ -492,24 +324,25 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// The file pathname.
     /// </summary>
-    public string PathName
+    public string? PathName
     {
       get
       {
-        return pathName;
+        return this.pathName;
       }
       set
       {
-        if (!File.Exists(value))
+        if (value == null)
         {
-          pathName = string.Empty;
-        }
-        else
-        {
-          pathName = value;
+          value = string.Empty;
         }
 
-        pathName = value;
+        if (!File.Exists(value))
+        {
+          value = string.Empty;
+        }
+
+        this.pathName = value;
         base.OnPropertyChanged(nameof(this.PathName));
       }
     }
@@ -522,17 +355,17 @@ namespace VACARM.Domain.Models
       get
       {
         return $"start " +
-          $"/min \"{Info.ExpectedExecutablePathName}\" \"{PathName}\" " +
-          $"/Input:\"{InputDeviceName}\" " +
-          $"/Output:\"{OutputDeviceName}\" " +
-          $"/SampleRate:{SampleRateKHz} " +
-          $"/BitsPerSample:{BitsPerSample} " +
-          $"/Channels:{ChannelList.Count} " +
-          $"/ChanCfg:custom={ChannelMask} " +
-          $"/BufferMs:{BufferDurationMs} " +
-          $"/Prefill:{PrefillPercentage} " +
-          $"/ResyncAt:{ResyncAtPercentage} " +
-          $"/WindowName:\"{WindowName}\" " +
+          $"/min \"{Info.ExpectedExecutablePathName}\" \"{this.PathName}\" " +
+          $"/Input:\"{this.InputDeviceName}\" " +
+          $"/Output:\"{this.OutputDeviceName}\" " +
+          $"/SampleRate:{this.SampleRateKHz} " +
+          $"/BitsPerSample:{this.BitsPerSample} " +
+          $"/Channels:{this.ChannelList.Count} " +
+          $"/ChanCfg:custom={this.ChannelMask} " +
+          $"/BufferMs:{this.BufferDurationMs} " +
+          $"/Prefill:{this.PrefillPercentage} " +
+          $"/ResyncAt:{this.ResyncAtPercentage} " +
+          $"/WindowName:\"{this.WindowName}\" " +
           $"/AutoStart";
       }
     }
@@ -546,8 +379,8 @@ namespace VACARM.Domain.Models
       {
         return
           $"start \"{Info.ExpectedExecutablePathName}\" " +
-          $"\"{PathName}\" " +
-          $"/CloseInstance:\"{WindowName}\"";
+          $"\"{this.PathName}\" " +
+          $"/CloseInstance:\"{this.WindowName}\"";
       }
     }
 
@@ -564,7 +397,8 @@ namespace VACARM.Domain.Models
         return string.Format
           (
             "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
-            Id.ToString(),
+            this.Id
+              .ToString(),
             inputDeviceId.ToString(),
             outputDeviceId.ToString(),
 
@@ -592,9 +426,9 @@ namespace VACARM.Domain.Models
       {
         uint sum = 0;
 
-        if (ChannelList is not null)
+        if (this.ChannelList is not null)
         {
-          ChannelList.ForEach
+          this.ChannelList.ForEach
             (
               channel
               => sum += (uint)channel
@@ -612,9 +446,9 @@ namespace VACARM.Domain.Models
 
         value &= 0x7FF;
 
-        if (channelConfig != ChannelConfig.Custom)
+        if (this.channelConfig != ChannelConfig.Custom)
         {
-          channelConfig = ChannelConfig.Custom;
+          this.channelConfig = ChannelConfig.Custom;
           base.OnPropertyChanged(nameof(this.ChannelConfig));
         }
 
@@ -635,7 +469,7 @@ namespace VACARM.Domain.Models
           bit <<= 1;
         }
 
-        ChannelList = newChannelList;
+        this.ChannelList = newChannelList;
         base.OnPropertyChanged(nameof(this.ChannelMask));
       }
     }
@@ -647,21 +481,23 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return sampleRateKHz;
+        return this.sampleRateKHz;
       }
       set
       {
         if
         (
-          value >= SampleRateKHzOptions.FirstOrDefault()
-          && value <= SampleRateKHzOptions.Last()
+          value >= DefaultRepeaterModel.SampleRateKHzOptions
+            .FirstOrDefault()
+          && value <= DefaultRepeaterModel.SampleRateKHzOptions
+            .Last()
         )
         {
-          sampleRateKHz = value;
+          this.sampleRateKHz = value;
         }
         else
         {
-          sampleRateKHz = 48000;
+          this.sampleRateKHz = 48000;
         }
 
         base.OnPropertyChanged(nameof(this.SampleRateKHz));
@@ -675,7 +511,7 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return bufferDurationMs;
+        return this.bufferDurationMs;
       }
       set
       {
@@ -685,11 +521,11 @@ namespace VACARM.Domain.Models
           && value <= ushort.MaxValue
         )
         {
-          bufferDurationMs = value;
+          this.bufferDurationMs = value;
         }
         else
         {
-          bufferDurationMs = 500;
+          this.bufferDurationMs = 500;
         }
 
         base.OnPropertyChanged(nameof(this.BufferDurationMs));
@@ -719,15 +555,18 @@ namespace VACARM.Domain.Models
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
-      string pathName
-    ) : 
+      string? pathName
+    ) :
       base(id)
     {
-      InputDeviceId = inputDeviceId;
-      InputDeviceName = inputDeviceName;
-      OutputDeviceId = outputDeviceId;
-      OutputDeviceName = outputDeviceName;
-      PathName = pathName;
+      this.Id = id;
+      this.InputDeviceId = inputDeviceId;
+      this.OutputDeviceId = outputDeviceId;
+      this.ProcessId = processId;
+      this.InputDeviceName = inputDeviceName;
+      this.OutputDeviceName = outputDeviceName;
+      this.ProcessId = processId;
+      this.PathName = pathName;
     }
 
     /// <summary>
@@ -747,7 +586,6 @@ namespace VACARM.Domain.Models
     /// <param name="prefillPercentage">The prefill percentage</param>
     /// <param name="resyncAtPercentage">The resync at percentage</param>
     /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
-
     [ExcludeFromCodeCoverage]
     public RepeaterModel
     (
@@ -766,23 +604,24 @@ namespace VACARM.Domain.Models
       ChannelConfig channelConfig,
       uint sampleRateKHz,
       ushort bufferDurationMs
-    ) : base(id)
+    ) : 
+      base(id)
     {
-      Id = id;
-      InputDeviceId = inputDeviceId;
-      OutputDeviceId = outputDeviceId;
-      ProcessId = processId;
-      BitsPerSample = bitsPerSample;
-      BufferDurationMs = bufferDurationMs;
-      BufferAmount = bufferAmount;
-      ChannelConfig = channelConfig;
-      InputDeviceName = inputDeviceName;
-      IsStarted = isStarted;
-      OutputDeviceName = outputDeviceName;
-      PathName = pathName;
-      PrefillPercentage = prefillPercentage;
-      ResyncAtPercentage = resyncAtPercentage;
-      SampleRateKHz = sampleRateKHz;
+      this.Id = id;
+      this.InputDeviceId = inputDeviceId;
+      this.OutputDeviceId = outputDeviceId;
+      this.ProcessId = processId;
+      this.BitsPerSample = bitsPerSample;
+      this.BufferDurationMs = bufferDurationMs;
+      this.BufferAmount = bufferAmount;
+      this.ChannelConfig = channelConfig;
+      this.InputDeviceName = inputDeviceName;
+      this.IsStarted = isStarted;
+      this.OutputDeviceName = outputDeviceName;
+      this.PathName = pathName;
+      this.PrefillPercentage = prefillPercentage;
+      this.ResyncAtPercentage = resyncAtPercentage;
+      this.SampleRateKHz = sampleRateKHz;
     }
 
     [ExcludeFromCodeCoverage]
@@ -810,26 +649,26 @@ namespace VACARM.Domain.Models
       out ushort bufferDurationMs
     )
     {
-      id = Id;
-      inputDeviceId = InputDeviceId;
-      outputDeviceId = OutputDeviceId;
-      processId = ProcessId;
-      bitsPerSample = BitsPerSample;
-      bufferDurationMs = BufferDurationMs;
-      bufferAmount = BufferAmount;
-      channelConfig = ChannelConfig;
-      channelList = ChannelList;
-      channelMask = ChannelMask;
-      inputDeviceName = InputDeviceName;
-      isStarted = IsStarted;
-      outputDeviceName = OutputDeviceName;
-      pathName = PathName;
-      prefillPercentage = PrefillPercentage;
-      resyncAtPercentage = ResyncAtPercentage;
-      sampleRateKHz = SampleRateKHz;
-      startArguments = StartArguments;
-      stopArguments = StopArguments;
-      windowName = WindowName;
+      id = this.Id;
+      inputDeviceId = this.InputDeviceId;
+      outputDeviceId = this.OutputDeviceId;
+      processId = this.ProcessId;
+      bitsPerSample = this.BitsPerSample;
+      bufferDurationMs = this.BufferDurationMs;
+      bufferAmount = this.BufferAmount;
+      channelConfig = this.ChannelConfig;
+      channelList = this.ChannelList;
+      channelMask = this.ChannelMask;
+      inputDeviceName = this.InputDeviceName;
+      isStarted = this.IsStarted;
+      outputDeviceName = this.OutputDeviceName;
+      pathName = this.PathName;
+      prefillPercentage = this.PrefillPercentage;
+      resyncAtPercentage = this.ResyncAtPercentage;
+      sampleRateKHz = this.SampleRateKHz;
+      startArguments = this.StartArguments;
+      stopArguments = this.StopArguments;
+      windowName = this.WindowName;
     }
 
     /// <summary>
@@ -838,14 +677,14 @@ namespace VACARM.Domain.Models
     /// <returns>The output</returns>
     public override string ToString()
     {
-      return $"{SampleRateKHz}\n" +
-        $"{BitsPerSample}\n" +
-        $"{ChannelMask}\n" +
-        $"{(int)ChannelConfig}\n" +
-        $"{BufferDurationMs}\n" +
-        $"{BufferAmount}\n" +
-        $"{PrefillPercentage}\n" +
-        $"{ResyncAtPercentage}";
+      return $"{this.SampleRateKHz}\n" +
+        $"{this.BitsPerSample}\n" +
+        $"{this.ChannelMask}\n" +
+        $"{(int)this.ChannelConfig}\n" +
+        $"{this.BufferDurationMs}\n" +
+        $"{this.BufferAmount}\n" +
+        $"{this.PrefillPercentage}\n" +
+        $"{this.ResyncAtPercentage}";
     }
 
     /// <summary>
@@ -906,15 +745,15 @@ namespace VACARM.Domain.Models
         return;
       }
 
-      BitsPerSample = bitsPerSample;
-      BufferAmount = bitsPerSample;
-      BufferDurationMs = bufferDurationMs;
-      ChannelConfig = (ChannelConfig)channelConfig;
-      ChannelMask = channelMask;
+      this.BitsPerSample = bitsPerSample;
+      this.BufferAmount = bitsPerSample;
+      this.BufferDurationMs = bufferDurationMs;
+      this.ChannelConfig = (ChannelConfig)channelConfig;
+      this.ChannelMask = channelMask;
 
-      PrefillPercentage = prefillPercentage;
-      ResyncAtPercentage = resyncAtPercentage;
-      SampleRateKHz = sampleRateKHz;
+      this.PrefillPercentage = prefillPercentage;
+      this.ResyncAtPercentage = resyncAtPercentage;
+      this.SampleRateKHz = sampleRateKHz;
 
       Debug.WriteLine
       (

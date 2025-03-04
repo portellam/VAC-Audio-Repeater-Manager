@@ -57,6 +57,35 @@ namespace VACARM.Infrastructure.Functions
     /// Get a <typeparamref name="DeviceModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <param name="role">The role</param>
+    /// <returns>The device model.</returns>
+    public static TDeviceModel GetDeviceModel
+    (
+      uint id,
+      string actualId,
+      bool isCapture,
+      string? name,
+      string? role
+    )
+    {
+      DeviceModel model = new DeviceModel
+        (
+          id,
+          actualId,
+          name,
+          isCapture
+        )
+      {
+        IsCapture = isCapture
+      };
+
+      return (TDeviceModel)model;
+    }
+
+    /// <summary>
+    /// Get a <typeparamref name="DeviceModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
     /// <param name="mMDevice">The device</param>
     /// <param name="device">The device</param>
     /// <param name="role">The role</param>
@@ -73,15 +102,14 @@ namespace VACARM.Infrastructure.Functions
         (
           id,
           mMDevice.ID,
-          mMDevice.FriendlyName
+          mMDevice.FriendlyName,
+          MMDeviceFunctions<MMDevice>.IsCapture(mMDevice)
         )
       {
-        IsCapture = MMDeviceFunctions<MMDevice>.IsCapture(mMDevice),
         IsDefault = CoreAudioDeviceFunctions<Device>.IsDefault(device),
         IsEnabled = MMDeviceFunctions<MMDevice>.IsEnabled(mMDevice),
         IsMuted = CoreAudioDeviceFunctions<Device>.IsMuted(device),
         IsPresent = MMDeviceFunctions<MMDevice>.IsPresent(mMDevice),
-        IsRender = MMDeviceFunctions<MMDevice>.IsRender(mMDevice),
         Role = role,
       };
 

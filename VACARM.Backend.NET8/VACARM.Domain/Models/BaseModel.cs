@@ -27,7 +27,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public virtual event PropertyChangedEventHandler PropertyChanged;
+    public virtual event PropertyChangedEventHandler? PropertyChanged;
 
     #endregion
 
