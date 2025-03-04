@@ -98,6 +98,7 @@ namespace VACARM.GUI.Controllers
         DeviceModel
       >();
 
+      //NOTE: how to take in current device IDs (either by file or from DeviceController)?
       this.RepeaterController = new RepeaterController
       <
         RepeaterGroupService
@@ -121,6 +122,7 @@ namespace VACARM.GUI.Controllers
         RepeaterModel
       >();
 
+      //NOTE: how to take in from BaseControllers, and be updated when they update?
       this.MainForm = new MainForm();
     }
 
