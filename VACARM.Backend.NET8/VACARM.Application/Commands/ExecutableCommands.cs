@@ -91,14 +91,14 @@ namespace VACARM.Application.Commands
     /// Restart the executable.
     /// </summary>
     /// <param name="processId">The process ID</param>
-    /// <param name="fileName">The executable file name</param>
+    /// <param name="filePathName">The file path name</param>
     /// <param name="startArguments">The start arguments</param>
     /// <param name="stopArguments">The stop arguments</param>
     /// <returns>The process ID.</returns>
     public async static Task<int?> RestartAsync
     (
       int? processId,
-      string fileName,
+      string filePathName,
       string startArguments,
       string stopArguments
     )
@@ -129,7 +129,7 @@ namespace VACARM.Application.Commands
       result = await StartAsync
         (
           processId,
-          fileName,
+          filePathName,
           startArguments
         );
 
@@ -152,13 +152,13 @@ namespace VACARM.Application.Commands
     /// Start the executable.
     /// </summary>
     /// <param name="processId">The process ID</param>
-    /// <param name="fileName">The executable file name</param>
+    /// <param name="filePathName">The file path name</param>
     /// <param name="startArguments">The start arguments</param>
     /// <returns>The actual process ID.</returns>
     public async static Task<int?> StartAsync
     (
       int? processId,
-      string fileName,
+      string filePathName,
       string startArguments
     )
     {
@@ -166,8 +166,8 @@ namespace VACARM.Application.Commands
 
       if
       (
-        string.IsNullOrEmpty(fileName)
-        || string.IsNullOrWhiteSpace(fileName)
+        string.IsNullOrEmpty(filePathName)
+        || string.IsNullOrWhiteSpace(filePathName)
       )
       {
         Debug.WriteLine
@@ -178,7 +178,7 @@ namespace VACARM.Application.Commands
             "File name is either empty, null, or whitespace\t=> " +
             "Process ID: {0}, File Name: {1}, Start Arguments: {2}",
             processId,
-            fileName,
+            filePathName,
             startArguments
           )
         );
@@ -195,7 +195,7 @@ namespace VACARM.Application.Commands
             "Executable already started\t=> " +
             "Process ID: {0}, File Name: {1}, Start Arguments: {2}",
             processId,
-            fileName,
+            filePathName,
             startArguments
           )
         );
@@ -210,13 +210,13 @@ namespace VACARM.Application.Commands
           "Starting executable\t=> " +
           "Process ID: {0}, File Name: {1}, Start Arguments: {2}",
           processId,
-          fileName,
+          filePathName,
           startArguments
         )
       );
 
       process = DefaultProcess;
-      process.StartInfo.FileName = fileName;
+      process.StartInfo.FilePathName = filePathName;
 
       bool startAnArgument =
         !(

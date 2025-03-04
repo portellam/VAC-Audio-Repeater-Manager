@@ -94,7 +94,7 @@ namespace VACARM.GUI
       set
       {
         Common.Info
-          .FileNames = value;
+          .FilePathNames = value;
       }
     }
 
