@@ -25,6 +25,11 @@ namespace VACARM.GUI.Controllers
 
     #region Logic
 
+    /*
+     * TODO:
+     * - modify regex to account for "-", "--", delimited strings, and ranges?
+     * - get a formatted string which is the enum/struct name.
+     */
     private KeyValuePair<string, string> GetArgument(string argument)
     {
       var pattern = @"(\w+)=(""[^""]*""|\S+)";
@@ -62,6 +67,10 @@ namespace VACARM.GUI.Controllers
       this.Dispose();
     }
 
+    /// <summary>
+    /// Parse the enumerable of argument(s) from the
+    /// <typeparamref name="INIService"/>.
+    /// </summary>
     public void ParseRange()
     {
       foreach (var item in this.ArgumentsNameEnumerable)
@@ -85,6 +94,10 @@ namespace VACARM.GUI.Controllers
       }
     }
 
+    /// <summary>
+    /// Parse the enumerable of argument(s).
+    /// </summary>
+    /// <param name="enumerable">The enumerable of argument(s)</param>
     public void ParseRange(IEnumerable<string> enumerable)
     {
       if (enumerable == null)
@@ -106,6 +119,10 @@ namespace VACARM.GUI.Controllers
       }
     }
 
+    /// <summary>
+    /// Write the enumerable of argument(s) to the
+    /// <typeparamref name="INIService"/>.
+    /// </summary>
     public void WriteRange()
     {
       foreach (var item in this.ArgumentsNameEnumerable)
