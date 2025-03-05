@@ -1,5 +1,5 @@
 ﻿using VACARM.Domain.Models;
-using VACARM.GUI.Controllers;
+using VACARM.GUI.ViewModels;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
