@@ -72,7 +72,7 @@ namespace VACARM.GUI.ViewModels
       string name
     )
     {
-      var toolStripMenuItem = DefaultSelectRangeToolStripMenuItem;
+      var toolStripMenuItem = SelectRangeToolStripMenuItem;
       toolStripMenuItem.Name += " " + name;
 
       var idEnumerable = modelEnumerable
@@ -92,7 +92,7 @@ namespace VACARM.GUI.ViewModels
       string name
     )
     {
-      var toolStripMenuItem = DefaultSelectRangeToolStripMenuItem;
+      var toolStripMenuItem = SelectRangeToolStripMenuItem;
       toolStripMenuItem.Name += " " + name;
 
       var array = this.GetRange(idEnumerable)

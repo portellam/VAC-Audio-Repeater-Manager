@@ -8,7 +8,7 @@
   {
     #region Parameters
 
-    internal static ToolStripMenuItem DefaultToolStripMenuItem { get; set; } =
+    internal static ToolStripMenuItem ToolStripMenuItem { get; set; } =
       new ToolStripMenuItem()
       {
         AutoToolTip = false,
@@ -17,27 +17,31 @@
         Size = DefaultSize
       };
 
-    internal static ToolStripMenuItem DefaultSelectToolStripMenuItem
+    internal static ToolStripMenuItem SelectToolStripMenuItem
     { get; set; } = new ToolStripMenuItem()
     {
-      AutoToolTip = DefaultToolStripMenuItem.AutoToolTip,
-      CheckOnClick = DefaultToolStripMenuItem.CheckOnClick,
-      DisplayStyle = DefaultToolStripMenuItem.DisplayStyle,
+      AutoToolTip = ToolStripMenuItem.AutoToolTip,
+      CheckOnClick = ToolStripMenuItem.CheckOnClick,
+      DisplayStyle = ToolStripMenuItem.DisplayStyle,
       Name = SelectString,
-      Size = DefaultToolStripMenuItem.Size
+      Size = ToolStripMenuItem.Size
     };
 
-    internal static ToolStripMenuItem DefaultSelectRangeToolStripMenuItem
+    internal static ToolStripMenuItem SelectRangeToolStripMenuItem
     { get; set; } = new ToolStripMenuItem()
     {
-      AutoToolTip = DefaultToolStripMenuItem.AutoToolTip,
-      CheckOnClick = DefaultToolStripMenuItem.CheckOnClick,
-      DisplayStyle = DefaultToolStripMenuItem.DisplayStyle,
+      AutoToolTip = ToolStripMenuItem.AutoToolTip,
+      CheckOnClick = ToolStripMenuItem.CheckOnClick,
+      DisplayStyle = ToolStripMenuItem.DisplayStyle,
       Name = SelectRangeString,
-      Size = DefaultToolStripMenuItem.Size
+      Size = ToolStripMenuItem.Size
     };
 
-    internal static Size DefaultSize { get; set; } = new Size(0, 0);
+    internal static Size DefaultSize { get; set; } = new Size
+      (
+        0, 
+        0
+      );
 
     internal virtual string DefaultName
     {
@@ -61,13 +65,13 @@
 
     private void SetDefaultToolStripMenuItems()
     {
-      DefaultToolStripMenuItem.CheckedChanged +=
+      ToolStripMenuItem.CheckedChanged +=
         this.CheckedChangedEventHandler;
 
-      DefaultSelectToolStripMenuItem.CheckedChanged +=
+      SelectToolStripMenuItem.CheckedChanged +=
         this.CheckedChangedEventHandler;
 
-      DefaultSelectRangeToolStripMenuItem.CheckedChanged +=
+      SelectRangeToolStripMenuItem.CheckedChanged +=
         this.RangeCheckedChangedEventHandler
         (
           this.GroupService

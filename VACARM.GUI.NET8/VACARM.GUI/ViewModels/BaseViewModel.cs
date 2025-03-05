@@ -1,4 +1,5 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Windows.Forms;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
@@ -72,7 +73,7 @@ namespace VACARM.GUI.ViewModels
       string name
     )
     {
-      ToolStripMenuItem toolStripMenuItem = DefaultToolStripMenuItem;
+      ToolStripMenuItem toolStripMenuItem = ToolStripMenuItem;
       int maxIdLength = 7;
 
       string idWhiteSpace = new string
