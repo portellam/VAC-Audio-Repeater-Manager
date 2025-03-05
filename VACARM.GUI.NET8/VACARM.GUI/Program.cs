@@ -10,13 +10,12 @@ namespace VACARM.GUI
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
-    /// <param name="argumentEnumerable">The enumerable of argument(s)</param>
+    /// <param name="argumentArray">The array of argument(s)</param>
     [STAThread]
-    static void Main(IEnumerable<string> argumentEnumerable)
+    static void Main(string[] argumentArray)
     {
       ApplicationConfiguration.Initialize();
-      var argumentController = new ArgumentController(argumentEnumerable);
-      argumentController.Dispose();
+      new ArgumentController(argumentArray);
       System.Windows.Forms.Application.Run(new MainForm());
     }
 
