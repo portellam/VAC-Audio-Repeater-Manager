@@ -64,7 +64,10 @@
         .Dock = DockStyle.Fill;
 
       this.labelCompanyName
-        .Location = new Point(96, 78);
+        .Location = new Point
+        (
+          96, 78
+        );
 
       this.labelCompanyName
         .Margin = new Padding(6, 0, 3, 0);
@@ -180,40 +183,110 @@
         .ColumnCount = 2;
 
       this.tableLayoutPanel
-        .ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+        .ColumnStyles
+        .Add
+        (
+          new ColumnStyle
+          (
+            SizeType.Absolute, 
+            90F
+          )
+        );
 
       this.tableLayoutPanel
-        .ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
+        .ColumnStyles
+        .Add
+        (
+          new ColumnStyle
+          (
+            SizeType.Percent,
+            33F
+          )
+        );
 
       this.tableLayoutPanel
-        .ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 67F));
+        .ColumnStyles
+        .Add
+        (
+          new ColumnStyle
+          (
+            SizeType.Percent,
+            67F
+          )
+        );
 
       this.tableLayoutPanel
-        .Controls.Add(this.logoPictureBox, 0, 0);
+        .Controls
+        .Add
+        (
+          this.logoPictureBox, 
+          0, 
+          0
+        );
 
       this.tableLayoutPanel
-        .Controls.Add(labelProductName, 2, 0);
+        .Controls
+        .Add
+        (
+          labelProductName, 
+          2, 
+          0
+        );
 
       this.tableLayoutPanel
-        .Controls.Add(labelVersion, 2, 1);
+        .Controls
+        .Add
+        (
+          labelVersion, 
+          2, 
+          1
+        );
 
       this.tableLayoutPanel
-        .Controls.Add(labelCopyright, 2, 2);
+        .Controls
+        .Add
+        (
+          labelCopyright,
+          2, 
+          2
+        );
 
       this.tableLayoutPanel
-        .Controls.Add(labelCompanyName, 2, 3);
+        .Controls
+        .Add
+        (
+          labelCompanyName, 
+          2, 
+          3
+        );
 
       this.tableLayoutPanel
-        .Controls.Add(textBoxDescription, 2, 4);
+        .Controls
+        .Add
+        (
+          textBoxDescription, 
+          2, 
+          4
+        );
 
       this.tableLayoutPanel
-        .Controls.Add(okButton, 2, 5);
+        .Controls
+        .Add
+        (
+          okButton,
+          2, 
+          5
+        );
 
       this.tableLayoutPanel
         .Dock = DockStyle.Fill;
 
       this.tableLayoutPanel
-        .Location = new Point(9, 9);
+        .Location = new Point
+        (
+          9, 
+          9
+        );
 
       this.tableLayoutPanel
         .Name = "this.tableLayoutPanel";
