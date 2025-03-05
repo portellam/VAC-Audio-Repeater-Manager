@@ -5,7 +5,7 @@ using VACARM.Infrastructure.Services;
 namespace VACARM.GUI.ViewModels
 {
   /// <summary>
-  /// The controller of <typeparamref name="TBaseGroupService"/>.
+  /// The view model of <typeparamref name="TBaseGroupService"/>.
   /// </summary>
   internal partial class BaseViewModel
     <
