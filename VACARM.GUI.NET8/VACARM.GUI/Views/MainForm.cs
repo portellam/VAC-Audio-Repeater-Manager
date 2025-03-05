@@ -86,6 +86,7 @@ namespace VACARM.GUI.Views
     {
       this.SetComponentsAbility();
       this.SetComponentsText();
+      this.SetHelpComponents();
     }
 
     private void SetComponentsAbility()
@@ -110,25 +111,8 @@ namespace VACARM.GUI.Views
 
     private void SetComponentsText()
     {
-      this.Text = Common.Info.ApplicationPartialAbbreviatedName;
-
-      this.helpAboutToolStripMenuItem.Text = string.Format
-        (
-          "About {0}",
-          Common.Info.ApplicationPartialAbbreviatedName
-        );
-
-      this.helpApplicationWebsiteToolStripMenuItem.Text = string.Format
-        (
-          "{0} Website",
-          Common.Info.ReferencedApplicationName
-        );
-
-      this.helpWebsiteToolStripMenuItem.Text = string.Format
-        (
-          "{0} Website",
-          Common.Info.ApplicationPartialAbbreviatedName
-        );
+      this.Text = Common.Info
+        .ApplicationPartialAbbreviatedName;
 
       string featureNotAvailableMessage = "N/A: ";
 

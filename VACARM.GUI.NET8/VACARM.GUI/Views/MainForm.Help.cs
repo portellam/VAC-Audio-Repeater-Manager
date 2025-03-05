@@ -5,6 +5,40 @@ namespace VACARM.GUI.Views
 {
   public partial class MainForm
   {
+    #region Presentation Logic
+
+    private void SetHelpComponents()
+    {
+      this.helpAboutToolStripMenuItem
+        .Text = string.Format
+        (
+          this.helpAboutToolStripMenuItem
+            .Text,
+            Common.Info
+          .ApplicationAbbreviatedName
+        );
+
+      this.helpApplicationWebsiteToolStripMenuItem
+        .Text = string.Format
+        (
+          this.helpApplicationWebsiteToolStripMenuItem
+            .Text,
+            Common.Info
+          .ReferencedApplicationName
+        );
+
+      this.helpWebsiteToolStripMenuItem
+        .Text = string.Format
+        (
+          this.helpWebsiteToolStripMenuItem
+            .Text,
+          Common.Info
+            .ApplicationAbbreviatedName
+        );
+    }
+
+    #endregion
+
     #region Interaction Logic
 
     private void helpAboutToolStripMenuItem_Click
