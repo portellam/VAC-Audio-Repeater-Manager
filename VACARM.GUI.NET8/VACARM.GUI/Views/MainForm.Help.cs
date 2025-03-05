@@ -14,8 +14,8 @@ namespace VACARM.GUI.Views
         (
           this.helpAboutToolStripMenuItem
             .Text,
-            Common.Info
-          .ApplicationAbbreviatedName
+          Common.Info
+            .ApplicationAbbreviatedName
         );
 
       this.helpApplicationWebsiteToolStripMenuItem
@@ -23,8 +23,8 @@ namespace VACARM.GUI.Views
         (
           this.helpApplicationWebsiteToolStripMenuItem
             .Text,
-            Common.Info
-          .ReferencedApplicationName
+          Common.Info
+            .ReferencedApplicationName
         );
 
       this.helpWebsiteToolStripMenuItem
@@ -87,7 +87,7 @@ namespace VACARM.GUI.Views
         return;
       }
 
-      new UsageForm();
+      new UsageForm().ShowDialog();
     }
 
     private void helpWebsiteToolStripMenuItem_Click

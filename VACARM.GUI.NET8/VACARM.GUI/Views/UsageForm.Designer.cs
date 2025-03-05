@@ -222,7 +222,7 @@
       this.ShowIcon = false;
       this.ShowInTaskbar = false;
       this.StartPosition = FormStartPosition.CenterParent;
-      this.Text = "UsageForm";
+      this.Text = "{0} Command Line Argument Help";
 
       this.tableLayoutPanel
         .ResumeLayout(false);
