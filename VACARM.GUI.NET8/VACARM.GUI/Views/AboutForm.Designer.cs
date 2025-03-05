@@ -66,20 +66,35 @@
       this.labelCompanyName
         .Location = new Point
         (
-          96, 78
+          96, 
+          78
         );
 
       this.labelCompanyName
-        .Margin = new Padding(6, 0, 3, 0);
+        .Margin = new Padding
+        (
+          6, 
+          0, 
+          3, 
+          0
+        );
 
       this.labelCompanyName
-        .MaximumSize = new Size(0, 17);
+        .MaximumSize = new Size
+        (
+          0, 
+          17
+        );
 
       this.labelCompanyName
         .Name = "labelCompanyName";
 
       this.labelCompanyName
-        .Size = new Size(318, 17);
+        .Size = new Size
+        (
+          318, 
+          17
+        );
 
       this.labelCompanyName
         .TabIndex = 22;
@@ -96,19 +111,37 @@
         .Dock = DockStyle.Fill;
 
       this.labelCopyright
-        .Location = new Point(96, 52);
+        .Location = new Point
+        (
+          96, 
+          52
+        );
 
       this.labelCopyright
-        .Margin = new Padding(6, 0, 3, 0);
+        .Margin = new Padding
+        (
+          6, 
+          0, 
+          3, 
+          0
+        );
 
       this.labelCopyright
-        .MaximumSize = new Size(0, 17);
+        .MaximumSize = new Size
+        (
+          0, 
+          17
+        );
 
       this.labelCopyright
         .Name = "labelCopyright";
 
       this.labelCopyright
-        .Size = new Size(318, 17);
+        .Size = new Size
+        (
+          318, 
+          17
+        );
 
       this.labelCopyright
         .TabIndex = 21;
@@ -125,19 +158,37 @@
         .Dock = DockStyle.Fill;
 
       this.labelProductName
-        .Location = new Point(96, 0);
+        .Location = new Point
+        (
+          96,
+          0
+        );
 
       this.labelProductName
-        .Margin = new Padding(6, 0, 3, 0);
+        .Margin = new Padding
+        (
+          6, 
+          0, 
+          3, 
+          0
+        );
 
       this.labelProductName
-        .MaximumSize = new Size(0, 17);
+        .MaximumSize = new Size
+        (
+          0, 
+          17
+        );
 
       this.labelProductName
         .Name = "labelProductName";
 
       this.labelProductName
-        .Size = new Size(318, 17);
+        .Size = new Size
+        (
+          318, 
+          17
+        );
 
       this.labelProductName
         .TabIndex = 19;
@@ -154,19 +205,37 @@
         .Dock = DockStyle.Fill;
 
       this.labelVersion
-        .Location = new Point(96, 26);
+        .Location = new Point
+        (
+          96, 
+          26
+        );
 
       this.labelVersion
-        .Margin = new Padding(6, 0, 3, 0);
+        .Margin = new Padding
+        (
+          6, 
+          0, 
+          3, 
+          0
+        );
 
       this.labelVersion
-        .MaximumSize = new Size(0, 17);
+        .MaximumSize = new Size
+        (
+          0, 
+          17
+        );
 
       this.labelVersion
         .Name = "labelVersion";
 
       this.labelVersion
-        .Size = new Size(318, 17);
+        .Size = new Size
+        (
+          318, 
+          17
+        );
 
       this.labelVersion
         .TabIndex = 0;
