@@ -2,22 +2,36 @@
 {
   partial class UsageForm
   {
+    #region Parameters
+
     /// <summary>
     /// Required designer variable.
     /// </summary>
     private System.ComponentModel.IContainer components = null;
 
+    #endregion
+
+    #region Logic
+
     /// <summary>
     /// Clean up any resources being used.
     /// </summary>
-    protected override void Dispose(bool disposing)
+    /// <param name="isDisposed">True/false</param>
+    protected override void Dispose(bool isDisposed)
     {
-      if (disposing && (components != null))
+      if
+      (
+        isDisposed 
+        && (this.components != null)
+      )
       {
-        components.Dispose();
+        this.components.Dispose();
       }
-      base.Dispose(disposing);
+
+      base.Dispose(isDisposed);
     }
+
+    #endregion
 
     #region Windows Form Designer generated code
 
@@ -27,7 +41,10 @@
     /// </summary>
     private void InitializeComponent()
     {
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsageForm));
+      System.ComponentModel.ComponentResourceManager resources = 
+        new System.ComponentModel
+          .ComponentResourceManager(typeof(UsageForm));
+      
       tableLayoutPanel = new TableLayoutPanel();
       textBoxDescription = new TextBox();
       okButton = new Button();
