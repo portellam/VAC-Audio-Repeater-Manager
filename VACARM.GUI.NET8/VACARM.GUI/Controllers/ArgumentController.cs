@@ -59,6 +59,7 @@ namespace VACARM.GUI.Controllers
       this.INIService = new INIService();
       this.ParseRange();
       this.ParseRange(enumerable);
+      this.Dispose();
     }
 
     public void ParseRange()
