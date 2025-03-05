@@ -59,6 +59,5 @@ namespace VACARM.GUI.Views
     }
 
     #endregion
-
   }
 }
