@@ -42,5 +42,10 @@
     }
 
     #endregion
+
+    private void okButton_Click(object sender, EventArgs e)
+    {
+      this.Dispose();
+    }
   }
 }

@@ -44,13 +44,9 @@
       tableLayoutPanel.Location = new Point(9, 9);
       tableLayoutPanel.Name = "tableLayoutPanel";
       tableLayoutPanel.RowCount = 2;
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 83.3333359F));
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-      tableLayoutPanel.Size = new Size(417, 265);
+      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
+      tableLayoutPanel.Size = new Size(417, 470);
       tableLayoutPanel.TabIndex = 0;
       // 
       // textBoxDescription
@@ -62,7 +58,7 @@
       textBoxDescription.Name = "textBoxDescription";
       textBoxDescription.ReadOnly = true;
       textBoxDescription.ScrollBars = ScrollBars.Both;
-      textBoxDescription.Size = new Size(408, 214);
+      textBoxDescription.Size = new Size(408, 435);
       textBoxDescription.TabIndex = 23;
       textBoxDescription.TabStop = false;
       textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
@@ -72,18 +68,19 @@
       // 
       okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
       okButton.DialogResult = DialogResult.Cancel;
-      okButton.Location = new Point(339, 239);
+      okButton.Location = new Point(339, 444);
       okButton.Name = "okButton";
       okButton.Size = new Size(75, 23);
       okButton.TabIndex = 24;
       okButton.Text = "&OK";
+      okButton.Click += okButton_Click;
       // 
       // UsageForm
       // 
       AcceptButton = okButton;
       AutoScaleDimensions = new SizeF(6F, 13F);
       AutoScaleMode = AutoScaleMode.Font;
-      ClientSize = new Size(435, 283);
+      ClientSize = new Size(435, 488);
       Controls.Add(tableLayoutPanel);
       FormBorderStyle = FormBorderStyle.FixedDialog;
       MaximizeBox = false;
