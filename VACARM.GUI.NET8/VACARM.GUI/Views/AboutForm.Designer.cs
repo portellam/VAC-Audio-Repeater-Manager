@@ -441,7 +441,8 @@
         | AnchorStyles.Right;
 
       this.logoPictureBox
-        .Image = (Image)resources.GetObject("this.logoPictureBox.Image");
+        .Image = Properties.Resources
+        .logo;
 
       this.logoPictureBox
         .Location = new Point
