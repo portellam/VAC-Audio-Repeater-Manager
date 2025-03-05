@@ -14,7 +14,8 @@
       Environment.Is64BitProcess == Environment.Is64BitOperatingSystem;
 
     /// <summary>
-    /// The name of the executable for Multi Media Extensions (MME) or legacy use-cases.
+    /// The name of the executable for Multi Media Extensions (MME) or legacy 
+    /// use-cases.
     /// </summary>
     public readonly static string MMEExecutableName = "audiorepeater.exe";
 
@@ -23,12 +24,24 @@
     /// </summary>
     public readonly static string KSExecutableName = "audiorepeater_ks.exe";
 
+    /// <summary>
+    /// Typically `C:\Program Files\Virtual Audio Cable\`.
+    /// </summary>
+    public readonly static string ParentPathNameForBitMatchedProcessAndSystem =
+      $"{SystemRootPathName}Program Files\\{ReferencedApplicationName}\\";
+
+    /// <summary>
+    /// Typically "C:\Program Files (x86)\Virtual Audio Cable\".
+    /// </summary>
+    public readonly static string ParentPathNameForBitUnmatchedProcessAndSystem =
+      $"{SystemRootPathName}Program Files (x86)\\{ReferencedApplicationName}\\";
+
     public static string ExecutableName
     {
       get;
       set;
-    } = UseMultimediaExtensions ? 
-      MMEExecutableName : 
+    } = UseMultimediaExtensions ?
+      MMEExecutableName :
       KSExecutableName;
 
     /// <summary>
@@ -41,18 +54,6 @@
     } = DoesProcessAndSystemBitMatch ?
       ParentPathNameForBitMatchedProcessAndSystem :
       ParentPathNameForBitUnmatchedProcessAndSystem;
-
-    /// <summary>
-    /// Typically `C:\Program Files\Virtual Audio Cable\`.
-    /// </summary>
-    public static string ParentPathNameForBitMatchedProcessAndSystem { get; } =
-      $"{SystemRootPathName}Program Files\\{ReferencedApplicationName}\\";
-
-    /// <summary>
-    /// Typically "C:\Program Files (x86)\Virtual Audio Cable\".
-    /// </summary>
-    public static string ParentPathNameForBitUnmatchedProcessAndSystem { get; } =
-      $"{SystemRootPathName}Program Files (x86)\\{ReferencedApplicationName}\\";
 
     /// <summary>
     /// Typically "C:\".

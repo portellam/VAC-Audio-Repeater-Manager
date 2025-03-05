@@ -12,6 +12,20 @@
         "{0} Command Argument Help",
         Common.Info.ApplicationAbbreviatedName
       );
+
+      var exeName = Common.Info
+            .ApplicationAbbreviatedName
+            .ToLower() + ".exe";
+
+      this.textBoxDescription
+        .Text = string.Format
+        (
+          this.textBoxDescription
+            .Text,
+          exeName,
+          Common.Info
+            .ExpectedExecutablePathName
+        );
     }
 
     /// <summary>
