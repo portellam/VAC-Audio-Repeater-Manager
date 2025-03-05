@@ -8,19 +8,16 @@ namespace VACARM.GUI.Views
   {
     #region Logic
 
-    private void SetComponentsNameProperties()
+    private void okButton_Click
+    (
+      object sender, 
+      EventArgs eventArgs
+    )
     {
-      this.labelCompanyName.Name = nameof(this.labelCompanyName);
-      this.labelCopyright.Name = nameof(this.labelCopyright);
-      this.labelProductName.Name = nameof(this.labelProductName);
-      this.labelVersion.Name = nameof(this.labelVersion);
-      this.tableLayoutPanel.Name = nameof(this.tableLayoutPanel);
-      this.logoPictureBox.Name = nameof(this.logoPictureBox);
-      this.textBoxDescription.Name = nameof(this.textBoxDescription);
-      this.okButton.Name = nameof(this.okButton);
+      this.Dispose();
     }
 
-    private void SetComponentsTextProperties()
+    private void SetComponents()
     {
       this.labelCopyright
         .Text = AssemblyInformationAccessor.AssemblyCopyright;
@@ -58,10 +55,10 @@ namespace VACARM.GUI.Views
     public AboutForm()
     {
       this.InitializeComponent();
-      this.SetComponentsNameProperties();
-      this.SetComponentsTextProperties();
+      this.SetComponents();
     }
 
     #endregion
+
   }
 }
