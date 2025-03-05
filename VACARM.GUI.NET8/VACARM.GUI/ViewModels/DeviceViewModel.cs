@@ -255,7 +255,11 @@ namespace VACARM.GUI.ViewModels
     /// <summary>
     /// Constructor
     /// </summary>
-    internal DeviceViewModel() :
+    internal DeviceViewModel
+    (
+      ref ToolStripMenuItem selectInputToolStripMenuItem,
+      ref ToolStripMenuItem selectOutputToolStripMenuItem
+    ) :
       base()
     {
       this.GroupService = new DeviceGroupService
@@ -276,6 +280,56 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TDeviceModel>,
         TDeviceModel
       >();
+    }
+
+    /// <summary>
+    /// Deconstructor
+    /// </summary>
+    /// <param name="captureToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="renderoolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allAbsentToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allCaptureToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allCommunicationsToolStripMenuItem">
+    /// The tool strip menu item
+    /// </param>
+    /// <param name="allConsoleToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allDisabledToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allEnabledToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allMultimediaToolStripMenuItem">
+    /// The tool strip menu item
+    /// </param>
+    /// <param name="allMutedToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allPresentToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allRenderToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allUnmutedToolStripMenuItem">The tool strip menu item</param>
+    internal void Deconstruct
+    (
+      ref ToolStripMenuItem captureToolStripMenuItem,
+      ref ToolStripMenuItem renderoolStripMenuItem,
+      ref ToolStripMenuItem allAbsentToolStripMenuItem,
+      ref ToolStripMenuItem allCaptureToolStripMenuItem,
+      ref ToolStripMenuItem allCommunicationsToolStripMenuItem,
+      ref ToolStripMenuItem allConsoleToolStripMenuItem,
+      ref ToolStripMenuItem allDisabledToolStripMenuItem,
+      ref ToolStripMenuItem allEnabledToolStripMenuItem,
+      ref ToolStripMenuItem allMultimediaToolStripMenuItem,
+      ref ToolStripMenuItem allMutedToolStripMenuItem,
+      ref ToolStripMenuItem allPresentToolStripMenuItem,
+      ref ToolStripMenuItem allRenderToolStripMenuItem,
+      ref ToolStripMenuItem allUnmutedToolStripMenuItem
+    )
+    {
+      allAbsentToolStripMenuItem = this.AbsentToolStripMenuItem;
+      allDisabledToolStripMenuItem = this.DisabledToolStripMenuItem;
+      allCommunicationsToolStripMenuItem = this.CommunicationsToolStripMenuItem;
+      allConsoleToolStripMenuItem = this.ConsoleToolStripMenuItem;
+      allEnabledToolStripMenuItem = this.EnabledToolStripMenuItem;
+      allMultimediaToolStripMenuItem = this.MultimediaToolStripMenuItem;
+      allMutedToolStripMenuItem = this.MutedToolStripMenuItem;
+      allPresentToolStripMenuItem = this.PresentToolStripMenuItem;
+      allUnmutedToolStripMenuItem = this.UnmutedToolStripMenuItem;
+      captureToolStripMenuItem = this.CaptureToolStripMenuItem;
+      renderoolStripMenuItem = this.RenderToolStripMenuItem;
     }
 
     protected override void Dispose(bool isDisposed)
