@@ -44,72 +44,193 @@
       System.ComponentModel.ComponentResourceManager resources = 
         new System.ComponentModel
           .ComponentResourceManager(typeof(UsageForm));
-      
-      tableLayoutPanel = new TableLayoutPanel();
-      textBoxDescription = new TextBox();
-      okButton = new Button();
-      tableLayoutPanel.SuspendLayout();
-      SuspendLayout();
+
+      this.tableLayoutPanel = new TableLayoutPanel();
+      this.textBoxDescription = new TextBox();
+      this.okButton = new Button();
+
+      this.tableLayoutPanel
+        .SuspendLayout();
+
+      this.SuspendLayout();
       // 
       // tableLayoutPanel
       // 
-      tableLayoutPanel.ColumnCount = 1;
-      tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-      tableLayoutPanel.Controls.Add(textBoxDescription, 0, 0);
-      tableLayoutPanel.Controls.Add(okButton, 0, 1);
-      tableLayoutPanel.Dock = DockStyle.Fill;
-      tableLayoutPanel.Location = new Point(9, 9);
-      tableLayoutPanel.Name = "tableLayoutPanel";
-      tableLayoutPanel.RowCount = 2;
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-      tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
-      tableLayoutPanel.Size = new Size(417, 470);
-      tableLayoutPanel.TabIndex = 0;
+      this.tableLayoutPanel
+        .ColumnCount = 1;
+
+      this.tableLayoutPanel
+        .ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+      this.tableLayoutPanel
+        .Controls.Add(textBoxDescription, 0, 0);
+
+      this.tableLayoutPanel
+        .Controls.Add(okButton, 0, 1);
+
+      this.tableLayoutPanel
+        .Dock = DockStyle.Fill;
+
+      this.tableLayoutPanel
+        .Location = new Point(9, 9);
+
+      this.tableLayoutPanel
+        .Name = "tableLayoutPanel";
+
+      this.tableLayoutPanel
+        .RowCount = 2;
+
+      this.tableLayoutPanel
+        .RowStyles
+        .Add
+        (
+          new RowStyle
+          (
+            SizeType.Percent, 
+            100F
+          )
+        );
+
+      this.tableLayoutPanel
+        .RowStyles
+        .Add
+        (
+          new RowStyle
+          (
+            SizeType.Absolute, 
+            29F
+          )
+        );
+
+      this.tableLayoutPanel
+        .Size = new Size
+        (
+          417, 
+          470
+        );
+      this.tableLayoutPanel
+        .TabIndex = 0;
       // 
       // textBoxDescription
       // 
-      textBoxDescription.Dock = DockStyle.Fill;
-      textBoxDescription.Location = new Point(6, 3);
-      textBoxDescription.Margin = new Padding(6, 3, 3, 3);
-      textBoxDescription.Multiline = true;
-      textBoxDescription.Name = "textBoxDescription";
-      textBoxDescription.ReadOnly = true;
-      textBoxDescription.ScrollBars = ScrollBars.Both;
-      textBoxDescription.Size = new Size(408, 435);
-      textBoxDescription.TabIndex = 23;
-      textBoxDescription.TabStop = false;
-      textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
+      this.textBoxDescription
+        .Dock = DockStyle.Fill;
+
+      this.textBoxDescription
+        .Location = new Point
+        (
+          6, 
+          3
+        );
+
+      this.textBoxDescription
+        .Margin = new Padding
+        (
+          6, 
+          3, 
+          3, 
+          3
+        );
+
+      this.textBoxDescription
+        .Multiline = true;
+
+      this.textBoxDescription
+        .Name = "textBoxDescription";
+
+      this.textBoxDescription
+        .ReadOnly = true;
+      this.textBoxDescription
+        .ScrollBars = ScrollBars.Both;
+
+      this.textBoxDescription
+        .Size = new Size
+        (
+          408, 
+          435
+        );
+
+      this.textBoxDescription
+        .TabIndex = 23;
+
+      this.textBoxDescription
+        .TabStop = false;
+
+      this.textBoxDescription
+        .Text = resources.GetString("textBoxDescription.Text");
       // 
       // okButton
       // 
-      okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-      okButton.DialogResult = DialogResult.Cancel;
-      okButton.Location = new Point(339, 444);
-      okButton.Name = "okButton";
-      okButton.Size = new Size(75, 23);
-      okButton.TabIndex = 24;
-      okButton.Text = "&OK";
-      okButton.Click += okButton_Click;
+      this.okButton
+        .Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+      this.okButton
+        .DialogResult = DialogResult.Cancel;
+
+      this.okButton
+        .Location = new Point
+        (
+          339, 
+          444
+        );
+
+      this.okButton
+        .Name = "okButton";
+
+      this.okButton
+        .Size = new Size
+        (
+          75, 
+          23
+        );
+
+      this.okButton
+        .TabIndex = 24;
+
+      this.okButton
+        .Text = "&OK";
+
+      this.okButton
+        .Click += okButton_Click;
       // 
       // UsageForm
       // 
-      AcceptButton = okButton;
-      AutoScaleDimensions = new SizeF(6F, 13F);
-      AutoScaleMode = AutoScaleMode.Font;
-      ClientSize = new Size(435, 488);
-      Controls.Add(tableLayoutPanel);
-      FormBorderStyle = FormBorderStyle.FixedDialog;
-      MaximizeBox = false;
-      MinimizeBox = false;
-      Name = "UsageForm";
-      Padding = new Padding(9);
-      ShowIcon = false;
-      ShowInTaskbar = false;
-      StartPosition = FormStartPosition.CenterParent;
-      Text = "UsageForm";
-      tableLayoutPanel.ResumeLayout(false);
-      tableLayoutPanel.PerformLayout();
-      ResumeLayout(false);
+      this.AcceptButton = okButton;
+
+      this.AutoScaleDimensions = new SizeF
+        (
+          6F, 
+          13F
+        );
+
+      this.AutoScaleMode = AutoScaleMode.Font;
+
+      this.ClientSize = new Size
+        (
+          435, 
+          488
+        );
+
+      this.Controls
+        .Add(tableLayoutPanel);
+
+      this.FormBorderStyle = FormBorderStyle.FixedDialog;
+      this.MaximizeBox = false;
+      this.MinimizeBox = false;
+      this.Name = "UsageForm";
+      this.Padding = new Padding(9);
+      this.ShowIcon = false;
+      this.ShowInTaskbar = false;
+      this.StartPosition = FormStartPosition.CenterParent;
+      this.Text = "UsageForm";
+
+      this.tableLayoutPanel
+        .ResumeLayout(false);
+
+      this.tableLayoutPanel
+        .PerformLayout();
+
+      this.ResumeLayout(false);
     }
 
     #endregion
