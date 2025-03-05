@@ -10,9 +10,9 @@ namespace VACARM.GUI.Accessors
     {
       get
       {
-        object[] attributes = Assembly
-          .GetExecutingAssembly()
-          .GetCustomAttributes(
+        object[] attributes = Assembly.GetExecutingAssembly()
+          .GetCustomAttributes
+          (
             typeof(AssemblyCompanyAttribute),
             false
           );
@@ -30,8 +30,7 @@ namespace VACARM.GUI.Accessors
     {
       get
       {
-        object[] attributes = Assembly
-          .GetExecutingAssembly()
+        object[] attributes = Assembly.GetExecutingAssembly()
           .GetCustomAttributes
           (
             typeof(AssemblyCopyrightAttribute),
@@ -51,8 +50,7 @@ namespace VACARM.GUI.Accessors
     {
       get
       {
-        object[] attributes = Assembly
-          .GetExecutingAssembly()
+        object[] attributes = Assembly.GetExecutingAssembly()
           .GetCustomAttributes
           (
             typeof(AssemblyDescriptionAttribute),
@@ -72,8 +70,7 @@ namespace VACARM.GUI.Accessors
     {
       get
       {
-        object[] attributes = Assembly
-          .GetExecutingAssembly()
+        object[] attributes = Assembly.GetExecutingAssembly()
           .GetCustomAttributes
           (
             typeof(AssemblyProductAttribute),
@@ -93,8 +90,7 @@ namespace VACARM.GUI.Accessors
     {
       get
       {
-        return Assembly
-          .GetExecutingAssembly()
+        return Assembly.GetExecutingAssembly()
           .GetName()
           .Version
           .ToString();
@@ -105,9 +101,9 @@ namespace VACARM.GUI.Accessors
     {
       get
       {
-        object[] attributes = Assembly
-          .GetExecutingAssembly()
-          .GetCustomAttributes(
+        object[] attributes = Assembly.GetExecutingAssembly()
+          .GetCustomAttributes
+          (
             typeof(AssemblyMetadataAttribute),
             false
           );

@@ -48,8 +48,12 @@
       Font font = senderComboBox.Font;
 
       int vertScrollBarWidth =
-        (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
-        ? SystemInformation.VerticalScrollBarWidth : 0;
+        (
+          senderComboBox.Items
+            .Count > senderComboBox.MaxDropDownItems
+        )
+        ? SystemInformation.VerticalScrollBarWidth 
+        : 0;
 
       int newWidth;
       
