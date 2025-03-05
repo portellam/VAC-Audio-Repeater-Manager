@@ -100,7 +100,7 @@
       labelVersion.Name = "labelVersion";
       labelVersion.Size = new Size(371, 20);
       labelVersion.TabIndex = 0;
-      labelVersion.Text = "Version";
+      labelVersion.Text = "Version {0}";
       labelVersion.TextAlign = ContentAlignment.MiddleLeft;
       // 
       // tableLayoutPanel
@@ -185,7 +185,7 @@
       ShowIcon = false;
       ShowInTaskbar = false;
       StartPosition = FormStartPosition.CenterParent;
-      Text = "AboutBox1";
+      Text = "About {0}";
       tableLayoutPanel.ResumeLayout(false);
       tableLayoutPanel.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
