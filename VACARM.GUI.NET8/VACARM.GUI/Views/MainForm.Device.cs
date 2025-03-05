@@ -9,7 +9,7 @@ namespace VACARM.GUI.Views
   {
     #region Parameters
 
-    internal DeviceController
+    internal DeviceViewModel
       <
         DeviceGroupService
         <
@@ -30,7 +30,7 @@ namespace VACARM.GUI.Views
           DeviceModel
         >,
         DeviceModel
-      > DeviceController
+      > DeviceViewModel
     { get; set; }
 
     #endregion
