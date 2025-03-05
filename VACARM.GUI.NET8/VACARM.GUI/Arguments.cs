@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace VACARM.GUI
+﻿namespace VACARM.GUI
 {
   /// <summary>
   /// Command line arguments. See also <seealso cref="Enums.Arguments"/>.
