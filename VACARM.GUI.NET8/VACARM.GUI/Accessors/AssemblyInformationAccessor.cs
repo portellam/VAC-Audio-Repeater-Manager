@@ -101,6 +101,26 @@ namespace VACARM.GUI.Accessors
       }
     }
 
+    public static string AssemblyWebsite
+    {
+      get
+      {
+        object[] attributes = Assembly
+          .GetExecutingAssembly()
+          .GetCustomAttributes(
+            typeof(AssemblyMetadataAttribute),
+            false
+          );
+
+        if (attributes.Length == 0)
+        {
+          return string.Empty;
+        }
+
+        return ((AssemblyMetadataAttribute)attributes[0]).Value;
+      }
+    }
+
     #endregion
   }
 }

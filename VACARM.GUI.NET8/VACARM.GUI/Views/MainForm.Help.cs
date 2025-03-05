@@ -1,21 +1,10 @@
-﻿using VACARM.GUI.Helpers;
+﻿using VACARM.GUI.Accessors;
+using VACARM.GUI.Helpers;
 
 namespace VACARM.GUI.Views
 {
   public partial class MainForm
   {
-    #region Parameters
-
-
-
-    #endregion
-
-    #region Presentation Logic
-
-
-
-    #endregion
-
     #region Interaction Logic
 
     private void helpAboutToolStripMenuItem_Click
@@ -64,7 +53,7 @@ namespace VACARM.GUI.Views
         return;
       }
 
-
+      new UsageForm();
     }
 
     private void helpWebsiteToolStripMenuItem_Click
@@ -78,39 +67,9 @@ namespace VACARM.GUI.Views
         return;
       }
 
-      string projectName = "vac-audio-repeater-manager";
-
       try
       {
-        UrlRedirectHelper
-          .GoToSite
-          (
-            string.Format
-            (
-              "https://www.github.com/portellam/{0}",
-              projectName
-            )
-          );
-
-        return;
-      }
-
-      catch
-      {
-      }
-
-      try
-      {
-        UrlRedirectHelper
-          .GoToSite
-          (
-            string.Format
-            (
-              "https://www.codeberg.org/portellam/{0}",
-              projectName
-            )
-          );
-
+        UrlRedirectHelper.GoToSite(AssemblyInformationAccessor.AssemblyWebsite);
         return;
       }
 
