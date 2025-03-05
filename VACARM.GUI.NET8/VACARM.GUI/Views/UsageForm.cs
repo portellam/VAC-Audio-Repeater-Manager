@@ -18,13 +18,13 @@
     {
       this.Text = String.Format
       (
-        "{0} Command Argument Help",
+        this.Text,
         Common.Info.ApplicationAbbreviatedName
       );
 
       var exeName = Common.Info
-            .ApplicationAbbreviatedName
-            .ToLower() + ".exe";
+        .ApplicationAbbreviatedName
+        .ToLower() + ".exe";
 
       this.textBoxDescription
         .Text = string.Format
