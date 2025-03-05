@@ -41,7 +41,7 @@ namespace VACARM.GUI.Views
         (
           this.Text,
           Common.Info
-            .ApplicationPartialAbbreviatedName
+            .ApplicationAbbreviatedName
         );
 
       this.textBoxDescription
