@@ -5,6 +5,15 @@
   {
     #region Logic
 
+    private void okButton_Click
+    (
+      object sender, 
+      EventArgs eventArgs
+    )
+    {
+      this.Dispose();
+    }
+
     private void SetComponents()
     {
       this.Text = String.Format
@@ -37,15 +46,6 @@
       this.SetComponents();
     }
 
-    private void textBoxDescription_TextChanged(object sender, EventArgs e)
-    {
-    }
-
     #endregion
-
-    private void okButton_Click(object sender, EventArgs e)
-    {
-      this.Dispose();
-    }
   }
 }

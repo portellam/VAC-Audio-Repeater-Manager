@@ -62,7 +62,6 @@
       textBoxDescription.TabIndex = 23;
       textBoxDescription.TabStop = false;
       textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
-      textBoxDescription.TextChanged += textBoxDescription_TextChanged;
       // 
       // okButton
       // 
