@@ -117,4 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBoxDescription.Text" xml:space="preserve">
+    <value>Usage:
+{0} ARGS
+
+ARGS: the whitespace delimited list of argument(s).
+
+-h,  --help : This help message.
+
+--always-on-top : Forces windows to remain top of other window(s) on the desktop.
+
+--autostart-repeaters NUMS : Start any or all audio repeaters.
+NUMS:  the index number(s) as a comma-delimited list and/or range.
+
+--input-files NAMES : Specify files to parse audio device records and pre-defined audio repeaters.
+NAMES: a comma-delimited list of file names.
+
+--output-path NAME : Specify the output path of various files (JSON, logs, and scripts).
+NAME: the path name.
+
+--force-mmx : Forces preference of audio repeater compatible with Multimedia Extensions (MMX). Recommended for Microsoft Windows NT 5.x and older. Default: Kernel Streaming (KS).
+
+--fullscreen : Forces fullscreen.
+
+--repeater-path NAME : Set the path name of the audio repeater executables (KS and MMX). Default: '{0}'
+NAME:  the path name.
+
+--safe-mode : Force safe mode. Functionality limits the maximum available audio devices, audio repeaters, and files.</value>
+  </data>
 </root>

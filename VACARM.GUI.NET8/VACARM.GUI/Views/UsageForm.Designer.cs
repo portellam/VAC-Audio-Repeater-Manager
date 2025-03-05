@@ -27,9 +27,10 @@
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsageForm));
       tableLayoutPanel = new TableLayoutPanel();
-      okButton = new Button();
       textBoxDescription = new TextBox();
+      okButton = new Button();
       tableLayoutPanel.SuspendLayout();
       SuspendLayout();
       // 
@@ -52,16 +53,6 @@
       tableLayoutPanel.Size = new Size(417, 265);
       tableLayoutPanel.TabIndex = 0;
       // 
-      // okButton
-      // 
-      okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-      okButton.DialogResult = DialogResult.Cancel;
-      okButton.Location = new Point(339, 239);
-      okButton.Name = "okButton";
-      okButton.Size = new Size(75, 23);
-      okButton.TabIndex = 24;
-      okButton.Text = "&OK";
-      // 
       // textBoxDescription
       // 
       textBoxDescription.Dock = DockStyle.Fill;
@@ -74,7 +65,18 @@
       textBoxDescription.Size = new Size(408, 214);
       textBoxDescription.TabIndex = 23;
       textBoxDescription.TabStop = false;
-      textBoxDescription.Text = "Description";
+      textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
+      textBoxDescription.TextChanged += textBoxDescription_TextChanged;
+      // 
+      // okButton
+      // 
+      okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+      okButton.DialogResult = DialogResult.Cancel;
+      okButton.Location = new Point(339, 239);
+      okButton.Name = "okButton";
+      okButton.Size = new Size(75, 23);
+      okButton.TabIndex = 24;
+      okButton.Text = "&OK";
       // 
       // UsageForm
       // 
@@ -99,8 +101,8 @@
 
     #endregion
 
-    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-    private TextBox textBoxDescription;
     private Button okButton;
+    private TableLayoutPanel tableLayoutPanel;
+    private TextBox textBoxDescription;
   }
 }
