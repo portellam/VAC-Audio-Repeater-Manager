@@ -3,12 +3,12 @@ using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
-namespace VACARM.GUI.Controllers
+namespace VACARM.GUI.ViewModels
 {
   /// <summary>
-  /// The controller of <typeparamref name="DeviceGroupService"/>.
+  /// The view model of <typeparamref name="DeviceGroupService"/>.
   /// </summary>
-  internal partial class DeviceController
+  internal partial class DeviceViewModel
     <
       DeviceGroupService,
       TDeviceModel
@@ -255,7 +255,7 @@ namespace VACARM.GUI.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    internal DeviceController() :
+    internal DeviceViewModel() :
       base()
     {
       this.GroupService = new DeviceGroupService

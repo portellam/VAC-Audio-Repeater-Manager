@@ -3,12 +3,12 @@ using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
-namespace VACARM.GUI.Controllers
+namespace VACARM.GUI.ViewModels
 {
   /// <summary>
-  /// The controller of <typeparamref name="RepeaterGroupService"/>.
+  /// The view model of <typeparamref name="RepeaterGroupService"/>.
   /// </summary>
-  internal partial class RepeaterController
+  internal partial class RepeaterViewModel
     <
       RepeaterGroupService,
       TRepeaterModel
@@ -105,7 +105,7 @@ namespace VACARM.GUI.Controllers
     /// <summary>
     /// Constructor
     /// </summary>
-    internal RepeaterController() :
+    internal RepeaterViewModel() :
       base()
     {
       this.GroupService = new RepeaterGroupService
