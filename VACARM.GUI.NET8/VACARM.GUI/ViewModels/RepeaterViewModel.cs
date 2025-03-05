@@ -60,6 +60,71 @@ namespace VACARM.GUI.ViewModels
     GroupService
     { get; set; }
 
+    // TODO: any SelectAll needs to be just a button with an event handler.
+
+    // TODO: needs to be just a button with an event handler.
+    internal ToolStripMenuItem AllToolStripMenuItem
+    {
+      get;
+    }
+
+    internal ToolStripMenuItem AllAbsentToolStripMenuItem
+    {
+      get
+      {
+        return this.GetToolStripMenuItemWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            RepeaterFunctions<TRepeaterModel>.IsStarted,
+            "Started"
+          );
+      }
+    }
+    internal ToolStripMenuItem AllEnabledToolStripMenuItem
+    {
+      get
+      {
+        return this.GetToolStripMenuItemWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            RepeaterFunctions<TRepeaterModel>.IsStarted,
+            "Started"
+          );
+      }
+    }
+    internal ToolStripMenuItem AllDisabledToolStripMenuItem
+    {
+      get
+      {
+        return this.GetToolStripMenuItemWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            RepeaterFunctions<TRepeaterModel>.IsStarted,
+            "Started"
+          );
+      }
+    }
+    internal ToolStripMenuItem AllPresentToolStripMenuItem
+    {
+      get
+      {
+        return this.GetToolStripMenuItemWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            RepeaterFunctions<TRepeaterModel>.IsStarted,
+            "Started"
+          );
+      }
+    }
+
     internal ToolStripMenuItem StartedToolStripMenuItem
     {
       get
