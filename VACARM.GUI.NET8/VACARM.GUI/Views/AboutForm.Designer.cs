@@ -222,25 +222,71 @@
         .RowCount = 6;
 
       this.tableLayoutPanel
-        .RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+        .RowStyles.Add
+        (
+          new RowStyle
+          (
+            SizeType.Percent,
+            10F
+          )
+        );
 
       this.tableLayoutPanel
-        .RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+        .RowStyles.Add
+        (
+          new RowStyle
+          (
+            SizeType.Percent,
+            10F
+          )
+        );
 
       this.tableLayoutPanel
-        .RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+        .RowStyles.Add
+        (
+          new RowStyle
+          (
+            SizeType.Percent,
+            10F
+          )
+        );
 
       this.tableLayoutPanel
-        .RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+        .RowStyles.Add
+        (
+          new RowStyle
+          (
+            SizeType.Percent,
+            10F
+          )
+        );
 
       this.tableLayoutPanel
-        .RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+       .RowStyles.Add
+        (
+          new RowStyle
+          (
+            SizeType.Percent,
+            50F
+          )
+        );
 
       this.tableLayoutPanel
-        .RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+        .RowStyles.Add
+        (
+          new RowStyle
+          (
+            SizeType.Percent, 
+            10F
+          )
+        );
 
       this.tableLayoutPanel
-        .Size = new Size(417, 265);
+        .Size = new Size
+        (
+          417, 
+          265
+        );
 
       this.tableLayoutPanel
         .TabIndex = 0;
@@ -248,20 +294,35 @@
       // this.logoPictureBox
       // 
       this.logoPictureBox
-        .Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        .Anchor = AnchorStyles.Top 
+        | AnchorStyles.Left 
+        | AnchorStyles.Right;
 
       this.logoPictureBox
         .Image = (Image)resources.GetObject("this.logoPictureBox.Image");
 
       this.logoPictureBox
-        .Location = new Point(3, 3);
+        .Location = new Point
+        (
+          3, 
+          3
+        );
 
       this.logoPictureBox
         .Name = "this.logoPictureBox";
-      this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
+
+      this.tableLayoutPanel
+        .SetRowSpan
+        (
+          this.logoPictureBox, 6
+        );
 
       this.logoPictureBox
-        .Size = new Size(84, 102);
+        .Size = new Size
+        (
+          84, 
+          102
+        );
 
       this.logoPictureBox
         .SizeMode = PictureBoxSizeMode.Zoom;
@@ -278,10 +339,20 @@
         .Dock = DockStyle.Fill;
 
       this.textBoxDescription
-        .Location = new Point(96, 107);
+        .Location = new Point
+        (
+          96, 
+          107
+        );
 
       this.textBoxDescription
-        .Margin = new Padding(6, 3, 3, 3);
+        .Margin = new Padding
+        (
+          6, 
+          3, 
+          3, 
+          3
+        );
 
       this.textBoxDescription
         .Multiline = true;
@@ -296,7 +367,9 @@
         .ScrollBars = ScrollBars.Both;
 
       this.textBoxDescription
-        .Size = new Size(318, 126);
+        .Size = new Size
+        (318, 126
+        );
 
       this.textBoxDescription
         .TabIndex = 23;
@@ -310,19 +383,28 @@
       // okButton
       // 
       this.okButton
-        .Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        .Anchor = AnchorStyles.Bottom 
+        | AnchorStyles.Right;
 
       this.okButton
         .DialogResult = DialogResult.Cancel;
 
       this.okButton
-        .Location = new Point(339, 239);
+        .Location = new Point
+        (
+          339, 
+          239
+        );
 
       this.okButton
         .Name = "okButton";
 
       this.okButton
-        .Size = new Size(75, 23);
+        .Size = new Size
+        (
+          75, 
+          23
+        );
 
       this.okButton
         .TabIndex = 24;
@@ -336,9 +418,20 @@
       // AboutForm
       // 
       this.AcceptButton = okButton;
-      this.AutoScaleDimensions = new SizeF(6F, 13F);
+
+      this.AutoScaleDimensions = new SizeF
+        (
+          6F, 
+          13F
+        );
+
       this.AutoScaleMode = AutoScaleMode.Font;
-      this.ClientSize = new Size(435, 283);
+
+      this.ClientSize = new Size
+        (
+          435, 
+          283
+        );
       
       this.Controls
         .Add(this.tableLayoutPanel);
