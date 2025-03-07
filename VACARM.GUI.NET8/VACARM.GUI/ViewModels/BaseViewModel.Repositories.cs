@@ -26,7 +26,7 @@ namespace VACARM.GUI.ViewModels
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    public IEnumerable<ToolStripMenuItem> GetRange
+    public new IEnumerable<ToolStripMenuItem> GetRange
     (IEnumerable<uint> idEnumerable)
     {
       if (idEnumerable == null)
@@ -53,7 +53,7 @@ namespace VACARM.GUI.ViewModels
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The tool strip menu item.</returns>
-    public ToolStripMenuItem? Get(uint id)
+    public new ToolStripMenuItem? Get(uint id)
     {
       var toolStripMenuItem = this.ToolStripMenuItemRepository
         .Get(ContainsId(id));
@@ -67,12 +67,65 @@ namespace VACARM.GUI.ViewModels
     }
 
     /// <summary>
-    /// Get a new <typeparamref name="ToolStripMenuItem"/>.
+    /// Get a new range of <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    public ToolStripMenuItem GetNew
+    (
+      Func<TBaseModel, bool> func,
+      string name
+    )
+    {
+      var toolStripMenuItem = SelectToolStripMenuItem;
+
+      toolStripMenuItem.Name = string.Format
+        (
+          toolStripMenuItem.Name,
+          name
+        );
+
+      if (func == null)
+      {
+        toolStripMenuItem.Enabled = false;
+        return toolStripMenuItem;
+      }
+
+      var idEnumerable = this.GroupService
+        .SelectedRepository
+        .GetRange(func)
+        .Select(x => x.Id);
+
+      if
+      (
+        idEnumerable == null
+        || idEnumerable.Count() == 0
+      )
+      {
+        toolStripMenuItem.Enabled = false;
+      }
+
+      else
+      {
+        toolStripMenuItem.CheckedChanged +=
+          this.SelectRangeCheckedChangedEventHandler
+          (
+            idEnumerable,
+            true
+          );
+      }
+
+      return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get a new drop down <typeparamref name="ToolStripMenuItem"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    public static ToolStripMenuItem GetNew
+    public static ToolStripMenuItem GetNewDropDownItem
     (
       uint id,
       string name
@@ -112,59 +165,6 @@ namespace VACARM.GUI.ViewModels
       );
 
       toolStripMenuItem.ToolTipText = id.ToString();
-      return toolStripMenuItem;
-    }
-
-    /// <summary>
-    /// Get a new range of <typeparamref name="ToolStripMenuItem"/>.
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <param name="name">The name</param>
-    /// <returns>The tool strip menu item.</returns>
-    public ToolStripMenuItem GetNewRange
-    (
-      Func<TBaseModel, bool> func,
-      string name
-    )
-    {
-      var toolStripMenuItem = SelectRangeToolStripMenuItem;
-
-      toolStripMenuItem.Name = string.Format
-        (
-          toolStripMenuItem.Name,
-          name
-        );
-
-      if (func == null)
-      {
-        toolStripMenuItem.Enabled = false;
-        return toolStripMenuItem;
-      }
-
-      var idEnumerable = this.GroupService
-        .SelectedRepository
-        .GetRange(func)
-        .Select(x => x.Id);
-
-      if
-      (
-        idEnumerable == null
-        || idEnumerable.Count() == 0
-      )
-      {
-        toolStripMenuItem.Enabled = false;
-      }
-
-      else
-      {
-        toolStripMenuItem.CheckedChanged +=
-          this.SelectRangeCheckedChangedEventHandler
-          (
-            idEnumerable,
-            true
-          );
-      }
-
       return toolStripMenuItem;
     }
 
