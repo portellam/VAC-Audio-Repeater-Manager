@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel;
 using System.Diagnostics;
-using VACARM.Common;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
+using VACARM.GUI.ViewModels;
 
 namespace VACARM.GUI.Views
 {
@@ -13,27 +13,6 @@ namespace VACARM.GUI.Views
     INotifyPropertyChanged
   {
     #region Parameters
-
-    //NOTE: this also appears in DeviceFindForm. TODO: place in a Controller?
-    private DeviceGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<DeviceModel>,
-          DeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<DeviceModel>,
-        DeviceModel
-      >,
-      BaseRepository<DeviceModel>,
-      DeviceModel
-    > DeviceGroupService
-    { get; set; }
 
     public virtual event PropertyChangedEventHandler PropertyChanged;
 
@@ -49,27 +28,31 @@ namespace VACARM.GUI.Views
     {
       this.InitializeComponent();
 
-      this.DeviceGroupService =
-        new DeviceGroupService
+      this.DeviceViewModel = new DeviceViewModel
         <
-          ReadonlyRepository
+          DeviceGroupService
           <
+            ReadonlyRepository
+            <
+              BaseService
+              <
+                BaseRepository<DeviceModel>,
+                DeviceModel
+              >
+            >,
             BaseService
             <
               BaseRepository<DeviceModel>,
               DeviceModel
-            >
-          >,
-          BaseService
-          <
+            >,
             BaseRepository<DeviceModel>,
             DeviceModel
           >,
-          BaseRepository<DeviceModel>,
           DeviceModel
         >();
 
-      this.PostInitializeComponent();
+      //this.DeviceViewModel.Update();          //TODO: place this under "Refresh"
+      this.Refresh();
 
       this.windowWindowToolStripDropDownButton  //NOTE: this is a test.
         .DropDownItems
@@ -82,11 +65,13 @@ namespace VACARM.GUI.Views
         );
     }
 
-    private void PostInitializeComponent()
+    public override void Refresh()
     {
       this.SetComponentsAbility();
       this.SetComponentsText();
+      this.SetDeviceComponents();
       this.SetHelpComponents();
+      base.Refresh();
     }
 
     private void SetComponentsAbility()

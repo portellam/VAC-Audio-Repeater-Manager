@@ -39,29 +39,14 @@ namespace VACARM.GUI.Views
 
     private void SetDeviceComponents()
     {
-      //this.DeviceViewModel
-      //  .Deconstruct
-      //  (
-      //    ref deviceSelectAllToolStripMenuItem,
-      //    ref deviceSelectAllAbsentToolStripMenuItem,
-      //    ref deviceSelectAllCaptureToolStripMenuItem,
-      //    ref deviceSelectAllCommunicationsToolStripMenuItem,
-      //    ref deviceSelectAllConsoleToolStripMenuItem,
-      //    ref deviceSelectAllDisabledToolStripMenuItem,
-      //    ref deviceSelectAllEnabledToolStripMenuItem,
-      //    ref deviceSelectAllMultimediaToolStripMenuItem,
-      //    ref deviceSelectAllMutedToolStripMenuItem,
-      //    ref deviceSelectAllPresentToolStripMenuItem,
-      //    ref deviceSelectAllRenderToolStripMenuItem,
-      //    ref deviceSelectAllUnmutedToolStripMenuItem,
-      //    ref deviceSelectCaptureToolStripMenuItem,
-      //    ref deviceSelectDefaultToolStripMenuItem,
-      //    ref deviceSelectRenderToolStripMenuItem,
-      //  );
+      this.deviceSelectAllToolStripMenuItem = this.DeviceViewModel
+        .SelectAllToolStripMenuItem;
 
-      // TODO: run update before SetDeviceComponents() ?
-      //this.DeviceViewModel
-      //  .Update();
+      this.deviceSelectRangeToolStripMenuItem = this.DeviceViewModel
+        .SelectRangeToolStripMenuItem;
+
+      this.deviceSelectToolStripMenuItem = this.DeviceViewModel
+        .SelectToolStripMenuItem;
     }
 
     #endregion
@@ -79,72 +64,7 @@ namespace VACARM.GUI.Views
         return;
       }
 
-      var result = deviceSelectInputToolStripMenuItem.DropDownItems;
-    }
-
-    private void deviceSelectInputToolStripMenuItem_CheckState
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-    }
-
-    private void deviceSelectOutputToolStripMenuItem_CheckState
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-    }
-
-    private void deviceSelectDuplexToolStripMenuItem_CheckState
-    (
-      object sender,
-      EventArgs eventArgs
-    )
-    {
-      if (sender == null)
-      {
-        return;
-      }
-
-      var enumerable = this.deviceSelectDuplexToolStripMenuItem
-        .DropDownItems;
-
-      this.deviceSelectDuplexToolStripMenuItem
-        .DropDownItems.Clear();
-
-      foreach (var item in enumerable)
-      {
-        if (item == null)
-        {
-          continue;
-        }
-
-        if (item.GetType() != typeof(ToolStripMenuItem))
-        {
-          return;
-        }
-
-        ToolStripMenuItem newItem = item as ToolStripMenuItem;
-        newItem.Checked = true;
-
-        this.deviceSelectDuplexToolStripMenuItem
-          .DropDownItems
-          .Add(newItem);
-      }
-
+      
     }
 
     private void deviceDisableToolStripMenuItem_Click

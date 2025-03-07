@@ -45,99 +45,92 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       toolStrip1 = new ToolStrip();
       fileToolStripLabel = new ToolStripDropDownButton();
-      fileNewToolStripMenuItem = new ToolStripMenuItem();
-      fileOpenToolStripMenuItem = new ToolStripMenuItem();
-      fileOpenContainingFolderToolStripMenuItem = new ToolStripMenuItem();
-      fileSaveToolStripMenuItem = new ToolStripMenuItem();
-      fileSaveAsToolStripMenuItem = new ToolStripMenuItem();
-      fileSaveACopyAsToolStripMenuItem = new ToolStripMenuItem();
-      fileSaveAllToolStripMenuItem = new ToolStripMenuItem();
-      fileCloseToolStripMenuItem = new ToolStripMenuItem();
-      fileCloseAllToolStripMenuItem = new ToolStripMenuItem();
-      fileCloseMultipleToolStripMenuItem = new ToolStripMenuItem();
-      fileToolStripSeparator1 = new ToolStripSeparator();
-      fileExitToolStripMenuItem = new ToolStripMenuItem();
-      deviceToolStripLabel = new ToolStripDropDownButton();
-      deviceUndoToolStripMenuItem = new ToolStripMenuItem();
-      deviceRedoToolStripMenuItem = new ToolStripMenuItem();
-      deviceToolStripSeparator1 = new ToolStripSeparator();
-      deviceSetAsDefaultToolStripMenuItem = new ToolStripMenuItem();
-      deviceEnableToolStripMenuItem = new ToolStripMenuItem();
-      deviceDisableToolStripMenuItem = new ToolStripMenuItem();
-      deviceRefreshToolStripMenuItem = new ToolStripMenuItem();
-      deviceToolStripSeparator2 = new ToolStripSeparator();
-      deviceFindToolStripMenuItem = new ToolStripMenuItem();
       deviceConfirmSelectToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectToolStripMenuItemDropDown = new ToolStripMenuItem();
-      deviceSelectInputToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectOutputToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectDuplexToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectAllToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectAllEnabledToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectAllDisabledToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectAllInputsToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectAllOutputsToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectAllDuplexToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectDefaultInputToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectDefaultOutputToolStripMenuItem = new ToolStripMenuItem();
-      deviceToolStripSeparator3 = new ToolStripSeparator();
-      deviceImportFromClipboardToolStripMenuItem = new ToolStripMenuItem();
-      deviceImportFromXMLToolStripMenuItem = new ToolStripMenuItem();
+      deviceDisableToolStripMenuItem = new ToolStripMenuItem();
+      deviceEnableToolStripMenuItem = new ToolStripMenuItem();
       deviceExportToClipboardToolStripMenuItem = new ToolStripMenuItem();
       deviceExportToXMLToolStripMenuItem = new ToolStripMenuItem();
-      repeaterToolStripDropDownButton = new ToolStripDropDownButton();
-      repeaterUndoToolStripMenuItem = new ToolStripMenuItem();
-      repeaterRedoToolStripMenuItem = new ToolStripMenuItem();
-      repeaterToolStripSeparator1 = new ToolStripSeparator();
-      repeaterFindToolStripMenuItemDropDown = new ToolStripMenuItem();
-      repeaterSelectToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectToolStripMenuItemDropDown = new ToolStripMenuItem();
-      repeaterSelectAllToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectAllWithEnabledDevicesToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectAllWithDisabledDevicesToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectAllWithPresentDevicesToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectAllWithAbsentDevicesToolStripMenuItem = new ToolStripMenuItem();
-      repeaterToolStripSeparator2 = new ToolStripSeparator();
-      repeaterStartToolStripMenuItem = new ToolStripMenuItem();
-      repeaterStopToolStripMenuItem = new ToolStripMenuItem();
-      repeaterRestartToolStripMenuItem = new ToolStripMenuItem();
-      repeaterToolStripSeparator3 = new ToolStripSeparator();
-      repeaterSelectDevicesToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectInputDeviceToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectOutputDeviceToolStripMenuItem = new ToolStripMenuItem();
-      repeaterToolStripSeparator4 = new ToolStripSeparator();
-      repeaterImportFromClipboardToolStripMenuItem = new ToolStripMenuItem();
-      repeaterImportFromScriptToolStripMenuItem = new ToolStripMenuItem();
-      repeaterImportFromXMLToolStripMenuItem = new ToolStripMenuItem();
+      deviceFindToolStripMenuItem = new ToolStripMenuItem();
+      deviceImportFromClipboardToolStripMenuItem = new ToolStripMenuItem();
+      deviceImportFromXMLToolStripMenuItem = new ToolStripMenuItem();
+      deviceRedoToolStripMenuItem = new ToolStripMenuItem();
+      deviceRefreshToolStripMenuItem = new ToolStripMenuItem();
+      deviceSelectAllToolStripMenuItem = new ToolStripMenuItem();
+      deviceSelectDefaultInputToolStripMenuItem = new ToolStripMenuItem();
+      deviceSelectDefaultOutputToolStripMenuItem = new ToolStripMenuItem();
+      deviceSelectRangeToolStripMenuItem = new ToolStripMenuItem();
+      deviceSelectToolStripMenuItem = new ToolStripMenuItem();
+      deviceSetAsDefaultToolStripMenuItem = new ToolStripMenuItem();
+      deviceToolStripLabel = new ToolStripDropDownButton();
+      deviceToolStripSeparator1 = new ToolStripSeparator();
+      deviceToolStripSeparator2 = new ToolStripSeparator();
+      deviceToolStripSeparator3 = new ToolStripSeparator();
+      deviceUndoToolStripMenuItem = new ToolStripMenuItem();
+      fileCloseAllToolStripMenuItem = new ToolStripMenuItem();
+      fileCloseMultipleToolStripMenuItem = new ToolStripMenuItem();
+      fileCloseToolStripMenuItem = new ToolStripMenuItem();
+      fileExitToolStripMenuItem = new ToolStripMenuItem();
+      fileNewToolStripMenuItem = new ToolStripMenuItem();
+      fileOpenContainingFolderToolStripMenuItem = new ToolStripMenuItem();
+      fileOpenToolStripMenuItem = new ToolStripMenuItem();
+      fileSaveACopyAsToolStripMenuItem = new ToolStripMenuItem();
+      fileSaveAllToolStripMenuItem = new ToolStripMenuItem();
+      fileSaveAsToolStripMenuItem = new ToolStripMenuItem();
+      fileSaveToolStripMenuItem = new ToolStripMenuItem();
+      fileToolStripSeparator1 = new ToolStripSeparator();
+      helpAboutToolStripMenuItem = new ToolStripMenuItem();
+      helpApplicationWebsiteToolStripMenuItem = new ToolStripMenuItem();
+      helpCommandLineArgumentsToolStripMenuItem = new ToolStripMenuItem();
+      helpToolStripDropDownButton = new ToolStripDropDownButton();
+      helpToolStripSeparator1 = new ToolStripSeparator();
+      helpToolStripSeparator2 = new ToolStripSeparator();
+      helpWebsiteToolStripMenuItem = new ToolStripMenuItem();
       repeaterExportToClipboardToolStripMenuItem = new ToolStripMenuItem();
       repeaterExportToScriptToolStripMenuItem = new ToolStripMenuItem();
       repeaterExportToXMLToolStripMenuItem = new ToolStripMenuItem();
-      viewToolStripLabel = new ToolStripDropDownButton();
-      viewAlwaysOnTopToolStripMenuItem = new ToolStripMenuItem();
-      viewToggleFullScreenModeToolStripMenuItem = new ToolStripMenuItem();
-      viewToolStripSeparator1 = new ToolStripSeparator();
-      viewPreferDarkThemeToolStripMenuItem = new ToolStripMenuItem();
-      viewPreferSystemThemeToolStripMenuItem = new ToolStripMenuItem();
-      settingsToolStripButton = new ToolStripDropDownButton();
-      settingsStartAllRepeatersOnLoadToolStripMenuItem = new ToolStripMenuItem();
-      settingsToolStripSeparator1 = new ToolStripSeparator();
-      settingsPreferModernApplicationToolStripMenuItem = new ToolStripMenuItem();
+      repeaterFindToolStripMenuItemDropDown = new ToolStripMenuItem();
+      repeaterImportFromClipboardToolStripMenuItem = new ToolStripMenuItem();
+      repeaterImportFromScriptToolStripMenuItem = new ToolStripMenuItem();
+      repeaterImportFromXMLToolStripMenuItem = new ToolStripMenuItem();
+      repeaterRedoToolStripMenuItem = new ToolStripMenuItem();
+      repeaterRestartToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectAllToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectAllWithAbsentDevicesToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectAllWithDisabledDevicesToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectAllWithEnabledDevicesToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectAllWithPresentDevicesToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectDevicesToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectInputDeviceToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectOutputDeviceToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectToolStripMenuItem = new ToolStripMenuItem();
+      repeaterSelectToolStripMenuItemDropDown = new ToolStripMenuItem();
+      repeaterStartToolStripMenuItem = new ToolStripMenuItem();
+      repeaterStopToolStripMenuItem = new ToolStripMenuItem();
+      repeaterToolStripDropDownButton = new ToolStripDropDownButton();
+      repeaterToolStripSeparator1 = new ToolStripSeparator();
+      repeaterToolStripSeparator2 = new ToolStripSeparator();
+      repeaterToolStripSeparator3 = new ToolStripSeparator();
+      repeaterToolStripSeparator4 = new ToolStripSeparator();
+      repeaterUndoToolStripMenuItem = new ToolStripMenuItem();
       settingsPreferLegacyApplicationToolStripMenuItem = new ToolStripMenuItem();
+      settingsPreferModernApplicationToolStripMenuItem = new ToolStripMenuItem();
       settingsSetApplicationPathToolStripMenuItem = new ToolStripMenuItem();
-      settingsToolStripSeparator2 = new ToolStripSeparator();
+      settingsStartAllRepeatersOnLoadToolStripMenuItem = new ToolStripMenuItem();
       settingsToggleBogusModeToolStripMenuItem = new ToolStripMenuItem();
       settingsToggleSafeModeToolStripMenuItem = new ToolStripMenuItem();
-      windowWindowToolStripDropDownButton = new ToolStripDropDownButton();
+      settingsToolStripButton = new ToolStripDropDownButton();
+      settingsToolStripSeparator1 = new ToolStripSeparator();
+      settingsToolStripSeparator2 = new ToolStripSeparator();
+      viewAlwaysOnTopToolStripMenuItem = new ToolStripMenuItem();
+      viewPreferDarkThemeToolStripMenuItem = new ToolStripMenuItem();
+      viewPreferSystemThemeToolStripMenuItem = new ToolStripMenuItem();
+      viewToggleFullScreenModeToolStripMenuItem = new ToolStripMenuItem();
+      viewToolStripLabel = new ToolStripDropDownButton();
+      viewToolStripSeparator1 = new ToolStripSeparator();
       windowSortByToolStripMenuItem = new ToolStripMenuItem();
-      windowWindowsToolStripMenuItem = new ToolStripMenuItem();
       windowToolStripSeparator1 = new ToolStripSeparator();
-      helpToolStripDropDownButton = new ToolStripDropDownButton();
-      helpCommandLineArgumentsToolStripMenuItem = new ToolStripMenuItem();
-      helpToolStripSeparator1 = new ToolStripSeparator();
-      helpWebsiteToolStripMenuItem = new ToolStripMenuItem();
-      helpApplicationWebsiteToolStripMenuItem = new ToolStripMenuItem();
-      helpToolStripSeparator2 = new ToolStripSeparator();
-      helpAboutToolStripMenuItem = new ToolStripMenuItem();
+      windowWindowsToolStripMenuItem = new ToolStripMenuItem();
+      windowWindowToolStripDropDownButton = new ToolStripDropDownButton();
       toolStrip1.SuspendLayout();
       SuspendLayout();
       // 
@@ -262,7 +255,7 @@
       // 
       deviceToolStripLabel.AutoToolTip = false;
       deviceToolStripLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceToolStripLabel.DropDownItems.AddRange(new ToolStripItem[] { deviceUndoToolStripMenuItem, deviceRedoToolStripMenuItem, deviceToolStripSeparator1, deviceSetAsDefaultToolStripMenuItem, deviceEnableToolStripMenuItem, deviceDisableToolStripMenuItem, deviceRefreshToolStripMenuItem, deviceToolStripSeparator2, deviceFindToolStripMenuItem, deviceConfirmSelectToolStripMenuItem, deviceSelectToolStripMenuItemDropDown, deviceSelectAllToolStripMenuItem, deviceSelectAllEnabledToolStripMenuItem, deviceSelectAllDisabledToolStripMenuItem, deviceSelectAllInputsToolStripMenuItem, deviceSelectAllOutputsToolStripMenuItem, deviceSelectAllDuplexToolStripMenuItem, deviceSelectDefaultInputToolStripMenuItem, deviceSelectDefaultOutputToolStripMenuItem, deviceToolStripSeparator3, deviceImportFromClipboardToolStripMenuItem, deviceImportFromXMLToolStripMenuItem, deviceExportToClipboardToolStripMenuItem, deviceExportToXMLToolStripMenuItem });
+      deviceToolStripLabel.DropDownItems.AddRange(new ToolStripItem[] { deviceUndoToolStripMenuItem, deviceRedoToolStripMenuItem, deviceToolStripSeparator1, deviceSetAsDefaultToolStripMenuItem, deviceEnableToolStripMenuItem, deviceDisableToolStripMenuItem, deviceRefreshToolStripMenuItem, deviceToolStripSeparator2, deviceFindToolStripMenuItem, deviceConfirmSelectToolStripMenuItem, deviceSelectToolStripMenuItem, deviceSelectAllToolStripMenuItem, deviceSelectRangeToolStripMenuItem, deviceSelectDefaultInputToolStripMenuItem, deviceSelectDefaultOutputToolStripMenuItem, deviceToolStripSeparator3, deviceImportFromClipboardToolStripMenuItem, deviceImportFromXMLToolStripMenuItem, deviceExportToClipboardToolStripMenuItem, deviceExportToXMLToolStripMenuItem });
       deviceToolStripLabel.Name = "deviceToolStripLabel";
       deviceToolStripLabel.Size = new Size(55, 22);
       deviceToolStripLabel.Text = "Device";
@@ -348,31 +341,12 @@
       deviceConfirmSelectToolStripMenuItem.Text = "Confirm Selection";
       deviceConfirmSelectToolStripMenuItem.Click += deviceConfirmSelectToolStripMenuItem_Click;
       // 
-      // deviceSelectToolStripMenuItemDropDown
+      // deviceSelectToolStripMenuItem
       // 
-      deviceSelectToolStripMenuItemDropDown.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectToolStripMenuItemDropDown.DropDownItems.AddRange(new ToolStripItem[] { deviceSelectInputToolStripMenuItem, deviceSelectOutputToolStripMenuItem, deviceSelectDuplexToolStripMenuItem });
-      deviceSelectToolStripMenuItemDropDown.Name = "deviceSelectToolStripMenuItemDropDown";
-      deviceSelectToolStripMenuItemDropDown.Size = new Size(209, 22);
-      deviceSelectToolStripMenuItemDropDown.Text = "Select...";
-      // 
-      // deviceSelectInputToolStripMenuItem
-      // 
-      deviceSelectInputToolStripMenuItem.Name = "deviceSelectInputToolStripMenuItem";
-      deviceSelectInputToolStripMenuItem.Size = new Size(121, 22);
-      deviceSelectInputToolStripMenuItem.Text = "Input...";
-      // 
-      // deviceSelectOutputToolStripMenuItem
-      // 
-      deviceSelectOutputToolStripMenuItem.Name = "deviceSelectOutputToolStripMenuItem";
-      deviceSelectOutputToolStripMenuItem.Size = new Size(121, 22);
-      deviceSelectOutputToolStripMenuItem.Text = "Output...";
-      // 
-      // deviceSelectDuplexToolStripMenuItem
-      // 
-      deviceSelectDuplexToolStripMenuItem.Name = "deviceSelectDuplexToolStripMenuItem";
-      deviceSelectDuplexToolStripMenuItem.Size = new Size(121, 22);
-      deviceSelectDuplexToolStripMenuItem.Text = "Duplex...";
+      deviceSelectToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+      deviceSelectToolStripMenuItem.Name = "deviceSelectToolStripMenuItem";
+      deviceSelectToolStripMenuItem.Size = new Size(209, 22);
+      deviceSelectToolStripMenuItem.Text = "Select...";
       // 
       // deviceSelectAllToolStripMenuItem
       // 
@@ -382,40 +356,11 @@
       deviceSelectAllToolStripMenuItem.Size = new Size(209, 22);
       deviceSelectAllToolStripMenuItem.Text = "Select All";
       // 
-      // deviceSelectAllEnabledToolStripMenuItem
+      // deviceSelectRangeToolStripMenuItem
       // 
-      deviceSelectAllEnabledToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectAllEnabledToolStripMenuItem.Name = "deviceSelectAllEnabledToolStripMenuItem";
-      deviceSelectAllEnabledToolStripMenuItem.Size = new Size(209, 22);
-      deviceSelectAllEnabledToolStripMenuItem.Text = "Select All Enabled";
-      // 
-      // deviceSelectAllDisabledToolStripMenuItem
-      // 
-      deviceSelectAllDisabledToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectAllDisabledToolStripMenuItem.Name = "deviceSelectAllDisabledToolStripMenuItem";
-      deviceSelectAllDisabledToolStripMenuItem.Size = new Size(209, 22);
-      deviceSelectAllDisabledToolStripMenuItem.Text = "Select All Disabled";
-      // 
-      // deviceSelectAllInputsToolStripMenuItem
-      // 
-      deviceSelectAllInputsToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectAllInputsToolStripMenuItem.Name = "deviceSelectAllInputsToolStripMenuItem";
-      deviceSelectAllInputsToolStripMenuItem.Size = new Size(209, 22);
-      deviceSelectAllInputsToolStripMenuItem.Text = "Select All Inputs";
-      // 
-      // deviceSelectAllOutputsToolStripMenuItem
-      // 
-      deviceSelectAllOutputsToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectAllOutputsToolStripMenuItem.Name = "deviceSelectAllOutputsToolStripMenuItem";
-      deviceSelectAllOutputsToolStripMenuItem.Size = new Size(209, 22);
-      deviceSelectAllOutputsToolStripMenuItem.Text = "Select All Outputs";
-      // 
-      // deviceSelectAllDuplexToolStripMenuItem
-      // 
-      deviceSelectAllDuplexToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectAllDuplexToolStripMenuItem.Name = "deviceSelectAllDuplexToolStripMenuItem";
-      deviceSelectAllDuplexToolStripMenuItem.Size = new Size(209, 22);
-      deviceSelectAllDuplexToolStripMenuItem.Text = "Select All Duplex";
+      deviceSelectRangeToolStripMenuItem.Name = "selectRangeToolStripMenuItem";
+      deviceSelectRangeToolStripMenuItem.Size = new Size(209, 22);
+      deviceSelectRangeToolStripMenuItem.Text = "Select All...";
       // 
       // deviceSelectDefaultInputToolStripMenuItem
       // 
@@ -856,7 +801,7 @@
       helpCommandLineArgumentsToolStripMenuItem.Name = "helpCommandLineArgumentsToolStripMenuItem";
       helpCommandLineArgumentsToolStripMenuItem.Size = new Size(218, 22);
       helpCommandLineArgumentsToolStripMenuItem.Text = "Command Line Arguments";
-      helpCommandLineArgumentsToolStripMenuItem.Click += this.helpCommandLineArgumentsToolStripMenuItem_Click;
+      helpCommandLineArgumentsToolStripMenuItem.Click += helpCommandLineArgumentsToolStripMenuItem_Click;
       // 
       // helpToolStripSeparator1
       // 
@@ -930,18 +875,11 @@
     private ToolStripMenuItem deviceImportFromXMLToolStripMenuItem;
     private ToolStripMenuItem deviceRedoToolStripMenuItem;
     private ToolStripMenuItem deviceRefreshToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectAllDisabledToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectAllDuplexToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectAllEnabledToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectAllInputsToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectAllOutputsToolStripMenuItem;
     private ToolStripMenuItem deviceSelectAllToolStripMenuItem;
     private ToolStripMenuItem deviceSelectDefaultInputToolStripMenuItem;
     private ToolStripMenuItem deviceSelectDefaultOutputToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectDuplexToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectInputToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectOutputToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectToolStripMenuItemDropDown;
+    private ToolStripMenuItem deviceSelectRangeToolStripMenuItem;
+    private ToolStripMenuItem deviceSelectToolStripMenuItem;
     private ToolStripMenuItem deviceSetAsDefaultToolStripMenuItem;
     private ToolStripMenuItem deviceUndoToolStripMenuItem;
     private ToolStripMenuItem fileCloseAllToolStripMenuItem;
