@@ -479,6 +479,14 @@ namespace VACARM.GUI.ViewModels
       return toolStripMenuItem;
     }
 
+    public override void Update()
+    {
+      this.DeviceViewModel
+        .Update();
+
+      base.Update();
+    }
+
     #endregion
   }
 }

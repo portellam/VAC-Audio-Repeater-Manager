@@ -219,7 +219,7 @@ namespace VACARM.GUI.ViewModels
       this.Update();
     }
 
-    public void Update()
+    public virtual void Update()
     {
       var modelEnumerable = this.GroupService
         .SelectedRepository
