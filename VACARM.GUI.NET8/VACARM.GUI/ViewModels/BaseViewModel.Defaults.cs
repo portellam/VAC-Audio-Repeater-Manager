@@ -5,6 +5,9 @@ namespace VACARM.GUI.ViewModels
   public partial class BaseViewModel
     <
       TBaseGroupService,
+      TGroupReadonlyRepository,
+      TBaseService,
+      TBaseRepository,
       TBaseModel
     >
   {
