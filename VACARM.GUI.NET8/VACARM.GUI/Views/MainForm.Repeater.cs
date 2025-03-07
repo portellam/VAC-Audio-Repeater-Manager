@@ -1,16 +1,53 @@
-﻿namespace VACARM.GUI.Views
+﻿using VACARM.Domain.Models;
+using VACARM.GUI.ViewModels;
+using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services;
+
+namespace VACARM.GUI.Views
 {
   public partial class MainForm
   {
     #region Parameters
 
-
+    internal RepeaterViewModel
+      <
+        RepeaterGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<RepeaterModel>,
+              RepeaterModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<RepeaterModel>,
+            RepeaterModel
+          >,
+          BaseRepository<RepeaterModel>,
+          RepeaterModel
+        >,
+        RepeaterModel
+      > RepeaterViewModel
+    { get; set; }
 
     #endregion
 
     #region Presentation Logic
 
+    private void SetRepeaterComponents()
+    {
+      this.repeaterSelectAllToolStripMenuItem = this.RepeaterViewModel
+        .SelectAllToolStripMenuItem;
 
+      this.repeaterSelectRangeToolStripMenuItem = this.RepeaterViewModel
+        .SelectRangeToolStripMenuItem;
+
+      this.repeaterSelectToolStripMenuItem = this.RepeaterViewModel
+        .SelectToolStripMenuItem;
+    }
 
     #endregion
 

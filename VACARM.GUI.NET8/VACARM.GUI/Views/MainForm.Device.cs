@@ -31,7 +31,13 @@ namespace VACARM.GUI.Views
         >,
         DeviceModel
       > DeviceViewModel
-    { get; set; }
+    {
+      get
+      {
+        return this.RepeaterViewModel
+          .DeviceViewModel;
+      }
+    }
 
     #endregion
 

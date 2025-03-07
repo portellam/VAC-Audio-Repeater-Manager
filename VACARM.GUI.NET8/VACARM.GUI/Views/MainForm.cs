@@ -28,30 +28,29 @@ namespace VACARM.GUI.Views
     {
       this.InitializeComponent();
 
-      this.DeviceViewModel = new DeviceViewModel
+      this.RepeaterViewModel = new RepeaterViewModel
+      <
+        RepeaterGroupService
         <
-          DeviceGroupService
+          ReadonlyRepository
           <
-            ReadonlyRepository
-            <
-              BaseService
-              <
-                BaseRepository<DeviceModel>,
-                DeviceModel
-              >
-            >,
             BaseService
             <
-              BaseRepository<DeviceModel>,
-              DeviceModel
-            >,
-            BaseRepository<DeviceModel>,
-            DeviceModel
+              BaseRepository<RepeaterModel>,
+              RepeaterModel
+            >
           >,
-          DeviceModel
-        >();
+          BaseService
+          <
+            BaseRepository<RepeaterModel>,
+            RepeaterModel
+          >,
+          BaseRepository<RepeaterModel>,
+          RepeaterModel
+        >,
+        RepeaterModel
+      >();
 
-      //this.DeviceViewModel.Update();          //TODO: place this under "Refresh"
       this.Refresh();
 
       this.windowWindowToolStripDropDownButton  //NOTE: this is a test.
@@ -67,9 +66,13 @@ namespace VACARM.GUI.Views
 
     public override void Refresh()
     {
+      this.RepeaterViewModel
+        .Update();            //NOTE: is this a good spot? Can this be done via delegate?
+
       this.SetComponentsAbility();
       this.SetComponentsText();
       this.SetDeviceComponents();
+      this.SetRepeaterComponents();
       this.SetHelpComponents();
       base.Refresh();
     }
