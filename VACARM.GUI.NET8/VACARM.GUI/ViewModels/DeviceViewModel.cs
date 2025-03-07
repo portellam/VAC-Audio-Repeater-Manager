@@ -62,15 +62,20 @@ namespace VACARM.GUI.ViewModels
 
     // TODO: any SelectAll needs to be just a button with an event handler.
 
+    internal ToolStripMenuItem AllToolStripMenuItem
+    {
+      get
+      {
+        return this.GetAllNew();
+      }
+    }
+
     internal ToolStripMenuItem AllAbsentToolStripMenuItem
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsAbsent,
             "Absent"
           );
@@ -81,11 +86,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsCapture,
             "Capture"
           );
@@ -96,11 +98,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsCommunications,
             "Communications"
           );
@@ -111,11 +110,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsConsole,
             "Console"
           );
@@ -126,11 +122,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsDisabled,
             "Disabled"
           );
@@ -141,11 +134,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsEnabled,
             "Enabled"
           );
@@ -156,11 +146,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsMultimedia,
             "Multimedia"
           );
@@ -171,11 +158,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsMuted,
             "Muted"
           );
@@ -186,11 +170,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsPresent,
             "Present"
           );
@@ -201,11 +182,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsRender,
             "Render"
           );
@@ -216,11 +194,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsUnmuted,
             "Unmuted"
           );
@@ -231,7 +206,7 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetNewWithDropDownItems
           (
             this.GroupService
               .SelectedRepository
@@ -246,11 +221,8 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetRangeNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
             DeviceFunctions<TDeviceModel>.IsDefault,
             "Default"
           );
@@ -261,7 +233,7 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetNewWithDropDownItems
           (
             this.GroupService
               .SelectedRepository
@@ -311,8 +283,90 @@ namespace VACARM.GUI.ViewModels
     }
 
     /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="allToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allAbsentToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allCaptureToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allCommunicationsToolStripMenuItem">
+    /// The tool strip menu item
+    /// </param>
+    /// <param name="allConsoleToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allDisabledToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allEnabledToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allMultimediaToolStripMenuItem">
+    /// The tool strip menu item
+    /// </param>
+    /// <param name="allMutedToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allPresentToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allRenderToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="allUnmutedToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="captureToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="defaultToolStripMenuItem">The tool strip menu item</param>
+    /// <param name="renderToolStripMenuItem">The tool strip menu item</param>
+    internal DeviceViewModel
+    (
+      ref ToolStripMenuItem allToolStripMenuItem,
+      ref ToolStripMenuItem allAbsentToolStripMenuItem,
+      ref ToolStripMenuItem allCaptureToolStripMenuItem,
+      ref ToolStripMenuItem allCommunicationsToolStripMenuItem,
+      ref ToolStripMenuItem allConsoleToolStripMenuItem,
+      ref ToolStripMenuItem allDisabledToolStripMenuItem,
+      ref ToolStripMenuItem allEnabledToolStripMenuItem,
+      ref ToolStripMenuItem allMultimediaToolStripMenuItem,
+      ref ToolStripMenuItem allMutedToolStripMenuItem,
+      ref ToolStripMenuItem allPresentToolStripMenuItem,
+      ref ToolStripMenuItem allRenderToolStripMenuItem,
+      ref ToolStripMenuItem allUnmutedToolStripMenuItem,
+      ref ToolStripMenuItem captureToolStripMenuItem,
+      ref ToolStripMenuItem defaultToolStripMenuItem,
+      ref ToolStripMenuItem renderToolStripMenuItem
+    ) :
+      base()
+    {
+      this.GroupService = new DeviceGroupService
+      <
+        ReadonlyRepository
+        <
+          BaseService
+          <
+            BaseRepository<TDeviceModel>,
+            TDeviceModel
+          >
+        >,
+        BaseService
+        <
+          BaseRepository<TDeviceModel>,
+          TDeviceModel
+        >,
+        BaseRepository<TDeviceModel>,
+        TDeviceModel
+      >();
+
+      this.Deconstruct
+        (
+          ref allToolStripMenuItem,
+          ref allAbsentToolStripMenuItem,
+          ref allCaptureToolStripMenuItem,
+          ref allCommunicationsToolStripMenuItem,
+          ref allConsoleToolStripMenuItem,
+          ref allDisabledToolStripMenuItem,
+          ref allEnabledToolStripMenuItem,
+          ref allMultimediaToolStripMenuItem,
+          ref allMutedToolStripMenuItem,
+          ref allPresentToolStripMenuItem,
+          ref allRenderToolStripMenuItem,
+          ref allUnmutedToolStripMenuItem,
+          ref captureToolStripMenuItem,
+          ref defaultToolStripMenuItem,
+          ref renderToolStripMenuItem
+        );
+    }
+
+    /// <summary>
     /// Deconstructor
     /// </summary>
+    /// <param name="allToolStripMenuItem">The tool strip menu item</param>
     /// <param name="allAbsentToolStripMenuItem">The tool strip menu item</param>
     /// <param name="allCaptureToolStripMenuItem">The tool strip menu item</param>
     /// <param name="allCommunicationsToolStripMenuItem">
@@ -333,9 +387,7 @@ namespace VACARM.GUI.ViewModels
     /// <param name="renderToolStripMenuItem">The tool strip menu item</param>
     internal void Deconstruct
     (
-      ref ToolStripMenuItem captureToolStripMenuItem,
-      ref ToolStripMenuItem defaultToolStripMenuItem,
-      ref ToolStripMenuItem renderToolStripMenuItem,
+      ref ToolStripMenuItem allToolStripMenuItem,
       ref ToolStripMenuItem allAbsentToolStripMenuItem,
       ref ToolStripMenuItem allCaptureToolStripMenuItem,
       ref ToolStripMenuItem allCommunicationsToolStripMenuItem,
@@ -346,7 +398,10 @@ namespace VACARM.GUI.ViewModels
       ref ToolStripMenuItem allMutedToolStripMenuItem,
       ref ToolStripMenuItem allPresentToolStripMenuItem,
       ref ToolStripMenuItem allRenderToolStripMenuItem,
-      ref ToolStripMenuItem allUnmutedToolStripMenuItem
+      ref ToolStripMenuItem allUnmutedToolStripMenuItem,
+      ref ToolStripMenuItem captureToolStripMenuItem,
+      ref ToolStripMenuItem defaultToolStripMenuItem,
+      ref ToolStripMenuItem renderToolStripMenuItem
     )
     {
       allAbsentToolStripMenuItem = this.AllAbsentToolStripMenuItem;
