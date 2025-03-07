@@ -1,4 +1,5 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
@@ -7,6 +8,7 @@ namespace VACARM.GUI.ViewModels
 {
   /// <summary>
   /// The view model of <typeparamref name="RepeaterGroupService"/>.
+  /// Manages <typeparamref name="DeviceViewModel"/>.
   /// </summary>
   public partial class RepeaterViewModel
     <
@@ -42,33 +44,167 @@ namespace VACARM.GUI.ViewModels
   {
     #region Parameters
 
-    // TODO: any SelectAll needs to be just a button with an event handler.
-
-    // TODO: needs to be just a button with an event handler.
-    //public ToolStripMenuItem AllToolStripMenuItem
-    //{
-    //  get
-    //  {
-    //    var toolStripMenuItem
-    //  }
-    //}
-
-    public ToolStripMenuItem AllAbsentToolStripMenuItem
+    private ToolStripMenuItem SelectAllAbsentToolStripMenuItem
     {
-      get;
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllAbsent()
+          .Select(x => x.Id);
+
+        return this.GetNew
+          (
+            deviceIdEnumerable,
+            "Absent"
+          );
+      }
     }
 
-    public ToolStripMenuItem AllDisabledToolStripMenuItem
+    private ToolStripMenuItem SelectAllDisabledToolStripMenuItem
     {
-      get;
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllDisabled()
+          .Select(x => x.Id);
+
+        return this.GetNew
+          (
+            deviceIdEnumerable,
+            "Disabled"
+          );
+      }
     }
 
-    public ToolStripMenuItem AllEnabledToolStripMenuItem
+    private ToolStripMenuItem SelectAllEnabledToolStripMenuItem
     {
-      get;
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllEnabled()
+          .Select(x => x.Id);
+
+        return this.GetNew
+          (
+            deviceIdEnumerable,
+            "Enabled"
+          );
+      }
     }
 
-    public ToolStripMenuItem AllPresentToolStripMenuItem
+    private ToolStripMenuItem SelectAllPresentToolStripMenuItem
+    {
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllPresent()
+          .Select(x => x.Id);
+
+        return this.GetNew
+          (
+            deviceIdEnumerable,
+            "Present"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllStartedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            RepeaterFunctions<TRepeaterModel>.IsStarted,
+            "Started"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllStoppedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            RepeaterFunctions<TRepeaterModel>.IsStopped,
+            "Stopped"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAbsentToolStripMenuItem
+    {
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllAbsent()
+          .Select(x => x.Id);
+
+        return this.GetNewWithDropDownItems
+          (
+            deviceIdEnumerable,
+            "Absent"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectDisabledToolStripMenuItem
+    {
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllDisabled()
+          .Select(x => x.Id);
+
+        return this.GetNewWithDropDownItems
+          (
+            deviceIdEnumerable,
+            "Disabled"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectEnabledToolStripMenuItem
+    {
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllEnabled()
+          .Select(x => x.Id);
+
+        return this.GetNewWithDropDownItems
+          (
+            deviceIdEnumerable,
+            "Present"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectPresentToolStripMenuItem
+    {
+      get
+      {
+        var deviceIdEnumerable = this.DeviceViewModel
+          .GroupService
+          .GetAllPresent()
+          .Select(x => x.Id);
+
+        return this.GetNewWithDropDownItems
+          (
+            deviceIdEnumerable,
+            "Present"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectStartedToolStripMenuItem
     {
       get
       {
@@ -83,22 +219,7 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    public ToolStripMenuItem StartedToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNewWithDropDownItems
-          (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
-            RepeaterFunctions<TRepeaterModel>.IsStarted,
-            "Started"
-          );
-      }
-    }
-
-    public ToolStripMenuItem StoppedToolStripMenuItem
+    private ToolStripMenuItem SelectStoppedToolStripMenuItem
     {
       get
       {
@@ -113,6 +234,66 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
+    protected override IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
+    {
+      get
+      {
+        return new ToolStripItem[]
+          {
+            SelectAllStartedToolStripMenuItem,
+            SelectAllStoppedToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectAllPresentToolStripMenuItem,
+            SelectAllAbsentToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectAllEnabledToolStripMenuItem,
+            SelectAllDisabledToolStripMenuItem,
+          };
+      }
+    }
+
+    protected override IEnumerable<ToolStripItem> SelectToolStripItemEnumerable
+    {
+      get
+      {
+        return new ToolStripItem[]
+          {
+            SelectStartedToolStripMenuItem,
+            SelectStoppedToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectPresentToolStripMenuItem,
+            SelectAbsentToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectEnabledToolStripMenuItem,
+            SelectDisabledToolStripMenuItem,
+          };
+      }
+    }
+
+    public DeviceViewModel
+      <
+        DeviceGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          BaseRepository<DeviceModel>,
+          DeviceModel
+        >,
+        DeviceModel
+      > DeviceViewModel
+    { get; set; }
+
     public override Func<RepeaterModel, string> NameFunc
     {
       get
@@ -126,11 +307,74 @@ namespace VACARM.GUI.ViewModels
     #region Logic
 
     /// <summary>
+    /// Get the enumerable of ID(s) given the enumerable of device ID(s).
+    /// </summary>
+    /// <param name="deviceIdEnumerable">the enumerable of device ID(s)</param>
+    /// <returns>The enumerable of ID(s).</returns>
+    private IEnumerable<uint> GetIdRange(IEnumerable<uint> deviceIdEnumerable)
+    {
+      IEnumerable<uint> idEnumerable = Array.Empty<uint>();
+
+      if
+      (
+        deviceIdEnumerable == null
+        || deviceIdEnumerable.Count() == 0
+      )
+      {
+        return idEnumerable;
+      }
+
+      foreach (var item in deviceIdEnumerable)
+      {
+        var thisIdEnumerable = this.GroupService
+          .SelectedRepository
+          .GetRange(RepeaterFunctions<TRepeaterModel>.ContainsDeviceId(item))
+          .Select(x => x.Id);
+
+        if
+        (
+          thisIdEnumerable == null
+          || thisIdEnumerable.Count() == 0
+        )
+        {
+          continue;
+        }
+
+        idEnumerable.Concat(thisIdEnumerable);
+      }
+
+      return idEnumerable;
+    }
+
+    /// <summary>
     /// Constructor
     /// </summary>
     public RepeaterViewModel() :
       base()
     {
+      this.DeviceViewModel = new DeviceViewModel
+        <
+          DeviceGroupService
+          <
+            ReadonlyRepository
+            <
+              BaseService
+              <
+                BaseRepository<DeviceModel>,
+                DeviceModel
+              >
+            >,
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >,
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          DeviceModel
+        >();
+
       this.GroupService = new RepeaterGroupService
       <
         ReadonlyRepository
@@ -149,6 +393,90 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TRepeaterModel>,
         TRepeaterModel
       >();
+    }
+
+    // TODO: instead of DeviceIdEnumerable, use Function, for less redundancy?
+
+    /// <summary>
+    /// Get a new <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="deviceIdEnumerable">The enumerable of device ID(s)</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    public ToolStripMenuItem GetNew
+    (
+      IEnumerable<uint> deviceIdEnumerable,
+      string name
+    )
+    {
+      IEnumerable<uint> idEnumerable = this.GetIdRange(deviceIdEnumerable);
+
+      var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+
+      toolStripMenuItem.Name = string.Format
+        (
+          toolStripMenuItem.Name,
+          "with " + name + " devices"
+        );
+
+      if
+      (
+        idEnumerable == null
+        || idEnumerable.Count() == 0
+      )
+      {
+        toolStripMenuItem.Enabled = false;
+      }
+
+      else
+      {
+        toolStripMenuItem.CheckedChanged +=
+          this.SelectRangeCheckedChangedEventHandler
+          (
+            idEnumerable,
+            true
+          );
+      }
+
+      return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get a new <typeparamref name="ToolStripMenuItem"/> with drop down items.
+    /// </summary>
+    /// <param name="deviceIdEnumerable">The enumerable of device ID(s)</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    public override ToolStripMenuItem GetNewWithDropDownItems
+    (
+      IEnumerable<uint> deviceIdEnumerable,
+      string name
+    )
+    {
+      IEnumerable<uint> idEnumerable = this.GetIdRange(deviceIdEnumerable);
+
+      var toolStripMenuItem = SelectToolStripMenuItem;
+
+      toolStripMenuItem.Name = string.Format
+        (
+          toolStripMenuItem.Name,
+          "with " + name + " devices"
+        );
+
+      var array = this.GetRange(idEnumerable)
+        .ToArray();
+
+      if (array.Length == 0)
+      {
+        toolStripMenuItem.Enabled = false;
+      }
+
+      else
+      {
+        toolStripMenuItem.DropDownItems.AddRange(array);
+      }
+
+      return toolStripMenuItem;
     }
 
     #endregion

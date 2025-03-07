@@ -83,7 +83,7 @@
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="isChecked">True/false</param>
-    private EventHandler? SelectRangeCheckedChangedEventHandler
+    protected EventHandler? SelectRangeCheckedChangedEventHandler
     (
       IEnumerable<uint> idEnumerable,
       bool? isChecked

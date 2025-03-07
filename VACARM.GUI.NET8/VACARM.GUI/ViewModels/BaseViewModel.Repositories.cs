@@ -198,7 +198,7 @@ namespace VACARM.GUI.ViewModels
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    public ToolStripMenuItem GetNewWithDropDownItems
+    public virtual ToolStripMenuItem GetNewWithDropDownItems
     (
       IEnumerable<uint> idEnumerable,
       string name
