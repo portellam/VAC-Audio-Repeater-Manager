@@ -1,4 +1,5 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
@@ -7,7 +8,7 @@ namespace VACARM.GUI.ViewModels
   /// <summary>
   /// The view model of <typeparamref name="TBaseGroupService"/>.
   /// </summary>
-  internal partial class BaseViewModel
+  public partial class BaseViewModel
     <
       TBaseGroupService,
       TBaseModel
@@ -36,7 +37,7 @@ namespace VACARM.GUI.ViewModels
   {
     #region Parameters
 
-    internal BaseGroupService
+    public BaseGroupService
     <
       ReadonlyRepository
       <
@@ -56,6 +57,68 @@ namespace VACARM.GUI.ViewModels
     > GroupService
     { get; set; }
 
+    public ToolStripMenuItem SelectAllToolStripMenuItem
+    {
+      get
+      {
+        var toolStripMenuItem = DefaultBaseViewModel.SelectAllToolStripMenuItem;
+
+        var enumerable = this.GroupService
+          .SelectedRepository
+          .GetAll();
+
+        if
+        (
+          enumerable == null
+          || enumerable.Count() == 0
+        )
+        {
+          toolStripMenuItem.Enabled = false;
+        }
+
+        toolStripMenuItem.CheckedChanged += 
+          this.SelectAllCheckedChangedEventHandler
+          (
+            this.SelectAllToolStripMenuItem
+              .Checked
+          );
+
+        return toolStripMenuItem;
+      }
+    }
+
+    public virtual ToolStripMenuItem SelectRangeToolStripMenuItem
+    {
+      get
+      {
+
+      }
+    }
+
+    public virtual ToolStripMenuItem SelectToolStripMenuItem
+    {
+      get
+      {
+
+      }
+    }
+
+    public virtual ToolStripItemCollection SelectToolStripItemCollection
+    { 
+      get
+      {
+
+      }
+    }
+
+    public virtual ToolStripItemCollection SelectRangeToolStripMenuItemCollection
+    {
+      get
+      {
+
+      }
+    }
+
     #endregion
 
     #region Logic
@@ -63,7 +126,7 @@ namespace VACARM.GUI.ViewModels
     /// <summary>
     /// Constructor
     /// </summary>
-    internal BaseViewModel()
+    public BaseViewModel()
     {
       this.GroupService = new BaseGroupService
         <
@@ -84,11 +147,42 @@ namespace VACARM.GUI.ViewModels
           TBaseModel
         >();
 
-      this.SetDefaultToolStripMenuItems();
       this.Update();
     }
 
-    internal void Update()
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public BaseViewModel
+    (
+      ToolStripMenuItem selectAllToolStripMenuItem,
+      ToolStripMenuItem selectRangeToolStripMenuItem,
+      ToolStripMenuItem selectToolStripMenuItem
+    )
+    {
+      this.GroupService = new BaseGroupService
+        <
+          ReadonlyRepository
+          <
+            BaseService
+            <
+              BaseRepository<TBaseModel>,
+              TBaseModel
+            >
+          >,
+          BaseService
+          <
+            BaseRepository<TBaseModel>,
+            TBaseModel
+          >,
+          BaseRepository<TBaseModel>,
+          TBaseModel
+        >();
+
+      this.Update();
+    }
+
+    public void Update()
     {
       var modelEnumerable = this.GroupService
         .SelectedRepository

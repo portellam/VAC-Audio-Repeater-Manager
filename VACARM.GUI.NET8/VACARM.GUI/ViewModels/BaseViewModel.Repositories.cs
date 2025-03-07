@@ -1,9 +1,9 @@
-﻿using System.Xml.Linq;
+﻿using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.GUI.ViewModels
 {
-  internal partial class BaseViewModel
+  public partial class BaseViewModel
     <
       TBaseGroupService,
       TBaseModel
@@ -14,7 +14,7 @@ namespace VACARM.GUI.ViewModels
     /// <summary>
     /// The analog of <typeparamref name="TBaseGroupService"/>.
     /// </summary>
-    internal ReadonlyRepository<ToolStripMenuItem> ToolStripMenuItemRepository
+    public ReadonlyRepository<ToolStripMenuItem> ToolStripMenuItemRepository
     { get; set; } = new ReadonlyRepository<ToolStripMenuItem>();
 
     #endregion
@@ -26,7 +26,7 @@ namespace VACARM.GUI.ViewModels
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>The enumerable of item(s).</returns>
-    internal IEnumerable<ToolStripMenuItem> GetRange
+    public IEnumerable<ToolStripMenuItem> GetRange
     (IEnumerable<uint> idEnumerable)
     {
       if (idEnumerable == null)
@@ -53,7 +53,7 @@ namespace VACARM.GUI.ViewModels
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The tool strip menu item.</returns>
-    internal ToolStripMenuItem? Get(uint id)
+    public ToolStripMenuItem? Get(uint id)
     {
       var toolStripMenuItem = this.ToolStripMenuItemRepository
         .Get(ContainsId(id));
@@ -72,21 +72,28 @@ namespace VACARM.GUI.ViewModels
     /// <param name="id">The ID</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    internal static ToolStripMenuItem GetNew
+    public static ToolStripMenuItem GetNew
     (
       uint id,
       string name
     )
     {
-      ToolStripMenuItem toolStripMenuItem = SelectToolStripMenuItem;
-      int maxIdLength = 7;
+      ToolStripMenuItem toolStripMenuItem =
+        DefaultBaseViewModel.SelectToolStripMenuItem;
+
+      int idLength = id.ToString()
+        .Length;
+
+      int maxIdLength = int.MaxValue
+        .ToString()
+        .Length;
+
+      int idLengthDifference = maxIdLength - idLength;
 
       string idWhiteSpace = new string
         (
           ' ',
-          maxIdLength - id
-            .ToString()
-            .Length
+          idLengthDifference
         );
 
       string nameWhiteSpace = new string
@@ -95,7 +102,7 @@ namespace VACARM.GUI.ViewModels
         maxIdLength
       );
 
-      string text = string.Format
+      toolStripMenuItem.Text = string.Format
       (
         "ID:{0}{1},{2}Name: {3}",
         idWhiteSpace,
@@ -104,11 +111,7 @@ namespace VACARM.GUI.ViewModels
         name
       );
 
-      toolStripMenuItem.Text = text;
-
-      toolStripMenuItem.ToolTipText = id
-        .ToString();
-
+      toolStripMenuItem.ToolTipText = id.ToString();
       return toolStripMenuItem;
     }
 
@@ -118,50 +121,7 @@ namespace VACARM.GUI.ViewModels
     /// <param name="func">The function</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    internal ToolStripMenuItem GetAllNew()
-    {
-      var toolStripMenuItem = SelectRangeToolStripMenuItem;
-
-      toolStripMenuItem.Name = string.Format
-        (
-          toolStripMenuItem.Name,
-          "All"
-        );
-
-      var idEnumerable = this.GroupService
-        .SelectedRepository
-        .GetAll()
-        .Select(x => x.Id);
-
-      if
-      (
-        idEnumerable == null
-        || idEnumerable.Count() == 0
-      )
-      {
-        toolStripMenuItem.Enabled = false;
-      }
-
-      else
-      {
-        toolStripMenuItem.CheckedChanged +=
-          this.RangeCheckedChangedEventHandler
-          (
-            idEnumerable,
-            true
-          );
-      }
-
-      return toolStripMenuItem;
-    }
-
-    /// <summary>
-    /// Get a new range of <typeparamref name="ToolStripMenuItem"/>.
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <param name="name">The name</param>
-    /// <returns>The tool strip menu item.</returns>
-    internal ToolStripMenuItem GetRangeNew
+    public ToolStripMenuItem GetNewRange
     (
       Func<TBaseModel, bool> func,
       string name
@@ -198,7 +158,7 @@ namespace VACARM.GUI.ViewModels
       else
       {
         toolStripMenuItem.CheckedChanged +=
-          this.RangeCheckedChangedEventHandler
+          this.SelectRangeCheckedChangedEventHandler
           (
             idEnumerable,
             true
@@ -215,7 +175,7 @@ namespace VACARM.GUI.ViewModels
     /// <param name="modelFunc">The function</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    internal ToolStripMenuItem GetNewWithDropDownItems
+    public ToolStripMenuItem GetNewWithDropDownItems
     (
       IEnumerable<TBaseModel> modelEnumerable,
       Func<TBaseModel, bool> modelFunc,
@@ -239,7 +199,7 @@ namespace VACARM.GUI.ViewModels
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    internal ToolStripMenuItem GetNewWithDropDownItems
+    public ToolStripMenuItem GetNewWithDropDownItems
     (
       IEnumerable<uint> idEnumerable,
       string name

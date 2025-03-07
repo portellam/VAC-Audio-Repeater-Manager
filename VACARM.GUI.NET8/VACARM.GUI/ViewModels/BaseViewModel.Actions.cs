@@ -1,6 +1,6 @@
 ﻿namespace VACARM.GUI.ViewModels
 {
-  internal partial class BaseViewModel
+  public partial class BaseViewModel
     <
       TBaseGroupService,
       TBaseModel
@@ -9,12 +9,22 @@
     #region Logic
 
     /// <summary>
-    /// Select/Deselect given <see langword="isChecked"/> is true/false.
+    /// Select/Deselect all given <see langword="isChecked"/> is true/false.
     /// </summary>
     /// <param name="isChecked">True/false</param>
-    private void SelectAllOnCheck(bool isChecked)
+    private void SelectAllOnCheck(bool? isChecked)
     {
-      if (isChecked)
+      if (this.GroupService == null)
+      {
+        return;
+      }
+
+      if (!isChecked.HasValue)
+      {
+        isChecked = false;
+      }
+
+      if (isChecked.Value)
       {
         this.GroupService
           .SelectedRepository
@@ -37,10 +47,20 @@
     private void SelectOnCheck
     (
       uint id,
-      bool isChecked
+      bool? isChecked
     )
     {
-      if (isChecked)
+      if (this.GroupService == null)
+      {
+        return;
+      }
+
+      if (!isChecked.HasValue)
+      {
+        isChecked = false;
+      }
+
+      if (isChecked.Value)
       {
         this.GroupService
           .Select(id);
@@ -54,17 +74,27 @@
     }
 
     /// <summary>
-    /// Select/Deselect given <see langword="isChecked"/> is true/false.
+    /// Select/Deselect a range given <see langword="isChecked"/> is true/false.
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="isChecked">True/false</param>
     private void SelectRangeOnCheck
     (
       IEnumerable<uint> idEnumerable,
-      bool isChecked
+      bool? isChecked
     )
     {
-      if (isChecked)
+      if (this.GroupService == null)
+      {
+        return;
+      }
+
+      if (!isChecked.HasValue)
+      {
+        isChecked = false;
+      }
+
+      if (isChecked.Value)
       {
         this.GroupService
           .SelectRange(idEnumerable);

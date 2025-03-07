@@ -1,6 +1,6 @@
 ﻿namespace VACARM.GUI.ViewModels
 {
-  internal partial class BaseViewModel
+  public partial class BaseViewModel
     <
       TBaseGroupService,
       TBaseModel
@@ -8,13 +8,25 @@
   {
     #region Parameters
 
-    internal readonly static Func<ToolStripMenuItem, string> IdFunc =
+    /// <summary>
+    /// Get a <typeparamref name="ToolStripMenuItem"/> ID.
+    /// </summary>
+    /// <returns>The function.</returns>
+    public readonly static Func<ToolStripMenuItem, string> IdFunc =
       (ToolStripMenuItem x) => x.ToolTipText;
 
-    internal readonly static Func<ToolStripMenuItem, bool> SelectedFunc =
+    /// <summary>
+    /// Get the selected state of a <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <returns>The function.</returns>
+    public readonly static Func<ToolStripMenuItem, bool> SelectedFunc =
       (ToolStripMenuItem x) => x.Checked;
 
-    internal virtual Func<TBaseModel, string> NameFunc
+    /// <summary>
+    /// Get the default name.
+    /// </summary>
+    /// <returns>The function.</returns>
+    public virtual Func<TBaseModel, string> NameFunc
     {
       get
       {
@@ -26,7 +38,12 @@
 
     #region Logic
 
-    internal static Func<ToolStripMenuItem, bool> ContainsId(uint id)
+    /// <summary>
+    /// Match a <typeparamref name="ToolStripMenuItem"/> ID.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The function.</returns>
+    public static Func<ToolStripMenuItem, bool> ContainsId(uint id)
     {
       return (ToolStripMenuItem x) => IdFunc(x) == id.ToString();
     }

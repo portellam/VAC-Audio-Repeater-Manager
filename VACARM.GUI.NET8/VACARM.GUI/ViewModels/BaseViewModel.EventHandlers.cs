@@ -1,6 +1,6 @@
 ﻿namespace VACARM.GUI.ViewModels
 {
-  internal partial class BaseViewModel
+  public partial class BaseViewModel
     <
       TBaseGroupService,
       TBaseModel
@@ -11,7 +11,7 @@
     /// <summary>
     /// Select/Deselect the corresponding <typeparamref name="TBaseModel"/>.
     /// </summary>
-    internal EventHandler? CheckedChangedEventHandler
+    public EventHandler? CheckedChangedEventHandler
     {
       get
       {
@@ -67,15 +67,20 @@
     /// <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="isChecked">True/false</param>
-    internal EventHandler? AllCheckedChangedEventHandler(bool isChecked)
+    private EventHandler? SelectAllCheckedChangedEventHandler(bool? isChecked)
     {
+      if (isChecked == null)
+      {
+        isChecked = false;
+      }
+
       return
         (
           sender,
           eventArgs
         ) =>
         {
-          this.SelectAllOnCheck(isChecked);
+          this.SelectAllOnCheck(isChecked.Value);
         };
     }
 
@@ -85,7 +90,7 @@
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="isChecked">True/false</param>
-    internal EventHandler? RangeCheckedChangedEventHandler
+    private EventHandler? SelectRangeCheckedChangedEventHandler
     (
       IEnumerable<uint> idEnumerable,
       bool isChecked
@@ -103,6 +108,17 @@
             isChecked
           );
         };
+    }
+
+    // TOOD: implement?
+
+    /// <summary>
+    /// Select/Deselect the corresponding <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="isChecked">True/false</param>
+    private EventHandler? SelectCheckedChangedEventHandler(bool? isChecked)
+    {
+      throw new NotImplementedException();
     }
 
     #endregion
