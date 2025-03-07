@@ -76,7 +76,7 @@ namespace VACARM.GUI.ViewModels
           toolStripMenuItem.Enabled = false;
         }
 
-        toolStripMenuItem.CheckedChanged += 
+        toolStripMenuItem.CheckedChanged +=
           this.SelectAllCheckedChangedEventHandler
           (
             this.SelectAllToolStripMenuItem
@@ -87,37 +87,8 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    public virtual ToolStripMenuItem SelectRangeToolStripMenuItem
-    {
-      get
-      {
-
-      }
-    }
-
-    public virtual ToolStripMenuItem SelectToolStripMenuItem
-    {
-      get
-      {
-
-      }
-    }
-
-    public virtual ToolStripItemCollection SelectToolStripItemCollection
-    { 
-      get
-      {
-
-      }
-    }
-
-    public virtual ToolStripItemCollection SelectRangeToolStripMenuItemCollection
-    {
-      get
-      {
-
-      }
-    }
+    public virtual ToolStripMenuItem SelectRangeToolStripMenuItem { get; }
+    public virtual ToolStripMenuItem SelectToolStripMenuItem { get; }
 
     #endregion
 
@@ -192,7 +163,7 @@ namespace VACARM.GUI.ViewModels
 
       foreach (var item in modelEnumerable)
       {
-        var toolStripMenuItem = GetNew
+        var toolStripMenuItem = GetNewDropDownItem
           (
             item.Id,
             this.NameFunc(item)

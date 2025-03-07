@@ -9,9 +9,9 @@
     #region Parameters
 
     /// <summary>
-    /// Select/Deselect the corresponding <typeparamref name="TBaseModel"/>.
+    /// Select/Deselect a <typeparamref name="TBaseModel"/>.
     /// </summary>
-    public EventHandler? CheckedChangedEventHandler
+    private EventHandler? SelectCheckedChangedEventHandler
     {
       get
       {
@@ -63,37 +63,30 @@
     #region Logic
 
     /// <summary>
-    /// Select/Deselect the corresponding enumerable of all
-    /// <typeparamref name="TBaseModel"/>(s).
+    /// Select/Deselect all <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="isChecked">True/false</param>
     private EventHandler? SelectAllCheckedChangedEventHandler(bool? isChecked)
     {
-      if (isChecked == null)
-      {
-        isChecked = false;
-      }
-
       return
         (
           sender,
           eventArgs
         ) =>
         {
-          this.SelectAllOnCheck(isChecked.Value);
+          this.SelectAllOnCheck(isChecked);
         };
     }
 
     /// <summary>
-    /// Select/Deselect the corresponding enumerable of some
-    /// <typeparamref name="TBaseModel"/>(s).
+    /// Select/Deselect a range of <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="isChecked">True/false</param>
     private EventHandler? SelectRangeCheckedChangedEventHandler
     (
       IEnumerable<uint> idEnumerable,
-      bool isChecked
+      bool? isChecked
     )
     {
       return
@@ -108,17 +101,6 @@
             isChecked
           );
         };
-    }
-
-    // TOOD: implement?
-
-    /// <summary>
-    /// Select/Deselect the corresponding <typeparamref name="TBaseModel"/>.
-    /// </summary>
-    /// <param name="isChecked">True/false</param>
-    private EventHandler? SelectCheckedChangedEventHandler(bool? isChecked)
-    {
-      throw new NotImplementedException();
     }
 
     #endregion
