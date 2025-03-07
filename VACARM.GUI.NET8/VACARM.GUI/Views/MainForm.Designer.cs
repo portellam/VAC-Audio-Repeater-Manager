@@ -54,8 +54,6 @@
       deviceRedoToolStripMenuItem = new ToolStripMenuItem();
       deviceRefreshToolStripMenuItem = new ToolStripMenuItem();
       deviceSelectAllToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectDefaultInputToolStripMenuItem = new ToolStripMenuItem();
-      deviceSelectDefaultOutputToolStripMenuItem = new ToolStripMenuItem();
       deviceSelectRangeToolStripMenuItem = new ToolStripMenuItem();
       deviceSelectToolStripMenuItem = new ToolStripMenuItem();
       deviceSetAsDefaultToolStripMenuItem = new ToolStripMenuItem();
@@ -94,9 +92,6 @@
       repeaterRedoToolStripMenuItem = new ToolStripMenuItem();
       repeaterRestartToolStripMenuItem = new ToolStripMenuItem();
       repeaterSelectAllToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectDevicesToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectInputDeviceToolStripMenuItem = new ToolStripMenuItem();
-      repeaterSelectOutputDeviceToolStripMenuItem = new ToolStripMenuItem();
       repeaterSelectToolStripMenuItemDropDown = new ToolStripMenuItem();
       repeaterStartToolStripMenuItem = new ToolStripMenuItem();
       repeaterStopToolStripMenuItem = new ToolStripMenuItem();
@@ -104,7 +99,6 @@
       repeaterToolStripSeparator1 = new ToolStripSeparator();
       repeaterToolStripSeparator2 = new ToolStripSeparator();
       repeaterToolStripSeparator3 = new ToolStripSeparator();
-      repeaterToolStripSeparator4 = new ToolStripSeparator();
       repeaterUndoToolStripMenuItem = new ToolStripMenuItem();
       settingsPreferLegacyApplicationToolStripMenuItem = new ToolStripMenuItem();
       settingsPreferModernApplicationToolStripMenuItem = new ToolStripMenuItem();
@@ -115,6 +109,7 @@
       settingsToolStripButton = new ToolStripDropDownButton();
       settingsToolStripSeparator1 = new ToolStripSeparator();
       settingsToolStripSeparator2 = new ToolStripSeparator();
+      toolStripMenuItem1 = new ToolStripMenuItem();
       viewAlwaysOnTopToolStripMenuItem = new ToolStripMenuItem();
       viewPreferDarkThemeToolStripMenuItem = new ToolStripMenuItem();
       viewPreferSystemThemeToolStripMenuItem = new ToolStripMenuItem();
@@ -125,7 +120,6 @@
       windowToolStripSeparator1 = new ToolStripSeparator();
       windowWindowsToolStripMenuItem = new ToolStripMenuItem();
       windowWindowToolStripDropDownButton = new ToolStripDropDownButton();
-      toolStripMenuItem1 = new ToolStripMenuItem();
       toolStrip1.SuspendLayout();
       SuspendLayout();
       // 
@@ -250,7 +244,7 @@
       // 
       deviceToolStripLabel.AutoToolTip = false;
       deviceToolStripLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceToolStripLabel.DropDownItems.AddRange(new ToolStripItem[] { deviceUndoToolStripMenuItem, deviceRedoToolStripMenuItem, deviceToolStripSeparator1, deviceSetAsDefaultToolStripMenuItem, deviceEnableToolStripMenuItem, deviceDisableToolStripMenuItem, deviceRefreshToolStripMenuItem, deviceToolStripSeparator2, deviceFindToolStripMenuItem, deviceSelectToolStripMenuItem, deviceSelectAllToolStripMenuItem, deviceSelectRangeToolStripMenuItem, deviceSelectDefaultInputToolStripMenuItem, deviceSelectDefaultOutputToolStripMenuItem, deviceToolStripSeparator3, deviceImportFromClipboardToolStripMenuItem, deviceImportFromXMLToolStripMenuItem, deviceExportToClipboardToolStripMenuItem, deviceExportToXMLToolStripMenuItem });
+      deviceToolStripLabel.DropDownItems.AddRange(new ToolStripItem[] { deviceUndoToolStripMenuItem, deviceRedoToolStripMenuItem, deviceToolStripSeparator1, deviceSetAsDefaultToolStripMenuItem, deviceEnableToolStripMenuItem, deviceDisableToolStripMenuItem, deviceRefreshToolStripMenuItem, deviceToolStripSeparator2, deviceFindToolStripMenuItem, deviceSelectToolStripMenuItem, deviceSelectAllToolStripMenuItem, deviceSelectRangeToolStripMenuItem, deviceToolStripSeparator3, deviceImportFromClipboardToolStripMenuItem, deviceImportFromXMLToolStripMenuItem, deviceExportToClipboardToolStripMenuItem, deviceExportToXMLToolStripMenuItem });
       deviceToolStripLabel.Name = "deviceToolStripLabel";
       deviceToolStripLabel.Size = new Size(55, 22);
       deviceToolStripLabel.Text = "Device";
@@ -348,22 +342,6 @@
       deviceSelectRangeToolStripMenuItem.Size = new Size(192, 22);
       deviceSelectRangeToolStripMenuItem.Text = "Select All...";
       // 
-      // deviceSelectDefaultInputToolStripMenuItem
-      // 
-      deviceSelectDefaultInputToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectDefaultInputToolStripMenuItem.Name = "deviceSelectDefaultInputToolStripMenuItem";
-      deviceSelectDefaultInputToolStripMenuItem.Size = new Size(192, 22);
-      deviceSelectDefaultInputToolStripMenuItem.Text = "Select Default Input";
-      deviceSelectDefaultInputToolStripMenuItem.Click += deviceSelectDefaultInputToolStripMenuItem_Click;
-      // 
-      // deviceSelectDefaultOutputToolStripMenuItem
-      // 
-      deviceSelectDefaultOutputToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      deviceSelectDefaultOutputToolStripMenuItem.Name = "deviceSelectDefaultOutputToolStripMenuItem";
-      deviceSelectDefaultOutputToolStripMenuItem.Size = new Size(192, 22);
-      deviceSelectDefaultOutputToolStripMenuItem.Text = "Select Default Output";
-      deviceSelectDefaultOutputToolStripMenuItem.Click += deviceSelectDefaultOutputToolStripMenuItem_Click;
-      // 
       // deviceToolStripSeparator3
       // 
       deviceToolStripSeparator3.Name = "deviceToolStripSeparator3";
@@ -405,7 +383,7 @@
       // 
       repeaterToolStripDropDownButton.AutoToolTip = false;
       repeaterToolStripDropDownButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      repeaterToolStripDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { repeaterUndoToolStripMenuItem, repeaterRedoToolStripMenuItem, repeaterToolStripSeparator1, repeaterFindToolStripMenuItemDropDown, repeaterSelectToolStripMenuItemDropDown, repeaterSelectAllToolStripMenuItem, toolStripMenuItem1, repeaterToolStripSeparator2, repeaterStartToolStripMenuItem, repeaterStopToolStripMenuItem, repeaterRestartToolStripMenuItem, repeaterToolStripSeparator3, repeaterSelectDevicesToolStripMenuItem, repeaterSelectInputDeviceToolStripMenuItem, repeaterSelectOutputDeviceToolStripMenuItem, repeaterToolStripSeparator4, repeaterImportFromClipboardToolStripMenuItem, repeaterImportFromScriptToolStripMenuItem, repeaterImportFromXMLToolStripMenuItem, repeaterExportToClipboardToolStripMenuItem, repeaterExportToScriptToolStripMenuItem, repeaterExportToXMLToolStripMenuItem });
+      repeaterToolStripDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { repeaterUndoToolStripMenuItem, repeaterRedoToolStripMenuItem, repeaterToolStripSeparator1, repeaterFindToolStripMenuItemDropDown, repeaterSelectToolStripMenuItemDropDown, repeaterSelectAllToolStripMenuItem, toolStripMenuItem1, repeaterToolStripSeparator2, repeaterStartToolStripMenuItem, repeaterStopToolStripMenuItem, repeaterRestartToolStripMenuItem, repeaterToolStripSeparator3, repeaterImportFromClipboardToolStripMenuItem, repeaterImportFromScriptToolStripMenuItem, repeaterImportFromXMLToolStripMenuItem, repeaterExportToClipboardToolStripMenuItem, repeaterExportToScriptToolStripMenuItem, repeaterExportToXMLToolStripMenuItem });
       repeaterToolStripDropDownButton.Name = "repeaterToolStripDropDownButton";
       repeaterToolStripDropDownButton.Size = new Size(66, 22);
       repeaterToolStripDropDownButton.Text = "Repeater";
@@ -457,6 +435,12 @@
       repeaterSelectAllToolStripMenuItem.Text = "Select All";
       repeaterSelectAllToolStripMenuItem.Click += repeaterSelectAllToolStripMenuItem_Click;
       // 
+      // toolStripMenuItem1
+      // 
+      toolStripMenuItem1.Name = "toolStripMenuItem1";
+      toolStripMenuItem1.Size = new Size(196, 22);
+      toolStripMenuItem1.Text = "Select All...";
+      // 
       // repeaterToolStripSeparator2
       // 
       repeaterToolStripSeparator2.Name = "repeaterToolStripSeparator2";
@@ -493,35 +477,6 @@
       // 
       repeaterToolStripSeparator3.Name = "repeaterToolStripSeparator3";
       repeaterToolStripSeparator3.Size = new Size(193, 6);
-      // 
-      // repeaterSelectDevicesToolStripMenuItem
-      // 
-      repeaterSelectDevicesToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      repeaterSelectDevicesToolStripMenuItem.Name = "repeaterSelectDevicesToolStripMenuItem";
-      repeaterSelectDevicesToolStripMenuItem.Size = new Size(196, 22);
-      repeaterSelectDevicesToolStripMenuItem.Text = "Select Devices";
-      repeaterSelectDevicesToolStripMenuItem.Click += repeaterSelectDevicesToolStripMenuItem_Click;
-      // 
-      // repeaterSelectInputDeviceToolStripMenuItem
-      // 
-      repeaterSelectInputDeviceToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      repeaterSelectInputDeviceToolStripMenuItem.Name = "repeaterSelectInputDeviceToolStripMenuItem";
-      repeaterSelectInputDeviceToolStripMenuItem.Size = new Size(196, 22);
-      repeaterSelectInputDeviceToolStripMenuItem.Text = "Select Input Device";
-      repeaterSelectInputDeviceToolStripMenuItem.Click += repeaterSelectInputDeviceToolStripMenuItem_Click;
-      // 
-      // repeaterSelectOutputDeviceToolStripMenuItem
-      // 
-      repeaterSelectOutputDeviceToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-      repeaterSelectOutputDeviceToolStripMenuItem.Name = "repeaterSelectOutputDeviceToolStripMenuItem";
-      repeaterSelectOutputDeviceToolStripMenuItem.Size = new Size(196, 22);
-      repeaterSelectOutputDeviceToolStripMenuItem.Text = "Select Output Device";
-      repeaterSelectOutputDeviceToolStripMenuItem.Click += repeaterSelectOutputDeviceToolStripMenuItem_Click;
-      // 
-      // repeaterToolStripSeparator4
-      // 
-      repeaterToolStripSeparator4.Name = "repeaterToolStripSeparator4";
-      repeaterToolStripSeparator4.Size = new Size(193, 6);
       // 
       // repeaterImportFromClipboardToolStripMenuItem
       // 
@@ -783,12 +738,6 @@
       helpAboutToolStripMenuItem.Text = "About {0}";
       helpAboutToolStripMenuItem.Click += helpAboutToolStripMenuItem_Click;
       // 
-      // toolStripMenuItem1
-      // 
-      toolStripMenuItem1.Name = "toolStripMenuItem1";
-      toolStripMenuItem1.Size = new Size(196, 22);
-      toolStripMenuItem1.Text = "Select All...";
-      // 
       // MainForm
       // 
       AutoScaleDimensions = new SizeF(6F, 13F);
@@ -826,8 +775,6 @@
     private ToolStripMenuItem deviceRedoToolStripMenuItem;
     private ToolStripMenuItem deviceRefreshToolStripMenuItem;
     private ToolStripMenuItem deviceSelectAllToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectDefaultInputToolStripMenuItem;
-    private ToolStripMenuItem deviceSelectDefaultOutputToolStripMenuItem;
     private ToolStripMenuItem deviceSelectRangeToolStripMenuItem;
     private ToolStripMenuItem deviceSelectToolStripMenuItem;
     private ToolStripMenuItem deviceSetAsDefaultToolStripMenuItem;
@@ -857,9 +804,6 @@
     private ToolStripMenuItem repeaterRedoToolStripMenuItem;
     private ToolStripMenuItem repeaterRestartToolStripMenuItem;
     private ToolStripMenuItem repeaterSelectAllToolStripMenuItem;
-    private ToolStripMenuItem repeaterSelectDevicesToolStripMenuItem;
-    private ToolStripMenuItem repeaterSelectInputDeviceToolStripMenuItem;
-    private ToolStripMenuItem repeaterSelectOutputDeviceToolStripMenuItem;
     private ToolStripMenuItem repeaterSelectToolStripMenuItemDropDown;
     private ToolStripMenuItem repeaterStartToolStripMenuItem;
     private ToolStripMenuItem repeaterStopToolStripMenuItem;
@@ -886,7 +830,6 @@
     private ToolStripSeparator repeaterToolStripSeparator1;
     private ToolStripSeparator repeaterToolStripSeparator2;
     private ToolStripSeparator repeaterToolStripSeparator3;
-    private ToolStripSeparator repeaterToolStripSeparator4;
     private ToolStripSeparator settingsToolStripSeparator1;
     private ToolStripSeparator settingsToolStripSeparator2;
     private ToolStripSeparator viewToolStripSeparator1;
