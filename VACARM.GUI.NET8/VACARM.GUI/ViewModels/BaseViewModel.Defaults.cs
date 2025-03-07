@@ -37,7 +37,7 @@ namespace VACARM.GUI.ViewModels
         );
 
       SelectToolStripMenuItem.CheckedChanged +=
-        this.CheckedChangedEventHandler;
+        this.SelectCheckedChangedEventHandler;
     }
 
     #endregion
