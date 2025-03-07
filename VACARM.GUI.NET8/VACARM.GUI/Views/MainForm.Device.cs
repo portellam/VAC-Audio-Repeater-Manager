@@ -37,204 +37,31 @@ namespace VACARM.GUI.Views
 
     #region Presentation logic
 
-    private IEnumerable<ToolStripMenuItem>
-    GetDeviceModelEnumerableAsToolStripMenuItemEnumerable
-    (
-      IEnumerable<DeviceModel> modelEnumerable
-    )
+    private void SetDeviceComponents()
     {
-      if (modelEnumerable == null)
-      {
-        yield break;
-      }
+      //this.DeviceViewModel
+      //  .Deconstruct
+      //  (
+      //    ref deviceSelectAllToolStripMenuItem,
+      //    ref deviceSelectAllAbsentToolStripMenuItem,
+      //    ref deviceSelectAllCaptureToolStripMenuItem,
+      //    ref deviceSelectAllCommunicationsToolStripMenuItem,
+      //    ref deviceSelectAllConsoleToolStripMenuItem,
+      //    ref deviceSelectAllDisabledToolStripMenuItem,
+      //    ref deviceSelectAllEnabledToolStripMenuItem,
+      //    ref deviceSelectAllMultimediaToolStripMenuItem,
+      //    ref deviceSelectAllMutedToolStripMenuItem,
+      //    ref deviceSelectAllPresentToolStripMenuItem,
+      //    ref deviceSelectAllRenderToolStripMenuItem,
+      //    ref deviceSelectAllUnmutedToolStripMenuItem,
+      //    ref deviceSelectCaptureToolStripMenuItem,
+      //    ref deviceSelectDefaultToolStripMenuItem,
+      //    ref deviceSelectRenderToolStripMenuItem,
+      //  );
 
-      foreach (var item in modelEnumerable)
-      {
-        yield return this.GetDeviceModelAsToolStripMenuItem(item);
-      }
-    }
-
-    private ToolStripMenuItem GetDeviceModelAsToolStripMenuItem
-    (DeviceModel deviceModel)
-    {
-      int maxIdLength = 7;
-
-      string idWhiteSpace = new string
-        (
-          ' ',
-          maxIdLength - deviceModel.Id
-            .ToString()
-            .Length
-        );
-
-      string nameWhiteSpace = new string
-      (
-        ' ',
-        maxIdLength
-      );
-
-      string text = string.Format
-      (
-        "ID:{0}{1},{2}Name: {3}",
-        idWhiteSpace,
-        deviceModel.Id,
-        nameWhiteSpace,
-        deviceModel.Name
-      );
-
-      return new ToolStripMenuItem(text)
-      {
-        CheckOnClick = true,
-
-        ToolTipText = deviceModel.Id
-          .ToString(),
-      };
-    }
-
-    #endregion
-
-    #region Delegate logic
-
-    private void OnUncheckOfSelectInputUncheckAll()
-    {
-      if (this.deviceSelectInputToolStripMenuItem == null)
-      {
-        return;
-      }
-
-      deviceSelectInputToolStripMenuItem
-        .DropDownItemClicked +=
-        (
-          sender,
-          eventArgs
-        ) =>
-        {
-          var anyNotChecked = this.deviceSelectInputToolStripMenuItem
-            .DropDownItems
-            .Cast<ToolStripMenuItem>()
-            .Any(x => !x.Checked);
-
-          if (!anyNotChecked)
-          {
-            return;
-          }
-
-          this.deviceSelectAllDisabledToolStripMenuItem
-            .Checked = false;
-
-          this.deviceSelectAllEnabledToolStripMenuItem
-            .Checked = false;
-
-          this.deviceSelectAllInputsToolStripMenuItem
-            .Checked = false;
-
-          this.deviceSelectAllOutputsToolStripMenuItem
-            .Checked = false;
-
-        };
-    }
-
-    private void OnUncheckOfSelectOutputUncheckAll()
-    {
-      if (this.deviceSelectOutputToolStripMenuItem == null)
-      {
-        return;
-      }
-
-      deviceSelectOutputToolStripMenuItem
-        .DropDownItemClicked +=
-        (
-          sender,
-          eventArgs
-        ) =>
-        {
-          var anyNotChecked = this.deviceSelectOutputToolStripMenuItem
-            .DropDownItems
-            .Cast<ToolStripMenuItem>()
-            .Any(x => !x.Checked);
-
-          if (!anyNotChecked)
-          {
-            return;
-          }
-
-          this.deviceSelectAllDisabledToolStripMenuItem
-            .Checked = false;
-
-          this.deviceSelectAllEnabledToolStripMenuItem
-            .Checked = false;
-
-          this.deviceSelectAllInputsToolStripMenuItem
-            .Checked = false;
-
-          this.deviceSelectAllOutputsToolStripMenuItem
-            .Checked = false;
-
-        };
-    }
-
-    private void OnCheckOfSelectAllInputCheckAllInput()
-    {
-      if (this.deviceSelectInputToolStripMenuItem == null)
-      {
-        return;
-      }
-
-      deviceSelectAllInputsToolStripMenuItem
-        .CheckedChanged +=
-        (
-          sender,
-          eventArgs
-        ) =>
-        {
-          var enumerable = this.deviceSelectInputToolStripMenuItem
-            .DropDownItems
-            .Cast<ToolStripMenuItem>();
-
-          this.deviceSelectInputToolStripMenuItem
-            .DropDownItems
-            .Clear();
-
-          foreach (var item in enumerable)
-          {
-            item.Enabled = deviceSelectAllInputsToolStripMenuItem.Enabled;
-
-            this.deviceSelectInputToolStripMenuItem
-              .DropDownItems.Add(item);
-          }
-        };
-    }
-
-    private void OnCheckOfSelectAllOutputCheckAllOutput()
-    {
-      if (this.deviceSelectOutputToolStripMenuItem == null)
-      {
-        return;
-      }
-
-      deviceSelectAllOutputsToolStripMenuItem
-        .CheckedChanged +=
-        (
-          sender,
-          eventArgs
-        ) =>
-        {
-          var enumerable = this.deviceSelectOutputToolStripMenuItem
-            .DropDownItems
-            .Cast<ToolStripMenuItem>();
-
-          this.deviceSelectOutputToolStripMenuItem
-            .DropDownItems
-            .Clear();
-
-          foreach (var item in enumerable)
-          {
-            item.Enabled = deviceSelectAllOutputsToolStripMenuItem.Enabled;
-
-            this.deviceSelectOutputToolStripMenuItem
-              .DropDownItems.Add(item);
-          }
-        };
+      // TODO: run update before SetDeviceComponents() ?
+      //this.DeviceViewModel
+      //  .Update();
     }
 
     #endregion
