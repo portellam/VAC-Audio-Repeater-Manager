@@ -222,6 +222,150 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
+    private ToolStripMenuItem SelectAllAbsentToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsAbsent,
+            "Absent"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllCaptureToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsCapture,
+            "Capture"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllCommunicationsToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsCommunications,
+            "Communications"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllConsoleToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsConsole,
+            "Console"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllDefaultToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsDefault,
+            "Default"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllDisabledToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsDisabled,
+            "Disabled"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllEnabledToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsEnabled,
+            "Enabled"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllMultimediaToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsMultimedia,
+            "Multimedia"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllMutedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsMuted,
+            "Muted"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllPresentToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsPresent,
+            "Present"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllRenderToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsRender,
+            "Render"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectAllUnmutedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsUnmuted,
+            "Unmuted"
+          );
+      }
+    }
+
     protected override IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
     {
       get
@@ -296,150 +440,6 @@ namespace VACARM.GUI.ViewModels
       >
     GroupService
     { get; set; }
-
-    public ToolStripMenuItem SelectAllAbsentToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsAbsent,
-            "Absent"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllCaptureToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsCapture,
-            "Capture"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllCommunicationsToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsCommunications,
-            "Communications"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllConsoleToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsConsole,
-            "Console"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllDefaultToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsDefault,
-            "Default"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllDisabledToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsDisabled,
-            "Disabled"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllEnabledToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsEnabled,
-            "Enabled"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllMultimediaToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsMultimedia,
-            "Multimedia"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllMutedToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsMuted,
-            "Muted"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllPresentToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsPresent,
-            "Present"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllRenderToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsRender,
-            "Render"
-          );
-      }
-    }
-
-    public ToolStripMenuItem SelectAllUnmutedToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNew
-          (
-            DeviceFunctions<TDeviceModel>.IsUnmuted,
-            "Unmuted"
-          );
-      }
-    }
 
     public override Func<DeviceModel, string> NameFunc
     {
