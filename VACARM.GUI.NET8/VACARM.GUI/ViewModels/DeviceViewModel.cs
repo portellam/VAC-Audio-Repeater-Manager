@@ -1,5 +1,4 @@
 ﻿using VACARM.Domain.Models;
-using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
@@ -11,31 +10,34 @@ namespace VACARM.GUI.ViewModels
   /// </summary>
   public partial class DeviceViewModel
     <
-      DeviceGroupService,
+      TBaseGroupService,
       TDeviceModel
     > :
     BaseViewModel
     <
-      DeviceGroupService
+      TBaseGroupService,
+      TDeviceModel
+    >
+    where TBaseGroupService :
+    DeviceGroupService
+    <
+      ReadonlyRepository
       <
-        ReadonlyRepository
-        <
-          BaseService
-          <
-            BaseRepository<TDeviceModel>,
-            TDeviceModel
-          >
-        >,
         BaseService
         <
           BaseRepository<TDeviceModel>,
           TDeviceModel
-        >,
+        >
+      >,
+      BaseService
+      <
         BaseRepository<TDeviceModel>,
         TDeviceModel
       >,
+      BaseRepository<TDeviceModel>,
       TDeviceModel
-    > where TDeviceModel :
+    >
+    where TDeviceModel :
     DeviceModel
   {
     #region Parameters
@@ -114,7 +116,7 @@ namespace VACARM.GUI.ViewModels
           );
       }
     }
-    
+
     private ToolStripMenuItem SelectDisabledToolStripMenuItem
     {
       get
@@ -513,22 +515,6 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TDeviceModel>,
         TDeviceModel
       >();
-    }
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-        this.GroupService = null;
-      }
-
-      this.HasDisposed = true;
     }
 
     #endregion

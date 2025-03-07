@@ -13,6 +13,8 @@ namespace VACARM.GUI.ViewModels
       TBaseGroupService,
       TBaseModel
     > :
+    IDisposable
+    where TBaseGroupService :
     BaseGroupService
     <
       ReadonlyRepository
@@ -30,8 +32,7 @@ namespace VACARM.GUI.ViewModels
       >,
       BaseRepository<TBaseModel>,
       TBaseModel
-    >,
-    IDisposable
+    >
     where TBaseModel :
     BaseModel
   {
