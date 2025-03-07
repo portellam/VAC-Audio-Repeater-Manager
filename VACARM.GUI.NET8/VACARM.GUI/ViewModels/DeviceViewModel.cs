@@ -1,4 +1,5 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
@@ -8,7 +9,7 @@ namespace VACARM.GUI.ViewModels
   /// <summary>
   /// The view model of <typeparamref name="DeviceGroupService"/>.
   /// </summary>
-  internal partial class DeviceViewModel
+  public partial class DeviceViewModel
     <
       DeviceGroupService,
       TDeviceModel
@@ -39,7 +40,235 @@ namespace VACARM.GUI.ViewModels
   {
     #region Parameters
 
-    internal DeviceGroupService
+    private ToolStripMenuItem SelectAbsentToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsAbsent,
+            "Absent"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectCaptureToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsCapture,
+            "Capture"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectCommunicationsToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsCommunications,
+            "Communications"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectConsoleToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsConsole,
+            "Console"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectDefaultToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsDefault,
+            "Default"
+          );
+      }
+    }
+    
+    private ToolStripMenuItem SelectDisabledToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsDisabled,
+            "Disabled"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectEnabledToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsEnabled,
+            "Enabled"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectMultimediaToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsMultimedia,
+            "Multimedia"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectMutedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsMuted,
+            "Muted"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectPresentToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsPresent,
+            "Present"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectRenderToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsRender,
+            "Output"
+          );
+      }
+    }
+
+    private ToolStripMenuItem SelectUnmutedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNewWithDropDownItems
+          (
+            this.GroupService
+              .SelectedRepository
+              .GetAll(),
+            DeviceFunctions<TDeviceModel>.IsUnmuted,
+            "Unmuted"
+          );
+      }
+    }
+
+    protected override IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
+    {
+      get
+      {
+        return new ToolStripItem[]
+          {
+            SelectAllCaptureToolStripMenuItem,
+            SelectAllRenderToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectAllDefaultToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectAllPresentToolStripMenuItem,
+            SelectAllAbsentToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectAllEnabledToolStripMenuItem,
+            SelectAllDisabledToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectAllCommunicationsToolStripMenuItem,
+            SelectAllConsoleToolStripMenuItem,
+            SelectAllMultimediaToolStripMenuItem
+          };
+      }
+    }
+
+    protected override IEnumerable<ToolStripItem> SelectToolStripItemEnumerable
+    {
+      get
+      {
+        return new ToolStripItem[]
+          {
+            SelectCaptureToolStripMenuItem,
+            SelectRenderToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectDefaultToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectPresentToolStripMenuItem,
+            SelectAbsentToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectEnabledToolStripMenuItem,
+            SelectDisabledToolStripMenuItem,
+            new ToolStripSeparator(),
+            SelectCommunicationsToolStripMenuItem,
+            SelectConsoleToolStripMenuItem,
+            SelectMultimediaToolStripMenuItem
+          };
+      }
+    }
+
+    public DeviceGroupService
       <
         ReadonlyRepository
         <
@@ -60,19 +289,11 @@ namespace VACARM.GUI.ViewModels
     GroupService
     { get; set; }
 
-    internal ToolStripMenuItem AllToolStripMenuItem
+    public ToolStripMenuItem SelectAllAbsentToolStripMenuItem
     {
       get
       {
-        return this.GetAllNew();
-      }
-    }
-
-    internal ToolStripMenuItem AllAbsentToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
+        return this.GetNew
           (
             DeviceFunctions<TDeviceModel>.IsAbsent,
             "Absent"
@@ -80,11 +301,11 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal ToolStripMenuItem AllCaptureToolStripMenuItem
+    public ToolStripMenuItem SelectAllCaptureToolStripMenuItem
     {
       get
       {
-        return this.GetRangeNew
+        return this.GetNew
           (
             DeviceFunctions<TDeviceModel>.IsCapture,
             "Capture"
@@ -92,11 +313,11 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal ToolStripMenuItem AllCommunicationsToolStripMenuItem
+    public ToolStripMenuItem SelectAllCommunicationsToolStripMenuItem
     {
       get
       {
-        return this.GetRangeNew
+        return this.GetNew
           (
             DeviceFunctions<TDeviceModel>.IsCommunications,
             "Communications"
@@ -104,11 +325,11 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal ToolStripMenuItem AllConsoleToolStripMenuItem
+    public ToolStripMenuItem SelectAllConsoleToolStripMenuItem
     {
       get
       {
-        return this.GetRangeNew
+        return this.GetNew
           (
             DeviceFunctions<TDeviceModel>.IsConsole,
             "Console"
@@ -116,110 +337,11 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal ToolStripMenuItem AllDisabledToolStripMenuItem
+    public ToolStripMenuItem SelectAllDefaultToolStripMenuItem
     {
       get
       {
-        return this.GetRangeNew
-          (
-            DeviceFunctions<TDeviceModel>.IsDisabled,
-            "Disabled"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem AllEnabledToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
-          (
-            DeviceFunctions<TDeviceModel>.IsEnabled,
-            "Enabled"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem AllMultimediaToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
-          (
-            DeviceFunctions<TDeviceModel>.IsMultimedia,
-            "Multimedia"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem AllMutedToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
-          (
-            DeviceFunctions<TDeviceModel>.IsMuted,
-            "Muted"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem AllPresentToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
-          (
-            DeviceFunctions<TDeviceModel>.IsPresent,
-            "Present"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem AllRenderToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
-          (
-            DeviceFunctions<TDeviceModel>.IsRender,
-            "Render"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem AllUnmutedToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
-          (
-            DeviceFunctions<TDeviceModel>.IsUnmuted,
-            "Unmuted"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem CaptureToolStripMenuItem
-    {
-      get
-      {
-        return this.GetNewWithDropDownItems
-          (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
-            DeviceFunctions<TDeviceModel>.IsCapture,
-            "Capture"
-          );
-      }
-    }
-
-    internal ToolStripMenuItem DefaultToolStripMenuItem
-    {
-      get
-      {
-        return this.GetRangeNew
+        return this.GetNew
           (
             DeviceFunctions<TDeviceModel>.IsDefault,
             "Default"
@@ -227,22 +349,91 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal ToolStripMenuItem RenderToolStripMenuItem
+    public ToolStripMenuItem SelectAllDisabledToolStripMenuItem
     {
       get
       {
-        return this.GetNewWithDropDownItems
+        return this.GetNew
           (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
-            DeviceFunctions<TDeviceModel>.IsRender,
-            "Output"
+            DeviceFunctions<TDeviceModel>.IsDisabled,
+            "Disabled"
           );
       }
     }
 
-    internal override Func<DeviceModel, string> NameFunc
+    public ToolStripMenuItem SelectAllEnabledToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsEnabled,
+            "Enabled"
+          );
+      }
+    }
+
+    public ToolStripMenuItem SelectAllMultimediaToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsMultimedia,
+            "Multimedia"
+          );
+      }
+    }
+
+    public ToolStripMenuItem SelectAllMutedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsMuted,
+            "Muted"
+          );
+      }
+    }
+
+    public ToolStripMenuItem SelectAllPresentToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsPresent,
+            "Present"
+          );
+      }
+    }
+
+    public ToolStripMenuItem SelectAllRenderToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsRender,
+            "Render"
+          );
+      }
+    }
+
+    public ToolStripMenuItem SelectAllUnmutedToolStripMenuItem
+    {
+      get
+      {
+        return this.GetNew
+          (
+            DeviceFunctions<TDeviceModel>.IsUnmuted,
+            "Unmuted"
+          );
+      }
+    }
+
+    public override Func<DeviceModel, string> NameFunc
     {
       get
       {
@@ -257,7 +448,7 @@ namespace VACARM.GUI.ViewModels
     /// <summary>
     /// Constructor
     /// </summary>
-    internal DeviceViewModel() :
+    public DeviceViewModel() :
       base()
     {
       this.GroupService = new DeviceGroupService
@@ -278,49 +469,25 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TDeviceModel>,
         TDeviceModel
       >();
+
+      this.Update();
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="allToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allAbsentToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allCaptureToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allCommunicationsToolStripMenuItem">
-    /// The tool strip menu item
-    /// </param>
-    /// <param name="allConsoleToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allDisabledToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allEnabledToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allMultimediaToolStripMenuItem">
-    /// The tool strip menu item
-    /// </param>
-    /// <param name="allMutedToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allPresentToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allRenderToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allUnmutedToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="captureToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="defaultToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="renderToolStripMenuItem">The tool strip menu item</param>
-    internal DeviceViewModel
+    /// <param name="defaultSize">The default size</param>
+    /// <param name="selectDefaultName">The select item default name</param>
+    public DeviceViewModel
     (
-      ref ToolStripMenuItem allToolStripMenuItem,
-      ref ToolStripMenuItem allAbsentToolStripMenuItem,
-      ref ToolStripMenuItem allCaptureToolStripMenuItem,
-      ref ToolStripMenuItem allCommunicationsToolStripMenuItem,
-      ref ToolStripMenuItem allConsoleToolStripMenuItem,
-      ref ToolStripMenuItem allDisabledToolStripMenuItem,
-      ref ToolStripMenuItem allEnabledToolStripMenuItem,
-      ref ToolStripMenuItem allMultimediaToolStripMenuItem,
-      ref ToolStripMenuItem allMutedToolStripMenuItem,
-      ref ToolStripMenuItem allPresentToolStripMenuItem,
-      ref ToolStripMenuItem allRenderToolStripMenuItem,
-      ref ToolStripMenuItem allUnmutedToolStripMenuItem,
-      ref ToolStripMenuItem captureToolStripMenuItem,
-      ref ToolStripMenuItem defaultToolStripMenuItem,
-      ref ToolStripMenuItem renderToolStripMenuItem
+      Size defaultSize,
+      string selectDefaultName
     ) :
-      base()
+      base
+    (
+      defaultSize,
+      selectDefaultName
+    )
     {
       this.GroupService = new DeviceGroupService
       <
@@ -340,83 +507,6 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TDeviceModel>,
         TDeviceModel
       >();
-
-      this.Deconstruct
-        (
-          ref allToolStripMenuItem,
-          ref allAbsentToolStripMenuItem,
-          ref allCaptureToolStripMenuItem,
-          ref allCommunicationsToolStripMenuItem,
-          ref allConsoleToolStripMenuItem,
-          ref allDisabledToolStripMenuItem,
-          ref allEnabledToolStripMenuItem,
-          ref allMultimediaToolStripMenuItem,
-          ref allMutedToolStripMenuItem,
-          ref allPresentToolStripMenuItem,
-          ref allRenderToolStripMenuItem,
-          ref allUnmutedToolStripMenuItem,
-          ref captureToolStripMenuItem,
-          ref defaultToolStripMenuItem,
-          ref renderToolStripMenuItem
-        );
-    }
-
-    /// <summary>
-    /// Deconstructor
-    /// </summary>
-    /// <param name="allToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allAbsentToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allCaptureToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allCommunicationsToolStripMenuItem">
-    /// The tool strip menu item
-    /// </param>
-    /// <param name="allConsoleToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allDisabledToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allEnabledToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allMultimediaToolStripMenuItem">
-    /// The tool strip menu item
-    /// </param>
-    /// <param name="allMutedToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allPresentToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allRenderToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="allUnmutedToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="captureToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="defaultToolStripMenuItem">The tool strip menu item</param>
-    /// <param name="renderToolStripMenuItem">The tool strip menu item</param>
-    internal void Deconstruct
-    (
-      ref ToolStripMenuItem allToolStripMenuItem,
-      ref ToolStripMenuItem allAbsentToolStripMenuItem,
-      ref ToolStripMenuItem allCaptureToolStripMenuItem,
-      ref ToolStripMenuItem allCommunicationsToolStripMenuItem,
-      ref ToolStripMenuItem allConsoleToolStripMenuItem,
-      ref ToolStripMenuItem allDisabledToolStripMenuItem,
-      ref ToolStripMenuItem allEnabledToolStripMenuItem,
-      ref ToolStripMenuItem allMultimediaToolStripMenuItem,
-      ref ToolStripMenuItem allMutedToolStripMenuItem,
-      ref ToolStripMenuItem allPresentToolStripMenuItem,
-      ref ToolStripMenuItem allRenderToolStripMenuItem,
-      ref ToolStripMenuItem allUnmutedToolStripMenuItem,
-      ref ToolStripMenuItem captureToolStripMenuItem,
-      ref ToolStripMenuItem defaultToolStripMenuItem,
-      ref ToolStripMenuItem renderToolStripMenuItem
-    )
-    {
-      allToolStripMenuItem = this.AllToolStripMenuItem;
-      allAbsentToolStripMenuItem = this.AllAbsentToolStripMenuItem;
-      allCaptureToolStripMenuItem = this.AllCaptureToolStripMenuItem;
-      allDisabledToolStripMenuItem = this.AllDisabledToolStripMenuItem;
-      allCommunicationsToolStripMenuItem = this.AllCommunicationsToolStripMenuItem;
-      allConsoleToolStripMenuItem = this.AllConsoleToolStripMenuItem;
-      allEnabledToolStripMenuItem = this.AllEnabledToolStripMenuItem;
-      allMultimediaToolStripMenuItem = this.AllMultimediaToolStripMenuItem;
-      allMutedToolStripMenuItem = this.AllMutedToolStripMenuItem;
-      allPresentToolStripMenuItem = this.AllPresentToolStripMenuItem;
-      allRenderToolStripMenuItem = this.AllRenderToolStripMenuItem;
-      allUnmutedToolStripMenuItem = this.AllUnmutedToolStripMenuItem;
-      captureToolStripMenuItem = this.CaptureToolStripMenuItem;
-      defaultToolStripMenuItem = this.DefaultToolStripMenuItem;
-      renderToolStripMenuItem = this.RenderToolStripMenuItem;
     }
 
     protected override void Dispose(bool isDisposed)
