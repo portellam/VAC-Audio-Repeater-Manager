@@ -1,4 +1,5 @@
-﻿using VACARM.Infrastructure.Repositories;
+﻿using System.Xml.Linq;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.GUI.ViewModels
 {
@@ -65,35 +66,192 @@ namespace VACARM.GUI.ViewModels
       return toolStripMenuItem;
     }
 
-    internal ToolStripMenuItem GetToolStripMenuItemWithDropDownItems
+    /// <summary>
+    /// Get a new <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    internal static ToolStripMenuItem GetNew
+    (
+      uint id,
+      string name
+    )
+    {
+      ToolStripMenuItem toolStripMenuItem = SelectToolStripMenuItem;
+      int maxIdLength = 7;
+
+      string idWhiteSpace = new string
+        (
+          ' ',
+          maxIdLength - id
+            .ToString()
+            .Length
+        );
+
+      string nameWhiteSpace = new string
+      (
+        ' ',
+        maxIdLength
+      );
+
+      string text = string.Format
+      (
+        "ID:{0}{1},{2}Name: {3}",
+        idWhiteSpace,
+        id,
+        nameWhiteSpace,
+        name
+      );
+
+      toolStripMenuItem.Text = text;
+
+      toolStripMenuItem.ToolTipText = id
+        .ToString();
+
+      return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get a new range of <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    internal ToolStripMenuItem GetAllNew()
+    {
+      var toolStripMenuItem = SelectRangeToolStripMenuItem;
+
+      toolStripMenuItem.Name = string.Format
+        (
+          toolStripMenuItem.Name,
+          "All"
+        );
+
+      var idEnumerable = this.GroupService
+        .SelectedRepository
+        .GetAll()
+        .Select(x => x.Id);
+
+      if
+      (
+        idEnumerable == null
+        || idEnumerable.Count() == 0
+      )
+      {
+        toolStripMenuItem.Enabled = false;
+      }
+
+      else
+      {
+        toolStripMenuItem.CheckedChanged +=
+          this.RangeCheckedChangedEventHandler
+          (
+            idEnumerable,
+            true
+          );
+      }
+
+      return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get a new range of <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="func">The function</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    internal ToolStripMenuItem GetRangeNew
+    (
+      Func<TBaseModel, bool> func,
+      string name
+    )
+    {
+      var toolStripMenuItem = SelectRangeToolStripMenuItem;
+
+      toolStripMenuItem.Name = string.Format
+        (
+          toolStripMenuItem.Name,
+          name
+        );
+
+      if (func == null)
+      {
+        toolStripMenuItem.Enabled = false;
+        return toolStripMenuItem;
+      }
+
+      var idEnumerable = this.GroupService
+        .SelectedRepository
+        .GetRange(func)
+        .Select(x => x.Id);
+
+      if
+      (
+        idEnumerable == null
+        || idEnumerable.Count() == 0
+      )
+      {
+        toolStripMenuItem.Enabled = false;
+      }
+
+      else
+      {
+        toolStripMenuItem.CheckedChanged +=
+          this.RangeCheckedChangedEventHandler
+          (
+            idEnumerable,
+            true
+          );
+      }
+
+      return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get a new <typeparamref name="ToolStripMenuItem"/> with drop down items.
+    /// </summary>
+    /// <param name="modelEnumerable">The enumerable of model(s)</param>
+    /// <param name="modelFunc">The function</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    internal ToolStripMenuItem GetNewWithDropDownItems
     (
       IEnumerable<TBaseModel> modelEnumerable,
       Func<TBaseModel, bool> modelFunc,
       string name
     )
     {
-      var toolStripMenuItem = SelectRangeToolStripMenuItem;
-      toolStripMenuItem.Name += " " + name;
-
       var idEnumerable = modelEnumerable
         .Where(modelFunc)
         .Select(x => x.Id);
 
-      var array = this.GetRange(idEnumerable)
-        .ToArray();
-
-      toolStripMenuItem.DropDownItems.AddRange(array);
-      return toolStripMenuItem;
+      return this.GetNewWithDropDownItems
+        (
+          idEnumerable,
+          name
+        );
     }
 
-    internal ToolStripMenuItem GetToolStripMenuItemWithDropDownItems
+    /// <summary>
+    /// Get a new <typeparamref name="ToolStripMenuItem"/> with drop down items.
+    /// </summary>
+    /// <param name="idEnumerable">The enumerable of ID(s)</param>
+    /// <param name="name">The name</param>
+    /// <returns>The tool strip menu item.</returns>
+    internal ToolStripMenuItem GetNewWithDropDownItems
     (
       IEnumerable<uint> idEnumerable,
       string name
     )
     {
-      var toolStripMenuItem = SelectRangeToolStripMenuItem;
-      toolStripMenuItem.Name += " " + name;
+      var toolStripMenuItem = SelectToolStripMenuItem;
+
+      toolStripMenuItem.Name = string.Format
+        (
+          toolStripMenuItem.Name,
+          name
+        );
 
       var array = this.GetRange(idEnumerable)
         .ToArray();

@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using VACARM.Domain.Models;
+﻿using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
 
@@ -60,52 +59,6 @@ namespace VACARM.GUI.ViewModels
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Get a new <typeparamref name="ToolStripMenuItem"/>.
-    /// </summary>
-    /// <param name="id">The ID</param>
-    /// <param name="name">The name</param>
-    /// <returns>The tool strip menu item.</returns>
-    internal static ToolStripMenuItem GetNew
-    (
-      uint id,
-      string name
-    )
-    {
-      ToolStripMenuItem toolStripMenuItem = ToolStripMenuItem;
-      int maxIdLength = 7;
-
-      string idWhiteSpace = new string
-        (
-          ' ',
-          maxIdLength - id
-            .ToString()
-            .Length
-        );
-
-      string nameWhiteSpace = new string
-      (
-        ' ',
-        maxIdLength
-      );
-
-      string text = string.Format
-      (
-        "ID:{0}{1},{2}Name: {3}",
-        idWhiteSpace,
-        id,
-        nameWhiteSpace,
-        name
-      );
-
-      toolStripMenuItem.Text = text;
-
-      toolStripMenuItem.ToolTipText = id
-        .ToString();
-
-      return toolStripMenuItem;
-    }
 
     /// <summary>
     /// Constructor

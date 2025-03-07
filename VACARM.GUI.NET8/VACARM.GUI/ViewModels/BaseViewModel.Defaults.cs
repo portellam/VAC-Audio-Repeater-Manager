@@ -51,10 +51,10 @@
       }
     }
 
-    private readonly static string SelectString = "Select";
+    private readonly static string SelectString = "Select {0}";
+
     private readonly static string SelectRangeString = string.Format
       (
-        "{0} {1}",
         SelectString,
         "All"
       );
