@@ -413,8 +413,11 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TRepeaterModel>,
         TRepeaterModel
       >();
+
+      this.Update();
     }
 
+    // TODO: add constructor to match DeviceViewModel constructor.
     // TODO: instead of DeviceIdEnumerable, use Function, for less redundancy?
 
     /// <summary>
@@ -501,6 +504,32 @@ namespace VACARM.GUI.ViewModels
 
     public override void Update()
     {
+      if (this.DeviceViewModel == null)
+      {
+        this.DeviceViewModel = new DeviceViewModel
+        <
+          DeviceGroupService
+          <
+            ReadonlyRepository
+            <
+              BaseService
+              <
+                BaseRepository<DeviceModel>,
+                DeviceModel
+              >
+            >,
+            BaseService
+            <
+              BaseRepository<DeviceModel>,
+              DeviceModel
+            >,
+            BaseRepository<DeviceModel>,
+            DeviceModel
+          >,
+          DeviceModel
+        >();
+      }
+
       this.DeviceViewModel
         .Update();
 

@@ -180,8 +180,6 @@ namespace VACARM.GUI.ViewModels
           BaseRepository<TBaseModel>,
           TBaseModel
         >();
-
-      this.Update();
     }
 
     /// <summary>
