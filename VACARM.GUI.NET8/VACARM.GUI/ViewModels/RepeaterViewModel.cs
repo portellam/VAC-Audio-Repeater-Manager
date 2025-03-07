@@ -8,113 +8,71 @@ namespace VACARM.GUI.ViewModels
   /// <summary>
   /// The view model of <typeparamref name="RepeaterGroupService"/>.
   /// </summary>
-  internal partial class RepeaterViewModel
+  public partial class RepeaterViewModel
     <
-      RepeaterGroupService,
+      TBaseGroupService,
       TRepeaterModel
     > :
     BaseViewModel
     <
-      RepeaterGroupService
+      TBaseGroupService,
+      TRepeaterModel
+    >
+    where TBaseGroupService :
+    RepeaterGroupService
+    <
+      ReadonlyRepository
       <
-        ReadonlyRepository
-        <
-          BaseService
-          <
-            BaseRepository<TRepeaterModel>,
-            TRepeaterModel
-          >
-        >,
         BaseService
         <
           BaseRepository<TRepeaterModel>,
           TRepeaterModel
-        >,
+        >
+      >,
+      BaseService
+      <
         BaseRepository<TRepeaterModel>,
         TRepeaterModel
       >,
+      BaseRepository<TRepeaterModel>,
       TRepeaterModel
-    > where TRepeaterModel : 
+    >
+    where TRepeaterModel :
     RepeaterModel
   {
     #region Parameters
 
-    internal RepeaterGroupService
-      <
-        ReadonlyRepository
-        <
-          BaseService
-          <
-            BaseRepository<TRepeaterModel>,
-            TRepeaterModel
-          >
-        >,
-        BaseService
-        <
-          BaseRepository<TRepeaterModel>,
-          TRepeaterModel
-        >,
-        BaseRepository<TRepeaterModel>,
-        TRepeaterModel
-      >
-    GroupService
-    { get; set; }
-
     // TODO: any SelectAll needs to be just a button with an event handler.
 
     // TODO: needs to be just a button with an event handler.
-    internal ToolStripMenuItem AllToolStripMenuItem
+    //public ToolStripMenuItem AllToolStripMenuItem
+    //{
+    //  get
+    //  {
+    //    var toolStripMenuItem
+    //  }
+    //}
+
+    public ToolStripMenuItem AllAbsentToolStripMenuItem
     {
       get;
     }
 
-    internal ToolStripMenuItem AllAbsentToolStripMenuItem
+    public ToolStripMenuItem AllDisabledToolStripMenuItem
     {
-      get
-      {
-        return this.GetToolStripMenuItemWithDropDownItems
-          (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
-            RepeaterFunctions<TRepeaterModel>.IsStarted,
-            "Started"
-          );
-      }
+      get;
     }
-    internal ToolStripMenuItem AllEnabledToolStripMenuItem
+
+    public ToolStripMenuItem AllEnabledToolStripMenuItem
     {
-      get
-      {
-        return this.GetToolStripMenuItemWithDropDownItems
-          (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
-            RepeaterFunctions<TRepeaterModel>.IsStarted,
-            "Started"
-          );
-      }
+      get;
     }
-    internal ToolStripMenuItem AllDisabledToolStripMenuItem
+
+    public ToolStripMenuItem AllPresentToolStripMenuItem
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
-          (
-            this.GroupService
-              .SelectedRepository
-              .GetAll(),
-            RepeaterFunctions<TRepeaterModel>.IsStarted,
-            "Started"
-          );
-      }
-    }
-    internal ToolStripMenuItem AllPresentToolStripMenuItem
-    {
-      get
-      {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetNewWithDropDownItems
           (
             this.GroupService
               .SelectedRepository
@@ -125,11 +83,11 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal ToolStripMenuItem StartedToolStripMenuItem
+    public ToolStripMenuItem StartedToolStripMenuItem
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetNewWithDropDownItems
           (
             this.GroupService
               .SelectedRepository
@@ -140,11 +98,11 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal ToolStripMenuItem StoppedToolStripMenuItem
+    public ToolStripMenuItem StoppedToolStripMenuItem
     {
       get
       {
-        return this.GetToolStripMenuItemWithDropDownItems
+        return this.GetNewWithDropDownItems
           (
             this.GroupService
               .SelectedRepository
@@ -155,7 +113,7 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    internal override Func<RepeaterModel, string> NameFunc
+    public override Func<RepeaterModel, string> NameFunc
     {
       get
       {
@@ -170,7 +128,7 @@ namespace VACARM.GUI.ViewModels
     /// <summary>
     /// Constructor
     /// </summary>
-    internal RepeaterViewModel() :
+    public RepeaterViewModel() :
       base()
     {
       this.GroupService = new RepeaterGroupService
@@ -191,22 +149,6 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TRepeaterModel>,
         TRepeaterModel
       >();
-    }
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-        this.GroupService = null;
-      }
-
-      this.HasDisposed = true;
     }
 
     #endregion
