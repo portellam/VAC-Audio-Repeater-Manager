@@ -6,9 +6,19 @@
       TBaseModel
     >
   {
+    #region Parameters
+
+    protected virtual bool HasDisposed { get; set; }
+
+    #endregion
+
     #region Logic
 
-    protected override void Dispose(bool isDisposed)
+    /// <summary>
+    /// Dispose of unmanaged objects and true/false dispose of managed objects.
+    /// </summary>
+    /// <param name="isDisposed">True/false</param>
+    protected virtual void Dispose(bool isDisposed)
     {
       if (this.HasDisposed)
       {
@@ -17,7 +27,9 @@
 
       if (isDisposed)
       {
-        base.Dispose();
+        this.GroupService
+          .Dispose();
+
         this.GroupService = null;
 
         this.ToolStripMenuItemRepository

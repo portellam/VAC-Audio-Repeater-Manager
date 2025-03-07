@@ -346,6 +346,26 @@ namespace VACARM.GUI.ViewModels
       return idEnumerable;
     }
 
+    protected override void Dispose(bool isDisposed)
+    {
+      if (this.HasDisposed)
+      {
+        return;
+      }
+
+      if (isDisposed)
+      {
+        base.Dispose();
+
+        this.DeviceViewModel
+          .Dispose();
+
+        this.DeviceViewModel = null;
+      }
+
+      this.HasDisposed = true;
+    }
+
     /// <summary>
     /// Constructor
     /// </summary>
