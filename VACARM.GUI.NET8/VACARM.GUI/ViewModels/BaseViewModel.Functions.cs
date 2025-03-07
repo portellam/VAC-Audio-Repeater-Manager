@@ -30,7 +30,7 @@
     {
       get
       {
-        return (TBaseModel x) => DefaultName;
+        return (TBaseModel x) => SelectDefaultName;
       }
     }
 

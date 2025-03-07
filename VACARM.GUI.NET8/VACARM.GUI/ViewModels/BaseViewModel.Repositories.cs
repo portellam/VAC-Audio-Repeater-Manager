@@ -67,7 +67,7 @@ namespace VACARM.GUI.ViewModels
     }
 
     /// <summary>
-    /// Get a new range of <typeparamref name="ToolStripMenuItem"/>.
+    /// Get a new <typeparamref name="ToolStripMenuItem"/>.
     /// </summary>
     /// <param name="func">The function</param>
     /// <param name="name">The name</param>
@@ -216,7 +216,16 @@ namespace VACARM.GUI.ViewModels
       var array = this.GetRange(idEnumerable)
         .ToArray();
 
-      toolStripMenuItem.DropDownItems.AddRange(array);
+      if (array.Length == 0)
+      {
+        toolStripMenuItem.Enabled = false;
+      }
+
+      else
+      {
+        toolStripMenuItem.DropDownItems.AddRange(array);
+      }
+
       return toolStripMenuItem;
     }
 

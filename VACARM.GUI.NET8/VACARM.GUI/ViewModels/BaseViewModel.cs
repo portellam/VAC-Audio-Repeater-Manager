@@ -57,11 +57,18 @@ namespace VACARM.GUI.ViewModels
     > GroupService
     { get; set; }
 
+    protected virtual IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
+    { get; }
+
+    protected virtual IEnumerable<ToolStripItem> SelectToolStripItemEnumerable
+    { get; }
+
     public ToolStripMenuItem SelectAllToolStripMenuItem
     {
       get
       {
         var toolStripMenuItem = DefaultBaseViewModel.SelectAllToolStripMenuItem;
+        toolStripMenuItem.Size = this.DefaultSize;
 
         var enumerable = this.GroupService
           .SelectedRepository
@@ -87,8 +94,63 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    public virtual ToolStripMenuItem SelectRangeToolStripMenuItem { get; }
-    public virtual ToolStripMenuItem SelectToolStripMenuItem { get; }
+    public virtual ToolStripMenuItem SelectRangeToolStripMenuItem
+    {
+      get
+      {
+        var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+        toolStripMenuItem.Size = this.DefaultSize;
+        var anyEnabled = false;
+
+        var array = this.SelectRangeToolStripItemEnumerable
+          .ToArray();
+
+        foreach (var item in array)
+        {
+          if (item.Enabled)
+          {
+            anyEnabled = true;
+            break;
+          }
+        }
+
+        toolStripMenuItem.Enabled = anyEnabled;
+
+        toolStripMenuItem.DropDownItems
+          .AddRange(array);
+
+        return toolStripMenuItem;
+      }
+    }
+
+    public virtual ToolStripMenuItem SelectToolStripMenuItem
+    {
+      get
+      {
+        var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+        toolStripMenuItem.Size = this.DefaultSize;
+        var anyEnabled = false;
+
+        var array = this.SelectToolStripItemEnumerable
+          .ToArray();
+
+        foreach (var item in array)
+        {
+          if (item.Enabled)
+          {
+            anyEnabled = true;
+            break;
+          }
+        }
+
+        toolStripMenuItem.Enabled = anyEnabled;
+
+        toolStripMenuItem.DropDownItems
+          .AddRange(array);
+
+        return toolStripMenuItem;
+      }
+    }
 
     #endregion
 
@@ -124,11 +186,12 @@ namespace VACARM.GUI.ViewModels
     /// <summary>
     /// Constructor
     /// </summary>
+    /// <param name="defaultSize">The default size</param>
+    /// <param name="selectDefaultName">The select item default name</param>
     public BaseViewModel
     (
-      ToolStripMenuItem selectAllToolStripMenuItem,
-      ToolStripMenuItem selectRangeToolStripMenuItem,
-      ToolStripMenuItem selectToolStripMenuItem
+      Size defaultSize,
+      string selectDefaultName
     )
     {
       this.GroupService = new BaseGroupService
@@ -150,6 +213,8 @@ namespace VACARM.GUI.ViewModels
           TBaseModel
         >();
 
+      this.DefaultSize = defaultSize;
+      this.SelectDefaultName = selectDefaultName;
       this.Update();
     }
 
