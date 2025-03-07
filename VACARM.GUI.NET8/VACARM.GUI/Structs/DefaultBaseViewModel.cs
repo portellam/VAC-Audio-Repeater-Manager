@@ -10,6 +10,16 @@
         22
       );
 
+    internal readonly static ToolStripMenuItem ToolStripMenuItem =
+      new ToolStripMenuItem()
+      {
+        AutoToolTip = false,
+        CheckOnClick = true,
+        DisplayStyle = ToolStripItemDisplayStyle.Text,
+        Enabled = true,
+        Size = Size
+      };
+
     internal readonly static ToolStripMenuItem SelectAllToolStripMenuItem = 
       new ToolStripMenuItem()
       {
@@ -42,16 +52,6 @@
       Name = "Select...",
       Size = ToolStripMenuItem.Size
     };
-
-    internal readonly static ToolStripMenuItem ToolStripMenuItem =
-      new ToolStripMenuItem()
-      {
-        AutoToolTip = false,
-        CheckOnClick = true,
-        DisplayStyle = ToolStripItemDisplayStyle.Text,
-        Enabled = true,
-        Size = Size
-      };
 
     #endregion
   }
