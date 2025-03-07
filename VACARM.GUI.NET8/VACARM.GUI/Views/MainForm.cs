@@ -29,41 +29,27 @@ namespace VACARM.GUI.Views
       this.InitializeComponent();
 
       this.DeviceViewModel = new DeviceViewModel
-      <
-        DeviceGroupService
         <
-          ReadonlyRepository
+          DeviceGroupService
           <
+            ReadonlyRepository
+            <
+              BaseService
+              <
+                BaseRepository<DeviceModel>,
+                DeviceModel
+              >
+            >,
             BaseService
             <
               BaseRepository<DeviceModel>,
               DeviceModel
-            >
-          >,
-          BaseService
-          <
+            >,
             BaseRepository<DeviceModel>,
             DeviceModel
           >,
-          BaseRepository<DeviceModel>,
           DeviceModel
-        >,
-        ReadonlyRepository
-          <
-            BaseService
-            <
-              BaseRepository<DeviceModel>,
-              DeviceModel
-            >
-          >,
-          BaseService
-          <
-            BaseRepository<DeviceModel>,
-            DeviceModel
-          >,
-          BaseRepository<DeviceModel>,
-          DeviceModel
-      >();
+        >();
 
       //this.DeviceViewModel.Update();          //TODO: place this under "Refresh"
       this.Refresh();

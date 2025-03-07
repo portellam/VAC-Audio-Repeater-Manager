@@ -29,21 +29,7 @@ namespace VACARM.GUI.Views
           BaseRepository<DeviceModel>,
           DeviceModel
         >,
-        ReadonlyRepository
-          <
-            BaseService
-            <
-              BaseRepository<DeviceModel>,
-              DeviceModel
-            >
-          >,
-          BaseService
-          <
-            BaseRepository<DeviceModel>,
-            DeviceModel
-          >,
-          BaseRepository<DeviceModel>,
-          DeviceModel
+        DeviceModel
       > DeviceViewModel
     { get; set; }
 
@@ -78,7 +64,7 @@ namespace VACARM.GUI.Views
         return;
       }
 
-
+      
     }
 
     private void deviceDisableToolStripMenuItem_Click

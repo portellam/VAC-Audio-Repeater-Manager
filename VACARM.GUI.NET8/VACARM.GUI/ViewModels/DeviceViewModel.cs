@@ -1,4 +1,5 @@
 ﻿using VACARM.Domain.Models;
+using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
@@ -10,10 +11,7 @@ namespace VACARM.GUI.ViewModels
   /// </summary>
   public partial class DeviceViewModel
     <
-      TDeviceGroupService,
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
+      DeviceGroupService,
       TDeviceModel
     > :
     BaseViewModel
@@ -36,59 +34,8 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TDeviceModel>,
         TDeviceModel
       >,
-      ReadonlyRepository
-        <
-          BaseService
-          <
-            BaseRepository<TDeviceModel>,
-            TDeviceModel
-          >
-        >,
-        BaseService
-        <
-          BaseRepository<TDeviceModel>,
-          TDeviceModel
-        >,
-        BaseRepository<TDeviceModel>,
-        TDeviceModel
-    >
-    where TDeviceGroupService :
-    DeviceGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<TDeviceModel>,
-          TDeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<TDeviceModel>,
-        TDeviceModel
-      >,
-      BaseRepository<TDeviceModel>,
       TDeviceModel
-    >
-    where TGroupReadonlyRepository :
-    ReadonlyRepository
-    <
-      BaseService
-      <
-        BaseRepository<TDeviceModel>,
-        TDeviceModel
-      >
-    >
-    where TBaseService :
-    BaseService
-    <
-      BaseRepository<TDeviceModel>,
-      TDeviceModel
-    >
-    where TBaseRepository :
-    BaseRepository<TDeviceModel>
-    where TDeviceModel :
+    > where TDeviceModel :
     DeviceModel
   {
     #region Parameters
@@ -327,6 +274,27 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
+    public DeviceGroupService
+      <
+        ReadonlyRepository
+        <
+          BaseService
+          <
+            BaseRepository<TDeviceModel>,
+            TDeviceModel
+          >
+        >,
+        BaseService
+        <
+          BaseRepository<TDeviceModel>,
+          TDeviceModel
+        >,
+        BaseRepository<TDeviceModel>,
+        TDeviceModel
+      >
+    GroupService
+    { get; set; }
+
     public ToolStripMenuItem SelectAllAbsentToolStripMenuItem
     {
       get
@@ -486,11 +454,10 @@ namespace VACARM.GUI.ViewModels
     /// <summary>
     /// Constructor
     /// </summary>
-    public DeviceViewModel() 
-      //:
-      //base()
+    public DeviceViewModel() :
+      base()
     {
-      base.GroupService = new DeviceGroupService
+      this.GroupService = new DeviceGroupService
       <
         ReadonlyRepository
         <
@@ -521,15 +488,14 @@ namespace VACARM.GUI.ViewModels
     (
       Size defaultSize,
       string selectDefaultName
+    ) :
+      base
+    (
+      defaultSize,
+      selectDefaultName
     )
-    //  :
-    //  base
-    //(
-    //  defaultSize,
-    //  selectDefaultName
-    //)
     {
-      base.GroupService = new DeviceGroupService
+      this.GroupService = new DeviceGroupService
       <
         ReadonlyRepository
         <
@@ -547,10 +513,6 @@ namespace VACARM.GUI.ViewModels
         BaseRepository<TDeviceModel>,
         TDeviceModel
       >();
-
-      this.DefaultSize = defaultSize;
-      this.SelectDefaultName = selectDefaultName;
-      this.Update();
     }
 
     protected override void Dispose(bool isDisposed)

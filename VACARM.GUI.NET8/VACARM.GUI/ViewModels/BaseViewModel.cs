@@ -11,9 +11,6 @@ namespace VACARM.GUI.ViewModels
   public partial class BaseViewModel
     <
       TBaseGroupService,
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
       TBaseModel
     > :
     BaseGroupService
@@ -35,48 +32,12 @@ namespace VACARM.GUI.ViewModels
       TBaseModel
     >,
     IDisposable
-    where TBaseGroupService :
-    BaseGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<TBaseModel>,
-          TBaseModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<TBaseModel>,
-        TBaseModel
-      >,
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >
-    where TGroupReadonlyRepository :
-    ReadonlyRepository
-    <
-      BaseService
-      <
-        BaseRepository<TBaseModel>,
-        TBaseModel
-      >
-    >
-    where TBaseService :
-    BaseService
-    <
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >
-    where TBaseRepository :
-    BaseRepository<TBaseModel>
     where TBaseModel :
     BaseModel
   {
     #region Parameters
 
-    public virtual BaseGroupService
+    public BaseGroupService
     <
       ReadonlyRepository
       <
