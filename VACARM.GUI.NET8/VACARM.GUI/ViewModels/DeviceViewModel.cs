@@ -404,6 +404,7 @@ namespace VACARM.GUI.ViewModels
       ref ToolStripMenuItem renderToolStripMenuItem
     )
     {
+      allToolStripMenuItem = this.AllToolStripMenuItem;
       allAbsentToolStripMenuItem = this.AllAbsentToolStripMenuItem;
       allCaptureToolStripMenuItem = this.AllCaptureToolStripMenuItem;
       allDisabledToolStripMenuItem = this.AllDisabledToolStripMenuItem;
