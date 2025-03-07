@@ -60,8 +60,6 @@ namespace VACARM.GUI.ViewModels
     GroupService
     { get; set; }
 
-    // TODO: any SelectAll needs to be just a button with an event handler.
-
     internal ToolStripMenuItem AllToolStripMenuItem
     {
       get
