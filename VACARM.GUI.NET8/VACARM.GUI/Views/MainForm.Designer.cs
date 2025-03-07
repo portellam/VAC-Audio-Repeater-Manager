@@ -316,6 +316,7 @@
       // deviceFindToolStripMenuItem
       // 
       deviceFindToolStripMenuItem.Name = "deviceFindToolStripMenuItem";
+      deviceFindToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
       deviceFindToolStripMenuItem.Size = new Size(192, 22);
       deviceFindToolStripMenuItem.Text = "Find...";
       deviceFindToolStripMenuItem.ToolTipText = "Find Device";
