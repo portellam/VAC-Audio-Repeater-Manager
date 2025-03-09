@@ -5,7 +5,7 @@ using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public class BaseRepository<TBaseModel> :
+  public partial class BaseRepository<TBaseModel> :
     ReadonlyRepository<TBaseModel>,
     IBaseRepository<TBaseModel>
     where TBaseModel :
@@ -61,21 +61,6 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public Func<int, bool> IsValidIndex
-    {
-      get
-      {
-        return new Func<int, bool>
-          (
-            x =>
-            {
-              return x >= 0
-              && x <= this.MaxCount;
-            }
-          );
-      }
-    }
-
     public IEnumerable<uint> DeselectedIdEnumerable
     {
       get
@@ -107,22 +92,6 @@ namespace VACARM.Infrastructure.Repositories
     #endregion
 
     #region Logic
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-        this.Enumerable = null;
-      }
-
-      this.HasDisposed = true;
-    }
 
     /// <summary>
     /// Constructor
