@@ -8,6 +8,7 @@ namespace VACARM.Domain.Models
   /// Object with primary key.
   /// </summary>
   public class BaseModel :
+    INotifyPropertyChanged,
     IBaseModel
   {
     #region Parameters
@@ -27,7 +28,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public virtual event PropertyChangedEventHandler? PropertyChanged;
+    public virtual event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
 
