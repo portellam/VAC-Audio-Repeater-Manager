@@ -31,8 +31,49 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AudioSwitcher.AudioApi, Version=3.0.0.209, Culture=neutral, PublicKeyToken=fda5729e2db3a64f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AudioSwitcher.AudioApi.3.0.0\lib\net40\AudioSwitcher.AudioApi.dll</HintPath>
+    </Reference>
+    <Reference Include="AudioSwitcher.AudioApi.CoreAudio, Version=3.0.0.209, Culture=neutral, PublicKeyToken=fda5729e2db3a64f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AudioSwitcher.AudioApi.CoreAudio.3.0.3\lib\net48\AudioSwitcher.AudioApi.CoreAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.2.2.1\lib\net472\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Asio, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Asio.2.2.1\lib\netstandard2.0\NAudio.Asio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Core.2.2.1\lib\netstandard2.0\NAudio.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Midi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Midi.2.2.1\lib\netstandard2.0\NAudio.Midi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Wasapi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Wasapi.2.2.1\lib\netstandard2.0\NAudio.Wasapi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinForms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinForms.2.2.1\lib\net472\NAudio.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinMM, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinMM.2.2.1\lib\netstandard2.0\NAudio.WinMM.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +88,153 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Extensions\IEnumerableExtension.cs">
+      <Link>Extensions\IEnumerableExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Extensions\StringExtension.cs">
+      <Link>Extensions\StringExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\BaseFunctions.cs">
+      <Link>Functions\BaseFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\CoreAudioDeviceFunctions.cs">
+      <Link>Functions\CoreAudioDeviceFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\DeviceFunctions.cs">
+      <Link>Functions\DeviceFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\MMDeviceFunctions.cs">
+      <Link>Functions\MMDeviceFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\RepeaterFunctions.cs">
+      <Link>Functions\RepeaterFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\BaseRepository.cs">
+      <Link>Repositories\BaseRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\BaseRepository.Disposable.cs">
+      <Link>Repositories\BaseRepository.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\BaseRepository.Functions.cs">
+      <Link>Repositories\BaseRepository.Functions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\IBaseRepository.cs">
+      <Link>Repositories\IBaseRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\IReadonlyRepository.cs">
+      <Link>Repositories\IReadonlyRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository.cs">
+      <Link>Repositories\ReadonlyRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository.Disposable.cs">
+      <Link>Repositories\ReadonlyRepository.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository.Functions.cs">
+      <Link>Repositories\ReadonlyRepository.Functions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository.NotifyPropertyChanged.cs">
+      <Link>Repositories\ReadonlyRepository.NotifyPropertyChanged.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseFileService.cs">
+      <Link>Services\BaseFileService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseGroupService.cs">
+      <Link>Services\BaseGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseGroupService.Disposable.cs">
+      <Link>Services\BaseGroupService.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseService.cs">
+      <Link>Services\BaseService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseService.Disposable.cs">
+      <Link>Services\BaseService.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService.Async.cs">
+      <Link>Services\CoreAudioService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService.cs">
+      <Link>Services\CoreAudioService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService.Disposable.cs">
+      <Link>Services\CoreAudioService.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService.Async.cs">
+      <Link>Services\DeviceGroupService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService.cs">
+      <Link>Services\DeviceGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService.Disposable.cs">
+      <Link>Services\DeviceGroupService.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IBaseGroupService.cs">
+      <Link>Services\IBaseGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IBaseService.cs">
+      <Link>Services\IBaseService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ICoreAudioService.Async.cs">
+      <Link>Services\ICoreAudioService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ICoreAudioService.cs">
+      <Link>Services\ICoreAudioService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IDeviceGroupService.Async.cs">
+      <Link>Services\IDeviceGroupService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IDeviceGroupService.cs">
+      <Link>Services\IDeviceGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IMMDeviceService.cs">
+      <Link>Services\IMMDeviceService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\INIService.cs">
+      <Link>Services\INIService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IReadonlyService.cs">
+      <Link>Services\IReadonlyService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IReadonlyServiceAsync.cs">
+      <Link>Services\IReadonlyServiceAsync.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IRepeaterGroupService.Async.cs">
+      <Link>Services\IRepeaterGroupService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IRepeaterGroupService.cs">
+      <Link>Services\IRepeaterGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\MMDeviceService.cs">
+      <Link>Services\MMDeviceService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\MMDeviceService.Disposable.cs">
+      <Link>Services\MMDeviceService.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService.Async.cs">
+      <Link>Services\ReadonlyService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService.cs">
+      <Link>Services\ReadonlyService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService.Disposable.cs">
+      <Link>Services\ReadonlyService.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService.NotifyPropertyChanged.cs">
+      <Link>Services\ReadonlyService.NotifyPropertyChanged.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService.Async.cs">
+      <Link>Services\RepeaterGroupService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService.cs">
+      <Link>Services\RepeaterGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ScriptFileService.cs">
+      <Link>Services\ScriptFileService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Watchers\MMNotificationClient.cs">
+      <Link>Watchers\MMNotificationClient.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,11 +248,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Functions\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
-    <Folder Include="Watchers\" />
+    <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj">
+      <Project>{2E5D8BC4-B8B7-4F3E-ADCD-CF99B4B8B7D0}</Project>
+      <Name>VACARM.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
