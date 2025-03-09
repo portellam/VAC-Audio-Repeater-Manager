@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
+using System;
 
 namespace VACARM.Infrastructure.Watchers
 {
