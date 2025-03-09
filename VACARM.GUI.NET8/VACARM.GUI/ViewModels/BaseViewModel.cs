@@ -84,11 +84,7 @@ namespace VACARM.GUI.ViewModels
         }
 
         toolStripMenuItem.CheckedChanged +=
-          this.SelectAllCheckedChangedEventHandler
-          (
-            this.SelectAllToolStripMenuItem
-              .Checked
-          );
+          this.SelectAllCheckedChangedEventHandler();
 
         return toolStripMenuItem;
       }
@@ -129,6 +125,8 @@ namespace VACARM.GUI.ViewModels
       get
       {
         var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+        toolStripMenuItem.Name = DefaultBaseViewModel.SelectRangeName;
+        toolStripMenuItem.Text = DefaultBaseViewModel.SelectRangeName;
         toolStripMenuItem.Size = this.DefaultSize;
         var anyEnabled = false;
 
@@ -158,6 +156,8 @@ namespace VACARM.GUI.ViewModels
       get
       {
         var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+        toolStripMenuItem.Name = DefaultBaseViewModel.SelectName;
+        toolStripMenuItem.Text = DefaultBaseViewModel.SelectName;
         toolStripMenuItem.Size = this.DefaultSize;
         var anyEnabled = false;
 

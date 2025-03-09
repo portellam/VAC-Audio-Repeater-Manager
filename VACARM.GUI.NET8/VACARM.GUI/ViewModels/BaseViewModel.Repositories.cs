@@ -80,11 +80,14 @@ namespace VACARM.GUI.ViewModels
     {
       var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
 
-      toolStripMenuItem.Name = string.Format
+      string text = string.Format
         (
           toolStripMenuItem.Name,
           name
         );
+
+      toolStripMenuItem.Name = name;
+      toolStripMenuItem.Text = name;
 
       if (func == null)
       {
@@ -154,7 +157,7 @@ namespace VACARM.GUI.ViewModels
         maxIdLength
       );
 
-      toolStripMenuItem.Text = string.Format
+      string text = string.Format
       (
         "ID:{0}{1},{2}Name: {3}",
         idWhiteSpace,
@@ -162,6 +165,9 @@ namespace VACARM.GUI.ViewModels
         nameWhiteSpace,
         name
       );
+
+      toolStripMenuItem.Name = text;
+      toolStripMenuItem.Text = text;
 
       toolStripMenuItem.ToolTipText = id.ToString();
       return toolStripMenuItem;

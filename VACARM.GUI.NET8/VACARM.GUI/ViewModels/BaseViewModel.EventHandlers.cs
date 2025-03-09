@@ -65,8 +65,7 @@
     /// <summary>
     /// Select/Deselect all <typeparamref name="TBaseModel"/>(s).
     /// </summary>
-    /// <param name="isChecked">True/false</param>
-    private EventHandler? SelectAllCheckedChangedEventHandler(bool? isChecked)
+    private EventHandler? SelectAllCheckedChangedEventHandler()
     {
       return
         (
@@ -74,7 +73,11 @@
           eventArgs
         ) =>
         {
-          this.SelectAllOnCheck(isChecked);
+          this.SelectAllOnCheck
+          (
+            this.SelectAllToolStripMenuItem
+              .Checked
+          );
         };
     }
 
