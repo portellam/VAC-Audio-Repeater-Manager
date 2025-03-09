@@ -34,8 +34,7 @@ namespace VACARM.Infrastructure.Services
   {
     #region Parameters
 
-    private CoreAudioController controller { get; set; } =
-      new CoreAudioController();
+    private CoreAudioController controller { get; set; }
 
     private CoreAudioController Controller
     {
@@ -102,7 +101,7 @@ namespace VACARM.Infrastructure.Services
     public CoreAudioService() :
       base()
     {
-      Controller = new CoreAudioController();
+      this.Controller = new CoreAudioController();
 
       base.Repository = new ReadonlyRepository<TDevice>
         (new ObservableCollection<TDevice>());
