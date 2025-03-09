@@ -1,4 +1,7 @@
-﻿namespace VACARM.Common
+﻿using System;
+using System.IO;
+
+namespace VACARM.Common
 {
   public partial class Info
   {
@@ -62,7 +65,7 @@
     {
       get
       {
-        string? name = Path.GetPathRoot
+        string name = Path.GetPathRoot
         (
           Environment.GetFolderPath
           (

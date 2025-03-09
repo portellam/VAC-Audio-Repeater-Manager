@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace VACARM.Common
 {
@@ -38,16 +39,6 @@ namespace VACARM.Common
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
           return ".bat";
-        }
-
-        else if
-        (
-          RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-          || RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
-          || RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD)
-        )
-        {
-          return ".sh";
         }
 
         else
