@@ -1,7 +1,5 @@
 ﻿using VACARM.Application.Commands;
-using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
-using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
