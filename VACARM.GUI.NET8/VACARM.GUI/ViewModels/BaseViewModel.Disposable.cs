@@ -4,7 +4,8 @@
     <
       TBaseGroupService,
       TBaseModel
-    >
+    > :
+    IDisposable
   {
     #region Parameters
 
