@@ -12,8 +12,7 @@ namespace VACARM.GUI.ViewModels
     <
       TBaseGroupService,
       TBaseModel
-    > :
-    IDisposable
+    >
     where TBaseGroupService :
     BaseGroupService
     <
@@ -38,7 +37,7 @@ namespace VACARM.GUI.ViewModels
   {
     #region Parameters
 
-    public BaseGroupService
+    private BaseGroupService
     <
       ReadonlyRepository
       <
@@ -55,7 +54,7 @@ namespace VACARM.GUI.ViewModels
       >,
       BaseRepository<TBaseModel>,
       TBaseModel
-    > GroupService
+    > groupService
     { get; set; }
 
     protected virtual IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
@@ -92,6 +91,36 @@ namespace VACARM.GUI.ViewModels
           );
 
         return toolStripMenuItem;
+      }
+    }
+
+    public virtual BaseGroupService
+    <
+      ReadonlyRepository
+      <
+        BaseService
+        <
+          BaseRepository<TBaseModel>,
+          TBaseModel
+        >
+      >,
+      BaseService
+      <
+        BaseRepository<TBaseModel>,
+        TBaseModel
+      >,
+      BaseRepository<TBaseModel>,
+      TBaseModel
+    > GroupService
+    {
+      get
+      {
+        return this.groupService;
+      }
+      set
+      {
+        this.groupService = value;
+        this.OnPropertyChanged(nameof(this.GroupService));
       }
     }
 
@@ -217,6 +246,9 @@ namespace VACARM.GUI.ViewModels
       this.Update();
     }
 
+    /// <summary>
+    /// Update the view model.
+    /// </summary>
     public virtual void Update()
     {
       var modelEnumerable = this.GroupService
