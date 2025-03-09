@@ -191,9 +191,6 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IReadonlyService.cs">
       <Link>Services\IReadonlyService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IReadonlyServiceAsync.cs">
-      <Link>Services\IReadonlyServiceAsync.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\IRepeaterGroupService.Async.cs">
       <Link>Services\IRepeaterGroupService.Async.cs</Link>
     </Compile>
