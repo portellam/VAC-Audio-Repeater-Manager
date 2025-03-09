@@ -60,6 +60,9 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Domain\Models\BaseModel.cs">
       <Link>Models\BaseModel.cs</Link>
     </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Domain\Models\BaseModel.NotifyPropertyChanged.cs">
+      <Link>Models\BaseModel.NotifyPropertyChanged.cs</Link>
+    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Domain\Models\DeviceModel.cs">
       <Link>Models\DeviceModel.cs</Link>
     </Compile>

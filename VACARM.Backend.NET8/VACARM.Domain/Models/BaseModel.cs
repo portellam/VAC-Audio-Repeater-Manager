@@ -7,8 +7,7 @@ namespace VACARM.Domain.Models
   /// <summary>
   /// Object with primary key.
   /// </summary>
-  public class BaseModel :
-    INotifyPropertyChanged,
+  public partial class BaseModel :
     IBaseModel
   {
     #region Parameters
@@ -28,34 +27,9 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public virtual event PropertyChangedEventHandler PropertyChanged;
-
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">The property name</param>
-    internal void OnPropertyChanged(string propertyName)
-    {
-      PropertyChanged?
-        .Invoke
-        (
-          this,
-          new PropertyChangedEventArgs(propertyName)
-        );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
-    }
 
     /// <summary>
     /// Constructor
