@@ -1,4 +1,7 @@
-﻿namespace VACARM.Infrastructure.Extensions
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace VACARM.Infrastructure.Extensions
 {
   public class IEnumerableExtension<T>
   {

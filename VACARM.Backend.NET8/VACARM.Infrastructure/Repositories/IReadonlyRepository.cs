@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -26,7 +28,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="func">The function</param>
     /// <returns>The item.</returns>
-    TItem? Get(Func<TItem, bool> func);
+    TItem Get(Func<TItem, bool> func);
 
     /// <summary>
     /// Get the enumerable of all <typeparamref name="TItem"/>(s).

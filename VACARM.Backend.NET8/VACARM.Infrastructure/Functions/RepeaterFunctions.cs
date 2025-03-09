@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using VACARM.Domain.Enums;
 using VACARM.Domain.Models;
 
@@ -35,7 +37,7 @@ namespace VACARM.Infrastructure.Functions
       DeviceModel inputDeviceModel,
       DeviceModel outputDeviceModel,
       int? processId,
-      string? pathName
+      string pathName
     )
     {
       RepeaterModel model = new RepeaterModel
@@ -70,7 +72,7 @@ namespace VACARM.Infrastructure.Functions
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
-      string? pathName
+      string pathName
     )
     {
       RepeaterModel model = new RepeaterModel
@@ -109,7 +111,7 @@ namespace VACARM.Infrastructure.Functions
       DeviceModel inputDeviceModel,
       DeviceModel outputDeviceModel,
       int? processId,
-      string? pathName,
+      string pathName,
       bool isStarted,
       byte bitsPerSample,
       byte bufferAmount,
@@ -170,7 +172,7 @@ namespace VACARM.Infrastructure.Functions
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
-      string? pathName,
+      string pathName,
       bool isStarted,
       byte bitsPerSample,
       byte bufferAmount,

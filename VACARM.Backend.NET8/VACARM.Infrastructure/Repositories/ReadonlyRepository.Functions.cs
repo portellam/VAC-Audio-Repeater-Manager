@@ -1,4 +1,7 @@
-﻿namespace VACARM.Infrastructure.Repositories
+﻿using System;
+using System.Linq;
+
+namespace VACARM.Infrastructure.Repositories
 {
   public partial class ReadonlyRepository<TItem>
   {

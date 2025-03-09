@@ -1,4 +1,6 @@
-﻿namespace VACARM.Infrastructure.Repositories
+﻿using System;
+
+namespace VACARM.Infrastructure.Repositories
 {
   public partial class ReadonlyRepository<TItem> :
     IDisposable

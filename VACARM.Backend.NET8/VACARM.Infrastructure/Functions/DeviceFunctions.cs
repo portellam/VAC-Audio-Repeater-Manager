@@ -1,5 +1,8 @@
 ﻿using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Functions
@@ -61,8 +64,8 @@ namespace VACARM.Infrastructure.Functions
       uint id,
       string actualId,
       bool isCapture,
-      string? name,
-      string? role
+      string name,
+      string role
     )
     {
       DeviceModel model = new DeviceModel
@@ -91,8 +94,8 @@ namespace VACARM.Infrastructure.Functions
     (
       uint id,
       MMDevice mMDevice,
-      Device? device,
-      string? role
+      Device device,
+      string role
     )
     {
       DeviceModel model = new DeviceModel

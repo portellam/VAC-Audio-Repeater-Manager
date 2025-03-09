@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Functions;
@@ -35,10 +38,10 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        IEnumerable<uint> idEnumerable = base.Enumerable
+        var idEnumerable = base.Enumerable
           .Select(x => x.Id);
 
-        idEnumerable.Order();
+        idEnumerable.OrderBy(x => x);
         return idEnumerable;
       }
     }
@@ -199,7 +202,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public TBaseModel? Get(uint id)
+    public TBaseModel Get(uint id)
     {
       if (this.IsNullOrEmpty)
       {
@@ -210,7 +213,7 @@ namespace VACARM.Infrastructure.Repositories
       return base.Get(func);
     }
 
-    public void Add(TBaseModel? model)
+    public void Add(TBaseModel model)
     {
       if (model == null)
       {

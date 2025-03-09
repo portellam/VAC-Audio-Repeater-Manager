@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Repositories
@@ -59,7 +62,7 @@ namespace VACARM.Infrastructure.Repositories
       this.Enumerable = enumerable;
     }
 
-    public TItem? Get(Func<TItem, bool> func)
+    public TItem Get(Func<TItem, bool> func)
     {
       if (this.IsNullOrEmpty)
       {

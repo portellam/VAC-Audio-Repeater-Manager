@@ -1,4 +1,6 @@
-﻿using VACARM.Domain.Models;
+﻿using System;
+using System.Collections.Generic;
+using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -49,7 +51,7 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    TBaseModel? Get(uint id);
+    TBaseModel Get(uint id);
 
     /// <summary>
     /// Add a <typeparamref name="TBaseModel"/>.

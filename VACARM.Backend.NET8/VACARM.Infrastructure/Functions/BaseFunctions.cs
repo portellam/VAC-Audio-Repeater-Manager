@@ -1,4 +1,7 @@
-﻿using VACARM.Domain.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Functions
 {
@@ -27,10 +30,10 @@ namespace VACARM.Infrastructure.Functions
     /// <summary>
     /// Match a <typeparamref name="TBaseModel"/> ID.
     /// </summary>
-    /// <param name="model">The model</param>
+    /// <param name="model1">The model</param>
     /// <returns>The function.</returns>
-    internal static Func<TBaseModel, bool> ContainsId(TBaseModel model)
-      => (TBaseModel model) => model.Id == model.Id;
+    internal static Func<TBaseModel, bool> ContainsId(TBaseModel model1)
+      => (TBaseModel model2) => model2.Id == model1.Id;
 
     /// <summary>
     /// Match a <typeparamref name="TBaseModel"/> ID.

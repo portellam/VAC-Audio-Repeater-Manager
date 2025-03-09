@@ -1,4 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace VACARM.Infrastructure.Functions
 {
