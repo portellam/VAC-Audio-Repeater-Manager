@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
@@ -7,7 +9,8 @@ namespace VACARM.Infrastructure.Services
     <
       TRepository, 
       TItem
-    > where TRepository :
+    > 
+    where TRepository :
     ReadonlyRepository<TItem> 
     where TItem :
     class

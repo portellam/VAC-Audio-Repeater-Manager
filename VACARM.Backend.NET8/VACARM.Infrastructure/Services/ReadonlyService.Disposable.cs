@@ -1,4 +1,6 @@
-﻿namespace VACARM.Infrastructure.Services
+﻿using System;
+
+namespace VACARM.Infrastructure.Services
 {
   public partial class ReadonlyService
     <
