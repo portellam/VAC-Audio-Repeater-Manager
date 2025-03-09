@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace VACARM.Application.Commands
 {
@@ -14,7 +16,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The exit code.</returns>
-    public async static Task<int> KillAsync(Process? process)
+    public async static Task<int> KillAsync(Process process)
     {
       return await Kill(process)
         .ConfigureAwait(false);
@@ -25,7 +27,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="process">the process</param>
     /// <returns>The exit code.</returns>
-    private static Task<int> Kill(Process? process)
+    private static Task<int> Kill(Process process)
     {
       TaskCompletionSource<int> taskCompletionSource =
         new TaskCompletionSource<int>();
@@ -128,7 +130,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The exit code.</returns>
-    public async static Task<int> RunAsync(Process? process)
+    public async static Task<int> RunAsync(Process process)
     {
       return await Run(process)
         .ConfigureAwait(false);
@@ -139,7 +141,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="process">The process</param>
     /// <returns>The exit code.</returns>
-    public static Task<int> Run(Process? process)
+    public static Task<int> Run(Process process)
     {
       TaskCompletionSource<int> taskCompletionSource =
         new TaskCompletionSource<int>();

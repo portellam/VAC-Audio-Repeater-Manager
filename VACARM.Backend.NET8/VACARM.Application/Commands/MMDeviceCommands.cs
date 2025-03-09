@@ -1,5 +1,6 @@
-﻿using System.Diagnostics;
-using NAudio.CoreAudioApi;
+﻿using NAudio.CoreAudioApi;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace VACARM.Application.Commands
 {
@@ -24,7 +25,7 @@ namespace VACARM.Application.Commands
     /// Reset the audio device.
     /// </summary>
     /// <param name="item">the audio device</param>
-    public static void Reset(MMDevice? item)
+    public static void Reset(MMDevice item)
     {
       if (item == null)
       {
@@ -88,7 +89,7 @@ namespace VACARM.Application.Commands
     /// Start the audio device.
     /// </summary>
     /// <param name="item">the audio device</param>
-    public static void Start(MMDevice? item)
+    public static void Start(MMDevice item)
     {
       if (item == null)
       {
@@ -153,7 +154,7 @@ namespace VACARM.Application.Commands
     /// Stop the audio device.
     /// </summary>
     /// <param name="item">the audio device</param>
-    public static void Stop(MMDevice? item)
+    public static void Stop(MMDevice item)
     {
       if (item == null)
       {
@@ -218,7 +219,7 @@ namespace VACARM.Application.Commands
     /// Update the audio device.
     /// </summary>
     /// <param name="item">The audio device</param>
-    public static void Update(MMDevice? item)
+    public static void Update(MMDevice item)
     {
       if (item == null)
       {

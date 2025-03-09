@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace VACARM.Application.Commands
 {
@@ -31,9 +33,9 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="processId">The process ID</param>
     /// <returns>The process</returns>
-    private static Process? Get(int? processId)
+    private static Process Get(int? processId)
     {
-      Process? process = null;
+      Process process = null;
 
       if
       (
@@ -162,7 +164,7 @@ namespace VACARM.Application.Commands
       string startArguments
     )
     {
-      Process? process = Get(processId);
+      Process process = Get(processId);
 
       if
       (
@@ -258,7 +260,7 @@ namespace VACARM.Application.Commands
     )
     {
       int result = 1;
-      Process? process = Get(processId);
+      Process process = Get(processId);
 
       if (process == null)
       {

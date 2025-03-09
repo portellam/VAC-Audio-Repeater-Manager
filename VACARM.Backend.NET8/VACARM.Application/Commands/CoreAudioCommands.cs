@@ -1,4 +1,5 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
+using System.Threading.Tasks;
 
 namespace VACARM.Application.Commands
 {
@@ -61,7 +62,7 @@ namespace VACARM.Application.Commands
     /// <returns>The true/false result.</returns>
     public static bool SetVolume
     (
-      CoreAudioDevice? item,
+      CoreAudioDevice item,
       double? volume
     )
     {
@@ -86,7 +87,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> DoMuteAsync(CoreAudioDevice? item)
+    public async static Task<bool> DoMuteAsync(CoreAudioDevice item)
     {
       bool result = false;
 
@@ -114,7 +115,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> DoUnmuteAsync(CoreAudioDevice? item)
+    public async static Task<bool> DoUnmuteAsync(CoreAudioDevice item)
     {
       bool result = false;
 
@@ -142,7 +143,7 @@ namespace VACARM.Application.Commands
     /// </summary>
     /// <param name="item">The audio device</param>
     /// <returns>The true/false result.</returns>
-    public async static Task<bool> SetAsDefaultAsync(CoreAudioDevice? item)
+    public async static Task<bool> SetAsDefaultAsync(CoreAudioDevice item)
     {
       bool result = false;
 
@@ -164,7 +165,7 @@ namespace VACARM.Application.Commands
     /// <param name="item">The audio device</param>
     /// <returns>The true/false result.</returns>
     public async static Task<bool> SetAsDefaultCommunicationsAsync
-    (CoreAudioDevice? item)
+    (CoreAudioDevice item)
     {
       bool result = false;
 
