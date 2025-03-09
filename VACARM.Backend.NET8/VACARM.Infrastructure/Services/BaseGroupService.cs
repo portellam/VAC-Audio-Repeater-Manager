@@ -1,4 +1,6 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 

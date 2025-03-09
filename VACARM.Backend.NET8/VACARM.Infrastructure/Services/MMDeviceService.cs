@@ -1,4 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Application.Commands;
 using VACARM.Infrastructure.Functions;
@@ -108,33 +110,33 @@ namespace VACARM.Infrastructure.Services
       this.MMNotificationClient = new MMNotificationClient(this.UpdateService);
       this.UpdateService();
     }
-    public TMMDevice? Get(string id)
+    public TMMDevice Get(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
+      Func<TMMDevice, bool> func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
       return base.Repository
         .Get(func);
     }
 
-    public TMMDevice? GetDefaultCommunications(DataFlow dataFlow)
+    public TMMDevice GetDefaultCommunications(DataFlow dataFlow)
     {
-      var func = (TMMDevice x) => x.DataFlow == dataFlow;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == dataFlow;
 
       return this.DefaultCommunicationsReadonlyRepository
         .Get(func);
     }
 
-    public TMMDevice? GetDefaultConsole(DataFlow dataFlow)
+    public TMMDevice GetDefaultConsole(DataFlow dataFlow)
     {
-      var func = (TMMDevice x) => x.DataFlow == dataFlow;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == dataFlow;
 
       return DefaultConsoleReadonlyRepository
         .Get(func);
     }
 
-    public TMMDevice? GetDefaultMultimedia(DataFlow dataFlow)
+    public TMMDevice GetDefaultMultimedia(DataFlow dataFlow)
     {
-      var func = (TMMDevice x) => x.DataFlow == dataFlow;
+      Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == dataFlow;
 
       return this.DefaultMultimediaReadonlyRepository
         .Get(func);
@@ -148,7 +150,8 @@ namespace VACARM.Infrastructure.Services
 
     public IEnumerable<TMMDevice> GetRange(IEnumerable<string> idEnumerable)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
+      Func<TMMDevice, bool> func =
+        MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
       return base.Repository
         .GetRange(func);
@@ -156,7 +159,7 @@ namespace VACARM.Infrastructure.Services
 
     public void Reset(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
+      Func<TMMDevice, bool> func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
       base.DoAction
         (
@@ -172,7 +175,8 @@ namespace VACARM.Infrastructure.Services
 
     public void ResetRange(IEnumerable<string> idEnumerable)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
+      Func<TMMDevice, bool> func = 
+        MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
       base.DoActionRange
         (
@@ -183,7 +187,7 @@ namespace VACARM.Infrastructure.Services
 
     public void Start(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
+      Func<TMMDevice, bool> func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
       base.DoAction
         (
@@ -199,7 +203,8 @@ namespace VACARM.Infrastructure.Services
 
     public void StartRange(IEnumerable<string> idEnumerable)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
+      Func<TMMDevice, bool> func = 
+        MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
       base.DoActionRange
         (
@@ -210,7 +215,7 @@ namespace VACARM.Infrastructure.Services
 
     public void Stop(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
+      Func<TMMDevice, bool> func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
       base.DoAction
         (
@@ -221,7 +226,8 @@ namespace VACARM.Infrastructure.Services
 
     public void StopRange(IEnumerable<string> idEnumerable)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
+      Func<TMMDevice, bool> func = 
+        MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
       base.DoActionRange
         (
@@ -237,7 +243,8 @@ namespace VACARM.Infrastructure.Services
 
     public void Update(string id)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
+      Func<TMMDevice, bool> func = 
+        MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
       base.DoAction
         (
@@ -253,7 +260,8 @@ namespace VACARM.Infrastructure.Services
 
     public void UpdateRange(IEnumerable<string> idEnumerable)
     {
-      var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
+      Func<TMMDevice, bool> func = 
+        MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
       base.DoActionRange
         (

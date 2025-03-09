@@ -1,4 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
+using System.Collections.Generic;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
@@ -20,28 +21,28 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    TMMDevice? Get(string id);
+    TMMDevice Get(string id);
 
     /// <summary>
     /// Get the default communications <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    TMMDevice? GetDefaultCommunications(DataFlow dataFlow);
+    TMMDevice GetDefaultCommunications(DataFlow dataFlow);
 
     /// <summary>
     /// Get the default console <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    TMMDevice? GetDefaultConsole(DataFlow dataFlow);
+    TMMDevice GetDefaultConsole(DataFlow dataFlow);
 
     /// <summary>
     /// Get the default multimedia <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="dataFlow">The data flow</param>
     /// <returns>The item.</returns>
-    TMMDevice? GetDefaultMultimedia(DataFlow dataFlow);
+    TMMDevice GetDefaultMultimedia(DataFlow dataFlow);
 
     /// <summary>
     /// Get an enumerable of all <typeparamref name="TMMDevice"/>(s).
@@ -60,7 +61,7 @@ namespace VACARM.Infrastructure.Services
     /// Reset a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Reset(string? id);
+    void Reset(string id);
 
     /// <summary>
     /// Reset the enumerable of all <typeparamref name="TMMDevice"/>(s).
@@ -77,7 +78,7 @@ namespace VACARM.Infrastructure.Services
     /// Start a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Start(string? id);
+    void Start(string id);
 
     /// <summary>
     /// Start the enumerable of all <typeparamref name="TMMDevice"/>(s).
@@ -94,7 +95,7 @@ namespace VACARM.Infrastructure.Services
     /// Stop a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Stop(string? id);
+    void Stop(string id);
 
     /// <summary>
     /// Stop the enumerable of all <typeparamref name="TMMDevice"/>(s).
@@ -111,7 +112,7 @@ namespace VACARM.Infrastructure.Services
     /// Update a <typeparamref name="TMMDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    void Update(string? id);
+    void Update(string id);
 
     /// <summary>
     /// Update the enumerable of all <typeparamref name="TMMDevice"/>(s).

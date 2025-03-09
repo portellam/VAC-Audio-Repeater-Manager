@@ -1,4 +1,5 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Collections.Generic;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services

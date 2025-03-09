@@ -1,6 +1,4 @@
-﻿#warning AudioSwitcher.AudioApi must initialize after NAudio.CoreAudioApi
-
-namespace VACARM.Infrastructure.Services
+﻿namespace VACARM.Infrastructure.Services
 {
   public partial class DeviceGroupService
     <

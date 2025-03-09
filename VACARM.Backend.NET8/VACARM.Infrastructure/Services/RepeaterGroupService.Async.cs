@@ -1,4 +1,6 @@
-﻿using VACARM.Application.Commands;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using VACARM.Application.Commands;
 using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Services
@@ -67,44 +69,6 @@ namespace VACARM.Infrastructure.Services
         ).ConfigureAwait(false);
     }
 
-    public IAsyncEnumerable<int?> RestartAllAsync()
-    {
-      return this.SelectedService
-        .DoActionAllAsync(this.RestartAsync);
-    }
-
-    public IAsyncEnumerable<int?> RestartRangeAsync
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.SelectedService
-        .DoActionRangeAsync
-        (
-          this.RestartAsync,
-          func
-        );
-    }
-
-    public IAsyncEnumerable<int?> RestartRangeAsync(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
-
-      return this.SelectedService
-        .DoActionRangeAsync
-        (
-          this.RestartAsync,
-          func
-        );
-    }
-
     public async Task<int?> StartAsync(uint? id)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
@@ -117,44 +81,6 @@ namespace VACARM.Infrastructure.Services
         ).ConfigureAwait(false);
     }
 
-    public IAsyncEnumerable<int?> StartAllAsync()
-    {
-      return this.SelectedService
-        .DoActionAllAsync(this.StartAsync);
-    }
-
-    public IAsyncEnumerable<int?> StartRangeAsync
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.SelectedService
-        .DoActionRangeAsync
-        (
-          this.StartAsync,
-          func
-        );
-    }
-
-    public IAsyncEnumerable<int?> StartRangeAsync(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
-
-      return this.SelectedService
-        .DoActionRangeAsync
-        (
-          this.StartAsync,
-          func
-        );
-    }
-
     public async Task<int?> StopAsync(uint? id)
     {
       var func = BaseFunctions<TRepeaterModel>.ContainsId(id);
@@ -165,44 +91,6 @@ namespace VACARM.Infrastructure.Services
           this.StopAsync,
           func
         ).ConfigureAwait(false);
-    }
-
-    public IAsyncEnumerable<int?> StopAllAsync()
-    {
-      return this.SelectedService
-        .DoActionAllAsync(this.StopAsync);
-    }
-
-    public IAsyncEnumerable<int?> StopRangeAsync
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TRepeaterModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.SelectedService
-        .DoActionRangeAsync
-        (
-          this.StopAsync,
-          func
-        );
-    }
-
-    public IAsyncEnumerable<int?> StopRangeAsync(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TRepeaterModel>.ContainsIdEnumerable(idEnumerable);
-
-      return this.SelectedService
-        .DoActionRangeAsync
-        (
-          this.StopAsync,
-          func
-        );
     }
 
     #endregion

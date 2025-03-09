@@ -1,4 +1,6 @@
-﻿namespace VACARM.Infrastructure.Services
+﻿using System.Collections.Generic;
+
+namespace VACARM.Infrastructure.Services
 {
   public partial interface IDeviceGroupService
     <
