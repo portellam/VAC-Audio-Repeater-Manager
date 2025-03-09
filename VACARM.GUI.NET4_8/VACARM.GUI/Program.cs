@@ -1,22 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VACARM.GUI
 {
-  static class Program
+  internal static class Program
   {
+    #region Logic
+
     /// <summary>
-    /// The main entry point for the application.
+    ///  The main entry point for the application.
     /// </summary>
+    /// <param name="argumentArray">The array of argument(s)</param>
     [STAThread]
-    static void Main()
+    static void Main(string[] argumentArray)
     {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run(new Form1());
+      //ApplicationConfiguration.Initialize();
+      //new ArgumentController(argumentArray);
+      //Application.Run(new MainForm());
     }
+
+    #endregion
   }
 }

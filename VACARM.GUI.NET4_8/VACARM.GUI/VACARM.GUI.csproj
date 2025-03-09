@@ -2,52 +2,172 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <AssemblyName>VACARM.GUI</AssemblyName>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Deterministic>true</Deterministic>
+    <FileAlignment>512</FileAlignment>
+    <OutputType>WinExe</OutputType>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{474C695E-4B6F-4986-B59E-31F224B60EF2}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
     <RootNamespace>VACARM.GUI</RootNamespace>
-    <AssemblyName>VACARM.GUI</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Accessors\AssemblyInformationAccessor.cs">
+      <Link>Accessors\AssemblyInformationAccessor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Arguments.cs">
+      <Link>Arguments.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Controllers\ArgumentController.cs">
+      <Link>Controllers\ArgumentController.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Controllers\ArgumentController.Disposable.cs">
+      <Link>Controllers\ArgumentController.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Enums\Arguments.cs">
+      <Link>Enums\Arguments.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Extensions\ComboBoxExtension.cs">
+      <Link>Extensions\ComboBoxExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Helpers\UrlRedirectHelper.cs">
+      <Link>Helpers\UrlRedirectHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Info.cs">
+      <Link>Info.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Structs\DefaultBaseViewModel.cs">
+      <Link>Structs\DefaultBaseViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.Actions.cs">
+      <Link>ViewModels\BaseViewModel.Actions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.cs">
+      <Link>ViewModels\BaseViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.Defaults.cs">
+      <Link>ViewModels\BaseViewModel.Defaults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.Disposable.cs">
+      <Link>ViewModels\BaseViewModel.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.EventHandlers.cs">
+      <Link>ViewModels\BaseViewModel.EventHandlers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.Functions.cs">
+      <Link>ViewModels\BaseViewModel.Functions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.NotifyPropertyChanged.cs">
+      <Link>ViewModels\BaseViewModel.NotifyPropertyChanged.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\BaseViewModel.Repositories.cs">
+      <Link>ViewModels\BaseViewModel.Repositories.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\DeviceViewModel.cs">
+      <Link>ViewModels\DeviceViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\DeviceViewModel.Disposable.cs">
+      <Link>ViewModels\DeviceViewModel.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\RepeaterViewModel.cs">
+      <Link>ViewModels\RepeaterViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\ViewModels\RepeaterViewModel.Disposable.cs">
+      <Link>ViewModels\RepeaterViewModel.Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\AboutForm.cs">
+      <Link>Views\AboutForm.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\AboutForm.Designer.cs">
+      <Link>Views\AboutForm.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\DeviceFindForm.cs">
+      <Link>Views\DeviceFindForm.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\DeviceFindForm.Designer.cs">
+      <Link>Views\DeviceFindForm.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.cs">
+      <Link>Views\MainForm.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.Designer.cs">
+      <Link>Views\MainForm.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.Device.cs">
+      <Link>Views\MainForm.Device.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.File.cs">
+      <Link>Views\MainForm.File.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.Help.cs">
+      <Link>Views\MainForm.Help.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.Repeater.cs">
+      <Link>Views\MainForm.Repeater.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.Settings.cs">
+      <Link>Views\MainForm.Settings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.View.cs">
+      <Link>Views\MainForm.View.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.Window.cs">
+      <Link>Views\MainForm.Window.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\UsageForm.cs">
+      <Link>Views\UsageForm.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\UsageForm.Designer.cs">
+      <Link>Views\UsageForm.Designer.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\AboutForm.resx">
+      <Link>Views\AboutForm.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\DeviceFindForm.resx">
+      <Link>Views\DeviceFindForm.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\MainForm.resx">
+      <Link>Views\MainForm.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Views\UsageForm.resx">
+      <Link>Views\UsageForm.resx</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -69,6 +189,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\VACARM.GUI.NET8\VACARM.GUI\icon.ico">
+      <Link>icon.ico</Link>
+    </Content>
+    <Content Include="..\..\VACARM.GUI.NET8\VACARM.GUI\Resources\logo.png">
+      <Link>Resources\logo.png</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
