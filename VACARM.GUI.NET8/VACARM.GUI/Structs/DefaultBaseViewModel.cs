@@ -1,26 +1,32 @@
 ﻿namespace VACARM.GUI.Structs
 {
-  internal struct DefaultBaseViewModel
+  internal readonly struct DefaultBaseViewModel
   {
     #region Parameters
 
-    internal readonly static Size Size = new Size
+    internal static string SelectName = "Select...";
+    internal static string SelectRangeName = "Select All...";
+
+    internal static Size Size = new Size
       (
         209,
         22
       );
 
-    internal readonly static ToolStripMenuItem ToolStripMenuItem =
+    internal static ToolStripMenuItem ToolStripMenuItem =
       new ToolStripMenuItem()
       {
         AutoToolTip = false,
         CheckOnClick = true,
         DisplayStyle = ToolStripItemDisplayStyle.Text,
         Enabled = true,
-        Size = Size
+        Name = string.Empty,
+        Size = Size,
+        Text = string.Empty,
+        ToolTipText = string.Empty,
       };
 
-    internal readonly static ToolStripMenuItem SelectAllToolStripMenuItem = 
+    internal static ToolStripMenuItem SelectAllToolStripMenuItem = 
       new ToolStripMenuItem()
       {
         AutoToolTip = ToolStripMenuItem.AutoToolTip,
@@ -28,30 +34,36 @@
         DisplayStyle = ToolStripMenuItem.DisplayStyle,
         Enabled = ToolStripMenuItem.Enabled,
         Name = "Select All",
-        Size = ToolStripMenuItem.Size
+        Size = ToolStripMenuItem.Size,
+        Text = "Select All",
+        ToolTipText = string.Empty,
       };
 
-    internal readonly static ToolStripMenuItem SelectRangeToolStripMenuItem =
+    internal static ToolStripMenuItem SelectRangeToolStripMenuItem =
       new ToolStripMenuItem()
       {
-      AutoToolTip = ToolStripMenuItem.AutoToolTip,
-      CheckOnClick = ToolStripMenuItem.CheckOnClick,
-      DisplayStyle = ToolStripMenuItem.DisplayStyle,
-      Enabled = ToolStripMenuItem.Enabled,
-      Name = "Select All...",
-      Size = ToolStripMenuItem.Size
-    };
+        AutoToolTip = ToolStripMenuItem.AutoToolTip,
+        CheckOnClick = ToolStripMenuItem.CheckOnClick,
+        DisplayStyle = ToolStripMenuItem.DisplayStyle,
+        Enabled = ToolStripMenuItem.Enabled,
+        Name = string.Empty,
+        Size = ToolStripMenuItem.Size,
+        Text = string.Empty,
+        ToolTipText = string.Empty,
+      };
 
-    internal readonly static ToolStripMenuItem SelectToolStripMenuItem =
+    internal static ToolStripMenuItem SelectToolStripMenuItem =
       new ToolStripMenuItem()
       {
-      AutoToolTip = ToolStripMenuItem.AutoToolTip,
-      CheckOnClick = ToolStripMenuItem.CheckOnClick,
-      DisplayStyle = ToolStripMenuItem.DisplayStyle,
-      Enabled = ToolStripMenuItem.Enabled,
-      Name = "Select...",
-      Size = ToolStripMenuItem.Size
-    };
+        AutoToolTip = ToolStripMenuItem.AutoToolTip,
+        CheckOnClick = ToolStripMenuItem.CheckOnClick,
+        DisplayStyle = ToolStripMenuItem.DisplayStyle,
+        Enabled = ToolStripMenuItem.Enabled,
+        Name = "{0}...",
+        Size = ToolStripMenuItem.Size,
+        Text = "{0}...",
+        ToolTipText = string.Empty,
+      };
 
     #endregion
   }
