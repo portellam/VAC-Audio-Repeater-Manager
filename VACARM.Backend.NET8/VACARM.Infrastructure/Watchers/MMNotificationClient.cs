@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace VACARM.Infrastructure.Watchers
 {
@@ -13,19 +14,19 @@ namespace VACARM.Infrastructure.Watchers
   {
     #region Parameters
 
-    internal Action? DefaultAction { get; private set; } = null;
+    internal Action DefaultAction { get; private set; } = null;
 
-    internal Action<string, DataFlow, Role>? OnDefaultDeviceChangedAction
+    internal Action<string, DataFlow, Role> OnDefaultDeviceChangedAction
     { get; private set; } = null;
 
-    internal Action<string>? OnDeviceAddedAction { get; private set; } = null;
+    internal Action<string> OnDeviceAddedAction { get; private set; } = null;
 
-    internal Action<string>? OnDeviceRemovedAction { get; private set; } = null;
+    internal Action<string> OnDeviceRemovedAction { get; private set; } = null;
 
-    internal Action<string, DeviceState>? OnDeviceStateChangedAction
+    internal Action<string, DeviceState> OnDeviceStateChangedAction
     { get; private set; } = null;
 
-    internal Action<string, PropertyKey>? OnPropertyValueChangedAction
+    internal Action<string, PropertyKey> OnPropertyValueChangedAction
     { get; private set; } = null;
 
     /// <summary>
