@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using VACARM.Common;
 using VACARM.Domain.Enums;
 using VACARM.Domain.Structs;
@@ -324,7 +327,7 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// The file pathname.
     /// </summary>
-    public string? PathName
+    public string PathName
     {
       get
       {
@@ -426,7 +429,7 @@ namespace VACARM.Domain.Models
       {
         uint sum = 0;
 
-        if (this.ChannelList is not null)
+        if (this.ChannelList != null)
         {
           this.ChannelList.ForEach
             (
@@ -555,7 +558,7 @@ namespace VACARM.Domain.Models
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
-      string? pathName
+      string pathName
     ) :
       base(id)
     {

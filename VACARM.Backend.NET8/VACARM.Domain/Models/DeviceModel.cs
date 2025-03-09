@@ -228,7 +228,7 @@ namespace VACARM.Domain.Models
       bool? isMuted,
       bool? isPresent,
       bool? isRender,
-      string? role
+      string role
     ) :
       base(id)
     {
