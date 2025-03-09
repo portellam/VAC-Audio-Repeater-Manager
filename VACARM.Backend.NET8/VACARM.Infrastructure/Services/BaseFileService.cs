@@ -92,7 +92,7 @@ namespace VACARM.Infrastructure.Services
 
       filePathName = GetModifiedFilePathName(filePathName);
       using var fileStream = File.OpenRead(filePathName);
-      IEnumerable<TBaseModel>? enumerable;
+      IEnumerable<TBaseModel> enumerable;
 
       try
       {
