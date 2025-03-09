@@ -4,7 +4,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public class BaseService
+  public partial class BaseService
     <
       TRepository,
       TBaseModel
@@ -69,24 +69,6 @@ namespace VACARM.Infrastructure.Services
       base(repository)
     {
       this.FilePathName = filePathName;
-    }
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Repository
-          .Dispose();
-
-        this.Repository = null;
-      }
-
-      this.HasDisposed = true;
     }
 
     #endregion

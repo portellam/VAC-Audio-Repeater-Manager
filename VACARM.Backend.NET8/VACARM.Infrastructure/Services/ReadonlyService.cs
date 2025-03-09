@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Repositories;
 
@@ -14,7 +12,6 @@ namespace VACARM.Infrastructure.Services
       TRepository,
       TItem
     > :
-    IDisposable,
     IReadonlyService
     <
       ReadonlyRepository<TItem>,
@@ -30,8 +27,6 @@ namespace VACARM.Infrastructure.Services
     private ReadonlyRepository<TItem> readonlyRepository { get; set; } =
       new ReadonlyRepository<TItem>();
 
-    protected virtual bool HasDisposed { get; set; }
-
     protected virtual ReadonlyRepository<TItem> Repository
     {
       get
@@ -45,35 +40,9 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public virtual event PropertyChangedEventHandler PropertyChanged;
-
     #endregion
 
     #region Logic
-
-    /// <summary>
-    /// Logs event when property has changed.
-    /// </summary>
-    /// <param name="propertyName">The property name</param>
-    internal virtual void OnPropertyChanged(string propertyName)
-    {
-      this
-        .PropertyChanged?
-        .Invoke
-        (
-          this,
-          new PropertyChangedEventArgs(propertyName)
-        );
-
-      Debug.WriteLine
-      (
-        string.Format
-        (
-          "PropertyChanged: {0}",
-          propertyName
-        )
-      );
-    }
 
     /// <summary>
     /// Constructor
@@ -91,39 +60,6 @@ namespace VACARM.Infrastructure.Services
     public ReadonlyService(ReadonlyRepository<TItem> repository)
     {
       this.Repository = repository;
-    }
-
-    /// <summary>
-    /// Dispose of unmanaged objects and true/false dispose of managed objects.
-    /// </summary>
-    /// <param name="isDisposed">True/false</param>
-    protected virtual void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        this.Repository
-          .Dispose();
-
-        this.Repository = null;
-      }
-
-      this.HasDisposed = true;
-    }
-
-    /// <summary>
-    /// Do not change this code. 
-    /// Put cleanup code in Dispose(<paramref name="bool"/>
-    ///  <typeparamref name="isDisposed"/>) method.
-    /// </summary>
-    public void Dispose()
-    {
-      this.Dispose(true);
-      GC.SuppressFinalize(this);
     }
 
     public void DoAction
