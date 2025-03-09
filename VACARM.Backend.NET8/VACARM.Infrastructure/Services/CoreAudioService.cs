@@ -189,7 +189,7 @@ namespace VACARM.Infrastructure.Services
       return item.Volume;
     }
 
-    public TDevice? Get(string id)
+    public TDevice Get(string id)
     {
       var func = CoreAudioDeviceFunctions<TDevice>.ContainsId(id);
 
@@ -197,7 +197,7 @@ namespace VACARM.Infrastructure.Services
         .Get(func);
     }
 
-    public TDevice? GetDefault()
+    public TDevice GetDefault()
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsDefault;
 
@@ -205,7 +205,7 @@ namespace VACARM.Infrastructure.Services
         .Get(func);
     }
 
-    public TDevice? GetDefaultCommunications()
+    public TDevice GetDefaultCommunications()
     {
       var func = CoreAudioDeviceFunctions<TDevice>.IsDefaultCommunications;
 

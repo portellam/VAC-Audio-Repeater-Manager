@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -117,7 +118,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
     /// <returns>The item.</returns>
-    Task<TDeviceModel?> GetDefaultCommunicationsAsync
+    Task<TDeviceModel> GetDefaultCommunicationsAsync
     (
       bool isInput,
       bool isOutput
@@ -129,7 +130,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
     /// <returns>The item.</returns>
-    Task<TDeviceModel?> GetDefaultConsoleAsync
+    Task<TDeviceModel> GetDefaultConsoleAsync
     (
       bool isInput,
       bool isOutput
@@ -141,7 +142,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
     /// <returns>The item.</returns>
-    Task<TDeviceModel?> GetDefaultMultimediaAsync
+    Task<TDeviceModel> GetDefaultMultimediaAsync
     (
       bool isInput,
       bool isOutput

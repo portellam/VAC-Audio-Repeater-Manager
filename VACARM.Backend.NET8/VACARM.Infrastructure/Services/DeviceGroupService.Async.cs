@@ -1,6 +1,7 @@
 ﻿using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
@@ -269,7 +270,7 @@ namespace VACARM.Infrastructure.Services
         .ConfigureAwait(false);
     }
 
-    public async Task<TDeviceModel?> GetDefaultCommunicationsAsync
+    public async Task<TDeviceModel> GetDefaultCommunicationsAsync
     (
       bool isInput,
       bool isOutput
@@ -299,7 +300,7 @@ namespace VACARM.Infrastructure.Services
       return this.GetByActualId(actualId);
     }
 
-    public async Task<TDeviceModel?> GetDefaultConsoleAsync
+    public async Task<TDeviceModel> GetDefaultConsoleAsync
     (
       bool isInput,
       bool isOutput
@@ -328,7 +329,7 @@ namespace VACARM.Infrastructure.Services
       return this.GetByActualId(actualId);
     }
 
-    public async Task<TDeviceModel?> GetDefaultMultimediaAsync
+    public async Task<TDeviceModel> GetDefaultMultimediaAsync
     (
       bool isInput,
       bool isOutput

@@ -68,11 +68,11 @@ namespace VACARM.Infrastructure.Services
     private int selectedIndex { get; set; } = MinCount;
     private readonly static int MinCount = 0;
 
-    private List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>?
+    private List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>
     list
     { get; set; }
 
-    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>?
+    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>
     List
     {
       get
@@ -87,7 +87,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public BaseRepository<TBaseModel>? SelectedRepository
+    public BaseRepository<TBaseModel> SelectedRepository
     {
       get
       {
@@ -103,7 +103,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public BaseService<BaseRepository<TBaseModel>, TBaseModel>?
+    public BaseService<BaseRepository<TBaseModel>, TBaseModel>
     SelectedService
     {
       get
@@ -184,7 +184,7 @@ namespace VACARM.Infrastructure.Services
       this.MaxCount = maxCount;
     }
 
-    public BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index)
+    public BaseService<BaseRepository<TBaseModel>, TBaseModel> Get(int index)
     {
       try
       {
@@ -327,7 +327,7 @@ namespace VACARM.Infrastructure.Services
         .Select(x => x.Id);
     }
 
-    public TBaseModel? Get(uint id)
+    public TBaseModel Get(uint id)
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 

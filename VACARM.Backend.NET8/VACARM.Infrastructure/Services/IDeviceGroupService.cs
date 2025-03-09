@@ -42,10 +42,10 @@ namespace VACARM.Infrastructure.Services
 
     #region Logic
 
-    TDeviceModel? GetByActualId(string actualId);
-    TDeviceModel? GetDefaultCommunications();
-    TDeviceModel? GetDefaultConsole();
-    TDeviceModel? GetDefaultMultimedia();
+    TDeviceModel GetByActualId(string actualId);
+    TDeviceModel GetDefaultCommunications();
+    TDeviceModel GetDefaultConsole();
+    TDeviceModel GetDefaultMultimedia();
     IEnumerable <TDeviceModel> GetAllAbsent();
     IEnumerable <TDeviceModel> GetAllAlphabetical();
     IEnumerable <TDeviceModel> GetAllAlphabeticalDescending();

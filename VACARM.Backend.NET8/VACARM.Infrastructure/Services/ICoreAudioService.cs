@@ -107,21 +107,21 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    TDevice? Get(string id);
+    TDevice Get(string id);
 
     /// <summary>
     /// Get a default <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    TDevice? GetDefault();
+    TDevice GetDefault();
 
     /// <summary>
     /// Get a default communications <typeparamref name="TDevice"/>.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    TDevice? GetDefaultCommunications();
+    TDevice GetDefaultCommunications();
 
     /// <summary>
     /// Get the enumerable of all absent <typeparamref name="TDevice"/>(s).

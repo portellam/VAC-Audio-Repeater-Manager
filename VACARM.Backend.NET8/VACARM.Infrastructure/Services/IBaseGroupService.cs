@@ -33,7 +33,7 @@ namespace VACARM.Infrastructure.Services
   {
     #region Parameters
 
-    BaseService<BaseRepository<TBaseModel>, TBaseModel>? SelectedService { get; }
+    BaseService<BaseRepository<TBaseModel>, TBaseModel> SelectedService { get; }
     int MaxCount { get; }
     int SelectedIndex { get; set; }
 
@@ -67,7 +67,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="index">The index</param>
     /// <returns>The repository.</returns>
-    BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index);
+    BaseService<BaseRepository<TBaseModel>, TBaseModel> Get(int index);
 
     /// <summary>
     /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
@@ -137,7 +137,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    TBaseModel? Get(uint id);
+    TBaseModel Get(uint id);
 
     /// <summary>
     /// Deselect a <typeparamref name="TBaseModel"/>.

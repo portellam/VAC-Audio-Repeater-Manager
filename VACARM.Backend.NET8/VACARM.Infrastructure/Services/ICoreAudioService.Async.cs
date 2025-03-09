@@ -1,4 +1,5 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
+using System.Threading.Tasks;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -83,7 +84,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>The item.</returns>
-    Task<CoreAudioDevice?> GetAsync(string id);
+    Task<CoreAudioDevice> GetAsync(string id);
 
     /// <summary>
     /// Get the default communications <typeparamref name="TDevice"/>.
@@ -91,7 +92,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
     /// <returns>The item.</returns>
-    Task<CoreAudioDevice?> GetDefaultCommunicationsAsync
+    Task<CoreAudioDevice> GetDefaultCommunicationsAsync
     (
       bool isInput,
       bool isOutput
@@ -103,7 +104,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
     /// <returns>The item.</returns>
-    Task<CoreAudioDevice?> GetDefaultConsoleAsync
+    Task<CoreAudioDevice> GetDefaultConsoleAsync
     (
       bool isInput,
       bool isOutput
@@ -115,7 +116,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="isInput">True/false is an input</param>
     /// <param name="isOutput">True/false is an output</param>
     /// <returns>The item.</returns>
-    Task<CoreAudioDevice?> GetDefaultMultimediaAsync
+    Task<CoreAudioDevice> GetDefaultMultimediaAsync
     (
       bool isInput,
       bool isOutput

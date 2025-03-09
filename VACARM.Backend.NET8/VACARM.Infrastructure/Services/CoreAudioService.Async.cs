@@ -1,6 +1,7 @@
 ﻿using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using VACARM.Application.Commands;
 using VACARM.Infrastructure.Repositories;
 
@@ -20,7 +21,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="role">The role</param>
     /// <param name="deviceType">The device type</param>
     /// <returns>The item.</returns>
-    private async Task<CoreAudioDevice?> GetDefaultAsync
+    private async Task<CoreAudioDevice> GetDefaultAsync
     (
       Role role,
       DeviceType deviceType
@@ -151,7 +152,7 @@ namespace VACARM.Infrastructure.Services
       return true;
     }
 
-    public async Task<CoreAudioDevice?> GetAsync(string id)
+    public async Task<CoreAudioDevice> GetAsync(string id)
     {
       if (this.Controller == null)
       {
@@ -165,7 +166,7 @@ namespace VACARM.Infrastructure.Services
         .ConfigureAwait(false);
     }
 
-    public async Task<CoreAudioDevice?> GetDefaultCommunicationsAsync
+    public async Task<CoreAudioDevice> GetDefaultCommunicationsAsync
     (
       bool isInput,
       bool isOutput
@@ -184,7 +185,7 @@ namespace VACARM.Infrastructure.Services
         ).ConfigureAwait(false);
     }
 
-    public async Task<CoreAudioDevice?> GetDefaultConsoleAsync
+    public async Task<CoreAudioDevice> GetDefaultConsoleAsync
     (
       bool isInput,
       bool isOutput
@@ -203,7 +204,7 @@ namespace VACARM.Infrastructure.Services
         ).ConfigureAwait(false);
     }
 
-    public async Task<CoreAudioDevice?> GetDefaultMultimediaAsync
+    public async Task<CoreAudioDevice> GetDefaultMultimediaAsync
     (
       bool isInput,
       bool isOutput
