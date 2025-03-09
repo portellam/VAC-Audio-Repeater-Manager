@@ -269,7 +269,6 @@ namespace VACARM.GUI.ViewModels
           );
       }
     }
-
     private ToolStripMenuItem SelectAllDefaultToolStripMenuItem
     {
       get
@@ -420,7 +419,7 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    public DeviceGroupService
+    public new DeviceGroupService
       <
         ReadonlyRepository
         <
@@ -439,7 +438,37 @@ namespace VACARM.GUI.ViewModels
         TDeviceModel
       >
     GroupService
-    { get; set; }
+    {
+      get
+      {
+        return
+          (
+            DeviceGroupService
+            <
+              ReadonlyRepository
+              <
+                BaseService
+                <
+                  BaseRepository<TDeviceModel>,
+                  TDeviceModel
+                >
+              >,
+              BaseService
+              <
+                BaseRepository<TDeviceModel>,
+                TDeviceModel
+              >,
+              BaseRepository<TDeviceModel>,
+              TDeviceModel
+            >
+          )base.GroupService;
+      }
+      set
+      {
+        base.GroupService = value;
+        base.OnPropertyChanged(nameof(this.GroupService));
+      }
+    }
 
     public override Func<DeviceModel, string> NameFunc
     {

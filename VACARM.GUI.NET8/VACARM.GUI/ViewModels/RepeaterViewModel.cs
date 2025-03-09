@@ -44,6 +44,57 @@ namespace VACARM.GUI.ViewModels
   {
     #region Parameters
 
+    public new RepeaterGroupService
+      <
+        ReadonlyRepository
+        <
+          BaseService
+          <
+            BaseRepository<TRepeaterModel>,
+            TRepeaterModel
+          >
+        >,
+        BaseService
+        <
+          BaseRepository<TRepeaterModel>,
+          TRepeaterModel
+        >,
+        BaseRepository<TRepeaterModel>,
+        TRepeaterModel
+      >
+    GroupService
+    {
+      get
+      {
+        return
+          (
+            RepeaterGroupService
+            <
+              ReadonlyRepository
+              <
+                BaseService
+                <
+                  BaseRepository<TRepeaterModel>,
+                  TRepeaterModel
+                >
+              >,
+              BaseService
+              <
+                BaseRepository<TRepeaterModel>,
+                TRepeaterModel
+              >,
+              BaseRepository<TRepeaterModel>,
+              TRepeaterModel
+            >
+          )base.GroupService;
+      }
+      set
+      {
+        base.GroupService = value;
+        base.OnPropertyChanged(nameof(this.GroupService));
+      }
+    }
+
     private ToolStripMenuItem SelectAllAbsentToolStripMenuItem
     {
       get
