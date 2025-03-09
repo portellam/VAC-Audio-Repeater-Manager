@@ -1,14 +1,14 @@
 ﻿namespace VACARM.Infrastructure.Services
 {
-  public partial class BaseService
+  public partial class MMDeviceService
     <
       TRepository,
-      TBaseModel
+      TMMDevice
     >
   {
     #region Logic
 
-    protected new virtual void Dispose(bool isDisposed)
+    protected override void Dispose(bool isDisposed)
     {
       if (this.HasDisposed)
       {

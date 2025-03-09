@@ -10,7 +10,7 @@ namespace VACARM.Infrastructure.Services
   /// <summary>
   /// The service to retrieve current and/or updated system audio device(s).
   /// </summary>
-  public class MMDeviceService
+  public partial class MMDeviceService
     <
       TRepository,
       TMMDevice
@@ -108,35 +108,6 @@ namespace VACARM.Infrastructure.Services
       this.MMNotificationClient = new MMNotificationClient(this.UpdateService);
       this.UpdateService();
     }
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (base.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        this.MMNotificationClient
-          .Dispose();
-
-        base.Repository
-          .Dispose();
-
-        this.DefaultCommunicationsReadonlyRepository
-          .Dispose();
-
-        DefaultConsoleReadonlyRepository
-          .Dispose();
-
-        this.DefaultMultimediaReadonlyRepository
-          .Dispose();
-      }
-
-      base.HasDisposed = true;
-    }
-
     public TMMDevice? Get(string id)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);

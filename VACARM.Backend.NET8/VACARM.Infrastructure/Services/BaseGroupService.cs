@@ -7,7 +7,7 @@ namespace VACARM.Infrastructure.Services
   /// <summary>
   /// The repository of <typeparamref name="TBaseService"/>(s).
   /// </summary>
-  public class BaseGroupService
+  public partial class BaseGroupService
     <
       TGroupReadonlyRepository,
       TBaseService,
@@ -157,22 +157,6 @@ namespace VACARM.Infrastructure.Services
     #endregion
 
     #region Logic
-
-    protected override void Dispose(bool isDisposed)
-    {
-      if (this.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-        this.List = null;
-      }
-
-      this.HasDisposed = true;
-    }
 
     /// <summary>
     /// Constructor

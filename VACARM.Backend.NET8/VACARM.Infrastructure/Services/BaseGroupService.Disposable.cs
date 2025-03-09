@@ -1,8 +1,10 @@
 ﻿namespace VACARM.Infrastructure.Services
 {
-  public partial class BaseService
+  public partial class BaseGroupService
     <
-      TRepository,
+      TGroupReadonlyRepository,
+      TBaseService,
+      TBaseRepository,
       TBaseModel
     >
   {
@@ -18,11 +20,7 @@
       if (isDisposed)
       {
         base.Dispose();
-
-        this.Repository
-          .Dispose();
-
-        this.Repository = null;
+        this.List = null;
       }
 
       this.HasDisposed = true;

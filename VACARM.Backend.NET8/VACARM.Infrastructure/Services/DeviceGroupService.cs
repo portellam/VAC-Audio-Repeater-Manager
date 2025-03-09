@@ -281,27 +281,6 @@ namespace VACARM.Infrastructure.Services
         .Update(model.ActualId);
     }
 
-    protected override void Dispose(bool isDisposed)
-    {
-      if (base.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-
-        this.CoreAudioService
-          .Dispose();
-
-        this.MMDeviceService
-          .Dispose();
-      }
-
-      base.HasDisposed = true;
-    }
-
     public TDeviceModel? GetByActualId(string actualId)
     {
       var func = DeviceFunctions<TDeviceModel>.ContainsActualId(actualId);

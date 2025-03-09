@@ -1,14 +1,14 @@
 ﻿namespace VACARM.Infrastructure.Services
 {
-  public partial class BaseService
+  public partial class CoreAudioService
     <
       TRepository,
-      TBaseModel
+      TDevice
     >
   {
     #region Logic
 
-    protected new virtual void Dispose(bool isDisposed)
+    protected override void Dispose(bool isDisposed)
     {
       if (this.HasDisposed)
       {
@@ -19,10 +19,10 @@
       {
         base.Dispose();
 
-        this.Repository
+        this.Controller
           .Dispose();
 
-        this.Repository = null;
+        this.Controller = null;
       }
 
       this.HasDisposed = true;

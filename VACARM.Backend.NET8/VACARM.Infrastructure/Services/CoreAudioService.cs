@@ -109,25 +109,6 @@ namespace VACARM.Infrastructure.Services
       var result = this.UpdateServiceAsync();
     }
 
-    protected override void Dispose(bool isDisposed)
-    {
-      if (base.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        this.Controller
-          .Dispose();
-
-        base.Repository
-          .Dispose();
-      }
-
-      base.HasDisposed = true;
-    }
-
     public bool IsAbsent(string id)
     {
       var item = this.Get(id);
