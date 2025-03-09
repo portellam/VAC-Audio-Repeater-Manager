@@ -197,21 +197,6 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    protected override void Dispose(bool isDisposed)
-    {
-      if (base.HasDisposed)
-      {
-        return;
-      }
-
-      if (isDisposed)
-      {
-        base.Dispose();
-      }
-
-      base.HasDisposed = true;
-    }
-
     public IEnumerable<TRepeaterModel> GetAllAlphabetical()
     {
       return base.SelectedRepository
