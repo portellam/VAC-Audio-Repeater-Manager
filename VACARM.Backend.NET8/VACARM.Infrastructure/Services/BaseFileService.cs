@@ -11,7 +11,36 @@ namespace VACARM.Infrastructure.Services
     where TBaseModel :
     BaseModel
   {
+    #region Parameters
+
+    private const string Extension = ".json";
+
+    #endregion
+
     #region Logic
+
+    /// <summary>
+    /// Get the file path name with the extension.
+    /// </summary>
+    /// <param name="filePathName">The file path name</param>
+    /// <returns>The modified file path name</returns>
+    private static string GetModifiedFilePathName(string filePathName)
+    {
+      var diff = filePathName.Length - Extension.Length;
+
+      var result = filePathName
+        .Substring
+        (
+          diff
+        ) == Extension;
+
+      if (!result)
+      {
+        filePathName += Extension;
+      }
+
+      return filePathName;
+    }
 
     /// <summary>
     /// Write enumerable of <typeparamref name="TBaseModel"/>(s) to a JSON file.
@@ -35,6 +64,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
+      filePathName = GetModifiedFilePathName(filePathName);
       await using var fileStream = File.Create(filePathName);
 
       await JsonSerializer.SerializeAsync
@@ -57,6 +87,7 @@ namespace VACARM.Infrastructure.Services
         yield break;
       }
 
+      filePathName = GetModifiedFilePathName(filePathName);
       using var fileStream = File.OpenRead(filePathName);
       IEnumerable<TBaseModel>? enumerable;
 

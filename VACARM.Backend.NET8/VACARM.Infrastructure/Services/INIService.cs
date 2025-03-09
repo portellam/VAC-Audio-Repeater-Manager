@@ -101,7 +101,13 @@ namespace VACARM.Infrastructure.Services
       string Section = null
     )
     {
-      WritePrivateProfileString(Section ?? ExecutableName, Key, Value, PathName);
+      WritePrivateProfileString
+        (
+          Section ?? ExecutableName, 
+          Key, 
+          Value, 
+          PathName
+        );
     }
 
     #endregion
