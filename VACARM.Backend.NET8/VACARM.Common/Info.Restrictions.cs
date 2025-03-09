@@ -1,4 +1,6 @@
-﻿namespace VACARM.Common
+﻿using System;
+
+namespace VACARM.Common
 {
   public partial class Info
   {
@@ -36,7 +38,7 @@
         if
         (
           Environment.OSVersion.Version.Major < 6
-          ! && IgnoreMaxLegacyEndpointCount
+          || !IgnoreMaxLegacyEndpointCount
         )
         {
           return WindowsNT5MaxEndpointCount;
