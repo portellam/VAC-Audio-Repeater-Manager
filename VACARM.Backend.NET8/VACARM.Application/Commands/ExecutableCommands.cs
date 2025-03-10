@@ -185,7 +185,7 @@ namespace VACARM.Application.Commands
           )
         );
 
-        return null;
+        return default;
       }
 
       if (process != null)

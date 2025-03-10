@@ -195,7 +195,7 @@ namespace VACARM.Infrastructure.Services
 
       catch
       {
-        return null;
+        return default;
       }
     }
 

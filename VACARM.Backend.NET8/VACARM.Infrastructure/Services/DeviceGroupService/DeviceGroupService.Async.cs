@@ -51,7 +51,7 @@ namespace VACARM.Infrastructure.Services
     {
       if (this.CoreAudioService == null)
       {
-        return null;
+        return default;
       }
 
       var device = await this
@@ -65,7 +65,7 @@ namespace VACARM.Infrastructure.Services
 
       if (device == null)
       {
-        return null;
+        return default;
       }
 
       var actualId = device.Id
@@ -82,7 +82,7 @@ namespace VACARM.Infrastructure.Services
     {
       if (this.CoreAudioService == null)
       {
-        return null;
+        return default;
       }
 
       var device = await this.CoreAudioService
@@ -95,7 +95,7 @@ namespace VACARM.Infrastructure.Services
 
       if (device == null)
       {
-        return null;
+        return default;
       }
 
       var actualId = device.Id
@@ -112,7 +112,7 @@ namespace VACARM.Infrastructure.Services
     {
       if (this.CoreAudioService == null)
       {
-        return null;
+        return default;
       }
 
       var device = await this.CoreAudioService
@@ -125,7 +125,7 @@ namespace VACARM.Infrastructure.Services
 
       if (device == null)
       {
-        return null;
+        return default;
       }
 
       var actualId = device.Id

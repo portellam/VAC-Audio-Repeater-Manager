@@ -65,7 +65,7 @@ namespace VACARM.Infrastructure.Services
     {
       if (this.Controller == null)
       {
-        return null;
+        return default;
       }
 
       var guid = ToGuid(id);
