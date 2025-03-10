@@ -1,4 +1,4 @@
-﻿#warning Differs from link (VACARM.Backend.NET8.VACARM.Infrastructure.Services).
+﻿#warning Differs from project of later NET revision (above v4.6).
 
 using Newtonsoft.Json;
 using System;

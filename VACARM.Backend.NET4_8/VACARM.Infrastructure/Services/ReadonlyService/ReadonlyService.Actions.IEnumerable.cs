@@ -1,4 +1,4 @@
-﻿#warning Not linked in projects of earlier NET revisions.
+﻿#warning Differs from projects of earlier NET revisions (below v4.8).
 
 using System;
 using System.Collections.Generic;

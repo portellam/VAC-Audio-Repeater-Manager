@@ -1,4 +1,4 @@
-﻿#warning Differs from link (VACARM.Backend.NET4_8.VACARM.Infrastructure.Services).
+﻿#warning Differs from project of later NET revision (above v4.6).
 
 using MoreLinq;
 using System;
