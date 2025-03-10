@@ -71,5 +71,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VACARM.Extensions\VACARM.Extensions.csproj">
+      <Project>{6420a186-e50d-49d0-b04c-ad38914b3e99}</Project>
+      <Name>VACARM.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

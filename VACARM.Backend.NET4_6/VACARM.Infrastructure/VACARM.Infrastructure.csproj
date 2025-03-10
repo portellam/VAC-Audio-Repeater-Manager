@@ -134,12 +134,6 @@
     <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs">
       <Link>Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Extensions\IEnumerableExtension.cs">
-      <Link>Extensions\IEnumerableExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Extensions\StringExtension.cs">
-      <Link>Extensions\StringExtension.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\BaseFunctions.cs">
       <Link>Functions\BaseFunctions.cs</Link>
     </Compile>
@@ -296,7 +290,6 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Watchers\MMNotificationClient.cs">
       <Link>Watchers\MMNotificationClient.cs</Link>
     </Compile>
-    <Compile Include="Extensions\JsonSerializerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseFileService.cs" />
     <Compile Include="Services\DeviceGroupService\DeviceGroupService.Actions.IEnumerable.cs" />
@@ -324,6 +317,10 @@
     <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj">
       <Project>{2E5D8BC4-B8B7-4F3E-ADCD-CF99B4B8B7D0}</Project>
       <Name>VACARM.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VACARM.Extensions\VACARM.Extensions.csproj">
+      <Project>{6420a186-e50d-49d0-b04c-ad38914b3e99}</Project>
+      <Name>VACARM.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

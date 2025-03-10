@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿#warning Differs from projects of later NET revisions (above v4.6).
+
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace VACARM.Infrastructure.Extensions
+namespace VACARM.Extensions
 {
   public class JsonSerializerExtension<T>
   {
@@ -22,7 +24,7 @@ namespace VACARM.Infrastructure.Extensions
 
       return await Task.Run
         (
-          () => 
+          () =>
           jsonSerializer.Deserialize<T>(jsonTextReader)
         );
     }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
-using VACARM.Infrastructure.Extensions;
+using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
