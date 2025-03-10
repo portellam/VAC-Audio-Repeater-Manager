@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 
@@ -10,7 +10,7 @@ namespace VACARM.Infrastructure.Services
   /// <summary>
   /// Write script file(s) for <typeparamref name="TRepeaterModel"/>(s).
   /// </summary>
-  public class ScriptFileService<TRepeaterModel>
+  public partial class ScriptFileService<TRepeaterModel>
     where TRepeaterModel :
     RepeaterModel
   {
@@ -27,8 +27,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="output">The output</param>
     /// <param name="filePathName">The file path name</param>
-    /// <returns>True/false result.</returns>
-    private async static Task WriteScriptFileAsync
+    private static void WriteScriptFile
     (
       string output,
       string filePathName
@@ -46,7 +45,7 @@ namespace VACARM.Infrastructure.Services
 
       filePathName = GetModifiedFilePathName(filePathName);
 
-      await File.WriteAllTextAsync
+      File.WriteAllText
         (
           filePathName,
           output
@@ -82,8 +81,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     /// <param name="filePathName">The file path name</param>
-    /// <returns>True/false result.</returns>
-    public async static Task WriteStartScriptFileAsync
+    public static void WriteStartScriptFile
     (
       IEnumerable<TRepeaterModel> enumerable,
       string filePathName
@@ -94,13 +92,13 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      var func = (TRepeaterModel x) => x.StartArguments;
+      Func<TRepeaterModel, string> func = (TRepeaterModel x) => x.StartArguments;
 
       var arguments = enumerable
         .Select(func)
         .ToString();
 
-      await WriteScriptFileAsync
+      WriteScriptFile
         (
           arguments,
           filePathName
@@ -113,8 +111,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     /// <param name="filePathName">The file path name</param>
-    /// <returns>True/false result.</returns>
-    public async static Task WriteStopScriptFileAsync
+    public static void WriteStopScriptFile
     (
       IEnumerable<TRepeaterModel> enumerable,
       string filePathName
@@ -125,13 +122,13 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      var func = (TRepeaterModel x) => x.StopArguments;
+      Func<TRepeaterModel, string> func = (TRepeaterModel x) => x.StopArguments;
 
       var arguments = enumerable
         .Select(func)
         .ToString();
 
-      await WriteScriptFileAsync
+      WriteScriptFile
         (
           arguments,
           filePathName
