@@ -1,6 +1,8 @@
 ﻿using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using VACARM.Infrastructure.Repositories;
 
