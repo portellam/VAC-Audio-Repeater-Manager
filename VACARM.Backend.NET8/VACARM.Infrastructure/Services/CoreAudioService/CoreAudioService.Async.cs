@@ -132,7 +132,6 @@ namespace VACARM.Infrastructure.Services
         ).ConfigureAwait(false);
     }
 
-
     public async Task<double> GetVolumeAsync(string id)
     {
       var item = await this.GetAsync(id)
