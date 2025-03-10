@@ -207,7 +207,7 @@ namespace VACARM.Infrastructure.Repositories
     {
       if (this.IsNullOrEmpty)
       {
-        return null;
+        return default;
       }
 
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
