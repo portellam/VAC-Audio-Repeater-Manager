@@ -1,4 +1,6 @@
-﻿using System;
+﻿#warning Not linked in projects of earlier NET revisions.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
