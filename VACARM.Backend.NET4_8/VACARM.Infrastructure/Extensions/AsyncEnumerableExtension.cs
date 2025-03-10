@@ -27,7 +27,6 @@ namespace VACARM.Infrastructure.Extensions
       this.TaskFactory = taskFactory;
     }
 
-
     public IEnumerator<T> GetEnumerator()
     {
       this.TaskFactory()
