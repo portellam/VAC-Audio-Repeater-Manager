@@ -45,12 +45,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\VACARM.Assembly\AssemblyInfo1.cs">
-      <Link>AssemblyInfo1.cs</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AssemblyInfo.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Common\Info.Files.cs">
       <Link>Info.Files.cs</Link>
     </Compile>
@@ -69,7 +63,6 @@
     <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
       <Link>AssemblyInfo.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AssemblyInfo1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
