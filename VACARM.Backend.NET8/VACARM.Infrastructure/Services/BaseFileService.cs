@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -68,13 +69,19 @@ namespace VACARM.Infrastructure.Services
       }
 
       filePathName = GetModifiedFilePathName(filePathName);
-      await using var fileStream = File.Create(filePathName);
+
+      var fileStream = await Task.Run
+        (
+          () => File.Create(filePathName)
+        );
 
       await JsonSerializer.SerializeAsync
         (
           fileStream,
           enumerable
         );
+
+      fileStream.Dispose();
     }
 
     /// <summary>
@@ -82,39 +89,32 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="filePathName">The file path name</param>
     /// <returns>The enumerable of item(s)</returns>
-    public async static IAsyncEnumerable<TBaseModel> ReadJsonFileAsync
+    public async static Task<IEnumerable<TBaseModel>> ReadJsonFileAsync
     (string filePathName)
     {
+      IEnumerable<TBaseModel> enumerable = Array.Empty<TBaseModel>();
+
       if (StringExtension.IsNullOrEmptyOrWhitespace(filePathName))
       {
-        yield break;
+        return enumerable;
       }
 
       filePathName = GetModifiedFilePathName(filePathName);
-      using var fileStream = File.OpenRead(filePathName);
-      IEnumerable<TBaseModel> enumerable;
+      var fileStream = File.OpenRead(filePathName);
 
       try
       {
-        enumerable = await 
+        enumerable = await
           JsonSerializer.DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
           .ConfigureAwait(false);
       }
 
       catch
       {
-        yield break;
       }
 
-      if (IEnumerableExtension<TBaseModel>.IsNullOrEmpty(enumerable))
-      {
-        yield break;
-      }
-
-      foreach (var item in enumerable)
-      {
-        yield return item;
-      }
+      fileStream.Dispose();
+      return enumerable;
     }
 
     #endregion
