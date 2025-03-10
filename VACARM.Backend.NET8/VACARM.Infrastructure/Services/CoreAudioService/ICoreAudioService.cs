@@ -16,7 +16,6 @@ namespace VACARM.Infrastructure.Services
   {
     #region Logic
 
-
     /// <summary>
     /// Is an absent <typeparamref name="TDevice"/>.
     /// </summary>
