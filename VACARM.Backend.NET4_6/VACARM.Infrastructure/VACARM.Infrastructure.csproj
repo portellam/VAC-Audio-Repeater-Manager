@@ -119,6 +119,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Actions.IEnumerable.cs">
+      <Link>Services\DeviceGroupService\IDeviceGroupService.Actions.IEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\ReadonlyService\IReadonlyService.Actions.Async.IEnumerable.cs">
+      <Link>Services\ReadonlyService\IReadonlyService.Actions.Async.IEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs">
+      <Link>Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs">
+      <Link>Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs</Link>
+    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Extensions\IEnumerableExtension.cs">
       <Link>Extensions\IEnumerableExtension.cs</Link>
     </Compile>
@@ -286,11 +298,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DeviceGroupService\DeviceGroupService.Actions.IEnumerable.cs" />
-    <Compile Include="Services\DeviceGroupService\IDeviceGroupService.Actions.IEnumerable.cs" />
-    <Compile Include="Services\ReadonlyService\IReadonlyService.Actions.Async.IEnumerable.cs" />
     <Compile Include="Services\ReadonlyService\ReadonlyService.Actions.IEnumerable.cs" />
-    <Compile Include="Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs" />
-    <Compile Include="Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
