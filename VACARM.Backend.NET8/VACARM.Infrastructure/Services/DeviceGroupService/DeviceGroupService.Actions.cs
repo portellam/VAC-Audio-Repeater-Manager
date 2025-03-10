@@ -92,7 +92,6 @@ namespace VACARM.Infrastructure.Services
       return enumerable;
     }
 
-
     public async Task<IEnumerable<bool>> UnmuteAll()
     {
       var enumerable = Array.Empty<bool>();
@@ -115,7 +114,6 @@ namespace VACARM.Infrastructure.Services
 
       return enumerable;
     }
-
 
     public async Task<IEnumerable<bool>> UnmuteRange
     (IEnumerable<uint> idEnumerable)
