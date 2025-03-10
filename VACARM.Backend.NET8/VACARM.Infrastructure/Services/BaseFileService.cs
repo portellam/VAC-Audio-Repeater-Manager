@@ -111,6 +111,7 @@ namespace VACARM.Infrastructure.Services
 
       catch
       {
+        enumerable = Array.Empty<TBaseModel>();
       }
 
       fileStream.Dispose();
