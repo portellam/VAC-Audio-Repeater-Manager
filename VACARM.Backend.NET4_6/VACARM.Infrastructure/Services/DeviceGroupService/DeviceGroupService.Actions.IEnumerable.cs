@@ -1,4 +1,6 @@
-﻿using AudioSwitcher.AudioApi;
+﻿#warning Differs from link (VACARM.Backend.NET4_8.VACARM.Infrastructure.Services).
+
+using AudioSwitcher.AudioApi;
 using MoreLinq;
 using NAudio.CoreAudioApi;
 using System;

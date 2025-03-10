@@ -1,4 +1,6 @@
-﻿using AudioSwitcher.AudioApi;
+﻿#warning Not linked in projects of earlier NET revisions.
+
+using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
 using System;
 using System.Collections.Generic;
