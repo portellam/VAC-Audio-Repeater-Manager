@@ -65,11 +65,6 @@ namespace VACARM.Infrastructure.Repositories
 
     public TItem Get(Func<TItem, bool> func)
     {
-      if (this.IsNullOrEmpty)
-      {
-        return null;
-      }
-
       return this.Enumerable
         .FirstOrDefault(func);
     }
