@@ -283,7 +283,7 @@ namespace VACARM.Infrastructure.Services
         .Update(model.ActualId);
     }
 
-    public TDeviceModel? GetByActualId(string actualId)
+    public TDeviceModel GetByActualId(string actualId)
     {
       var func = DeviceFunctions<TDeviceModel>.ContainsActualId(actualId);
 
@@ -291,21 +291,21 @@ namespace VACARM.Infrastructure.Services
         .Get(func);
     }
 
-    public TDeviceModel? GetDefaultCommunications()
+    public TDeviceModel GetDefaultCommunications()
     {
       return this
         .GetAllCommunications()
         .FirstOrDefault(x => x.IsDefault);
     }
 
-    public TDeviceModel? GetDefaultConsole()
+    public TDeviceModel GetDefaultConsole()
     {
       return this
         .GetAllConsole()
         .FirstOrDefault(x => x.IsDefault);
     }
 
-    public TDeviceModel? GetDefaultMultimedia()
+    public TDeviceModel GetDefaultMultimedia()
     {
       return this
         .GetAllMultimedia()
