@@ -215,7 +215,8 @@ namespace VACARM.Infrastructure.Services
         (
           model.ActualId,
           volume
-        ).ConfigureAwait(false);
+        )
+        .ConfigureAwait(false);
     }
 
     public async Task<bool> UnmuteAsync(uint id)
@@ -287,7 +288,8 @@ namespace VACARM.Infrastructure.Services
          (
            isInput,
            isOutput
-         ).ConfigureAwait(false);
+         )
+         .ConfigureAwait(false);
 
       if (device == null)
       {
@@ -316,7 +318,8 @@ namespace VACARM.Infrastructure.Services
         (
           isInput,
           isOutput
-        ).ConfigureAwait(false);
+        )
+        .ConfigureAwait(false);
 
       if (device == null)
       {
@@ -345,7 +348,8 @@ namespace VACARM.Infrastructure.Services
         (
           isInput,
           isOutput
-        ).ConfigureAwait(false);
+        )
+        .ConfigureAwait(false);
 
       if (device == null)
       {
