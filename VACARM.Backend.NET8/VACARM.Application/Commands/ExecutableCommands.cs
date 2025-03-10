@@ -35,7 +35,7 @@ namespace VACARM.Application.Commands
     /// <returns>The process</returns>
     private static Process Get(int? processId)
     {
-      Process process = null;
+      Process process = new Process();
 
       if
       (
@@ -73,7 +73,7 @@ namespace VACARM.Application.Commands
           "Process ID is either null or less than zero."
         );
 
-        process = null;
+        process = new Process();
       }
 
       return process;
