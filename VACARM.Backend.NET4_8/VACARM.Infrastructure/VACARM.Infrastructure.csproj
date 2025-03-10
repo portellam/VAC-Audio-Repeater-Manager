@@ -207,9 +207,6 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Actions.Async.cs">
       <Link>Services\DeviceGroupService\DeviceGroupService.Actions.Async.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Actions.AsyncEnumerable.cs">
-      <Link>Services\DeviceGroupService\DeviceGroupService.Actions.AsyncEnumerable.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Async.cs">
       <Link>Services\DeviceGroupService\DeviceGroupService.Async.cs</Link>
     </Compile>
@@ -221,9 +218,6 @@
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Actions.Async.cs">
       <Link>Services\DeviceGroupService\IDeviceGroupService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Actions.AsyncEnumerable.cs">
-      <Link>Services\DeviceGroupService\IDeviceGroupService.Actions.AsyncEnumerable.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Async.cs">
       <Link>Services\DeviceGroupService\IDeviceGroupService.Async.cs</Link>
@@ -252,17 +246,11 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\IReadonlyService.Actions.Async.cs">
       <Link>Services\ReadonlyService\IReadonlyService.Actions.Async.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\IReadonlyService.Actions.AsyncEnumerable.cs">
-      <Link>Services\ReadonlyService\IReadonlyService.Actions.AsyncEnumerable.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\IReadonlyService.cs">
       <Link>Services\ReadonlyService\IReadonlyService.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.Actions.Async.cs">
       <Link>Services\ReadonlyService\ReadonlyService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.Actions.AsyncEnumerable.cs">
-      <Link>Services\ReadonlyService\ReadonlyService.Actions.AsyncEnumerable.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.cs">
       <Link>Services\ReadonlyService\ReadonlyService.cs</Link>
@@ -273,14 +261,8 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.NotifyPropertyChanged.cs">
       <Link>Services\ReadonlyService\ReadonlyService.NotifyPropertyChanged.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService.cs">
-      <Link>Services\RepeaterGroupService.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\IRepeaterGroupService.Actions.Async.cs">
       <Link>Services\RepeaterGroupService\IRepeaterGroupService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\IRepeaterGroupService.Actions.AsyncEnumerable.cs">
-      <Link>Services\RepeaterGroupService\IRepeaterGroupService.Actions.AsyncEnumerable.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\IRepeaterGroupService.cs">
       <Link>Services\RepeaterGroupService\IRepeaterGroupService.cs</Link>
@@ -288,14 +270,8 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.Actions.Async.cs">
       <Link>Services\RepeaterGroupService\RepeaterGroupService.Actions.Async.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.Actions.AsyncEnumerable.cs">
-      <Link>Services\RepeaterGroupService\RepeaterGroupService.Actions.AsyncEnumerable.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.cs">
       <Link>Services\RepeaterGroupService\RepeaterGroupService.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ScriptFileService\ScriptFileService.Async.cs">
-      <Link>Services\ScriptFileService\ScriptFileService.Async.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ScriptFileService\ScriptFileService.cs">
       <Link>Services\ScriptFileService\ScriptFileService.cs</Link>
@@ -304,6 +280,12 @@
       <Link>Watchers\MMNotificationClient.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DeviceGroupService\DeviceGroupService.Actions.IEnumerable.cs" />
+    <Compile Include="Services\DeviceGroupService\IDeviceGroupService.Actions.IEnumerable.cs" />
+    <Compile Include="Services\ReadonlyService\IReadonlyService.Actions.Async.IEnumerable.cs" />
+    <Compile Include="Services\ReadonlyService\ReadonlyService.Actions.IEnumerable.cs" />
+    <Compile Include="Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs" />
+    <Compile Include="Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
