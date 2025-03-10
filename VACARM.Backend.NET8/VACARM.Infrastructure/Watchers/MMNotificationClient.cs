@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace VACARM.Infrastructure.Watchers
 {
   /// <summary>
-  /// A watcher for the system audio devices.
+  /// A watcher for system audio devices.
   /// </summary>
   internal class MMNotificationClient :
     IDisposable,
@@ -150,7 +150,7 @@ namespace VACARM.Infrastructure.Watchers
     /// <summary>
     /// Unregister subscription from event watcher.
     /// </summary>
-    internal void UnRegister()
+    internal void Unregister()
     {
       this.MMDeviceEnumerator
         .UnregisterEndpointNotificationCallback(this);
