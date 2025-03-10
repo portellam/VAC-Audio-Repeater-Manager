@@ -1,4 +1,5 @@
 ﻿using AudioSwitcher.AudioApi;
+using MoreLinq;
 using NAudio.CoreAudioApi;
 using System;
 using System.Collections.Generic;
