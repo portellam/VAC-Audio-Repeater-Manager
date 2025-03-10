@@ -42,8 +42,7 @@ namespace VACARM.Infrastructure.Services
     /// Start some <typeparamref name="TRepeaterModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    IAsyncEnumerable<int?> StartRangeAsync
-    (IEnumerable<uint> idEnumerable);
+    IAsyncEnumerable<int?> StartRangeAsync(IEnumerable<uint> idEnumerable);
 
     /// <summary>
     /// Start some <typeparamref name="TRepeaterModel"/>(s).
