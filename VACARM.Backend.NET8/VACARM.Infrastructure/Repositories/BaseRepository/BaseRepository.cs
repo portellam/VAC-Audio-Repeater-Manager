@@ -205,11 +205,6 @@ namespace VACARM.Infrastructure.Repositories
 
     public TBaseModel Get(uint id)
     {
-      if (this.IsNullOrEmpty)
-      {
-        return default;
-      }
-
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
       return base.Get(func);
     }
