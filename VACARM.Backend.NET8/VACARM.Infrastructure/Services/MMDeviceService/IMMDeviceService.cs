@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Infrastructure.Services
+namespace VACARM.Infrastructure.Services.MMDeviceService
 {
   public interface IMMDeviceService
     <

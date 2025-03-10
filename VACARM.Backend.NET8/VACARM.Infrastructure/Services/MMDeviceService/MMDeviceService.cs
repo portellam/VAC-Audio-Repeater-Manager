@@ -6,6 +6,7 @@ using System.Linq;
 using VACARM.Application.Commands;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services.MMDeviceService;
 using VACARM.Infrastructure.Watchers;
 
 namespace VACARM.Infrastructure.Services

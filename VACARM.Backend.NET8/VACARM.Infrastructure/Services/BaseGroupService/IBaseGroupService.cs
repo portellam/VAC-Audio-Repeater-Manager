@@ -2,7 +2,7 @@
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Infrastructure.Services
+namespace VACARM.Infrastructure.Services.BaseGroupService
 {
   public interface IBaseGroupService
     <

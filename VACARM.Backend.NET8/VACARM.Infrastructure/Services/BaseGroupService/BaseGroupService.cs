@@ -3,6 +3,7 @@ using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services.BaseGroupService;
 
 namespace VACARM.Infrastructure.Services
 {
