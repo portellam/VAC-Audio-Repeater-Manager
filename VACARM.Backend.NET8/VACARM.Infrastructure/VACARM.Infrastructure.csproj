@@ -50,6 +50,7 @@ instances of Virtual Audio Cable (VAC) audio repeaters.</Description>
   <ItemGroup>
     <ProjectReference Include="..\VACARM.Application\VACARM.Application.csproj" />
     <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj" />
+    <ProjectReference Include="..\VACARM.Extensions\VACARM.Extensions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />

@@ -1,4 +1,4 @@
-﻿namespace VACARM.Infrastructure.Extensions
+﻿namespace VACARM.Extensions
 {
   public class StringExtension
   {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using VACARM.Infrastructure.Extensions;
+using VACARM.Extensions;
 using VACARM.Infrastructure.Repositories.ReadonlyRepository;
 
 namespace VACARM.Infrastructure.Repositories
@@ -50,7 +50,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public ReadonlyRepository()
     {
-      this.Enumerable = Array.Empty<TItem>();
+      this.Enumerable = ArrayExtension<TItem>.EmptyArray;
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ namespace VACARM.Infrastructure.Repositories
     {
       if (this.IsNullOrEmpty)
       {
-        return Array.Empty<TItem>();
+        return ArrayExtension<TItem>.EmptyArray;
       }
 
       return this.Enumerable;
@@ -83,7 +83,7 @@ namespace VACARM.Infrastructure.Repositories
     {
       if (this.IsNullOrEmpty)
       {
-        return Array.Empty<TItem>();
+        return ArrayExtension<TItem>.EmptyArray;
       }
 
       return this.Enumerable

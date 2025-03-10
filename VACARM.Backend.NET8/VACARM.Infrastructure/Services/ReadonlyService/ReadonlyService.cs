@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using VACARM.Infrastructure.Extensions;
+using VACARM.Extensions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services

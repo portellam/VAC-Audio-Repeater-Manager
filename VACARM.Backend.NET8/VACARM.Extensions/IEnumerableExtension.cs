@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace VACARM.Infrastructure.Extensions
+namespace VACARM.Extensions
 {
   public class IEnumerableExtension<T>
   {

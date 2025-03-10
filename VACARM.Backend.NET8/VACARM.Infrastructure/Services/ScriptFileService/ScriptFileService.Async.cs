@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
-using VACARM.Infrastructure.Extensions;
+using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
