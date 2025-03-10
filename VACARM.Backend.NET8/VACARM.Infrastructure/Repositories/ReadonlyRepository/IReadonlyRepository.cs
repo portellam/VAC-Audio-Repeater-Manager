@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace VACARM.Infrastructure.Repositories
+namespace VACARM.Infrastructure.Repositories.ReadonlyRepository
 {
   public interface IReadonlyRepository<TItem>
     where TItem :

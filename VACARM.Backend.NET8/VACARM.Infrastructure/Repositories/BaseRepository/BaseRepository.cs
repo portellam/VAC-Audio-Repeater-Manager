@@ -5,6 +5,7 @@ using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Functions;
+using VACARM.Infrastructure.Repositories.BaseRepository;
 
 namespace VACARM.Infrastructure.Repositories
 {

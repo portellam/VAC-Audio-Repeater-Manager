@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VACARM.Infrastructure.Extensions;
+using VACARM.Infrastructure.Repositories.ReadonlyRepository;
 
 namespace VACARM.Infrastructure.Repositories
 {
