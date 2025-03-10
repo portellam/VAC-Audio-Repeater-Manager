@@ -65,7 +65,7 @@ namespace VACARM.Application.Commands
         );
       }
 
-      catch (Exception exception)
+      catch
       {
         Debug.WriteLine
         (
