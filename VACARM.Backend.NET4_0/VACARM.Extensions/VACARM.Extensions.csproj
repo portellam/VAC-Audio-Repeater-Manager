@@ -60,7 +60,6 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Extensions\StringExtension.cs">
       <Link>StringExtension.cs</Link>
     </Compile>
-    <Compile Include="TaskExtension.cs" />
     <Compile Include="ArrayExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
