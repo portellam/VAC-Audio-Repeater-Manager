@@ -70,7 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\VACARM.Assembly\AssemblyInfo.cs">
+    <Compile Include="..\\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,7 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
+    <Content Include="..\\AssemblyInfo.tt">
       <Link>AssemblyInfo.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
