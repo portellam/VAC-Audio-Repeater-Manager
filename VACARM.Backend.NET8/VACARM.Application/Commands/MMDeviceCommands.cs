@@ -1,4 +1,6 @@
-﻿using NAudio.CoreAudioApi;
+﻿#warning Differs from projects of earlier NET revisions (below v4.6).
+
+using NAudio.CoreAudioApi;
 using System.Diagnostics;
 using System.Threading.Tasks;
 

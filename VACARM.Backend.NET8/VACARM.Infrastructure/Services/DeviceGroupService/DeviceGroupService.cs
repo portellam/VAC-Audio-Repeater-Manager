@@ -1,4 +1,8 @@
-﻿using NAudio.CoreAudioApi;
+﻿#warning Differs from projects of earlier NET revisions (below v4.6).
+#warning AudioSwitcher.AudioApi must initialize after NAudio.CoreAudioApi
+
+using AudioSwitcher.AudioApi;
+using NAudio.CoreAudioApi;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#warning Differs from projects of earlier NET revisions (below v4.6).
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace VACARM.Infrastructure.Services

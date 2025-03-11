@@ -1,4 +1,6 @@
-﻿using AudioSwitcher.AudioApi;
+﻿#warning Differs from projects of earlier NET revisions (below v4.6).
+
+using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
 using System.Collections.Generic;
 using VACARM.Domain.Models;

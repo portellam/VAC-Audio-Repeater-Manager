@@ -1,4 +1,6 @@
-﻿using System;
+﻿#warning Differs from projects of later NET revisions (above v4.0).
+
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
