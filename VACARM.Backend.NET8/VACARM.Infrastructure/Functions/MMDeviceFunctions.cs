@@ -25,9 +25,6 @@ namespace VACARM.Infrastructure.Functions
     internal readonly static Func<TMMDevice, bool> IsDisabled =
       (TMMDevice x) => x.State == DeviceState.Disabled;
 
-    internal readonly static Func<TMMDevice, bool> IsDuplex =
-      (TMMDevice x) => x.DataFlow == DataFlow.All;
-
     internal readonly static Func<TMMDevice, bool> IsEnabled =
       (TMMDevice x) => x.State != DeviceState.Disabled;
 
