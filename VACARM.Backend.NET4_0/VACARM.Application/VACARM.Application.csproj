@@ -59,8 +59,8 @@
     <Reference Include="NAudio.WinForms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.WinForms.2.2.1\lib\net472\NAudio.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-    <Reference Include="System" />
+	<Reference Include="netstandard" />
+	<Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
@@ -82,18 +82,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\CoreAudioCommands.cs">
-      <Link>Commands\CoreAudioCommands.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\ExecutableCommands.cs">
-      <Link>Commands\ExecutableCommands.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\MMDeviceCommands.cs">
-      <Link>Commands\MMDeviceCommands.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\ProcessCommands.cs">
-      <Link>Commands\ProcessCommands.cs</Link>
-    </Compile>
+    <Compile Include="Commands\ExecutableCommands.cs" />
+    <Compile Include="Commands\MMDeviceCommands.cs" />
+    <Compile Include="Commands\ProcessCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
