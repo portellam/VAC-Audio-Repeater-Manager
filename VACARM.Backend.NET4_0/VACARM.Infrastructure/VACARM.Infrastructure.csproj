@@ -117,12 +117,6 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\BaseFunctions.cs">
       <Link>Functions\BaseFunctions.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\CoreAudioDeviceFunctions.cs">
-      <Link>Functions\CoreAudioDeviceFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\DeviceFunctions.cs">
-      <Link>Functions\DeviceFunctions.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\MMDeviceFunctions.cs">
       <Link>Functions\MMDeviceFunctions.cs</Link>
     </Compile>
@@ -174,20 +168,8 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseService\IBaseService.cs">
       <Link>Services\BaseService\IBaseService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Actions.Async.cs">
-      <Link>Services\DeviceGroupService\DeviceGroupService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.cs">
-      <Link>Services\DeviceGroupService\DeviceGroupService.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Disposable.cs">
       <Link>Services\DeviceGroupService\DeviceGroupService.Disposable.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Actions.Async.cs">
-      <Link>Services\DeviceGroupService\IDeviceGroupService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.cs">
-      <Link>Services\DeviceGroupService\IDeviceGroupService.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\INIService.cs">
       <Link>Services\INIService.cs</Link>
@@ -243,9 +225,12 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Watchers\MMNotificationClient.cs">
       <Link>Watchers\MMNotificationClient.cs</Link>
     </Compile>
+    <Compile Include="Functions\DeviceFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DeviceGroupService\DeviceGroupService.Async.cs" />
+    <Compile Include="Services\DeviceGroupService\DeviceGroupService.cs" />
     <Compile Include="Services\DeviceGroupService\IDeviceGroupService.Async.cs" />
+    <Compile Include="Services\DeviceGroupService\IDeviceGroupService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\AssemblyInfo.tt">
