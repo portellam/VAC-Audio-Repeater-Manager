@@ -76,7 +76,7 @@ namespace VACARM.Infrastructure.Services
           () => File.Create(filePathName)
         );
 
-      await JsonSerializerExtension<IEnumerable<TBaseModel>>.SerializeAsync
+      await JsonSerializerExtension.SerializeAsync<IEnumerable<TBaseModel>>
         (
           fileStream,
           enumerable
@@ -106,7 +106,7 @@ namespace VACARM.Infrastructure.Services
       try
       {
         enumerable = await
-          JsonSerializerExtension<IEnumerable<TBaseModel>>
+          JsonSerializerExtension
           .DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
           .ConfigureAwait(false);
       }

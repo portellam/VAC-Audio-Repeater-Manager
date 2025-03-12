@@ -306,6 +306,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\Newtonsoft.NET4_6\Newtonsoft.NET4_6.csproj">
+      <Project>{728b1a13-58cb-42d9-9a51-7056eb764584}</Project>
+      <Name>Newtonsoft.NET4_6</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Extensions\System.NET4_6\System.NET4_6.csproj">
       <Project>{9648243f-9c3c-422a-94d4-b8ea4750a929}</Project>
       <Name>System.NET4_6</Name>

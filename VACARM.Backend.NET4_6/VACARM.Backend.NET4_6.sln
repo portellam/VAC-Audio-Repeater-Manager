@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Application", "VACAR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.NET4_6", "..\Extensions\System.NET4_6\System.NET4_6.csproj", "{9648243F-9C3C-422A-94D4-B8EA4750A929}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newtonsoft.NET4_6", "..\Extensions\Newtonsoft.NET4_6\Newtonsoft.NET4_6.csproj", "{728B1A13-58CB-42D9-9A51-7056EB764584}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9648243F-9C3C-422A-94D4-B8EA4750A929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9648243F-9C3C-422A-94D4-B8EA4750A929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9648243F-9C3C-422A-94D4-B8EA4750A929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{728B1A13-58CB-42D9-9A51-7056EB764584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728B1A13-58CB-42D9-9A51-7056EB764584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728B1A13-58CB-42D9-9A51-7056EB764584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{728B1A13-58CB-42D9-9A51-7056EB764584}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
