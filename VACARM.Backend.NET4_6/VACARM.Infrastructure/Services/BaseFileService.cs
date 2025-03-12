@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
-using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -60,7 +59,7 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (IEnumerableExtension<TBaseModel>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }
