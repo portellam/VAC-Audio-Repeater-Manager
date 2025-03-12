@@ -292,6 +292,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\System.NET4_8\System.NET4_8.csproj">
+      <Project>{d0a1e96d-9a92-46df-8050-21eeac78a6bc}</Project>
+      <Name>System.NET4_8</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VACARM.Application\VACARM.Application.csproj">
       <Project>{d906a6b7-1313-4cbe-8734-3e2944c8f635}</Project>
       <Name>VACARM.Application</Name>
@@ -303,10 +307,6 @@
     <ProjectReference Include="..\VACARM.Domain\VACARM.Domain.csproj">
       <Project>{2E5D8BC4-B8B7-4F3E-ADCD-CF99B4B8B7D0}</Project>
       <Name>VACARM.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VACARM.Extensions\VACARM.Extensions.csproj">
-      <Project>{6420a186-e50d-49d0-b04c-ad38914b3e99}</Project>
-      <Name>VACARM.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

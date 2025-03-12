@@ -73,9 +73,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VACARM.Extensions\VACARM.Extensions.csproj">
-      <Project>{6420a186-e50d-49d0-b04c-ad38914b3e99}</Project>
-      <Name>VACARM.Extensions</Name>
+    <ProjectReference Include="..\..\Extensions\System.NET4_8\System.NET4_8.csproj">
+      <Project>{d0a1e96d-9a92-46df-8050-21eeac78a6bc}</Project>
+      <Name>System.NET4_8</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -57,7 +56,7 @@ namespace VACARM.Infrastructure.Services
         return enumerable;
       }
 
-      if (IEnumerableExtension<TItem>.IsNullOrEmpty(itemEnumerable))
+      if (itemEnumerable.IsNullOrEmpty())
       {
         return enumerable;
       }
@@ -98,7 +97,7 @@ namespace VACARM.Infrastructure.Services
       var itemEnumerable = this.Repository
         .GetRange(matchFunc);
 
-      if (IEnumerableExtension<TItem>.IsNullOrEmpty(itemEnumerable))
+      if (itemEnumerable.IsNullOrEmpty())
       {
         return enumerable;
       }
