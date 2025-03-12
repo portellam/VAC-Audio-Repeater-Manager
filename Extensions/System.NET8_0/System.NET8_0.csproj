@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Product>System</Product>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>NET8_0.0</TargetFramework>
     <Title>System</Title>
   </PropertyGroup>
   <ItemGroup>
