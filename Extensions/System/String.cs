@@ -1,6 +1,6 @@
 ﻿namespace System
 {
-  public static class String
+  public static class StringExtension
   {
     #region Logic
 
@@ -9,7 +9,7 @@
     /// </summary>
     /// <param name="value">The string</param>
     /// <returns>True/false</returns>
-    public static bool IsNullOrEmptyOrWhitespace(this string value)
+    public static bool IsNullOrEmptyOrWhitespace(string value)
     {
       return string.IsNullOrWhiteSpace(value)
         || value.Length == 0;
