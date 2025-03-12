@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VACARM.Domain.Models;
-using VACARM.Extensions;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories.BaseRepository;
 
@@ -186,7 +185,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public IEnumerable<bool> RemoveRange(IEnumerable<TBaseModel> enumerable)
     {
-      if (IEnumerableExtension<TBaseModel>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         yield return false;
       }
@@ -375,7 +374,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public void UpdateRange(IEnumerable<TBaseModel> enumerable)
     {
-      if (IEnumerableExtension<TBaseModel>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }

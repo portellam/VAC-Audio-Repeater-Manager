@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -53,7 +52,7 @@ namespace VACARM.Infrastructure.Services
         yield return result;
       }
 
-      if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         yield return result;
       }
@@ -93,7 +92,7 @@ namespace VACARM.Infrastructure.Services
       var enumerable = this.Repository
         .GetRange(matchFunc);
 
-      if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         yield return result;
       }

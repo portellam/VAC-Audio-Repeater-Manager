@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using VACARM.Extensions;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
@@ -127,7 +126,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      if (IEnumerableExtension<TItem>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {

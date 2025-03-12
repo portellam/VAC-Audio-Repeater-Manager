@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
-using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -55,7 +54,7 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (IEnumerableExtension<TRepeaterModel>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }
@@ -86,7 +85,7 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (IEnumerableExtension<TRepeaterModel>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }

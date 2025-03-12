@@ -6,7 +6,6 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
-using VACARM.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -60,7 +59,7 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (IEnumerableExtension<TBaseModel>.IsNullOrEmpty(enumerable))
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }
@@ -94,7 +93,7 @@ namespace VACARM.Infrastructure.Services
     public async static Task<IEnumerable<TBaseModel>> ReadJsonFileAsync
     (string filePathName)
     {
-      IEnumerable<TBaseModel> enumerable = ArrayExtension<TBaseModel>.EmptyArray;
+      IEnumerable<TBaseModel> enumerable = Array.Empty<TBaseModel>();
 
       if (StringExtension.IsNullOrEmptyOrWhitespace(filePathName))
       {
@@ -113,7 +112,7 @@ namespace VACARM.Infrastructure.Services
 
       catch
       {
-        enumerable = ArrayExtension<TBaseModel>.EmptyArray;
+        enumerable = Array.Empty<TBaseModel>();
       }
 
       fileStream.Dispose();

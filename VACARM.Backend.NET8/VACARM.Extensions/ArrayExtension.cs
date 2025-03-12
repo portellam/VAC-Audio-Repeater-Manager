@@ -10,7 +10,12 @@ namespace VACARM.Extensions
   {
     #region Parameters
 
-    public static readonly T[] EmptyArray = Array.Empty<T>();
+    public static T[] Empty<T>()
+    {
+      
+
+      return Array.Empty<T>();
+    }
 
     #endregion
   }
