@@ -42,9 +42,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\System\Array.cs">
-      <Link>Array.cs</Link>
-    </Compile>
     <Compile Include="..\System\Collections\Generic\IEnumerable.cs">
       <Link>Collections\Generic\IEnumerable.cs</Link>
     </Compile>
