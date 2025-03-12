@@ -8,7 +8,8 @@
     <Deterministic>true</Deterministic>
     <FileAlignment>512</FileAlignment>
     <OutputType>Library</OutputType>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <ProjectGuid>{B75B75DC-64E2-4D0F-9B14-305A7431FE32}</ProjectGuid>
     <RootNamespace>System</RootNamespace>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>

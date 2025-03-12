@@ -8,6 +8,7 @@
     <Deterministic>true</Deterministic>
     <FileAlignment>512</FileAlignment>
     <OutputType>Library</OutputType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9648243F-9C3C-422A-94D4-B8EA4750A929}</ProjectGuid>
     <RootNamespace>System.NET4_6</RootNamespace>
