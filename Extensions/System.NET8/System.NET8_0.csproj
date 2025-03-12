@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>A library package which extends System. Includes backported and custom logic.</Description>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Product>System</Product>
+    <TargetFramework>net8.0</TargetFramework>
+    <Title>System</Title>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\System\Collections\Generic\IEnumerable.cs" Link="Collections\Generic\IEnumerable.cs" />
+    <Compile Include="..\System\String.cs" Link="String.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Collections\Generic\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" Link="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>
