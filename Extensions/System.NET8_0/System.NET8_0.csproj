@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\System\Collections\Generic\IEnumerable.cs" Link="Collections\Generic\IEnumerable.cs" />
-    <Compile Include="..\System\String.cs" Link="String.cs" />
+    <Compile Include="..\System\StringExtension.cs" Link="StringExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Collections\Generic\" />

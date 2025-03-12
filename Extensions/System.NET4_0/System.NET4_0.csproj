@@ -47,8 +47,8 @@
     <Compile Include="..\System\Collections\Generic\IEnumerable.cs">
       <Link>Collections\Generic\IEnumerable.cs</Link>
     </Compile>
-    <Compile Include="..\System\String.cs">
-      <Link>String.cs</Link>
+    <Compile Include="..\System\StringExtension.cs">
+      <Link>StringExtension.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
