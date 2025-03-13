@@ -1,4 +1,4 @@
-﻿#warning Differs from projects of later NET revisions (above v4.0).
+﻿#warning Differs from projects of later NET revisions (above Framework 4.0).
 
 using System;
 using System.Diagnostics;

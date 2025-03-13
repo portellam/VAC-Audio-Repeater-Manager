@@ -1,4 +1,4 @@
-﻿#warning Differs from projects of earlier NET revisions (below v4.6).
+﻿#warning Differs from projects of earlier NET revisions (below Framework 4.6).
 #warning AudioSwitcher.AudioApi must initialize after NAudio.CoreAudioApi
 
 using AudioSwitcher.AudioApi;

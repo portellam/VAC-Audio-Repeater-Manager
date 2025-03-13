@@ -1,4 +1,4 @@
-﻿#warning Differs from projects of later NET revisions (above v4.6).
+﻿#warning Differs from projects of later NET revisions (above Framework 4.6).
 
 using MoreLinq;
 using System;

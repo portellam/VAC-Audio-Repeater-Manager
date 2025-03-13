@@ -1,4 +1,4 @@
-﻿#warning Differs from projects of earlier NET revisions (below v4.8).
+﻿#warning Differs from projects of earlier NET revisions (below Framework 4.8).
 
 using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
