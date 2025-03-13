@@ -81,6 +81,7 @@
     <None Include="..\..\VACARM.Backend.NET8\README.md">
       <Link>README.md</Link>
     </None>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
