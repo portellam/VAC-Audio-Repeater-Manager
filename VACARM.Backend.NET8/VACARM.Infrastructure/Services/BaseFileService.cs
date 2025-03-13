@@ -1,6 +1,5 @@
 ﻿#warning Differs from projects of earlier NET revisions (below Core 8.0).
 
-using String = System.Extensions.String;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -65,7 +64,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      if (String.IsNullOrEmptyOrWhitespace(filePathName))
+      if (string.IsNullOrWhiteSpace(filePathName))
       {
         return;
       }
@@ -96,7 +95,7 @@ namespace VACARM.Infrastructure.Services
     {
       IEnumerable<TBaseModel> enumerable = Array.Empty<TBaseModel>();
 
-      if (String.IsNullOrEmptyOrWhitespace(filePathName))
+      if (string.IsNullOrWhiteSpace(filePathName))
       {
         return enumerable;
       }

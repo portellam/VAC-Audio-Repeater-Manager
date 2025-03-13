@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,12 +23,12 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (System.Extensions.String.IsNullOrEmptyOrWhitespace(output))
+      if (string.IsNullOrWhiteSpace(output))
       {
         return;
       }
 
-      if (System.Extensions.String.IsNullOrEmptyOrWhitespace(filePathName))
+      if (string.IsNullOrWhiteSpace(filePathName))
       {
         return;
       }
@@ -59,7 +60,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      var func = (TRepeaterModel x) => x.StartArguments;
+      Func<TRepeaterModel,string> func = (TRepeaterModel x) => x.StartArguments;
 
       var arguments = enumerable
         .Select(func)
@@ -90,7 +91,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      var func = (TRepeaterModel x) => x.StopArguments;
+      Func<TRepeaterModel, string> func = (TRepeaterModel x) => x.StopArguments;
 
       var arguments = enumerable
         .Select(func)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using VACARM.Domain.Models;
-using String = System.Extensions.String;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -33,19 +32,21 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (String.IsNullOrEmptyOrWhitespace(output))
+      if (string.IsNullOrWhiteSpace(output))
       {
         return;
       }
 
-      if (String.IsNullOrEmptyOrWhitespace(filePathName))
+      if (string.IsNullOrWhiteSpace(filePathName))
       {
         return;
       }
+
+      Array.Empty<int>();
 
       filePathName = GetModifiedFilePathName(filePathName);
 
-      File.WriteAllText
+      File.WriteAllTextAsync
         (
           filePathName,
           output
