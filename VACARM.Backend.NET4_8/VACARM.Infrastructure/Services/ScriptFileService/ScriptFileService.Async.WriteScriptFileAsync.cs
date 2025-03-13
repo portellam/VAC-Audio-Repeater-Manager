@@ -1,4 +1,7 @@
-﻿using System;
+﻿#warning Differs from projects of later NET revisions (above Framework 4.8).
+#warning Not available in project of later NET revisions (above Framework 4.8).
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

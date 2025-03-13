@@ -1,4 +1,5 @@
 ﻿#warning Differs from projects of earlier NET revisions (below Framework 4.8).
+#warning Not available in project of later NET revisions (above Framework 4.8).
 
 using System;
 using System.Collections.Generic;

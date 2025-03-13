@@ -1,4 +1,6 @@
-﻿using System;
+﻿#warning Not available in project of later NET revisions (above Framework 4.8).
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
