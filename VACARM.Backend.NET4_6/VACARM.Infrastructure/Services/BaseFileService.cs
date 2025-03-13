@@ -64,7 +64,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      if (String.IsNullOrEmptyOrWhitespace(filePathName))
+      if (string.IsNullOrWhiteSpace(filePathName))
       {
         return;
       }
@@ -76,7 +76,7 @@ namespace VACARM.Infrastructure.Services
           () => File.Create(filePathName)
         );
 
-      await JsonSerializer.SerializeAsync<IEnumerable<TBaseModel>>
+      await JsonSerializerExtension.SerializeAsync<IEnumerable<TBaseModel>>
         (
           fileStream,
           enumerable
@@ -95,7 +95,7 @@ namespace VACARM.Infrastructure.Services
     {
       IEnumerable<TBaseModel> enumerable = Array.Empty<TBaseModel>();
 
-      if (String.IsNullOrEmptyOrWhitespace(filePathName))
+      if (string.IsNullOrWhiteSpace(filePathName))
       {
         return enumerable;
       }
@@ -105,7 +105,7 @@ namespace VACARM.Infrastructure.Services
 
       try
       {
-        enumerable = await JsonSerializer
+        enumerable = await JsonSerializerExtension
           .DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
           .ConfigureAwait(false);
       }
