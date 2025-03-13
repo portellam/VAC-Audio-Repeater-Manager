@@ -1,4 +1,4 @@
-﻿#warning Differs from projects of later NET revisions (above v4.6).
+﻿#warning Differs from projects of later NET revisions (above Framework 4.6).
 
 using Newtonsoft.Json;
 using System;
@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
+using JsonSerializer = Newtonsoft.Json.Extensions.JsonSerializer;
+using String = System.Extensions.String;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -64,7 +66,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      if (StringExtension.IsNullOrEmptyOrWhitespace(filePathName))
+      if (String.IsNullOrEmptyOrWhitespace(filePathName))
       {
         return;
       }
@@ -76,7 +78,7 @@ namespace VACARM.Infrastructure.Services
           () => File.Create(filePathName)
         );
 
-      await JsonSerializerExtension.SerializeAsync<IEnumerable<TBaseModel>>
+      await JsonSerializer.SerializeAsync<IEnumerable<TBaseModel>>
         (
           fileStream,
           enumerable
@@ -95,7 +97,7 @@ namespace VACARM.Infrastructure.Services
     {
       IEnumerable<TBaseModel> enumerable = Array.Empty<TBaseModel>();
 
-      if (StringExtension.IsNullOrEmptyOrWhitespace(filePathName))
+      if (String.IsNullOrEmptyOrWhitespace(filePathName))
       {
         return enumerable;
       }
@@ -105,8 +107,7 @@ namespace VACARM.Infrastructure.Services
 
       try
       {
-        enumerable = await
-          JsonSerializerExtension
+        enumerable = await JsonSerializer
           .DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
           .ConfigureAwait(false);
       }
@@ -119,6 +120,7 @@ namespace VACARM.Infrastructure.Services
       fileStream.Dispose();
       return enumerable;
     }
+
 
     #endregion
   }
