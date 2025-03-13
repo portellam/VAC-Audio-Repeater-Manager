@@ -12,37 +12,6 @@ namespace VACARM.Infrastructure.Services
     #region Logic
 
     /// <summary>
-    /// Write output to a script file.
-    /// </summary>
-    /// <param name="output">The output</param>
-    /// <param name="filePathName">The file path name</param>
-    /// <returns>True/false result.</returns>
-    private async static Task WriteScriptFileAsync
-    (
-      string output,
-      string filePathName
-    )
-    {
-      if (string.IsNullOrWhiteSpace(output))
-      {
-        return;
-      }
-
-      if (string.IsNullOrWhiteSpace(filePathName))
-      {
-        return;
-      }
-
-      filePathName = GetModifiedFilePathName(filePathName);
-
-      await File.WriteAllTextAsync
-        (
-          filePathName,
-          output
-        );
-    }
-
-    /// <summary>
     /// Write enumerable of <typeparamref name="TRepeaterModel"/>(s) to a
     /// start script file.
     /// </summary>

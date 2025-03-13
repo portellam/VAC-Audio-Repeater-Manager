@@ -280,6 +280,7 @@
     <Compile Include="Services\ReadonlyService\ReadonlyService.Actions.IEnumerable.cs" />
     <Compile Include="Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs" />
     <Compile Include="Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs" />
+    <Compile Include="Services\ScriptFileService\ScriptFileService.Async.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
