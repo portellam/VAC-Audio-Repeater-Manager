@@ -46,7 +46,7 @@ namespace VACARM.Infrastructure.Services
 
       filePathName = GetModifiedFilePathName(filePathName);
 
-      File.WriteAllTextAsync
+      File.WriteAllText
         (
           filePathName,
           output
