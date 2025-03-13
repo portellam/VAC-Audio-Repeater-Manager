@@ -1,4 +1,4 @@
-﻿#warning Differs from project of later NET revision (above Framework 4.6).
+﻿#warning Differs from project of later NET revisions (above Framework 4.6).
 
 using AudioSwitcher.AudioApi;
 using MoreLinq;
