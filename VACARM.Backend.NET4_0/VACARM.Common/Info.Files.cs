@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Array = System.Extensions.Array;
 
 namespace VACARM.Common
 {
@@ -8,7 +7,8 @@ namespace VACARM.Common
   {
     #region Parameters
 
-    public static string[] FilePathNames { get; set; } = Array.Empty<string>();
+    public static string[] FilePathNames { get; set; } = 
+      System.ArrayExtension.Empty<string>();
 
     #endregion
   }
