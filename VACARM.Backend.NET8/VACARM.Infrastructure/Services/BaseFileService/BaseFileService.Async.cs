@@ -1,51 +1,16 @@
-﻿#warning Differs from projects of later NET revisions (above Framework 4.6).
+﻿#warning Differs from projects of earlier NET revisions (below Framework 4.8).
 
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
-using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Services
 {
-  /// <summary>
-  /// Read/write <typeparamref name="TBaseModel"/>(s) to/from a file.
-  /// </summary>
-  public class BaseFileService<TBaseModel>
-    where TBaseModel :
-    BaseModel
+  public partial class BaseFileService<TBaseModel>
   {
-    #region Parameters
-
-    private const string Extension = ".json";
-
-    #endregion
-
     #region Logic
-
-    /// <summary>
-    /// Get the file path name with the extension.
-    /// </summary>
-    /// <param name="filePathName">The file path name</param>
-    /// <returns>The modified file path name</returns>
-    private static string GetModifiedFilePathName(string filePathName)
-    {
-      var diff = filePathName.Length - Extension.Length;
-
-      var result = filePathName
-        .Substring
-        (
-          diff
-        ) == Extension;
-
-      if (!result)
-      {
-        filePathName += Extension;
-      }
-
-      return filePathName;
-    }
 
     /// <summary>
     /// Write enumerable of <typeparamref name="TBaseModel"/>(s) to a JSON file.
@@ -76,7 +41,7 @@ namespace VACARM.Infrastructure.Services
           () => File.Create(filePathName)
         );
 
-      await JsonSerializerExtension.SerializeAsync<IEnumerable<TBaseModel>>
+      await JsonSerializer.SerializeAsync<IEnumerable<TBaseModel>>
         (
           fileStream,
           enumerable
@@ -105,8 +70,8 @@ namespace VACARM.Infrastructure.Services
 
       try
       {
-        enumerable = await JsonSerializerExtension
-          .DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
+        enumerable = await
+          JsonSerializer.DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
           .ConfigureAwait(false);
       }
 
@@ -118,7 +83,6 @@ namespace VACARM.Infrastructure.Services
       fileStream.Dispose();
       return enumerable;
     }
-
 
     #endregion
   }

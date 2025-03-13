@@ -1,51 +1,17 @@
-﻿#warning Differs from projects of later NET revisions (above Framework 4.0).
+﻿#warning Differs from projects of earlier NET revisions (below Framework 4.6).
+#warning Differs from projects of later NET revisions (above Framework 4.6).
 
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Services
 {
-  /// <summary>
-  /// Read/write <typeparamref name="TBaseModel"/>(s) to/from a file.
-  /// </summary>
-  public class BaseFileService<TBaseModel>
-    where TBaseModel :
-    BaseModel
+  public partial class BaseFileService<TBaseModel>
   {
-    #region Parameters
-
-    private const string Extension = ".json";
-
-    #endregion
-
     #region Logic
-
-    /// <summary>
-    /// Get the file path name with the extension.
-    /// </summary>
-    /// <param name="filePathName">The file path name</param>
-    /// <returns>The modified file path name</returns>
-    private static string GetModifiedFilePathName(string filePathName)
-    {
-      var diff = filePathName.Length - Extension.Length;
-
-      var result = filePathName
-        .Substring
-        (
-          diff
-        ) == Extension;
-
-      if (!result)
-      {
-        filePathName += Extension;
-      }
-
-      return filePathName;
-    }
 
     /// <summary>
     /// Write enumerable of <typeparamref name="TBaseModel"/>(s) to a JSON file.
@@ -71,8 +37,7 @@ namespace VACARM.Infrastructure.Services
 
       filePathName = GetModifiedFilePathName(filePathName);
 
-      var fileStream = await Task.Factory
-        .StartNew
+      var fileStream = await Task.Run
         (
           () => File.Create(filePathName)
         );
@@ -94,7 +59,7 @@ namespace VACARM.Infrastructure.Services
     public async static Task<IEnumerable<TBaseModel>> ReadJsonFileAsync
     (string filePathName)
     {
-      IEnumerable<TBaseModel> enumerable = ArrayExtension.Empty<TBaseModel>();
+      IEnumerable<TBaseModel> enumerable = Array.Empty<TBaseModel>();
 
       if (string.IsNullOrWhiteSpace(filePathName))
       {
@@ -113,13 +78,12 @@ namespace VACARM.Infrastructure.Services
 
       catch
       {
-        enumerable = ArrayExtension.Empty<TBaseModel>();
+        enumerable = Array.Empty<TBaseModel>();
       }
 
       fileStream.Dispose();
       return enumerable;
     }
-
 
     #endregion
   }

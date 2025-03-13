@@ -156,8 +156,11 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository\ReadonlyRepository.NotifyPropertyChanged.cs">
       <Link>Repositories\ReadonlyRepository\ReadonlyRepository.NotifyPropertyChanged.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseFileService.cs">
-      <Link>Services\BaseFileService.cs</Link>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseFileService\BaseFileService.Async.cs">
+      <Link>Services\BaseFileService\BaseFileService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseFileService\BaseFileService.cs">
+      <Link>Services\BaseFileService\BaseFileService.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseGroupService\BaseGroupService.cs">
       <Link>Services\BaseGroupService\BaseGroupService.cs</Link>

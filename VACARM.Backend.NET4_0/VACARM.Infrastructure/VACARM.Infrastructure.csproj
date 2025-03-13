@@ -108,6 +108,9 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository\ReadonlyRepository.NotifyPropertyChanged.cs">
       <Link>Repositories\ReadonlyRepository\ReadonlyRepository.NotifyPropertyChanged.cs</Link>
     </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseFileService\BaseFileService.cs">
+      <Link>Services\BaseFileService\BaseFileService.cs</Link>
+    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseGroupService\BaseGroupService.cs">
       <Link>Services\BaseGroupService\BaseGroupService.cs</Link>
     </Compile>
@@ -183,7 +186,7 @@
     <Compile Include="Functions\DeviceFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ReadonlyRepository\ReadonlyRepository.cs" />
-    <Compile Include="Services\BaseFileService.cs" />
+    <Compile Include="Services\BaseFileService\BaseFileService.Async.cs" />
     <Compile Include="Services\DeviceGroupService\DeviceGroupService.Async.cs" />
     <Compile Include="Services\DeviceGroupService\DeviceGroupService.cs" />
     <Compile Include="Services\DeviceGroupService\IDeviceGroupService.Async.cs" />
