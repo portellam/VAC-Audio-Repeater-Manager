@@ -1,6 +1,6 @@
-﻿namespace System.Extensions
+﻿namespace System
 {
-  public static class Array
+  public static class ArrayExtension
   {
     #region Parameters
 

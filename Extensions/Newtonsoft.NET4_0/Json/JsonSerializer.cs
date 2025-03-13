@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Newtonsoft.Json.Extensions
+namespace Newtonsoft.Json
 {
-  public static class JsonSerializer
+  public static class JsonSerializerExtension
   {
     #region Parameters
 
@@ -19,19 +19,35 @@ namespace Newtonsoft.Json.Extensions
 
     #region Logic
 
-    public async static Task SerializeAsync<T>
+    /// <summary>
+    /// Converts the provided value to UTF-8 encoded JSON text and writes it to
+    /// the System.IO.Stream.
+    /// </summary>
+    /// <typeparam name="TValue">The target type of the JSON value.</typeparam>
+    /// <param name="utf8Json">The UTF-8 System.IO.Stream to write to.</param>
+    /// <param name="value">The value to convert</param>
+    /// <returns>
+    /// A task that represents the asynchronous write operation.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">utf8Json is null.</exception>
+    public async static Task SerializeAsync<TValue>
     (
-      Stream stream,
-      T value
+      Stream utf8Json,
+      TValue value
     )
     {
+      if (utf8Json == null)
+      {
+        throw new ArgumentNullException(nameof(utf8Json));
+      }
+
       var jsonSerializer = new Newtonsoft.Json.JsonSerializer();
 
       using
       (
         var streamWriter = new StreamWriter
           (
-            stream,
+            utf8Json,
             UTF8Encoding,
             bufferSize: BufferSize
           )
@@ -66,15 +82,31 @@ namespace Newtonsoft.Json.Extensions
       }
     }
 
-    public async static Task<T> DeserializeAsync<T>(Stream stream)
+    /// <summary>
+    /// Asynchronously reads the UTF-8 encoded text representing a single JSON
+    /// value into an instance of a type specified by a generic type parameter.
+    /// The stream will be read to completion.
+    /// </summary>
+    /// <typeparam name="TValue">The target type of the JSON value.</typeparam>
+    /// <param name="utf8Json">The JSON data to parse.</param>
+    /// <returns>
+    /// A <typeparamref name="TValue"/> representation of the JSON value.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">utf8Json is null.</exception>
+    public async static Task<TValue> DeserializeAsync<TValue>(Stream utf8Json)
     {
+      if (utf8Json == null)
+      {
+        throw new ArgumentNullException(nameof(utf8Json));
+      }
+
       var jsonSerializer = new Newtonsoft.Json.JsonSerializer();
 
       using
       (
         var streamReader = new StreamReader
           (
-            stream,
+            utf8Json,
             UTF8Encoding,
             detectEncodingFromByteOrderMarks: true,
             bufferSize: BufferSize
@@ -93,7 +125,7 @@ namespace Newtonsoft.Json.Extensions
           .StartNew
           (
             () =>
-            jsonSerializer.Deserialize<T>(jsonTextReader)
+            jsonSerializer.Deserialize<TValue>(jsonTextReader)
           );
       }
     }

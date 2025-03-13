@@ -9,8 +9,7 @@
     <Title>System</Title>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\System\Collections\Generic\IEnumerable.cs" Link="Collections\Generic\IEnumerable.cs" />
-    <Compile Include="..\System\String.cs" Link="String.cs" />
+    <Compile Include="..\system\collections\generic\IEnumerableExtension.cs" Link="Collections\Generic\IEnumerableExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Collections\Generic\" />
