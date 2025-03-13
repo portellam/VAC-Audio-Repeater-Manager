@@ -51,9 +51,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Common\Info.Files.cs">
-      <Link>Info.Files.cs</Link>
-    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Common\Info.Names.cs">
       <Link>Info.Names.cs</Link>
     </Compile>
@@ -63,6 +60,8 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Common\Info.Restrictions.cs">
       <Link>Info.Restrictions.cs</Link>
     </Compile>
+    <Compile Include="Info.Files.cs" />
+    <Compile Include="Info.System.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,14 +79,14 @@
       <Link>LICENSE.md</Link>
     </None>
     <None Include="..\..\VACARM.Backend.NET8\README.md">
-    <Link>README.md</Link>
+      <Link>README.md</Link>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VACARM.Extensions\VACARM.Extensions.csproj">
-      <Project>{6420a186-e50d-49d0-b04c-ad38914b3e99}</Project>
-      <Name>VACARM.Extensions</Name>
+    <ProjectReference Include="..\..\Extensions\System.NET4_0\System.NET4_0.csproj">
+      <Project>{b75b75dc-64e2-4d0f-9b14-305a7431fe32}</Project>
+      <Name>System.NET4_0</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

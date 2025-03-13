@@ -37,7 +37,9 @@ namespace VACARM.Common
       {
         if
         (
-          Environment.OSVersion.Version.Major < 6
+          Environment.OSVersion
+            .Version
+            .Major < 6
           || !IgnoreMaxLegacyEndpointCount
         )
         {

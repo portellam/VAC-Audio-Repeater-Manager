@@ -36,12 +36,7 @@ namespace VACARM.Common
     {
       get
       {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-          return ".bat";
-        }
-
-        else
+        if (!IsOSWindows)
         {
           throw new NotImplementedException
             (
@@ -49,10 +44,12 @@ namespace VACARM.Common
               (
                 "Failed to determine script file extension."
                 + "Operating System {0} is not supported.",
-               RuntimeInformation.OSDescription
+                OSDescription
               )
             );
         }
+
+        return ".bat";
       }
     }
 

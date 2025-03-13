@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using String = System.Extensions.String;
 
 namespace VACARM.Common
 {
@@ -73,7 +74,7 @@ namespace VACARM.Common
           )
         );
 
-        if (string.IsNullOrEmpty(name))
+        if (String.IsNullOrEmptyOrWhitespace(name))
         {
           name = "C:\\";
         }
