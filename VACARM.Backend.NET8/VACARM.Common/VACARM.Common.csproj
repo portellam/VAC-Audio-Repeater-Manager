@@ -46,6 +46,9 @@ instances of Virtual Audio Cable (VAC) audio repeaters.</Description>
     <None Include="Info.Paths.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\System.NET8_0\System.NET8_0.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 </Project>

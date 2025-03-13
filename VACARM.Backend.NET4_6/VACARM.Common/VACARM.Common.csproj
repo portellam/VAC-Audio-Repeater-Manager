@@ -57,6 +57,9 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Common\Info.Restrictions.cs">
       <Link>Info.Restrictions.cs</Link>
     </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Common\Info.System.cs">
+      <Link>Info.System.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +79,12 @@
       <Link>README.md</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\System.NET4_6\System.NET4_6.csproj">
+      <Project>{9648243f-9c3c-422a-94d4-b8ea4750a929}</Project>
+      <Name>System.NET4_6</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
