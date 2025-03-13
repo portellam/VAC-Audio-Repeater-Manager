@@ -51,6 +51,7 @@
       <Link>String.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
