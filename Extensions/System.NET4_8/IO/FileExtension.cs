@@ -35,25 +35,18 @@ namespace System.IO
         contents = string.Empty;
       }
 
-      await Task.Factory
-         .StartNew
-         (
-           () =>
-           {
-             using
-             (
-               var streamWriter = new StreamWriter
-                 (
-                   path,
-                   false,
-                   Encoding.UTF8
-                 )
-             )
-             {
-               streamWriter.Write(contents);
-             }
-           }
-         );
+      using
+      (
+        var streamWriter = new StreamWriter
+          (
+            path,
+            false,
+            Encoding.UTF8
+          )
+      )
+      {
+        await streamWriter.WriteAsync(contents);
+      }
     }
 
     #endregion

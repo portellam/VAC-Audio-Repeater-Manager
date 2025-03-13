@@ -60,15 +60,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\System\ArrayExtension.cs">
-      <Link>ArrayExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\System\Collections\Generic\IEnumerableExtension.cs">
-      <Link>Collections\Generic\IEnumerableExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\System\IO\FileExtension.cs">
+    <Compile Include="..\System.NET4_8\IO\FileExtension.cs">
       <Link>IO\FileExtension.cs</Link>
     </Compile>
+    <Compile Include="ArrayExtension.cs" />
+    <Compile Include="Collections\Generic\IEnumerableExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

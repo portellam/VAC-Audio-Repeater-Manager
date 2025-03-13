@@ -9,12 +9,6 @@
     <Title>System</Title>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\system\collections\generic\IEnumerableExtension.cs" Link="Collections\Generic\IEnumerableExtension.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Collections\Generic\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\README.md" Link="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

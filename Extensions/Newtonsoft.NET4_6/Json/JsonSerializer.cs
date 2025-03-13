@@ -66,11 +66,12 @@ namespace Newtonsoft.Json
       {
         await Task.Run
           (
-            () => jsonSerializer.Serialize
-            (
-              jsonTextWriter,
-              value
-            )
+            () => 
+            jsonSerializer.Serialize
+              (
+                jsonTextWriter,
+                value
+              )
           );
 
         await jsonTextWriter.FlushAsync();

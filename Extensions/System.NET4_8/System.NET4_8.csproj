@@ -42,12 +42,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\system\collections\generic\IEnumerableExtension.cs">
+    <Compile Include="..\System.NET8_0\Collections\Generic\IEnumerableExtension.cs">
       <Link>Collections\Generic\IEnumerableExtension.cs</Link>
     </Compile>
-    <Compile Include="..\system\io\FileExtension.cs">
-      <Link>IO\FileExtension.cs</Link>
-    </Compile>
+    <Compile Include="IO\FileExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

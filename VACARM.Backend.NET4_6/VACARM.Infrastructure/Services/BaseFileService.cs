@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
-using JsonSerializer = Newtonsoft.Json.Extensions.JsonSerializer;
-using String = System.Extensions.String;
 
 namespace VACARM.Infrastructure.Services
 {
