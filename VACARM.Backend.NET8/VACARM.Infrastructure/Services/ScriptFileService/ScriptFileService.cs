@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using VACARM.Domain.Models;
+using String = System.Extensions.String;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -32,12 +33,12 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (StringExtension.IsNullOrEmptyOrWhitespace(output))
+      if (String.IsNullOrEmptyOrWhitespace(output))
       {
         return;
       }
 
-      if (StringExtension.IsNullOrEmptyOrWhitespace(filePathName))
+      if (String.IsNullOrEmptyOrWhitespace(filePathName))
       {
         return;
       }

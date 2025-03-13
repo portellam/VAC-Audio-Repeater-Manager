@@ -22,12 +22,12 @@ namespace VACARM.Infrastructure.Services
       string filePathName
     )
     {
-      if (StringExtension.IsNullOrEmptyOrWhitespace(output))
+      if (System.Extensions.String.IsNullOrEmptyOrWhitespace(output))
       {
         return;
       }
 
-      if (StringExtension.IsNullOrEmptyOrWhitespace(filePathName))
+      if (System.Extensions.String.IsNullOrEmptyOrWhitespace(filePathName))
       {
         return;
       }
