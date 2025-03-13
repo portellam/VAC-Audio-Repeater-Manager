@@ -1,6 +1,6 @@
-﻿namespace System
+﻿namespace System.Extensions
 {
-  public static class StringExtension
+  public static class String
   {
     #region Logic
 

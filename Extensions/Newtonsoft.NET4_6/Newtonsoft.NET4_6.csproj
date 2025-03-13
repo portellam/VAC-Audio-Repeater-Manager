@@ -44,9 +44,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Newtonsoft\Json\JsonSerializerExtension.cs">
-      <Link>Json\JsonSerializerExtension.cs</Link>
-    </Compile>
+    <Compile Include="Json\JsonSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

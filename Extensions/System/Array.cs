@@ -1,4 +1,4 @@
-﻿namespace System
+﻿namespace System.Extensions
 {
   public static class Array
   {
