@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VACARM.Domain</RootNamespace>
     <AssemblyName>VACARM.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -99,7 +99,7 @@
       <Link>LICENSE.md</Link>
     </None>
     <None Include="..\..\VACARM.Backend.NET8\README.md">
-    <Link>README.md</Link>
+      <Link>README.md</Link>
     </None>
   </ItemGroup>
   <ItemGroup>
