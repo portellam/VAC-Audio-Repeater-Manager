@@ -267,6 +267,9 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.cs">
       <Link>Services\RepeaterGroupService\RepeaterGroupService.cs</Link>
     </Compile>
+    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ScriptFileService\ScriptFileService.Async.cs">
+      <Link>Services\ScriptFileService\ScriptFileService.Async.cs</Link>
+    </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ScriptFileService\ScriptFileService.cs">
       <Link>Services\ScriptFileService\ScriptFileService.cs</Link>
     </Compile>
@@ -280,7 +283,7 @@
     <Compile Include="Services\ReadonlyService\ReadonlyService.Actions.IEnumerable.cs" />
     <Compile Include="Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs" />
     <Compile Include="Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs" />
-    <Compile Include="Services\ScriptFileService\ScriptFileService.Async.cs" />
+    <Compile Include="Services\ScriptFileService\ScriptFileService.Async.WriteScriptFileAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
