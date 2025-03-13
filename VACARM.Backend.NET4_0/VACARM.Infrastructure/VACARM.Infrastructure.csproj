@@ -243,6 +243,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\System.NET4_0\System.NET4_0.csproj">
+      <Project>{b75b75dc-64e2-4d0f-9b14-305a7431fe32}</Project>
+      <Name>System.NET4_0</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VACARM.Application\VACARM.Application.csproj">
       <Project>{d906a6b7-1313-4cbe-8734-3e2944c8f635}</Project>
       <Name>VACARM.Application</Name>
@@ -255,10 +259,6 @@
       <Project>{2E5D8BC4-B8B7-4F3E-ADCD-CF99B4B8B7D0}</Project>
       <Name>VACARM.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VACARM.Extensions\VACARM.Extensions.csproj">
-      <Project>{6420a186-e50d-49d0-b04c-ad38914b3e99}</Project>
-      <Name>VACARM.Extensions</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.md">
@@ -269,9 +269,6 @@
     </None>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Common", "VACARM.Common\VACARM.Common.csproj", "{44BDCC23-4E67-4FD1-AF25-84B94F7D2233}"
 EndProject
@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Infrastructure", "VA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Application", "VACARM.Application\VACARM.Application.csproj", "{D906A6B7-1313-4CBE-8734-3E2944C8F635}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Extensions", "VACARM.Extensions\VACARM.Extensions.csproj", "{6420A186-E50D-49D0-B04C-AD38914B3E99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.NET4_0", "..\Extensions\System.NET4_0\System.NET4_0.csproj", "{B75B75DC-64E2-4D0F-9B14-305A7431FE32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newtonsoft.NET4_0", "..\Extensions\Newtonsoft.NET4_0\Newtonsoft.NET4_0.csproj", "{881CB822-18B8-4924-A451-FB6130FD7EA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +37,14 @@ Global
 		{D906A6B7-1313-4CBE-8734-3E2944C8F635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D906A6B7-1313-4CBE-8734-3E2944C8F635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D906A6B7-1313-4CBE-8734-3E2944C8F635}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6420A186-E50D-49D0-B04C-AD38914B3E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6420A186-E50D-49D0-B04C-AD38914B3E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6420A186-E50D-49D0-B04C-AD38914B3E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6420A186-E50D-49D0-B04C-AD38914B3E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B75B75DC-64E2-4D0F-9B14-305A7431FE32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75B75DC-64E2-4D0F-9B14-305A7431FE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75B75DC-64E2-4D0F-9B14-305A7431FE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75B75DC-64E2-4D0F-9B14-305A7431FE32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{881CB822-18B8-4924-A451-FB6130FD7EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{881CB822-18B8-4924-A451-FB6130FD7EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{881CB822-18B8-4924-A451-FB6130FD7EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{881CB822-18B8-4924-A451-FB6130FD7EA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

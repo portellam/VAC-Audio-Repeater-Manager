@@ -1,4 +1,4 @@
-﻿#warning Differs from projects of later NET revisions (above v4.0).
+﻿#warning Differs from projects of later NET revisions (above Framework 4.0).
 
 using System;
 using System.Diagnostics;
@@ -20,7 +20,7 @@ namespace VACARM.Application.Commands
     /// <returns>The exit code.</returns>
     public async static Task<int> KillAsync(Process process)
     {
-      var result = Kill(process).Result;
+      var result = await Kill(process);
       return result;
     }
 
