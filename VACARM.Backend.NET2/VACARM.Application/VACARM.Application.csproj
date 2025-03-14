@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VACARM.Application</RootNamespace>
     <AssemblyName>VACARM.Application</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -76,37 +76,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\VACARM.Assembly\AssemblyInfo.cs">
+    <Compile Include="..\..\VACARM.Backend.NET4_0\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\CoreAudioCommands.cs">
-      <Link>Commands\CoreAudioCommands.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\ExecutableCommands.cs">
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.application\commands\ExecutableCommands.cs">
       <Link>Commands\ExecutableCommands.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\MMDeviceCommands.cs">
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.application\commands\MMDeviceCommands.cs">
       <Link>Commands\MMDeviceCommands.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Application\Commands\ProcessCommands.cs">
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.application\commands\ProcessCommands.cs">
       <Link>Commands\ProcessCommands.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\VACARM.Backend.NET4_0\AssemblyInfo.tt">
       <Link>AssemblyInfo.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

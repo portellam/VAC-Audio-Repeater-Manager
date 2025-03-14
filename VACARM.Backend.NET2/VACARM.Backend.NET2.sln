@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.35731.53
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Common", "VACARM.Common\VACARM.Common.csproj", "{44BDCC23-4E67-4FD1-AF25-84B94F7D2233}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Infrastructure", "VACARM.Infrastructure\VACARM.Infrastructure.csproj", "{BB666493-ED06-4346-9475-32E22098C331}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VACARM.Application", "VACARM.Application\VACARM.Application.csproj", "{D906A6B7-1313-4CBE-8734-3E2944C8F635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.NET2_0", "..\Extensions\System.NET2_0\System.NET2_0.csproj", "{87901DF0-D341-448B-9AD9-B6D58E534237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D906A6B7-1313-4CBE-8734-3E2944C8F635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D906A6B7-1313-4CBE-8734-3E2944C8F635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D906A6B7-1313-4CBE-8734-3E2944C8F635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87901DF0-D341-448B-9AD9-B6D58E534237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87901DF0-D341-448B-9AD9-B6D58E534237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87901DF0-D341-448B-9AD9-B6D58E534237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87901DF0-D341-448B-9AD9-B6D58E534237}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

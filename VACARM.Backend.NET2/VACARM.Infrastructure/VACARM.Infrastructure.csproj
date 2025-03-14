@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VACARM.Infrastructure</RootNamespace>
     <AssemblyName>VACARM.Infrastructure</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -116,38 +116,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\VACARM.Assembly\AssemblyInfo.cs">
+    <Compile Include="..\..\VACARM.Backend.NET4_0\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Actions.IEnumerable.cs">
-      <Link>Services\DeviceGroupService\IDeviceGroupService.Actions.IEnumerable.cs</Link>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\functions\DeviceFunctions.cs">
+      <Link>Functions\DeviceFunctions.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\ReadonlyService\IReadonlyService.Actions.Async.IEnumerable.cs">
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\repositories\readonlyrepository\ReadonlyRepository.cs">
+      <Link>Repositories\ReadonlyRepository\ReadonlyRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\services\basefileservice\BaseFileService.Async.cs">
+      <Link>Services\BaseFileService\BaseFileService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\services\devicegroupservice\DeviceGroupService.Async.cs">
+      <Link>Services\DeviceGroupService\DeviceGroupService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\services\devicegroupservice\DeviceGroupService.cs">
+      <Link>Services\DeviceGroupService\DeviceGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\services\devicegroupservice\IDeviceGroupService.Async.cs">
+      <Link>Services\DeviceGroupService\IDeviceGroupService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\services\devicegroupservice\IDeviceGroupService.cs">
+      <Link>Services\DeviceGroupService\IDeviceGroupService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\services\readonlyservice\ReadonlyService.Actions.IEnumerable.cs">
+      <Link>Services\ReadonlyService\ReadonlyService.Actions.IEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_0\vacarm.infrastructure\watchers\MMNotificationClient.cs">
+      <Link>Watchers\MMNotificationClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net4_8\vacarm.infrastructure\services\readonlyservice\IReadonlyService.Actions.Async.IEnumerable.cs">
       <Link>Services\ReadonlyService\IReadonlyService.Actions.Async.IEnumerable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs">
+    <Compile Include="..\..\vacarm.backend.net4_8\vacarm.infrastructure\services\repeatergroupservice\IRepeaterGroupService.Actions.IEnumerable.cs">
       <Link>Services\RepeaterGroupService\IRepeaterGroupService.Actions.IEnumerable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET4_8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs">
+    <Compile Include="..\..\vacarm.backend.net4_8\vacarm.infrastructure\services\repeatergroupservice\RepeaterGroupService.Actions.IEnumerable.cs">
       <Link>Services\RepeaterGroupService\RepeaterGroupService.Actions.IEnumerable.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Extensions\IEnumerableExtension.cs">
-      <Link>Extensions\IEnumerableExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Extensions\StringExtension.cs">
-      <Link>Extensions\StringExtension.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\BaseFunctions.cs">
       <Link>Functions\BaseFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\CoreAudioDeviceFunctions.cs">
-      <Link>Functions\CoreAudioDeviceFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\DeviceFunctions.cs">
-      <Link>Functions\DeviceFunctions.cs</Link>
     </Compile>
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\MMDeviceFunctions.cs">
       <Link>Functions\MMDeviceFunctions.cs</Link>
@@ -155,164 +167,115 @@
     <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Functions\RepeaterFunctions.cs">
       <Link>Functions\RepeaterFunctions.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\BaseRepository\BaseRepository.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\baserepository\BaseRepository.cs">
       <Link>Repositories\BaseRepository\BaseRepository.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\BaseRepository\BaseRepository.Disposable.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\baserepository\BaseRepository.Disposable.cs">
       <Link>Repositories\BaseRepository\BaseRepository.Disposable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\BaseRepository\BaseRepository.Functions.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\baserepository\BaseRepository.Functions.cs">
       <Link>Repositories\BaseRepository\BaseRepository.Functions.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\BaseRepository\IBaseRepository.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\baserepository\IBaseRepository.cs">
       <Link>Repositories\BaseRepository\IBaseRepository.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository\IReadonlyRepository.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\readonlyrepository\IReadonlyRepository.cs">
       <Link>Repositories\ReadonlyRepository\IReadonlyRepository.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository\ReadonlyRepository.cs">
-      <Link>Repositories\ReadonlyRepository\ReadonlyRepository.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository\ReadonlyRepository.Disposable.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\readonlyrepository\ReadonlyRepository.Disposable.cs">
       <Link>Repositories\ReadonlyRepository\ReadonlyRepository.Disposable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository\ReadonlyRepository.Functions.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\readonlyrepository\ReadonlyRepository.Functions.cs">
       <Link>Repositories\ReadonlyRepository\ReadonlyRepository.Functions.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Repositories\ReadonlyRepository\ReadonlyRepository.NotifyPropertyChanged.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\repositories\readonlyrepository\ReadonlyRepository.NotifyPropertyChanged.cs">
       <Link>Repositories\ReadonlyRepository\ReadonlyRepository.NotifyPropertyChanged.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseGroupService\BaseGroupService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\basefileservice\BaseFileService.cs">
+      <Link>Services\BaseFileService\BaseFileService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\basegroupservice\BaseGroupService.cs">
       <Link>Services\BaseGroupService\BaseGroupService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseGroupService\BaseGroupService.Disposable.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\basegroupservice\BaseGroupService.Disposable.cs">
       <Link>Services\BaseGroupService\BaseGroupService.Disposable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseGroupService\IBaseGroupService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\basegroupservice\IBaseGroupService.cs">
       <Link>Services\BaseGroupService\IBaseGroupService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseService\BaseService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\baseservice\BaseService.cs">
       <Link>Services\BaseService\BaseService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseService\BaseService.Disposable.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\baseservice\BaseService.Disposable.cs">
       <Link>Services\BaseService\BaseService.Disposable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\BaseService\IBaseService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\baseservice\IBaseService.cs">
       <Link>Services\BaseService\IBaseService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService\CoreAudioService.Actions.Async.cs">
-      <Link>Services\CoreAudioService\CoreAudioService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService\CoreAudioService.Async.cs">
-      <Link>Services\CoreAudioService\CoreAudioService.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService\CoreAudioService.cs">
-      <Link>Services\CoreAudioService\CoreAudioService.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService\CoreAudioService.Disposable.cs">
-      <Link>Services\CoreAudioService\CoreAudioService.Disposable.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService\ICoreAudioService.Actions.Async.cs">
-      <Link>Services\CoreAudioService\ICoreAudioService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService\ICoreAudioService.Async.cs">
-      <Link>Services\CoreAudioService\ICoreAudioService.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\CoreAudioService\ICoreAudioService.cs">
-      <Link>Services\CoreAudioService\ICoreAudioService.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Actions.Async.cs">
-      <Link>Services\DeviceGroupService\DeviceGroupService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Async.cs">
-      <Link>Services\DeviceGroupService\DeviceGroupService.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.cs">
-      <Link>Services\DeviceGroupService\DeviceGroupService.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\DeviceGroupService.Disposable.cs">
-      <Link>Services\DeviceGroupService\DeviceGroupService.Disposable.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Actions.Async.cs">
-      <Link>Services\DeviceGroupService\IDeviceGroupService.Actions.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.Async.cs">
-      <Link>Services\DeviceGroupService\IDeviceGroupService.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\DeviceGroupService\IDeviceGroupService.cs">
-      <Link>Services\DeviceGroupService\IDeviceGroupService.cs</Link>
-    </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\INIService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\INIService.cs">
       <Link>Services\INIService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\MMDeviceService\IMMDeviceService.Actions.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\mmdeviceservice\IMMDeviceService.Actions.cs">
       <Link>Services\MMDeviceService\IMMDeviceService.Actions.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\MMDeviceService\IMMDeviceService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\mmdeviceservice\IMMDeviceService.cs">
       <Link>Services\MMDeviceService\IMMDeviceService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\MMDeviceService\MMDeviceService.Actions.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\mmdeviceservice\MMDeviceService.Actions.cs">
       <Link>Services\MMDeviceService\MMDeviceService.Actions.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\MMDeviceService\MMDeviceService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\mmdeviceservice\MMDeviceService.cs">
       <Link>Services\MMDeviceService\MMDeviceService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\MMDeviceService\MMDeviceService.Disposable.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\mmdeviceservice\MMDeviceService.Disposable.cs">
       <Link>Services\MMDeviceService\MMDeviceService.Disposable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\IReadonlyService.Actions.Async.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\readonlyservice\IReadonlyService.Actions.Async.cs">
       <Link>Services\ReadonlyService\IReadonlyService.Actions.Async.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\IReadonlyService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\readonlyservice\IReadonlyService.cs">
       <Link>Services\ReadonlyService\IReadonlyService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.Actions.Async.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\readonlyservice\ReadonlyService.Actions.Async.cs">
       <Link>Services\ReadonlyService\ReadonlyService.Actions.Async.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\readonlyservice\ReadonlyService.cs">
       <Link>Services\ReadonlyService\ReadonlyService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.Disposable.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\readonlyservice\ReadonlyService.Disposable.cs">
       <Link>Services\ReadonlyService\ReadonlyService.Disposable.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ReadonlyService\ReadonlyService.NotifyPropertyChanged.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\readonlyservice\ReadonlyService.NotifyPropertyChanged.cs">
       <Link>Services\ReadonlyService\ReadonlyService.NotifyPropertyChanged.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\IRepeaterGroupService.Actions.Async.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\repeatergroupservice\IRepeaterGroupService.Actions.Async.cs">
       <Link>Services\RepeaterGroupService\IRepeaterGroupService.Actions.Async.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\IRepeaterGroupService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\repeatergroupservice\IRepeaterGroupService.cs">
       <Link>Services\RepeaterGroupService\IRepeaterGroupService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.Actions.Async.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\repeatergroupservice\RepeaterGroupService.Actions.Async.cs">
       <Link>Services\RepeaterGroupService\RepeaterGroupService.Actions.Async.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\RepeaterGroupService\RepeaterGroupService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\repeatergroupservice\RepeaterGroupService.cs">
       <Link>Services\RepeaterGroupService\RepeaterGroupService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Services\ScriptFileService\ScriptFileService.cs">
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\scriptfileservice\ScriptFileService.Async.cs">
+      <Link>Services\ScriptFileService\ScriptFileService.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\vacarm.backend.net8\vacarm.infrastructure\services\scriptfileservice\ScriptFileService.cs">
       <Link>Services\ScriptFileService\ScriptFileService.cs</Link>
     </Compile>
-    <Compile Include="..\..\VACARM.Backend.NET8\VACARM.Infrastructure\Watchers\MMNotificationClient.cs">
-      <Link>Watchers\MMNotificationClient.cs</Link>
-    </Compile>
-    <Compile Include="Extensions\JsonSerializerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BaseFileService.cs" />
-    <Compile Include="Services\DeviceGroupService\DeviceGroupService.Actions.IEnumerable.cs" />
-    <Compile Include="Services\ReadonlyService\ReadonlyService.Actions.IEnumerable.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
-      <Link>AssemblyInfo.tt</Link>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\System.NET2_0\System.NET2_0.csproj">
+      <Project>{87901df0-d341-448b-9ad9-b6d58e534237}</Project>
+      <Name>System.NET2_0</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VACARM.Application\VACARM.Application.csproj">
       <Project>{d906a6b7-1313-4cbe-8734-3e2944c8f635}</Project>
       <Name>VACARM.Application</Name>
@@ -331,5 +294,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\..\VACARM.Backend.NET4_0\AssemblyInfo.tt">
+      <Link>AssemblyInfo.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
