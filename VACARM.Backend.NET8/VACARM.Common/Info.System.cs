@@ -9,6 +9,9 @@ namespace VACARM.Common
   {
     #region Parameters
 
+    public readonly static bool DoesProcessAndSystemBitMatch =
+      Environment.Is64BitProcess == Environment.Is64BitOperatingSystem;
+
     public static bool IsOSWindows
     {
       get
