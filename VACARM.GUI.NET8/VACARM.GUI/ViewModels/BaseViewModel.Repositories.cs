@@ -1,4 +1,5 @@
-﻿using VACARM.GUI.Structs;
+﻿using System.Reflection;
+using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.GUI.ViewModels
@@ -22,6 +23,96 @@ namespace VACARM.GUI.ViewModels
     #region Logic
 
     /// <summary>
+    /// Get a modified <typeparamref name="ToolStripMenuItem"/>.
+    /// </summary>
+    /// <param name="toolStripMenuItem">The tool strip menu item</param>
+    /// <param name="array">
+    /// The array of <typeparamref name="ToolStripItem"/>(s)
+    /// </param>
+    /// <param name="name">The name an text</param>
+    /// <returns>The modified <typeparamref name="ToolStripMenuItem"/>.</returns>
+    private ToolStripMenuItem GetModified
+    (
+      ToolStripMenuItem toolStripMenuItem,
+      ToolStripItem[] array,
+      string name
+    )
+    {
+      if (toolStripMenuItem == null)
+      {
+        throw new ArgumentNullException(nameof(toolStripMenuItem));
+      }
+
+      if (string.IsNullOrWhiteSpace(name))
+      {
+        throw new ArgumentNullException(nameof(name));
+      }
+
+      toolStripMenuItem.Name = name;
+      toolStripMenuItem.Text = name;
+      toolStripMenuItem.Size = this.DefaultSize;
+      var anyEnabled = false;
+      var newEnumerable = Array.Empty<ToolStripItem>();
+
+      foreach (var item in array)
+      {
+        item.Owner = null;
+
+        if (item.Enabled)
+        {
+          anyEnabled = true;
+        }
+
+        newEnumerable.Append(item);
+      }
+
+      toolStripMenuItem.Enabled = anyEnabled;
+
+      toolStripMenuItem.DropDownItems
+          .AddRange(newEnumerable.ToArray());
+
+      return toolStripMenuItem;
+    }
+
+    /// <summary>
+    /// Get a clone <typeparamref name="ToolStripMenuItem"/>.
+    /// Useful for when more than one <typeparamref name="ToolStripMenuItem"/>
+    /// reference the same <typeparamref name="ToolStripMenuItem"/> object.
+    /// </summary>
+    /// <param name="original">
+    /// The original <typeparamref name="ToolStripMenuItem"/>
+    /// </param>
+    /// <returns>The clone <typeparamref name="ToolStripMenuItem"/></returns>
+    protected static ToolStripMenuItem GetClone(ToolStripMenuItem original)
+    {
+      ToolStripMenuItem clone = new ToolStripMenuItem();
+
+      PropertyInfo[] propertyInfoArray = typeof(ToolStripMenuItem).GetProperties
+        (
+          BindingFlags.Public
+          | BindingFlags.Instance
+        );
+
+      foreach (PropertyInfo property in propertyInfoArray)
+      {
+        if (!property.CanWrite)
+        {
+          continue;
+        }
+
+        object value = property.GetValue(original);
+
+        property.SetValue
+          (
+            clone,
+            value
+          );
+      }
+
+      return clone;
+    }
+
+    /// <summary>
     /// Get an enumerable of some <typeparamref name="ToolStripMenuItem"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
@@ -36,7 +127,7 @@ namespace VACARM.GUI.ViewModels
 
       foreach (var item in idEnumerable)
       {
-        var toolStripMenuItem = this.ToolStripMenuItemRepository
+        ToolStripMenuItem toolStripMenuItem = this.ToolStripMenuItemRepository
           .Get(ContainsId(item));
 
         if (toolStripMenuItem == null)
@@ -44,6 +135,7 @@ namespace VACARM.GUI.ViewModels
           continue;
         }
 
+        toolStripMenuItem.Owner = null;
         yield return toolStripMenuItem;
       }
     }
@@ -55,7 +147,7 @@ namespace VACARM.GUI.ViewModels
     /// <returns>The tool strip menu item.</returns>
     public new ToolStripMenuItem? Get(uint id)
     {
-      var toolStripMenuItem = this.ToolStripMenuItemRepository
+      ToolStripMenuItem toolStripMenuItem = this.ToolStripMenuItemRepository
         .Get(ContainsId(id));
 
       if (toolStripMenuItem == null)
@@ -63,6 +155,7 @@ namespace VACARM.GUI.ViewModels
         return null;
       }
 
+      toolStripMenuItem.Owner = null;
       return toolStripMenuItem;
     }
 
@@ -78,7 +171,14 @@ namespace VACARM.GUI.ViewModels
       string name
     )
     {
-      ToolStripMenuItem toolStripMenuItem = 
+      if (string.IsNullOrWhiteSpace(name))
+      {
+        throw new ArgumentNullException(nameof(name));
+      }
+
+      name = " " + name;
+
+      ToolStripMenuItem toolStripMenuItem =
         DefaultBaseViewModel.SelectToolStripMenuItem;
 
       string text = string.Format
@@ -87,8 +187,8 @@ namespace VACARM.GUI.ViewModels
           name
         );
 
-      toolStripMenuItem.Name = name;
-      toolStripMenuItem.Text = name;
+      toolStripMenuItem.Name = text;
+      toolStripMenuItem.Text = text;
 
       if (func == null)
       {
@@ -135,7 +235,13 @@ namespace VACARM.GUI.ViewModels
       string name
     )
     {
-      var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+      if (string.IsNullOrWhiteSpace(name))
+      {
+        throw new ArgumentNullException(nameof(name));
+      }
+
+      ToolStripMenuItem toolStripMenuItem =
+        DefaultBaseViewModel.SelectToolStripMenuItem;
 
       int idLength = id.ToString()
         .Length;
@@ -188,6 +294,11 @@ namespace VACARM.GUI.ViewModels
       string name
     )
     {
+      if (string.IsNullOrWhiteSpace(name))
+      {
+        throw new ArgumentNullException(nameof(name));
+      }
+
       var idEnumerable = modelEnumerable
         .Where(modelFunc)
         .Select(x => x.Id);
@@ -205,13 +316,19 @@ namespace VACARM.GUI.ViewModels
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    public virtual ToolStripMenuItem GetNewWithDropDownItems
+    public ToolStripMenuItem GetNewWithDropDownItems
     (
       IEnumerable<uint> idEnumerable,
       string name
     )
     {
-      var toolStripMenuItem = SelectToolStripMenuItem;
+      if (string.IsNullOrWhiteSpace(name))
+      {
+        throw new ArgumentNullException(nameof(name));
+      }
+
+      ToolStripMenuItem toolStripMenuItem =
+        DefaultBaseViewModel.SelectToolStripMenuItem;
 
       toolStripMenuItem.Name = string.Format
         (
@@ -229,7 +346,8 @@ namespace VACARM.GUI.ViewModels
 
       else
       {
-        toolStripMenuItem.DropDownItems.AddRange(array);
+        toolStripMenuItem.DropDownItems
+          .AddRange(array);
       }
 
       return toolStripMenuItem;
