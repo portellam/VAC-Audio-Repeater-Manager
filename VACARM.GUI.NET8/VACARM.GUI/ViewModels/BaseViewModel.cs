@@ -133,7 +133,7 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    public virtual ToolStripMenuItem SelectRangeToolStripMenuItem
+    public ToolStripMenuItem SelectRangeToolStripMenuItem
     {
       get
       {
@@ -146,7 +146,7 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    public virtual ToolStripMenuItem SelectToolStripMenuItem
+    public ToolStripMenuItem SelectToolStripMenuItem
     {
       get
       {
