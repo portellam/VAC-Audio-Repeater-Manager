@@ -5,7 +5,7 @@
     #region Parameters
 
     internal static string SelectName = "Select...";
-    internal static string SelectRangeName = "Select All...";
+    internal static string SelectRangeName = "Select All{0}...";
 
     internal static Size Size = new Size
       (
@@ -21,6 +21,7 @@
         DisplayStyle = ToolStripItemDisplayStyle.Text,
         Enabled = true,
         Name = string.Empty,
+        Owner = null,
         Size = Size,
         Text = string.Empty,
         ToolTipText = string.Empty,
@@ -34,6 +35,7 @@
         DisplayStyle = ToolStripMenuItem.DisplayStyle,
         Enabled = ToolStripMenuItem.Enabled,
         Name = "Select All",
+        Owner = null,
         Size = ToolStripMenuItem.Size,
         Text = "Select All",
         ToolTipText = string.Empty,
@@ -47,6 +49,7 @@
         DisplayStyle = ToolStripMenuItem.DisplayStyle,
         Enabled = ToolStripMenuItem.Enabled,
         Name = string.Empty,
+        Owner = null,
         Size = ToolStripMenuItem.Size,
         Text = string.Empty,
         ToolTipText = string.Empty,
@@ -60,6 +63,7 @@
         DisplayStyle = ToolStripMenuItem.DisplayStyle,
         Enabled = ToolStripMenuItem.Enabled,
         Name = "{0}...",
+        Owner = null,
         Size = ToolStripMenuItem.Size,
         Text = "{0}...",
         ToolTipText = string.Empty,
