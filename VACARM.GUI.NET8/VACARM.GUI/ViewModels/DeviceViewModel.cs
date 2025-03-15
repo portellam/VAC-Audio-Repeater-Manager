@@ -373,23 +373,23 @@ namespace VACARM.GUI.ViewModels
       {
         return new ToolStripItem[]
           {
-            GetClone(SelectAllCaptureToolStripMenuItem),
-            GetClone(SelectAllRenderToolStripMenuItem),
+            SelectAllCaptureToolStripMenuItem.GetClone(),
+            SelectAllRenderToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectAllDefaultToolStripMenuItem),
+            SelectAllDefaultToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectAllPresentToolStripMenuItem),
-            GetClone(SelectAllAbsentToolStripMenuItem),
+            SelectAllPresentToolStripMenuItem.GetClone(),
+            SelectAllAbsentToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectAllEnabledToolStripMenuItem),
-            GetClone(SelectAllDisabledToolStripMenuItem),
+            SelectAllEnabledToolStripMenuItem.GetClone(),
+            SelectAllDisabledToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectAllMutedToolStripMenuItem),
-            GetClone(SelectAllUnmutedToolStripMenuItem),
+            SelectAllMutedToolStripMenuItem.GetClone(),
+            SelectAllUnmutedToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectAllCommunicationsToolStripMenuItem),
-            GetClone(SelectAllConsoleToolStripMenuItem),
-            GetClone(SelectAllMultimediaToolStripMenuItem),
+            SelectAllCommunicationsToolStripMenuItem.GetClone(),
+            SelectAllConsoleToolStripMenuItem.GetClone(),
+            SelectAllMultimediaToolStripMenuItem.GetClone(),
           };
       }
     }
@@ -400,23 +400,23 @@ namespace VACARM.GUI.ViewModels
       {
         return new ToolStripItem[]
           {
-            GetClone(SelectCaptureToolStripMenuItem),
-            GetClone(SelectRenderToolStripMenuItem),
+            SelectCaptureToolStripMenuItem.GetClone(),
+            SelectRenderToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectDefaultToolStripMenuItem),
+            SelectDefaultToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectPresentToolStripMenuItem),
-            GetClone(SelectAbsentToolStripMenuItem),
+            SelectPresentToolStripMenuItem.GetClone(),
+            SelectAbsentToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectEnabledToolStripMenuItem),
-            GetClone(SelectDisabledToolStripMenuItem),
+            SelectEnabledToolStripMenuItem.GetClone(),
+            SelectDisabledToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectMutedToolStripMenuItem),
-            GetClone(SelectUnmutedToolStripMenuItem),
+            SelectMutedToolStripMenuItem.GetClone(),
+            SelectUnmutedToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectCommunicationsToolStripMenuItem),
-            GetClone(SelectConsoleToolStripMenuItem),
-            GetClone(SelectMultimediaToolStripMenuItem),
+            SelectCommunicationsToolStripMenuItem.GetClone(),
+            SelectConsoleToolStripMenuItem.GetClone(),
+            SelectMultimediaToolStripMenuItem.GetClone(),
           };
       }
     }
@@ -472,7 +472,7 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    public override Func<DeviceModel, string> NameFunc
+    public override Func<DeviceModel, string> TextFunc
     {
       get
       {

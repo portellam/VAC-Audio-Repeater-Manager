@@ -116,10 +116,11 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        var deviceIdEnumerable = this.DeviceViewModel
+        List<uint> deviceIdEnumerable = this.DeviceViewModel
           .GroupService
           .GetAllDisabled()
-          .Select(x => x.Id);
+          .Select(x => x.Id)
+          .ToList();
 
         return this.GetNew
           (
@@ -291,14 +292,14 @@ namespace VACARM.GUI.ViewModels
       {
         return new ToolStripItem[]
           {
-            GetClone(SelectAllStartedToolStripMenuItem),
-            GetClone(SelectAllStoppedToolStripMenuItem),
+            SelectAllStartedToolStripMenuItem.GetClone(),
+            SelectAllStoppedToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectAllPresentToolStripMenuItem),
-            GetClone(SelectAllAbsentToolStripMenuItem),
+            SelectAllPresentToolStripMenuItem.GetClone(),
+            SelectAllAbsentToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectAllEnabledToolStripMenuItem),
-            GetClone(SelectAllDisabledToolStripMenuItem),
+            SelectAllEnabledToolStripMenuItem.GetClone(),
+            SelectAllDisabledToolStripMenuItem.GetClone(),
           };
       }
     }
@@ -309,14 +310,14 @@ namespace VACARM.GUI.ViewModels
       {
         return new ToolStripItem[]
           {
-            GetClone(SelectStartedToolStripMenuItem),
-            GetClone(SelectStoppedToolStripMenuItem),
+            SelectStartedToolStripMenuItem.GetClone(),
+            SelectStoppedToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectPresentToolStripMenuItem),
-            GetClone(SelectAbsentToolStripMenuItem),
+            SelectPresentToolStripMenuItem.GetClone(),
+            SelectAbsentToolStripMenuItem.GetClone(),
             new ToolStripSeparator(),
-            GetClone(SelectEnabledToolStripMenuItem),
-            GetClone(SelectDisabledToolStripMenuItem),
+            SelectEnabledToolStripMenuItem.GetClone(),
+            SelectDisabledToolStripMenuItem.GetClone(),
           };
       }
     }
@@ -345,7 +346,7 @@ namespace VACARM.GUI.ViewModels
       > DeviceViewModel
     { get; set; }
 
-    public override Func<RepeaterModel, string> NameFunc
+    public override Func<RepeaterModel, string> TextFunc
     {
       get
       {
@@ -364,37 +365,31 @@ namespace VACARM.GUI.ViewModels
     /// <returns>The enumerable of ID(s).</returns>
     private IEnumerable<uint> GetIdRange(IEnumerable<uint> deviceIdEnumerable)
     {
-      IEnumerable<uint> idEnumerable = Array.Empty<uint>();
+      List<uint> idList = new List<uint>();
 
-      if
-      (
-        deviceIdEnumerable == null
-        || deviceIdEnumerable.Count() == 0
-      )
+      if (deviceIdEnumerable.IsNullOrEmpty())
       {
-        return idEnumerable;
+        return idList;
       }
 
       foreach (var item in deviceIdEnumerable)
       {
-        var thisIdEnumerable = this.GroupService
+        List<uint> thisIdList = this.GroupService
           .SelectedRepository
-          .GetRange(RepeaterFunctions<TRepeaterModel>.ContainsDeviceId(item))
-          .Select(x => x.Id);
+          .GetRange(RepeaterFunctions<TRepeaterModel>
+          .ContainsDeviceId(item))
+          .Select(x => x.Id)
+          .ToList();
 
-        if
-        (
-          thisIdEnumerable == null
-          || thisIdEnumerable.Count() == 0
-        )
+        if (idList.IsNullOrEmpty())
         {
           continue;
         }
 
-        idEnumerable.Concat(thisIdEnumerable);
+        idList.Concat(thisIdList);
       }
 
-      return idEnumerable;
+      return idList.AsEnumerable();
     }
 
     /// <summary>
@@ -455,30 +450,27 @@ namespace VACARM.GUI.ViewModels
     /// Get a new <typeparamref name="ToolStripMenuItem"/>.
     /// </summary>
     /// <param name="deviceIdEnumerable">The enumerable of device ID(s)</param>
-    /// <param name="name">The name</param>
+    /// <param name="text">The text</param>
     /// <returns>The tool strip menu item.</returns>
     public ToolStripMenuItem GetNew
     (
       IEnumerable<uint> deviceIdEnumerable,
-      string name
+      string text
     )
     {
-      IEnumerable<uint> idEnumerable = this.GetIdRange(deviceIdEnumerable);
+      List<uint> idList = this.GetIdRange(deviceIdEnumerable)
+        .ToList();
 
       ToolStripMenuItem toolStripMenuItem = 
         DefaultBaseViewModel.SelectToolStripMenuItem;
 
-      toolStripMenuItem.Name = string.Format
+      toolStripMenuItem.Text = string.Format
         (
-          toolStripMenuItem.Name,
-          "with " + name + " devices"
+          toolStripMenuItem.Text,
+          "with " + text + " devices"
         );
 
-      if
-      (
-        idEnumerable == null
-        || idEnumerable.Count() == 0
-      )
+      if (idList.IsNullOrEmpty())
       {
         toolStripMenuItem.Enabled = false;
       }
@@ -488,7 +480,7 @@ namespace VACARM.GUI.ViewModels
         toolStripMenuItem.CheckedChanged +=
           this.SelectRangeCheckedChangedEventHandler
           (
-            idEnumerable,
+            idList,
             true
           );
       }

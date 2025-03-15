@@ -23,14 +23,14 @@
       (ToolStripMenuItem x) => x.Checked;
 
     /// <summary>
-    /// Get the default name.
+    /// Get the default text.
     /// </summary>
     /// <returns>The function.</returns>
-    public virtual Func<TBaseModel, string> NameFunc
+    public virtual Func<TBaseModel, string> TextFunc
     {
       get
       {
-        return (TBaseModel x) => SelectDefaultName;
+        return (TBaseModel x) => SelectDefaultText;
       }
     }
 

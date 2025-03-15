@@ -82,24 +82,20 @@ namespace VACARM.GUI.ViewModels
           DefaultBaseViewModel.SelectAllToolStripMenuItem;
 
         toolStripMenuItem.Size = this.DefaultSize;
+        toolStripMenuItem.ToolTipText = string.Empty;
 
         var enumerable = this.GroupService
           .SelectedRepository
-          .GetAll();
+          .IsNullOrEmpty;
 
-        if
-        (
-          enumerable == null
-          || enumerable.Count() == 0
-        )
-        {
-          toolStripMenuItem.Enabled = false;
-        }
+        toolStripMenuItem.Enabled = this.GroupService
+          .SelectedRepository
+          .IsNullOrEmpty;
 
         toolStripMenuItem.CheckedChanged +=
           this.SelectAllCheckedChangedEventHandler();
 
-        return toolStripMenuItem;
+        return toolStripMenuItem.GetClone();
       }
     }
 
@@ -139,10 +135,11 @@ namespace VACARM.GUI.ViewModels
       {
         return this.GetModified
           (
-            DefaultBaseViewModel.SelectToolStripMenuItem,
+            DefaultBaseViewModel.SelectRangeToolStripMenuItem,
             this.SelectRangeToolStripItemArray,
-            DefaultBaseViewModel.SelectRangeName
-          );
+            DefaultBaseViewModel.SelectRangeText
+          )
+          .GetClone();
       }
     }
 
@@ -154,8 +151,9 @@ namespace VACARM.GUI.ViewModels
           (
             DefaultBaseViewModel.SelectToolStripMenuItem,
             this.SelectToolStripItemArray,
-            DefaultBaseViewModel.SelectName
-          );
+            DefaultBaseViewModel.SelectText
+          )
+          .GetClone();
       }
     }
 
@@ -219,7 +217,7 @@ namespace VACARM.GUI.ViewModels
         >();
 
       this.DefaultSize = defaultSize;
-      this.SelectDefaultName = selectDefaultName;
+      this.SelectDefaultText = selectDefaultName;
       this.Update();
     }
 
@@ -232,22 +230,21 @@ namespace VACARM.GUI.ViewModels
         .SelectedRepository
         .GetAll();
 
-      IEnumerable<ToolStripMenuItem> enumerable = Array.Empty<ToolStripMenuItem>();
+      var list = new List<ToolStripMenuItem>();
 
       foreach (var item in modelEnumerable)
       {
         ToolStripMenuItem toolStripMenuItem = GetNewDropDownItem
           (
             item.Id,
-            this.NameFunc(item)
+            this.TextFunc(item)
           );
 
-        toolStripMenuItem.Owner = null;
-        enumerable.Append(toolStripMenuItem);
+        list.Add(toolStripMenuItem);
       }
 
       this.ToolStripMenuItemRepository =
-        new ReadonlyRepository<ToolStripMenuItem>(enumerable);
+        new ReadonlyRepository<ToolStripMenuItem>(list);
     }
 
     #endregion

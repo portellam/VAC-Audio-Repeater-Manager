@@ -11,7 +11,7 @@ namespace VACARM.GUI.ViewModels
     #region Parameters
 
     public virtual Size DefaultSize { get; set; } = DefaultBaseViewModel.Size;
-    public virtual string SelectDefaultName { get; set; } = string.Empty;
+    public virtual string SelectDefaultText { get; set; } = string.Empty;
 
     #endregion
   }
