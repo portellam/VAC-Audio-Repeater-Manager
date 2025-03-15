@@ -99,12 +99,7 @@ namespace VACARM.GUI.Controllers
     /// <param name="enumerable">The enumerable of argument(s)</param>
     public void ParseRange(IEnumerable<string> enumerable)
     {
-      if (enumerable == null)
-      {
-        return;
-      }
-
-      if (enumerable.Count() == 0)
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }

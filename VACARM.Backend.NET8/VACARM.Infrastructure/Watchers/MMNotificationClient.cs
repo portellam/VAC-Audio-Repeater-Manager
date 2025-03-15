@@ -36,7 +36,11 @@ namespace VACARM.Infrastructure.Watchers
     {
       get
       {
-        if (this.MMDeviceCollection == null)
+        if
+        (
+          this.MMDeviceCollection
+            .IsNullOrEmpty()
+        )
         {
           yield break;
         }

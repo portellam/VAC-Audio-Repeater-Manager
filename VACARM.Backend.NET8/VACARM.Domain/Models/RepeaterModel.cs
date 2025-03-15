@@ -183,7 +183,11 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        if (this.ChannelList == null)
+        if
+        (
+          this.ChannelList
+            .IsNullOrEmpty()
+        )
         {
           return 0;
         }

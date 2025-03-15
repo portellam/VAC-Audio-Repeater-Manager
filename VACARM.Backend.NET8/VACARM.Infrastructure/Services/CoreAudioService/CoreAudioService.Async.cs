@@ -43,7 +43,7 @@ namespace VACARM.Infrastructure.Services
         .GetDevicesAsync()
         .ConfigureAwait(false);
 
-      if (coreAudioDeviceEnumerable == null)
+      if (coreAudioDeviceEnumerable.IsNullOrEmpty())
       {
         return false;
       }
@@ -57,7 +57,6 @@ namespace VACARM.Infrastructure.Services
       }
 
       this.Repository = new ReadonlyRepository<TDevice>(collection);
-
       return true;
     }
 

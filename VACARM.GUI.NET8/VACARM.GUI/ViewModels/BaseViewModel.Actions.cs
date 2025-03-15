@@ -89,6 +89,11 @@
         return;
       }
 
+      if (idEnumerable.IsNullOrEmpty())
+      {
+        return;
+      }
+
       if (!isChecked.HasValue)
       {
         isChecked = false;

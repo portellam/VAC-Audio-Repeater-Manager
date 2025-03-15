@@ -267,7 +267,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public void DeselectRange(IEnumerable<TBaseModel> enumerable)
     {
-      if (enumerable == null)
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }
@@ -280,7 +280,11 @@ namespace VACARM.Infrastructure.Repositories
 
     public void DeselectAll()
     {
-      if (base.Enumerable == null)
+      if
+      (
+        base.Enumerable
+          .IsNullOrEmpty()
+      )
       {
         return;
       }
