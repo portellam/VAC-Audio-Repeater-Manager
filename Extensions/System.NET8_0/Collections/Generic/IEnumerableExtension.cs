@@ -21,7 +21,7 @@ namespace System.Collections.Generic
         return true;
       }
 
-      return source.Count() == 0;
+      return !source.Any();
     }
 
     #endregion
