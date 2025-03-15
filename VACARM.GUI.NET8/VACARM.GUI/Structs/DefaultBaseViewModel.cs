@@ -5,7 +5,7 @@
     #region Parameters
 
     internal static string SelectName = "Select...";
-    internal static string SelectRangeName = "Select All{0}...";
+    internal static string SelectRangeName = "Select All...";
 
     internal static Size Size = new Size
       (
