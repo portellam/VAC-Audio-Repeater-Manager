@@ -78,7 +78,8 @@ namespace VACARM.GUI.ViewModels
       string name
     )
     {
-      var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+      ToolStripMenuItem toolStripMenuItem = 
+        DefaultBaseViewModel.SelectToolStripMenuItem;
 
       string text = string.Format
         (
