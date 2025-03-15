@@ -285,38 +285,38 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    protected override IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
+    protected override ToolStripItem[] SelectRangeToolStripItemArray
     {
       get
       {
         return new ToolStripItem[]
           {
-            SelectAllStartedToolStripMenuItem,
-            SelectAllStoppedToolStripMenuItem,
+            GetClone(SelectAllStartedToolStripMenuItem),
+            GetClone(SelectAllStoppedToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectAllPresentToolStripMenuItem,
-            SelectAllAbsentToolStripMenuItem,
+            GetClone(SelectAllPresentToolStripMenuItem),
+            GetClone(SelectAllAbsentToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectAllEnabledToolStripMenuItem,
-            SelectAllDisabledToolStripMenuItem,
+            GetClone(SelectAllEnabledToolStripMenuItem),
+            GetClone(SelectAllDisabledToolStripMenuItem),
           };
       }
     }
 
-    protected override IEnumerable<ToolStripItem> SelectToolStripItemEnumerable
+    protected override ToolStripItem[] SelectToolStripItemArray
     {
       get
       {
         return new ToolStripItem[]
           {
-            SelectStartedToolStripMenuItem,
-            SelectStoppedToolStripMenuItem,
+            GetClone(SelectStartedToolStripMenuItem),
+            GetClone(SelectStoppedToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectPresentToolStripMenuItem,
-            SelectAbsentToolStripMenuItem,
+            GetClone(SelectPresentToolStripMenuItem),
+            GetClone(SelectAbsentToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectEnabledToolStripMenuItem,
-            SelectDisabledToolStripMenuItem,
+            GetClone(SelectEnabledToolStripMenuItem),
+            GetClone(SelectDisabledToolStripMenuItem),
           };
       }
     }
@@ -465,7 +465,8 @@ namespace VACARM.GUI.ViewModels
     {
       IEnumerable<uint> idEnumerable = this.GetIdRange(deviceIdEnumerable);
 
-      var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
+      ToolStripMenuItem toolStripMenuItem = 
+        DefaultBaseViewModel.SelectToolStripMenuItem;
 
       toolStripMenuItem.Name = string.Format
         (
@@ -501,34 +502,25 @@ namespace VACARM.GUI.ViewModels
     /// <param name="deviceIdEnumerable">The enumerable of device ID(s)</param>
     /// <param name="name">The name</param>
     /// <returns>The tool strip menu item.</returns>
-    public override ToolStripMenuItem GetNewWithDropDownItems
+    public new ToolStripMenuItem GetNewWithDropDownItems
     (
       IEnumerable<uint> deviceIdEnumerable,
       string name
     )
     {
-      IEnumerable<uint> idEnumerable = this.GetIdRange(deviceIdEnumerable);
+      if (string.IsNullOrWhiteSpace(name))
+      {
+        throw new ArgumentNullException(nameof(name));
+      }
 
-      var toolStripMenuItem = SelectToolStripMenuItem;
+      var idEnumerable = this.GetIdRange(deviceIdEnumerable);
 
-      toolStripMenuItem.Name = string.Format
+      ToolStripMenuItem toolStripMenuItem = 
+        base.GetNewWithDropDownItems
         (
-          toolStripMenuItem.Name,
-          "with " + name + " devices"
+          idEnumerable,
+          name
         );
-
-      var array = this.GetRange(idEnumerable)
-        .ToArray();
-
-      if (array.Length == 0)
-      {
-        toolStripMenuItem.Enabled = false;
-      }
-
-      else
-      {
-        toolStripMenuItem.DropDownItems.AddRange(array);
-      }
 
       return toolStripMenuItem;
     }
