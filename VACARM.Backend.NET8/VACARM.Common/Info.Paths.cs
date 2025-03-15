@@ -73,7 +73,7 @@ namespace VACARM.Common
           )
         );
 
-        if (StringExtension.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(name))
         {
           name = "C:\\";
         }
