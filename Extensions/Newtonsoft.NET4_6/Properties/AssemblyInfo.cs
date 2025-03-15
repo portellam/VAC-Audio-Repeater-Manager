@@ -5,14 +5,14 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Newtonsoft")]
-[assembly: AssemblyDescription("A library package which extends Newtonsoft. Includes backported and custom logic.")]
-[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Newtonsoft")]
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: AssemblyDescription("A library package which extends Newtonsoft. Includes backported and custom logic.")]
+[assembly: AssemblyProduct("Newtonsoft")]
+[assembly: AssemblyTitle("Newtonsoft")]
+[assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
