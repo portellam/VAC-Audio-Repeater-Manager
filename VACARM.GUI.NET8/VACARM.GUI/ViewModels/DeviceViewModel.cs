@@ -1,4 +1,5 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Reflection;
+using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
@@ -269,6 +270,7 @@ namespace VACARM.GUI.ViewModels
           );
       }
     }
+
     private ToolStripMenuItem SelectAllDefaultToolStripMenuItem
     {
       get
@@ -365,56 +367,56 @@ namespace VACARM.GUI.ViewModels
       }
     }
 
-    protected override IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
+    protected override ToolStripItem[] SelectRangeToolStripItemArray
     {
       get
       {
         return new ToolStripItem[]
           {
-            SelectAllCaptureToolStripMenuItem,
-            SelectAllRenderToolStripMenuItem,
+            GetClone(SelectAllCaptureToolStripMenuItem),
+            GetClone(SelectAllRenderToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectAllDefaultToolStripMenuItem,
+            GetClone(SelectAllDefaultToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectAllPresentToolStripMenuItem,
-            SelectAllAbsentToolStripMenuItem,
+            GetClone(SelectAllPresentToolStripMenuItem),
+            GetClone(SelectAllAbsentToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectAllEnabledToolStripMenuItem,
-            SelectAllDisabledToolStripMenuItem,
+            GetClone(SelectAllEnabledToolStripMenuItem),
+            GetClone(SelectAllDisabledToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectAllMutedToolStripMenuItem,
-            SelectAllUnmutedToolStripMenuItem,
+            GetClone(SelectAllMutedToolStripMenuItem),
+            GetClone(SelectAllUnmutedToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectAllCommunicationsToolStripMenuItem,
-            SelectAllConsoleToolStripMenuItem,
-            SelectAllMultimediaToolStripMenuItem
+            GetClone(SelectAllCommunicationsToolStripMenuItem),
+            GetClone(SelectAllConsoleToolStripMenuItem),
+            GetClone(SelectAllMultimediaToolStripMenuItem),
           };
       }
     }
 
-    protected override IEnumerable<ToolStripItem> SelectToolStripItemEnumerable
+    protected override ToolStripItem[] SelectToolStripItemArray
     {
       get
       {
         return new ToolStripItem[]
           {
-            SelectCaptureToolStripMenuItem,
-            SelectRenderToolStripMenuItem,
+            GetClone(SelectCaptureToolStripMenuItem),
+            GetClone(SelectRenderToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectDefaultToolStripMenuItem,
+            GetClone(SelectDefaultToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectPresentToolStripMenuItem,
-            SelectAbsentToolStripMenuItem,
+            GetClone(SelectPresentToolStripMenuItem),
+            GetClone(SelectAbsentToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectEnabledToolStripMenuItem,
-            SelectDisabledToolStripMenuItem,
+            GetClone(SelectEnabledToolStripMenuItem),
+            GetClone(SelectDisabledToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectMutedToolStripMenuItem,
-            SelectUnmutedToolStripMenuItem,
+            GetClone(SelectMutedToolStripMenuItem),
+            GetClone(SelectUnmutedToolStripMenuItem),
             new ToolStripSeparator(),
-            SelectCommunicationsToolStripMenuItem,
-            SelectConsoleToolStripMenuItem,
-            SelectMultimediaToolStripMenuItem
+            GetClone(SelectCommunicationsToolStripMenuItem),
+            GetClone(SelectConsoleToolStripMenuItem),
+            GetClone(SelectMultimediaToolStripMenuItem),
           };
       }
     }
