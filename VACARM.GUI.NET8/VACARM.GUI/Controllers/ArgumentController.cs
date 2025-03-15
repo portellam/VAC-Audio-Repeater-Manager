@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using VACARM.Infrastructure.Extensions;
 using VACARM.Infrastructure.Services;
 
 namespace VACARM.GUI.Controllers
@@ -78,7 +77,7 @@ namespace VACARM.GUI.Controllers
         var value = this.INIService
           .Read(item);
 
-        if (StringExtension.IsNullOrEmptyOrWhitespace(value))
+        if (string.IsNullOrWhiteSpace(value))
         {
           continue;
         }
