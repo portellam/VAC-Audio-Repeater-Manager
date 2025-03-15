@@ -7,7 +7,6 @@
 	<ApplicationVisualStyles>true</ApplicationVisualStyles>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Company>Alexander Portell &lt;github.com/portellam&gt;</Company>
-    <Description>Graphical user interface (GUI) to create, manage, and automate instances of Virtual Audio Cable (VAC) audio repeaters. This application version supports Microsoft Windows 10 version 1809 and newer. "Virtual Audio Cable" and "VAC" Copyright © 1998-2024 Eugene V. Muzychenko.</Description>
     <FileVersion>1.0.0</FileVersion>
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -27,7 +26,7 @@
     <Version>1.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\VACARM.Assembly\AssemblyInfo.cs">
+    <Compile Include="..\..\VACARM.GUI\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
       <DesignTime>True</DesignTime>

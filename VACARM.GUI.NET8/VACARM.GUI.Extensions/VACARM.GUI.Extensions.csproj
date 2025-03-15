@@ -5,6 +5,7 @@
     <Description></Description>
     <FileVersion>1.0.0</FileVersion>
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <OutputType>Library</OutputType>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -17,7 +18,7 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\VACARM.Assembly\AssemblyInfo.cs">
+    <Compile Include="..\..\VACARM.GUI\AssemblyInfo.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
