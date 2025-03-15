@@ -18,7 +18,7 @@ namespace VACARM.GUI.ViewModels
 
     #region Logic
 
-    // <summary>
+    /// <summary>
     /// Logs event when property has changed.
     /// </summary>
     /// <param name="propertyName">The property name</param>
