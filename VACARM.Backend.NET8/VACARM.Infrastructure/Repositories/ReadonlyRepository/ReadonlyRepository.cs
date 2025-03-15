@@ -13,12 +13,12 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    private IEnumerable<TItem> enumerable { get; set; }
+    private IEnumerable<TItem> enumerable { get; set; }  //FIXME: change to a List? Cannot be an interface.
 
     /// <summary>
     /// The enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
-    protected virtual IEnumerable<TItem> Enumerable
+    protected virtual IEnumerable<TItem> Enumerable  //FIXME: allow to be set dynamically? Or change to a List? Cannot be an interface.
     {
       get
       {
