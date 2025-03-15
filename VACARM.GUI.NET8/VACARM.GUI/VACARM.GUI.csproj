@@ -48,7 +48,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\VACARM.Assembly\AssemblyInfo.tt" Link="AssemblyInfo.tt">
+    <None Include="..\..\VACARM.GUI\AssemblyInfo.tt" Link="AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
     </None>

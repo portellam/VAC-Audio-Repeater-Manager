@@ -63,7 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\VACARM.Assembly\AssemblyInfo.tt">
+    <Content Include="..\..\VACARM.Backend\AssemblyInfo.tt">
       <Link>AssemblyInfo.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>

@@ -7,7 +7,7 @@ namespace VACARM.Common
     #region Parameters
 
     public static string[] FilePathNames { get; set; } = 
-      System.ArrayExtension.Empty<string>();
+      ArrayExtension.Empty<string>();
 
     #endregion
   }
