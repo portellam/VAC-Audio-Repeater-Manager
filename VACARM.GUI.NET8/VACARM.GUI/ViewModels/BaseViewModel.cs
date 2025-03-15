@@ -1,4 +1,5 @@
-﻿using VACARM.Domain.Models;
+﻿using System.Windows.Forms;
+using VACARM.Domain.Models;
 using VACARM.GUI.Structs;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Services;
@@ -57,17 +58,29 @@ namespace VACARM.GUI.ViewModels
     > groupService
     { get; set; }
 
-    protected virtual IEnumerable<ToolStripItem> SelectRangeToolStripItemEnumerable
+    /// <summary>
+    /// <see langword="NOTE:"/> Please use <see cref="GetClone"/> for each
+    /// referenced <typeparamref name="ToolStripItem"/> when appending to the
+    /// array.
+    /// </summary>
+    protected virtual ToolStripItem[] SelectRangeToolStripItemArray
     { get; }
 
-    protected virtual IEnumerable<ToolStripItem> SelectToolStripItemEnumerable
+    /// <summary>
+    /// <see langword="NOTE:"/> Please use <see cref="GetClone"/> for each
+    /// referenced <typeparamref name="ToolStripItem"/> when appending to the
+    /// array.
+    /// </summary>
+    protected virtual ToolStripItem[] SelectToolStripItemArray
     { get; }
 
     public ToolStripMenuItem SelectAllToolStripMenuItem
     {
       get
       {
-        var toolStripMenuItem = DefaultBaseViewModel.SelectAllToolStripMenuItem;
+        ToolStripMenuItem toolStripMenuItem =
+          DefaultBaseViewModel.SelectAllToolStripMenuItem;
+
         toolStripMenuItem.Size = this.DefaultSize;
 
         var enumerable = this.GroupService
@@ -124,30 +137,12 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
-        toolStripMenuItem.Name = DefaultBaseViewModel.SelectRangeName;
-        toolStripMenuItem.Text = DefaultBaseViewModel.SelectRangeName;
-        toolStripMenuItem.Size = this.DefaultSize;
-        var anyEnabled = false;
-
-        var array = this.SelectRangeToolStripItemEnumerable
-          .ToArray();
-
-        foreach (var item in array)
-        {
-          if (item.Enabled)
-          {
-            anyEnabled = true;
-            break;
-          }
-        }
-
-        toolStripMenuItem.Enabled = anyEnabled;
-
-        toolStripMenuItem.DropDownItems
-          .AddRange(array);
-
-        return toolStripMenuItem;
+        return this.GetModified
+          (
+            DefaultBaseViewModel.SelectToolStripMenuItem,
+            this.SelectRangeToolStripItemArray,
+            DefaultBaseViewModel.SelectRangeName
+          );
       }
     }
 
@@ -155,30 +150,12 @@ namespace VACARM.GUI.ViewModels
     {
       get
       {
-        var toolStripMenuItem = DefaultBaseViewModel.SelectToolStripMenuItem;
-        toolStripMenuItem.Name = DefaultBaseViewModel.SelectName;
-        toolStripMenuItem.Text = DefaultBaseViewModel.SelectName;
-        toolStripMenuItem.Size = this.DefaultSize;
-        var anyEnabled = false;
-
-        var array = this.SelectToolStripItemEnumerable
-          .ToArray();
-
-        foreach (var item in array)
-        {
-          if (item.Enabled)
-          {
-            anyEnabled = true;
-            break;
-          }
-        }
-
-        toolStripMenuItem.Enabled = anyEnabled;
-
-        toolStripMenuItem.DropDownItems
-          .AddRange(array);
-
-        return toolStripMenuItem;
+        return this.GetModified
+          (
+            DefaultBaseViewModel.SelectToolStripMenuItem,
+            this.SelectToolStripItemArray,
+            DefaultBaseViewModel.SelectName
+          );
       }
     }
 
@@ -259,12 +236,13 @@ namespace VACARM.GUI.ViewModels
 
       foreach (var item in modelEnumerable)
       {
-        var toolStripMenuItem = GetNewDropDownItem
+        ToolStripMenuItem toolStripMenuItem = GetNewDropDownItem
           (
             item.Id,
             this.NameFunc(item)
           );
 
+        toolStripMenuItem.Owner = null;
         enumerable.Append(toolStripMenuItem);
       }
 
