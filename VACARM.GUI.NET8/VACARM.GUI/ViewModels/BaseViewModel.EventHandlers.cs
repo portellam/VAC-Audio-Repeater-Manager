@@ -31,7 +31,7 @@
               return;
             }
 
-            var toolStripMenuItem = sender as ToolStripMenuItem;
+            ToolStripMenuItem toolStripMenuItem = sender as ToolStripMenuItem;
             string idString = IdFunc(toolStripMenuItem);
 
             uint id;
