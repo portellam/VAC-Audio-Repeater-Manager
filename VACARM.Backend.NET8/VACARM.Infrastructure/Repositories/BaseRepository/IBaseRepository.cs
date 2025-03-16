@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using VACARM.Domain.Models;
 
-namespace VACARM.Infrastructure.Repositories.BaseRepository
+namespace VACARM.Infrastructure.Repositories
 {
   public interface IBaseRepository<TBaseModel>
     where TBaseModel :

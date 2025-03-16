@@ -4,12 +4,16 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
-using VACARM.Infrastructure.Repositories.BaseRepository;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Repositories
 {
   public partial class BaseRepository<TBaseModel> :
-    ReadonlyRepository<TBaseModel>,
+    Repository
+    <
+      List<TBaseModel>,
+      TBaseModel
+    >,
     IBaseRepository<TBaseModel>
     where TBaseModel :
     BaseModel
@@ -48,22 +52,6 @@ namespace VACARM.Infrastructure.Repositories
 
     private int maxCount { get; set; } = int.MaxValue;
 
-    private List<TBaseModel> enumerable { get; set; }
-
-    protected new virtual List<TBaseModel> Enumerable
-    {
-      get
-      {
-        return this.enumerable;
-      }
-      set
-      {
-        this.enumerable = value;
-        base.Enumerable = value;
-        base.OnPropertyChanged(nameof(this.Enumerable));
-      }
-    }
-
     public IEnumerable<uint> DeselectedIdEnumerable
     {
       get
@@ -101,9 +89,8 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     [ExcludeFromCodeCoverage]
     public BaseRepository() :
-      base()
+      base(new List<TBaseModel>())
     {
-      this.Enumerable = new List<TBaseModel>();
     }
 
     /// <summary>
@@ -119,7 +106,6 @@ namespace VACARM.Infrastructure.Repositories
     ) :
       base(list)
     {
-      this.Enumerable = list;
       this.MaxCount = maxCount;
     }
 
