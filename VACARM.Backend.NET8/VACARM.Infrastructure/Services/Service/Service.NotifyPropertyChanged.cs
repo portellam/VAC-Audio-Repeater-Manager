@@ -6,6 +6,7 @@ namespace VACARM.Infrastructure.Services
   public partial class Service
     <
       TRepository,
+      TEnumerable,
       TItem
     > :
     INotifyPropertyChanged

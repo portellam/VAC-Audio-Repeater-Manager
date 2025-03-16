@@ -11,27 +11,40 @@ namespace VACARM.Infrastructure.Services
   public partial class Service
     <
       TRepository,
+      TEnumerable,
       TItem
     > :
     IService
     <
       TRepository,
+      TEnumerable,
       TItem
     >
     where TRepository :
     Repository
     <
-      IEnumerable<TItem>,
+      TEnumerable,
       TItem
     >
+    where TEnumerable :
+    IEnumerable<TItem>
     where TItem :
     class
   {
     #region Parameters
 
-    private Repository<IEnumerable<TItem>, TItem> repository { get; set; }
+    private Repository
+      <
+        TEnumerable,
+        TItem
+      > repository
+    { get; set; }
 
-    protected virtual Repository<IEnumerable<TItem>, TItem> Repository
+    protected virtual Repository
+      <
+        TEnumerable,
+        TItem
+      > Repository
     {
       get
       {
@@ -53,11 +66,11 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="repository">The enumerable</param>
     [ExcludeFromCodeCoverage]
-    public Service(IEnumerable<TItem> enumerable)
+    public Service(TEnumerable enumerable)
     {
       this.Repository = new Repository
         <
-          IEnumerable<TItem>,
+          TEnumerable,
           TItem
         >(enumerable);
     }
@@ -70,7 +83,7 @@ namespace VACARM.Infrastructure.Services
     (
       Repository
       <
-        IEnumerable<TItem>,
+        TEnumerable,
         TItem
       > repository
     )

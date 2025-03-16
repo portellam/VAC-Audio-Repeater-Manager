@@ -8,16 +8,9 @@ namespace VACARM.Infrastructure.Services
   public partial interface IService
     <
       TRepository,
+      TEnumerable,
       TItem
     >
-    where TRepository :
-    Repository
-    <
-      IEnumerable<TItem>,
-      TItem
-    >
-    where TItem :
-    class
   {
     #region Parameters
 
