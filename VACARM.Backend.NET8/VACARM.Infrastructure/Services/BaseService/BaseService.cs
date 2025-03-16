@@ -9,7 +9,7 @@ namespace VACARM.Infrastructure.Services
       TRepository,
       TBaseModel
     > :
-    ReadonlyService
+    Service
     <
       BaseRepository<TBaseModel>,
       TBaseModel

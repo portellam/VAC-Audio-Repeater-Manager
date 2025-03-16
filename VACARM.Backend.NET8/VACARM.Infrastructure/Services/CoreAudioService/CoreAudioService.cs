@@ -18,7 +18,7 @@ namespace VACARM.Infrastructure.Services
       TRepository,
       TDevice
     > :
-    ReadonlyService
+    Service
     <
       ReadonlyRepository<TDevice>,
       TDevice

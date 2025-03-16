@@ -6,14 +6,14 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Infrastructure.Services
 {
   /// <summary>
-  /// The readonly service for <typeparamref name="TRepository"/>.
+  /// The service for <typeparamref name="TRepository"/>.
   /// </summary>
-  public partial class ReadonlyService
+  public partial class Service
     <
       TRepository,
       TItem
     > :
-    IReadonlyService
+    IService
     <
       TRepository,
       TItem
@@ -53,7 +53,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="repository">The enumerable</param>
     [ExcludeFromCodeCoverage]
-    public ReadonlyService(IEnumerable<TItem> enumerable)
+    public Service(IEnumerable<TItem> enumerable)
     {
       this.Repository = new Repository
         <
@@ -66,7 +66,7 @@ namespace VACARM.Infrastructure.Services
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public ReadonlyService
+    public Service
     (
       Repository
       <

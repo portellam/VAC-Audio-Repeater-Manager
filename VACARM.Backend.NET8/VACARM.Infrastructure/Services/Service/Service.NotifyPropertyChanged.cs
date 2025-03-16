@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial class ReadonlyService
+  public partial class Service
     <
       TRepository,
       TItem

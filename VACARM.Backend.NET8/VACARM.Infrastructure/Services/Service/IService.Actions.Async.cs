@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface IReadonlyService
+  public partial interface IService
     <
       TRepository, 
       TItem

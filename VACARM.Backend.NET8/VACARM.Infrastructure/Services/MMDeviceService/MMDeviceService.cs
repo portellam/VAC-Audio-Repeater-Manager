@@ -19,7 +19,7 @@ namespace VACARM.Infrastructure.Services
       TRepository,
       TMMDevice
     > :
-    ReadonlyService
+    Service
     <
       Repository<TMMDevice>,
       TMMDevice
