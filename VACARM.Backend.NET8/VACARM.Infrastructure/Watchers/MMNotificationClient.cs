@@ -131,12 +131,22 @@ namespace VACARM.Infrastructure.Watchers
 
       foreach (DataFlow dataFlow in DataFlowEnumArray)
       {
-        var item = this.MMDeviceEnumerator
-          .GetDefaultAudioEndpoint
-          (
-            dataFlow,
-            role
-          );
+        MMDevice item;
+
+        try
+        {
+          item = this.MMDeviceEnumerator
+            .GetDefaultAudioEndpoint
+            (
+              dataFlow,
+              role
+            );
+        }
+
+        catch
+        {
+          continue;
+        }
 
         yield return item;
       }
