@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using VACARM.Infrastructure.Repositories.ReadonlyRepository;
+using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Repositories
 {
