@@ -16,21 +16,34 @@ namespace VACARM.Infrastructure.Services
   public partial class CoreAudioService
     <
       TRepository,
+      TEnumerable,
       TDevice
     > :
     Service
     <
-      ReadonlyRepository<TDevice>,
+      Repository
+      <
+        IList<TDevice>,
+        TDevice
+      >,
+      IList<TDevice>,
       TDevice
     >,
     IDisposable,
     ICoreAudioService
     <
-      ReadonlyRepository<TDevice>,
+      TRepository,
+      TEnumerable,
       TDevice
     >
     where TRepository :
-    ReadonlyRepository<TDevice>
+    Repository
+    <
+      TEnumerable,
+      TDevice
+    >
+    where TEnumerable :
+    IList<TDevice>
     where TDevice :
     Device
   {
@@ -101,13 +114,9 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     [ExcludeFromCodeCoverage]
     public CoreAudioService() :
-      base()
+      base(new List<TDevice>())
     {
       this.Controller = new CoreAudioController();
-
-      base.Repository = new ReadonlyRepository<TDevice>
-        (new ObservableCollection<TDevice>());
-
       var result = this.UpdateServiceAsync();
     }
 

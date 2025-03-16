@@ -7,12 +7,9 @@ namespace VACARM.Infrastructure.Services
   public partial interface ICoreAudioService
     <
       TRepository,
+      TEnumerable,
       TDevice
     >
-    where TRepository :
-    ReadonlyRepository<TDevice>
-    where TDevice :
-    Device
   {
     #region Logic
 

@@ -10,6 +10,7 @@ namespace VACARM.Infrastructure.Services
   public partial class CoreAudioService
     <
       TRepository,
+      TEnumerable,
       TDevice
     >
   {

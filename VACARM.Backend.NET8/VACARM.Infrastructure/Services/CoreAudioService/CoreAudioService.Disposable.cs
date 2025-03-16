@@ -3,6 +3,7 @@
   public partial class CoreAudioService
     <
       TRepository,
+      TEnumerable,
       TDevice
     >
   {
