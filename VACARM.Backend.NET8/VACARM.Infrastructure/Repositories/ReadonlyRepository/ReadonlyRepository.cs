@@ -6,6 +6,10 @@ using VACARM.Infrastructure.Repositories.ReadonlyRepository;
 
 namespace VACARM.Infrastructure.Repositories
 {
+  /// <summary>
+  /// The generic repository to be inherited and overrided.
+  /// </summary>
+  /// <typeparam name="TItem"></typeparam>
   public partial class Repository<TItem> :
     IRepository<TItem>
     where TItem :
