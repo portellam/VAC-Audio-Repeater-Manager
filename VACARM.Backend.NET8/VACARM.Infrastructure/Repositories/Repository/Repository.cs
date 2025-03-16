@@ -27,10 +27,23 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
+    private TEnumerable enumerable { get; set; }
+
     /// <summary>
     /// The enumerable of item(s).
     /// </summary>
-    protected TEnumerable Enumerable { get; set; }
+    protected TEnumerable Enumerable
+    { 
+      get
+      {
+        return this.enumerable;
+      }
+      set
+      {
+        this.enumerable = value;
+        this.OnPropertyChanged(nameof(this.Enumerable));
+      }
+    }
 
     public virtual bool IsNullOrEmpty
     {
