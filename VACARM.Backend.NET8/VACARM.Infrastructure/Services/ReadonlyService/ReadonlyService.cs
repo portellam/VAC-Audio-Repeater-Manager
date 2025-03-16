@@ -15,29 +15,32 @@ namespace VACARM.Infrastructure.Services
     > :
     IReadonlyService
     <
-      ReadonlyRepository<TItem>,
+      TRepository,
       TItem
     >
     where TRepository :
-    ReadonlyRepository<TItem>
+    Repository
+    <
+      IEnumerable<TItem>,
+      TItem
+    >
     where TItem :
     class
   {
     #region Parameters
 
-    private ReadonlyRepository<TItem> readonlyRepository { get; set; } =
-      new ReadonlyRepository<TItem>();
+    private Repository<IEnumerable<TItem>, TItem> repository { get; set; }
 
-    protected virtual ReadonlyRepository<TItem> Repository
+    protected virtual Repository<IEnumerable<TItem>, TItem> Repository
     {
       get
       {
-        return this.readonlyRepository;
+        return this.repository;
       }
       set
       {
-        this.readonlyRepository = value;
-        OnPropertyChanged(nameof(this.Repository));
+        this.repository = value;
+        this.OnPropertyChanged(nameof(this.Repository));
       }
     }
 
@@ -48,17 +51,29 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    /// <param name="repository">The enumerable</param>
     [ExcludeFromCodeCoverage]
-    public ReadonlyService()
+    public ReadonlyService(IEnumerable<TItem> enumerable)
     {
-      this.Repository = new ReadonlyRepository<TItem>();
+      this.Repository = new Repository
+        <
+          IEnumerable<TItem>,
+          TItem
+        >(enumerable);
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="repository">The repository</param>
-    public ReadonlyService(ReadonlyRepository<TItem> repository)
+    public ReadonlyService
+    (
+      Repository
+      <
+        IEnumerable<TItem>,
+        TItem
+      > repository
+    )
     {
       this.Repository = repository;
     }

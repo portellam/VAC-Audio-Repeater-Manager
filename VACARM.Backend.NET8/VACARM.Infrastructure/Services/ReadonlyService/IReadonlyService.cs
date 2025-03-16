@@ -7,11 +7,15 @@ namespace VACARM.Infrastructure.Services
 {
   public partial interface IReadonlyService
     <
-      TRepository, 
+      TRepository,
       TItem
-    > 
+    >
     where TRepository :
-    ReadonlyRepository<TItem> 
+    Repository
+    <
+      IEnumerable<TItem>,
+      TItem
+    >
     where TItem :
     class
   {
