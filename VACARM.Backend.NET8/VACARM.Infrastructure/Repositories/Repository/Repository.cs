@@ -7,7 +7,7 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Infrastructure.Repositories
 {
   /// <summary>
-  /// The generic repository to be inherited and overrided.
+  /// The repository to be inherited and overrided.
   /// </summary>
   /// <typeparam name="TItem"></typeparam>
   public partial class Repository
