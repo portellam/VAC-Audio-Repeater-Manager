@@ -4,7 +4,13 @@ using System.ComponentModel;
 
 namespace VACARM.Infrastructure.Repositories.ReadonlyRepository
 {
-  public interface IRepository<TItem>
+  public interface IRepository
+    <
+      TEnumerable,
+      TItem
+    >
+    where TEnumerable :
+    IEnumerable<TItem>
     where TItem :
     class
   {

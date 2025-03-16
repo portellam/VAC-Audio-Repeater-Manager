@@ -2,7 +2,11 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public partial class Repository<TItem> :
+  public partial class Repository
+    <
+      TEnumerable,
+      TItem
+    > :
     IDisposable
   {
     #region Parameters

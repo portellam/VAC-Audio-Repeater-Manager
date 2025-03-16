@@ -10,17 +10,27 @@ namespace VACARM.Infrastructure.Repositories
   /// The generic repository to be inherited and overrided.
   /// </summary>
   /// <typeparam name="TItem"></typeparam>
-  public partial class Repository<TItem> :
-    IRepository<TItem>
+  public partial class Repository
+    <
+      TEnumerable,
+      TItem
+    > :
+    IRepository
+    <
+      TEnumerable,
+      TItem
+    >
+    where TEnumerable :
+    IEnumerable<TItem>
     where TItem :
     class
   {
     #region Parameters
 
     /// <summary>
-    /// The enumerable of all <typeparamref name="TItem"/>(s).
+    /// The enumerable of item(s).
     /// </summary>
-    protected virtual IEnumerable<TItem> Enumerable { get; set; }
+    protected TEnumerable Enumerable { get; set; }
 
     public virtual bool IsNullOrEmpty
     {
@@ -39,9 +49,9 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public Repository(IEnumerable<TItem> enumerable)
+    public Repository(TEnumerable enumerable)
     {
-      this.Enumerable = enumerable;
+      Enumerable = enumerable;
     }
 
     public TItem Get(Func<TItem, bool> func)
