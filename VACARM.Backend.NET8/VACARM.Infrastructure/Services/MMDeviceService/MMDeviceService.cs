@@ -21,7 +21,7 @@ namespace VACARM.Infrastructure.Services
     > :
     ReadonlyService
     <
-      ReadonlyRepository<TMMDevice>,
+      Repository<TMMDevice>,
       TMMDevice
     >,
     IDisposable,
@@ -31,13 +31,13 @@ namespace VACARM.Infrastructure.Services
       TMMDevice
     >
     where TRepository :
-    ReadonlyRepository<MMDevice>
+    Repository<MMDevice>
     where TMMDevice :
     MMDevice
   {
     #region Parameters
 
-    internal ReadonlyRepository<TMMDevice> DefaultCommunicationsReadonlyRepository
+    internal Repository<TMMDevice> DefaultCommunicationsReadonlyRepository
     {
       get
       {
@@ -50,7 +50,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    internal ReadonlyRepository<TMMDevice> DefaultConsoleReadonlyRepository
+    internal Repository<TMMDevice> DefaultConsoleReadonlyRepository
     {
       get
       {
@@ -63,7 +63,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    internal ReadonlyRepository<TMMDevice> DefaultMultimediaReadonlyRepository
+    internal Repository<TMMDevice> DefaultMultimediaReadonlyRepository
     {
       get
       {
@@ -78,14 +78,14 @@ namespace VACARM.Infrastructure.Services
 
     private MMNotificationClient MMNotificationClient { get; set; }
 
-    private ReadonlyRepository<TMMDevice> defaultCommunicationsReadonlyRepository
-    { get; set; } = new ReadonlyRepository<TMMDevice>();
+    private Repository<TMMDevice> defaultCommunicationsReadonlyRepository
+    { get; set; } = new Repository<TMMDevice>();
 
-    private ReadonlyRepository<TMMDevice> defaultConsoleReadonlyRepository
-    { get; set; } = new ReadonlyRepository<TMMDevice>();
+    private Repository<TMMDevice> defaultConsoleReadonlyRepository
+    { get; set; } = new Repository<TMMDevice>();
 
-    private ReadonlyRepository<TMMDevice> defaultMultimediaReadonlyRepository
-    { get; set; } = new ReadonlyRepository<TMMDevice>();
+    private Repository<TMMDevice> defaultMultimediaReadonlyRepository
+    { get; set; } = new Repository<TMMDevice>();
 
     #endregion
 
@@ -98,16 +98,16 @@ namespace VACARM.Infrastructure.Services
     public MMDeviceService() :
       base()
     {
-      base.Repository = new ReadonlyRepository<TMMDevice>();
+      base.Repository = new Repository<TMMDevice>();
 
       this.DefaultCommunicationsReadonlyRepository =
-        new ReadonlyRepository<TMMDevice>();
+        new Repository<TMMDevice>();
 
       DefaultConsoleReadonlyRepository =
-        new ReadonlyRepository<TMMDevice>();
+        new Repository<TMMDevice>();
 
       this.DefaultMultimediaReadonlyRepository =
-        new ReadonlyRepository<TMMDevice>();
+        new Repository<TMMDevice>();
 
       this.MMNotificationClient = new MMNotificationClient(this.UpdateService);
       this.UpdateService();

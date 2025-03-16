@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public partial class ReadonlyRepository<TItem>
+  public partial class Repository<TItem>
   {
     #region Parameters
 

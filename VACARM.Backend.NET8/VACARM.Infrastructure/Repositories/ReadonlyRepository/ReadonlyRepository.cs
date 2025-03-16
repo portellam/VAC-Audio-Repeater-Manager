@@ -6,36 +6,23 @@ using VACARM.Infrastructure.Repositories.ReadonlyRepository;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public partial class ReadonlyRepository<TItem> :
-    IReadonlyRepository<TItem>
+  public partial class Repository<TItem> :
+    IRepository<TItem>
     where TItem :
     class
   {
     #region Parameters
 
-    private IEnumerable<TItem> enumerable { get; set; }  //FIXME: change to a List? Cannot be an interface.
-
     /// <summary>
     /// The enumerable of all <typeparamref name="TItem"/>(s).
     /// </summary>
-    protected virtual IEnumerable<TItem> Enumerable  //FIXME: allow to be set dynamically? Or change to a List? Cannot be an interface.
-    {
-      get
-      {
-        return this.enumerable;
-      }
-      set
-      {
-        this.enumerable = value;
-        this.OnPropertyChanged(nameof(this.Enumerable));
-      }
-    }
+    protected virtual IEnumerable<TItem> Enumerable { get; set; }
 
     public virtual bool IsNullOrEmpty
     {
       get
       {
-        return enumerable.IsNullOrEmpty();
+        return Enumerable.IsNullOrEmpty();
       }
     }
 
@@ -46,18 +33,9 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
-    [ExcludeFromCodeCoverage]
-    public ReadonlyRepository()
-    {
-      this.Enumerable = Array.Empty<TItem>();
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public ReadonlyRepository(IEnumerable<TItem> enumerable)
+    public Repository(IEnumerable<TItem> enumerable)
     {
       this.Enumerable = enumerable;
     }

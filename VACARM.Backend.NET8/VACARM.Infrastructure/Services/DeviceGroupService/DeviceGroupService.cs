@@ -29,7 +29,7 @@ namespace VACARM.Infrastructure.Services
     > :
     BaseGroupService
     <
-      ReadonlyRepository
+      Repository
       <
         BaseService
         <
@@ -47,7 +47,7 @@ namespace VACARM.Infrastructure.Services
     >,
     IDeviceGroupService
     <
-      ReadonlyRepository
+      Repository
       <
         BaseService
         <
@@ -64,7 +64,7 @@ namespace VACARM.Infrastructure.Services
       TDeviceModel
     >
     where TGroupReadonlyRepository :
-    ReadonlyRepository
+    Repository
     <
       BaseService
       <
@@ -85,10 +85,10 @@ namespace VACARM.Infrastructure.Services
   {
     #region Parameters
 
-    private CoreAudioService<ReadonlyRepository<Device>, Device> coreAudioService
+    private CoreAudioService<Repository<Device>, Device> coreAudioService
     { get; set; }
 
-    private MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> mMDeviceService
+    private MMDeviceService<Repository<MMDevice>, MMDevice> mMDeviceService
     { get; set; }
 
     /// <summary>
@@ -96,7 +96,7 @@ namespace VACARM.Infrastructure.Services
     /// <typeparamref name="NAudio.CoreAudioApi"/>.
     /// Issue: <see cref="https://github.com/naudio/NAudio/issues/421"/>
     /// </summary>
-    public CoreAudioService<ReadonlyRepository<Device>, Device> CoreAudioService
+    public CoreAudioService<Repository<Device>, Device> CoreAudioService
     {
       get
       {
@@ -114,7 +114,7 @@ namespace VACARM.Infrastructure.Services
     /// <typeparamref name="NAudio.CoreAudioApi"/>.
     /// Issue: <see cref="https://github.com/naudio/NAudio/issues/421"/>
     /// </summary>
-    public MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> MMDeviceService
+    public MMDeviceService<Repository<MMDevice>, MMDevice> MMDeviceService
     {
       get
       {
@@ -152,10 +152,10 @@ namespace VACARM.Infrastructure.Services
       base.Add(service);
 
       this.MMDeviceService =
-          new MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice>();
+          new MMDeviceService<Repository<MMDevice>, MMDevice>();
 
       this.CoreAudioService =
-          new CoreAudioService<ReadonlyRepository<Device>, Device>();
+          new CoreAudioService<Repository<Device>, Device>();
 
       this.UpdateSelectedService();
     }
@@ -171,8 +171,8 @@ namespace VACARM.Infrastructure.Services
     (
       List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>> list,
       int maxCount,
-      MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> mMDeviceService,
-      CoreAudioService<ReadonlyRepository<Device>, Device> coreAudioService
+      MMDeviceService<Repository<MMDevice>, MMDevice> mMDeviceService,
+      CoreAudioService<Repository<Device>, Device> coreAudioService
     ) :
       base
       (

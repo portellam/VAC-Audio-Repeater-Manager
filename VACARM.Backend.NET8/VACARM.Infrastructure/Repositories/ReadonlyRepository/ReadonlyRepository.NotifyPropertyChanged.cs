@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public partial class ReadonlyRepository<TItem> :
+  public partial class Repository<TItem> :
     INotifyPropertyChanged
   {
     #region Parameters

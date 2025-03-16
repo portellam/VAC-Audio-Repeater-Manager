@@ -2,7 +2,7 @@
 
 namespace VACARM.Infrastructure.Repositories
 {
-  public partial class ReadonlyRepository<TItem> :
+  public partial class Repository<TItem> :
     IDisposable
   {
     #region Parameters
