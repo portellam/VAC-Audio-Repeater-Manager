@@ -7,6 +7,7 @@ namespace VACARM.Infrastructure.Services.MMDeviceService
   public partial interface IMMDeviceService
     <
       TRepository,
+      TEnumerable,
       TMMDevice
     >
   {

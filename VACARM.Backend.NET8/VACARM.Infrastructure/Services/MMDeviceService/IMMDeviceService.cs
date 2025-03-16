@@ -7,12 +7,9 @@ namespace VACARM.Infrastructure.Services.MMDeviceService
   public partial interface IMMDeviceService
     <
       TRepository,
+      TEnumerable,
       TMMDevice
     >
-    where TRepository :
-    ReadonlyRepository<MMDevice>
-    where TMMDevice :
-    MMDevice
   {
     #region Logic
 

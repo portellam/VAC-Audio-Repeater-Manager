@@ -8,6 +8,7 @@ namespace VACARM.Infrastructure.Services
   public partial class MMDeviceService
     <
       TRepository,
+      TEnumerable,
       TMMDevice
     >
   {

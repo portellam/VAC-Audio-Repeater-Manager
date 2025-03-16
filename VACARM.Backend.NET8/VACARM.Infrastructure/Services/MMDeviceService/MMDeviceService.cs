@@ -17,27 +17,42 @@ namespace VACARM.Infrastructure.Services
   public partial class MMDeviceService
     <
       TRepository,
+      TEnumerable,
       TMMDevice
     > :
     Service
     <
-      Repository<TMMDevice>,
+      Repository
+      <
+        IList<TMMDevice>,
+        TMMDevice
+      >,
+      IList<TMMDevice>,
       TMMDevice
     >,
     IDisposable,
     IMMDeviceService
     <
       TRepository,
+      TEnumerable,
       TMMDevice
     >
     where TRepository :
-    Repository<MMDevice>
+    Repository
+    <
+      TEnumerable,
+      TMMDevice
+    >
     where TMMDevice :
     MMDevice
   {
     #region Parameters
 
-    internal Repository<TMMDevice> DefaultCommunicationsReadonlyRepository
+    internal Repository
+      <
+        IList<TMMDevice>,
+        TMMDevice
+      > DefaultCommunicationsReadonlyRepository
     {
       get
       {
@@ -50,7 +65,11 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    internal Repository<TMMDevice> DefaultConsoleReadonlyRepository
+    internal Repository
+      <
+        IList<TMMDevice>,
+        TMMDevice
+      > DefaultConsoleReadonlyRepository
     {
       get
       {
@@ -63,7 +82,11 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    internal Repository<TMMDevice> DefaultMultimediaReadonlyRepository
+    internal Repository
+      <
+        IList<TMMDevice>,
+        TMMDevice
+      > DefaultMultimediaReadonlyRepository
     {
       get
       {
@@ -78,14 +101,26 @@ namespace VACARM.Infrastructure.Services
 
     private MMNotificationClient MMNotificationClient { get; set; }
 
-    private Repository<TMMDevice> defaultCommunicationsReadonlyRepository
-    { get; set; } = new Repository<TMMDevice>();
+    private Repository
+      <
+        IList<TMMDevice>,
+        TMMDevice
+      > defaultCommunicationsReadonlyRepository
+    { get; set; }
 
-    private Repository<TMMDevice> defaultConsoleReadonlyRepository
-    { get; set; } = new Repository<TMMDevice>();
+    private Repository
+      <
+        IList<TMMDevice>,
+        TMMDevice
+      > defaultConsoleReadonlyRepository
+    { get; set; }
 
-    private Repository<TMMDevice> defaultMultimediaReadonlyRepository
-    { get; set; } = new Repository<TMMDevice>();
+    private Repository
+      <
+        IList<TMMDevice>,
+        TMMDevice
+      > defaultMultimediaReadonlyRepository
+    { get; set; }
 
     #endregion
 
@@ -96,18 +131,28 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     [ExcludeFromCodeCoverage]
     public MMDeviceService() :
-      base()
+      base(new List<TMMDevice>())
     {
-      base.Repository = new Repository<TMMDevice>();
-
       this.DefaultCommunicationsReadonlyRepository =
-        new Repository<TMMDevice>();
+        new Repository
+        <
+          IList<TMMDevice>,
+          TMMDevice
+        >(new List<TMMDevice>());
 
       DefaultConsoleReadonlyRepository =
-        new Repository<TMMDevice>();
+        new Repository
+        <
+          IList<TMMDevice>,
+          TMMDevice
+        >(new List<TMMDevice>());
 
       this.DefaultMultimediaReadonlyRepository =
-        new Repository<TMMDevice>();
+        new Repository
+        <
+          IList<TMMDevice>,
+          TMMDevice
+        >(new List<TMMDevice>());
 
       this.MMNotificationClient = new MMNotificationClient(this.UpdateService);
       this.UpdateService();
@@ -160,32 +205,49 @@ namespace VACARM.Infrastructure.Services
     }
     public void UpdateService()
     {
-      var enumerable = this.MMNotificationClient
+      var list = this.MMNotificationClient
         .Enumerable
-        .Cast<TMMDevice>();
+        .Cast<TMMDevice>()
+        .ToList();
 
-      base.Repository = new ReadonlyRepository<TMMDevice>(enumerable);
+      base.Repository = new Repository
+        <
+          IList<TMMDevice>,
+          TMMDevice
+        >(list);
 
-      enumerable = this.MMNotificationClient
+      list = this.MMNotificationClient
         .GetDefaultRange(Role.Communications)
-        .Cast<TMMDevice>();
+        .Cast<TMMDevice>()
+        .ToList();
 
-      this.DefaultCommunicationsReadonlyRepository =
-        new ReadonlyRepository<TMMDevice>(enumerable);
+      this.DefaultCommunicationsReadonlyRepository = new Repository
+        <
+          IList<TMMDevice>,
+          TMMDevice
+        >(list);
 
-      enumerable = this.MMNotificationClient
+      list = this.MMNotificationClient
         .GetDefaultRange(Role.Console)
-        .Cast<TMMDevice>();
+        .Cast<TMMDevice>()
+        .ToList();
 
-      DefaultConsoleReadonlyRepository =
-        new ReadonlyRepository<TMMDevice>(enumerable);
+      DefaultConsoleReadonlyRepository = new Repository
+        <
+          IList<TMMDevice>,
+          TMMDevice
+        >(list);
 
-      enumerable = this.MMNotificationClient
+      list = this.MMNotificationClient
         .GetDefaultRange(Role.Multimedia)
-        .Cast<TMMDevice>();
+        .Cast<TMMDevice>()
+        .ToList();
 
-      this.DefaultMultimediaReadonlyRepository =
-        new ReadonlyRepository<TMMDevice>(enumerable);
+      this.DefaultMultimediaReadonlyRepository = new Repository
+        <
+          IList<TMMDevice>,
+          TMMDevice
+        >(list);
     }
 
     #endregion
