@@ -108,6 +108,7 @@ namespace VACARM.Infrastructure.Services
     public BaseGroupService() :
       base(new List<BaseService<TBaseModel>>())
     {
+      this.Add(new BaseService<TBaseModel>());
     }
 
     /// <summary>

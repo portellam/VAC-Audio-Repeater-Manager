@@ -5,13 +5,7 @@ using VACARM.Infrastructure.Functions;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial class RepeaterGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TRepeaterModel
-    >
+  public partial class RepeaterGroupService<TRepeaterModel>
   {
     #region Logic
 

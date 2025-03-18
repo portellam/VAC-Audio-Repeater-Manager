@@ -17,7 +17,9 @@ namespace VACARM.Infrastructure.Repositories
       if (isDisposed)
       {
         base.Dispose();
-        this.Enumerable = null;
+        
+        this.SelectedIdHashSet
+          .Clear();
       }
 
       this.HasDisposed = true;

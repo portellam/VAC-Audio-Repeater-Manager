@@ -16,66 +16,9 @@ namespace VACARM.Infrastructure.Services
   /// and may be from a foreign system or a previous state of the current system.
   /// Manages <typeparamref name="DeviceGroupService"/>.
   /// </summary>
-  public partial class RepeaterGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TRepeaterModel
-    > :
-    BaseGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<TRepeaterModel>,
-          TRepeaterModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<TRepeaterModel>,
-        TRepeaterModel
-      >,
-      BaseRepository<TRepeaterModel>,
-      TRepeaterModel
-    >,
-    IRepeaterGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<TRepeaterModel>,
-          TRepeaterModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<TRepeaterModel>,
-        TRepeaterModel
-      >,
-      BaseRepository<TRepeaterModel>,
-      TRepeaterModel
-    >
-    where TGroupReadonlyRepository :
-    ReadonlyRepository
-    <
-      BaseService
-      <
-        BaseRepository<TRepeaterModel>,
-        TRepeaterModel
-      >
-    >
-    where TBaseService :
-    BaseService
-    <
-      BaseRepository<TRepeaterModel>,
-      TRepeaterModel
-    >
-    where TBaseRepository :
-    BaseRepository<TRepeaterModel>
+  public partial class RepeaterGroupService<TRepeaterModel> :
+    BaseGroupService<TRepeaterModel>,
+    IRepeaterGroupService<TRepeaterModel>
     where TRepeaterModel :
     RepeaterModel
   {
@@ -158,16 +101,6 @@ namespace VACARM.Infrastructure.Services
     public RepeaterGroupService() :
       base()
     {
-      this.List =
-        new List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>>();
-
-      var service = new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
-        (
-          new BaseRepository<TRepeaterModel>(),
-          string.Empty
-        );
-
-      base.Add(service);
     }
 
     /// <summary>
@@ -177,7 +110,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="maxCount">The maximum count of service(s)</param>
     public RepeaterGroupService
     (
-      List<BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>> list,
+      IList<BaseService<TRepeaterModel>> list,
       int maxCount
     ) :
       base
@@ -186,17 +119,13 @@ namespace VACARM.Infrastructure.Services
         maxCount
       )
     {
-      if (base.IsNullOrEmpty)
+      if
+      (
+        base.Repository
+          .IsNullOrEmpty
+      )
       {
-        var service = 
-          new BaseService<BaseRepository<TRepeaterModel>, TRepeaterModel>
-          (
-            new BaseRepository<TRepeaterModel>(),
-            string.Empty
-          );
-
-        base.List
-          .Add(service);
+        base.Add(new BaseService<TRepeaterModel>());
       }
     }
 

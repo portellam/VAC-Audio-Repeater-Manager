@@ -83,8 +83,6 @@ namespace VACARM.Infrastructure.Services
     public DeviceGroupService() :
       base()
     {
-      var service = new BaseService<TDeviceModel>(string.Empty);
-      base.Add(service);
       this.MMDeviceService = new MMDeviceService<MMDevice>();
       this.CoreAudioService = new CoreAudioService<Device>();
       this.UpdateSelectedService();
@@ -112,10 +110,7 @@ namespace VACARM.Infrastructure.Services
           .IsNullOrEmpty
       )
       {
-        var service = new BaseService<TDeviceModel>(string.Empty);
-
-        base.Repository
-          .Add(service);
+        base.Add(new BaseService<TDeviceModel>());
       }
 
       this.MMDeviceService = new MMDeviceService<MMDevice>();
@@ -551,7 +546,7 @@ namespace VACARM.Infrastructure.Services
 
     public void UpdateSelectedService()
     {
-      var service = new BaseService<TDeviceModel>(string.Empty);
+      var service = new BaseService<TDeviceModel>();
 
       var enumerable = this.MMDeviceService
         .GetAll();

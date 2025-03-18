@@ -32,8 +32,6 @@ namespace VACARM.Infrastructure.Services
       {
         this.Repository
           .Dispose();
-
-        this.Repository = null;
       }
 
       this.HasDisposed = true;

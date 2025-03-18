@@ -52,7 +52,7 @@ namespace VACARM.Infrastructure.Services
         collection.Add(item as TDevice);
       }
 
-      this.Repository = new ReadonlyRepository<TDevice>(collection);
+      this.Repository = new Repository<IList<TDevice>, TDevice>(collection);
       return true;
     }
 

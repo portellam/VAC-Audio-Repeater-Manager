@@ -51,9 +51,14 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
-    public BaseService(string filePathName) :
+    public BaseService(string filePathName = null) :
       base(new List<TBaseModel>())
     {
+      if (string.IsNullOrWhiteSpace(filePathName))
+      {
+        filePathName = string.Empty;
+      }
+
       this.FilePathName = filePathName;
     }
 
@@ -66,10 +71,15 @@ namespace VACARM.Infrastructure.Services
     public BaseService
     (
       BaseRepository<TBaseModel> repository,
-      string filePathName
+      string filePathName = null
     ) :
       base(repository)
     {
+      if (string.IsNullOrWhiteSpace(filePathName))
+      {
+        filePathName = string.Empty;
+      }
+
       this.FilePathName = filePathName;
     }
 

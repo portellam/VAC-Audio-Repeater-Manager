@@ -1,12 +1,6 @@
 ﻿namespace VACARM.Infrastructure.Services
 {
-  public partial class DeviceGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TDeviceModel
-    >
+  public partial class DeviceGroupService<TDeviceModel>
   {
     #region Logic
 
@@ -24,12 +18,8 @@
         this.CoreAudioService
           .Dispose();
 
-        this.CoreAudioService = null;
-
         this.MMDeviceService
           .Dispose();
-
-        this.MMDeviceService = null;
       }
 
       this.HasDisposed = true;

@@ -19,6 +19,9 @@ namespace VACARM.Infrastructure.Repositories
 
     /// <summary>
     /// Dispose of unmanaged objects and true/false dispose of managed objects.
+    /// Should the <typeparamref name="TEnumerable"/> be a
+    /// <typeparamref name="Array"/>, it may not dispose of and/or remove its
+    /// <typeparamref name="TItem"/>(s).
     /// </summary>
     /// <param name="isDisposed">True/false</param>
     protected virtual void Dispose(bool isDisposed)
@@ -30,7 +33,35 @@ namespace VACARM.Infrastructure.Repositories
 
       if (isDisposed)
       {
-        this.Enumerable = null;
+        var type = typeof(TEnumerable);
+
+        if (type == typeof(IDisposable))
+        {
+          (this.Enumerable as IDisposable).Dispose();
+        }
+
+        if (type == typeof(IEnumerable<IDisposable>))
+        {
+          foreach (IDisposable item in this.Enumerable)
+          {
+            item.Dispose();
+          }
+        }
+
+        if (type == typeof(ICollection<TItem>))
+        {
+          (this.Enumerable as ICollection<TItem>).Clear();
+        }
+
+        if (type == typeof(IList<TItem>))
+        {
+          (this.Enumerable as IList<TItem>).Clear();
+        }
+
+        if (type == typeof(ISet<TItem>))
+        {
+          (this.Enumerable as ISet<TItem>).Clear();
+        }
       }
 
       this.HasDisposed = true;

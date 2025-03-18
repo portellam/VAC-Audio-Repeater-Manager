@@ -16,8 +16,7 @@ namespace VACARM.Infrastructure.Services
     {
       if (this.MMDeviceService == null)
       {
-        this.MMDeviceService =
-          new MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice>();
+        this.MMDeviceService = new MMDeviceService<MMDevice>();
       }
 
       else
@@ -28,8 +27,7 @@ namespace VACARM.Infrastructure.Services
 
       if (this.CoreAudioService == null)
       {
-        this.CoreAudioService =
-          new CoreAudioService<ReadonlyRepository<Device>, Device>();
+        this.CoreAudioService = new CoreAudioService<Device>();
 
         return true;
       }
