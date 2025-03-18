@@ -45,9 +45,7 @@ namespace VACARM.Infrastructure.Repositories
         this.OnPropertyChanged(nameof(this.Enumerable));
       }
     }
-
-    public virtual Action<string> OnPropertyChangedCallback { get; set; }
-
+    
     public virtual bool IsNullOrEmpty
     {
       get

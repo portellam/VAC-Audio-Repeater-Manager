@@ -16,8 +16,6 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    Action<string> OnPropertyChangedCallback { get; set; }
-
     /// <summary>
     /// Is the enumerable of all <typeparamref name="TItem"/>(s) null or empty.
     /// </summary>
