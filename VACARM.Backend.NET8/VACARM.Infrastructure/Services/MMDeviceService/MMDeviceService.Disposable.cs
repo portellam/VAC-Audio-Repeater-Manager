@@ -5,12 +5,7 @@ using System.Linq;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial class MMDeviceService
-    <
-      TRepository,
-      TEnumerable,
-      TMMDevice
-    >
+  public partial class MMDeviceService<TMMDevice>
   {
     #region Logic
 
@@ -28,12 +23,23 @@ namespace VACARM.Infrastructure.Services
         this.Repository
           .Dispose();
 
+        this.DefaultCommunicationsRepository
+          .Dispose();
+
+        this.DefaultConsoleRepository
+          .Dispose();
+
+        this.DefaultMultimediaRepository
+          .Dispose();
+
         this.Repository = null;
+        this.DefaultCommunicationsRepository = null;
+        this.DefaultConsoleRepository = null;
+        this.DefaultMultimediaRepository = null;
+        this.HasDisposed = true;
       }
 
-      this.HasDisposed = true;
+      #endregion
     }
-
-    #endregion
   }
 }

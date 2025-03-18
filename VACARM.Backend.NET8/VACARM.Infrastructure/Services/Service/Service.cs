@@ -6,27 +6,19 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Infrastructure.Services
 {
   /// <summary>
-  /// The service for <typeparamref name="TRepository"/>.
+  /// The service for <typeparamref name="TItem"/>.
   /// </summary>
   public partial class Service
     <
-      TRepository,
       TEnumerable,
       TItem
     > :
     IService
     <
-      TRepository,
-      TEnumerable,
+      IEnumerable<TItem>,
       TItem
     >
-    where TRepository :
-    Repository
-    <
-      TEnumerable,
-      TItem
-    >
-    where TEnumerable :
+    where TEnumerable : 
     IEnumerable<TItem>
     where TItem :
     class
@@ -40,7 +32,7 @@ namespace VACARM.Infrastructure.Services
       > repository
     { get; set; }
 
-    protected virtual Repository
+    public virtual Repository
       <
         TEnumerable,
         TItem

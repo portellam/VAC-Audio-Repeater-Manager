@@ -3,12 +3,7 @@ using System.Threading.Tasks;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface ICoreAudioService
-    <
-      TRepository,
-      TEnumerable,
-      TDevice
-    >
+  public partial interface ICoreAudioService<TDevice>
   {
     #region Logic
 

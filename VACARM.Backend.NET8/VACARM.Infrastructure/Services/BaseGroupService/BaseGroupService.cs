@@ -10,56 +10,13 @@ namespace VACARM.Infrastructure.Services
   /// <summary>
   /// The repository of <typeparamref name="TBaseService"/>(s).
   /// </summary>
-  public partial class BaseGroupService
+  public partial class BaseGroupService<TBaseModel> :
+    Service
     <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TBaseModel
-    > :
-    ReadonlyRepository
-    <
-      BaseService
-      <
-        BaseRepository<TBaseModel>,
-        TBaseModel
-      >
+      IList<BaseService<TBaseModel>>,
+      BaseService<TBaseModel>
     >,
-    IBaseGroupService
-    <
-      ReadonlyRepository
-      <
-        BaseService
-        <
-          BaseRepository<TBaseModel>,
-          TBaseModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<TBaseModel>,
-        TBaseModel
-      >,
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >
-    where TGroupReadonlyRepository :
-    ReadonlyRepository
-    <
-      BaseService
-      <
-        BaseRepository<TBaseModel>,
-        TBaseModel
-      >
-    >
-    where TBaseService :
-    BaseService
-    <
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >
-    where TBaseRepository :
-    BaseRepository<TBaseModel>
+    IBaseGroupService<TBaseModel>
     where TBaseModel :
     BaseModel
   {
@@ -69,30 +26,11 @@ namespace VACARM.Infrastructure.Services
     private int selectedIndex { get; set; } = MinCount;
     private readonly static int MinCount = 0;
 
-    private List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>
-    list
-    { get; set; }
-
-    protected List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>
-    List
-    {
-      get
-      {
-        return this.list;
-      }
-      set
-      {
-        this.list = value;
-        base.Enumerable = value;
-        base.OnPropertyChanged(nameof(this.List));
-      }
-    }
-
     public BaseRepository<TBaseModel> SelectedRepository
     {
       get
       {
-        return this.SelectedService
+        return (BaseRepository<TBaseModel>)this.SelectedService
           .Repository;
       }
       protected set
@@ -104,17 +42,20 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public BaseService<BaseRepository<TBaseModel>, TBaseModel>
-    SelectedService
+    public BaseService<TBaseModel> SelectedService
     {
       get
       {
-        return this.List
-          .ElementAt(this.SelectedIndex);
+        return this.Get(this.SelectedIndex);
       }
       protected set
       {
-        this.List[this.SelectedIndex] = value;
+        this.Update
+          (
+            this.SelectedIndex, 
+            value
+          );
+
         base.OnPropertyChanged(nameof(this.SelectedService));
       }
     }
@@ -138,7 +79,7 @@ namespace VACARM.Infrastructure.Services
     }
 
     public readonly static int SafeMaxCount = byte.MaxValue;
-        
+
     public virtual int MaxCount
     {
       get
@@ -165,9 +106,8 @@ namespace VACARM.Infrastructure.Services
     /// Constructor
     /// </summary>
     public BaseGroupService() :
-      base()
+      base(new List<BaseService<TBaseModel>>())
     {
-      this.List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
     }
 
     /// <summary>
@@ -177,47 +117,44 @@ namespace VACARM.Infrastructure.Services
     /// <param name="maxCount">The maximum count of service(s)</param>
     public BaseGroupService
     (
-      List<BaseService<BaseRepository<TBaseModel>, TBaseModel>> list,
+      IList<BaseService<TBaseModel>> list,
       int maxCount
-    )
+    ) :
+      base(list)
     {
-      this.List = list;
       this.MaxCount = maxCount;
     }
 
-    public BaseService<BaseRepository<TBaseModel>, TBaseModel> Get(int index)
+    public BaseService<TBaseModel> Get(int index)
     {
-      try
-      {
-        return this.List
-          .ElementAt(index);
-      }
-
-      catch
-      {
-        return default;
-      }
+      return this.Repository
+        .Enumerable
+        .ElementAtOrDefault(index);
     }
 
-    public bool Add
-    (BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService)
+    public bool Add(BaseService<TBaseModel> baseService)
     {
-      if (base.IsNullOrEmpty)
+      if
+      (
+        this.Repository
+          .IsNullOrEmpty
+      )
       {
-        this.List =
-          new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
+        this.Repository =
+          new Repository<IList<BaseService<TBaseModel>>, BaseService<TBaseModel>>
+            (new List<BaseService<TBaseModel>>());
       }
 
       if
       (
-        this.List
-          .Count() >= this.MaxCount
+        this.Repository
+          .Count >= this.MaxCount
       )
       {
         return false;
       }
 
-      this.List
+      this.Repository
         .Add(baseService);
 
       return true;
@@ -225,17 +162,26 @@ namespace VACARM.Infrastructure.Services
 
     public bool Remove(int index)
     {
-      if (base.IsNullOrEmpty)
+      if
+      (
+        this.Repository
+          .IsNullOrEmpty
+      )
       {
         return false;
       }
 
-      if (!base.ContainsIndex(index))
+      if
+      (
+        !this.Repository
+          .ContainsIndex(index)
+      )
       {
         return false;
       }
 
-      this.List
+      this.Repository
+        .Enumerable
         .RemoveAt(index);
 
       return true;
@@ -366,6 +312,34 @@ namespace VACARM.Infrastructure.Services
 
       this.SelectedRepository
         .SelectRange(func);
+    }
+
+    public void Update
+    (
+      int index,
+      BaseService<TBaseModel> baseService
+    )
+    {
+      if
+      (
+        !this.Repository
+          .ContainsIndex(index)
+      )
+      {
+        return;
+      }
+
+      this.Repository
+        .Enumerable
+        .RemoveAt(index);
+
+      this.Repository
+        .Enumerable
+        .Insert
+        (
+          index,
+          baseService
+        );
     }
 
     #endregion

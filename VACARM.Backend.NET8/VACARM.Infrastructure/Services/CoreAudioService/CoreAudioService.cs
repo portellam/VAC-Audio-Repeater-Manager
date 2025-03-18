@@ -13,37 +13,13 @@ namespace VACARM.Infrastructure.Services
   /// The service to update system audio device(s).
   /// Extended functionality over <typeparamref name="MMDeviceService"/>.
   /// </summary>
-  public partial class CoreAudioService
-    <
-      TRepository,
-      TEnumerable,
-      TDevice
-    > :
+  public partial class CoreAudioService<TDevice> :
     Service
     <
-      Repository
-      <
-        IList<TDevice>,
-        TDevice
-      >,
       IList<TDevice>,
       TDevice
     >,
-    IDisposable,
-    ICoreAudioService
-    <
-      TRepository,
-      TEnumerable,
-      TDevice
-    >
-    where TRepository :
-    Repository
-    <
-      TEnumerable,
-      TDevice
-    >
-    where TEnumerable :
-    IList<TDevice>
+    ICoreAudioService<TDevice>
     where TDevice :
     Device
   {
@@ -61,6 +37,15 @@ namespace VACARM.Infrastructure.Services
       {
         this.controller = value;
         base.OnPropertyChanged(nameof(this.Controller));
+      }
+    }
+
+    public IObservable<DeviceChangedArgs> DeviceChangedObservable
+    {
+      get
+      {
+        return this.Controller
+          .AudioDeviceChanged;
       }
     }
 

@@ -61,7 +61,8 @@ namespace VACARM.Infrastructure.Repositories
           (
             BaseFunctions<TBaseModel>.NotContainsIdEnumerable
               (this.SelectedIdHashSet)
-          ).Select(x => x.Id);
+          )
+          .Select(x => x.Id);
       }
     }
 

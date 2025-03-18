@@ -7,7 +7,6 @@ namespace VACARM.Infrastructure.Services
 {
   public partial interface IService
     <
-      TRepository,
       TEnumerable,
       TItem
     >

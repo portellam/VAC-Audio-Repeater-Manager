@@ -1,11 +1,7 @@
 ﻿namespace VACARM.Infrastructure.Services
 {
-  public partial class CoreAudioService
-    <
-      TRepository,
-      TEnumerable,
-      TDevice
-    >
+  public partial class CoreAudioService<TDevice> :
+    IDisposable
   {
     #region Logic
 

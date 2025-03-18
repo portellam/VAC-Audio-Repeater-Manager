@@ -4,37 +4,37 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial class BaseService
-    <
-      TRepository,
-      TBaseModel
-    > :
+  /// <summary>
+  /// The repository for <typeparamref name="TBaseModel"/>.
+  /// </summary>
+  /// <typeparam name="TBaseModel"></typeparam>
+  public partial class BaseService<TBaseModel> :
     Service
     <
-      BaseRepository<TBaseModel>,
+      List<TBaseModel>,
       TBaseModel
     >,
-    IBaseService
-    <
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >
-    where TRepository :
-    BaseRepository<TBaseModel>
+    IBaseService<TBaseModel>
     where TBaseModel :
     BaseModel
   {
     #region Parameters
 
-    internal new virtual BaseRepository<TBaseModel> Repository
+    private BaseRepository<TBaseModel> repository { get; set; }
+
+    public override Repository
+      <
+        List<TBaseModel>,
+        TBaseModel
+      > Repository
     {
       get
       {
-        return (BaseRepository<TBaseModel>)base.Repository;
+        return this.repository;
       }
       set
       {
-        base.Repository = value;
+        this.repository = (BaseRepository<TBaseModel>)value;
         base.OnPropertyChanged(nameof(this.Repository));
       }
     }
@@ -49,10 +49,12 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
-    public BaseService() :
-      base()
+    public BaseService(string filePathName) :
+      base(new List<TBaseModel>())
     {
+      this.FilePathName = filePathName;
     }
 
     /// <summary>

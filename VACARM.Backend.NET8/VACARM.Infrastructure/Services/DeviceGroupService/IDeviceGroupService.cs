@@ -8,37 +8,14 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface IDeviceGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TDeviceModel
-    >
-    where TGroupReadonlyRepository :
-    ReadonlyRepository
-    <
-      BaseService
-      <
-        BaseRepository<TDeviceModel>,
-        TDeviceModel
-      >
-    >
-    where TBaseService :
-    BaseService
-    <
-      BaseRepository<TDeviceModel>,
-      TDeviceModel
-    >
-    where TBaseRepository :
-    BaseRepository<TDeviceModel>
+  public partial interface IDeviceGroupService<TDeviceModel>
     where TDeviceModel :
     DeviceModel
   {
     #region Parameters
 
-    CoreAudioService<ReadonlyRepository<Device>, Device> CoreAudioService { get; }
-    MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> MMDeviceService { get; }
+    CoreAudioService<Device> CoreAudioService { get; }
+    MMDeviceService<MMDevice> MMDeviceService { get; }
 
     #endregion
 

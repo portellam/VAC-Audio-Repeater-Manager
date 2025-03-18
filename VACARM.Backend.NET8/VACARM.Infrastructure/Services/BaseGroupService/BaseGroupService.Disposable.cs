@@ -1,12 +1,6 @@
 ﻿namespace VACARM.Infrastructure.Services
 {
-  public partial class BaseGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TBaseModel
-    >
+  public partial class BaseGroupService<TBaseModel>
   {
     #region Logic
 
@@ -19,8 +13,16 @@
 
       if (isDisposed)
       {
+        foreach
+        (
+          var item in base.Repository
+            .GetAll()
+        )
+        {
+          item.Dispose();
+        }
+
         base.Dispose();
-        this.List = null;
       }
 
       this.HasDisposed = true;

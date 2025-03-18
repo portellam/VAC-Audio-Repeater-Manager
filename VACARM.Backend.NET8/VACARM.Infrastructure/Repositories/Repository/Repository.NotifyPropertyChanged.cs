@@ -18,11 +18,13 @@ namespace VACARM.Infrastructure.Repositories
 
     #region Logic
 
+    private void OnPropertyChangedCallback(string )
+
     /// <summary>
     /// Logs event when property has changed.
     /// </summary>
     /// <param name="propertyName">The property name</param>
-    internal void OnPropertyChanged(string propertyName)
+    protected void OnPropertyChanged(string propertyName)
     {
       this.PropertyChanged?
         .Invoke
@@ -30,6 +32,8 @@ namespace VACARM.Infrastructure.Repositories
           this,
           new PropertyChangedEventArgs(propertyName)
         );
+
+      OnPropertyChangedCallback?.Invoke(propertyName);
 
       Debug.WriteLine
       (

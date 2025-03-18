@@ -20,75 +20,18 @@ namespace VACARM.Infrastructure.Services
   /// Manages <typeparamref name="CoreAudioService"/>
   ///  and <typeparamref name="MMDeviceService"/>.
   /// </summary>
-  public partial class DeviceGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TDeviceModel
-    > :
-    BaseGroupService
-    <
-      Repository
-      <
-        BaseService
-        <
-          BaseRepository<TDeviceModel>,
-          TDeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<TDeviceModel>,
-        TDeviceModel
-      >,
-      BaseRepository<TDeviceModel>,
-      TDeviceModel
-    >,
-    IDeviceGroupService
-    <
-      Repository
-      <
-        BaseService
-        <
-          BaseRepository<TDeviceModel>,
-          TDeviceModel
-        >
-      >,
-      BaseService
-      <
-        BaseRepository<TDeviceModel>,
-        TDeviceModel
-      >,
-      BaseRepository<TDeviceModel>,
-      TDeviceModel
-    >
-    where TGroupReadonlyRepository :
-    Repository
-    <
-      BaseService
-      <
-        BaseRepository<TDeviceModel>,
-        TDeviceModel
-      >
-    >
-    where TBaseService :
-    BaseService
-    <
-      BaseRepository<TDeviceModel>,
-      TDeviceModel
-    >
-    where TBaseRepository :
-    BaseRepository<TDeviceModel>
+  public partial class DeviceGroupService<TDeviceModel> :
+    BaseGroupService<TDeviceModel>,
+    IDeviceGroupService<TDeviceModel>
     where TDeviceModel :
     DeviceModel
   {
     #region Parameters
 
-    private CoreAudioService<Repository<Device>, Device> coreAudioService
+    private CoreAudioService<Device> coreAudioService
     { get; set; }
 
-    private MMDeviceService<Repository<MMDevice>, MMDevice> mMDeviceService
+    private MMDeviceService<MMDevice> mMDeviceService
     { get; set; }
 
     /// <summary>
@@ -96,7 +39,7 @@ namespace VACARM.Infrastructure.Services
     /// <typeparamref name="NAudio.CoreAudioApi"/>.
     /// Issue: <see cref="https://github.com/naudio/NAudio/issues/421"/>
     /// </summary>
-    public CoreAudioService<Repository<Device>, Device> CoreAudioService
+    public CoreAudioService<Device> CoreAudioService
     {
       get
       {
@@ -114,7 +57,7 @@ namespace VACARM.Infrastructure.Services
     /// <typeparamref name="NAudio.CoreAudioApi"/>.
     /// Issue: <see cref="https://github.com/naudio/NAudio/issues/421"/>
     /// </summary>
-    public MMDeviceService<Repository<MMDevice>, MMDevice> MMDeviceService
+    public MMDeviceService<MMDevice> MMDeviceService
     {
       get
       {
@@ -140,23 +83,10 @@ namespace VACARM.Infrastructure.Services
     public DeviceGroupService() :
       base()
     {
-      this.List = 
-        new List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>>();
-
-      var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-        (
-          new BaseRepository<TDeviceModel>(),
-          string.Empty
-        );
-
+      var service = new BaseService<TDeviceModel>(string.Empty);
       base.Add(service);
-
-      this.MMDeviceService =
-          new MMDeviceService<Repository<MMDevice>, MMDevice>();
-
-      this.CoreAudioService =
-          new CoreAudioService<Repository<Device>, Device>();
-
+      this.MMDeviceService = new MMDeviceService<MMDevice>();
+      this.CoreAudioService = new CoreAudioService<Device>();
       this.UpdateSelectedService();
     }
 
@@ -165,14 +95,10 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="list">The list of service(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
-    /// <param name="mMDeviceService">The MMDevice service</param>
-    /// <param name="coreAudioService">The Core Audio service</param>
     public DeviceGroupService
     (
-      List<BaseService<BaseRepository<TDeviceModel>, TDeviceModel>> list,
-      int maxCount,
-      MMDeviceService<Repository<MMDevice>, MMDevice> mMDeviceService,
-      CoreAudioService<Repository<Device>, Device> coreAudioService
+      IList<BaseService<TDeviceModel>> list,
+      int maxCount
     ) :
       base
       (
@@ -180,20 +106,20 @@ namespace VACARM.Infrastructure.Services
         maxCount
       )
     {
-      if (base.IsNullOrEmpty)
+      if
+      (
+        base.Repository
+          .IsNullOrEmpty
+      )
       {
-        var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-          (
-            new BaseRepository<TDeviceModel>(),
-            string.Empty
-          );
+        var service = new BaseService<TDeviceModel>(string.Empty);
 
-        base.List
+        base.Repository
           .Add(service);
       }
 
-      this.MMDeviceService = mMDeviceService;
-      this.CoreAudioService = coreAudioService;
+      this.MMDeviceService = new MMDeviceService<MMDevice>();
+      this.CoreAudioService = new CoreAudioService<Device>();
 
       if (base.SelectedService == null)
       {
@@ -625,11 +551,7 @@ namespace VACARM.Infrastructure.Services
 
     public void UpdateSelectedService()
     {
-      var service = new BaseService<BaseRepository<TDeviceModel>, TDeviceModel>
-        (
-          new BaseRepository<TDeviceModel>(),
-          string.Empty
-        );
+      var service = new BaseService<TDeviceModel>(string.Empty);
 
       var enumerable = this.MMDeviceService
         .GetAll();
@@ -663,9 +585,13 @@ namespace VACARM.Infrastructure.Services
           .Add(deviceModel);
       }
 
-      if (IsNullOrEmpty)
+      if
+      (
+        base.Repository
+          .IsNullOrEmpty
+      )
       {
-        base.List
+        base.Repository
           .Add(service);
       }
 

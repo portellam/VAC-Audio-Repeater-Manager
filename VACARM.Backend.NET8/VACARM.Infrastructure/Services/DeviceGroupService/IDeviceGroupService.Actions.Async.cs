@@ -3,13 +3,7 @@ using System.Threading.Tasks;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface IDeviceGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TDeviceModel
-    >
+  public partial interface IDeviceGroupService<TDeviceModel>
   {
     #region Logic
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VACARM.Infrastructure.Repositories;
@@ -32,7 +33,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// The enumerable of item(s).
     /// </summary>
-    protected TEnumerable Enumerable
+    internal TEnumerable Enumerable
     { 
       get
       {
@@ -45,11 +46,22 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public virtual Action<string> OnPropertyChangedCallback { get; set; }
+
     public virtual bool IsNullOrEmpty
     {
       get
       {
         return Enumerable.IsNullOrEmpty();
+      }
+    }
+
+    public int Count
+    {
+      get
+      {
+        return this.Enumerable
+          .Count();
       }
     }
 
@@ -92,6 +104,32 @@ namespace VACARM.Infrastructure.Repositories
 
       return this.Enumerable
         .Where(x => func(x));
+    }
+
+    public virtual void Add(TItem item)
+    {
+      lock (this.Enumerable)
+      {
+        if (item == null)
+        {
+          return;
+        }
+
+        enumerable.Append(item);
+      }
+    }
+
+    public virtual void AddRange(IEnumerable<TItem> enumerable)
+    {
+      lock (this.Enumerable)
+      {
+        if (enumerable.IsNullOrEmpty())
+        {
+          return;
+        }
+
+        enumerable.Concat(enumerable);
+      }
     }
 
     #endregion

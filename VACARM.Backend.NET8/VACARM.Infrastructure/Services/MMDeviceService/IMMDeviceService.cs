@@ -4,12 +4,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services.MMDeviceService
 {
-  public partial interface IMMDeviceService
-    <
-      TRepository,
-      TEnumerable,
-      TMMDevice
-    >
+  public partial interface IMMDeviceService<TMMDevice>
   {
     #region Logic
 

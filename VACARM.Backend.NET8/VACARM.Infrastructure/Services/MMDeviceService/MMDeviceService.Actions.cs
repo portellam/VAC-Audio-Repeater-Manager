@@ -11,14 +11,10 @@ using VACARM.Infrastructure.Watchers;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial class MMDeviceService
-    <
-      TRepository,
-      TEnumerable,
-      TMMDevice
-    >
+  public partial class MMDeviceService<TMMDevice>
   {
     #region Logic
+
     public void Reset(string id)
     {
       Func<TMMDevice, bool> func = MMDeviceFunctions<TMMDevice>.ContainsId(id);

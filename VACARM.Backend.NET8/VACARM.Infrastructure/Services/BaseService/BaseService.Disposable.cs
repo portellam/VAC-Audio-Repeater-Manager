@@ -1,14 +1,13 @@
-﻿namespace VACARM.Infrastructure.Services
+﻿using System;
+
+namespace VACARM.Infrastructure.Services
 {
-  public partial class BaseService
-    <
-      TRepository,
-      TBaseModel
-    >
+  public partial class BaseService<TBaseModel> :
+    IDisposable
   {
     #region Logic
 
-    protected new virtual void Dispose(bool isDisposed)
+    protected override void Dispose(bool isDisposed)
     {
       if (this.HasDisposed)
       {

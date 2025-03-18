@@ -7,12 +7,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial class CoreAudioService
-    <
-      TRepository,
-      TEnumerable,
-      TDevice
-    >
+  public partial class CoreAudioService<TDevice>
   {
     #region Logic
 

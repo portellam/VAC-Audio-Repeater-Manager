@@ -14,35 +14,13 @@ namespace VACARM.Infrastructure.Services
   /// <summary>
   /// The service to retrieve current and/or updated system audio device(s).
   /// </summary>
-  public partial class MMDeviceService
-    <
-      TRepository,
-      TEnumerable,
-      TMMDevice
-    > :
+  public partial class MMDeviceService<TMMDevice> :
     Service
     <
-      Repository
-      <
-        IList<TMMDevice>,
-        TMMDevice
-      >,
       IList<TMMDevice>,
       TMMDevice
     >,
-    IDisposable,
-    IMMDeviceService
-    <
-      TRepository,
-      TEnumerable,
-      TMMDevice
-    >
-    where TRepository :
-    Repository
-    <
-      TEnumerable,
-      TMMDevice
-    >
+    IMMDeviceService<TMMDevice>
     where TMMDevice :
     MMDevice
   {
@@ -52,16 +30,16 @@ namespace VACARM.Infrastructure.Services
       <
         IList<TMMDevice>,
         TMMDevice
-      > DefaultCommunicationsReadonlyRepository
+      > DefaultCommunicationsRepository
     {
       get
       {
-        return this.defaultCommunicationsReadonlyRepository;
+        return this.defaultCommunicationsRepository;
       }
       set
       {
-        this.defaultCommunicationsReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(this.DefaultCommunicationsReadonlyRepository));
+        this.defaultCommunicationsRepository = value;
+        base.OnPropertyChanged(nameof(this.DefaultCommunicationsRepository));
       }
     }
 
@@ -69,16 +47,16 @@ namespace VACARM.Infrastructure.Services
       <
         IList<TMMDevice>,
         TMMDevice
-      > DefaultConsoleReadonlyRepository
+      > DefaultConsoleRepository
     {
       get
       {
-        return this.defaultConsoleReadonlyRepository;
+        return this.defaultConsoleRepository;
       }
       set
       {
-        this.defaultConsoleReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(this.DefaultConsoleReadonlyRepository));
+        this.defaultConsoleRepository = value;
+        base.OnPropertyChanged(nameof(this.DefaultConsoleRepository));
       }
     }
 
@@ -86,16 +64,16 @@ namespace VACARM.Infrastructure.Services
       <
         IList<TMMDevice>,
         TMMDevice
-      > DefaultMultimediaReadonlyRepository
+      > DefaultMultimediaRepository
     {
       get
       {
-        return this.defaultMultimediaReadonlyRepository;
+        return this.defaultMultimediaRepository;
       }
       set
       {
-        this.defaultMultimediaReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(this.DefaultMultimediaReadonlyRepository));
+        this.defaultMultimediaRepository = value;
+        base.OnPropertyChanged(nameof(this.DefaultMultimediaRepository));
       }
     }
 
@@ -105,21 +83,21 @@ namespace VACARM.Infrastructure.Services
       <
         IList<TMMDevice>,
         TMMDevice
-      > defaultCommunicationsReadonlyRepository
+      > defaultCommunicationsRepository
     { get; set; }
 
     private Repository
       <
         IList<TMMDevice>,
         TMMDevice
-      > defaultConsoleReadonlyRepository
+      > defaultConsoleRepository
     { get; set; }
 
     private Repository
       <
         IList<TMMDevice>,
         TMMDevice
-      > defaultMultimediaReadonlyRepository
+      > defaultMultimediaRepository
     { get; set; }
 
     #endregion
@@ -133,21 +111,21 @@ namespace VACARM.Infrastructure.Services
     public MMDeviceService() :
       base(new List<TMMDevice>())
     {
-      this.DefaultCommunicationsReadonlyRepository =
+      this.DefaultCommunicationsRepository =
         new Repository
         <
           IList<TMMDevice>,
           TMMDevice
         >(new List<TMMDevice>());
 
-      DefaultConsoleReadonlyRepository =
+      DefaultConsoleRepository =
         new Repository
         <
           IList<TMMDevice>,
           TMMDevice
         >(new List<TMMDevice>());
 
-      this.DefaultMultimediaReadonlyRepository =
+      this.DefaultMultimediaRepository =
         new Repository
         <
           IList<TMMDevice>,
@@ -157,6 +135,7 @@ namespace VACARM.Infrastructure.Services
       this.MMNotificationClient = new MMNotificationClient(this.UpdateService);
       this.UpdateService();
     }
+
     public TMMDevice Get(string id)
     {
       Func<TMMDevice, bool> func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
@@ -169,7 +148,7 @@ namespace VACARM.Infrastructure.Services
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == dataFlow;
 
-      return this.DefaultCommunicationsReadonlyRepository
+      return this.DefaultCommunicationsRepository
         .Get(func);
     }
 
@@ -177,7 +156,7 @@ namespace VACARM.Infrastructure.Services
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == dataFlow;
 
-      return DefaultConsoleReadonlyRepository
+      return DefaultConsoleRepository
         .Get(func);
     }
 
@@ -185,7 +164,7 @@ namespace VACARM.Infrastructure.Services
     {
       Func<TMMDevice, bool> func = (TMMDevice x) => x.DataFlow == dataFlow;
 
-      return this.DefaultMultimediaReadonlyRepository
+      return this.DefaultMultimediaRepository
         .Get(func);
     }
 
@@ -203,6 +182,7 @@ namespace VACARM.Infrastructure.Services
       return base.Repository
         .GetRange(func);
     }
+
     public void UpdateService()
     {
       var list = this.MMNotificationClient
@@ -221,7 +201,7 @@ namespace VACARM.Infrastructure.Services
         .Cast<TMMDevice>()
         .ToList();
 
-      this.DefaultCommunicationsReadonlyRepository = new Repository
+      this.DefaultCommunicationsRepository = new Repository
         <
           IList<TMMDevice>,
           TMMDevice
@@ -232,7 +212,7 @@ namespace VACARM.Infrastructure.Services
         .Cast<TMMDevice>()
         .ToList();
 
-      DefaultConsoleReadonlyRepository = new Repository
+      DefaultConsoleRepository = new Repository
         <
           IList<TMMDevice>,
           TMMDevice
@@ -243,7 +223,7 @@ namespace VACARM.Infrastructure.Services
         .Cast<TMMDevice>()
         .ToList();
 
-      this.DefaultMultimediaReadonlyRepository = new Repository
+      this.DefaultMultimediaRepository = new Repository
         <
           IList<TMMDevice>,
           TMMDevice

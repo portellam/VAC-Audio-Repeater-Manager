@@ -4,13 +4,17 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface ICoreAudioService
-    <
-      TRepository,
-      TEnumerable,
-      TDevice
-    >
+  public partial interface ICoreAudioService<TDevice>
   {
+    #region Parameters
+
+    /// <summary>
+    /// The observable for <typeparamref name="DeviceChangedArgs"/>.
+    /// </summary>
+    IObservable<DeviceChangedArgs> DeviceChangedObservable { get;}
+
+    #endregion
+
     #region Logic
 
     /// <summary>

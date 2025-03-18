@@ -4,36 +4,13 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services.BaseGroupService
 {
-  public interface IBaseGroupService
-    <
-      TGroupReadonlyRepository,
-      TBaseService,
-      TBaseRepository,
-      TBaseModel
-    >
-    where TGroupReadonlyRepository :
-    ReadonlyRepository
-    <
-      BaseService
-      <
-        BaseRepository<TBaseModel>,
-        TBaseModel
-      >
-    >
-    where TBaseService :
-    BaseService
-    <
-      BaseRepository<TBaseModel>,
-      TBaseModel
-    >
-    where TBaseRepository :
-    BaseRepository<TBaseModel>
+  public interface IBaseGroupService<TBaseModel>
     where TBaseModel :
     BaseModel
   {
     #region Parameters
 
-    BaseService<BaseRepository<TBaseModel>, TBaseModel> SelectedService { get; }
+    BaseService<TBaseModel> SelectedService { get; }
     int MaxCount { get; }
     int SelectedIndex { get; set; }
 
@@ -42,14 +19,14 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     #region Logic
 
     /// <summary>
-    /// Add a <typeparam><typeparamref name="TBaseService"/>.
+    /// Add a service.
     /// </summary>
     /// <param name="baseService">The service</param>
     /// <returns>True/false result.</returns>
-    bool Add(BaseService<BaseRepository<TBaseModel>, TBaseModel> baseService);
+    bool Add(BaseService<TBaseModel> baseService);
 
     /// <summary>
-    /// Remove a <typeparam><typeparamref name="TBaseService"/>.
+    /// Remove a service.
     /// </summary>
     /// <param name="index">The index</param>
     /// <returns>True/false result.</returns>
@@ -63,11 +40,11 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     bool Remove(uint id);
 
     /// <summary>
-    /// Get a <typeparamref name="TBaseService"/>.
+    /// Get a service.
     /// </summary>
     /// <param name="index">The index</param>
     /// <returns>The repository.</returns>
-    BaseService<BaseRepository<TBaseModel>, TBaseModel> Get(int index);
+    BaseService<TBaseModel> Get(int index);
 
     /// <summary>
     /// Remove an enumerable of <typeparamref name="TBaseModel"/>(s).
@@ -162,6 +139,17 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     void SelectRange(IEnumerable<uint> idEnumerable);
+
+    /// <summary>
+    /// Update a service.
+    /// </summary>
+    /// <param name="index">The index</param>
+    /// <param name="baseService">The service</param>
+    void Update
+    (
+      int index,
+      BaseService<TBaseModel> baseService
+    );
 
     #endregion
   }
