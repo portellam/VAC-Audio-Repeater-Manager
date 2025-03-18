@@ -42,8 +42,6 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      Array.Empty<int>();
-
       filePathName = GetModifiedFilePathName(filePathName);
 
       File.WriteAllText
