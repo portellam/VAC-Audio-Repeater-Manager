@@ -39,7 +39,6 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    // TODO: define a default value.
     public string FilePathName { get; set; } = string.Empty;
 
     #endregion

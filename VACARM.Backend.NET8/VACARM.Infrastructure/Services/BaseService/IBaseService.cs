@@ -1,6 +1,6 @@
 ﻿namespace VACARM.Infrastructure.Services
 {
-  public interface IBaseService<TBaseModel>
+  public partial interface IBaseService<TBaseModel>
   {
     #region Parameters
 
