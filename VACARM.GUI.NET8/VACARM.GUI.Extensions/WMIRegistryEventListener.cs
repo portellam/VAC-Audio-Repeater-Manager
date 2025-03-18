@@ -8,7 +8,7 @@ using VACARM.GUI.Extensions.RegistrySubKeyChanged;
 
 namespace VACARM.GUI.Extensions
 {
-  public class WMIRegistryEventListener : 
+  public class WMIRegistryEventListener :
     IDisposable
   {
     #region Parameters
@@ -23,10 +23,10 @@ namespace VACARM.GUI.Extensions
           .SelectMany
           (
             valueNameAndManagementEventWatcherDictionary =>
-              valueNameAndManagementEventWatcherDictionary
-              .Value
-              .Select(managementEventWatcher => managementEventWatcher.Value))
-              .ToList();
+              valueNameAndManagementEventWatcherDictionary.Value
+                .Select(managementEventWatcher => managementEventWatcher.Value)
+          )
+          .ToList();
       }
     }
 
@@ -166,11 +166,7 @@ namespace VACARM.GUI.Extensions
     /// </summary>
     private void ConstructorHelper()
     {
-      if
-      (
-        registryHiveAndKeyPathAndValueNameListDictionary is null
-        || registryHiveAndKeyPathAndValueNameListDictionary.Count == 0
-      )
+      if (registryHiveAndKeyPathAndValueNameListDictionary.IsNullOrEmpty())
       {
         throw new ArgumentNullException();
       }
@@ -195,12 +191,11 @@ namespace VACARM.GUI.Extensions
 
       int timeoutInSeconds = 5;
 
-      managementEventWatcher.Options.Timeout =
-        TimeSpan.FromSeconds(timeoutInSeconds);
+      managementEventWatcher.Options
+        .Timeout = TimeSpan.FromSeconds(timeoutInSeconds);
 
-      managementEventWatcher.EventArrived +=
-        new EventArrivedEventHandler
-          (RegistryEventHandler_GetSubKeyValueOnRegistryValueChangeEvent);
+      managementEventWatcher.EventArrived += new EventArrivedEventHandler
+        (RegistryEventHandler_GetSubKeyValueOnRegistryValueChangeEvent);
 
       return managementEventWatcher;
     }
@@ -285,8 +280,7 @@ namespace VACARM.GUI.Extensions
     /// </summary>
     private void ParseConstructorDictionaryAndSetDictionaries()
     {
-      registryHiveAndKeyPathAndValueNameListDictionary
-        .Keys
+      registryHiveAndKeyPathAndValueNameListDictionary.Keys
         .ToList()
         .ForEach
         (
@@ -301,8 +295,7 @@ namespace VACARM.GUI.Extensions
     /// <param name="registryHive">The registry hive</param>
     private void ParseRegistryHiveAndSetDictionaries(RegistryHive registryHive)
     {
-      registryHiveAndKeyPathAndValueNameListDictionary
-        [registryHive]
+      registryHiveAndKeyPathAndValueNameListDictionary[registryHive]
         .Keys
         .ToList()
         .ForEach
@@ -327,17 +320,18 @@ namespace VACARM.GUI.Extensions
       string keyPath
     )
     {
-      registryHiveAndKeyPathAndValueNameListDictionary
-        [registryHive]
+      registryHiveAndKeyPathAndValueNameListDictionary[registryHive]
         [keyPath]
         .ForEach
-        (valueName =>
+        (
+          valueName =>
           ParseRegistryHiveAndKeyPathAndValueNameAndSetDictionaries
           (
             registryHive,
             keyPath,
-            valueName)
-          );
+            valueName
+          )
+        );
     }
 
     /// <summary>
@@ -366,7 +360,7 @@ namespace VACARM.GUI.Extensions
 
       if
       (
-        ! validRegistryHiveObjectAndValueDictionary
+        !validRegistryHiveObjectAndValueDictionary
           .ContainsKey(registryHive)
       )
       {
@@ -397,7 +391,7 @@ namespace VACARM.GUI.Extensions
       EventArrivedEventArgs eventArrivedEventArgs
     )
     {
-      if (! (sender is ManagementEventWatcher))
+      if (!(sender is ManagementEventWatcher))
       {
         return;
       }
@@ -411,22 +405,19 @@ namespace VACARM.GUI.Extensions
         switch (propertyData.Name)
         {
           case "Hive":
-            registryHiveAsString = propertyData
-              .Value
+            registryHiveAsString = propertyData.Value
               .ToString();
 
             continue;
 
           case "KeyPath":
-            keyPath = propertyData
-              .Value
+            keyPath = propertyData.Value
               .ToString();
 
             continue;
 
           case "ValueName":
-            valueName = propertyData
-              .Value
+            valueName = propertyData.Value
               .ToString();
 
             continue;
@@ -483,7 +474,7 @@ namespace VACARM.GUI.Extensions
 
       if
       (
-        ! keyPathAndValueNameAndManagementEventWatcherDict
+        !keyPathAndValueNameAndManagementEventWatcherDict
           .ContainsKey(keyPath)
       )
       {
@@ -502,7 +493,7 @@ namespace VACARM.GUI.Extensions
       }
       else if
       (
-        ! keyPathAndValueNameAndManagementEventWatcherDict[keyPath]
+        !keyPathAndValueNameAndManagementEventWatcherDict[keyPath]
           .ContainsKey(valueName)
       )
       {
@@ -559,8 +550,7 @@ namespace VACARM.GUI.Extensions
     /// </summary>
     private void StartAllManagementEventWatchers()
     {
-      if (managementEventWatcherList is null
-          || managementEventWatcherList.Count == 0)
+      if (managementEventWatcherList.IsNullOrEmpty())
       {
         return;
       }
@@ -594,16 +584,7 @@ namespace VACARM.GUI.Extensions
     /// </summary>
     private void StopAllManagementEventWatchers()
     {
-      if (keyPathAndValueNameAndManagementEventWatcherDict
-          is null)
-      {
-        return;
-      }
-
-      if (
-        keyPathAndValueNameAndManagementEventWatcherDict is null
-        || keyPathAndValueNameAndManagementEventWatcherDict.Count == 0
-        )
+      if (keyPathAndValueNameAndManagementEventWatcherDict.IsNullOrEmpty())
       {
         return;
       }
