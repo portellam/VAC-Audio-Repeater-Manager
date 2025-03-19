@@ -8,10 +8,6 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Repositories
 {
-  /// <summary>
-  /// The repository to be inherited and overrided.
-  /// </summary>
-  /// <typeparam name="TItem"></typeparam>
   public partial class Repository
     <
       TEnumerable,
@@ -329,30 +325,28 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public virtual void Add(TItem item)
+    public void Add(TItem item)
     {
-      lock (this.Enumerable)
+      if (item == null)
       {
-        if (item == null)
-        {
-          return;
-        }
-
-        enumerable.Append(item);
+        return;
       }
+
+      enumerable.Append(item);
     }
 
-    public virtual void AddRange(IEnumerable<TItem> enumerable)
+    public void AddRange(IEnumerable<TItem> enumerable)
     {
-      lock (this.Enumerable)
+      if (enumerable.IsNullOrEmpty())
       {
-        if (enumerable.IsNullOrEmpty())
-        {
-          return;
-        }
-
-        enumerable.Concat(enumerable);
+        return;
       }
+
+      enumerable.Concat(enumerable);
+    }
+    public void RemoveAll()
+    {
+      this.Dispose();
     }
 
     #endregion

@@ -99,6 +99,11 @@ namespace VACARM.Infrastructure.Repositories
     /// <param name="func">The function</param>
     void AddRange(IEnumerable<TItem> enumerable);
 
+    /// <summary>
+    /// Remove the enumerable of all <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    void RemoveAll();
+
     #endregion
   }
 }
