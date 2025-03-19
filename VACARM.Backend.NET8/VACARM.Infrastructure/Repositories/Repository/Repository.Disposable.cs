@@ -40,7 +40,7 @@ namespace VACARM.Infrastructure.Repositories
           (this.Enumerable as IDisposable).Dispose();
         }
 
-        if (type == typeof(IEnumerable<IDisposable>))
+        if (this.Type == typeof(IEnumerable<IDisposable>))
         {
           foreach (IDisposable item in this.Enumerable)
           {
@@ -48,19 +48,24 @@ namespace VACARM.Infrastructure.Repositories
           }
         }
 
-        if (type == typeof(ICollection<TItem>))
+        if (this.Type == typeof(ICollection<TItem>))
         {
           (this.Enumerable as ICollection<TItem>).Clear();
         }
 
-        if (type == typeof(IList<TItem>))
+        else if (this.Type == typeof(IList<TItem>))
         {
           (this.Enumerable as IList<TItem>).Clear();
         }
 
-        if (type == typeof(ISet<TItem>))
+        else if (this.Type == typeof(ISet<TItem>))
         {
           (this.Enumerable as ISet<TItem>).Clear();
+        }
+
+        else
+        {
+          this.Enumerable = this.EmptyEnumerable;
         }
       }
 
