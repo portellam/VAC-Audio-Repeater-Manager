@@ -11,7 +11,7 @@ namespace VACARM.Infrastructure.Services
   public partial class BaseService<TBaseModel> :
     Service
     <
-      List<TBaseModel>,
+      IEnumerable<TBaseModel>,
       TBaseModel
     >,
     IBaseService<TBaseModel>
@@ -22,9 +22,11 @@ namespace VACARM.Infrastructure.Services
 
     private BaseRepository<TBaseModel> repository { get; set; }
 
+    public BaseModel Model { get; private set; }
+
     public override Repository
       <
-        List<TBaseModel>,
+        IEnumerable<TBaseModel>,
         TBaseModel
       > Repository
     {
@@ -48,32 +50,20 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="filePathName">The file path name</param>
-    [ExcludeFromCodeCoverage]
-    public BaseService(string filePathName = null) :
-      base(new List<TBaseModel>())
-    {
-      if (string.IsNullOrWhiteSpace(filePathName))
-      {
-        filePathName = string.Empty;
-      }
-
-      this.FilePathName = filePathName;
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
+    /// <param name="model">The base model</param>
     /// <param name="repository">The repository</param>
     /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
     public BaseService
     (
+      BaseModel model,
       BaseRepository<TBaseModel> repository,
       string filePathName = null
     ) :
       base(repository)
     {
+      this.Model = model;
+
       if (string.IsNullOrWhiteSpace(filePathName))
       {
         filePathName = string.Empty;
