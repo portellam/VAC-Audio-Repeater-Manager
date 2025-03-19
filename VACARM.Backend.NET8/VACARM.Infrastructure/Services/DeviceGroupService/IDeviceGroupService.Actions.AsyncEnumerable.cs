@@ -26,7 +26,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    /// <returns>True/false result</returns>
+    /// <returns>True/false result.</returns>
     IAsyncEnumerable<bool> MuteRangeAsync
     (
       uint startId,
@@ -52,7 +52,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
-    /// <returns>True/false result</returns>
+    /// <returns>True/false result.</returns>
     IAsyncEnumerable<bool> UnmuteRangeAsync
     (
       uint startId,
