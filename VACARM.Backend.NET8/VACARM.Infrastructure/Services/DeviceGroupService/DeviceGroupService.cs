@@ -4,7 +4,6 @@
 using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -92,16 +91,16 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="observableCollection">The collection of service(s)</param>
+    /// <param name="list">The list of service(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
     public DeviceGroupService
     (
-      ObservableCollection<BaseService<TDeviceModel>> observableCollection,
+      IList<BaseService<TDeviceModel>> list,
       int maxCount
     ) :
       base
       (
-        observableCollection,
+        list,
         maxCount
       )
     {

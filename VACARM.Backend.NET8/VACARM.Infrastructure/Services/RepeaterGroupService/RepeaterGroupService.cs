@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VACARM.Domain.Models;
@@ -107,16 +106,16 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="observableCollection">The collection of service(s)</param>
+    /// <param name="list">The list of service(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
     public RepeaterGroupService
     (
-      ObservableCollection<BaseService<TRepeaterModel>> observableCollection,
+      IList<BaseService<TRepeaterModel>> list,
       int maxCount
     ) :
       base
       (
-        observableCollection,
+        list,
         maxCount
       )
     {

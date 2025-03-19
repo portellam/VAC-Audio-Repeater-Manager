@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
@@ -12,7 +11,7 @@ namespace VACARM.Infrastructure.Services
   public partial class BaseService<TBaseModel> :
     Service
     <
-      ObservableCollection<TBaseModel>,
+      List<TBaseModel>,
       TBaseModel
     >,
     IBaseService<TBaseModel>
@@ -25,7 +24,7 @@ namespace VACARM.Infrastructure.Services
 
     public override Repository
       <
-        ObservableCollection<TBaseModel>,
+        List<TBaseModel>,
         TBaseModel
       > Repository
     {
@@ -52,7 +51,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
     public BaseService(string filePathName = null) :
-      base(new ObservableCollection<TBaseModel>())
+      base(new List<TBaseModel>())
     {
       if (string.IsNullOrWhiteSpace(filePathName))
       {

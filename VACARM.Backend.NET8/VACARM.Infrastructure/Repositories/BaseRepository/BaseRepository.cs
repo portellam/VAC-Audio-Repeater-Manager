@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VACARM.Domain.Models;
@@ -12,7 +11,7 @@ namespace VACARM.Infrastructure.Repositories
   public partial class BaseRepository<TBaseModel> :
     Repository
     <
-      ObservableCollection<TBaseModel>,
+      List<TBaseModel>,
       TBaseModel
     >,
     IBaseRepository<TBaseModel>
@@ -91,22 +90,22 @@ namespace VACARM.Infrastructure.Repositories
     /// </summary>
     [ExcludeFromCodeCoverage]
     public BaseRepository() :
-      base(new ObservableCollection<TBaseModel>())
+      base(new List<TBaseModel>())
     {
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="observableCollection">The collection of item(s)</param>
+    /// <param name="list">The list of item(s)</param>
     /// <param name="maxCount">The maximum count of item(s)</param>
     [ExcludeFromCodeCoverage]
     public BaseRepository
     (
-      ObservableCollection<TBaseModel> observableCollection,
+      List<TBaseModel> list,
       int maxCount
     ) :
-      base(observableCollection)
+      base(list)
     {
       this.MaxCount = maxCount;
     }
@@ -248,7 +247,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public void RemoveAll()
     {
-      base.Enumerable = new ObservableCollection<TBaseModel>();
+      base.Enumerable = new List<TBaseModel>();
     }
 
     public void Select(Func<TBaseModel, bool> func)

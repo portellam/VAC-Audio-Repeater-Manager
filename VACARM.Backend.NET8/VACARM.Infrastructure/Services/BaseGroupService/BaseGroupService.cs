@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
@@ -14,7 +13,7 @@ namespace VACARM.Infrastructure.Services
   public partial class BaseGroupService<TBaseModel> :
     Service
     <
-      ObservableCollection<BaseService<TBaseModel>>,
+      IList<BaseService<TBaseModel>>,
       BaseService<TBaseModel>
     >,
     IBaseGroupService<TBaseModel>
@@ -25,7 +24,7 @@ namespace VACARM.Infrastructure.Services
 
     private int maxCount { get; set; } = SafeMaxCount;
     private int selectedIndex { get; set; } = MinCount;
-
+    
     public BaseRepository<TBaseModel> SelectedRepository
     {
       get
@@ -78,7 +77,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public readonly static int MinCount = 0;
+    public readonly static int MinCount = 0; 
     public readonly static int SafeMaxCount = byte.MaxValue;
 
     public virtual int MaxCount
@@ -107,7 +106,7 @@ namespace VACARM.Infrastructure.Services
     /// Constructor
     /// </summary>
     public BaseGroupService() :
-      base(new ObservableCollection<BaseService<TBaseModel>>())
+      base(new List<BaseService<TBaseModel>>())
     {
       this.Add(new BaseService<TBaseModel>());
     }
@@ -115,14 +114,14 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="observableCollection">The collection of services(s)</param>
+    /// <param name="list">The list of services(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
     public BaseGroupService
     (
-      ObservableCollection<BaseService<TBaseModel>> observableCollection,
+      IList<BaseService<TBaseModel>> list,
       int maxCount
     ) :
-      base(observableCollection)
+      base(list)
     {
       this.MaxCount = maxCount;
     }
@@ -143,12 +142,8 @@ namespace VACARM.Infrastructure.Services
       )
       {
         this.Repository =
-          new Repository
-          <
-            ObservableCollection<BaseService<TBaseModel>>,
-            BaseService<TBaseModel>
-          >
-          (new ObservableCollection<BaseService<TBaseModel>>());
+          new Repository<IList<BaseService<TBaseModel>>, BaseService<TBaseModel>>
+            (new List<BaseService<TBaseModel>>());
       }
 
       if
