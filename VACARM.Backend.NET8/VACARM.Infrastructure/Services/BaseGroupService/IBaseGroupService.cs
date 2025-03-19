@@ -36,7 +36,7 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     /// Remove a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <returns>True/false result</returns>
+    /// <returns>True/false result.</returns>
     bool Remove(uint id);
 
     /// <summary>
@@ -141,14 +141,47 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     void SelectRange(IEnumerable<uint> idEnumerable);
 
     /// <summary>
+    /// Export a service.
+    /// </summary>
+    /// <param name="index">The index</param>
+    /// <param name="filePathName">The file path name</param>
+    void ExportService
+    (
+      int index,
+      string filePathName = null
+    );
+
+    /// <summary>
+    /// Import a service.
+    /// </summary>
+    /// <param name="index">The index</param>
+    /// <param name="filePathName">The file path name</param>
+    public void ImportService
+    (
+      int index,
+      string filePathName = null
+    );
+
+    /// <summary>
     /// Update a service.
     /// </summary>
     /// <param name="index">The index</param>
     /// <param name="baseService">The service</param>
-    void Update
+    void UpdateService
     (
       int index,
       BaseService<TBaseModel> baseService
+    );
+
+    /// <summary>
+    /// Update a service.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="enumerable"></param>
+    public void UpdateService
+    (
+      int index,
+      IEnumerable<TBaseModel> enumerable
     );
 
     #endregion

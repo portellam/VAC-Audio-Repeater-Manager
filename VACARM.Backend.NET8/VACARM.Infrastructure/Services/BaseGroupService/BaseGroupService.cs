@@ -8,7 +8,7 @@ using VACARM.Infrastructure.Services.BaseGroupService;
 namespace VACARM.Infrastructure.Services
 {
   /// <summary>
-  /// The repository of <typeparamref name="TBaseService"/>(s).
+  /// The repository of <typeparamref name="TBaseModel"/> service(s).
   /// </summary>
   public partial class BaseGroupService<TBaseModel> :
     Service
@@ -24,8 +24,7 @@ namespace VACARM.Infrastructure.Services
 
     private int maxCount { get; set; } = SafeMaxCount;
     private int selectedIndex { get; set; } = MinCount;
-    private readonly static int MinCount = 0;
-
+    
     public BaseRepository<TBaseModel> SelectedRepository
     {
       get
@@ -50,9 +49,9 @@ namespace VACARM.Infrastructure.Services
       }
       protected set
       {
-        this.Update
+        this.UpdateService
           (
-            this.SelectedIndex, 
+            this.SelectedIndex,
             value
           );
 
@@ -78,6 +77,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
+    public readonly static int MinCount = 0; 
     public readonly static int SafeMaxCount = byte.MaxValue;
 
     public virtual int MaxCount
@@ -299,6 +299,79 @@ namespace VACARM.Infrastructure.Services
         .DeselectRange(func);
     }
 
+    public async void ExportService
+    (
+      int index,
+      string filePathName = null
+    )
+    {
+      if
+      (
+        index < MinCount
+        || index > MaxCount
+      )
+      {
+        return;
+      }
+
+      var baseService = this.Repository
+        .Get(index);
+
+      if (baseService == null)
+      {
+        return;
+      }
+
+      if (string.IsNullOrWhiteSpace(baseService.FilePathName))
+      {
+        if (string.IsNullOrWhiteSpace(filePathName))
+        {
+          return;
+        }
+
+        baseService.FilePathName = filePathName;
+      }
+
+      await baseService.WriteAllToFile();
+    }
+
+    public async void ImportService
+    (
+      int index,
+      string filePathName = null
+    )
+    {
+      if
+      (
+        !this.Repository
+          .ContainsIndex(index)
+      )
+      {
+        return;
+      }
+
+      var baseService = this.Repository
+        .Get(index);
+
+      if (string.IsNullOrWhiteSpace(baseService.FilePathName))
+      {
+        if (string.IsNullOrWhiteSpace(filePathName))
+        {
+          return;
+        }
+
+        baseService.FilePathName = filePathName;
+      }
+
+      await baseService.ReadRangeFromFile();
+
+      this.UpdateService
+        (
+          index,
+          baseService
+        );
+    }
+
     public void Select(uint id)
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
@@ -315,7 +388,7 @@ namespace VACARM.Infrastructure.Services
         .SelectRange(func);
     }
 
-    public void Update
+    public void UpdateService
     (
       int index,
       BaseService<TBaseModel> baseService
@@ -341,6 +414,44 @@ namespace VACARM.Infrastructure.Services
           index,
           baseService
         );
+    }
+
+    public void UpdateService
+    (
+      int index,
+      IEnumerable<TBaseModel> enumerable
+    )
+    {
+      if (enumerable.IsNullOrEmpty())
+      {
+        return;
+      }
+
+      if
+      (
+        !this.Repository
+          .ContainsIndex(index)
+      )
+      {
+        return;
+      }
+
+      var service = this.Repository
+        .Get(index);
+
+      if (service == null)
+      {
+        service = new BaseService<TBaseModel>();
+      }
+
+      else
+      {
+        service.Repository
+          .Dispose();
+      }
+
+      service.Repository
+        .AddRange(enumerable);
     }
 
     #endregion
