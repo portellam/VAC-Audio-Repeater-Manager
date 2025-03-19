@@ -32,8 +32,10 @@ namespace VACARM.Infrastructure.Functions
     /// </summary>
     /// <param name="model1">The model</param>
     /// <returns>The function.</returns>
-    internal static Func<TBaseModel, bool> ContainsId(TBaseModel model1)
-      => (TBaseModel model2) => model2.Id == model1.Id;
+    internal static Func<TBaseModel, bool> ContainsId(TBaseModel model)
+    {
+      return ContainsId(GetId(model));
+    }
 
     /// <summary>
     /// Match a <typeparamref name="TBaseModel"/> ID.
@@ -42,7 +44,7 @@ namespace VACARM.Infrastructure.Functions
     /// <returns>The function.</returns>
     internal static Func<TBaseModel, bool> ContainsId(uint? id)
     {
-      return (TBaseModel model) => model.Id == id;
+      return (TBaseModel model) => GetId(model) == id;
     }
 
     /// <summary>
@@ -58,8 +60,8 @@ namespace VACARM.Infrastructure.Functions
     )
     {
       return (TBaseModel model) =>
-        model.Id >= startId
-        && model.Id <= endId;
+        GetId(model) >= startId
+        && GetId(model) <= endId;
     }
 
     /// <summary>
@@ -70,7 +72,7 @@ namespace VACARM.Infrastructure.Functions
     internal static Func<TBaseModel, bool> ContainsIdEnumerable
     (IEnumerable<uint> idEnumerable)
     {
-      return (TBaseModel model) => idEnumerable.Contains(model.Id);
+      return (TBaseModel model) => idEnumerable.Contains(GetId(model));
     }
 
     /// <summary>
@@ -87,8 +89,8 @@ namespace VACARM.Infrastructure.Functions
     {
       return (TBaseModel model) =>
         !(
-          model.Id >= startId
-          && model.Id <= endId
+          GetId(model) >= startId
+          && GetId(model) <= endId
         );
     }
 
@@ -100,7 +102,7 @@ namespace VACARM.Infrastructure.Functions
     internal static Func<TBaseModel, bool> NotContainsIdEnumerable
     (IEnumerable<uint> idEnumerable)
     {
-      return (TBaseModel model) => !idEnumerable.Contains(model.Id);
+      return (TBaseModel model) => !idEnumerable.Contains(GetId(model));
     }
 
     #endregion
