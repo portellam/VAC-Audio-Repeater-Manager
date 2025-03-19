@@ -580,7 +580,6 @@ namespace VACARM.Infrastructure.Services
           .Add(deviceModel);
       }
 
-      if
       base.UpdateService
         (
           this.SelectedIndex,
