@@ -22,29 +22,15 @@ namespace VACARM.Infrastructure.Repositories
     /// Remove a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>True/false result</returns>
+    /// <returns>True/false result.</returns>
     bool Remove(Func<TBaseModel, bool> func);
-
-    /// <summary>
-    /// Remove a <typeparamref name="TBaseModel"/>.
-    /// </summary>
-    /// <param name="item">The item</param>
-    /// <returns>True/false result</returns>
-    bool Remove(TBaseModel item);
 
     /// <summary>
     /// Remove an enumerable of some <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     /// <param name="func">The function</param>
-    /// <returns>True/false result enumerable</returns>
+    /// <returns>True/false result.</returns>
     IEnumerable<bool> RemoveRange(Func<TBaseModel, bool> func);
-
-    /// <summary>
-    /// Remove an enumerable of some <typeparamref name="TBaseModel"/>(s).
-    /// </summary>
-    /// <param name="enumerable">The enumerable of item(s)</param>
-    /// <returns>True/false result enumerable</returns>
-    IEnumerable<bool> RemoveRange(IEnumerable<TBaseModel> enumerable);
 
     /// <summary>
     /// Get a <typeparamref name="TBaseModel"/>.

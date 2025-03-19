@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Repositories
@@ -28,13 +29,39 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
+    private TEnumerable EmptyEnumerable
+    {
+      get
+      {
+        if (this.Type == null)
+        {
+          throw new ArgumentNullException(nameof(this.Type));
+        }
+
+        var constructorInfoArray = this.Type
+          .GetConstructors(BindingFlags.Public);
+
+        var enumerable = constructorInfoArray[0].Invoke(new object[] { });
+        return (TEnumerable)enumerable;
+      }
+    }
+
     private TEnumerable enumerable { get; set; }
+
+    private Type Type
+    {
+      get
+      {
+        return this.Enumerable
+          .GetType();
+      }
+    }
 
     /// <summary>
     /// The enumerable of item(s).
     /// </summary>
     internal TEnumerable Enumerable
-    { 
+    {
       get
       {
         return this.enumerable;
@@ -45,7 +72,7 @@ namespace VACARM.Infrastructure.Repositories
         this.OnPropertyChanged(nameof(this.Enumerable));
       }
     }
-    
+
     public virtual bool IsNullOrEmpty
     {
       get
@@ -75,6 +102,180 @@ namespace VACARM.Infrastructure.Repositories
     public Repository(TEnumerable enumerable)
     {
       Enumerable = enumerable;
+    }
+
+    public bool Remove(int index)
+    {
+      if (index < 0)
+      {
+        return false;
+      }
+
+      if (this.IsNullOrEmpty)
+      {
+        return false;
+      }
+
+      if (this.Type == typeof(IList<TItem>))
+      {
+        (this.Enumerable as IList<TItem>).RemoveAt(index);
+        return true;
+      }
+
+      var itemToRemove = this.Get(index);
+      var enumerable = this.EmptyEnumerable;
+
+      foreach (var item in this.GetAll())
+      {
+        if (item == itemToRemove)
+        {
+          continue;
+        }
+
+        enumerable.Append(item);
+      }
+
+      this.Enumerable = enumerable;
+      return true;
+    }
+
+    public bool Remove(TItem itemToRemove)
+    {
+      if (itemToRemove == null)
+      {
+        return false;
+      }
+
+      if (this.IsNullOrEmpty)
+      {
+        return false;
+      }
+
+      if (this.Type == typeof(ICollection<TItem>))
+      {
+        return (this.Enumerable as ICollection<TItem>).Remove(itemToRemove);
+      }
+
+      if (this.Type == typeof(IList<TItem>))
+      {
+        return (this.Enumerable as IList<TItem>).Remove(itemToRemove);
+      }
+
+      if (this.Type == typeof(ISet<TItem>))
+      {
+        return (this.Enumerable as ISet<TItem>).Remove(itemToRemove);
+      }
+
+      var enumerable = this.EmptyEnumerable;
+
+      foreach (var item in this.GetAll())
+      {
+        if (item == itemToRemove)
+        {
+          continue;
+        }
+
+        enumerable.Append(item);
+      }
+
+      this.Enumerable = enumerable;
+      return true;
+    }
+
+    public IEnumerable<bool> RemoveRange(IEnumerable<int> indexEnumerable)
+    {
+      if (indexEnumerable.IsNullOrEmpty())
+      {
+        yield return false;
+      }
+
+      if (this.IsNullOrEmpty)
+      {
+        yield return false;
+      }
+
+      if (this.Type == typeof(IList<TItem>))
+      {
+        foreach (var index in indexEnumerable)
+        {
+          (this.Enumerable as IList<TItem>).RemoveAt(index);
+          yield return true;
+        }
+      }
+
+      var enumerableToRemove = this.GetRange(indexEnumerable);
+      var enumerable = this.EmptyEnumerable;
+
+      foreach (var item in this.GetAll())
+      {
+        if (enumerableToRemove.Contains(item))
+        {
+          continue;
+        }
+
+        enumerable.Append(item);
+        yield return true;
+      }
+
+      this.Enumerable = enumerable;
+    }
+
+    public IEnumerable<bool> RemoveRange(IEnumerable<TItem> enumerableToRemove)
+    {
+      if (enumerableToRemove.IsNullOrEmpty())
+      {
+        yield return false;
+      }
+
+      if (this.IsNullOrEmpty)
+      {
+        yield return false;
+      }
+
+      if (this.Type == typeof(ICollection<TItem>))
+      {
+        foreach (var index in enumerableToRemove)
+        {
+          yield return (this.Enumerable as ICollection<TItem>).Remove(index);
+        }
+
+        yield break;
+      }
+
+      if (this.Type == typeof(IList<TItem>))
+      {
+        foreach (var index in enumerableToRemove)
+        {
+          yield return (this.Enumerable as IList<TItem>).Remove(index);
+        }
+
+        yield break;
+      }
+
+      if (this.Type == typeof(ISet<TItem>))
+      {
+        foreach (var index in enumerableToRemove)
+        {
+          yield return (this.Enumerable as ISet<TItem>).Remove(index);
+        }
+
+        yield break;
+      }
+
+      var enumerable = this.EmptyEnumerable;
+
+      foreach (var item in this.GetAll())
+      {
+        if (enumerableToRemove.Contains(item))
+        {
+          continue;
+        }
+
+        enumerable.Append(item);
+        yield return true;
+      }
+
+      this.Enumerable = enumerable;
     }
 
     public TItem Get(int index)
@@ -108,6 +309,24 @@ namespace VACARM.Infrastructure.Repositories
 
       return this.Enumerable
         .Where(x => func(x));
+    }
+
+    public IEnumerable<TItem> GetRange(IEnumerable<int> indexEnumerable)
+    {
+      if (this.IsNullOrEmpty)
+      {
+        yield break;
+      }
+
+      if (indexEnumerable.IsNullOrEmpty())
+      {
+        yield break;
+      }
+
+      foreach (var index in indexEnumerable)
+      {
+        yield return this.Get(index);
+      }
     }
 
     public virtual void Add(TItem item)

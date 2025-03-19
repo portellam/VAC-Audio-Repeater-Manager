@@ -56,7 +56,7 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        return this.Enumerable
+        return this.GetAll()
           .Where
           (
             BaseFunctions<TBaseModel>.NotContainsIdEnumerable
@@ -129,24 +129,7 @@ namespace VACARM.Infrastructure.Repositories
         return false;
       }
 
-      return this.Enumerable
-        .Remove(item);
-    }
-
-    public bool Remove(TBaseModel model)
-    {
-      if (model == null)
-      {
-        return false;
-      }
-
-      if (base.IsNullOrEmpty)
-      {
-        return false;
-      }
-
-      return this.Enumerable
-        .Remove(model);
+      return this.Remove(item);
     }
 
     public IEnumerable<bool> RemoveRange(Func<TBaseModel, bool> func)
@@ -163,29 +146,9 @@ namespace VACARM.Infrastructure.Repositories
 
       var enumerable = base.GetRange(func);
 
-      foreach (var item in enumerable)
+      foreach (var item in base.RemoveRange(enumerable))
       {
-        yield return this.Enumerable
-          .Remove(item);
-      }
-    }
-
-    public IEnumerable<bool> RemoveRange(IEnumerable<TBaseModel> enumerable)
-    {
-      if (enumerable.IsNullOrEmpty())
-      {
-        yield return false;
-      }
-
-      if (base.IsNullOrEmpty)
-      {
-        yield return false;
-      }
-
-      foreach (var item in enumerable)
-      {
-        yield return this.Enumerable
-          .Remove(item);
+        yield return item;
       }
     }
 
@@ -195,7 +158,7 @@ namespace VACARM.Infrastructure.Repositories
       return base.Get(func);
     }
 
-    public void Add(TBaseModel model)
+    public new void Add(TBaseModel model)
     {
       if (model == null)
       {
@@ -211,7 +174,7 @@ namespace VACARM.Infrastructure.Repositories
         .Add(model);
     }
 
-    public void AddRange(IEnumerable<TBaseModel> enumerable)
+    public new void AddRange(IEnumerable<TBaseModel> enumerable)
     {
       if (enumerable == null)
       {
