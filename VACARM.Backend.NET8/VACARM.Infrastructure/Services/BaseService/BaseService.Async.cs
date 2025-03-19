@@ -8,7 +8,7 @@ namespace VACARM.Infrastructure.Services
   {
     #region Logic
 
-    public async void Save()
+    public async Task WriteAllToFile()
     {
       await BaseFileService<TBaseModel>
         .WriteJsonFileAsync
@@ -19,13 +19,17 @@ namespace VACARM.Infrastructure.Services
         );
     }
 
-    public async void Update()
+    public async Task ReadRangeFromFile()
     {
       var enumerable = await BaseFileService<TBaseModel>
         .ReadJsonFileAsync(this.FilePathName);
 
-      this.Repository.Enumerable.Clear();
-      this.Repository.AddRange(enumerable);
+      this.Repository
+        .Enumerable
+        .Clear();
+
+      this.Repository
+        .AddRange(enumerable);
     }
 
     #endregion

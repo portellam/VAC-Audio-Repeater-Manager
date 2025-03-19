@@ -7,12 +7,12 @@
     /// <summary>
     /// Write the repository to file.
     /// </summary>
-    void Save();
+    Task WriteAllToFile();
 
     /// <summary>
     /// Read the repository from file.
     /// </summary>
-    void Update();
+    Task ReadRangeFromFile();
 
     #endregion
   }
