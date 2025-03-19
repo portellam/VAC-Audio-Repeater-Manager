@@ -11,7 +11,7 @@ namespace VACARM.Infrastructure.Repositories
   public partial class BaseRepository<TBaseModel> :
     Repository
     <
-      List<TBaseModel>,
+      IEnumerable<TBaseModel>,
       TBaseModel
     >,
     IBaseRepository<TBaseModel>
@@ -88,68 +88,27 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public BaseRepository() :
-      base(new List<TBaseModel>())
+    public BaseRepository(IEnumerable<TBaseModel> enumerable) :
+      base(enumerable)
     {
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="list">The list of item(s)</param>
+    /// <param name="enumerable">The enumerable of item(s)</param>
     /// <param name="maxCount">The maximum count of item(s)</param>
     [ExcludeFromCodeCoverage]
     public BaseRepository
     (
-      List<TBaseModel> list,
+      IEnumerable<TBaseModel> enumerable,
       int maxCount
     ) :
-      base(list)
+      base(enumerable)
     {
       this.MaxCount = maxCount;
-    }
-
-    public bool Remove(Func<TBaseModel, bool> func)
-    {
-      if (func == null)
-      {
-        return false;
-      }
-
-      if (base.IsNullOrEmpty)
-      {
-        return false;
-      }
-
-      var item = base.Get(func);
-
-      if (item == null)
-      {
-        return false;
-      }
-
-      return this.Remove(item);
-    }
-
-    public IEnumerable<bool> RemoveRange(Func<TBaseModel, bool> func)
-    {
-      if (func == null)
-      {
-        yield return false;
-      }
-
-      if (base.IsNullOrEmpty)
-      {
-        yield return false;
-      }
-
-      var enumerable = base.GetRange(func);
-
-      foreach (var item in base.RemoveRange(enumerable))
-      {
-        yield return item;
-      }
     }
 
     public TBaseModel Get(uint id)
@@ -160,23 +119,31 @@ namespace VACARM.Infrastructure.Repositories
 
     public new void Add(TBaseModel model)
     {
+      if (this.Count >= this.MaxCount)
+      {
+        return;
+      }
+      
       if (model == null)
       {
         return;
       }
 
-      if (IdEnumerable.Contains(model.Id))
+      if
+      (
+        this.IdEnumerable
+          .Contains(model.Id)
+      )
       {
         model.Id = NextId;
       }
 
-      this.Enumerable
-        .Add(model);
+      base.Add(model);
     }
 
     public new void AddRange(IEnumerable<TBaseModel> enumerable)
     {
-      if (enumerable == null)
+      if (this.Count >= this.MaxCount)
       {
         return;
       }
@@ -245,11 +212,6 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public void RemoveAll()
-    {
-      base.Enumerable = new List<TBaseModel>();
-    }
-
     public void Select(Func<TBaseModel, bool> func)
     {
       var model = this.Get(func);
@@ -301,44 +263,6 @@ namespace VACARM.Infrastructure.Repositories
       foreach (var item in base.Enumerable)
       {
         this.Select(item);
-      }
-    }
-
-    public void Update(TBaseModel model)
-    {
-      if (model == null)
-      {
-        return;
-      }
-
-      var func = BaseFunctions<TBaseModel>.ContainsId(model.Id);
-
-      if (!func(model))
-      {
-        return;
-      }
-
-      if (!this.Remove(func))
-      {
-        return;
-      }
-
-      this.Add(model);
-    }
-
-    public void UpdateRange(IEnumerable<TBaseModel> enumerable)
-    {
-      if (enumerable.IsNullOrEmpty())
-      {
-        return;
-      }
-
-      var idEnumerable = enumerable.Select(x => x.Id);
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      foreach (var item in enumerable)
-      {
-        this.Update(item);
       }
     }
 

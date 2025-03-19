@@ -19,20 +19,6 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Remove a <typeparamref name="TBaseModel"/>.
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <returns>True/false result.</returns>
-    bool Remove(Func<TBaseModel, bool> func);
-
-    /// <summary>
-    /// Remove an enumerable of some <typeparamref name="TBaseModel"/>(s).
-    /// </summary>
-    /// <param name="func">The function</param>
-    /// <returns>True/false result.</returns>
-    IEnumerable<bool> RemoveRange(Func<TBaseModel, bool> func);
-
-    /// <summary>
     /// Get a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
@@ -75,11 +61,6 @@ namespace VACARM.Infrastructure.Repositories
     void DeselectAll();
 
     /// <summary>
-    /// Remove the enumerable of all <typeparamref name="TBaseModel"/>(s).
-    /// </summary>
-    void RemoveAll();
-
-    /// <summary>
     /// Select a <typeparamref name="TBaseModel"/>.
     /// </summary>
     /// <param name="func">The function</param>
@@ -107,18 +88,6 @@ namespace VACARM.Infrastructure.Repositories
     /// Select the enumerable of all <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     void SelectAll();
-
-    /// <summary>
-    /// Update a <typeparamref name="TBaseModel"/>.
-    /// </summary>
-    /// <param name="model">The item</param>
-    void Update(TBaseModel model);
-
-    /// <summary>
-    /// Update an enumerable of some <typeparamref name="TBaseModel"/>(s).
-    /// </summary>
-    /// <param name="enumerable">The enumerable of item(s)</param>
-    void UpdateRange(IEnumerable<TBaseModel> enumerable);
 
     #endregion
   }
