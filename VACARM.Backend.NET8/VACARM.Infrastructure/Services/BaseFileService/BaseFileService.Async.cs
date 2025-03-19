@@ -2,7 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -41,11 +44,37 @@ namespace VACARM.Infrastructure.Services
           () => File.Create(filePathName)
         );
 
-      await JsonSerializer.SerializeAsync<IEnumerable<TBaseModel>>
+      try
+      {
+        await JsonSerializer.SerializeAsync<IEnumerable<TBaseModel>>
         (
           fileStream,
           enumerable
         );
+
+        Debug.WriteLine
+           (
+             string.Format
+             (
+               "Successfully wrote JSON file\t=> File name: '{0}', Count: {1}",
+               filePathName,
+               enumerable.Count()
+             )
+           );
+      }
+
+      catch (Exception exception)
+      {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to write JSON file\t=> File name: '{0}', Count: {1}",
+            filePathName,
+            enumerable.Count()
+          )
+        );
+      }
 
       fileStream.Dispose();
     }
@@ -73,10 +102,29 @@ namespace VACARM.Infrastructure.Services
         enumerable = await
           JsonSerializer.DeserializeAsync<IEnumerable<TBaseModel>>(fileStream)
           .ConfigureAwait(false);
+
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Successfully read JSON file\t=> File name: '{0}', Count: {1}",
+            filePathName,
+            enumerable.Count()
+          )
+        );
       }
 
-      catch
+      catch (Exception exception)
       {
+        Debug.WriteLine
+        (
+          string.Format
+          (
+            "Failed to read JSON file\t=> File name: '{0}'",
+            filePathName
+          )
+        );
+
         enumerable = Array.Empty<TBaseModel>();
       }
 
