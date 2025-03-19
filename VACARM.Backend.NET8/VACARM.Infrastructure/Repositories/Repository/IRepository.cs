@@ -24,6 +24,7 @@ namespace VACARM.Infrastructure.Repositories
 
     event PropertyChangedEventHandler PropertyChanged;
     Func<int, bool> ContainsIndex { get; }
+    Func<int, bool> IsValidIndex { get; }
     int Count { get; }
 
     #endregion

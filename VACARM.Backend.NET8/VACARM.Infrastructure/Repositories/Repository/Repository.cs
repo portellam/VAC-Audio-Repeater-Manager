@@ -151,7 +151,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public void Add(TItem item)
+    public virtual void Add(TItem item)
     {
       if (item == null)
       {
@@ -161,7 +161,7 @@ namespace VACARM.Infrastructure.Repositories
       enumerable.Append(item);
     }
 
-    public void AddRange(IEnumerable<TItem> enumerable)
+    public virtual void AddRange(IEnumerable<TItem> enumerable)
     {
       if (enumerable.IsNullOrEmpty())
       {

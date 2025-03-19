@@ -27,6 +27,21 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public virtual Func<int, bool> IsValidIndex
+    {
+      get
+      {
+        return new Func<int, bool>
+          (
+            x =>
+            {
+              return x >= 0
+              && x <= int.MaxValue;
+            }
+          );
+      }
+    }
+
     #endregion
   }
 }
