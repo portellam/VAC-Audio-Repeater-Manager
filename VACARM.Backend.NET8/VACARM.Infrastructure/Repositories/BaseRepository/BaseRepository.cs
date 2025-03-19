@@ -117,13 +117,13 @@ namespace VACARM.Infrastructure.Repositories
       return base.Get(func);
     }
 
-    public new void Add(TBaseModel model)
+    public override void Add(TBaseModel model)
     {
       if (this.Count >= this.MaxCount)
       {
         return;
       }
-      
+
       if (model == null)
       {
         return;
@@ -141,7 +141,7 @@ namespace VACARM.Infrastructure.Repositories
       base.Add(model);
     }
 
-    public new void AddRange(IEnumerable<TBaseModel> enumerable)
+    public override void AddRange(IEnumerable<TBaseModel> enumerable)
     {
       if (this.Count >= this.MaxCount)
       {

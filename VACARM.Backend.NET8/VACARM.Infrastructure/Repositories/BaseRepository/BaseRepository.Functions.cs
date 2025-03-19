@@ -6,7 +6,7 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    public Func<int, bool> IsValidIndex
+    public override Func<int, bool> IsValidIndex
     {
       get
       {

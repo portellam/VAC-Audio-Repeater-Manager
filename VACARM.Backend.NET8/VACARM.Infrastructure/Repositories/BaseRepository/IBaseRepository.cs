@@ -28,7 +28,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Add a <typeparamref name="TBaseModel"/>.
     /// </summary>
-    /// <param name="model"></param>
+    /// <param name="model">The item.</param>
     void Add(TBaseModel model);
 
     /// <summary>
