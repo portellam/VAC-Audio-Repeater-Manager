@@ -77,6 +77,12 @@ namespace VACARM.Infrastructure.Repositories
       Enumerable = enumerable;
     }
 
+    public TItem Get(int index)
+    {
+      return this.Enumerable
+        .ElementAtOrDefault(index);
+    }
+
     public TItem Get(Func<TItem, bool> func)
     {
       return this.Enumerable
