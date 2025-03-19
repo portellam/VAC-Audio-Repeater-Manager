@@ -56,7 +56,7 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// The enumerable of item(s).
     /// </summary>
-    internal TEnumerable Enumerable
+    protected TEnumerable Enumerable
     {
       get
       {
@@ -100,190 +100,16 @@ namespace VACARM.Infrastructure.Repositories
       Enumerable = enumerable;
     }
 
-    public bool Remove(int index)
+    public TItem Get(Func<TItem, bool> func)
     {
-      if (index < 0)
-      {
-        return false;
-      }
-
-      if (this.IsNullOrEmpty)
-      {
-        return false;
-      }
-
-      if (this.Type == typeof(IList<TItem>))
-      {
-        (this.Enumerable as IList<TItem>).RemoveAt(index);
-        return true;
-      }
-
-      var itemToRemove = this.Get(index);
-      var enumerable = this.EmptyEnumerable;
-
-      foreach (var item in this.GetAll())
-      {
-        if (item == itemToRemove)
-        {
-          continue;
-        }
-
-        enumerable.Append(item);
-      }
-
-      this.Enumerable = enumerable;
-      return true;
-    }
-
-    public bool Remove(TItem itemToRemove)
-    {
-      if (itemToRemove == null)
-      {
-        return false;
-      }
-
-      if (this.IsNullOrEmpty)
-      {
-        return false;
-      }
-
-      if (this.Type == typeof(ICollection<TItem>))
-      {
-        return (this.Enumerable as ICollection<TItem>).Remove(itemToRemove);
-      }
-
-      if (this.Type == typeof(IList<TItem>))
-      {
-        return (this.Enumerable as IList<TItem>).Remove(itemToRemove);
-      }
-
-      if (this.Type == typeof(ISet<TItem>))
-      {
-        return (this.Enumerable as ISet<TItem>).Remove(itemToRemove);
-      }
-
-      var enumerable = this.EmptyEnumerable;
-
-      foreach (var item in this.GetAll())
-      {
-        if (item == itemToRemove)
-        {
-          continue;
-        }
-
-        enumerable.Append(item);
-      }
-
-      this.Enumerable = enumerable;
-      return true;
-    }
-
-    public IEnumerable<bool> RemoveRange(IEnumerable<int> indexEnumerable)
-    {
-      if (indexEnumerable.IsNullOrEmpty())
-      {
-        yield return false;
-      }
-
-      if (this.IsNullOrEmpty)
-      {
-        yield return false;
-      }
-
-      if (this.Type == typeof(IList<TItem>))
-      {
-        foreach (var index in indexEnumerable)
-        {
-          (this.Enumerable as IList<TItem>).RemoveAt(index);
-          yield return true;
-        }
-      }
-
-      var enumerableToRemove = this.GetRange(indexEnumerable);
-      var enumerable = this.EmptyEnumerable;
-
-      foreach (var item in this.GetAll())
-      {
-        if (enumerableToRemove.Contains(item))
-        {
-          continue;
-        }
-
-        enumerable.Append(item);
-        yield return true;
-      }
-
-      this.Enumerable = enumerable;
-    }
-
-    public IEnumerable<bool> RemoveRange(IEnumerable<TItem> enumerableToRemove)
-    {
-      if (enumerableToRemove.IsNullOrEmpty())
-      {
-        yield return false;
-      }
-
-      if (this.IsNullOrEmpty)
-      {
-        yield return false;
-      }
-
-      if (this.Type == typeof(ICollection<TItem>))
-      {
-        foreach (var index in enumerableToRemove)
-        {
-          yield return (this.Enumerable as ICollection<TItem>).Remove(index);
-        }
-
-        yield break;
-      }
-
-      if (this.Type == typeof(IList<TItem>))
-      {
-        foreach (var index in enumerableToRemove)
-        {
-          yield return (this.Enumerable as IList<TItem>).Remove(index);
-        }
-
-        yield break;
-      }
-
-      if (this.Type == typeof(ISet<TItem>))
-      {
-        foreach (var index in enumerableToRemove)
-        {
-          yield return (this.Enumerable as ISet<TItem>).Remove(index);
-        }
-
-        yield break;
-      }
-
-      var enumerable = this.EmptyEnumerable;
-
-      foreach (var item in this.GetAll())
-      {
-        if (enumerableToRemove.Contains(item))
-        {
-          continue;
-        }
-
-        enumerable.Append(item);
-        yield return true;
-      }
-
-      this.Enumerable = enumerable;
+      return this.Enumerable
+        .FirstOrDefault(func);
     }
 
     public TItem Get(int index)
     {
       return this.Enumerable
         .ElementAtOrDefault(index);
-    }
-
-    public TItem Get(Func<TItem, bool> func)
-    {
-      return this.Enumerable
-        .FirstOrDefault(func);
     }
 
     public IEnumerable<TItem> GetAll()
@@ -344,6 +170,7 @@ namespace VACARM.Infrastructure.Repositories
 
       enumerable.Concat(enumerable);
     }
+    
     public void RemoveAll()
     {
       this.Dispose();

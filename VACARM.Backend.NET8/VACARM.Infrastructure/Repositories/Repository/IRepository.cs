@@ -31,36 +31,6 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
-    /// Remove a <typeparamref name="TItem"/>.
-    /// </summary>
-    /// <param name="index">The index</param>
-    /// <returns>True/false result.</returns>
-    bool Remove(int index);
-
-    /// <summary>
-    /// Remove a <typeparamref name="TItem"/>.
-    /// </summary>
-    /// <param name="itemToRemove">The item to remove</param>
-    /// <returns>True/false result.</returns>
-    bool Remove(TItem itemToRemove);
-
-    /// <summary>
-    /// Remove an enumerable of some <typeparamref name="TItem"/>(s).
-    /// </summary>
-    /// <param name="indexEnumerable">The enumerable of index(es)</param>
-    /// <returns>True/false result.</returns>
-    IEnumerable<bool> RemoveRange(IEnumerable<int> indexEnumerable);
-
-    /// <summary>
-    /// Remove an enumerable of some <typeparamref name="TItem"/>(s).
-    /// </summary>
-    /// <param name="enumerableToRemove">
-    /// The enumerable of <typeparamref name="TItem"/>(es)
-    /// </param>
-    /// <returns>True/false result.</returns>
-    IEnumerable<bool> RemoveRange(IEnumerable<TItem> enumerableToRemove);
-
-    /// <summary>
     /// Get a <typeparamref name="TItem"/>.
     /// </summary>
     /// <param name="func">The function</param>
