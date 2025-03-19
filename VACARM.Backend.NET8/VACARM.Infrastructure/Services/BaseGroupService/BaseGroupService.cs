@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
@@ -13,18 +14,55 @@ namespace VACARM.Infrastructure.Services
   public partial class BaseGroupService<TBaseModel> :
     Service
     <
-      IList<BaseService<TBaseModel>>,
+      IEnumerable<BaseService<TBaseModel>>,
       BaseService<TBaseModel>
-    >,
-    IBaseGroupService<TBaseModel>
+    >
     where TBaseModel :
     BaseModel
   {
     #region Parameters
 
-    private int maxCount { get; set; } = SafeMaxCount;
-    private int selectedIndex { get; set; } = MinCount;
-    
+    /// <summary>
+    /// The next valid ID.
+    /// </summary>
+    internal uint NextId
+    {
+      get
+      {
+        uint id = this.IdEnumerable
+          .Max();
+
+        id++;
+        return id;
+      }
+    }
+
+    /// <summary>
+    /// The enumerable of ID(s).
+    /// </summary>
+    private IEnumerable<uint> IdEnumerable
+    {
+      get
+      {
+        var func = BaseServiceFunctions
+          <
+            BaseService<TBaseModel>,
+            TBaseModel
+          >.GetId;
+
+        var idEnumerable = this.Repository
+          .GetAll()
+          .Select(x => func(x));
+
+        idEnumerable.OrderBy(x => x);
+        return idEnumerable;
+      }
+    }
+
+    private int maxCount { get; set; } = int.MaxValue;
+
+    private uint selectedId { get; set; } = MinCount;
+
     public BaseRepository<TBaseModel> SelectedRepository
     {
       get
@@ -45,13 +83,13 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.Get(this.SelectedIndex);
+        return this.Get(this.IsValidIndex);
       }
       protected set
       {
         this.UpdateService
           (
-            this.SelectedIndex,
+            this.SelectedId,
             value
           );
 
@@ -59,11 +97,14 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public int SelectedIndex
+    public readonly static uint MinCount = uint.MinValue;
+    public readonly static int SafeMaxCount = byte.MaxValue;
+
+    public uint SelectedId
     {
       get
       {
-        return this.selectedIndex;
+        return this.selectedId;
       }
       set
       {
@@ -72,13 +113,10 @@ namespace VACARM.Infrastructure.Services
           value = MinCount;
         }
 
-        this.selectedIndex = value;
-        base.OnPropertyChanged(nameof(this.SelectedIndex));
+        this.selectedId = value;
+        base.OnPropertyChanged(nameof(this.SelectedId));
       }
     }
-
-    public readonly static int MinCount = 0; 
-    public readonly static int SafeMaxCount = byte.MaxValue;
 
     public virtual int MaxCount
     {
@@ -88,11 +126,6 @@ namespace VACARM.Infrastructure.Services
       }
       internal set
       {
-        if (value < MinCount)
-        {
-          value = MinCount;
-        }
-
         this.maxCount = value;
         base.OnPropertyChanged(nameof(this.MaxCount));
       }
@@ -105,35 +138,46 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    public BaseGroupService() :
-      base(new List<BaseService<TBaseModel>>())
-    {
-      this.Add(new BaseService<TBaseModel>());
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="list">The list of services(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
-    public BaseGroupService
-    (
-      IList<BaseService<TBaseModel>> list,
-      int maxCount
-    ) :
-      base(list)
+    public BaseGroupService(int maxCount) :
+      base
+      (
+        new HashSet<BaseService<TBaseModel>>()
+      )
     {
+      var model = new BaseModel(this.SelectedId);
+      var enumerable = new ObservableCollection<TBaseModel>();
+      var baseRepository = new BaseRepository<TBaseModel>(enumerable);
+
+      var service = new BaseService<TBaseModel>
+        (
+          model,
+          baseRepository,
+          string.Empty
+        );
+
+      this.Add(service);
       this.MaxCount = maxCount;
     }
 
-    public BaseService<TBaseModel> Get(int index)
+    public BaseService<TBaseModel> Get(Func<BaseService<TBaseModel>, bool> func)
     {
-      return this.Repository
-        .Enumerable
-        .ElementAtOrDefault(index);
+      return base.Repository
+        .Get(func);
     }
 
-    public bool Add(BaseService<TBaseModel> baseService)
+    public BaseService<TBaseModel> Get(uint id)
+    {
+      var func = BaseServiceFunctions
+        <
+          BaseService<TBaseModel>,
+          TBaseModel
+        >.ContainsId(id);
+
+      return this.Get(func);
+    }
+
+    public bool Add(BaseService<TBaseModel> service)
     {
       if
       (
@@ -156,7 +200,7 @@ namespace VACARM.Infrastructure.Services
       }
 
       this.Repository
-        .Add(baseService);
+        .Add(service);
 
       return true;
     }
@@ -275,14 +319,6 @@ namespace VACARM.Infrastructure.Services
         .Select(x => x.Id);
     }
 
-    public TBaseModel Get(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      return this.SelectedRepository
-        .Get(func);
-    }
-
     public void Deselect(uint id)
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
@@ -314,25 +350,24 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      var baseService = this.Repository
-        .Get(index);
+      var service = this.Get(index);
 
-      if (baseService == null)
+      if (service == null)
       {
         return;
       }
 
-      if (string.IsNullOrWhiteSpace(baseService.FilePathName))
+      if (string.IsNullOrWhiteSpace(service.FilePathName))
       {
         if (string.IsNullOrWhiteSpace(filePathName))
         {
           return;
         }
 
-        baseService.FilePathName = filePathName;
+        service.FilePathName = filePathName;
       }
 
-      await baseService.WriteAllToFile();
+      await service.WriteAllToFile();
     }
 
     public async void ImportService
@@ -343,32 +378,30 @@ namespace VACARM.Infrastructure.Services
     {
       if
       (
-        !this.Repository
-          .ContainsIndex(index)
+        !this.ContainsIndex(index)
       )
       {
         return;
       }
 
-      var baseService = this.Repository
-        .Get(index);
+      var service = this.Get(index);
 
-      if (string.IsNullOrWhiteSpace(baseService.FilePathName))
+      if (string.IsNullOrWhiteSpace(service.FilePathName))
       {
         if (string.IsNullOrWhiteSpace(filePathName))
         {
           return;
         }
 
-        baseService.FilePathName = filePathName;
+        service.FilePathName = filePathName;
       }
 
-      await baseService.ReadRangeFromFile();
+      await service.ReadRangeFromFile();
 
       this.UpdateService
         (
           index,
-          baseService
+          service
         );
     }
 
@@ -390,29 +423,16 @@ namespace VACARM.Infrastructure.Services
 
     public void UpdateService
     (
-      int index,
-      BaseService<TBaseModel> baseService
+      uint id,
+      BaseService<TBaseModel> service
     )
     {
-      if
-      (
-        !this.Repository
-          .ContainsIndex(index)
-      )
-      {
-        return;
-      }
 
-      this.Repository
-        .Enumerable
-        .RemoveAt(index);
-
-      this.Repository
-        .Enumerable
+      this.Enumerable
         .Insert
         (
           index,
-          baseService
+          service
         );
     }
 
@@ -436,8 +456,7 @@ namespace VACARM.Infrastructure.Services
         return;
       }
 
-      var service = this.Repository
-        .Get(index);
+      var service = this.Get(index);
 
       if (service == null)
       {

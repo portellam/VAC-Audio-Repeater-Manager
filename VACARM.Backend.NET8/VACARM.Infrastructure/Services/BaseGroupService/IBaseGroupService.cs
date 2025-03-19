@@ -10,7 +10,9 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
   {
     #region Parameters
 
+    BaseRepository<TBaseModel> SelectedRepository { get; }
     BaseService<TBaseModel> SelectedService { get; }
+    Func<BaseService<TBaseModel>, bool> IsValidIndex { get; }
     int MaxCount { get; }
     int SelectedIndex { get; set; }
 
