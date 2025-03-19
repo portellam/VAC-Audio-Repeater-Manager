@@ -581,19 +581,11 @@ namespace VACARM.Infrastructure.Services
       }
 
       if
-      (
-        base.Repository
-          .IsNullOrEmpty
-      )
-      {
-        base.Repository
-          .Add(service);
-      }
-
-      else
-      {
-        base.SelectedService = service;
-      }
+      base.UpdateService
+        (
+          this.SelectedIndex,
+          service
+        );
     }
 
     #endregion

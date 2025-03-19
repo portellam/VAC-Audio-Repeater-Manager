@@ -154,7 +154,7 @@ namespace VACARM.Infrastructure.Services
     );
 
     /// <summary>
-    /// Update the selected <typeparamref name="TBaseService"/>.
+    /// Update the selected service.
     /// </summary>
     void UpdateSelectedService();
 
