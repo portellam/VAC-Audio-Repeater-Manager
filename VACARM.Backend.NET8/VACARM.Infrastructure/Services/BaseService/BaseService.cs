@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
 
@@ -11,37 +12,47 @@ namespace VACARM.Infrastructure.Services
   public partial class BaseService<TBaseModel> :
     Service
     <
-      IEnumerable<TBaseModel>,
+      ObservableCollection<TBaseModel>,
       TBaseModel
     >,
+    IBaseModel,
     IBaseService<TBaseModel>
     where TBaseModel :
-    BaseModel
+    class,
+    IBaseModel,
+    new()
   {
     #region Parameters
 
-    private BaseRepository<TBaseModel> repository { get; set; }
+    private uint id { get; set; }
 
-    public BaseModel Model { get; private set; }
-
-    public override Repository
-      <
-        IEnumerable<TBaseModel>,
-        TBaseModel
-      > Repository
+    public new BaseRepository<TBaseModel> Repository
     {
       get
       {
-        return this.repository;
+        return (BaseRepository<TBaseModel>)base.Repository;
       }
       set
       {
-        this.repository = (BaseRepository<TBaseModel>)value;
+        base.Repository = value;
         base.OnPropertyChanged(nameof(this.Repository));
       }
     }
 
     public string FilePathName { get; set; } = string.Empty;
+
+    public uint Id
+    {
+      get
+      {
+        return id;
+      }
+      set
+      {
+        id = value;
+        base.OnPropertyChanged(nameof(this.Id));
+      }
+    }
 
     #endregion
 
@@ -50,19 +61,42 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="model">The base model</param>
+    /// <param name="id">The ID</param>
+    /// <param name="filePathName">The file path name</param>
+    [ExcludeFromCodeCoverage]
+    public BaseService
+    (
+      uint id,
+      string filePathName = null
+    ) :
+      base(new BaseRepository<TBaseModel>())
+    {
+      this.Id = id;
+
+      if (string.IsNullOrWhiteSpace(filePathName))
+      {
+        filePathName = string.Empty;
+      }
+
+      this.FilePathName = filePathName;
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="id">The ID</param>
     /// <param name="repository">The repository</param>
     /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
     public BaseService
     (
-      BaseModel model,
+      uint id,
       BaseRepository<TBaseModel> repository,
       string filePathName = null
     ) :
       base(repository)
     {
-      this.Model = model;
+      this.Id = id;
 
       if (string.IsNullOrWhiteSpace(filePathName))
       {
