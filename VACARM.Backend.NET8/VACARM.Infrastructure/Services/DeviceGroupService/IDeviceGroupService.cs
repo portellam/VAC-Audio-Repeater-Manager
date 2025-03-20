@@ -8,9 +8,18 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface IDeviceGroupService<TDeviceModel>
+  public partial interface IDeviceGroupService
+    <
+      TBaseService,
+      TDeviceModel
+    >
+    where TBaseService :
+    BaseService<TDeviceModel>,
+    new()
     where TDeviceModel :
-    DeviceModel
+    class,
+    IDeviceModel,
+    new()
   {
     #region Parameters
 

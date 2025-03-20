@@ -10,6 +10,7 @@ using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services.BaseGroupService;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -20,11 +21,24 @@ namespace VACARM.Infrastructure.Services
   /// Manages <typeparamref name="CoreAudioService"/>
   ///  and <typeparamref name="MMDeviceService"/>.
   /// </summary>
-  public partial class DeviceGroupService<TDeviceModel> :
-    BaseGroupService<TDeviceModel>,
-    IDeviceGroupService<TDeviceModel>
+  public partial class DeviceGroupService
+    <
+      TBaseService,
+      TDeviceModel
+    > :
+    BaseRepository<TBaseService>,
+    IDeviceGroupService
+    <
+      TBaseService,
+      TDeviceModel
+    >
+    where TBaseService :
+    BaseService<TDeviceModel>,
+    new()
     where TDeviceModel :
-    DeviceModel
+    class,
+    IDeviceModel,
+    new()
   {
     #region Parameters
 
@@ -91,28 +105,11 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="list">The list of service(s)</param>
     /// <param name="maxCount">The maximum count of service(s)</param>
-    public DeviceGroupService
-    (
-      IList<BaseService<TDeviceModel>> list,
-      int maxCount
-    ) :
-      base
-      (
-        list,
-        maxCount
-      )
+    public DeviceGroupService(int maxCount) :
+      base(maxCount)
     {
-      if
-      (
-        base.Repository
-          .IsNullOrEmpty
-      )
-      {
-        base.Add(new BaseService<TDeviceModel>());
-      }
-
+      this.MaxCount = maxCount;
       this.MMDeviceService = new MMDeviceService<MMDevice>();
       this.CoreAudioService = new CoreAudioService<Device>();
 
@@ -580,11 +577,7 @@ namespace VACARM.Infrastructure.Services
           .Add(deviceModel);
       }
 
-      base.UpdateService
-        (
-          this.SelectedIndex,
-          service
-        );
+      base.Update(service);
     }
 
     #endregion
