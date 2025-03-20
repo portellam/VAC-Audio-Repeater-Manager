@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
@@ -12,7 +14,7 @@ namespace VACARM.Infrastructure.Repositories
   public partial class BaseRepository<TBaseModel> :
     Repository
     <
-      IEnumerable<TBaseModel>,
+      ObservableCollection<TBaseModel>,
       TBaseModel
     >,
     IBaseRepository<TBaseModel>
@@ -90,9 +92,18 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
+    public BaseRepository() :
+      base(Structs.BaseRepository<TBaseModel>.EmptyEnumerable)
+    {
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
     /// <param name="enumerable">The enumerable of item(s)</param>
     [ExcludeFromCodeCoverage]
-    public BaseRepository(IEnumerable<TBaseModel> enumerable) :
+    public BaseRepository(ObservableCollection<TBaseModel> enumerable) :
       base(enumerable)
     {
     }
@@ -105,7 +116,7 @@ namespace VACARM.Infrastructure.Repositories
     [ExcludeFromCodeCoverage]
     public BaseRepository
     (
-      IEnumerable<TBaseModel> enumerable,
+      ObservableCollection<TBaseModel> enumerable,
       int maxCount
     ) :
       base(enumerable)
@@ -117,6 +128,48 @@ namespace VACARM.Infrastructure.Repositories
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
       return base.Get(func);
+    }
+
+    public IEnumerable<TBaseModel> GetAntiRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.NotContainsIdEnumerable(idEnumerable);
+      return base.GetRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetAntiRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TBaseModel>.NotContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      return base.GetRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+      return base.GetRange(func);
+    }
+
+    public IEnumerable<TBaseModel> GetRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      return base.GetRange(func);
     }
 
     public override void Add(TBaseModel model)
@@ -150,10 +203,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      foreach (var item in enumerable)
-      {
-        this.Add(item);
-      }
+      base.AddRange(enumerable);
     }
 
     public void Deselect(Func<TBaseModel, bool> func)
@@ -171,6 +221,12 @@ namespace VACARM.Infrastructure.Repositories
 
       this.SelectedIdEnumerable
         .Remove(model.Id);
+    }
+
+    public void Deselect(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+      this.Deselect(func);
     }
 
     public void DeselectRange(Func<TBaseModel, bool> func)
@@ -197,18 +253,76 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public void DeselectAll()
+    public void DeselectRange(IEnumerable<uint> idEnumerable)
     {
-      if
-      (
-        base.Enumerable
-          .IsNullOrEmpty()
-      )
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+      this.DeselectRange(func);
+    }
+
+    public bool Remove(Func<TBaseModel, bool> func)
+    {
+      if (func == null)
       {
-        return;
+        return false;
       }
 
-      foreach (var item in base.Enumerable)
+      var model = this.Get(func);
+
+      return this.Enumerable
+        .Remove(model);
+    }
+
+    public bool Remove(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+      return this.Remove(func);
+    }
+
+    public IEnumerable<bool> RemoveRange(Func<TBaseModel, bool> func)
+    {
+      if (func == null)
+      {
+        yield break;
+      }
+
+      var enumerable = base.GetRange(func);
+
+      if (enumerable.IsNullOrEmpty())
+      {
+        yield break;
+      }
+
+      foreach (var item in enumerable)
+      {
+        yield return base.Enumerable
+          .Remove(item);
+      }
+    }
+
+    public IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+      return this.RemoveRange(func);
+    }
+
+    public IEnumerable<bool> RemoveRange
+    (
+      uint startId,
+      uint endId
+    )
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdRange
+        (
+          startId,
+          endId
+        );
+
+      return this.RemoveRange(func);
+    }
+
+    public void DeselectAll()
+    {
+      foreach (var item in base.GetAll())
       {
         this.Deselect(item);
       }
@@ -231,6 +345,12 @@ namespace VACARM.Infrastructure.Repositories
         .Add(model.Id);
     }
 
+    public void Select(uint id)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsId(id);
+      this.Select(func);
+    }
+
     public void SelectRange(Func<TBaseModel, bool> func)
     {
       if (func == null)
@@ -244,7 +364,7 @@ namespace VACARM.Infrastructure.Repositories
 
     public void SelectRange(IEnumerable<TBaseModel> enumerable)
     {
-      if (enumerable == null)
+      if (enumerable.IsNullOrEmpty())
       {
         return;
       }
@@ -255,14 +375,15 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
+    public void SelectRange(IEnumerable<uint> idEnumerable)
+    {
+      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
+      this.SelectRange(func);
+    }
+
     public void SelectAll()
     {
-      if (base.Enumerable == null)
-      {
-        return;
-      }
-
-      foreach (var item in base.Enumerable)
+      foreach (var item in base.GetAll())
       {
         this.Select(item);
       }
