@@ -32,7 +32,7 @@ namespace VACARM.Infrastructure.Services
       > repository
     { get; set; }
 
-    public virtual Repository
+    public Repository
       <
         TEnumerable,
         TItem
