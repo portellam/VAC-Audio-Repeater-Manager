@@ -18,7 +18,7 @@ namespace VACARM.Infrastructure.Repositories
       {
         base.Dispose();
         
-        this.SelectedIdHashSet
+        this.SelectedIdEnumerable
           .Clear();
       }
 

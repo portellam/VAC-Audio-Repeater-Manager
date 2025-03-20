@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VACARM.Domain.Models;
@@ -61,13 +62,13 @@ namespace VACARM.Infrastructure.Repositories
           .Where
           (
             BaseFunctions<TBaseModel>.NotContainsIdEnumerable
-              (this.SelectedIdHashSet)
+              (this.SelectedIdEnumerable)
           )
           .Select(x => x.Id);
       }
     }
 
-    public HashSet<uint> SelectedIdHashSet { get; set; }
+    public ObservableCollection<uint> SelectedIdEnumerable { get; set; }
 
     public virtual int MaxCount
     {
@@ -168,7 +169,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      this.SelectedIdHashSet
+      this.SelectedIdEnumerable
         .Remove(model.Id);
     }
 
@@ -226,7 +227,7 @@ namespace VACARM.Infrastructure.Repositories
         return;
       }
 
-      this.SelectedIdHashSet
+      this.SelectedIdEnumerable
         .Add(model.Id);
     }
 

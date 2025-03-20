@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Repositories
@@ -13,7 +14,7 @@ namespace VACARM.Infrastructure.Repositories
 
     Func<int, bool> IsValidIndex { get; }
     IEnumerable<uint> DeselectedIdEnumerable { get; }
-    HashSet<uint> SelectedIdHashSet { get; set; }
+    ObservableCollection<uint> SelectedIdEnumerable { get; set; }
 
     #endregion
 
