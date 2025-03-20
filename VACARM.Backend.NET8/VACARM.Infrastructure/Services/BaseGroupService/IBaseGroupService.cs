@@ -20,7 +20,7 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     #region Parameters
 
     BaseRepository<TBaseModel> SelectedRepository { get; }
-    BaseService<TBaseModel> SelectedService { get; }
+    TBaseService SelectedService { get; }
     uint SelectedId { get; set; }
 
     #endregion

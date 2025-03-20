@@ -4,7 +4,8 @@ using VACARM.Domain.Enums;
 
 namespace VACARM.Domain.Models
 {
-  public interface IRepeaterModel
+  public interface IRepeaterModel :
+    IBaseModel
   {
     #region Parameters
 

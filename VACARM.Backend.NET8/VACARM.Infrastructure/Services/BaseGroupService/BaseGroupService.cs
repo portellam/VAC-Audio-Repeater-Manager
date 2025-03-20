@@ -51,7 +51,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public BaseService<TBaseModel> SelectedService
+    public TBaseService SelectedService
     {
       get
       {
@@ -61,7 +61,7 @@ namespace VACARM.Infrastructure.Services
       {
         var service = value;
         service.Id = this.SelectedId;
-        this.Update(service);
+        base.Update(service);
         base.OnPropertyChanged(nameof(this.SelectedService));
       }
     }
@@ -87,6 +87,15 @@ namespace VACARM.Infrastructure.Services
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public BaseGroupService() :
+      base()
+    {
+      this.Add(base.EmptyModel);
+    }
 
     /// <summary>
     /// Constructor
