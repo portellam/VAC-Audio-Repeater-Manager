@@ -19,7 +19,6 @@ namespace VACARM.Domain.Models
     private string actualId { get; set; } = string.Empty;
     private string name { get; set; } = string.Empty;
     private string role { get; set; } = string.Empty;
-    public override uint Id { get; set; }
 
     public bool IsCapture
     {
