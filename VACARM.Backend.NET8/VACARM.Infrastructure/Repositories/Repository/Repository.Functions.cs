@@ -27,7 +27,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public virtual Func<int, bool> IsValidIndex
+    public Func<int, bool> IsValidIndex
     {
       get
       {

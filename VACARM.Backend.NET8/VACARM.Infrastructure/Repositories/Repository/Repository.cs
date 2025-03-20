@@ -69,7 +69,7 @@ namespace VACARM.Infrastructure.Repositories
       }
     }
 
-    public virtual bool IsNullOrEmpty
+    public bool IsNullOrEmpty
     {
       get
       {
