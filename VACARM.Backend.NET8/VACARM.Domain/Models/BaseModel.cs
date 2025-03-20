@@ -14,7 +14,7 @@ namespace VACARM.Domain.Models
 
     private uint id { get; set; }
 
-    public virtual uint Id
+    public uint Id
     {
       get
       {
