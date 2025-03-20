@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
@@ -9,57 +10,28 @@ using VACARM.Infrastructure.Services.BaseGroupService;
 namespace VACARM.Infrastructure.Services
 {
   /// <summary>
-  /// The repository of <typeparamref name="TBaseModel"/> service(s).
+  /// The service of <typeparamref name="TBaseModel"/> service(s).
   /// </summary>
-  public partial class BaseGroupService<TBaseModel> :
-    Service
+  public partial class BaseGroupService
     <
-      IEnumerable<BaseService<TBaseModel>>,
-      BaseService<TBaseModel>
+      TBaseService,
+      TBaseModel
+    > :
+    BaseRepository<TBaseService>,
+    IBaseGroupService
+    <
+      TBaseService,
+      TBaseModel
     >
+    where TBaseService :
+    BaseService<TBaseModel>,
+    new()
     where TBaseModel :
-    BaseModel
+    class,
+    IBaseModel,
+    new()
   {
     #region Parameters
-
-    /// <summary>
-    /// The next valid ID.
-    /// </summary>
-    internal uint NextId
-    {
-      get
-      {
-        uint id = this.IdEnumerable
-          .Max();
-
-        id++;
-        return id;
-      }
-    }
-
-    /// <summary>
-    /// The enumerable of ID(s).
-    /// </summary>
-    private IEnumerable<uint> IdEnumerable
-    {
-      get
-      {
-        var func = BaseServiceFunctions
-          <
-            BaseService<TBaseModel>,
-            TBaseModel
-          >.GetId;
-
-        var idEnumerable = this.Repository
-          .GetAll()
-          .Select(x => func(x));
-
-        idEnumerable.OrderBy(x => x);
-        return idEnumerable;
-      }
-    }
-
-    private int maxCount { get; set; } = int.MaxValue;
 
     private uint selectedId { get; set; } = MinCount;
 
@@ -67,7 +39,7 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return (BaseRepository<TBaseModel>)this.SelectedService
+        return this.SelectedService
           .Repository;
       }
       protected set
@@ -83,22 +55,16 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.Get(this.IsValidIndex);
+        return base.Get(this.SelectedId);
       }
       protected set
       {
-        this.UpdateService
-          (
-            this.SelectedId,
-            value
-          );
-
+        var service = value;
+        service.Id = this.SelectedId;
+        this.Update(service);
         base.OnPropertyChanged(nameof(this.SelectedService));
       }
     }
-
-    public readonly static uint MinCount = uint.MinValue;
-    public readonly static int SafeMaxCount = byte.MaxValue;
 
     public uint SelectedId
     {
@@ -118,19 +84,6 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public virtual int MaxCount
-    {
-      get
-      {
-        return this.maxCount;
-      }
-      internal set
-      {
-        this.maxCount = value;
-        base.OnPropertyChanged(nameof(this.MaxCount));
-      }
-    }
-
     #endregion
 
     #region Logic
@@ -140,220 +93,28 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="maxCount">The maximum count of service(s)</param>
     public BaseGroupService(int maxCount) :
-      base
-      (
-        new HashSet<BaseService<TBaseModel>>()
-      )
+      base()
     {
-      var model = new BaseModel(this.SelectedId);
-      var enumerable = new ObservableCollection<TBaseModel>();
-      var baseRepository = new BaseRepository<TBaseModel>(enumerable);
-
-      var service = new BaseService<TBaseModel>
-        (
-          model,
-          baseRepository,
-          string.Empty
-        );
-
-      this.Add(service);
+      this.Add(base.EmptyModel);
       this.MaxCount = maxCount;
     }
 
-    public BaseService<TBaseModel> Get(Func<BaseService<TBaseModel>, bool> func)
-    {
-      return base.Repository
-        .Get(func);
-    }
-
-    public BaseService<TBaseModel> Get(uint id)
-    {
-      var func = BaseServiceFunctions
-        <
-          BaseService<TBaseModel>,
-          TBaseModel
-        >.ContainsId(id);
-
-      return this.Get(func);
-    }
-
-    public bool Add(BaseService<TBaseModel> service)
-    {
-      if
-      (
-        this.Repository
-          .IsNullOrEmpty
-      )
-      {
-        this.Repository =
-          new Repository<IList<BaseService<TBaseModel>>, BaseService<TBaseModel>>
-            (new List<BaseService<TBaseModel>>());
-      }
-
-      if
-      (
-        this.Repository
-          .Count >= this.MaxCount
-      )
-      {
-        return false;
-      }
-
-      this.Repository
-        .Add(service);
-
-      return true;
-    }
-
-    public bool Remove(int index)
-    {
-      if
-      (
-        this.Repository
-          .IsNullOrEmpty
-      )
-      {
-        return false;
-      }
-
-      if
-      (
-        !this.Repository
-          .ContainsIndex(index)
-      )
-      {
-        return false;
-      }
-
-      this.Repository
-        .Enumerable
-        .RemoveAt(index);
-
-      return true;
-    }
-
-    public bool Remove(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      return this.SelectedRepository
-        .Remove(func);
-    }
-
-    public IEnumerable<bool> RemoveRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return this.SelectedRepository
-        .RemoveRange(func);
-    }
-
-    public IEnumerable<bool> RemoveRange
+    public async void Export
     (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.SelectedRepository
-        .RemoveRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetAntiRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.NotContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.SelectedRepository
-        .GetRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetAntiRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.NotContainsIdEnumerable(idEnumerable);
-
-      return this.SelectedRepository
-        .GetRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetRange
-    (
-      uint startId,
-      uint endId
-    )
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdRange
-        (
-          startId,
-          endId
-        );
-
-      return this.SelectedRepository
-        .GetRange(func);
-    }
-
-    public IEnumerable<TBaseModel> GetRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      return this.SelectedRepository
-        .GetRange(func);
-    }
-
-    public IEnumerable<uint> GetAllId()
-    {
-      return this.SelectedRepository
-        .GetAll()
-        .Select(x => x.Id);
-    }
-
-    public void Deselect(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      this.SelectedRepository
-        .Deselect(func);
-    }
-
-    public void DeselectRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      this.SelectedRepository
-        .DeselectRange(func);
-    }
-
-    public async void ExportService
-    (
-      int index,
+      uint id,
       string filePathName = null
     )
     {
-      if
-      (
-        index < MinCount
-        || index > MaxCount
-      )
+      if (!base.IsValidId(id))
       {
         return;
       }
 
-      var service = this.Get(index);
+      var service = this.Get(id);
 
       if (service == null)
       {
+        Debug.WriteLine("Failed to export. Service is not valid.");
         return;
       }
 
@@ -361,6 +122,7 @@ namespace VACARM.Infrastructure.Services
       {
         if (string.IsNullOrWhiteSpace(filePathName))
         {
+          Debug.WriteLine("Failed to export. File name is not valid.");
           return;
         }
 
@@ -370,26 +132,24 @@ namespace VACARM.Infrastructure.Services
       await service.WriteAllToFile();
     }
 
-    public async void ImportService
+    public async void Import
     (
-      int index,
+      uint id,
       string filePathName = null
     )
     {
-      if
-      (
-        !this.ContainsIndex(index)
-      )
+      if (!base.IsValidId(id))
       {
         return;
       }
 
-      var service = this.Get(index);
+      var service = this.Get(id);
 
       if (string.IsNullOrWhiteSpace(service.FilePathName))
       {
         if (string.IsNullOrWhiteSpace(filePathName))
         {
+          Debug.WriteLine("Failed to import. File name is not valid.");
           return;
         }
 
@@ -398,79 +158,13 @@ namespace VACARM.Infrastructure.Services
 
       await service.ReadRangeFromFile();
 
-      this.UpdateService
-        (
-          index,
-          service
-        );
-    }
-
-    public void Select(uint id)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsId(id);
-
-      this.SelectedRepository
-        .Select(func);
-    }
-
-    public void SelectRange(IEnumerable<uint> idEnumerable)
-    {
-      var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
-
-      this.SelectedRepository
-        .SelectRange(func);
-    }
-
-    public void UpdateService
-    (
-      uint id,
-      BaseService<TBaseModel> service
-    )
-    {
-
-      this.Enumerable
-        .Insert
-        (
-          index,
-          service
-        );
-    }
-
-    public void UpdateService
-    (
-      int index,
-      IEnumerable<TBaseModel> enumerable
-    )
-    {
-      if (enumerable.IsNullOrEmpty())
-      {
-        return;
-      }
-
-      if
-      (
-        !this.Repository
-          .ContainsIndex(index)
-      )
-      {
-        return;
-      }
-
-      var service = this.Get(index);
-
       if (service == null)
       {
-        service = new BaseService<TBaseModel>();
+        Debug.WriteLine("Failed to import. Service is not valid.");
+        return;
       }
 
-      else
-      {
-        service.Repository
-          .Dispose();
-      }
-
-      service.Repository
-        .AddRange(enumerable);
+      this.Update(service);
     }
 
     #endregion
