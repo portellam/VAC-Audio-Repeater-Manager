@@ -16,7 +16,8 @@ namespace VACARM.Infrastructure.Repositories
     >,
     IBaseRepository<TBaseModel>
     where TBaseModel :
-    BaseModel
+    class,
+    IBaseModel
   {
     #region Parameters
 
