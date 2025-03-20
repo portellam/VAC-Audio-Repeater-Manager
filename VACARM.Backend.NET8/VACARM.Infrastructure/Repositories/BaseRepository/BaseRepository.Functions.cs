@@ -6,15 +6,15 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    public override Func<int, bool> IsValidIndex
+    public Func<uint, bool> IsValidId
     {
       get
       {
-        return new Func<int, bool>
+        return new Func<uint, bool>
           (
             x =>
             {
-              return x >= 0
+              return x >= MinCount
               && x <= this.MaxCount;
             }
           );

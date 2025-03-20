@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
-using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Repositories
 {
@@ -20,9 +19,21 @@ namespace VACARM.Infrastructure.Repositories
     IBaseRepository<TBaseModel>
     where TBaseModel :
     class,
-    IBaseModel
+    IBaseModel,
+    new()
   {
     #region Parameters
+
+    internal TBaseModel EmptyModel
+    {
+      get
+      {
+        return new TBaseModel()
+          {
+            Id = this.NextId
+          };
+      }
+    }
 
     /// <summary>
     /// The next valid ID.
@@ -71,6 +82,9 @@ namespace VACARM.Infrastructure.Repositories
     }
 
     public ObservableCollection<uint> SelectedIdEnumerable { get; set; }
+
+    public readonly static uint MinCount = uint.MinValue;
+    public readonly static int SafeMaxCount = byte.MaxValue;
 
     public virtual int MaxCount
     {
@@ -386,6 +400,42 @@ namespace VACARM.Infrastructure.Repositories
       foreach (var item in base.GetAll())
       {
         this.Select(item);
+      }
+    }
+
+    public void Update(TBaseModel model)
+    {
+      if (model == null)
+      {
+        return;
+      }
+
+      if (!this.IsValidId(model.Id))
+      {
+        return;
+      }
+
+      var func = BaseFunctions<TBaseModel>.ContainsId(model.Id);
+      var result = this.Remove(func);
+
+      if (result)
+      {
+        return;
+      }
+
+      base.Add(model);
+    }
+
+    public void UpdateRange(IEnumerable<TBaseModel> enumerable)
+    {
+      if (enumerable.IsNullOrEmpty())
+      {
+        return;
+      }
+
+      foreach (var item in enumerable)
+      {
+        this.Update(item);
       }
     }
 

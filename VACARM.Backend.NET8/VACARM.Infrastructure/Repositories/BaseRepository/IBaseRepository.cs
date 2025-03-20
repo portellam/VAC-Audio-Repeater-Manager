@@ -12,7 +12,7 @@ namespace VACARM.Infrastructure.Repositories
   {
     #region Parameters
 
-    Func<int, bool> IsValidIndex { get; }
+    Func<uint, bool> IsValidId { get; }
     IEnumerable<uint> DeselectedIdEnumerable { get; }
     int MaxCount { get; }
     ObservableCollection<uint> SelectedIdEnumerable { get; set; }
@@ -121,8 +121,8 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Deselect a <typeparamref name="TBaseModel"/>.
     /// </summary>
-    /// <param name="item">The item</param>
-    void Deselect(TBaseModel item);
+    /// <param name="model">The item</param>
+    void Deselect(TBaseModel model);
 
     /// <summary>
     /// Deselect a <typeparamref name="TBaseModel"/>.
@@ -168,8 +168,8 @@ namespace VACARM.Infrastructure.Repositories
     /// <summary>
     /// Select a <typeparamref name="TBaseModel"/>.
     /// </summary>
-    /// <param name="item">The item</param>
-    void Select(TBaseModel item);
+    /// <param name="model">The item</param>
+    void Select(TBaseModel model);
 
     /// <summary>
     /// Select an enumerable of some <typeparamref name="TBaseModel"/>(s).
@@ -193,6 +193,18 @@ namespace VACARM.Infrastructure.Repositories
     /// Select the enumerable of all <typeparamref name="TBaseModel"/>(s).
     /// </summary>
     void SelectAll();
+
+    /// <summary>
+    /// Update a <typeparamref name="TBaseModel"/>.
+    /// </summary>
+    /// <param name="model">The item</param>
+    void Update(TBaseModel model);
+
+    /// <summary>
+    /// Update an enumerable of some <typeparamref name="TBaseModel"/>(s).
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    void UpdateRange(IEnumerable<TBaseModel> enumerable);
 
     #endregion
   }
