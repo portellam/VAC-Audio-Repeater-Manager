@@ -16,7 +16,12 @@ namespace VACARM.Infrastructure.Repositories
 
       if (isDisposed)
       {
-        base.Dispose();
+        foreach (IDisposable item in this.Enumerable)
+        {
+          item.Dispose();
+        }
+
+        this.Enumerable = Structs.BaseRepository<TBaseModel>.EmptyEnumerable;
         
         this.SelectedIdEnumerable
           .Clear();
