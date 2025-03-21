@@ -4,14 +4,7 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services.BaseGroupService
 {
-  public interface IBaseGroupService
-    <
-      TBaseService,
-      TBaseModel
-    >
-    where TBaseService :
-    BaseService<TBaseModel>,
-    new()
+  public interface IBaseGroupService<TBaseModel>
     where TBaseModel :
     class,
     IBaseModel,
@@ -20,7 +13,7 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     #region Parameters
 
     BaseRepository<TBaseModel> SelectedRepository { get; }
-    TBaseService SelectedService { get; }
+    BaseService<TBaseModel> SelectedService { get; }
     uint SelectedId { get; set; }
 
     #endregion
@@ -43,7 +36,7 @@ namespace VACARM.Infrastructure.Services.BaseGroupService
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="filePathName">The file path name</param>
-    public void Import
+    void Import
     (
       uint id,
       string filePathName = null

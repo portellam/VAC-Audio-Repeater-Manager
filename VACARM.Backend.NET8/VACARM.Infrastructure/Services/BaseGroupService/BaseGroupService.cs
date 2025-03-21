@@ -12,20 +12,9 @@ namespace VACARM.Infrastructure.Services
   /// <summary>
   /// The service of <typeparamref name="TBaseModel"/> service(s).
   /// </summary>
-  public partial class BaseGroupService
-    <
-      TBaseService,
-      TBaseModel
-    > :
-    BaseRepository<TBaseService>,
-    IBaseGroupService
-    <
-      TBaseService,
-      TBaseModel
-    >
-    where TBaseService :
-    BaseService<TBaseModel>,
-    new()
+  public partial class BaseGroupService<TBaseModel> :
+    BaseRepository<BaseService<TBaseModel>>,
+    IBaseGroupService<TBaseModel>
     where TBaseModel :
     class,
     IBaseModel,
@@ -51,7 +40,7 @@ namespace VACARM.Infrastructure.Services
       }
     }
 
-    public TBaseService SelectedService
+    public BaseService<TBaseModel> SelectedService
     {
       get
       {

@@ -61,6 +61,16 @@ namespace VACARM.Infrastructure.Services
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
+    public BaseService
+    () :
+      base(new BaseRepository<TBaseModel>())
+    {
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="filePathName">The file path name</param>
     [ExcludeFromCodeCoverage]
