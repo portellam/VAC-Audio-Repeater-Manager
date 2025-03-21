@@ -34,6 +34,16 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Constructor
     /// </summary>
+
+    [ExcludeFromCodeCoverage]
+    public BaseModel()
+    {
+      Id = uint.MinValue;
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
     /// <param name="id">The ID</param>
 
     [ExcludeFromCodeCoverage]

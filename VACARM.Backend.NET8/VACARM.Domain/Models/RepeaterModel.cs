@@ -547,6 +547,16 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
+    public RepeaterModel
+    () :
+      base(uint.MinValue)
+    {
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
     /// <param name="id">The repeater ID</param>
     /// <param name="inputDeviceId">The input device ID</param>
     /// <param name="outputDeviceId">The output device ID</param>

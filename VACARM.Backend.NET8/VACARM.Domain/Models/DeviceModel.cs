@@ -185,6 +185,16 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Abstract of the actual audio device.
     /// </summary>
+    [ExcludeFromCodeCoverage]
+    public DeviceModel
+    () :
+      base()
+    {
+    }
+
+    /// <summary>
+    /// Abstract of the actual audio device.
+    /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="actualId">The actual ID</param>
     /// <param name="name">The name</param>
