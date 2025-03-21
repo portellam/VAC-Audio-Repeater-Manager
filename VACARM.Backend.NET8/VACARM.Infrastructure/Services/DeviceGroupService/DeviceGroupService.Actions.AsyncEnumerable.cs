@@ -7,10 +7,6 @@ using VACARM.Infrastructure.Repositories;
 namespace VACARM.Infrastructure.Services
 {
   public partial class DeviceGroupService
-    <
-      TBaseService,
-      TDeviceModel
-    >
   {
     #region Logic
 

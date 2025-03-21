@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface IRepeaterGroupService<TRepeaterModel>
+  public partial interface IRepeaterGroupService
+    <
+      TBaseService,
+      TRepeaterModel
+    >
   {
     #region Logic
 

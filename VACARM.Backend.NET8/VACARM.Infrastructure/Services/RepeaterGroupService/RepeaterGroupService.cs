@@ -14,13 +14,25 @@ namespace VACARM.Infrastructure.Services
   /// The service to manage multiple configurations of audio repeaters. 
   /// Configurations are user-defined,
   /// and may be from a foreign system or a previous state of the current system.
-  /// Manages <typeparamref name="DeviceGroupService"/>.
   /// </summary>
-  public partial class RepeaterGroupService<TRepeaterModel> :
-    BaseGroupService<TRepeaterModel>,
-    IRepeaterGroupService<TRepeaterModel>
+  public partial class RepeaterGroupService
+    <
+      TBaseService,
+      TRepeaterModel
+    > :
+    BaseRepository<TBaseService>,
+    IRepeaterGroupService
+    <
+      TBaseService,
+      TRepeaterModel
+    >
+    where TBaseService :
+    BaseService<TRepeaterModel>,
+    new()
     where TRepeaterModel :
-    RepeaterModel
+    class,
+    IRepeaterModel,
+    new()
   {
     #region Parameters
 

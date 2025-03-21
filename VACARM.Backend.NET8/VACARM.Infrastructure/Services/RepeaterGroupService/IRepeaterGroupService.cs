@@ -4,7 +4,18 @@ using VACARM.Infrastructure.Repositories;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial interface IRepeaterGroupService<TRepeaterModel>
+  public partial interface IRepeaterGroupService
+    <
+      TBaseService,
+      TRepeaterModel
+    >
+    where TBaseService :
+    BaseService<TRepeaterModel>,
+    new()
+    where TRepeaterModel :
+    class,
+    IRepeaterModel,
+    new()
   {
     #region Parameters
 
