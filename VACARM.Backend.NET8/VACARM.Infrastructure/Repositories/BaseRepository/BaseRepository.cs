@@ -29,11 +29,13 @@ namespace VACARM.Infrastructure.Repositories
       get
       {
         return new TBaseModel()
-          {
-            Id = this.NextId
-          };
+        {
+          Id = this.NextId
+        };
       }
     }
+
+
 
     /// <summary>
     /// The next valid ID.
@@ -42,11 +44,7 @@ namespace VACARM.Infrastructure.Repositories
     {
       get
       {
-        uint id = this.IdEnumerable
-          .Max();
-
-        id++;
-        return id;
+        return this.Next(this.IdEnumerable);
       }
     }
 
@@ -104,6 +102,102 @@ namespace VACARM.Infrastructure.Repositories
     #region Logic
 
     /// <summary>
+    /// Get an enumerable of <typeparamref name="TBaseModel"/>(s) of which the
+    /// property <see langword="Id"/> is unique. Removes any duplicate(s).
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    /// <returns>The enumerable of item(s).</returns>
+    private IEnumerable<TBaseModel> GetModifiedUniqueRange
+    (this IEnumerable<TBaseModel> enumerable)
+    {
+      if (enumerable.IsNullOrEmpty())
+      {
+        return Structs.BaseRepository<TBaseModel>.EmptyEnumerable;
+      }
+
+      return enumerable.GroupBy(x => x.Id)
+        .Select(x => x.First());
+    }
+
+    /// <summary>
+    /// Get the next valid <see langword="uint"/>.
+    /// </summary>
+    /// <param name="enumerable">The enumerable</param>
+    /// <returns>The next valid value.</returns>
+    private uint Next(this IEnumerable<uint> enumerable)
+    {
+      if (enumerable.IsNullOrEmpty())
+      {
+        return uint.MinValue;
+      }
+
+      uint value = enumerable.Max();
+
+      if (value == uint.MaxValue)
+      {
+        return value;
+      }
+
+      value++;
+      return value;
+    }
+
+    /// <summary>
+    /// Get an enumerable of <typeparamref name="TBaseModel"/>(s) of which the
+    /// property <see langword="Id"/> is unique. Updates any duplicate(s).
+    /// </summary>
+    /// <param name="enumerable">The enumerable of item(s)</param>
+    /// <returns>The enumerable of item(s).</returns>
+    private IEnumerable<TBaseModel> GetUniqueRange
+    (this IEnumerable<TBaseModel> enumerable)
+    {
+      var newEnumerable = Structs.BaseRepository<TBaseModel>.EmptyEnumerable;
+
+      if (enumerable.IsNullOrEmpty())
+      {
+        return newEnumerable;
+      }
+
+      var uniqueEnumerable = this.GetModifiedUniqueRange(enumerable);
+      var maxId = uniqueEnumerable.Max(x => x.Id);
+
+      if (uniqueEnumerable.Count() == maxId)
+      {
+        return uniqueEnumerable;
+      }
+
+      var duplicateEnumerable = enumerable.GroupBy(x => x.Id)
+        .Where(x => x.Count() > 1)
+        .Select(x => x.Key.Va);
+
+      var duplicateIdEnumerable = duplicateEnumerable.Select(x => x.Id);
+
+      foreach (var item in duplicateEnumerable)
+      {
+        while (true)
+        {
+          bool hasDuplicates = enumerable.Where(x => x.Id == item.Id)
+            .Count() > 1;
+
+          if (hasDuplicates)
+          {
+            item.Id = this.Next(duplicateIdEnumerable);
+          }
+
+          newEnumerable.Add(item);
+
+          if (!hasDuplicates)
+          {
+            break;
+          }
+        }
+      }
+
+
+      return newEnumerable;
+    }
+
+    /// <summary>
     /// Constructor
     /// </summary>
     [ExcludeFromCodeCoverage]
@@ -120,6 +214,13 @@ namespace VACARM.Infrastructure.Repositories
     public BaseRepository(ObservableCollection<TBaseModel> enumerable) :
       base(enumerable)
     {
+      var idEnumerable = enumerable.GroupBy(x => x.Id)
+        .Where(x => x.Count() > 1)
+        .Select(x => x.Key);
+
+      idEnumerable = this.Next(idEnumerable);
+
+      enumerable.Select(x =>)
     }
 
     /// <summary>
