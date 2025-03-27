@@ -1,6 +1,5 @@
 <img align="left" width="100" height="100"
 src="https://codeberg.org/portellam/VAC-Audio-Repeater-Manager/raw/branch/master/logo.png?raw=true"
-alt="z
 />
 <br>
 
