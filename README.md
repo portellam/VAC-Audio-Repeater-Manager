@@ -1,4 +1,4 @@
-<img align="left" width="100" height="100" src="https://github.com/portellam/VAC-Audio-Repeater-Manager/raw/branch/master/logo.png"/>
+<img align="left" width="100" height="100" src="/logo.png"/>
 <br>
 
 # Virtual Audio Cable Audio Repeater Manager
