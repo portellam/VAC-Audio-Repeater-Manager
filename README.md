@@ -1,12 +1,5 @@
-![alt=logo](https://codeberg.org/portellam/VAC-Audio-Repeater-Manager/raw/branch/master/logo.png?)
+<img align="left" width="100" height="100" src="https://github.com/portellam/VAC-Audio-Repeater-Manager/raw/branch/master/logo.png"/>
 <br>
-
-img[alt=logo]
-{
-  align: left;
-  height: 100px;
-  width: 100px;
-}
 
 # Virtual Audio Cable Audio Repeater Manager
 ##### VAC Audio Repeater Manager (VACARM)
@@ -181,6 +174,6 @@ Line-Out(s).
 [91]: https://eugene.muzychenko.net/EMuzychenko_Resume_Eng.htm
 
 ## 9. Licenses
-*Virtual Audio Cable* Copyright © 1998-2024 Eugene V. Muzychenko.
+*Virtual Audio Cable* Copyright © 1998-2025 Eugene V. Muzychenko.
 
-*VAC Audio Repeater Manager*, VACARM GPL-3.0, Copyleft © 2024 Alexander Portell.
+*VAC Audio Repeater Manager*, VACARM GPL-3.0, Copyleft 2025 Alexander Portell.
