@@ -1,9 +1,12 @@
-<img align="left" width="100" height="100">
-
-<img/>
+![alt=logo](https://codeberg.org/portellam/VAC-Audio-Repeater-Manager/raw/branch/master/logo.png?)
 <br>
 
-![](https://codeberg.org/portellam/VAC-Audio-Repeater-Manager/raw/branch/master/logo.png?)
+img[alt=logo]
+{
+  align: left;
+  height: 100px;
+  width: 100px;
+}
 
 # Virtual Audio Cable Audio Repeater Manager
 ##### VAC Audio Repeater Manager (VACARM)
