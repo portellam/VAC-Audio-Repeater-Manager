@@ -26,7 +26,7 @@ with Microsoft Windows 2000 to Windows 11.
 - [7. References](#7-references)
   - [7.1. Multiplexing](#71-multiplexing)
   - [7.2. .NET Framework version history](#72-net-framework-version-history)
- [8. Credits](#8-credits)
+- [8. Credits](#8-credits)
 - [9. Licenses](#9-licenses)
 
 ## 1. Why?
@@ -136,7 +136,7 @@ Reference: [Wikipedia](#72-net-framework-version-history)
         - `git clone https://www.github.com/portellam/vac-audio-repeater-manager`
 
 [41]: https://codeberg.org/portellam/vac-audio-repeater-manager/releases/latest
-[41]: https://github.com/portellam/vac-audio-repeater-manager/releases/latest
+[42]: https://github.com/portellam/vac-audio-repeater-manager/releases/latest
 
 ## 5. Usage
 ### 5.1. Install
