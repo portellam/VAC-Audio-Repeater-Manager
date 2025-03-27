@@ -5,10 +5,10 @@
 ##### VAC Audio Repeater Manager (VACARM)
 ### In Development
 Easily multiplex multiple audio sources. Create, manage, and automate
-instances of [Virtual Audio Cable](#Licensing) (VAC) audio repeaters. Compatible
+instances of [*Virtual Audio Cable*](#Licensing) *(VAC)* audio repeaters. Compatible
 with Microsoft Windows 2000 to Windows 11.
 
-### ~[Download](#4-download)~
+### [Download](#4-download)
 
 ## Table of Contents
 - [1. Why?](#1-why)
@@ -89,12 +89,12 @@ remastering.
 - Easily automate audio stream setup given user-input and/or arguments.
 
 ## 3. Requirements
-- [VAC Audio Repeater](https://vac.muzychenko.net/en/repeater.htm)
-- [VAC Control Panel](https://vac.muzychenko.net/en/download.htm)
+- [*VAC Audio Repeater*](https://vac.muzychenko.net/en/repeater.htm)
+- [*VAC Control Panel*](https://vac.muzychenko.net/en/download.htm)
 <sup>[**1**](#31-example)</sup>
 
 ### 3.1. Example
-A minimum of one (1) virtual audio cable (Line-In and Line-Out pair) to
+A minimum of one (1) *Virtual Audio Cable* (Line-In and Line-Out pair) to
 faciliate [multiplexing](#71-multiplexing).
 
 ### 3.2. Operating System Requirements
@@ -109,20 +109,41 @@ faciliate [multiplexing](#71-multiplexing).
 Reference: [Wikipedia](#72-net-framework-version-history)
 
 ## 4. Download
-**No release is available at this time.**
+**In Development**
+- ~Download the Latest Release:&ensp;[Codeberg][41], [GitHub][42]~
 
-- Download the Latest Release:&ensp;~[Codeberg][41],
-[GitHub][42]~
+- Download the `.zip` file:
+    1. Viewing from the top of the repository's (current) webpage, click the
+        drop-down icon:
+        - `···` on Codeberg.
+        - `<> Code ` on GitHub.
+    2. Click `Download ZIP` and save.
+    3. Open the `.zip` file, then extract its contents.
+
+- Clone the repository:
+    1. Open a Command Line Interface (CLI).
+        - Open a console emulator (for Debian systems: Konsole).
+        - Open an existing console: press `CTRL` + `ALT` + `F2`, `F3`, `F4`, `F5`,  or
+        `F6`.
+            - **To return to the desktop,** press `CTRL` + `ALT` + `F7`.
+            - `F1` is reserved for debug output of the Linux kernel.
+            - `F7` is reserved for video output of the desktop environment.
+            - `F8` and above are unused.
+    2. Change your directory to your home folder or anywhere safe:
+        - `cd ~`
+    3. Clone the repository:
+        - `git clone https://www.codeberg.org/portellam/vac-audio-repeater-manager`
+        - `git clone https://www.github.com/portellam/vac-audio-repeater-manager`
 
 [41]: https://codeberg.org/portellam/vac-audio-repeater-manager/releases/latest
-[42]: https://github.com/portellam/vac-audio-repeater-manager/releases/latest
+[41]: https://github.com/portellam/vac-audio-repeater-manager/releases/latest
 
 ## 5. Usage
 ### 5.1. Install
-WIP
+**In Development**
 
 ### 5.2. Graphics User Interface (GUI)
-WIP
+**In Development**
 
 ## 6. Contact
 Did you encounter a bug? Do you need help? Please visit the
@@ -148,11 +169,11 @@ Line-Out(s).
 [721]: https://en.wikipedia.org/wiki/.NET_Framework_version_history
 
 ## 8. Credits
-[Eugene Muzychenko][91] for creating Virtual Audio Cable.
+[Eugene Muzychenko][91] for creating *Virtual Audio Cable*.
 
 [91]: https://eugene.muzychenko.net/EMuzychenko_Resume_Eng.htm
 
 ## 9. Licenses
-Virtual Audio Cable Copyright © 1998-2024 Eugene V. Muzychenko.
+*Virtual Audio Cable* Copyright © 1998-2024 Eugene V. Muzychenko.
 
-VAC Audio Repeater Manager, VACARM GPL-3.0, Copyleft © 2024 Alexander Portell.
+*VAC Audio Repeater Manager*, VACARM GPL-3.0, Copyleft © 2024 Alexander Portell.
