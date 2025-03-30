@@ -153,7 +153,7 @@ Reference: [Wikipedia](#72-net-framework-version-history)
 **In Development**
 
 ## 6. Contact
-Wish to recommend a project? Do you need help? Please visit the [Issues][61] page.
+Do you need help? Please visit the [Issues][61] page.
 
 [91]: https://github.com/portellam/vac-audio-repeater-manager/issues
 
