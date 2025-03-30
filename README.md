@@ -9,6 +9,10 @@ instances of [*Virtual Audio Cable*](#Licensing) *(VAC)* audio repeaters. Compat
 with Microsoft Windows 2000 to Windows 11.
 
 ### [Download](#4-download)
+#### View this repository on [Codeberg][01], [GitHub][02].
+[01]: https://codeberg.org/portellam/vac-audio-repeater-manager
+[02]: https://github.com/portellam/vac-audio-repeater-manager
+##
 
 ## Table of Contents
 - [1. Why?](#1-why)
@@ -89,9 +93,12 @@ remastering.
 - Easily automate audio stream setup given user-input and/or arguments.
 
 ## 3. Requirements
-- [*VAC Audio Repeater*](https://vac.muzychenko.net/en/repeater.htm)
-- [*VAC Control Panel*](https://vac.muzychenko.net/en/download.htm)
+- [*VAC Audio Repeater*][31]
+- [*VAC Control Panel*][32]
 <sup>[**1**](#31-example)</sup>
+
+[31]: (https://vac.muzychenko.net/en/repeater.htm)
+[32]: (https://vac.muzychenko.net/en/download.htm)
 
 ### 3.1. Example
 A minimum of one (1) *Virtual Audio Cable* (Line-In and Line-Out pair) to
@@ -121,10 +128,10 @@ Reference: [Wikipedia](#72-net-framework-version-history)
     3. Open the `.zip` file, then extract its contents.
 
 - Clone the repository:
-    1. Open a Command Line Interface (CLI).
+    1. Open a Command Line Interface (CLI) or Terminal.
         - Open a console emulator (for Debian systems: Konsole).
-        - Open an existing console: press `CTRL` + `ALT` + `F2`, `F3`, `F4`, `F5`,  or
-        `F6`.
+        - **Linux only:** Open an existing console: press `CTRL` + `ALT` + `F2`,
+        `F3`, `F4`, `F5`, or `F6`.
             - **To return to the desktop,** press `CTRL` + `ALT` + `F7`.
             - `F1` is reserved for debug output of the Linux kernel.
             - `F7` is reserved for video output of the desktop environment.
@@ -146,11 +153,9 @@ Reference: [Wikipedia](#72-net-framework-version-history)
 **In Development**
 
 ## 6. Contact
-Did you encounter a bug? Do you need help? Please visit the
-**Issues page** ([Codeberg][61], [GitHub][62]).
+Wish to recommend a project? Do you need help? Please visit the [Issues][61] page.
 
-[61]: https://codeberg.org/portellam/vac-audio-repeater-manager/issues
-[62]: https://github.com/portellam/vac-audio-repeater-manager/issues
+[91]: https://github.com/portellam/vac-audio-repeater-manager/issues
 
 ## 7. References
 ### 7.1. Multiplexing
@@ -177,3 +182,6 @@ Line-Out(s).
 *Virtual Audio Cable* Copyright © 1998-2025 Eugene V. Muzychenko.
 
 *VAC Audio Repeater Manager*, VACARM GPL-3.0, Copyleft 2025 Alexander Portell.
+##
+
+#### Click [here](#vac-audio-repeater-manager) to return to the top of this document.
