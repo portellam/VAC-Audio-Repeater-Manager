@@ -155,7 +155,7 @@ Reference: [Wikipedia](#72-net-framework-version-history)
 ## 6. Contact
 Do you need help? Please visit the [Issues][61] page.
 
-[91]: https://github.com/portellam/vac-audio-repeater-manager/issues
+[61]: https://github.com/portellam/vac-audio-repeater-manager/issues
 
 ## 7. References
 ### 7.1. Multiplexing
