@@ -9,7 +9,7 @@ instances of [*Virtual Audio Cable*](#Licensing) *(VAC)* audio repeaters. Compat
 with Microsoft Windows 2000 to Windows 11.
 
 ### [Download](#4-download)
-#### View this repository on [Codeberg][01], [GitHub][02].
+#### View this repository on [Codeberg][01] or [GitHub][02].
 [01]: https://codeberg.org/portellam/vac-audio-repeater-manager
 [02]: https://github.com/portellam/vac-audio-repeater-manager
 ##
@@ -117,7 +117,7 @@ Reference: [Wikipedia](#72-net-framework-version-history)
 
 ## 4. Download
 **In Development**
-- ~Download the Latest Release:&ensp;[Codeberg][41], [GitHub][42]~
+- ~Download the Latest Release:&ensp;[Codeberg][41] or [GitHub][42].~
 
 - Download the `.zip` file:
     1. Viewing from the top of the repository's (current) webpage, click the
