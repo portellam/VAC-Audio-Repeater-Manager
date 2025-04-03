@@ -181,8 +181,9 @@ Line-Out(s).
 ## 9. Licenses
 *Virtual Audio Cable* Copyright © 1998-2025 Eugene V. Muzychenko.
 
-*VAC Audio Repeater Manager*, VACARM GPL-3.0, Copyleft
-<img align="bottom" height="30" src="./images/copyleft_symbol.png"/> 2023-2025.
+*VAC Audio Repeater Manager*, *VACARM*, GPL-3.0, Copyleft
+<img align="bottom" height="30" src="./images/copyleft_symbol.png"/>
+Alexander Portell 2023-2025.
 ##
 
 #### Click [here](#vac-audio-repeater-manager) to return to the top of this document.
