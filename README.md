@@ -2,38 +2,52 @@
 <br>
 
 # VAC Audio Repeater Manager
-##### *Virtual Audio Cable Audio Repeater Manager (VACARM)*
-### In Development
-Easily multiplex multiple audio sources. Create, manage, and automate
-instances of [*Virtual Audio Cable*](#Licensing) *(VAC)* audio repeaters. Compatible
-with Microsoft Windows 2000 to Windows 11.
 
-### [Download](#4-download)
+##### *Virtual Audio Cable Audio Repeater Manager (VACARM)*
+
+### In Development
+
+Easily multiplex multiple audio sources. Create, manage, and automate
+instances of [*Virtual Audio Cable*](#-9-licenses) *(VAC)* audio repeaters.
+Compatible with Microsoft Windows.
+
+### [Download](#-4-download)
+
 #### View this repository on [Codeberg][01], [GitHub][02].
+
 [01]: https://codeberg.org/portellam/vac-audio-repeater-manager
 [02]: https://github.com/portellam/vac-audio-repeater-manager
+
 ##
 
 ## Table of Contents
-- [1. Why?](#1-why)
+- [❓ 1. Why?](#-1-why)
   - [1.1. Use-Case: Software-Defined Multiplexing](#11-use-case-software-defined-multiplexing)
   - [1.2. Real-World Equivalent](#12-real-world-equivalent)
-- [2. Features](#2-features)
-- [3. Requirements](#3-requirements)
+
+- [🛠️ 2. Features](#-2-features)
+
+- [✅ 3. Requirements](#-3-requirements)
   - [3.1. Example](#31-example)
   - [3.2. Operating System Requirements](#32-operating-system-requirements)
-- [4. Download](#4-download)
-- [5. Usage](#5-usage)
+
+- [💾 4. Download](#-4-download)
+
+- [❓ 5. Usage](#-5-usage)
   - [5.1. Install](#51-install)
   - [5.2. Graphics User Interface (GUI)](#52-graphics-user-interface-gui)
-- [6. Contact](#6-contact)
-- [7. References](#7-references)
+
+- [☎️ 6. Contact](#-6-contact)
+
+- [🌐 7. References](#-7-references)
   - [7.1. Multiplexing](#71-multiplexing)
   - [7.2. .NET Framework version history](#72-net-framework-version-history)
-- [8. Credits](#8-credits)
-- [9. Licenses](#9-licenses)
 
-## 1. Why?
+- [👤 8. Credits](#-8-credits)
+- [📜 9. Licenses](#-9-licenses)
+
+## ❓ 1. Why?
+
 - Allows for [multiplexing](#71-multiplexing) of audio streams, of which is
 not natively supported in Microsoft Windows.
   * If a user wishes to listen to music, a video game, and more, the *same*
@@ -41,14 +55,18 @@ audio output must be selected.
   * Windows programs
 (example: media players, video games, Internet browsers, etc.) may only choose
 one (1) audio output (and input).
+
 - For example, effectively treat a
 [video game session](#11-use-case-software-defined-multiplexing) like
 [music recording](#12-real-world-equivalent).
+
 - **Turnkey** solution, no tedious work of opening or closing instances of VAC
 audio repeater.
 
 ### 1.1. Use-Case: Software-Defined Multiplexing
+
 Given:
+
 - one (1) Gaming PC:
   * to play video games.
   * to run VAC Audio Repeater Manager.
@@ -63,6 +81,7 @@ Recording PC.
   * to capture of the audio/video via a broadcast/stream client.
 
 Allows:
+
 1. Specify to only listen to two of the three audio sources
 (incoming voice and game audio) on the Gaming PC.
 2. Record each source as separate audio streams on a (Gaming or separate) PC,
@@ -73,18 +92,21 @@ for future audio/video editing.
 `(Come on, Dave, give me a break)` - *Unchained*, Van Halen
 
 Given:
+
 - multiple incoming audio sources (instruments and microphones).
 - a time-keeping audio source (a Metronome).
 - the incoming/outgoing communication between audio engineer and band.
 
 Allows:
-- Listen to all sources together, but record separately. 
+
+- Listen to all sources together, but record separately.
   * Record all channels from music band separately, for optimal future
 remastering.
   * Allow for future editor(s) to mitigate unnecessary audio sources
 (time-keeping audio and audio engineer communication) within master recording.
 
-## 2. Features
+## 🛠️ 2. Features
+
 - Load/Save audio stream setup to/from file.
   - Configuration files
   - `.bat` script files
@@ -92,7 +114,8 @@ remastering.
 - Start/stop audio repeaters from within the application.
 - Easily automate audio stream setup given user-input and/or arguments.
 
-## 3. Requirements
+## ✅ 3. Requirements
+
 - [*VAC Audio Repeater*][31]
 - [*VAC Control Panel*][32]
 <sup>[**1**](#31-example)</sup>
@@ -101,10 +124,12 @@ remastering.
 [32]: (https://vac.muzychenko.net/en/download.htm)
 
 ### 3.1. Example
+
 A minimum of one (1) *Virtual Audio Cable* (Line-In and Line-Out pair) to
 faciliate [multiplexing](#71-multiplexing).
 
 ### 3.2. Operating System Requirements
+
 | Minimum OS version                 | CPU architecture | .NET version      |
 | :---                               | :---:            | :---:             |
 | Windows 10 ver. 1809, Server 2019  | 32-bit or 64-bit | Core 8.0  	      |
@@ -115,7 +140,8 @@ faciliate [multiplexing](#71-multiplexing).
 
 Reference: [Wikipedia](#72-net-framework-version-history)
 
-## 4. Download
+## 💾 4. Download
+
 **In Development**
 - ~Download the Latest Release:&ensp;[Codeberg][41], [GitHub][42]~
 
@@ -145,20 +171,26 @@ Reference: [Wikipedia](#72-net-framework-version-history)
 [41]: https://codeberg.org/portellam/vac-audio-repeater-manager/releases/latest
 [42]: https://github.com/portellam/vac-audio-repeater-manager/releases/latest
 
-## 5. Usage
+## ❓ 5. Usage
+
 ### 5.1. Install
+
 **In Development**
 
 ### 5.2. Graphics User Interface (GUI)
+
 **In Development**
 
-## 6. Contact
+## ☎️ 6. Contact
+
 Wish to recommend a project? Do you need help? Please visit the [Issues][61] page.
 
-[91]: https://github.com/portellam/vac-audio-repeater-manager/issues
+[61]: https://github.com/portellam/vac-audio-repeater-manager/issues
 
-## 7. References
+## 🌐 7. References
+
 ### 7.1. Multiplexing
+
 In the scope of this project: one *virtual* Line-In to one or more *physical*
 Line-Out(s).
 
@@ -168,20 +200,24 @@ Line-Out(s).
 [Wikipedia][711]
 
 ### 7.2. .NET Framework version history
+
 [Wikipedia][721].
 
 [711]: https://en.wikipedia.org/wiki/Multiplexing
 [721]: https://en.wikipedia.org/wiki/.NET_Framework_version_history
 
-## 8. Credits
+## 👤 8. Credits
+
 [Eugene Muzychenko][91] for creating *Virtual Audio Cable*.
 
 [91]: https://eugene.muzychenko.net/EMuzychenko_Resume_Eng.htm
 
-## 9. Licenses
+## 📜 9. Licenses
+
 *Virtual Audio Cable* Copyright © 1998-2025 Eugene V. Muzychenko.
 
 *VAC Audio Repeater Manager*, VACARM GPL-3.0, Copyleft 2025 Alexander Portell.
+
 ##
 
 #### Click [here](#vac-audio-repeater-manager) to return to the top of this document.
