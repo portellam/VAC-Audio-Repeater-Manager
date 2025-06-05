@@ -118,7 +118,7 @@ remastering.
 
 - [*VAC Audio Repeater*][31]
 - [*VAC Control Panel*][32]
-<sup>[**1**](#31-example)</sup>
+<sup>[**\[1\]**](#31-example)</sup>
 
 [31]: (https://vac.muzychenko.net/en/repeater.htm)
 [32]: (https://vac.muzychenko.net/en/download.htm)
