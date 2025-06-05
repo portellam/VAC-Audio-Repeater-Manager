@@ -1,4 +1,4 @@
-<img align="left" width="100" height="100" src="./images/logo.png"/>
+<img align="left" width="100" height="100" src="./logo.png"/>
 <br>
 
 # VAC Audio Repeater Manager
