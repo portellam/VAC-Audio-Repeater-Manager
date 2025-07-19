@@ -16,10 +16,6 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
-    private uint inputDeviceId { get; set; }
-    private uint outputDeviceId { get; set; }
-    private int? processId { get; set; } = null;
-    private bool isStarted { get; set; } = false;
     private byte bitsPerSample { get; set; } =
       DefaultRepeaterModel.BitsPerSample;
 
@@ -36,8 +32,6 @@ namespace VACARM.Domain.Models
       DefaultRepeaterModel.ChannelConfig;
 
     private List<Channel> channelList { get; set; } = new List<Channel>();
-    private string inputDeviceName { get; set; } = string.Empty;
-    private string outputDeviceName { get; set; } = string.Empty;
     private string pathName { get; set; } = string.Empty;
 
     private uint sampleRateKHz { get; set; } =
@@ -46,57 +40,11 @@ namespace VACARM.Domain.Models
     private ushort bufferDurationMs { get; set; } =
       DefaultRepeaterModel.BufferDurationMs;
 
-    public uint InputDeviceId
-    {
-      get
-      {
-        return this.inputDeviceId;
-      }
-      set
-      {
-        this.inputDeviceId = value;
-        base.OnPropertyChanged(nameof(this.InputDeviceId));
-      }
-    }
+    public uint RepeaterDeviceLinkId { get; set; }
 
-    public uint OutputDeviceId
-    {
-      get
-      {
-        return this.outputDeviceId;
-      }
-      set
-      {
-        this.outputDeviceId = value;
-        base.OnPropertyChanged(nameof(this.OutputDeviceId));
-      }
-    }
+    public int? ProcessId { get; set; }
 
-    public int? ProcessId
-    {
-      get
-      {
-        return this.processId;
-      }
-      set
-      {
-        this.processId = value;
-        base.OnPropertyChanged(nameof(this.ProcessId));
-      }
-    }
-
-    public bool IsStarted
-    {
-      get
-      {
-        return this.isStarted;
-      }
-      set
-      {
-        this.isStarted = value;
-        base.OnPropertyChanged(nameof(this.IsStarted));
-      }
-    }
+    public bool IsStarted { get; set; }
 
     public ChannelConfig ChannelConfig
     {
@@ -112,7 +60,6 @@ namespace VACARM.Domain.Models
         }
 
         this.channelConfig = value;
-        base.OnPropertyChanged(nameof(this.ChannelConfig));
       }
     }
 
@@ -139,8 +86,6 @@ namespace VACARM.Domain.Models
         {
           this.bitsPerSample = 16;
         }
-
-        base.OnPropertyChanged(nameof(this.BitsPerSample));
       }
     }
 
@@ -167,8 +112,6 @@ namespace VACARM.Domain.Models
         {
           this.bufferAmount = 8;
         }
-
-        base.OnPropertyChanged(nameof(this.BufferAmount));
       }
     }
 
@@ -215,8 +158,6 @@ namespace VACARM.Domain.Models
         {
           this.prefillPercentage = 50;
         }
-
-        base.OnPropertyChanged(nameof(this.PrefillPercentage));
       }
     }
 
@@ -245,8 +186,6 @@ namespace VACARM.Domain.Models
           this.resyncAtPercentage = (byte)Math
             .Round((double)(this.prefillPercentage / 2));
         }
-
-        base.OnPropertyChanged(nameof(this.ResyncAtPercentage));
       }
     }
 
@@ -267,7 +206,6 @@ namespace VACARM.Domain.Models
         }
 
         this.channelList = value;
-        base.OnPropertyChanged(nameof(this.ChannelList));
       }
     }
 
@@ -278,21 +216,39 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return this.inputDeviceName;
+        int maxLength = 31;
+
+        string name = this.RepeaterDeviceLinkModel
+                        .OutputDeviceModel
+                        .Name;
+
+        if (name.Length > maxLength)
+        {
+          name = name.Substring
+            (
+              0,
+              maxLength
+            );
+        }
+
+        return name;
       }
       set
       {
-        if (value.Length > 31)
+        int maxLength = 31;
+
+        if (value.Length > maxLength)
         {
           value = value.Substring
             (
               0,
-              31
+              maxLength
             );
         }
 
-        this.inputDeviceName = value;
-        base.OnPropertyChanged(nameof(this.InputDeviceName));
+        this.RepeaterDeviceLinkModel
+          .OutputDeviceModel
+          .Name = value;
       }
     }
 
@@ -303,21 +259,39 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        return this.outputDeviceName;
+        int maxLength = 31;
+
+        string name = this.RepeaterDeviceLinkModel
+                        .OutputDeviceModel
+                        .Name;
+
+        if (name.Length > maxLength)
+        {
+          name = name.Substring
+            (
+              0,
+              maxLength
+            );
+        }
+
+        return name;
       }
       set
       {
-        if (value.Length > 31)
+        int maxLength = 31;
+
+        if (value.Length > maxLength)
         {
           value = value.Substring
             (
               0,
-              31
+              maxLength
             );
         }
 
-        this.outputDeviceName = value;
-        base.OnPropertyChanged(nameof(this.OutputDeviceName));
+        this.RepeaterDeviceLinkModel
+          .OutputDeviceModel
+          .Name = value;
       }
     }
 
@@ -343,7 +317,6 @@ namespace VACARM.Domain.Models
         }
 
         this.pathName = value;
-        base.OnPropertyChanged(nameof(this.PathName));
       }
     }
 
@@ -391,28 +364,22 @@ namespace VACARM.Domain.Models
     {
       get
       {
-        int startIndex = 0;
-        int maxLength = 30;
-
         return string.Format
           (
             "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
             this.Id
               .ToString(),
-            inputDeviceId.ToString(),
-            outputDeviceId.ToString(),
+            this.RepeaterDeviceLinkModel
+              .InputDeviceModel
+              .Id
+              .ToString(),
+            this.RepeaterDeviceLinkModel
+              .OutputDeviceModel
+              .Id
+              .ToString(),
 
-            inputDeviceName.Substring
-              (
-                startIndex,
-                maxLength
-              ),
-
-            outputDeviceName.Substring
-              (
-                startIndex,
-                maxLength
-              )
+            this.InputDeviceName,
+            this.OutputDeviceName
           );
       }
     }
@@ -449,7 +416,6 @@ namespace VACARM.Domain.Models
         if (this.channelConfig != ChannelConfig.Custom)
         {
           this.channelConfig = ChannelConfig.Custom;
-          base.OnPropertyChanged(nameof(this.ChannelConfig));
         }
 
         uint bit = 1;
@@ -470,7 +436,6 @@ namespace VACARM.Domain.Models
         }
 
         this.ChannelList = newChannelList;
-        base.OnPropertyChanged(nameof(this.ChannelMask));
       }
     }
 
@@ -499,8 +464,6 @@ namespace VACARM.Domain.Models
         {
           this.sampleRateKHz = 48000;
         }
-
-        base.OnPropertyChanged(nameof(this.SampleRateKHz));
       }
     }
 
@@ -527,10 +490,10 @@ namespace VACARM.Domain.Models
         {
           this.bufferDurationMs = 500;
         }
-
-        base.OnPropertyChanged(nameof(this.BufferDurationMs));
       }
     }
+
+    public virtual RepeaterDeviceLinkModel RepeaterDeviceLinkModel { get; set; }
 
     #endregion
 
@@ -540,8 +503,7 @@ namespace VACARM.Domain.Models
     /// Constructor
     /// </summary>
     /// <param name="id">The repeater ID</param>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="repeaterDeviceLinkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>
     /// <param name="inputDeviceName">The input device name</param>
     /// <param name="outputDeviceName">The output device name</param>
@@ -550,8 +512,7 @@ namespace VACARM.Domain.Models
     public RepeaterModel
     (
       uint id,
-      uint inputDeviceId,
-      uint outputDeviceId,
+      uint repeaterDeviceLinkId,
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
@@ -560,11 +521,8 @@ namespace VACARM.Domain.Models
       base(id)
     {
       this.Id = id;
-      this.InputDeviceId = inputDeviceId;
-      this.OutputDeviceId = outputDeviceId;
+      this.RepeaterDeviceLinkId = repeaterDeviceLinkId;
       this.ProcessId = processId;
-      this.InputDeviceName = inputDeviceName;
-      this.OutputDeviceName = outputDeviceName;
       this.ProcessId = processId;
       this.PathName = pathName;
     }
@@ -573,8 +531,6 @@ namespace VACARM.Domain.Models
     /// Constructor
     /// </summary>
     /// <param name="id">The repeater ID</param>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
     /// <param name="processId">The process ID</param>
     /// <param name="inputDeviceName">The input device name</param>
     /// <param name="outputDeviceName">The output device name</param>
@@ -590,8 +546,6 @@ namespace VACARM.Domain.Models
     public RepeaterModel
     (
       uint id,
-      uint inputDeviceId,
-      uint outputDeviceId,
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
@@ -608,8 +562,6 @@ namespace VACARM.Domain.Models
       base(id)
     {
       this.Id = id;
-      this.InputDeviceId = inputDeviceId;
-      this.OutputDeviceId = outputDeviceId;
       this.ProcessId = processId;
       this.BitsPerSample = bitsPerSample;
       this.BufferDurationMs = bufferDurationMs;
@@ -628,8 +580,7 @@ namespace VACARM.Domain.Models
     public void Deconstruct
     (
       out uint id,
-      out uint inputDeviceId,
-      out uint outputDeviceId,
+      out uint repeaterDeviceLinkId,
       out int? processId,
       bool isStarted,
       out byte bitsPerSample,
@@ -650,8 +601,7 @@ namespace VACARM.Domain.Models
     )
     {
       id = this.Id;
-      inputDeviceId = this.InputDeviceId;
-      outputDeviceId = this.OutputDeviceId;
+      repeaterDeviceLinkId = this.RepeaterDeviceLinkId;
       processId = this.ProcessId;
       bitsPerSample = this.BitsPerSample;
       bufferDurationMs = this.BufferDurationMs;

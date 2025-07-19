@@ -10,19 +10,10 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Foreign key
     /// </summary>
-    [Required]
-    uint InputDeviceId { get; set; }
-
-    /// <summary>
-    /// Foreign key
-    /// </summary>
-    [Required]
-    uint OutputDeviceId { get; set; }
-
-    /// <summary>
-    /// Foreign key
-    /// </summary>
     int? ProcessId { get; set; }
+
+    [Required]
+    RepeaterDeviceLinkModel RepeaterDeviceLinkModel { get; set; }
 
     bool IsStarted { get; set; }
     byte BitsPerSample { get; set; }
@@ -31,8 +22,8 @@ namespace VACARM.Domain.Models
     byte PrefillPercentage { get; set; }
     byte ResyncAtPercentage { get; set; }
     List<Channel> ChannelList { get; set; }
-    string InputDeviceName { get; set; }
-    string OutputDeviceName { get; set; }
+    string InputDeviceName { get; }
+    string OutputDeviceName { get; }
     string PathName { get; set; }
     string StartArguments { get; }
     string StopArguments { get; }
@@ -49,8 +40,7 @@ namespace VACARM.Domain.Models
     /// Deconstructor
     /// </summary>
     /// <param name="id">The repeater ID</param>
-    /// <param name="inputDeviceId">The input device ID</param>
-    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="repeaterDeviceLinkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>
     /// <param name="bitsPerSample">The amount of bits per sample</param>
     /// <param name="bufferAmount">The buffer amount</param>
@@ -71,8 +61,7 @@ namespace VACARM.Domain.Models
     void Deconstruct
     (
       out uint id,
-      out uint inputDeviceId,
-      out uint outputDeviceId,
+      out uint repeaterDeviceLinkId,
       out int? processId,
       bool isStarted,
       out byte bitsPerSample,
