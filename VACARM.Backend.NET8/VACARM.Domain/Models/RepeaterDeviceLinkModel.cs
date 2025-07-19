@@ -14,9 +14,12 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
-    public virtual DeviceModel InputDeviceModel { get; set; }
-    public virtual DeviceModel OutputDeviceModel { get; set; }
-    public virtual RepeaterModel RepeaterModel { get; set; }
+    public uint InputDeviceId { get; set; }
+    public uint OutputDeviceId { get; set; }
+    public uint RepeaterId { get; set; }
+    public DeviceModel InputDeviceModel { get; set; }
+    public DeviceModel OutputDeviceModel { get; set; }
+    public RepeaterModel RepeaterModel { get; set; }
 
     #endregion
 
@@ -53,12 +56,26 @@ namespace VACARM.Domain.Models
     public void Deconstruct
     (
       out uint id,
+      out uint repeaterId,
+      out uint inputDeviceId,
+      out uint outputDeviceId,
+      out DateTime createdDateTime,
+      out DateTime modifiedDateTime,
       out DeviceModel inputDeviceModel,
       out DeviceModel outputDeviceModel,
       out RepeaterModel repeaterModel
     )
     {
-      id = this.Id;
+      base.Deconstruct
+      (
+        out id,
+        out createdDateTime,
+        out modifiedDateTime
+      );
+
+      inputDeviceId = this.InputDeviceId;
+      outputDeviceId = this.OutputDeviceId;
+      repeaterId = this.RepeaterId;
       inputDeviceModel = this.InputDeviceModel;
       outputDeviceModel = this.OutputDeviceModel;
       repeaterModel = this.RepeaterModel;

@@ -40,10 +40,8 @@ namespace VACARM.Domain.Models
     private ushort bufferDurationMs { get; set; } =
       DefaultRepeaterModel.BufferDurationMs;
 
-    public uint RepeaterDeviceLinkId { get; set; }
-
+    public uint LinkId { get; set; }
     public int? ProcessId { get; set; }
-
     public bool IsStarted { get; set; }
 
     public ChannelConfig ChannelConfig
@@ -218,7 +216,7 @@ namespace VACARM.Domain.Models
       {
         int maxLength = 31;
 
-        string name = this.RepeaterDeviceLinkModel
+        string name = this.LinkModel
                         .OutputDeviceModel
                         .Name;
 
@@ -246,7 +244,7 @@ namespace VACARM.Domain.Models
             );
         }
 
-        this.RepeaterDeviceLinkModel
+        this.LinkModel
           .OutputDeviceModel
           .Name = value;
       }
@@ -261,7 +259,7 @@ namespace VACARM.Domain.Models
       {
         int maxLength = 31;
 
-        string name = this.RepeaterDeviceLinkModel
+        string name = this.LinkModel
                         .OutputDeviceModel
                         .Name;
 
@@ -289,7 +287,7 @@ namespace VACARM.Domain.Models
             );
         }
 
-        this.RepeaterDeviceLinkModel
+        this.LinkModel
           .OutputDeviceModel
           .Name = value;
       }
@@ -369,11 +367,11 @@ namespace VACARM.Domain.Models
             "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
             this.Id
               .ToString(),
-            this.RepeaterDeviceLinkModel
+            this.LinkModel
               .InputDeviceModel
               .Id
               .ToString(),
-            this.RepeaterDeviceLinkModel
+            this.LinkModel
               .OutputDeviceModel
               .Id
               .ToString(),
@@ -493,7 +491,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public virtual RepeaterDeviceLinkModel RepeaterDeviceLinkModel { get; set; }
+    public RepeaterDeviceLinkModel LinkModel { get; set; }
 
     #endregion
 
@@ -521,7 +519,7 @@ namespace VACARM.Domain.Models
       base(id)
     {
       this.Id = id;
-      this.RepeaterDeviceLinkId = repeaterDeviceLinkId;
+      this.LinkId = repeaterDeviceLinkId;
       this.ProcessId = processId;
       this.ProcessId = processId;
       this.PathName = pathName;
@@ -580,8 +578,11 @@ namespace VACARM.Domain.Models
     public void Deconstruct
     (
       out uint id,
-      out uint repeaterDeviceLinkId,
+      out uint linkId,
       out int? processId,
+      out DateTime createdDateTime,
+      out DateTime modifiedDateTime,
+      out RepeaterDeviceLinkModel linkModel,
       bool isStarted,
       out byte bitsPerSample,
       out byte bufferAmount,
@@ -600,9 +601,16 @@ namespace VACARM.Domain.Models
       out ushort bufferDurationMs
     )
     {
-      id = this.Id;
-      repeaterDeviceLinkId = this.RepeaterDeviceLinkId;
+      base.Deconstruct
+      (
+        out id,
+        out createdDateTime,
+        out modifiedDateTime
+      );
+
+      linkId = this.LinkId;
       processId = this.ProcessId;
+      linkModel = this.LinkModel;
       bitsPerSample = this.BitsPerSample;
       bufferDurationMs = this.BufferDurationMs;
       bufferAmount = this.BufferAmount;

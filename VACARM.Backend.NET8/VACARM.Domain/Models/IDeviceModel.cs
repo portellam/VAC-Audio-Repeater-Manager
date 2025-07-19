@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VACARM.Domain.Models
 {
@@ -7,13 +8,20 @@ namespace VACARM.Domain.Models
     #region Parameters
 
     /// <summary>
+    /// Foreign keys
+    /// </summary>
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    ICollection<uint> LinkIdCollection { get; set; }
+
+    /// <summary>
     /// Foreign key
     /// </summary>
     [Required]
     string ActualId { get; set; }
 
     [Required]
-    ICollection<RepeaterDeviceLinkModel> RepeaterDeviceLinkCollection
+    ICollection<RepeaterDeviceLinkModel> LinkModelCollection
     { get; set; }
 
     [Required]
@@ -35,9 +43,15 @@ namespace VACARM.Domain.Models
     /// Deconstructor
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <param name="linkIdCollection">
+    /// The repeater device link ID collection
+    /// </param>
+    /// <param name="actualId">The actual ID</param>
     /// <param name="createdDateTime">The construct date-time</param>
     /// <param name="modifiedDateTime">The last date-time a change occurred</param>
-    /// <param name="actualId">The actual ID</param>
+    /// <param name="linkModelCollection">
+    /// The repeater device link model collection
+    /// </param>
     /// <param name="isCapture">True/false is a capture device</param>
     /// <param name="isDefault">True/false is the device default</param>
     /// <param name="isEnabled">True/false is the device enabled</param>
@@ -48,9 +62,11 @@ namespace VACARM.Domain.Models
     void Deconstruct
     (
       out uint id,
+      out ICollection<uint> linkIdCollection,
+      out string actualId,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
-      out string actualId,
+      out ICollection<RepeaterDeviceLinkModel> linkModelCollection,
       out string name,
       out bool isCapture,
       out bool? isDefault,

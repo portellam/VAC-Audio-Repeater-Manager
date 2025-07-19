@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VACARM.Domain.Enums;
 
 namespace VACARM.Domain.Models
@@ -10,10 +11,17 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Foreign key
     /// </summary>
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    uint LinkId { get; set; }
+
+    /// <summary>
+    /// Foreign key
+    /// </summary>
     int? ProcessId { get; set; }
 
     [Required]
-    RepeaterDeviceLinkModel RepeaterDeviceLinkModel { get; set; }
+    RepeaterDeviceLinkModel LinkModel { get; set; }
 
     bool IsStarted { get; set; }
     byte BitsPerSample { get; set; }
@@ -40,8 +48,11 @@ namespace VACARM.Domain.Models
     /// Deconstructor
     /// </summary>
     /// <param name="id">The repeater ID</param>
-    /// <param name="repeaterDeviceLinkId">The repeater device link ID</param>
+    /// <param name="createdDateTime">The construct date-time</param>
+    /// <param name="modifiedDateTime">The last date-time a change occurred</param>
+    /// <param name="linkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>
+    /// <param name="linkModel">The repeater device model</param>
     /// <param name="bitsPerSample">The amount of bits per sample</param>
     /// <param name="bufferAmount">The buffer amount</param>
     /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
@@ -61,8 +72,11 @@ namespace VACARM.Domain.Models
     void Deconstruct
     (
       out uint id,
-      out uint repeaterDeviceLinkId,
+      out uint linkId,
       out int? processId,
+      out DateTime createdDateTime,
+      out DateTime modifiedDateTime,
+      out RepeaterDeviceLinkModel linkModel,
       bool isStarted,
       out byte bitsPerSample,
       out byte bufferAmount,

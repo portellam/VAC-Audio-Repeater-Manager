@@ -1,11 +1,33 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VACARM.Domain.Models
 {
   public interface IRepeaterDeviceLinkModel
   {
     #region Parameters
+
+    /// <summary>
+    /// Foreign key
+    /// </summary>
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    uint RepeaterId { get; set; }
+
+    /// <summary>
+    /// Foreign key
+    /// </summary>
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    uint InputDeviceId { get; set; }
+
+    /// <summary>
+    /// Foreign key
+    /// </summary>
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    uint OutputDeviceId { get; set; }
 
     RepeaterModel RepeaterModel { get; set; }
 
@@ -27,6 +49,11 @@ namespace VACARM.Domain.Models
     /// Deconstructor
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <param name="repeaterId">The repeater ID</param>
+    /// <param name="inputDeviceId">The input device ID</param>
+    /// <param name="outputDeviceId">The output device ID</param>
+    /// <param name="createdDateTime">The construct date-time</param>
+    /// <param name="modifiedDateTime">The last date-time a change occurred</param>
     /// <param name="inputDeviceModel">
     /// The input<typeparamref name="DeviceModel"/>
     /// </param>
@@ -37,6 +64,11 @@ namespace VACARM.Domain.Models
     void Deconstruct
     (
       out uint id,
+      out uint repeaterId,
+      out uint inputDeviceId,
+      out uint outputDeviceId,
+      out DateTime createdDateTime,
+      out DateTime modifiedDateTime,
       out DeviceModel inputDeviceModel,
       out DeviceModel outputDeviceModel,
       out RepeaterModel repeaterModel

@@ -138,7 +138,10 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public virtual ICollection<RepeaterDeviceLinkModel> RepeaterDeviceLinkCollection
+    public ICollection<uint> LinkIdCollection
+    { get; set; } = Array.Empty<uint>();
+
+    public ICollection<RepeaterDeviceLinkModel> LinkModelCollection
     { get; set; } = Array.Empty<RepeaterDeviceLinkModel>();
 
     #endregion
@@ -256,9 +259,11 @@ namespace VACARM.Domain.Models
     public void Deconstruct
     (
       out uint id,
+      out ICollection<uint> linkIdCollection,
+      out string actualId,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
-      out string actualId,
+      out ICollection<RepeaterDeviceLinkModel> linkModelCollection,
       out string name,
       out bool isCapture,
       out bool? isDefault,
@@ -275,7 +280,9 @@ namespace VACARM.Domain.Models
         out modifiedDateTime
       );
 
+      linkIdCollection = this.LinkIdCollection;
       actualId = this.ActualId;
+      linkModelCollection = this.LinkModelCollection;
       name = this.Name;
       isCapture = this.IsCapture;
       isDefault = this.IsDefault;
