@@ -11,28 +11,14 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
-    private bool isCapture { get; set; }
     private bool? isDefault { get; set; } = false;
     private bool? isEnabled { get; set; } = false;
     private bool? isMuted { get; set; } = false;
     private bool? isPresent { get; set; } = false;
-    private string actualId { get; set; } = string.Empty;
-    private string name { get; set; } = string.Empty;
     private string role { get; set; } = string.Empty;
-    public override uint Id { get; set; }
 
-    public bool IsCapture
-    {
-      get
-      {
-        return this.isCapture;
-      }
-      set
-      {
-        this.isCapture = value;
-        base.OnPropertyChanged(nameof(this.IsCapture));
-      }
-    }
+    public override uint Id { get; set; }
+    public bool IsCapture { get; set; }
 
     public bool IsDefault
     {
@@ -49,7 +35,6 @@ namespace VACARM.Domain.Models
       set
       {
         isDefault = value;
-        base.OnPropertyChanged(nameof(this.IsDefault));
       }
     }
 
@@ -68,7 +53,6 @@ namespace VACARM.Domain.Models
       set
       {
         isEnabled = value;
-        base.OnPropertyChanged(nameof(this.IsEnabled));
       }
     }
 
@@ -87,7 +71,6 @@ namespace VACARM.Domain.Models
       set
       {
         this.isMuted = value;
-        base.OnPropertyChanged(nameof(this.IsMuted));
       }
     }
 
@@ -106,7 +89,6 @@ namespace VACARM.Domain.Models
       set
       {
         this.isPresent = value;
-        base.OnPropertyChanged(nameof(this.IsPresent));
       }
     }
 
@@ -118,31 +100,9 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public string ActualId
-    {
-      get
-      {
-        return this.actualId;
-      }
-      set
-      {
-        this.actualId = value;
-        base.OnPropertyChanged(nameof(this.actualId));
-      }
-    }
+    public string ActualId { get; set; } = string.Empty;
 
-    public string Name
-    {
-      get
-      {
-        return this.name;
-      }
-      set
-      {
-        this.name = value;
-        base.OnPropertyChanged(nameof(this.Name));
-      }
-    }
+    public string Name { get; set; } = string.Empty;
 
     public string Availability
     {
@@ -175,9 +135,11 @@ namespace VACARM.Domain.Models
         }
 
         this.role = value;
-        base.OnPropertyChanged(nameof(this.Role));
       }
     }
+
+    public virtual ICollection<RepeaterDeviceLinkModel> RepeaterDeviceLinkCollection
+    { get; set; } = Array.Empty<RepeaterDeviceLinkModel>();
 
     #endregion
 
@@ -243,10 +205,59 @@ namespace VACARM.Domain.Models
       this.Role = role;
     }
 
+    /// <summary>
+    /// Abstract of the actual audio device.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <param name="createdDateTime">The construct date-time</param>
+    /// <param name="modifiedDateTime">The last date-time a change occurred</param>
+    /// <param name="actualId">The actual ID</param>
+    /// <param name="name">The name</param>
+    /// <param name="isCapture">True/false is a capture device</param>
+    /// <param name="isEnabled">True/false is the device enabled</param>
+    /// <param name="isMuted">True/false is the device muted</param>
+    /// <param name="isPresent">True/false is the device present</param>
+    /// <param name="role">The role</param>
+    [ExcludeFromCodeCoverage]
+    public DeviceModel
+    (
+      uint id,
+      DateTime createdDateTime,
+      DateTime modifiedDateTime,
+      string actualId,
+      string name,
+      bool isCapture,
+      bool? isDefault,
+      bool? isEnabled,
+      bool? isMuted,
+      bool? isPresent,
+      bool? isRender,
+      string? role
+    ) :
+      base
+      (
+        id,
+        createdDateTime,
+        modifiedDateTime
+      )
+    {
+      this.Id = id;
+      this.ActualId = actualId;
+      this.Name = name;
+      this.IsCapture = isCapture;
+      this.IsDefault = (bool)isDefault;
+      this.IsEnabled = (bool)isEnabled;
+      this.IsMuted = (bool)isMuted;
+      this.IsPresent = (bool)isPresent;
+      this.Role = role;
+    }
+
     [ExcludeFromCodeCoverage]
     public void Deconstruct
     (
       out uint id,
+      out DateTime createdDateTime,
+      out DateTime modifiedDateTime,
       out string actualId,
       out string name,
       out bool isCapture,
@@ -257,7 +268,13 @@ namespace VACARM.Domain.Models
       out string role
     )
     {
-      id = this.Id;
+      base.Deconstruct
+      (
+        out id,
+        out createdDateTime,
+        out modifiedDateTime
+      );
+
       actualId = this.ActualId;
       name = this.Name;
       isCapture = this.IsCapture;
