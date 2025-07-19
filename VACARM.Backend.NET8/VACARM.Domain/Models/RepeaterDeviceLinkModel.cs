@@ -58,7 +58,10 @@ namespace VACARM.Domain.Models
       out RepeaterModel repeaterModel
     )
     {
-
+      id = this.Id;
+      inputDeviceModel = this.InputDeviceModel;
+      outputDeviceModel = this.OutputDeviceModel;
+      repeaterModel = this.RepeaterModel;
     }
 
     #endregion
