@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
@@ -14,9 +16,18 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int InputDeviceId { get; set; }
+
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int OutputDeviceId { get; set; }
+
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int RepeaterId { get; set; }
+
     public DeviceModel InputDeviceModel { get; set; }
     public DeviceModel OutputDeviceModel { get; set; }
     public RepeaterModel RepeaterModel { get; set; }
@@ -24,6 +35,15 @@ namespace VACARM.Domain.Models
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public RepeaterDeviceLinkModel()
+    {
+    }
+
 
     /// <summary>
     /// Constructor

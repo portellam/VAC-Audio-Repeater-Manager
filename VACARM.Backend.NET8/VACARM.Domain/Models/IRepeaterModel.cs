@@ -13,9 +13,7 @@ namespace VACARM.Domain.Models
     /// </summary>
     int? ProcessId { get; set; }
 
-    [Required]
-    RepeaterDeviceLinkModel LinkModel { get; set; }
-
+    RepeaterDeviceLinkModel RepeaterDeviceLinkModel { get; set; }
     bool IsStarted { get; set; }
     byte BitsPerSample { get; set; }
     byte BufferAmount { get; set; }
@@ -46,16 +44,16 @@ namespace VACARM.Domain.Models
     /// <param name="linkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>
     /// <param name="linkModel">The repeater device model</param>
+    /// <param name="inputDeviceName">The input device name</param>
+    /// <param name="outputDeviceName">The output device name</param>
+    /// <param name="pathName">The path name</param>
+    /// <param name="isStarted">True/false is the repeater started</param>
     /// <param name="bitsPerSample">The amount of bits per sample</param>
     /// <param name="bufferAmount">The buffer amount</param>
     /// <param name="bufferDurationMs">The buffer duration in milliseconds</param>
     /// <param name="channelConfig">The channel configuration</param>
     /// <param name="channelList">The channel list</param>
     /// <param name="channelMask">The channel mask</param>
-    /// <param name="inputDeviceName">The input device name</param>
-    /// <param name="isStarted">True/false is the repeater started</param>
-    /// <param name="outputDeviceName">The output device name</param>
-    /// <param name="pathName">The path name</param>
     /// <param name="prefillPercentage">The prefill percentage</param>
     /// <param name="resyncAtPercentage">The resync at percentage</param>
     /// <param name="sampleRateKHz">The sample rate in KiloHertz</param>
@@ -70,16 +68,16 @@ namespace VACARM.Domain.Models
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
       out RepeaterDeviceLinkModel linkModel,
-      bool isStarted,
+      out string inputDeviceName,
+      out string outputDeviceName,
+      out string pathName,
+      out bool isStarted,
       out byte bitsPerSample,
       out byte bufferAmount,
       out byte prefillPercentage,
       out byte resyncAtPercentage,
       out ChannelConfig channelConfig,
       out List<Channel> channelList,
-      out string inputDeviceName,
-      out string outputDeviceName,
-      out string pathName,
       out string startArguments,
       out string stopArguments,
       out string windowName,

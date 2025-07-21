@@ -10,21 +10,16 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Foreign keys
     /// </summary>
-    [Required]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    ICollection<uint> LinkIdCollection { get; set; }
+    ICollection<uint> RepeaterDeviceLinkIdCollection { get; set; }
 
     /// <summary>
     /// Foreign key
     /// </summary>
-    [Required]
     string ActualId { get; set; }
 
-    [Required]
-    ICollection<RepeaterDeviceLinkModel> LinkModelCollection
+    ICollection<RepeaterDeviceLinkModel> RepeaterDeviceLinkModelCollection
     { get; set; }
 
-    [Required]
     bool IsCapture { get; set; }
     bool? IsDefault { get; set; }
     bool? IsEnabled { get; set; }

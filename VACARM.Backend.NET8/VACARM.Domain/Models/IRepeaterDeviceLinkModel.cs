@@ -11,22 +11,16 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Foreign key
     /// </summary>
-    [Required]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     int InputDeviceId { get; set; }
 
     /// <summary>
     /// Foreign key
     /// </summary>
-    [Required]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     int OutputDeviceId { get; set; }
 
     /// <summary>
     /// Foreign key
     /// </summary>
-    [Required]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     int RepeaterId { get; set; }
 
     DeviceModel InputDeviceModel { get; set; }

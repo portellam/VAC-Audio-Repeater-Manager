@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
@@ -12,13 +13,23 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
+    [Required]
     public virtual int Id { get; set; }
+
     public virtual DateTime CreatedDateTime { get; private set; }
     public virtual DateTime ModifiedDateTime { get; set; }
 
     #endregion
 
     #region Logic
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public BaseModel()
+    {
+    }
 
     /// <summary>
     /// Constructor

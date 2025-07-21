@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VACARM.Domain.Models
 {
@@ -18,6 +20,19 @@ namespace VACARM.Domain.Models
     private string name { get; set; } = string.Empty;
     private string role { get; set; } = string.Empty;
 
+    [Required]
+    public string ActualId { get; set; }
+
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public ICollection<uint> RepeaterDeviceLinkIdCollection
+    { get; set; } = Array.Empty<uint>();
+
+    [Required]
+    public ICollection<RepeaterDeviceLinkModel> RepeaterDeviceLinkModelCollection
+    { get; set; } = Array.Empty<RepeaterDeviceLinkModel>();
+
+    [Required]
     public bool IsCapture { get; set; }
 
     public bool? IsDefault
@@ -100,8 +115,6 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public string ActualId { get; set; }
-
     public string Availability
     {
       get
@@ -153,12 +166,6 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public ICollection<uint> LinkIdCollection
-    { get; set; } = Array.Empty<uint>();
-
-    public ICollection<RepeaterDeviceLinkModel> LinkModelCollection
-    { get; set; } = Array.Empty<RepeaterDeviceLinkModel>();
-
     #endregion
 
     #region Logic
@@ -186,14 +193,14 @@ namespace VACARM.Domain.Models
     /// Abstract of the actual audio device.
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <param name="linkIdCollection">
+    /// <param name="repeaterDeviceLinkIdCollection">
     /// The repeater device link ID collection
     /// </param>
     /// <param name="actualId">The actual ID</param>
     /// <param name="createdDateTime">The construct date-time</param>
     /// <param name="modifiedDateTime">The last date-time a change occurred</param>
-    /// <param name="linkModelCollection">
-    /// The repeater device link model collection
+    /// <param name="repeaterDevicelinkModelCollection">
+    /// The repeater device link collection
     /// </param>
     /// <param name="isCapture">True/false is a capture device</param>
     /// <param name="isDefault">True/false is the device default</param>
@@ -207,11 +214,11 @@ namespace VACARM.Domain.Models
     public DeviceModel
     (
       int id,
-      ICollection<uint> linkIdCollection,
+      ICollection<uint> repeaterDeviceLinkIdCollection,
       string actualId,
       DateTime createdDateTime,
       DateTime modifiedDateTime,
-      ICollection<RepeaterDeviceLinkModel> linkModelCollection,
+      ICollection<RepeaterDeviceLinkModel> repeaterDevicelinkModelCollection,
       bool isCapture,
       bool? isDefault = null,
       bool? isEnabled = null,
@@ -228,9 +235,9 @@ namespace VACARM.Domain.Models
         modifiedDateTime
       )
     {
-      this.LinkIdCollection = linkIdCollection;
+      this.RepeaterDeviceLinkIdCollection = repeaterDeviceLinkIdCollection;
       this.ActualId = actualId;
-      this.LinkModelCollection = linkModelCollection;
+      this.RepeaterDeviceLinkModelCollection = repeaterDevicelinkModelCollection;
       this.IsCapture = isCapture;
       this.IsDefault = isDefault;
       this.IsEnabled = isEnabled;
@@ -265,9 +272,9 @@ namespace VACARM.Domain.Models
         out modifiedDateTime
       );
 
-      linkIdCollection = this.LinkIdCollection;
+      linkIdCollection = this.RepeaterDeviceLinkIdCollection;
       actualId = this.ActualId;
-      linkModelCollection = this.LinkModelCollection;
+      linkModelCollection = this.RepeaterDeviceLinkModelCollection;
       isCapture = this.IsCapture;
       isDefault = this.IsDefault;
       isEnabled = this.IsEnabled;

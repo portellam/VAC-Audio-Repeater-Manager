@@ -11,7 +11,6 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Primary key
     /// </summary>
-    [Required]
     int Id { get; set; }
 
     /// <summary>
