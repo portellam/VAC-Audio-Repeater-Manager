@@ -61,7 +61,7 @@ namespace VACARM.Domain.Models
     /// <param name="role">The role</param>
     void Deconstruct
     (
-      out uint id,
+      out int id,
       out ICollection<uint> linkIdCollection,
       out string actualId,
       out DateTime createdDateTime,

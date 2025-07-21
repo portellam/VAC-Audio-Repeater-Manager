@@ -17,7 +17,6 @@ namespace VACARM.Domain.Models
     private bool? isPresent { get; set; } = false;
     private string role { get; set; } = string.Empty;
 
-    public override uint Id { get; set; }
     public bool IsCapture { get; set; }
 
     public bool IsDefault
@@ -157,14 +156,13 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public DeviceModel
     (
-      uint id,
+      int id,
       string actualId,
       string name,
       bool isCapture
     ) :
       base(id)
     {
-      this.Id = id;
       this.ActualId = actualId;
       this.Name = name;
       this.IsCapture = isCapture;
@@ -184,7 +182,7 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public DeviceModel
     (
-      uint id,
+      int id,
       string actualId,
       string name,
       bool isCapture,
@@ -197,7 +195,6 @@ namespace VACARM.Domain.Models
     ) :
       base(id)
     {
-      this.Id = id;
       this.ActualId = actualId;
       this.Name = name;
       this.IsCapture = isCapture;
@@ -224,7 +221,7 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public DeviceModel
     (
-      uint id,
+      int id,
       DateTime createdDateTime,
       DateTime modifiedDateTime,
       string actualId,
@@ -244,7 +241,6 @@ namespace VACARM.Domain.Models
         modifiedDateTime
       )
     {
-      this.Id = id;
       this.ActualId = actualId;
       this.Name = name;
       this.IsCapture = isCapture;
@@ -258,7 +254,7 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public void Deconstruct
     (
-      out uint id,
+      out int id,
       out ICollection<uint> linkIdCollection,
       out string actualId,
       out DateTime createdDateTime,

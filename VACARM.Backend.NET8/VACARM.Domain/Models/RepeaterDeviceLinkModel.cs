@@ -14,9 +14,9 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
-    public uint InputDeviceId { get; set; }
-    public uint OutputDeviceId { get; set; }
-    public uint RepeaterId { get; set; }
+    public int InputDeviceId { get; set; }
+    public int OutputDeviceId { get; set; }
+    public int RepeaterId { get; set; }
     public DeviceModel InputDeviceModel { get; set; }
     public DeviceModel OutputDeviceModel { get; set; }
     public RepeaterModel RepeaterModel { get; set; }
@@ -29,24 +29,19 @@ namespace VACARM.Domain.Models
     /// Constructor
     /// </summary>
     /// <param name="id">The ID</param>
-    /// <param name="inputDeviceModel">
-    /// The input<typeparamref name="DeviceModel"/>
-    /// </param>
-    /// <param name="outputDeviceModel">
-    /// The output <typeparamref name="DeviceModel"/>
-    /// </param>
+    /// <param name="inputDeviceModel">The input device</param>
+    /// <param name="outputDeviceModel">The output device</param>
     /// <param name="repeaterModel">The repeater</param>
     [ExcludeFromCodeCoverage]
     public RepeaterDeviceLinkModel
     (
-      uint id,
+      int id,
       DeviceModel inputDeviceModel,
       DeviceModel outputDeviceModel,
       RepeaterModel repeaterModel
     ) :
       base(id)
     {
-      this.Id = id;
       this.InputDeviceModel = inputDeviceModel;
       this.OutputDeviceModel = outputDeviceModel;
       this.RepeaterModel = repeaterModel;
@@ -55,10 +50,10 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public void Deconstruct
     (
-      out uint id,
-      out uint repeaterId,
-      out uint inputDeviceId,
-      out uint outputDeviceId,
+      out int id,
+      out int repeaterId,
+      out int inputDeviceId,
+      out int outputDeviceId,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
       out DeviceModel inputDeviceModel,

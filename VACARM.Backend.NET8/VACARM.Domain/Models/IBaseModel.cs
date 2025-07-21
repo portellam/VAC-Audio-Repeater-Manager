@@ -12,18 +12,16 @@ namespace VACARM.Domain.Models
     /// Primary key
     /// </summary>
     [Required]
-    uint Id { get; set; }
+    int Id { get; set; }
 
     /// <summary>
     /// The construct date-time.
     /// </summary>
-    [Required]
     DateTime CreatedDateTime { get; }
 
     /// <summary>
     /// The last date-time a change occurred.
     /// </summary>
-    [Required]
     DateTime ModifiedDateTime { get; set; }
 
     #endregion
@@ -38,7 +36,7 @@ namespace VACARM.Domain.Models
     /// <param name="modifiedDateTime">The last date-time a change occurred</param>
     void Deconstruct
     (
-      out uint id,
+      out int id,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime
     );

@@ -12,7 +12,7 @@ namespace VACARM.Domain.Models
   {
     #region Parameters
 
-    public virtual uint Id { get; set; }
+    public virtual int Id { get; set; }
     public virtual DateTime CreatedDateTime { get; private set; }
     public virtual DateTime ModifiedDateTime { get; set; }
 
@@ -26,7 +26,7 @@ namespace VACARM.Domain.Models
     /// <param name="id">The ID</param>
 
     [ExcludeFromCodeCoverage]
-    public BaseModel(uint id)
+    public BaseModel(int id)
     {
       this.Id = id;
       this.CreatedDateTime = DateTime.UtcNow;
@@ -42,7 +42,7 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public BaseModel
     (
-      uint id,
+      int id,
       DateTime createdDateTime,
       DateTime modifiedDateTime
     )
@@ -55,7 +55,7 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public virtual void Deconstruct
     (
-      out uint id,
+      out int id,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime
     )

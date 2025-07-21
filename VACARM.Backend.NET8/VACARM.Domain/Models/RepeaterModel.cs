@@ -40,7 +40,7 @@ namespace VACARM.Domain.Models
     private ushort bufferDurationMs { get; set; } =
       DefaultRepeaterModel.BufferDurationMs;
 
-    public uint LinkId { get; set; }
+    public int LinkId { get; set; }
     public int? ProcessId { get; set; }
     public bool IsStarted { get; set; }
 
@@ -501,7 +501,7 @@ namespace VACARM.Domain.Models
     /// Constructor
     /// </summary>
     /// <param name="id">The repeater ID</param>
-    /// <param name="repeaterDeviceLinkId">The repeater device link ID</param>
+    /// <param name="linkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>
     /// <param name="inputDeviceName">The input device name</param>
     /// <param name="outputDeviceName">The output device name</param>
@@ -509,8 +509,8 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public RepeaterModel
     (
-      uint id,
-      uint repeaterDeviceLinkId,
+      int id,
+      int linkId,
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
@@ -518,8 +518,7 @@ namespace VACARM.Domain.Models
     ) :
       base(id)
     {
-      this.Id = id;
-      this.LinkId = repeaterDeviceLinkId;
+      this.LinkId = linkId;
       this.ProcessId = processId;
       this.ProcessId = processId;
       this.PathName = pathName;
@@ -543,7 +542,7 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public RepeaterModel
     (
-      uint id,
+      int id,
       int? processId,
       string inputDeviceName,
       string outputDeviceName,
@@ -559,7 +558,6 @@ namespace VACARM.Domain.Models
     ) : 
       base(id)
     {
-      this.Id = id;
       this.ProcessId = processId;
       this.BitsPerSample = bitsPerSample;
       this.BufferDurationMs = bufferDurationMs;
@@ -577,8 +575,8 @@ namespace VACARM.Domain.Models
     [ExcludeFromCodeCoverage]
     public void Deconstruct
     (
-      out uint id,
-      out uint linkId,
+      out int id,
+      out int linkId,
       out int? processId,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,

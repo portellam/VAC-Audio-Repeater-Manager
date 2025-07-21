@@ -13,33 +13,25 @@ namespace VACARM.Domain.Models
     /// </summary>
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    uint RepeaterId { get; set; }
+    int InputDeviceId { get; set; }
 
     /// <summary>
     /// Foreign key
     /// </summary>
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    uint InputDeviceId { get; set; }
+    int OutputDeviceId { get; set; }
 
     /// <summary>
     /// Foreign key
     /// </summary>
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    uint OutputDeviceId { get; set; }
+    int RepeaterId { get; set; }
 
-    RepeaterModel RepeaterModel { get; set; }
-
-    /// <summary>
-    /// The input <typeparamref name="DeviceModel"/>.
-    /// </summary>
     DeviceModel InputDeviceModel { get; set; }
-
-    /// <summary>
-    /// The output <typeparamref name="DeviceModel"/>.
-    /// </summary>    
     DeviceModel OutputDeviceModel { get; set; }
+    RepeaterModel RepeaterModel { get; set; }
 
     #endregion
 
@@ -63,10 +55,10 @@ namespace VACARM.Domain.Models
     /// <param name="repeaterModel">The repeater</param>
     void Deconstruct
     (
-      out uint id,
-      out uint repeaterId,
-      out uint inputDeviceId,
-      out uint outputDeviceId,
+      out int id,
+      out int repeaterId,
+      out int inputDeviceId,
+      out int outputDeviceId,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
       out DeviceModel inputDeviceModel,

@@ -11,13 +11,6 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Foreign key
     /// </summary>
-    [Required]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    uint LinkId { get; set; }
-
-    /// <summary>
-    /// Foreign key
-    /// </summary>
     int? ProcessId { get; set; }
 
     [Required]
@@ -71,8 +64,8 @@ namespace VACARM.Domain.Models
     /// <param name="windowName">The window name</param>
     void Deconstruct
     (
-      out uint id,
-      out uint linkId,
+      out int id,
+      out int linkId,
       out int? processId,
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
