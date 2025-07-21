@@ -15,11 +15,12 @@ namespace VACARM.Domain.Models
     private bool? isEnabled { get; set; } = false;
     private bool? isMuted { get; set; } = false;
     private bool? isPresent { get; set; } = false;
+    private string name { get; set; } = string.Empty;
     private string role { get; set; } = string.Empty;
 
     public bool IsCapture { get; set; }
 
-    public bool IsDefault
+    public bool? IsDefault
     {
       get
       {
@@ -37,7 +38,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public bool IsEnabled
+    public bool? IsEnabled
     {
       get
       {
@@ -55,7 +56,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public bool IsMuted
+    public bool? IsMuted
     {
       get
       {
@@ -73,7 +74,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public bool IsPresent
+    public bool? IsPresent
     {
       get
       {
@@ -91,7 +92,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public bool IsRender
+    public bool? IsRender
     {
       get
       {
@@ -99,9 +100,7 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public string ActualId { get; set; } = string.Empty;
-
-    public string Name { get; set; } = string.Empty;
+    public string ActualId { get; set; }
 
     public string Availability
     {
@@ -117,6 +116,23 @@ namespace VACARM.Domain.Models
         }
 
         return "Present";
+      }
+    }
+
+    public string Name
+    {
+      get
+      {
+        return this.name;
+      }
+      set
+      {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+          value = string.Empty;
+        }
+
+        this.name = value;
       }
     }
 
@@ -152,20 +168,17 @@ namespace VACARM.Domain.Models
     /// </summary>
     /// <param name="id">The ID</param>
     /// <param name="actualId">The actual ID</param>
-    /// <param name="name">The name</param>
     /// <param name="isCapture">True/false is a capture device</param>
     [ExcludeFromCodeCoverage]
     public DeviceModel
     (
       int id,
       string actualId,
-      string name,
       bool isCapture
     ) :
       base(id)
     {
       this.ActualId = actualId;
-      this.Name = name;
       this.IsCapture = isCapture;
     }
 
@@ -182,13 +195,13 @@ namespace VACARM.Domain.Models
     /// <param name="linkModelCollection">
     /// The repeater device link model collection
     /// </param>
-    /// <param name="name">The name</param>
     /// <param name="isCapture">True/false is a capture device</param>
     /// <param name="isDefault">True/false is the device default</param>
     /// <param name="isEnabled">True/false is the device enabled</param>
     /// <param name="isMuted">True/false is the device muted</param>
     /// <param name="isPresent">True/false is the device present</param>
     /// <param name="isRender">True/false is a render device</param>
+    /// <param name="name">The name</param>
     /// <param name="role">The role</param>
     [ExcludeFromCodeCoverage]
     public DeviceModel
@@ -199,13 +212,13 @@ namespace VACARM.Domain.Models
       DateTime createdDateTime,
       DateTime modifiedDateTime,
       ICollection<RepeaterDeviceLinkModel> linkModelCollection,
-      string name,
       bool isCapture,
       bool? isDefault = null,
       bool? isEnabled = null,
       bool? isMuted = null,
       bool? isPresent = null,
       bool? isRender = null,
+      string? name = null,
       string? role = null
     ) :
       base
@@ -218,12 +231,12 @@ namespace VACARM.Domain.Models
       this.LinkIdCollection = linkIdCollection;
       this.ActualId = actualId;
       this.LinkModelCollection = linkModelCollection;
-      this.Name = name;
       this.IsCapture = isCapture;
-      this.IsDefault = (bool)isDefault;
-      this.IsEnabled = (bool)isEnabled;
-      this.IsMuted = (bool)isMuted;
-      this.IsPresent = (bool)isPresent;
+      this.IsDefault = isDefault;
+      this.IsEnabled = isEnabled;
+      this.IsMuted = isMuted;
+      this.IsPresent = isPresent;
+      this.Name = name;
       this.Role = role;
     }
 
@@ -236,13 +249,13 @@ namespace VACARM.Domain.Models
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
       out ICollection<RepeaterDeviceLinkModel> linkModelCollection,
-      out string name,
       out bool isCapture,
       out bool? isDefault,
       out bool? isEnabled,
       out bool? isMuted,
       out bool? isPresent,
-      out string role
+      out string? name,
+      out string? role
     )
     {
       base.Deconstruct
@@ -255,12 +268,12 @@ namespace VACARM.Domain.Models
       linkIdCollection = this.LinkIdCollection;
       actualId = this.ActualId;
       linkModelCollection = this.LinkModelCollection;
-      name = this.Name;
       isCapture = this.IsCapture;
       isDefault = this.IsDefault;
       isEnabled = this.IsEnabled;
       isMuted = this.IsMuted;
       isPresent = this.IsPresent;
+      name = this.Name;
       role = this.Role;
     }
 

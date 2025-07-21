@@ -26,11 +26,11 @@ namespace VACARM.Domain.Models
 
     [Required]
     bool IsCapture { get; set; }
-    bool IsDefault { get; set; }
-    bool IsEnabled { get; set; }
-    bool IsMuted { get; set; }
-    bool IsRender { get; }
-    bool IsPresent { get; set; }
+    bool? IsDefault { get; set; }
+    bool? IsEnabled { get; set; }
+    bool? IsMuted { get; set; }
+    bool? IsRender { get; }
+    bool? IsPresent { get; set; }
     string Availability { get; }
     string Name { get; set; }
     string Role { get; set; }
@@ -52,7 +52,6 @@ namespace VACARM.Domain.Models
     /// <param name="linkModelCollection">
     /// The repeater device link model collection
     /// </param>
-    /// <param name="name">The name</param>
     /// <param name="isCapture">True/false is a capture device</param>
     /// <param name="isDefault">True/false is the device default</param>
     /// <param name="isEnabled">True/false is the device enabled</param>
@@ -68,13 +67,13 @@ namespace VACARM.Domain.Models
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
       out ICollection<RepeaterDeviceLinkModel> linkModelCollection,
-      out string name,
       out bool isCapture,
       out bool? isDefault,
       out bool? isEnabled,
       out bool? isMuted,
       out bool? isPresent,
-      out string role
+      out string? name,
+      out string? role
     );
 
     #endregion
