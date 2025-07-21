@@ -52,6 +52,7 @@ namespace VACARM.Domain.Models
     /// <param name="linkModelCollection">
     /// The repeater device link model collection
     /// </param>
+    /// <param name="name">The name</param>
     /// <param name="isCapture">True/false is a capture device</param>
     /// <param name="isDefault">True/false is the device default</param>
     /// <param name="isEnabled">True/false is the device enabled</param>

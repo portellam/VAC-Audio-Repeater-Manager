@@ -153,6 +153,7 @@ namespace VACARM.Domain.Models
     /// <param name="id">The ID</param>
     /// <param name="actualId">The actual ID</param>
     /// <param name="name">The name</param>
+    /// <param name="isCapture">True/false is a capture device</param>
     [ExcludeFromCodeCoverage]
     public DeviceModel
     (
@@ -172,67 +173,40 @@ namespace VACARM.Domain.Models
     /// Abstract of the actual audio device.
     /// </summary>
     /// <param name="id">The ID</param>
+    /// <param name="linkIdCollection">
+    /// The repeater device link ID collection
+    /// </param>
     /// <param name="actualId">The actual ID</param>
-    /// <param name="name">The name</param>
-    /// <param name="isCapture">True/false is a capture device</param>
-    /// <param name="isEnabled">True/false is the device enabled</param>
-    /// <param name="isMuted">True/false is the device muted</param>
-    /// <param name="isPresent">True/false is the device present</param>
-    /// <param name="role">The role</param>
-    [ExcludeFromCodeCoverage]
-    public DeviceModel
-    (
-      int id,
-      string actualId,
-      string name,
-      bool isCapture,
-      bool? isDefault,
-      bool? isEnabled,
-      bool? isMuted,
-      bool? isPresent,
-      bool? isRender,
-      string? role
-    ) :
-      base(id)
-    {
-      this.ActualId = actualId;
-      this.Name = name;
-      this.IsCapture = isCapture;
-      this.IsDefault = (bool)isDefault;
-      this.IsEnabled = (bool)isEnabled;
-      this.IsMuted = (bool)isMuted;
-      this.IsPresent = (bool)isPresent;
-      this.Role = role;
-    }
-
-    /// <summary>
-    /// Abstract of the actual audio device.
-    /// </summary>
-    /// <param name="id">The ID</param>
     /// <param name="createdDateTime">The construct date-time</param>
     /// <param name="modifiedDateTime">The last date-time a change occurred</param>
-    /// <param name="actualId">The actual ID</param>
+    /// <param name="linkModelCollection">
+    /// The repeater device link model collection
+    /// </param>
     /// <param name="name">The name</param>
     /// <param name="isCapture">True/false is a capture device</param>
+    /// <param name="isDefault">True/false is the device default</param>
     /// <param name="isEnabled">True/false is the device enabled</param>
     /// <param name="isMuted">True/false is the device muted</param>
     /// <param name="isPresent">True/false is the device present</param>
+    /// <param name="isRender">True/false is a render device</param>
     /// <param name="role">The role</param>
     [ExcludeFromCodeCoverage]
     public DeviceModel
     (
       int id,
+      ICollection<uint> linkIdCollection,
+      string actualId,
       DateTime createdDateTime,
       DateTime modifiedDateTime,
-      string actualId,
+      ICollection<RepeaterDeviceLinkModel> linkModelCollection,
       string name,
       bool isCapture,
-      bool? isDefault,
-      bool? isEnabled,
-      bool? isMuted,
-      bool? isPresent,
-      bool? isRender,
-      string? role
+      bool? isDefault = null,
+      bool? isEnabled = null,
+      bool? isMuted = null,
+      bool? isPresent = null,
+      bool? isRender = null,
+      string? role = null
     ) :
       base
       (
@@ -241,7 +215,9 @@ namespace VACARM.Domain.Models
         modifiedDateTime
       )
     {
+      this.LinkIdCollection = linkIdCollection;
       this.ActualId = actualId;
+      this.LinkModelCollection = linkModelCollection;
       this.Name = name;
       this.IsCapture = isCapture;
       this.IsDefault = (bool)isDefault;
