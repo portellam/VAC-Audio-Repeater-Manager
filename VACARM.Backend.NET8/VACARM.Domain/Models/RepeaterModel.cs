@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using VACARM.Common;
 using VACARM.Domain.Enums;
@@ -42,6 +43,121 @@ namespace VACARM.Domain.Models
 
     public int LinkId { get; set; }
     public int? ProcessId { get; set; }
+
+    [Required]
+    public RepeaterDeviceLinkModel RepeaterDeviceLinkModel { get; set; }
+
+    /// <summary>
+    /// The input device name.
+    /// </summary>
+    public string InputDeviceName
+    {
+      get
+      {
+        int maxLength = 31;
+
+        string name = this.RepeaterDeviceLinkModel
+                        .OutputDeviceModel
+                        .Name;
+
+        if (name.Length > maxLength)
+        {
+          name = name.Substring
+            (
+              0,
+              maxLength
+            );
+        }
+
+        return name;
+      }
+      set
+      {
+        int maxLength = 31;
+
+        if (value.Length > maxLength)
+        {
+          value = value.Substring
+            (
+              0,
+              maxLength
+            );
+        }
+
+        this.RepeaterDeviceLinkModel
+          .OutputDeviceModel
+          .Name = value;
+      }
+    }
+
+    /// <summary>
+    /// The output device name.
+    /// </summary>
+    public string OutputDeviceName
+    {
+      get
+      {
+        int maxLength = 31;
+
+        string name = this.RepeaterDeviceLinkModel
+                        .OutputDeviceModel
+                        .Name;
+
+        if (name.Length > maxLength)
+        {
+          name = name.Substring
+            (
+              0,
+              maxLength
+            );
+        }
+
+        return name;
+      }
+      set
+      {
+        int maxLength = 31;
+
+        if (value.Length > maxLength)
+        {
+          value = value.Substring
+            (
+              0,
+              maxLength
+            );
+        }
+
+        this.RepeaterDeviceLinkModel
+          .OutputDeviceModel
+          .Name = value;
+      }
+    }
+
+    /// <summary>
+    /// The file pathname.
+    /// </summary>
+    public string? PathName
+    {
+      get
+      {
+        return this.pathName;
+      }
+      set
+      {
+        if (value == null)
+        {
+          value = string.Empty;
+        }
+
+        if (!File.Exists(value))
+        {
+          value = string.Empty;
+        }
+
+        this.pathName = value;
+      }
+    }
+
     public bool IsStarted { get; set; }
 
     public ChannelConfig ChannelConfig
@@ -208,117 +324,6 @@ namespace VACARM.Domain.Models
     }
 
     /// <summary>
-    /// The input device name.
-    /// </summary>
-    public string InputDeviceName
-    {
-      get
-      {
-        int maxLength = 31;
-
-        string name = this.LinkModel
-                        .OutputDeviceModel
-                        .Name;
-
-        if (name.Length > maxLength)
-        {
-          name = name.Substring
-            (
-              0,
-              maxLength
-            );
-        }
-
-        return name;
-      }
-      set
-      {
-        int maxLength = 31;
-
-        if (value.Length > maxLength)
-        {
-          value = value.Substring
-            (
-              0,
-              maxLength
-            );
-        }
-
-        this.LinkModel
-          .OutputDeviceModel
-          .Name = value;
-      }
-    }
-
-    /// <summary>
-    /// The output device name.
-    /// </summary>
-    public string OutputDeviceName
-    {
-      get
-      {
-        int maxLength = 31;
-
-        string name = this.LinkModel
-                        .OutputDeviceModel
-                        .Name;
-
-        if (name.Length > maxLength)
-        {
-          name = name.Substring
-            (
-              0,
-              maxLength
-            );
-        }
-
-        return name;
-      }
-      set
-      {
-        int maxLength = 31;
-
-        if (value.Length > maxLength)
-        {
-          value = value.Substring
-            (
-              0,
-              maxLength
-            );
-        }
-
-        this.LinkModel
-          .OutputDeviceModel
-          .Name = value;
-      }
-    }
-
-    /// <summary>
-    /// The file pathname.
-    /// </summary>
-    public string? PathName
-    {
-      get
-      {
-        return this.pathName;
-      }
-      set
-      {
-        if (value == null)
-        {
-          value = string.Empty;
-        }
-
-        if (!File.Exists(value))
-        {
-          value = string.Empty;
-        }
-
-        this.pathName = value;
-      }
-    }
-
-    /// <summary>
     /// Batch command to create and start an audio repeater.
     /// </summary>
     public string StartArguments
@@ -367,11 +372,11 @@ namespace VACARM.Domain.Models
             "Id:{0}, WaveInId:{1}, WaveOutId:{2}, '{3}' to '{4}'",
             this.Id
               .ToString(),
-            this.LinkModel
+            this.RepeaterDeviceLinkModel
               .InputDeviceModel
               .Id
               .ToString(),
-            this.LinkModel
+            this.RepeaterDeviceLinkModel
               .OutputDeviceModel
               .Id
               .ToString(),
@@ -491,8 +496,6 @@ namespace VACARM.Domain.Models
       }
     }
 
-    public RepeaterDeviceLinkModel LinkModel { get; set; }
-
     #endregion
 
     #region Logic
@@ -503,32 +506,31 @@ namespace VACARM.Domain.Models
     /// <param name="id">The repeater ID</param>
     /// <param name="linkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>
-    /// <param name="inputDeviceName">The input device name</param>
-    /// <param name="outputDeviceName">The output device name</param>
-    /// <param name="pathName">The path name</param>
     [ExcludeFromCodeCoverage]
     public RepeaterModel
     (
       int id,
       int linkId,
-      int? processId,
-      string inputDeviceName,
-      string outputDeviceName,
-      string? pathName
+      int? processId
     ) :
       base(id)
     {
       this.LinkId = linkId;
       this.ProcessId = processId;
-      this.ProcessId = processId;
-      this.PathName = pathName;
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="id">The repeater ID</param>
+    /// <param name="linkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>
+    /// <param name="createdDateTime">The construct date-time</param>
+    /// <param name="modifiedDateTime">The last date-time a change occurred</param>
+    /// <param name="repeaterDeviceLinkModel">
+    /// The repeater device link
+    /// </param>
+    /// <param name="isStarted">True/false is started</param>
     /// <param name="inputDeviceName">The input device name</param>
     /// <param name="outputDeviceName">The output device name</param>
     /// <param name="pathName">The path name</param>
@@ -543,7 +545,11 @@ namespace VACARM.Domain.Models
     public RepeaterModel
     (
       int id,
+      int linkId,
       int? processId,
+      DateTime createdDateTime,
+      DateTime modifiedDateTime,
+      RepeaterDeviceLinkModel repeaterDeviceLinkModel,
       string inputDeviceName,
       string outputDeviceName,
       string pathName,
@@ -555,10 +561,17 @@ namespace VACARM.Domain.Models
       ChannelConfig channelConfig,
       uint sampleRateKHz,
       ushort bufferDurationMs
-    ) : 
-      base(id)
+    ) :
+      base
+      (
+        id,
+        createdDateTime,
+        modifiedDateTime
+      )
     {
       this.ProcessId = processId;
+      this.RepeaterDeviceLinkModel = repeaterDeviceLinkModel;
+      this.IsStarted = isStarted;
       this.BitsPerSample = bitsPerSample;
       this.BufferDurationMs = bufferDurationMs;
       this.BufferAmount = bufferAmount;
@@ -581,16 +594,16 @@ namespace VACARM.Domain.Models
       out DateTime createdDateTime,
       out DateTime modifiedDateTime,
       out RepeaterDeviceLinkModel linkModel,
-      bool isStarted,
+      out string inputDeviceName,
+      out string outputDeviceName,
+      out string pathName,
+      out bool isStarted,
       out byte bitsPerSample,
       out byte bufferAmount,
       out byte prefillPercentage,
       out byte resyncAtPercentage,
       out ChannelConfig channelConfig,
       out List<Channel> channelList,
-      out string inputDeviceName,
-      out string outputDeviceName,
-      out string pathName,
       out string startArguments,
       out string stopArguments,
       out string windowName,
@@ -608,17 +621,17 @@ namespace VACARM.Domain.Models
 
       linkId = this.LinkId;
       processId = this.ProcessId;
-      linkModel = this.LinkModel;
+      linkModel = this.RepeaterDeviceLinkModel;
+      inputDeviceName = this.InputDeviceName;
+      outputDeviceName = this.OutputDeviceName;
+      pathName = this.PathName;
+      isStarted = this.IsStarted;
       bitsPerSample = this.BitsPerSample;
       bufferDurationMs = this.BufferDurationMs;
       bufferAmount = this.BufferAmount;
       channelConfig = this.ChannelConfig;
       channelList = this.ChannelList;
       channelMask = this.ChannelMask;
-      inputDeviceName = this.InputDeviceName;
-      isStarted = this.IsStarted;
-      outputDeviceName = this.OutputDeviceName;
-      pathName = this.PathName;
       prefillPercentage = this.PrefillPercentage;
       resyncAtPercentage = this.ResyncAtPercentage;
       sampleRateKHz = this.SampleRateKHz;
