@@ -44,7 +44,6 @@ namespace VACARM.Domain.Models
     {
     }
 
-
     /// <summary>
     /// Constructor
     /// </summary>

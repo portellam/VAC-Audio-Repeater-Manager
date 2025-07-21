@@ -503,6 +503,14 @@ namespace VACARM.Domain.Models
     /// <summary>
     /// Constructor
     /// </summary>
+    [ExcludeFromCodeCoverage]
+    public RepeaterModel()
+    {
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
     /// <param name="id">The repeater ID</param>
     /// <param name="linkId">The repeater device link ID</param>
     /// <param name="processId">The process ID</param>

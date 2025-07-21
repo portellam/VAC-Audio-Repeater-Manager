@@ -171,6 +171,14 @@ namespace VACARM.Domain.Models
     #region Logic
 
     /// <summary>
+    /// Constructor
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public DeviceModel()
+    {
+    }
+
+    /// <summary>
     /// Abstract of the actual audio device.
     /// </summary>
     /// <param name="id">The ID</param>
