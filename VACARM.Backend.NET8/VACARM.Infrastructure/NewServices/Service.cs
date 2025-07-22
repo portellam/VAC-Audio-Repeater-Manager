@@ -1,14 +1,17 @@
-﻿using System;
+﻿using AudioSwitcher.AudioApi;
+using NAudio.CoreAudioApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Contexts;
+using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Infrastructure.NewServices
+namespace VACARM.Infrastructure.Services
 {
-  public class Service :
+  public partial class Service :
     IService
   {
     #region Parameters
@@ -28,20 +31,43 @@ namespace VACARM.Infrastructure.NewServices
       this.Context = context;
     }
 
-    public async Task<IBaseModel> CreateAsync()
-    {
-      // Validate input/output devices
-      // Create RepeaterDeviceLink
-      // Save changes
-      throw new NotImplementedException();
-    }
-
-    public async Task<IBaseModel> RemoveAsync()
+    public void DoAction
+    (
+      Action<IBaseModel> action,
+      Func<IBaseModel, bool> func
+    )
     {
       throw new NotImplementedException();
     }
 
-    public async Task<IBaseModel> ValidateAsync()
+    public void DoAction
+    (
+      Action<IBaseModel> action,
+      IBaseModel item
+    )
+    {
+      throw new NotImplementedException();
+    }
+
+    public void DoActionAll(Action<IBaseModel> action)
+    {
+      throw new NotImplementedException();
+    }
+
+    public void DoActionRange
+    (
+      Action<IBaseModel> action,
+      IEnumerable<IBaseModel> enumerable
+    )
+    {
+      throw new NotImplementedException();
+    }
+
+    public void DoActionRange
+    (
+      Action<IBaseModel> action,
+      Func<IBaseModel, bool> func
+    )
     {
       throw new NotImplementedException();
     }
