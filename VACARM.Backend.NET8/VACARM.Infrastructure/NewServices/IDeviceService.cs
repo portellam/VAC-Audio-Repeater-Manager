@@ -1,0 +1,28 @@
+﻿#warning AudioSwitcher.AudioApi must initialize after NAudio.CoreAudioApi
+
+using AudioSwitcher.AudioApi;
+using NAudio.CoreAudioApi;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VACARM.Domain.Models;
+using VACARM.Infrastructure.Repositories;
+
+namespace VACARM.Infrastructure.Services
+{
+  public partial interface IService
+  {
+    #region Parameters
+
+    CoreAudioService<ReadonlyRepository<Device>, Device> CoreAudioService { get; }
+    MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> MMDeviceService { get; }
+
+    #endregion
+
+    #region Logic
+
+    #endregion
+  }
+}
