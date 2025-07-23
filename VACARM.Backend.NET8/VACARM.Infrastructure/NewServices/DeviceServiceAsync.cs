@@ -16,6 +16,11 @@ namespace VACARM.Infrastructure.Services
 
     #region Logic
 
+    public async IAsyncEnumerable<bool> MuteAllAsync()
+    {
+      throw new NotImplementedException();
+    }
+
     public async IAsyncEnumerable<bool> MuteRangeAsync(IEnumerable<uint> idEnumerable)
     {
       throw new NotImplementedException();
