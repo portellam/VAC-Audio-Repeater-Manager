@@ -16,73 +16,76 @@ namespace VACARM.Infrastructure.Services
 
     #region Logic
 
-    Task<int?> RestartAsync(uint? id)
+    public async Task<int?> RestartAsync(int? id)
     {
       throw new NotImplementedException();
     }
 
-    Task<int?> StartAsync(uint? id)
+    public async Task<int?> StartAsync(int? id)
     {
       throw new NotImplementedException();
     }
 
-    Task<int?> StopAsync(uint? id)
+    public async Task<int?> StopAsync(int? id)
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> RestartAllAsync()
+    public async IAsyncEnumerable<int?> RestartAllAsync()
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> RestartRangeAsync(IEnumerable<uint> idEnumerable)
+    public async IAsyncEnumerable<int?> RestartRangeAsync
+    (IEnumerable<int> idEnumerable)
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> RestartRangeAsync
+    public async IAsyncEnumerable<int?> RestartRangeAsync
     (
-      uint startId, 
-      uint endId
+      int startId, 
+      int endId
     )
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StartAllAsync()
+    public async IAsyncEnumerable<int?> StartAllAsync()
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StartRangeAsync(IEnumerable<uint> idEnumerable)
+    public async IAsyncEnumerable<int?> StartRangeAsync
+    (IEnumerable<int> idEnumerable)
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StartRangeAsync
+    public async IAsyncEnumerable<int?> StartRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     )
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StopAllAsync()
+    public async IAsyncEnumerable<int?> StopAllAsync()
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StopRangeAsync(IEnumerable<uint> idEnumerable)
+    public async IAsyncEnumerable<int?> StopRangeAsync
+    (IEnumerable<int> idEnumerable)
     {
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StopRangeAsync
+    public async IAsyncEnumerable<int?> StopRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     )
     {
       throw new NotImplementedException();
