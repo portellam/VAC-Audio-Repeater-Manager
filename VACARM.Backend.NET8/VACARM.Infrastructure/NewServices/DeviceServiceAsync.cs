@@ -26,7 +26,11 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    public async IAsyncEnumerable<bool> MuteRangeAsync(uint startId, uint endId)
+    public async IAsyncEnumerable<bool> MuteRangeAsync
+    (
+      uint startId, 
+      uint endId
+    )
     {
       throw new NotImplementedException();
     }
@@ -36,12 +40,17 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    public async IAsyncEnumerable<bool> UnmuteRangeAsync(IEnumerable<uint> idEnumerable)
+    public async IAsyncEnumerable<bool> UnmuteRangeAsync
+    (IEnumerable<uint> idEnumerable)
     {
       throw new NotImplementedException();
     }
 
-    public async IAsyncEnumerable<bool> UnmuteRangeAsync(uint startId, uint endId)
+    public async IAsyncEnumerable<bool> UnmuteRangeAsync
+    (
+      uint startId,
+      uint endId
+    )
     {
       throw new NotImplementedException();
     }
@@ -61,7 +70,11 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    public async Task<bool> SetVolumeAsync(uint id, double? volume)
+    public async Task<bool> SetVolumeAsync
+    (
+      uint id, 
+      double? volume
+    )
     {
       throw new NotImplementedException();
     }
@@ -76,17 +89,29 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    public async Task<DeviceModel?> GetDefaultCommunicationsAsync(bool isInput, bool isOutput)
+    public async Task<DeviceModel?> GetDefaultCommunicationsAsync
+    (
+      bool isInput, 
+      bool isOutput
+    )
     {
       throw new NotImplementedException();
     }
 
-    public async Task<DeviceModel?> GetDefaultConsoleAsync(bool isInput, bool isOutput)
+    public async Task<DeviceModel?> GetDefaultConsoleAsync
+    (
+      bool isInput,
+      bool isOutput
+    )
     {
       throw new NotImplementedException();
     }
 
-    public async Task<DeviceModel?> GetDefaultMultimediaAsync(bool isInput, bool isOutput)
+    public async Task<DeviceModel?> GetDefaultMultimediaAsync
+    (
+      bool isInput,
+      bool isOutput
+    )
     {
       throw new NotImplementedException();
     }

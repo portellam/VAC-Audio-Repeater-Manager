@@ -41,7 +41,11 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> RestartRangeAsync(uint startId, uint endId)
+    IAsyncEnumerable<int?> RestartRangeAsync
+    (
+      uint startId, 
+      uint endId
+    )
     {
       throw new NotImplementedException();
     }
@@ -56,7 +60,11 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StartRangeAsync(uint startId, uint endId)
+    IAsyncEnumerable<int?> StartRangeAsync
+    (
+      uint startId,
+      uint endId
+    )
     {
       throw new NotImplementedException();
     }
@@ -71,7 +79,11 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    IAsyncEnumerable<int?> StopRangeAsync(uint startId, uint endId)
+    IAsyncEnumerable<int?> StopRangeAsync
+    (
+      uint startId,
+      uint endId
+    )
     {
       throw new NotImplementedException();
     }
