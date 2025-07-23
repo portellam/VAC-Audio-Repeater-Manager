@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Contexts;
+using VACARM.Infrastructure.Extensions;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -26,9 +28,38 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    public async Task<IBaseModel> ValidateAsync()
+    /*
+     * TODO:
+     * - [ ] use generic objects (TBaseModel) to achieve this here?
+     * 
+     */
+
+    private async IAsyncEnumerable<BaseModel> GetAllAsync
+    (DbSet<TBaseModel> dbSet)
     {
-      throw new NotImplementedException();
+      await foreach (var model in dbSet.AsAsyncEnumerable())
+      {
+        yield return model;
+      }
+    }
+
+    public async IAsyncEnumerable<DeviceModel> GetAllAsync()
+    {
+      await return this.GetAllAsync(this.Context.DeviceDbSet);
+    }
+
+    public async Task<IBaseModel> ValidateAsync(int id)
+    {
+      var link = await this.Context
+        .
+        .Include(l => l.InputDevice)
+        .Include(l => l.OutputDevice)
+        .FirstOrDefaultAsync(l => l.Id == id);
+
+      if (link == null) return false;
+      if (link.InputDeviceId == link.OutputDeviceId) return false;
+
+      return true;
     }
 
     public async Task<int?> DoActionAsync

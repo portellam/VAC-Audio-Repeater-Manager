@@ -11,9 +11,29 @@ namespace VACARM.Infrastructure.Services
   {
     #region Logic
 
+    /*
+     * TODO:
+     * - [ ] add range methods for CRUD.
+     * 
+     */
+
+
     Task<IBaseModel> CreateAsync();
     Task<IBaseModel> RemoveAsync();
-    Task<IBaseModel> ValidateAsync();
+
+    /// <summary>
+    /// Validate a <typeparamref name="IBaseModel"/>.
+    /// </summary>
+    /// <param name="id">The ID</param>
+    /// <returns>The model</returns>
+    Task<IBaseModel> ValidateAsync(int id);
+
+    /// <summary>
+    /// Validate a <typeparamref name="IBaseModel"/>.
+    /// </summary>
+    /// <param name="matchFunc">The match function</param>
+    /// <returns>The model</returns>
+    Task<IBaseModel> ValidateAsync(Func<IBaseModel, bool> matchFunc);
 
     /// <summary>
     /// Get a <typeparamref name="IBaseModel"/>.
@@ -34,7 +54,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="matchFunc">The match function</param>
     /// <returns>The enumerable</returns>
-    Task<IEnumerable<IBaseModel>> GetRange
+    IAsyncEnumerable<IBaseModel>> GetRange
     (Func<IBaseModel, bool> matchFunc);
 
     /// <summary>
@@ -42,7 +62,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="idEnumerable">The ID enumerable</param>
     /// <returns>The enumerable</returns>
-    Task<IEnumerable<IBaseModel>> GetRange
+    IAsyncEnumerable<IBaseModel> GetRange
     (IEnumerable<int> idEnumerable);
 
     /// <summary>
@@ -51,7 +71,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="startId">The first ID</param>
     /// <param name="endId">The last ID</param>
     /// <returns>The enumerable</returns>
-    Task<IEnumerable<IBaseModel>> GetRange
+    IAsyncEnumerable<IBaseModel> GetRange
     (
       int startId,
       int endId
@@ -61,7 +81,7 @@ namespace VACARM.Infrastructure.Services
     /// Get an enumerable of all <typeparamref name="IBaseModel"/>(s).
     /// </summary>
     /// <returns>The enumerable</returns>
-    Task<IEnumerable<IBaseModel>> GetAll();
+    IAsyncEnumerable<IBaseModel> GetAll();
 
     /// <summary>
     /// Do an action for a <typeparamref name="IBaseModel"/>.
