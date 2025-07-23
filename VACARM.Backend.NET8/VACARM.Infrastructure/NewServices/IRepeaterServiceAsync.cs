@@ -15,19 +15,19 @@ namespace VACARM.Infrastructure.Services
     /// Restart a <typeparamref name="RepeaterModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    Task<int?> RestartAsync(uint? id);
+    Task<int?> RestartAsync(int? id);
 
     /// <summary>
     /// Restart a <typeparamref name="RepeaterModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    Task<int?> StartAsync(uint? id);
+    Task<int?> StartAsync(int? id);
 
     /// <summary>
     /// Stop a <typeparamref name="RepeaterModel"/>.
     /// </summary>
     /// <param name="id">The ID</param>
-    Task<int?> StopAsync(uint? id);
+    Task<int?> StopAsync(int? id);
 
     /// <summary>
     /// Restart all <typeparamref name="RepeaterModel"/>(s).
@@ -38,7 +38,7 @@ namespace VACARM.Infrastructure.Services
     /// Restart some <typeparamref name="RepeaterModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    IAsyncEnumerable<int?> RestartRangeAsync(IEnumerable<uint> idEnumerable);
+    IAsyncEnumerable<int?> RestartRangeAsync(IEnumerable<int> idEnumerable);
 
     /// <summary>
     /// Restart some <typeparamref name="RepeaterModel"/>(s).
@@ -47,8 +47,8 @@ namespace VACARM.Infrastructure.Services
     /// <param name="endId">The last ID</param>
     IAsyncEnumerable<int?> RestartRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     );
 
     /// <summary>
@@ -61,7 +61,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     IAsyncEnumerable<int?> StartRangeAsync
-    (IEnumerable<uint> idEnumerable);
+    (IEnumerable<int> idEnumerable);
 
     /// <summary>
     /// Start some <typeparamref name="RepeaterModel"/>(s).
@@ -70,8 +70,8 @@ namespace VACARM.Infrastructure.Services
     /// <param name="endId">The last ID</param>
     IAsyncEnumerable<int?> StartRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     );
 
     /// <summary>
@@ -83,7 +83,7 @@ namespace VACARM.Infrastructure.Services
     /// Stop some <typeparamref name="RepeaterModel"/>(s).
     /// </summary>
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
-    IAsyncEnumerable<int?> StopRangeAsync(IEnumerable<uint> idEnumerable);
+    IAsyncEnumerable<int?> StopRangeAsync(IEnumerable<int> idEnumerable);
 
     /// <summary>
     /// Stop some <typeparamref name="RepeaterModel"/>(s).
@@ -92,8 +92,8 @@ namespace VACARM.Infrastructure.Services
     /// <param name="endId">The last ID</param>
     IAsyncEnumerable<int?> StopRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     );
 
     #endregion

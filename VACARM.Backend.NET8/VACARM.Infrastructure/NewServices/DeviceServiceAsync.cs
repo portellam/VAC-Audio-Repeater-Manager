@@ -21,15 +21,15 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    public async IAsyncEnumerable<bool> MuteRangeAsync(IEnumerable<uint> idEnumerable)
+    public async IAsyncEnumerable<bool> MuteRangeAsync(IEnumerable<int> idEnumerable)
     {
       throw new NotImplementedException();
     }
 
     public async IAsyncEnumerable<bool> MuteRangeAsync
     (
-      uint startId, 
-      uint endId
+      int startId, 
+      int endId
     )
     {
       throw new NotImplementedException();
@@ -41,45 +41,45 @@ namespace VACARM.Infrastructure.Services
     }
 
     public async IAsyncEnumerable<bool> UnmuteRangeAsync
-    (IEnumerable<uint> idEnumerable)
+    (IEnumerable<int> idEnumerable)
     {
       throw new NotImplementedException();
     }
 
     public async IAsyncEnumerable<bool> UnmuteRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     )
     {
       throw new NotImplementedException();
     }
 
-    public async Task<bool> MuteAsync(uint id)
+    public async Task<bool> MuteAsync(int id)
     {
       throw new NotImplementedException();
     }
 
-    public async Task<bool> SetAsDefaultAsync(uint id)
+    public async Task<bool> SetAsDefaultAsync(int id)
     {
       throw new NotImplementedException();
     }
 
-    public async Task<bool> SetAsDefaultCommunicationsAsync(uint id)
+    public async Task<bool> SetAsDefaultCommunicationsAsync(int id)
     {
       throw new NotImplementedException();
     }
 
     public async Task<bool> SetVolumeAsync
     (
-      uint id, 
+      int id, 
       double? volume
     )
     {
       throw new NotImplementedException();
     }
 
-    public async Task<bool> UnmuteAsync(uint id)
+    public async Task<bool> UnmuteAsync(int id)
     {
       throw new NotImplementedException();
     }

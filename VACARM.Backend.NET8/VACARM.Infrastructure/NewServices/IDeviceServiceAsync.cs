@@ -26,7 +26,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>True/false result.</returns>
     IAsyncEnumerable<bool> MuteRangeAsync
-    (IEnumerable<uint> idEnumerable);
+    (IEnumerable<int> idEnumerable);
 
     /// <summary>
     /// Mute an enumerable of some <typeparamref name="DeviceModel"/>(s).
@@ -36,8 +36,8 @@ namespace VACARM.Infrastructure.Services
     /// <returns>True/false result</returns>
     IAsyncEnumerable<bool> MuteRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     );
 
     /// <summary>
@@ -52,7 +52,7 @@ namespace VACARM.Infrastructure.Services
     /// <param name="idEnumerable">The enumerable of ID(s)</param>
     /// <returns>True/false result.</returns>
     IAsyncEnumerable<bool> UnmuteRangeAsync
-    (IEnumerable<uint> idEnumerable);
+    (IEnumerable<int> idEnumerable);
 
     /// <summary>
     /// Unmute an enumerable of some <typeparamref name="DeviceModel"/>(s).
@@ -62,8 +62,8 @@ namespace VACARM.Infrastructure.Services
     /// <returns>True/false result</returns>
     IAsyncEnumerable<bool> UnmuteRangeAsync
     (
-      uint startId,
-      uint endId
+      int startId,
+      int endId
     );
 
     /// <summary>
@@ -71,14 +71,14 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>True/false result.</returns>
-    Task<bool> MuteAsync(uint id);
+    Task<bool> MuteAsync(int id);
 
     /// <summary>
     /// Set the <typeparamref name="DeviceModel"/> as default.
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>True/false result.</returns>
-    Task<bool> SetAsDefaultAsync(uint id);
+    Task<bool> SetAsDefaultAsync(int id);
 
     /// <summary>
     /// Set the <typeparamref name="DeviceModel"/> as default for
@@ -86,7 +86,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>True/false result.</returns>
-    Task<bool> SetAsDefaultCommunicationsAsync(uint id);
+    Task<bool> SetAsDefaultCommunicationsAsync(int id);
 
     /// <summary>
     /// Set the <typeparamref name="DeviceModel"/> volume.
@@ -96,7 +96,7 @@ namespace VACARM.Infrastructure.Services
     /// <returns>True/false result.</returns>
     Task<bool> SetVolumeAsync
     (
-      uint id,
+      int id,
       double? volume
     );
 
@@ -105,7 +105,7 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <param name="id">The ID</param>
     /// <returns>True/false result.</returns>
-    Task<bool> UnmuteAsync(uint id);
+    Task<bool> UnmuteAsync(int id);
 
     /// <summary>
     /// Update the service.
