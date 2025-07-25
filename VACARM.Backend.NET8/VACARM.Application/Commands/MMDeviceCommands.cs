@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using NAudio.CoreAudioApi;
+﻿using NAudio.CoreAudioApi;
+using System.Diagnostics;
 
 namespace VACARM.Application.Commands
 {
