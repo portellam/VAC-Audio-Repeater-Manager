@@ -3,7 +3,6 @@
 using AudioSwitcher.AudioApi;
 using NAudio.CoreAudioApi;
 using VACARM.Infrastructure.Repositories;
-using VACARM.Infrastructure.Services.MMDeviceService;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -13,10 +12,6 @@ namespace VACARM.Infrastructure.Services
 
     CoreAudioService<ReadonlyRepository<Device>, Device> CoreAudioService { get; }
     MMDeviceService<ReadonlyRepository<MMDevice>, MMDevice> MMDeviceService { get; }
-
-    #endregion
-
-    #region Logic
 
     #endregion
   }
