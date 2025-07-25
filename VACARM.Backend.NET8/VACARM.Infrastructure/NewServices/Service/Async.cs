@@ -3,8 +3,7 @@ using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Services
 {
-  public partial class Service :
-    IService
+  public partial class Service
   {
     #region Logic
 
