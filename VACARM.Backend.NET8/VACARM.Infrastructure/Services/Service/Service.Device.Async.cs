@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Services
@@ -6,6 +7,23 @@ namespace VACARM.Infrastructure.Services
   public partial class Service
   {
     #region Parameters
+
+    private static readonly List
+      <
+        Expression
+        <
+          Func
+          <
+            BaseModel,
+            object
+          >
+        >
+      > DeviceSelectorList =
+      new()
+      {
+        BaseSelector,
+        x => (x as DeviceModel).ActualId
+      };
 
     protected new IQueryable<DeviceModel?> Queryable
     {
@@ -20,6 +38,17 @@ namespace VACARM.Infrastructure.Services
     #endregion
 
     #region Logic
+
+    private IQueryable<DeviceModel?> Queryable()
+    {
+      var dbSet = this.Context.DeviceDbSet;
+      var queryable = this.Queryable(ref dbSet);
+
+      queryable = queryable.Include(BaseSelector);
+      return queryable;
+    }
+
+    #endregion
 
     protected virtual bool Validate(DeviceModel model)
     {
@@ -149,6 +178,6 @@ namespace VACARM.Infrastructure.Services
       throw new NotImplementedException();
     }
 
-    #endregion
+#endregion
   }
 }

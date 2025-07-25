@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Services
@@ -9,58 +10,26 @@ namespace VACARM.Infrastructure.Services
 
     public static readonly int MinId = 0;
 
-    protected IQueryable<TBaseModel?> Queryable
-    { 
-      get
-      {
-        var queryable = DbSet
-          .AsQueryable();
-
-        queryable = queryable.Include(x => (x as BaseModel).Id);
-        return queryable;
-      }
-    }
-
+    private static readonly Expression
+      <
+        Func
+        <
+          BaseModel,
+          object
+        >
+      > BaseSelector =
+     x => x.Id;
 
     #endregion
 
-    #region Logic
+      #region Logic
 
-    protected virtual bool Validate(TBaseModel model)
+    private IQueryable<BaseModel?> Queryable(ref DbSet<BaseModel> dbSet)
     {
-      if (model == null)
-      {
-        return false;
-      }
-
-      if (model.Id < MinId)
-      {
-        return false;
-      }
-
-      return true;
+      var queryable = dbSet.AsQueryable();
+      queryable = queryable.Include(Selector);
+      return queryable;
     }
-
-    public virtual async Task<bool> ValidateAsync(int id)
-    {
-      var link = await GetAsync(id);
-      var result = Validate(link);
-      return result;
-    }
-
-    public async Task<TBaseModel?> GetAsync(int id)
-    {
-      return await Queryable
-        .FirstOrDefaultAsync(l => l.Id == id);
-    }
-
-    public async Task<TBaseModel?> GetAsync(Func<TBaseModel, bool> func)
-    {
-      return await Queryable
-        .FirstOrDefaultAsync(x => func(x));
-    }
-
-    public async Task<bool>
 
     #endregion
   }
