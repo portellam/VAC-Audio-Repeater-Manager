@@ -2,6 +2,7 @@
 using NAudio.CoreAudioApi;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services.MMDeviceService;
 
 namespace VACARM.Infrastructure.Services
 {

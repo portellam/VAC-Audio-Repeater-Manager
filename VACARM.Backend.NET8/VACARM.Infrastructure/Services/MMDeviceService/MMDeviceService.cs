@@ -5,7 +5,7 @@ using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 using VACARM.Infrastructure.Watchers;
 
-namespace VACARM.Infrastructure.Services
+namespace VACARM.Infrastructure.Services.MMDeviceService
 {
   /// <summary>
   /// The service to retrieve current and/or updated system audio device(s).
@@ -37,12 +37,12 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.defaultCommunicationsReadonlyRepository;
+        return defaultCommunicationsReadonlyRepository;
       }
       set
       {
-        this.defaultCommunicationsReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(this.DefaultCommunicationsReadonlyRepository));
+        defaultCommunicationsReadonlyRepository = value;
+        base.OnPropertyChanged(nameof(DefaultCommunicationsReadonlyRepository));
       }
     }
 
@@ -50,12 +50,12 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.defaultConsoleReadonlyRepository;
+        return defaultConsoleReadonlyRepository;
       }
       set
       {
-        this.defaultConsoleReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(this.DefaultConsoleReadonlyRepository));
+        defaultConsoleReadonlyRepository = value;
+        base.OnPropertyChanged(nameof(DefaultConsoleReadonlyRepository));
       }
     }
 
@@ -63,12 +63,12 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.defaultMultimediaReadonlyRepository;
+        return defaultMultimediaReadonlyRepository;
       }
       set
       {
-        this.defaultMultimediaReadonlyRepository = value;
-        base.OnPropertyChanged(nameof(this.DefaultMultimediaReadonlyRepository));
+        defaultMultimediaReadonlyRepository = value;
+        base.OnPropertyChanged(nameof(DefaultMultimediaReadonlyRepository));
       }
     }
 
@@ -96,17 +96,17 @@ namespace VACARM.Infrastructure.Services
     {
       base.Repository = new ReadonlyRepository<TMMDevice>();
 
-      this.DefaultCommunicationsReadonlyRepository =
+      DefaultCommunicationsReadonlyRepository =
         new ReadonlyRepository<TMMDevice>();
 
       DefaultConsoleReadonlyRepository =
         new ReadonlyRepository<TMMDevice>();
 
-      this.DefaultMultimediaReadonlyRepository =
+      DefaultMultimediaReadonlyRepository =
         new ReadonlyRepository<TMMDevice>();
 
-      this.MMNotificationClient = new MMNotificationClient(this.UpdateService);
-      this.UpdateService();
+      MMNotificationClient = new MMNotificationClient(UpdateService);
+      UpdateService();
     }
 
     protected override void Dispose(bool isDisposed)
@@ -118,19 +118,19 @@ namespace VACARM.Infrastructure.Services
 
       if (isDisposed)
       {
-        this.MMNotificationClient
+        MMNotificationClient
           .Dispose();
 
         base.Repository
           .Dispose();
 
-        this.DefaultCommunicationsReadonlyRepository
+        DefaultCommunicationsReadonlyRepository
           .Dispose();
 
         DefaultConsoleReadonlyRepository
           .Dispose();
 
-        this.DefaultMultimediaReadonlyRepository
+        DefaultMultimediaReadonlyRepository
           .Dispose();
       }
 
@@ -149,7 +149,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = (TMMDevice x) => x.DataFlow == dataFlow;
 
-      return this.DefaultCommunicationsReadonlyRepository
+      return DefaultCommunicationsReadonlyRepository
         .Get(func);
     }
 
@@ -165,7 +165,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = (TMMDevice x) => x.DataFlow == dataFlow;
 
-      return this.DefaultMultimediaReadonlyRepository
+      return DefaultMultimediaReadonlyRepository
         .Get(func);
     }
 
@@ -187,7 +187,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoAction
+      DoAction
         (
           MMDeviceCommands.Reset,
           func
@@ -196,14 +196,14 @@ namespace VACARM.Infrastructure.Services
 
     public void ResetAll()
     {
-      base.DoActionAll(MMDeviceCommands.Reset);
+      DoActionAll(MMDeviceCommands.Reset);
     }
 
     public void ResetRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoActionRange
+      DoActionRange
         (
           MMDeviceCommands.Reset,
           func
@@ -214,7 +214,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoAction
+      DoAction
         (
           MMDeviceCommands.Start,
           func
@@ -223,14 +223,14 @@ namespace VACARM.Infrastructure.Services
 
     public void StartAll()
     {
-      base.DoActionAll(MMDeviceCommands.Start);
+      DoActionAll(MMDeviceCommands.Start);
     }
 
     public void StartRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoActionRange
+      DoActionRange
         (
           MMDeviceCommands.Start,
           func
@@ -241,7 +241,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoAction
+      DoAction
         (
           MMDeviceCommands.Stop,
           func
@@ -252,7 +252,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoActionRange
+      DoActionRange
         (
           MMDeviceCommands.Stop,
           func
@@ -261,14 +261,14 @@ namespace VACARM.Infrastructure.Services
 
     public void StopAll()
     {
-      base.DoActionAll(MMDeviceCommands.Stop);
+      DoActionAll(MMDeviceCommands.Stop);
     }
 
     public void Update(string id)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsId(id);
 
-      base.DoAction
+      DoAction
         (
           MMDeviceCommands.Update,
           func
@@ -277,14 +277,14 @@ namespace VACARM.Infrastructure.Services
 
     public void UpdateAll()
     {
-      base.DoActionAll(MMDeviceCommands.Update);
+      DoActionAll(MMDeviceCommands.Update);
     }
 
     public void UpdateRange(IEnumerable<string> idEnumerable)
     {
       var func = MMDeviceFunctions<TMMDevice>.ContainsIdEnumerable(idEnumerable);
 
-      base.DoActionRange
+      DoActionRange
         (
           MMDeviceCommands.Update,
           func
@@ -293,31 +293,31 @@ namespace VACARM.Infrastructure.Services
 
     public void UpdateService()
     {
-      var enumerable = this.MMNotificationClient
+      var enumerable = MMNotificationClient
         .Enumerable
         .Cast<TMMDevice>();
 
       base.Repository = new ReadonlyRepository<TMMDevice>(enumerable);
 
-      enumerable = this.MMNotificationClient
+      enumerable = MMNotificationClient
         .GetDefaultRange(Role.Communications)
         .Cast<TMMDevice>();
 
-      this.DefaultCommunicationsReadonlyRepository =
+      DefaultCommunicationsReadonlyRepository =
         new ReadonlyRepository<TMMDevice>(enumerable);
 
-      enumerable = this.MMNotificationClient
+      enumerable = MMNotificationClient
         .GetDefaultRange(Role.Console)
         .Cast<TMMDevice>();
 
       DefaultConsoleReadonlyRepository =
         new ReadonlyRepository<TMMDevice>(enumerable);
 
-      enumerable = this.MMNotificationClient
+      enumerable = MMNotificationClient
         .GetDefaultRange(Role.Multimedia)
         .Cast<TMMDevice>();
 
-      this.DefaultMultimediaReadonlyRepository =
+      DefaultMultimediaReadonlyRepository =
         new ReadonlyRepository<TMMDevice>(enumerable);
     }
 

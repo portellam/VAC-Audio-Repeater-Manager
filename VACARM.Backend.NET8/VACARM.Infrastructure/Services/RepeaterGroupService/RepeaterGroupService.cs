@@ -2,6 +2,7 @@
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
+using VACARM.Infrastructure.Services.BaseGroupService;
 
 //TODO: HashSet of deviceIDs, and names. Allow to be updated?
 

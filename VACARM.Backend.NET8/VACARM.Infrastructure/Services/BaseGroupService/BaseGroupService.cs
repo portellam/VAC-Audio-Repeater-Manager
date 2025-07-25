@@ -2,7 +2,7 @@
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Infrastructure.Services
+namespace VACARM.Infrastructure.Services.BaseGroupService
 {
   /// <summary>
   /// The repository of <typeparamref name="TBaseService"/>(s).
@@ -75,13 +75,13 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.list;
+        return list;
       }
       set
       {
-        this.list = value;
+        list = value;
         base.Enumerable = value;
-        base.OnPropertyChanged(nameof(this.List));
+        OnPropertyChanged(nameof(List));
       }
     }
 
@@ -89,15 +89,15 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.SelectedService
+        return SelectedService
           .Repository;
       }
       protected set
       {
-        this.SelectedService
+        SelectedService
           .Repository = value;
 
-        base.OnPropertyChanged(nameof(this.SelectedRepository));
+        OnPropertyChanged(nameof(SelectedRepository));
       }
     }
 
@@ -106,13 +106,13 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.List
-          .ElementAt(this.SelectedIndex);
+        return List
+          .ElementAt(SelectedIndex);
       }
       protected set
       {
-        this.List[this.SelectedIndex] = value;
-        base.OnPropertyChanged(nameof(this.SelectedService));
+        List[SelectedIndex] = value;
+        OnPropertyChanged(nameof(SelectedService));
       }
     }
 
@@ -120,7 +120,7 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.selectedIndex;
+        return selectedIndex;
       }
       set
       {
@@ -129,8 +129,8 @@ namespace VACARM.Infrastructure.Services
           value = MinCount;
         }
 
-        this.selectedIndex = value;
-        base.OnPropertyChanged(nameof(this.SelectedIndex));
+        selectedIndex = value;
+        OnPropertyChanged(nameof(SelectedIndex));
       }
     }
 
@@ -140,7 +140,7 @@ namespace VACARM.Infrastructure.Services
     {
       get
       {
-        return this.maxCount;
+        return maxCount;
       }
       internal set
       {
@@ -149,8 +149,8 @@ namespace VACARM.Infrastructure.Services
           value = MinCount;
         }
 
-        this.maxCount = value;
-        base.OnPropertyChanged(nameof(this.MaxCount));
+        maxCount = value;
+        OnPropertyChanged(nameof(MaxCount));
       }
     }
 
@@ -160,18 +160,18 @@ namespace VACARM.Infrastructure.Services
 
     protected override void Dispose(bool isDisposed)
     {
-      if (this.HasDisposed)
+      if (HasDisposed)
       {
         return;
       }
 
       if (isDisposed)
       {
-        base.Dispose();
-        this.List = null;
+        Dispose();
+        List = null;
       }
 
-      this.HasDisposed = true;
+      HasDisposed = true;
     }
 
     /// <summary>
@@ -180,7 +180,7 @@ namespace VACARM.Infrastructure.Services
     public BaseGroupService() :
       base()
     {
-      this.List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
+      List = new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
     }
 
     /// <summary>
@@ -194,15 +194,15 @@ namespace VACARM.Infrastructure.Services
       int maxCount
     )
     {
-      this.List = list;
-      this.MaxCount = maxCount;
+      List = list;
+      MaxCount = maxCount;
     }
 
     public BaseService<BaseRepository<TBaseModel>, TBaseModel>? Get(int index)
     {
       try
       {
-        return this.List
+        return List
           .ElementAt(index);
       }
 
@@ -217,20 +217,20 @@ namespace VACARM.Infrastructure.Services
     {
       if (base.IsNullOrEmpty)
       {
-        this.List =
+        List =
           new List<BaseService<BaseRepository<TBaseModel>, TBaseModel>>();
       }
 
       if
       (
-        this.List
-          .Count() >= this.MaxCount
+        List
+          .Count() >= MaxCount
       )
       {
         return false;
       }
 
-      this.List
+      List
         .Add(baseService);
 
       return true;
@@ -243,12 +243,12 @@ namespace VACARM.Infrastructure.Services
         return false;
       }
 
-      if (!base.ContainsIndex(index))
+      if (!ContainsIndex(index))
       {
         return false;
       }
 
-      this.List
+      List
         .RemoveAt(index);
 
       return true;
@@ -258,7 +258,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      return this.SelectedRepository
+      return SelectedRepository
         .Remove(func);
     }
 
@@ -266,7 +266,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.SelectedRepository
+      return SelectedRepository
         .RemoveRange(func);
     }
 
@@ -282,7 +282,7 @@ namespace VACARM.Infrastructure.Services
           endId
         );
 
-      return this.SelectedRepository
+      return SelectedRepository
         .RemoveRange(func);
     }
 
@@ -298,7 +298,7 @@ namespace VACARM.Infrastructure.Services
           endId
         );
 
-      return this.SelectedRepository
+      return SelectedRepository
         .GetRange(func);
     }
 
@@ -306,7 +306,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.NotContainsIdEnumerable(idEnumerable);
 
-      return this.SelectedRepository
+      return SelectedRepository
         .GetRange(func);
     }
 
@@ -322,7 +322,7 @@ namespace VACARM.Infrastructure.Services
           endId
         );
 
-      return this.SelectedRepository
+      return SelectedRepository
         .GetRange(func);
     }
 
@@ -330,13 +330,13 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      return this.SelectedRepository
+      return SelectedRepository
         .GetRange(func);
     }
 
     public IEnumerable<uint> GetAllId()
     {
-      return this.SelectedRepository
+      return SelectedRepository
         .GetAll()
         .Select(x => x.Id);
     }
@@ -345,7 +345,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      return this.SelectedRepository
+      return SelectedRepository
         .Get(func);
     }
 
@@ -353,7 +353,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      this.SelectedRepository
+      SelectedRepository
         .Deselect(func);
     }
 
@@ -361,7 +361,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.SelectedRepository
+      SelectedRepository
         .DeselectRange(func);
     }
 
@@ -369,7 +369,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsId(id);
 
-      this.SelectedRepository
+      SelectedRepository
         .Select(func);
     }
 
@@ -377,7 +377,7 @@ namespace VACARM.Infrastructure.Services
     {
       var func = BaseFunctions<TBaseModel>.ContainsIdEnumerable(idEnumerable);
 
-      this.SelectedRepository
+      SelectedRepository
         .SelectRange(func);
     }
 
