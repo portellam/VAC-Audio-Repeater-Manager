@@ -7,8 +7,6 @@ namespace VACARM.Infrastructure.Services
   {
     #region Parameters
 
-    private DbSet<TBaseModel> DbSet { get; set; }
-
     public static readonly int MinId = 0;
 
     protected IQueryable<TBaseModel?> Queryable
@@ -61,6 +59,8 @@ namespace VACARM.Infrastructure.Services
       return await Queryable
         .FirstOrDefaultAsync(x => func(x));
     }
+
+    public async Task<bool>
 
     #endregion
   }
