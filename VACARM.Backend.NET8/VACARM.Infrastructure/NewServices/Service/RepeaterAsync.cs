@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using VACARM.Domain.Models;
-using VACARM.Infrastructure.Contexts;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -12,9 +7,48 @@ namespace VACARM.Infrastructure.Services
   {
     #region Parameters
 
+    protected new IQueryable<RepeaterModel?> Queryable
+    {
+      get
+      {
+        var queryable = base.Queryable;
+        queryable = queryable.Include(x => (x as RepeaterModel).LinkId);
+        return queryable;
+      }
+    }
+
     #endregion
 
     #region Logic
+
+    protected virtual bool Validate(RepeaterModel model)
+    {
+      if (!base.Validate(model))
+      {
+        return false;
+      }
+
+      if ((model as RepeaterModel).LinkId < MinId)
+      {
+        return false;
+      }
+
+      return true;
+    }
+
+    public override async Task<bool> ValidateAsync(int id)
+    {
+      var link = await GetAsync(id);
+      var result = Validate(link);
+      return result;
+    }
+
+    public async Task<RepeaterModel?> GetAsyncByLinkId(int linkId)
+    {
+      var func = new Func<RepeaterModel?, bool>(x => x.LinkId == linkId);
+
+      return await GetAsync(func);
+    }
 
     public async Task<int?> RestartAsync(int? id)
     {
@@ -44,7 +78,7 @@ namespace VACARM.Infrastructure.Services
 
     public async IAsyncEnumerable<int?> RestartRangeAsync
     (
-      int startId, 
+      int startId,
       int endId
     )
     {

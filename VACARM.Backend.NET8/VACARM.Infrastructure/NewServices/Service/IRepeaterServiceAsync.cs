@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VACARM.Domain.Models;
-
-namespace VACARM.Infrastructure.Services
+﻿namespace VACARM.Infrastructure.Services
 {
   public partial interface IService
   {

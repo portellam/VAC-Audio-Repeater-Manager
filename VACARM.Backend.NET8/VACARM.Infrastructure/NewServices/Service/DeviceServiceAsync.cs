@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using VACARM.Domain.Models;
-using VACARM.Infrastructure.Contexts;
 
 namespace VACARM.Infrastructure.Services
 {
@@ -12,9 +7,47 @@ namespace VACARM.Infrastructure.Services
   {
     #region Parameters
 
+    protected new IQueryable<DeviceModel?> Queryable
+    {
+      get
+      {
+        var queryable = base.Queryable;
+        queryable = queryable.Include(x => (x as DeviceModel).ActualId);
+        return queryable;
+      }
+    }
+
     #endregion
 
     #region Logic
+
+    protected virtual bool Validate(DeviceModel model)
+    {
+      if (!base.Validate(model))
+      {
+        return false;
+      }
+
+      if (string.IsNullOrWhiteSpace((model as DeviceModel).ActualId))
+      {
+        return false;
+      }
+
+      return true;
+    }
+
+    public override async Task<bool> ValidateAsync(int id)
+    {
+      var link = await GetAsync(id);
+      var result = Validate(link);
+      return result;
+    }
+
+    public async Task<DeviceModel?> GetAsync(string actualId)
+    {
+      var func = new Func<DeviceModel?, bool>(x => x.ActualId == actualId);
+      return await GetAsync(func);
+    }
 
     public async IAsyncEnumerable<bool> MuteAllAsync()
     {
@@ -28,7 +61,7 @@ namespace VACARM.Infrastructure.Services
 
     public async IAsyncEnumerable<bool> MuteRangeAsync
     (
-      int startId, 
+      int startId,
       int endId
     )
     {
@@ -72,7 +105,7 @@ namespace VACARM.Infrastructure.Services
 
     public async Task<bool> SetVolumeAsync
     (
-      int id, 
+      int id,
       double? volume
     )
     {
@@ -91,7 +124,7 @@ namespace VACARM.Infrastructure.Services
 
     public async Task<DeviceModel?> GetDefaultCommunicationsAsync
     (
-      bool isInput, 
+      bool isInput,
       bool isOutput
     )
     {

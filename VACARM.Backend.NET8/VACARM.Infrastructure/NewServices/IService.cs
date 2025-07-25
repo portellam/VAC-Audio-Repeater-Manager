@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VACARM.Domain.Models;
+﻿using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Services
 {

@@ -1,12 +1,4 @@
-﻿using AudioSwitcher.AudioApi;
-using NAudio.CoreAudioApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VACARM.Domain.Models;
-using VACARM.Infrastructure.Repositories;
+﻿using VACARM.Domain.Models;
 
 namespace VACARM.Infrastructure.Services
 {
