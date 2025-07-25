@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace VACARM.Domain.Models
+﻿namespace VACARM.Domain.Models
 {
   public interface IDeviceModel
   {
