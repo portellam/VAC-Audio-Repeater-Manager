@@ -2,7 +2,7 @@
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
 
-namespace VACARM.Infrastructure.Services.BaseGroupService
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// The repository of <typeparamref name="TBaseService"/>(s).

@@ -2,12 +2,12 @@
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Extensions;
 
-namespace VACARM.Infrastructure.Services.BaseFileService
+namespace VACARM.Infrastructure.Services
 {
   /// <summary>
   /// Read/write <typeparamref name="TBaseModel"/>(s) to/from a file.
   /// </summary>
-  public class BaseFileService<TBaseModel>
+  public static class BaseFileService<TBaseModel>
     where TBaseModel :
     BaseModel
   {
