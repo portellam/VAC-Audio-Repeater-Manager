@@ -12,6 +12,8 @@ namespace VACARM.Infrastructure.Services
 
     #region Logic
 
+    #region Export
+
     /// <summary>
     /// Export a <typeparamref name="IBaseModel"/>.
     /// </summary>
@@ -46,6 +48,10 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <returns>True/false result</returns>
     IAsyncEnumerable<bool> ExportAllAsync();
+
+    #endregion
+
+    #region Remove
 
     /// <summary>
     /// Remove a <typeparamref name="IBaseModel"/>.
@@ -82,6 +88,10 @@ namespace VACARM.Infrastructure.Services
     /// <returns>True/false result</returns>
     IAsyncEnumerable<bool> RemoveAllAsync();
 
+    #endregion
+
+    #region Save
+
     /// <summary>
     /// Save a <typeparamref name="IBaseModel"/>.
     /// </summary>
@@ -95,6 +105,10 @@ namespace VACARM.Infrastructure.Services
     /// <returns>True/false result</returns>
     IAsyncEnumerable<bool> SaveRangeAsync(IEnumerable<IBaseModel> enumerable);
 
+    #endregion
+
+    #region Update
+
     /// <summary>
     /// Update a <typeparamref name="IBaseModel"/>.
     /// </summary>
@@ -107,6 +121,10 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <returns>True/false result</returns>
     IAsyncEnumerable<bool> UpdateRangeAsync(IEnumerable<IBaseModel> enumerable);
+
+    #endregion
+
+    #region Validate
 
     /// <summary>
     /// Validate a <typeparamref name="IBaseModel"/>.
@@ -150,6 +168,10 @@ namespace VACARM.Infrastructure.Services
     /// <returns>True/false result</returns>
     IAsyncEnumerable<bool> ValidateAllAsync();
 
+    #endregion
+
+    #region Create
+
     /// <summary>
     /// Create a <typeparamref name="IBaseModel"/>.
     /// </summary>
@@ -163,6 +185,10 @@ namespace VACARM.Infrastructure.Services
     /// <returns>True/false result</returns>
     IAsyncEnumerable<IBaseModel> CreateRangeAsync
     (IEnumerable<IBaseModel> enumerable);
+
+    #endregion
+
+    #region Get
 
     /// <summary>
     /// Get a <typeparamref name="IBaseModel"/>.
@@ -210,6 +236,10 @@ namespace VACARM.Infrastructure.Services
     /// <returns>The enumerable</returns>
     IAsyncEnumerable<IBaseModel> GetAllAsync();
 
+    #endregion
+
+    #region Import
+
     /// <summary>
     /// Import a <typeparamref name="IBaseModel"/>.
     /// </summary>
@@ -244,6 +274,10 @@ namespace VACARM.Infrastructure.Services
     /// </summary>
     /// <returns>True/false result</returns>
     IAsyncEnumerable<IBaseModel> ImportAllAsync();
+
+    #endregion
+
+    #region DoAction
 
     /// <summary>
     /// Do an action for a <typeparamref name="IBaseModel"/>.
@@ -300,6 +334,8 @@ namespace VACARM.Infrastructure.Services
       Func<IBaseModel, Task<int?>> actionFunc,
       Func<IBaseModel, bool> matchFunc
     );
+
+    #endregion
 
     #endregion
   }
