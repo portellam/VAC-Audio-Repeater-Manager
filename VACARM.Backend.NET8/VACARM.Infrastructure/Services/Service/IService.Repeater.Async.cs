@@ -92,3 +92,12 @@
     #endregion
   }
 }
+
+/*
+ * (Func<IBaseModel, bool> matchFunc);
+ * (IEnumerable<int> idEnumerable);
+ *  (
+      int startId,
+      int endId
+    );
+ */
