@@ -7,7 +7,6 @@ using System.Diagnostics.CodeAnalysis;
 using VACARM.Domain.Models;
 using VACARM.Infrastructure.Functions;
 using VACARM.Infrastructure.Repositories;
-using VACARM.Infrastructure.Services.BaseGroupService;
 using VACARM.Infrastructure.Services.MMDeviceService;
 
 namespace VACARM.Infrastructure.Services
