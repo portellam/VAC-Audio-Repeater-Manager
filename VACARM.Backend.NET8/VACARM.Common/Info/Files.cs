@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VACARM.Common
+﻿namespace VACARM.Common
 {
   public partial class Info
   {
